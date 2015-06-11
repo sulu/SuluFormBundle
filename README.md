@@ -1,10 +1,35 @@
 # Form Bundle for Sulu
 
-## Prototype
+## TODO
 
-Currently just prototype for handle Forms in Sulu Templates.
+ - [ ] Mail Helper
+ - [ ] Template Field Injection
+ - [ ] Mail Templates
+ - [ ] Token from ESI
+
+## Concept
+
+### Cacheable Items:
+
+The Template itself should be cached also the form fields.
+
+ - Template
+ - Form Fields
+
+### Uncacheable Items
+
+ - Form Token
+
+The CSRF
+
+### Solutions
+
+1. Load an CSRF Token over Ajax
+2. Load CSRF Token in uncached ESI 
 
 ## Template
+
+It should possible to use Template Fields in the Form Type e.g. Select Options or more.
 
 ```
 <?xml version="1.0" ?>
