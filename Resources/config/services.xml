@@ -11,7 +11,7 @@
 
     <!-- Define here your own services: -->
     <services>
-        <service id="client_form.handler" class="%lient_form.handler.class%">
+        <service id="client_form.handler" class="%client_form.handler.class%">
             <argument type="service" id="form.factory" />
             <argument type="service" id="form.registry" />
             <argument type="service" id="doctrine.orm.default_entity_manager" />
