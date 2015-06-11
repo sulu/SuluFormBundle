@@ -1,6 +1,6 @@
 <?php
 
-namespace Client\Bundle\FormBundle\Form\Type;
+namespace L91\Bundle\FormBundle\Form\Type;
 
 interface TypeInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Client\Bundle\FormBundle\Form\Type;
+namespace L91\Bundle\FormBundle\Form\Type;
 
-use Client\Bundle\FormBundle\Entity\Example;
+use L91\Bundle\FormBundle\Entity\Example;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class FormExampleType extends AbstractType
@@ -24,7 +24,7 @@ class FormExampleType extends AbstractType
 
     public function getDataClass()
     {
-        return 'Client\Bundle\FormBundle\Entity\Example';
+        return 'L91\Bundle\FormBundle\Entity\Example';
     }
 
     /**

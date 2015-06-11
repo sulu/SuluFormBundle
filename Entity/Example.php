@@ -1,6 +1,6 @@
 <?php
 
-namespace Client\Bundle\FormBundle\Entity;
+namespace L91\Bundle\FormBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

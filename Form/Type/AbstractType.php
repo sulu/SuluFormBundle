@@ -1,6 +1,6 @@
 <?php
 
-namespace Client\Bundle\FormBundle\Form\Type;
+namespace L91\Bundle\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType as SymfonyAbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Class AbstractType
- * @package Client\Bundle\FormBundle\Form\Type
+ * @package L91\Bundle\FormBundle\Form\Type
  */
 abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
 {

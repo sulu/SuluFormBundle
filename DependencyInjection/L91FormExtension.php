@@ -1,6 +1,6 @@
 <?php
 
-namespace Client\Bundle\FormBundle\DependencyInjection;
+namespace L91\Bundle\FormBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class ClientFormExtension extends Extension
+class L91FormExtension extends Extension
 {
     /**
      * {@inheritdoc}

@@ -1,11 +1,21 @@
 # Form Bundle for Sulu
 
+Handle Symfony Forms in Sulu.io
+
 ## TODO
 
  - [ ] Mail Helper
  - [ ] Template Field Injection
  - [ ] Mail Templates
  - [ ] Token from ESI
+
+## Installation
+
+Add to Kernel
+
+``` php
+    new L91\Bundle\FormBundle\L91FormBundle(),
+```
 
 ## Concept
 

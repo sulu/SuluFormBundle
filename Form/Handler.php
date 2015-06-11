@@ -1,8 +1,8 @@
 <?php
 
-namespace Client\Bundle\FormBundle\Form;
+namespace L91\Bundle\FormBundle\Form;
 
-use Client\Bundle\FormBundle\Form\Type\TypeInterface;
+use L91\Bundle\FormBundle\Form\Type\TypeInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;

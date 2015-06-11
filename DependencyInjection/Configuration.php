@@ -1,6 +1,6 @@
 <?php
 
-namespace Client\Bundle\FormBundle\DependencyInjection;
+namespace L91\Bundle\FormBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

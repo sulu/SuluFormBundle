@@ -1,8 +1,8 @@
 <?php
 
-namespace Client\Bundle\FormBundle\Controller;
+namespace L91\Bundle\FormBundle\Controller;
 
-use Client\Bundle\FormBundle\Form\HandlerInterface;
+use L91\Bundle\FormBundle\Form\HandlerInterface;
 use Sulu\Bundle\WebsiteBundle\Controller\DefaultController;
 use Sulu\Component\Content\StructureInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
