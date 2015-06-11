@@ -6,7 +6,7 @@
 
     <parameters>
         <parameter key="client_form.handler.class">Client\Bundle\FormBundle\Form\Handler</parameter>
-        <parameter key="client_form.example_form.class">Client\Bundle\FormBundle\Form\Type\ExampleType</parameter>
+        <parameter key="client_form.example_form.class">Client\Bundle\FormBundle\Form\Type\FormExampleType</parameter>
     </parameters>
 
     <!-- Define here your own services: -->

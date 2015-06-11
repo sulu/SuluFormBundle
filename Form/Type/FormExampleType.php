@@ -5,7 +5,7 @@ namespace Client\Bundle\FormBundle\Form\Type;
 use Client\Bundle\FormBundle\Entity\Example;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ExampleType extends AbstractType
+class FormExampleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
