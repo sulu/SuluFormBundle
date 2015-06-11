@@ -1,0 +1,15 @@
+{
+    "name": "l91/sulu-form-bundle",
+    "description": "Bundle for handling Symfony forms in Sulu templates.",
+    "type": "sulu-bundle",
+    "require": {
+        "sulu/sulu": "^0.18.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Schranz",
+            "email": "alexander.schranz@massiveart.com"
+        }
+    ]
+}
