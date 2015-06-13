@@ -181,7 +181,7 @@ https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources
 
         {% block _l91_form_example__token_widget %}
             {% set type = type|default('hidden') %}
-            <input type="{{ type }}" {{ block('widget_attributes') }} value="{{ render_esi(controller('L91SuluFormBundle:Form:token', { 'form': 'l91_form_example' })) }}" />
+            <input type="{{ type }}" {{ block('widget_attributes') }} value="{{ render_esi(controller('L91SuluFormBundle:Form:token', { 'form': 'pages_template_key' })) }}" />
         {% endblock _l91_form_example__token_widget %}
 
         {{ form(form) }}
