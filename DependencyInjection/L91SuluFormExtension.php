@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Bundle\FormBundle\DependencyInjection;
+namespace L91\Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class L91FormExtension extends Extension
+class L91SuluFormExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -21,6 +21,9 @@ class L91FormExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter('l91.sulu.mail.from', $config['mail_helper']['from']);
+        $container->setParameter('l91.sulu.mail.to', $config['mail_helper']['to']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');

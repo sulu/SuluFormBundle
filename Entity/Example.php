@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Bundle\FormBundle\Entity;
+namespace L91\Sulu\Bundle\FormBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,13 +32,25 @@ class Example
     /**
      * @var string
      */
-    private $option;
+    private $customOption;
 
     /**
      * @var integer
      */
     private $id;
 
+    /**
+     * @var \DateTime
+     */
+    private $created;
+
+    /**
+     * set created time
+     */
+    public function __construct()
+    {
+        $this->created = new \DateTime();
+    }
 
     /**
      * Set firstName
@@ -133,26 +145,26 @@ class Example
     }
 
     /**
-     * Set option
+     * Set customOption
      *
-     * @param string $option
+     * @param string $customOption
      * @return Example
      */
-    public function setOption($option)
+    public function setCustomOption($customOption)
     {
-        $this->option = $option;
+        $this->customOption = $customOption;
     
         return $this;
     }
 
     /**
-     * Get option
+     * Get customOption
      *
      * @return string 
      */
-    public function getOption()
+    public function getCustomOption()
     {
-        return $this->option;
+        return $this->customOption;
     }
 
     /**
@@ -163,5 +175,28 @@ class Example
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Example
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Bundle\FormBundle\DependencyInjection;
+namespace L91\Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,11 +18,15 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('client_form');
+        $rootNode = $treeBuilder->root('l91_sulu_form');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode->children()
+            ->arrayNode('mail_helper')
+                ->children()
+                    ->scalarNode('from')->end()
+                    ->scalarNode('to')->end()
+                ->end()
+            ->end();
 
         return $treeBuilder;
     }

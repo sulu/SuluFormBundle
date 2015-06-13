@@ -5,22 +5,38 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="client_form.handler.class">L91\Bundle\FormBundle\Form\Handler</parameter>
-        <parameter key="client_form.example_form.class">L91\Bundle\FormBundle\Form\Type\FormExampleType</parameter>
+        <parameter key="l91.sulu.form.handler.class">L91\Sulu\Bundle\FormBundle\Form\Handler</parameter>
+        <parameter key="l91.sulu.form.example.class">L91\Sulu\Bundle\FormBundle\Form\Type\FormExampleType</parameter>
+        <parameter key="l91.sulu.mail.helper.class">L91\Sulu\Bundle\FormBundle\Mail\Helper</parameter>
+        <parameter key="l91.sulu.mail.null_helper.class">L91\Sulu\Bundle\FormBundle\Mail\NullHelper</parameter>
     </parameters>
 
     <!-- Define here your own services: -->
     <services>
-        <service id="client_form.handler" class="%client_form.handler.class%">
+        <service id="l91.sulu.form.handler" class="%l91.sulu.form.handler.class%">
             <argument type="service" id="form.factory" />
-            <argument type="service" id="form.registry" />
+            <argument type="service" id="form.extension" />
             <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <argument type="service" id="security.csrf.token_manager" />
+            <argument type="service" id="l91.sulu.mail.helper" />
             <argument type="service" id="templating" />
+            <argument type="service" id="event_dispatcher" />
             <argument type="service" id="logger" />
         </service>
 
-        <service id="client_form.example_form" class="%client_form.example_form.class%">
-            <tag name="form.type" alias="form_example" />
+        <service id="l91.sulu.mail.helper" class="%l91.sulu.mail.helper.class%">
+            <argument type="service" id="mailer" />
+            <argument>%l91.sulu.mail.from%</argument>
+            <argument>%l91.sulu.mail.to%</argument>
+            <argument type="service" id="logger" />
+        </service>
+
+        <service id="l91.sulu.mail.null_helper" class="%l91.sulu.mail.null_helper.class%">
+            <argument type="service" id="logger" />
+        </service>
+
+        <service id="l91.sulu.form.example" class="%l91.sulu.form.example.class%">
+            <tag name="form.type" alias="l91_form_example" />
         </service>
     </services>
 </container>

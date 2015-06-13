@@ -1,11 +1,13 @@
 <?php
 
-namespace L91\Bundle\FormBundle\Controller;
+namespace L91\Sulu\Bundle\FormBundle\Controller;
 
-use L91\Bundle\FormBundle\Form\HandlerInterface;
+use L91\Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Sulu\Bundle\WebsiteBundle\Controller\DefaultController;
 use Sulu\Component\Content\StructureInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class FormController extends DefaultController
 {
@@ -29,7 +31,29 @@ class FormController extends DefaultController
         // get attributes
         $attributes = $this->getAttributes(array(), $structure, $preview);
 
-        $this->form = $this->getFormHandler()->get($structure->getKey() . '_example', $attributes);
+        $this->form = $this->getFormHandler()->get($structure->getKey(), $attributes);
+
+        if ($request->isMethod('post')) {
+            $this->form->handleRequest($request);
+            if ($this->getFormHandler()->handle($this->form, $attributes)) {
+                return new RedirectResponse('?send=true');
+            }
+        }
+
+        $this->createFormBuilder();
+
+        $response = parent::indexAction($structure, $preview, $partial);
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function onlyAction(Request $request)
+    {
+        $this->form = $this->getFormHandler()->get($request->get('key'), $request->attributes->all());
 
         if ($request->isMethod('post')) {
             $this->form->handleRequest($request);
@@ -38,9 +62,29 @@ class FormController extends DefaultController
             }
         }
 
-        $this->createFormBuilder();
+        return $this->render($request->get('view'));
+    }
 
-        $response = parent::indexAction($structure, $preview, $partial);
+    /**
+     * Generates a token for the form
+     * @param Request $request
+     * @return Response
+     */
+    public function tokenAction(Request $request)
+    {
+        $response = new Response(
+            $this->getFormHandler()->getToken(
+                $request->get('form')
+            )
+        );
+
+        /* Deactivate Cache for this token action */
+        $response->setPrivate();
+        $response->setMaxAge(0);
+        $response->setSharedMaxAge(0);
+        $response->headers->addCacheControlDirective('no-cache', true);
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+        $response->headers->addCacheControlDirective('no-store', true);
 
         return $response;
     }
@@ -66,6 +110,6 @@ class FormController extends DefaultController
      */
     protected function getFormHandler()
     {
-        return $this->get('client_form.handler');
+        return $this->get('l91.sulu.form.handler');
     }
 }

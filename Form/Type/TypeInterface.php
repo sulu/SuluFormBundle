@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Bundle\FormBundle\Form\Type;
+namespace L91\Sulu\Bundle\FormBundle\Form\Type;
 
 interface TypeInterface
 {
@@ -10,12 +10,55 @@ interface TypeInterface
     public function setAttributes($attributes);
 
     /**
+     * @param $formData
      * @return string
      */
-    public function getSuccessMail();
+    public function getCustomerSubject($formData = array());
+
+    /**
+     * @param $formData
+     * @return string
+     */
+    public function getNotifySubject($formData = array());
+
+    /**
+     * @param $formData
+     * @return string
+     */
+    public function getCustomerMail($formData = array());
+
+    /**
+     * @param $formData
+     * @return string
+     */
+    public function getNotifyMail($formData = array());
+
+    /**
+     * @param $formData
+     * @return string
+     */
+    public function getCustomerFromMailAddress($formData = array());
+
+    /**
+     * @param $formData
+     * @return string
+     */
+    public function getCustomerToMailAddress($formData = array());
+
+    /**
+     * @param $formData
+     * @return string
+     */
+    public function getNotifyFromMailAddress($formData = array());
+
+    /**
+     * @param $formData
+     * @return string
+     */
+    public function getNotifyToMailAddress($formData = array());
 
     /**
      * @return string
      */
-    public function getNotifyMail();
+    public function getDefaultIntention();
 }

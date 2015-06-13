@@ -5,16 +5,14 @@ Handle Symfony Forms in Sulu.io
 ## TODO
 
  - [ ] Mail Helper
- - [ ] Template Field Injection
  - [ ] Mail Templates
- - [ ] Token from ESI
 
 ## Installation
 
-Add to Kernel
+Add to AbstractKernel
 
 ``` php
-    new L91\Bundle\FormBundle\L91FormBundle(),
+    new L91\Sulu\Bundle\FormBundle\L91FormBundle(),
 ```
 
 ## Concept
@@ -28,9 +26,7 @@ The Template itself should be cached also the form fields.
 
 ### Uncacheable Items
 
- - Form Token
-
-The CSRF
+ - Form CSRF Token
 
 ### Solutions
 
@@ -49,15 +45,15 @@ The following is showing an example how you can use the bundle.
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
 
-    <key>form_example</key>
+    <key>pages_template_key</key>
 
-    <view>ClientWebsiteBundle:templates:form_example</view>
-    <controller>ClientFormBundle:Form:form</controller>
+    <view>ClientWebsiteBundle:templates:pages_template_key</view>
+    <controller>L91SuluFormBundle:Form:form</controller>
     <cacheLifetime>2400</cacheLifetime>
 
     <meta>
-        <title lang="de">Standard</title>
-        <title lang="en">Default</title>
+        <title lang="de">Form</title>
+        <title lang="en">Form</title>
     </meta>
 
     <properties>
@@ -80,44 +76,76 @@ The following is showing an example how you can use the bundle.
             <tag name="sulu.search.field" role="description"/>
         </property>
 
-        <! -- Example Options -->
-        <property name="option" type="text_area" mandatory="true">
+        <section name="form">
             <meta>
-                <title lang="de">Options</title>
-                <title lang="en">Options</title>
+                <title lang="de">Form</title>
+                <title lang="en">Form</title>
             </meta>
-        </property>
+            <properties>
+                <property name="options" type="text_area">
+                    <meta>
+                        <title lang="de">Form Options</title>
+                        <title lang="en">Form Options</title>
+                    </meta>
+                </property>
 
+                <property name="mail_customer_from_address" type="text_line" mandatory="true">
+                    <meta>
+                        <title lang="de">Customer From Mail</title>
+                        <title lang="en">Customer From Mail</title>
+                    </meta>
+                </property>
 
+                <property name="mail_notify_from_address" type="text_line" mandatory="true">
+                    <meta>
+                        <title lang="de">Notify From Mail</title>
+                        <title lang="en">Notify From Mail</title>
+                    </meta>
+                </property>
+
+                <property name="mail_notify_to_address" type="text_line" mandatory="true">
+                    <meta>
+                        <title lang="de">Notify To Mail</title>
+                        <title lang="en">Notify To Mail</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
     </properties>
 </template>
 ```
 
 ### Create Form Type
 
-In your Symfony Form Type extend from `L91\Bundle\FormBunde\Form\Type\AbstractType` and use and create the following function.
+In your Symfony Form Type extend from `L91\Sulu\Bundle\FormBunde\Form\Type\AbstractType` and use and create the following function.
 
 ``` php
+namespace L91\Sulu\Bundle\FormBundle\Form\Type;
+
+use L91\Sulu\Bundle\FormBundle\Entity\Example;
+use Symfony\Component\Form\FormBuilderInterface;
+
+class FormExampleType extends AbstractType
+{
+    /**
+     * {@inheritdoc}
+     */
+    protected $dataClass = 'L91\Sulu\Bundle\FormBundle\Entity\Example';
+
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
-
-        // your form ...
-
         $builder->setData(new Example());
 
         $builder->add('firstName', 'text')
             ->add('lastName', 'text')
             ->add('email', 'text')
-            ->add('option', 'choice', array(
-                'choices' =>preg_split('/\r\n|\r|\n/',  $this->getAttribute('options'))
+            ->add('customOption', 'choice', array(
+                'choices' => preg_split('/\r\n|\r|\n/',  $this->getAttribute('options'))
             ))
             ->add('submit', 'submit');
-    }
-
-    public function getDataClass()
-    {
-        return 'L91\Bundle\FormBundle\Entity\Example';
     }
 
     /**
@@ -125,44 +153,49 @@ In your Symfony Form Type extend from `L91\Bundle\FormBunde\Form\Type\AbstractTy
      */
     public function getName()
     {
-        return 'form_example'; // Template Key
+        return 'pages_template_key';
     }
+}
 ```
 
 ### Register new FormType in services.xml
 
 ``` xml
     <service id="form_example" class="Your/Bundle/FormBundle/Form/Type/ExampleType">
-        <tag name="form.type" alias="form_example" />
+        <tag name="form.type" alias="pages_template_key" />
     </service>
 ```
 
 ### Output Form and customize
 
-Output form with the follwing code in your sulu template:
-
-``` twig
-    {{ form(form) }}
-```
-
 To modified use a Symfony Form Theme
 https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
 
 ``` twig
-    {% extends 'master.html.twig' %}
+<!doctype html>
+<html>
+<head>
+    <title>Basic Form</title>
+</head>
+<body>
+    {% if app.request.get('send') != 'true' %}
+        <h1>Basic Form {{ template }}</h1>
 
-    {# FORM THEME #}
-    {% form_theme form _self %}
-    {%- block form_row -%}
-        <div class="grid-item one--whole">
-            {{- form_label(form) -}}
-            {{- form_errors(form) -}}
-            {{- form_widget(form) -}}
-        </div>
-    {%- endblock form_row -%}
+        {# FORM THEME #}
+        {% form_theme form _self %}
 
+        {% block _l91_form_example__token_widget %}
+            {% set type = type|default('hidden') %}
+            <input type="{{ type }}" {{ block('widget_attributes') }} value="{{ render_esi(controller('L91SuluFormBundle:Form:token', { 'form': 'l91_form_example' })) }}" />
+        {% endblock _l91_form_example__token_widget %}
 
-    {% block body %}
         {{ form(form) }}
-    {% endblock %}
+    {% else %}
+        <h1>Thank you</h1>
+
+        <a href="{{ app.request.headers.get('referer') }}">back</a>
+    {% endif %}
+</body>
+</html>
 ```
+

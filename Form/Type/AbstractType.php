@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Bundle\FormBundle\Form\Type;
+namespace L91\Sulu\Bundle\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType as SymfonyAbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -8,24 +8,29 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Class AbstractType
- * @package L91\Bundle\FormBundle\Form\Type
+ * @package L91\Sulu\Bundle\FormBundle\Form\Type
  */
 abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
 {
     /**
+     * @var string
+     */
+    protected $dataClass;
+
+    /**
+     * @var bool
+     */
+    protected $csrfProtection = true;
+
+    /**
+     * @var bool
+     */
+    protected $csrfFieldName = '_token';
+
+    /**
      * @var array
      */
     protected $attributes = array();
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        if (isset($options['data']) && isset($options['data']['attributes'])) {
-            $this->setAttributes($options['data']['attributes']);
-        }
-    }
 
     /**
      * {@inheritdoc}
@@ -35,17 +40,34 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
         $this->attributes = $attributes;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => $this->getDataClass(),
-        ));
+        $defaults = array(
+            'csrf_protection' => $this->csrfProtection
+        );
+
+        if ($this->csrfProtection) {
+            $defaults['csrf_field_name'] = $this->csrfFieldName;
+            $defaults['intention'] = $this->getDefaultIntention();
+        }
+
+        if ($this->dataClass) {
+            $defaults['data_class'] = $this->dataClass;
+        }
+
+        $resolver->setDefaults($defaults);
     }
 
     /**
      * @return string
      */
-    abstract function getDataClass();
+    public function getDefaultIntention()
+    {
+        return md5($this->getName());
+    }
 
     /**
      * @param $name
@@ -68,17 +90,76 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getSuccessMail()
+    public function getCustomerSubject($formData = array())
     {
-        return 'ClientWebsiteBundle:views:form/' . $this->getName() . '/success.html.twig';
+        return null;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getNotifyMail()
+    public function getNotifySubject($formData = array())
     {
-        return 'ClientWebsiteBundle:views:form/' . $this->getName() . '/notify.html.twig';
+        return null;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getCustomerMail($formData = array())
+    {
+        return 'ClientWebsiteBundle:views:form/mail/' . $this->getName() . '/success.html.twig';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotifyMail($formData = array())
+    {
+        return 'ClientWebsiteBundle:views:form/mail/' . $this->getName() . '/notify.html.twig';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCustomerFromMailAddress($formData = array())
+    {
+        return $this->getAttribute('mail_customer_from_address');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCustomerToMailAddress($formData = array())
+    {
+        $email = $this->getAttribute('mail_customer_to_address');
+
+        if (is_object($formData)) {
+            if (method_exists($formData, 'getEmail')) {
+                $email = $formData->getEmail();
+            } elseif (isset($formData->email)) {
+                $email = $formData->email;
+            }
+        } elseif (is_array($formData) && isset($formData['email'])) {
+            $email = $formData['email'];
+        }
+
+        return $email;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotifyFromMailAddress($formData = array())
+    {
+        return $this->getAttribute('mail_notify_from_address');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotifyToMailAddress($formData = array())
+    {
+        return $this->getAttribute('mail_notify_to_address');
+    }
 }

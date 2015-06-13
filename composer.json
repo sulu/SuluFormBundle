@@ -9,7 +9,13 @@
     "authors": [
         {
             "name": "Alexander Schranz",
-            "email": "alexander.schranz@massiveart.com"
+            "email": "alex.schranz91@gmail.com"
         }
-    ]
+    ],
+    "homepage": "https://github.com/alexander-schranz/sulu-form-bundle",
+    "autoload": {
+        "psr-0": {
+            "L91\\Sulu\\Bunde\\FormBundle": ""
+        }
+    }
 }

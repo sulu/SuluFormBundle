@@ -1,1 +1,16 @@
+# IDEs
+.idea/*
+*.iml
+*~
+
+# Cached Files
+*~
+
+# Git Authentication File
+/auth.json
+
+# System files
+.DS_Store
+
+# Dependencies
 /vendor/
