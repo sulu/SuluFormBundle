@@ -2,11 +2,6 @@
 
 Handle Symfony Forms in Sulu.io
 
-## TODO
-
- - [ ] Mail Helper
- - [ ] Mail Templates
-
 ## Installation
 
 Add to AbstractKernel
