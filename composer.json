@@ -17,5 +17,6 @@
         "psr-0": {
             "L91\\Sulu\\Bunde\\FormBundle": ""
         }
-    }
+    },
+    "target-dir": "L91/Sulu/Bundle/FormBundle"
 }
