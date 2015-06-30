@@ -1,4 +1,4 @@
-# Form Bundle for Sulu
+# Form Bundle for Sulu (This is a PROTOTYPE currenty this bundle is not maintained)
 
 Handle Symfony Forms in Sulu.io
 
