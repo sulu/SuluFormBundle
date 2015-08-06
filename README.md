@@ -137,6 +137,8 @@ In your Bundle under `Resources/config/doctrine/` create your `*.orm.xml` file:
 </doctrine-mapping>
 ```
 
+Create the entity with `app/console doctrine:generate:entites ClientWebsiteBundle`
+
 ### Create Form Type
 
 In your Symfony Form Type extend from `L91\Sulu\Bundle\FormBunde\Form\Type\AbstractType` and use and create the following function.
