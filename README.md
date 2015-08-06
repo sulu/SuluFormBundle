@@ -7,7 +7,7 @@ Handle Symfony Forms in Sulu.io
 Add to AbstractKernel (app/AbstractKernel.php)
 
 ``` php
-    new L91\Sulu\Bundle\FormBundle\L91FormBundle(),
+    new L91\Sulu\Bundle\FormBundle\L91SuluFormBundle(),
 ```
 
 ## Concept
