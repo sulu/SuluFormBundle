@@ -4,7 +4,7 @@ Handle Symfony Forms in Sulu.io
 
 ## Installation
 
-Add to AbstractKernel
+Add to AbstractKernel (app/AbstractKernel.php)
 
 ``` php
     new L91\Sulu\Bundle\FormBundle\L91FormBundle(),
@@ -115,9 +115,10 @@ The following is showing an example how you can use the bundle.
 In your Symfony Form Type extend from `L91\Sulu\Bundle\FormBunde\Form\Type\AbstractType` and use and create the following function.
 
 ``` php
-namespace L91\Sulu\Bundle\FormBundle\Form\Type;
+namespace Client\Bundle\WebsiteBundle\Form\Type;
 
 use L91\Sulu\Bundle\FormBundle\Entity\Example;
+use L91\Sulu\Bundle\FormBundle\Form\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class FormExampleType extends AbstractType
