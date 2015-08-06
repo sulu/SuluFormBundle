@@ -10,6 +10,17 @@ Add to AbstractKernel (app/AbstractKernel.php)
     new L91\Sulu\Bundle\FormBundle\L91SuluFormBundle(),
 ```
 
+## Config
+
+add the following config t
+
+``` yml
+l91_sulu_form:
+    mail_helper:
+        from: %parameter_recommended_for_from%
+        to: %parameter_recommended_for_to%
+```
+
 ## Concept
 
 ### Cacheable Items:
@@ -186,7 +197,7 @@ class FormExampleType extends AbstractType
 ### Register new FormType in services.xml
 
 ``` xml
-    <service id="form_example" class="Your/Bundle/FormBundle/Form/Type/ExampleType">
+    <service id="form_example" class="Client\Bundle\WebsiteBundle\Type\ExampleType">
         <tag name="form.type" alias="pages_template_key" />
     </service>
 ```
