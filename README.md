@@ -110,6 +110,33 @@ The following is showing an example how you can use the bundle.
 </template>
 ```
 
+### Create Entity
+
+In `Resources/config/doctrine/` create your `*.orm.xml` file:
+
+``` xml
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="L91\Sulu\Bundle\FormBundle\Entity\Example" table="l91_form_example">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+        <field name="firstName" type="string" column="firstName" />
+        <field name="lastName" type="string" column="lastName" />
+        <field name="email" type="string" column="email" />
+        <field name="customOption" type="string" column="customOption" nullable="true" />
+        <field name="created" type="datetime" column="created">
+            <options>
+                <option name="default">CURRENT_TIMESTAMP</option>
+            </options>
+        </field>
+    </entity>
+</doctrine-mapping>
+```
+
 ### Create Form Type
 
 In your Symfony Form Type extend from `L91\Sulu\Bundle\FormBunde\Form\Type\AbstractType` and use and create the following function.
