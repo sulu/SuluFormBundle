@@ -15,7 +15,7 @@
     "homepage": "https://github.com/alexander-schranz/sulu-form-bundle",
     "autoload": {
         "psr-0": {
-            "L91\\Sulu\\Bunde\\FormBundle": ""
+            "L91\\Sulu\\Bundle\\FormBundle": ""
         }
     },
     "target-dir": "L91/Sulu/Bundle/FormBundle"
