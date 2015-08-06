@@ -112,7 +112,7 @@ The following is showing an example how you can use the bundle.
 
 ### Create Entity
 
-In `Resources/config/doctrine/` create your `*.orm.xml` file:
+In your Bundle under `Resources/config/doctrine/` create your `*.orm.xml` file:
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -120,7 +120,7 @@ In `Resources/config/doctrine/` create your `*.orm.xml` file:
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="L91\Sulu\Bundle\FormBundle\Entity\Example" table="l91_form_example">
+    <entity name="Client\Bundle\WebsiteBundle\Entity\Example" table="cl_form_example">
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
