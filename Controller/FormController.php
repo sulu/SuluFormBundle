@@ -4,10 +4,11 @@ namespace L91\Sulu\Bundle\FormBundle\Controller;
 
 use L91\Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Sulu\Bundle\WebsiteBundle\Controller\DefaultController;
-use Sulu\Component\Content\StructureInterface;
+use Sulu\Component\Content\Compat\StructureInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class FormController extends DefaultController
 {
@@ -51,9 +52,16 @@ class FormController extends DefaultController
      * @param Request $request
      * @param string $key
      * @return RedirectResponse|Response
+     * @throws NotFoundHttpException
      */
     public function onlyAction(Request $request, $key)
     {
+        $ajaxTemplates = $this->container->getParameter('l91.sulu.form.ajax_templates');
+
+        if (!$ajaxTemplates[$key]) {
+            throw new NotFoundHttpException();
+        }
+
         $this->form = $this->getFormHandler()->get($key, $request->query->all());
 
         if ($request->isMethod('post')) {
@@ -63,7 +71,7 @@ class FormController extends DefaultController
             }
         }
 
-        return $this->render($request->get('view'));
+        return $this->render($ajaxTemplates[$key], array('form' => $this->form->createView()));
     }
 
     /**

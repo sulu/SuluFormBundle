@@ -26,8 +26,8 @@
 
         <service id="l91.sulu.mail.helper" class="%l91.sulu.mail.helper.class%">
             <argument type="service" id="mailer" />
-            <argument>%l91.sulu.mail.from%</argument>
-            <argument>%l91.sulu.mail.to%</argument>
+            <argument>%l91.sulu.form.mail.from%</argument>
+            <argument>%l91.sulu.form.mail.to%</argument>
             <argument type="service" id="logger" />
         </service>
 
