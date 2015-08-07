@@ -11,10 +11,6 @@
         <field name="lastName" type="string" column="lastName" />
         <field name="email" type="string" column="email" />
         <field name="customOption" type="string" column="customOption" nullable="true" />
-        <field name="created" type="datetime" column="created">
-            <options>
-                <option name="default">CURRENT_TIMESTAMP</option>
-            </options>
-        </field>
+        <field name="created" type="datetime" column="created" />
     </entity>
 </doctrine-mapping>

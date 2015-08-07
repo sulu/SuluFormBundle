@@ -7,10 +7,6 @@
         </id>
         <field name="form" type="string" column="form" />
         <field name="data" type="text" column="data" />
-        <field name="created" type="datetime" column="created">
-            <options>
-                <option name="default">CURRENT_TIMESTAMP</option>
-            </options>
-        </field>
+        <field name="created" type="datetime" column="created" />
     </entity>
 </doctrine-mapping>
