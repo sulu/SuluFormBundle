@@ -1,0 +1,3 @@
+l91_sulu_form.only:
+    pattern: /form/only/{key}
+    defaults: { _controller: L91SuluFormBundle:Form:only }
