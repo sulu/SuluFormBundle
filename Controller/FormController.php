@@ -49,11 +49,12 @@ class FormController extends DefaultController
 
     /**
      * @param Request $request
+     * @param string $key
      * @return RedirectResponse|Response
      */
-    public function onlyAction(Request $request)
+    public function onlyAction(Request $request, $key)
     {
-        $this->form = $this->getFormHandler()->get($request->get('key'), $request->attributes->all());
+        $this->form = $this->getFormHandler()->get($key, $request->attributes->all());
 
         if ($request->isMethod('post')) {
             $this->form->handleRequest($request);
