@@ -22,8 +22,9 @@ class L91SuluFormExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('l91.sulu.mail.from', $config['mail_helper']['from']);
-        $container->setParameter('l91.sulu.mail.to', $config['mail_helper']['to']);
+        $container->setParameter('l91.sulu.form.mail.from', $config['mail_helper']['from']);
+        $container->setParameter('l91.sulu.form.mail.to', $config['mail_helper']['to']);
+        $container->setParameter('l91.sulu.form.ajax_templates', $config['ajax_templates']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');

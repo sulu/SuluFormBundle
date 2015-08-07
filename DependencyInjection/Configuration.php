@@ -26,7 +26,11 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('from')->end()
                     ->scalarNode('to')->end()
                 ->end()
-            ->end();
+            ->end()
+            ->arrayNode('ajax_templates')
+                ->prototype('scalar')->end()->defaultValue([])
+            ->end()
+        ;
 
         return $treeBuilder;
     }
