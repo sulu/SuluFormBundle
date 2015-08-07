@@ -202,6 +202,18 @@ class FormExampleType extends AbstractType
     </service>
 ```
 
+### Add routing for the only Action (needed for Ajax loaded Forms)
+
+Add ajax route to website config (app/config/website/routing.yml)
+
+```
+l91_sulu_form:
+    resource: "@L91SuluFormBundle/Resources/config/routing.yml"
+```
+
+To form can now be requested under `/form/only/{form_type_alias}`  
+The form type alias you did set in your `services.xml`
+
 ### Output Form and customize
 
 To modified use a Symfony Form Theme
