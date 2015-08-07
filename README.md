@@ -1,6 +1,6 @@
-# Form Bundle for Sulu (This is a PROTOTYPE currenty this bundle is not maintained)
+# Form Bundle for Sulu
 
-Handle Symfony Forms in Sulu.io
+Simple handling from Symfony Forms in [Sulu.io](http://sulu.io)
 
 ## Installation
 
@@ -218,7 +218,7 @@ https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources
         <h1>Basic Form {{ template }}</h1>
 
         {# FORM THEME #}
-        {% form_theme form _self %}
+        {% form_theme form _self %} {# own file recommended! #}
 
         {% block _l91_form_example__token_widget %}
             {% set type = type|default('hidden') %}
