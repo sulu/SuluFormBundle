@@ -1,6 +1,8 @@
 # Form Bundle for Sulu
 
-Simple handling from Symfony Forms in [Sulu.io](http://sulu.io)
+Simple handling from Symfony Forms in [Sulu.io](http://sulu.io).  
+You can use the Bundle to handle forms which are directly integrated in a Sulu page
+or for ajax loaded forms.
 
 ## Installation
 
@@ -12,7 +14,7 @@ Add to AbstractKernel (app/AbstractKernel.php)
 
 ## Config
 
-add the following config t
+add the following config to `app/config/config.yml`
 
 ``` yml
 l91_sulu_form:
