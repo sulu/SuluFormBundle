@@ -197,6 +197,8 @@ class FormExampleType extends AbstractType
 
 ### Register new FormType in services.xml
 
+The form is loaded by the template key so create a form type with the name same as the template key.
+
 ``` xml
     <service id="form_example" class="Client\Bundle\WebsiteBundle\Type\ExampleType">
         <tag name="form.type" alias="pages_template_key" />
