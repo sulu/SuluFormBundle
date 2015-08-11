@@ -255,3 +255,22 @@ ClientWebsiteBundle:forms:theme.html.twig:
 {% endblock _contact_request__token_widget %}
 ```
 
+
+### Email
+
+You need to create 2 emails(visitor/admin). Default Path are:  
+Admin: `ClientWebsiteBundle:views:form/mail/{form_type_name}/notify.html.twig`;  
+Visitor: `ClientWebsiteBundle:views:form/mail/{form_type_name}/success.html.twig`;  
+
+To change it you can just overwrite in your FormType the `getNotifyMail` or `getCustomerMail` function.
+
+**Twig**
+
+To output the data in the email see the following example:
+
+``` twig
+Firstname: {{ form.data.firstName }}<br/>
+Lastname: {{ form.data.lastName }}<br/>
+
+```
+
