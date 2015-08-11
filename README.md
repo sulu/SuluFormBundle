@@ -248,7 +248,7 @@ https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources
 
 ClientWebsiteBundle:forms:theme.html.twig:
 
-```
+``` twig
 {% block _contact_request__token_widget %}
     {% set type = type|default('hidden') %}
     <input type="{{ type }}" {{ block('widget_attributes') }} value="{{ render_esi(controller('L91SuluFormBundle:Form:token', { 'form': 'form_type_alias' })) }}" /> {#  #}
