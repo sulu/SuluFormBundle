@@ -6,6 +6,22 @@ or for ajax loaded forms.
 
 ## Installation
 
+Use composer to install this Bundle:
+
+``` json
+{
+    "require": {
+        "l91/sulu-form-bundle": "~0.1"
+    }
+}
+```
+
+or
+
+``` bash
+    composer require l91/sulu-form-bundle:~0.1
+```
+
 Add to AbstractKernel (app/AbstractKernel.php)
 
 ``` php
@@ -46,6 +62,8 @@ The Template itself should be cached also the form fields.
 The following is showing an example how you can use the bundle.
 
 ### Basic Sulu Template
+
+Sulu template is not needed when using a ajax loaded form.
 
 ``` xml
 <?xml version="1.0" ?>
