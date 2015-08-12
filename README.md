@@ -19,13 +19,13 @@ Use composer to install this Bundle:
 or
 
 ``` bash
-    composer require l91/sulu-form-bundle:~0.1
+composer require l91/sulu-form-bundle:~0.1
 ```
 
 Add to AbstractKernel (app/AbstractKernel.php)
 
 ``` php
-    new L91\Sulu\Bundle\FormBundle\L91SuluFormBundle(),
+new L91\Sulu\Bundle\FormBundle\L91SuluFormBundle(),
 ```
 
 ## Config
