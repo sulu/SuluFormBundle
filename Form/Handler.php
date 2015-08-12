@@ -138,19 +138,19 @@ class Handler implements HandlerInterface
 
         if ($notifyMail) {
             $this->mailHelper->sendMail(
-                '',
+                $type->getNotifySubject(),
                 $notifyMail,
-                '',
-                ''
+                $type->getNotifyToMailAddress(),
+                $type->getNotifyFromMailAddress()
             );
         }
 
         if ($customerMail) {
             $this->mailHelper->sendMail(
-                '',
+                $type->getCustomerSubject(),
                 $customerMail,
-                '',
-                ''
+                $type->getCustomerToMailAddress(),
+                $type->getCustomerFromMailAddress()
             );
         }
     }
