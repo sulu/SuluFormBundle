@@ -72,8 +72,8 @@ class Helper implements HelperInterface
             $message->setContentType('text/html');
         }
 
-        $message->setFrom($toMail);
-        $message->setTo($fromMail);
+        $message->setFrom($fromMail);
+        $message->setTo($toMail);
 
         $this->logger->info(sprintf(
             'Try register mail from L91 FormBundle: ' . PHP_EOL .
