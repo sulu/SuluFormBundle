@@ -292,5 +292,7 @@ To output the data in the email see the following example:
 Firstname: {{ form.data.firstName }}<br/>
 Lastname: {{ form.data.lastName }}<br/>
 
+{# You can also access the template data in your mail #}
+{{ content.mail_success_text }}
 ```
 
