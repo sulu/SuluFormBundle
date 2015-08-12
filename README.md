@@ -33,13 +33,20 @@ Add to AbstractKernel (app/AbstractKernel.php)
 add the following config to `app/config/config.yml`
 
 ``` yml
+framework:
+    esi: { enabled: true } # use to reload csrf token
+
 l91_sulu_form:
     mail_helper:
         from: %parameter_recommended_for_from%
         to: %parameter_recommended_for_to%
 ```
 
-## Concept
+## Features
+
+This Bundle handles the problem with the `CSRF Token` and `HTTP Cache`.  
+A simple Controller is provided to handle a Symfony Form with CSRF Token.  
+Also `mail` dispatching is handled by the bundle.
 
 ### Cacheable Items:
 
@@ -50,12 +57,7 @@ The Template itself should be cached also the form fields.
 
 ### Uncacheable Items
 
- - Form CSRF Token
-
-### Solutions
-
-1. Load an CSRF Token over Ajax
-2. Load CSRF Token in uncached ESI 
+ - Form CSRF Token (loaded over ESI Request in the twig theme)
 
 ## Example Template
 
