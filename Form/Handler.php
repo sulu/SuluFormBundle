@@ -119,7 +119,7 @@ class Handler implements HandlerInterface
         $type = $this->formExtension->getType($form->getName());
 
         if ($type instanceof TypeInterface) {
-            $this->sendMails($type, $attributes);
+            $this->sendMails($type, $attributes, $form);
         }
 
         return true;
@@ -128,29 +128,31 @@ class Handler implements HandlerInterface
     /**
      * @param TypeInterface $type
      * @param array $attributes
+     * @param FormInterface $form
      */
     protected function sendMails(
         TypeInterface $type,
-        $attributes = array()
+        $attributes = array(),
+        FormInterface $form
     ) {
-        $notifyMail = $this->templating->render($type->getNotifyMail(), $attributes);
-        $customerMail = $this->templating->render($type->getCustomerMail(), $attributes);
+        $notifyMail = $this->templating->render($type->getNotifyMail($form->getData()), $attributes);
+        $customerMail = $this->templating->render($type->getCustomerMail($form->getData()), $attributes);
 
         if ($notifyMail) {
             $this->mailHelper->sendMail(
-                $type->getNotifySubject(),
+                $type->getNotifySubject($form->getData()),
                 $notifyMail,
-                $type->getNotifyToMailAddress(),
-                $type->getNotifyFromMailAddress()
+                $type->getNotifyToMailAddress($form->getData()),
+                $type->getNotifyFromMailAddress($form->getData())
             );
         }
 
         if ($customerMail) {
             $this->mailHelper->sendMail(
-                $type->getCustomerSubject(),
+                $type->getCustomerSubject($form->getData()),
                 $customerMail,
-                $type->getCustomerToMailAddress(),
-                $type->getCustomerFromMailAddress()
+                $type->getCustomerToMailAddress($form->getData()),
+                $type->getCustomerFromMailAddress($form->getData())
             );
         }
     }
