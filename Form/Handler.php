@@ -8,11 +8,13 @@ use L91\Sulu\Bundle\FormBundle\Mail;
 use Doctrine\Common\Persistence\ObjectManager;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Templating\EngineInterface;
 
@@ -59,14 +61,20 @@ class Handler implements HandlerInterface
     protected $attributes;
 
     /**
+     * @var MediaManager
+     */
+    protected $mediaManager;
+
+    /**
      * @param FormFactoryInterface $formFactory
      * @param FormExtensionInterface $formExtension
      * @param ObjectManager $entityManager
      * @param CsrfTokenManagerInterface $csrfTokenManager
-     * @param Mail\HelperInterface $mailHelper,
+     * @param Mail\HelperInterface $mailHelper
      * @param EngineInterface $templating
      * @param EventDispatcherInterface $eventDispatcher
-     * @param LoggerInterface $logger
+     * @param MediaManager $mediaManager
+     * @param null $logger
      */
     public function __construct(
         FormFactoryInterface $formFactory,
@@ -76,6 +84,7 @@ class Handler implements HandlerInterface
         Mail\HelperInterface $mailHelper,
         EngineInterface $templating,
         EventDispatcherInterface $eventDispatcher,
+        MediaManager $mediaManager,
         $logger = null
     ) {
         $this->formFactory = $formFactory;
@@ -86,6 +95,7 @@ class Handler implements HandlerInterface
         $this->mailHelper = $mailHelper;
         $this->templating = $templating;
         $this->eventDispatcher = $eventDispatcher;
+        $this->mediaManager = $mediaManager;
         $this->logger = $logger ? $logger : new NullLogger();
     }
 
@@ -112,9 +122,36 @@ class Handler implements HandlerInterface
             return false;
         }
 
+        $mediaIds = [];
+        if ($form->has('files')) {
+            $files = $form['files']->getData();
+            if (count($files)) {
+                $type = $this->formExtension->getType($form->getName());
+                $collectionId = $type->getCollectionId();
+
+                $ids = [];
+                /** @var UploadedFile $file */
+                foreach ($form['files']->getData() as $file) {
+                    $media = $this->mediaManager->save(
+                        $file,
+                        [
+                            'collection' => $collectionId,
+                            'locale' => $form->get('locale')->getData(),
+                            'title' => $file->getClientOriginalName(),
+                        ],
+                        null
+                    );
+                    $ids[] = $media->getId();
+                }
+
+                $mediaIds['files'] = $ids;
+            }
+        }
+
+
         $attributes['form'] = $form;
 
-        $this->saveForm($form, $attributes);
+        $this->saveForm($form, $attributes, $mediaIds);
 
         $type = $this->formExtension->getType($form->getName());
 
@@ -160,16 +197,24 @@ class Handler implements HandlerInterface
     /**
      * @param FormInterface $form
      * @param array $attributes
+     * @param array $mediaIds
      */
-    protected function saveForm(FormInterface $form, $attributes = array())
+    protected function saveForm(FormInterface $form, $attributes = array(), $mediaIds = array())
     {
         $formData = $form->getData();
+
         if (is_array($formData)) {
             $entity = new Dynamic();
+            if (!empty($mediaIds) && array_key_exists('files', $mediaIds)) {
+                $formData['files'] = $mediaIds['files'];
+            }
             $entity->setData(json_encode($formData));
             $entity->setCreated(new \DateTime());
         } else {
             $entity = $formData;
+            if (!empty($mediaIds) && array_key_exists('files', $mediaIds)) {
+                $entity->setFiles($mediaIds['files']);
+            }
         }
 
         $this->entityManager->persist($entity);

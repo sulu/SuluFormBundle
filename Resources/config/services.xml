@@ -21,6 +21,7 @@
             <argument type="service" id="l91.sulu.mail.helper" />
             <argument type="service" id="templating" />
             <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="sulu_media.media_manager" />
             <argument type="service" id="logger" />
         </service>
 
