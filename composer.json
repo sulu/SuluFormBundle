@@ -4,7 +4,7 @@
     "type": "sulu-bundle",
     "require": {
         "php": ">=5.5",
-        "sulu/sulu": "@dev"
+        "sulu/sulu": "~1.0@dev"
     },
     "license": "MIT",
     "authors": [
