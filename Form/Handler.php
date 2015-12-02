@@ -132,22 +132,23 @@ class Handler implements HandlerInterface
                 $ids = [];
                 /** @var UploadedFile $file */
                 foreach ($form['files']->getData() as $file) {
-                    $media = $this->mediaManager->save(
-                        $file,
-                        [
-                            'collection' => $collectionId,
-                            'locale' => $form->get('locale')->getData(),
-                            'title' => $file->getClientOriginalName(),
-                        ],
-                        null
-                    );
-                    $ids[] = $media->getId();
+                    if ($file instanceof UploadedFile) {
+                        $media = $this->mediaManager->save(
+                            $file,
+                            [
+                                'collection' => $collectionId,
+                                'locale' => $form->get('locale')->getData(),
+                                'title' => $file->getClientOriginalName(),
+                            ],
+                            null
+                        );
+                        $ids[] = $media->getId();
+                    }
                 }
 
                 $mediaIds['files'] = $ids;
             }
         }
-
 
         $attributes['form'] = $form;
 
