@@ -5,6 +5,7 @@ namespace L91\Sulu\Bundle\FormBundle\Controller;
 use L91\Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Sulu\Bundle\WebsiteBundle\Controller\DefaultController;
 use Sulu\Component\Content\Compat\StructureInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +28,8 @@ class FormController extends DefaultController
      */
     public function formAction(StructureInterface $structure, $preview = false, $partial = false)
     {
-        $request = $this->getRequest(); // Change to function param when Sulu Controller is updated
+        /** @var Request $request */
+        $request = $this->container->get('request_stack')->getCurrentRequest();
 
         // get attributes
         $attributes = $this->getAttributes(array(), $structure, $preview);
@@ -37,7 +39,21 @@ class FormController extends DefaultController
         if ($request->isMethod('post')) {
             $this->form->handleRequest($request);
             if ($this->getFormHandler()->handle($this->form, $attributes)) {
+                if ($request->isXmlHttpRequest()) {
+                    return new JsonResponse(array('send' => true));
+                }
+
                 return new RedirectResponse('?send=true');
+            } else {
+                if ($request->isXmlHttpRequest()) {
+                    return new JsonResponse(
+                        array(
+                            'send' => false,
+                            'errors' => $this->getErrors()
+                        ),
+                        400
+                    );
+                }
             }
         }
 
@@ -46,6 +62,37 @@ class FormController extends DefaultController
         $response = parent::indexAction($structure, $preview, $partial);
 
         return $response;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getErrors()
+    {
+        $errors = [];
+
+        $generalErrors = [];
+        foreach ($this->form->getErrors() as $error) {
+            $generalErrors[] = $error->getMessage();
+        }
+
+        if (!empty($generalErrors)) {
+            $errors['general'] = $generalErrors;
+        }
+
+        foreach ($this->form->all() as $field) {
+            $fieldErrors = [];
+
+            foreach ($field->getErrors() as $error) {
+                $fieldErrors[] = $error->getMessage();
+            }
+
+            if (!empty($fieldErrors)) {
+                $errors[$field->getName()] = $fieldErrors;
+            }
+        }
+
+        return $errors;
     }
 
     /**
