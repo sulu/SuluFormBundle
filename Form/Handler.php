@@ -173,10 +173,12 @@ class Handler implements HandlerInterface
         $attributes = array(),
         FormInterface $form
     ) {
-        $notifyMail = $this->templating->render($type->getNotifyMail($form->getData()), $attributes);
-        $customerMail = $this->templating->render($type->getCustomerMail($form->getData()), $attributes);
-
-        if ($notifyMail) {
+        $notifyMailTemplatePath = $type->getNotifyMail($form->getData());
+        $customerMailTemplatePath = $type->getCustomerMail($form->getData());
+​
+        if ($notifyMailTemplatePath) {
+            $notifyMail = $this->templating->render($notifyMailTemplatePath, $attributes);
+​
             $this->mailHelper->sendMail(
                 $type->getNotifySubject($form->getData()),
                 $notifyMail,
@@ -184,8 +186,10 @@ class Handler implements HandlerInterface
                 $type->getNotifyFromMailAddress($form->getData())
             );
         }
-
-        if ($customerMail) {
+​
+        if ($customerMailTemplatePath) {
+            $customerMail = $this->templating->render($customerMailTemplatePath, $attributes);
+​
             $this->mailHelper->sendMail(
                 $type->getCustomerSubject($form->getData()),
                 $customerMail,
