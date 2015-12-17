@@ -92,7 +92,6 @@ class Handler implements HandlerInterface
         $this->mailHelper = $mailHelper;
         $this->entityManager = $entityManager;
         $this->csrfTokenManager = $csrfTokenManager;
-        $this->mailHelper = $mailHelper;
         $this->templating = $templating;
         $this->eventDispatcher = $eventDispatcher;
         $this->mediaManager = $mediaManager;
@@ -175,10 +174,10 @@ class Handler implements HandlerInterface
     ) {
         $notifyMailTemplatePath = $type->getNotifyMail($form->getData());
         $customerMailTemplatePath = $type->getCustomerMail($form->getData());
-​
+
         if ($notifyMailTemplatePath) {
             $notifyMail = $this->templating->render($notifyMailTemplatePath, $attributes);
-​
+
             $this->mailHelper->sendMail(
                 $type->getNotifySubject($form->getData()),
                 $notifyMail,
@@ -186,10 +185,10 @@ class Handler implements HandlerInterface
                 $type->getNotifyFromMailAddress($form->getData())
             );
         }
-​
+
         if ($customerMailTemplatePath) {
             $customerMail = $this->templating->render($customerMailTemplatePath, $attributes);
-​
+
             $this->mailHelper->sendMail(
                 $type->getCustomerSubject($form->getData()),
                 $customerMail,
