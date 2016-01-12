@@ -64,6 +64,7 @@ class Handler implements HandlerInterface
      * @var MediaManager
      */
     protected $mediaManager;
+    
     /**
      * @var array
      */
