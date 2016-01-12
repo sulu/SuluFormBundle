@@ -53,7 +53,8 @@ class Helper implements HelperInterface
         $body,
         $toMail = null,
         $fromMail = null,
-        $html = true
+        $html = true,
+        $attachments = array()
     ) {
         $message = new \Swift_Message(
             $subject,
@@ -74,6 +75,13 @@ class Helper implements HelperInterface
 
         $message->setFrom($fromMail);
         $message->setTo($toMail);
+
+        // Add attachments to the Swift Message
+        if (is_array($attachments) && count($attachments) > 0) {
+            foreach($attachments as $file) {
+                $message ->attach(\Swift_Attachment::fromPath($file['path'])->setFilename($file['name']));
+            }
+        }
 
         $this->logger->info(sprintf(
             'Try register mail from L91 FormBundle: ' . PHP_EOL .

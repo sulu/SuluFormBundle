@@ -64,6 +64,10 @@ class Handler implements HandlerInterface
      * @var MediaManager
      */
     protected $mediaManager;
+    /**
+     * @var array
+     */
+    protected $attachments = array();
 
     /**
      * @param FormFactoryInterface $formFactory
@@ -141,6 +145,12 @@ class Handler implements HandlerInterface
                             ],
                             null
                         );
+
+                        // save attachments data for swift message
+                        $this->attachments[] = array(
+                            'path' => $file->getPathname(),
+                            'name' => $file->getClientOriginalName()
+                        );
                         $ids[] = $media->getId();
                     }
                 }
@@ -182,7 +192,9 @@ class Handler implements HandlerInterface
                 $type->getNotifySubject($form->getData()),
                 $notifyMail,
                 $type->getNotifyToMailAddress($form->getData()),
-                $type->getNotifyFromMailAddress($form->getData())
+                $type->getNotifyFromMailAddress($form->getData()),
+                true,
+                $this->attachments
             );
         }
 
