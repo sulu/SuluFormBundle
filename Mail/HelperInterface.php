@@ -17,5 +17,5 @@ interface HelperInterface
      * @param bool $html
      * @return int
      */
-    public function sendMail($subject, $body, $toMail = null, $fromMail = null, $html = true, $attachmentPaths = array());
+    public function sendMail($subject, $body, $toMail = null, $fromMail = null, $html = true, $attachments = array());
 }

@@ -4,6 +4,7 @@ namespace L91\Sulu\Bundle\FormBundle\Mail;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Helper implements HelperInterface
 {
@@ -77,9 +78,19 @@ class Helper implements HelperInterface
         $message->setTo($toMail);
 
         // Add attachments to the Swift Message
-        if (is_array($attachments) && count($attachments) > 0) {
+        if (count($attachments) > 0) {
             foreach($attachments as $file) {
-                $message ->attach(\Swift_Attachment::fromPath($file->getPathname())->setFilename($file->getClientOriginalName()));
+                if ($file instanceof \SplFileInfo) {
+                    $path = $file->getPathName();
+                    $name = $file->getFileName();
+
+                    // if uploadedfile get original name
+                    if ($file instanceof UploadedFile) {
+                        $name = $file->getClientOriginalName();
+                    }
+
+                     $message->attach(\Swift_Attachment::fromPath($path)->setFilename($name));
+                }
             }
         }
 
