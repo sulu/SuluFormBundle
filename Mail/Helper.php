@@ -53,8 +53,8 @@ class Helper implements HelperInterface
         $body,
         $toMail = null,
         $fromMail = null,
-        $replayTo = null,
-        $html = true
+        $html = true,
+        $replayTo = null
     ) {
         $message = new \Swift_Message(
             $subject,

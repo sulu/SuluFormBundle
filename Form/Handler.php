@@ -182,8 +182,9 @@ class Handler implements HandlerInterface
                 $type->getNotifySubject($form->getData()),
                 $notifyMail,
                 $type->getNotifyToMailAddress($form->getData()),
-                $type->getNotifyFromMailAddress($form->getData()),
-                $type->getNotifyReplyToMailAddress($form->getData())
+                $type->getNotifyReplyToMailAddress($form->getData()),
+                true,
+                $type->getNotifyFromMailAddress($form->getData())
             );
         }
 
@@ -194,7 +195,9 @@ class Handler implements HandlerInterface
                 $type->getCustomerSubject($form->getData()),
                 $customerMail,
                 $type->getCustomerToMailAddress($form->getData()),
-                $type->getCustomerFromMailAddress($form->getData())
+                $type->getCustomerFromMailAddress($form->getData()),
+                true,
+                $type->getCustomerReplyToMailAddress($form->getData())
             );
         }
     }
