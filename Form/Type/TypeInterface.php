@@ -49,6 +49,12 @@ interface TypeInterface
      * @param $formData
      * @return string
      */
+    public function getCustomerReplyToMailAddress($formData = array());
+
+    /**
+     * @param $formData
+     * @return string
+     */
     public function getNotifyFromMailAddress($formData = array());
 
     /**
