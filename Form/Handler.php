@@ -64,7 +64,7 @@ class Handler implements HandlerInterface
      * @var MediaManager
      */
     protected $mediaManager;
-    
+
     /**
      * @var array
      */
@@ -148,10 +148,7 @@ class Handler implements HandlerInterface
                         );
 
                         // save attachments data for swift message
-                        $this->attachments[] = array(
-                            'path' => $file->getPathname(),
-                            'name' => $file->getClientOriginalName()
-                        );
+                        $this->attachments[] = $file;
                         $ids[] = $media->getId();
                     }
                 }

@@ -79,7 +79,7 @@ class Helper implements HelperInterface
         // Add attachments to the Swift Message
         if (is_array($attachments) && count($attachments) > 0) {
             foreach($attachments as $file) {
-                $message ->attach(\Swift_Attachment::fromPath($file['path'])->setFilename($file['name']));
+                $message ->attach(\Swift_Attachment::fromPath($file->getPathname())->setFilename($file->getClientOriginalName()));
             }
         }
 
