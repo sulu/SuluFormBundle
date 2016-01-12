@@ -182,7 +182,8 @@ class Handler implements HandlerInterface
                 $type->getNotifySubject($form->getData()),
                 $notifyMail,
                 $type->getNotifyToMailAddress($form->getData()),
-                $type->getNotifyFromMailAddress($form->getData())
+                $type->getNotifyFromMailAddress($form->getData()),
+                $type->getNotifyReplyToMailAddress($form->getData())
             );
         }
 

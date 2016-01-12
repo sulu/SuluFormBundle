@@ -162,4 +162,24 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     {
         return $this->getAttribute('mail_notify_to_address');
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotifyReplyToMailAddress($formData = array())
+    {
+        $email = null;
+
+        if (is_object($formData)) {
+            if (method_exists($formData, 'getEmail')) {
+                $email = $formData->getEmail();
+            } elseif (isset($formData->email)) {
+                $email = $formData->email;
+            }
+        } elseif (is_array($formData) && isset($formData['email'])) {
+            $email = $formData['email'];
+        }
+
+        return $email;
+    }
 }

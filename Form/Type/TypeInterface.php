@@ -58,6 +58,12 @@ interface TypeInterface
     public function getNotifyToMailAddress($formData = array());
 
     /**
+     * @param $formData
+     * @return string
+     */
+    public function getNotifyReplyToMailAddress($formData = array());
+
+    /**
      * @return string
      */
     public function getDefaultIntention();
