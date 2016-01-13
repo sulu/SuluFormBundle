@@ -90,7 +90,7 @@ class Helper implements HelperInterface
                         $name = $file->getClientOriginalName();
                     }
 
-                     $message->attach(\Swift_Attachment::fromPath($path)->setFilename($name));
+                    $message->attach(\Swift_Attachment::fromPath($path)->setFilename($name));
                 }
             }
         }
