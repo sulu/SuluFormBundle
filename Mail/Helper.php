@@ -4,6 +4,7 @@ namespace L91\Sulu\Bundle\FormBundle\Mail;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Helper implements HelperInterface
 {
@@ -53,7 +54,9 @@ class Helper implements HelperInterface
         $body,
         $toMail = null,
         $fromMail = null,
-        $html = true
+        $html = true,
+        $replayTo = null,
+        $attachments = array()
     ) {
         $message = new \Swift_Message(
             $subject,
@@ -75,10 +78,32 @@ class Helper implements HelperInterface
         $message->setFrom($fromMail);
         $message->setTo($toMail);
 
+        // Add attachments to the Swift Message
+        if (count($attachments) > 0) {
+            foreach($attachments as $file) {
+                if ($file instanceof \SplFileInfo) {
+                    $path = $file->getPathName();
+                    $name = $file->getFileName();
+
+                    // if uploadedfile get original name
+                    if ($file instanceof UploadedFile) {
+                        $name = $file->getClientOriginalName();
+                    }
+
+                    $message->attach(\Swift_Attachment::fromPath($path)->setFilename($name));
+                }
+            }
+        }
+
+        if ($replayTo != null) {
+            $message->setReplyTo($replayTo);
+        }
+
         $this->logger->info(sprintf(
             'Try register mail from L91 FormBundle: ' . PHP_EOL .
             '   From: ' . $fromMail . PHP_EOL .
             '   To: ' . $toMail . PHP_EOL .
+            ($replayTo != null) ? 'Reply to: ' . $replayTo . PHP_EOL : '' .
             '   Subject: ' . $subject
         ));
 
