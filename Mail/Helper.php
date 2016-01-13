@@ -56,8 +56,7 @@ class Helper implements HelperInterface
         $fromMail = null,
         $html = true,
         $replayTo = null,
-        $attachments = array(),
-        $sendAttachments = false
+        $attachments = array()
     ) {
         $message = new \Swift_Message(
             $subject,
@@ -80,7 +79,7 @@ class Helper implements HelperInterface
         $message->setTo($toMail);
 
         // Add attachments to the Swift Message
-        if ($sendAttachments == true && count($attachments) > 0) {
+        if (count($attachments) > 0) {
             foreach($attachments as $file) {
                 if ($file instanceof \SplFileInfo) {
                     $path = $file->getPathName();
