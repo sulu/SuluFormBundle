@@ -55,6 +55,7 @@ class Helper implements HelperInterface
         $toMail = null,
         $fromMail = null,
         $html = true,
+        $replayTo = null,
         $attachments = array()
     ) {
         $message = new \Swift_Message(
@@ -94,10 +95,15 @@ class Helper implements HelperInterface
             }
         }
 
+        if ($replayTo != null) {
+            $message->setReplyTo($replayTo);
+        }
+
         $this->logger->info(sprintf(
             'Try register mail from L91 FormBundle: ' . PHP_EOL .
             '   From: ' . $fromMail . PHP_EOL .
             '   To: ' . $toMail . PHP_EOL .
+            ($replayTo != null) ? 'Reply to: ' . $replayTo . PHP_EOL : '' .
             '   Subject: ' . $subject
         ));
 

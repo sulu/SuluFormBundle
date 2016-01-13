@@ -137,6 +137,20 @@ Sulu template is not needed when using a ajax loaded form.
                         <title lang="en">Notify To Mail</title>
                     </meta>
                 </property>
+
+                <property name="mail_customer_replyto_address" type="text_line" mandatory="false">
+                    <meta>
+                        <title lang="de">Antwort E-Mail für Bestätigungsmail</title>
+                        <title lang="en">Reply address for customer mail</title>
+                    </meta>
+                </property>
+
+                <property name="mail_notify_replyto_address" type="text_line" mandatory="false">
+                    <meta>
+                        <title lang="de">Antowrt E-Mail für Benachrichtigungsmail</title>
+                        <title lang="en">Reply address for notify mail</title>
+                    </meta>
+                </property>
             </properties>
         </section>
     </properties>
