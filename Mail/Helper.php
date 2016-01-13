@@ -53,7 +53,8 @@ class Helper implements HelperInterface
         $body,
         $toMail = null,
         $fromMail = null,
-        $html = true
+        $html = true,
+        $replayTo = null
     ) {
         $message = new \Swift_Message(
             $subject,
@@ -74,6 +75,10 @@ class Helper implements HelperInterface
 
         $message->setFrom($fromMail);
         $message->setTo($toMail);
+
+        if ($replayTo != null) {
+            $message->setReplyTo($replayTo);
+        }
 
         $this->logger->info(sprintf(
             'Try register mail from L91 FormBundle: ' . PHP_EOL .
