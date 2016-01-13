@@ -16,8 +16,9 @@ interface HelperInterface
      * @param string $fromMail
      * @param bool $html
      * @param string $replayTo
-     * @param array $attachments
+     * @param SplFileInfo $attachments
+     * @param bool $sendAttachments
      * @return int
      */
-    public function sendMail($subject, $body, $toMail = null, $fromMail = null, $html = true, $replayTo = null, $attachments = array());
+    public function sendMail($subject, $body, $toMail = null, $fromMail = null, $html = true, $replayTo = null, $attachments = array(), $sendAttachments = false);
 }
