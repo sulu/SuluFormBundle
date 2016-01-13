@@ -193,7 +193,7 @@ class Handler implements HandlerInterface
                 $type->getNotifyFromMailAddress($form->getData()),
                 true,
                 $type->getNotifyReplyToMailAddress($form->getData()),
-                $this->attachments
+                $type->getNotifySendAttachments($form->getData()) ? $this->attachments : array()
             );
         }
 
@@ -206,7 +206,8 @@ class Handler implements HandlerInterface
                 $type->getCustomerToMailAddress($form->getData()),
                 $type->getCustomerFromMailAddress($form->getData()),
                 true,
-                $type->getCustomerReplyToMailAddress($form->getData())
+                $type->getCustomerReplyToMailAddress($form->getData()),
+                $type->getCustomerSendAttachments($form->getData()) ? $this->attachments : array()
             );
         }
     }
