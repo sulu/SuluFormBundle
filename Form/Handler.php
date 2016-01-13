@@ -206,8 +206,7 @@ class Handler implements HandlerInterface
                 $type->getCustomerToMailAddress($form->getData()),
                 $type->getCustomerFromMailAddress($form->getData()),
                 true,
-                $type->getCustomerReplyToMailAddress($form->getData()),
-                $this->attachments
+                $type->getCustomerReplyToMailAddress($form->getData())
             );
         }
     }
