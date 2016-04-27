@@ -11,7 +11,7 @@ Use composer to install this Bundle:
 ``` json
 {
     "require": {
-        "l91/sulu-form-bundle": "~0.2"
+        "l91/sulu-form-bundle": "~0.3"
     }
 }
 ```
@@ -19,7 +19,7 @@ Use composer to install this Bundle:
 or
 
 ``` bash
-composer require l91/sulu-form-bundle:~0.2
+composer require l91/sulu-form-bundle:~0.3
 ```
 
 Add to AbstractKernel (app/AbstractKernel.php)
