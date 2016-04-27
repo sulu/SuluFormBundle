@@ -29,13 +29,20 @@ class NullHelper implements HelperInterface
         $body,
         $toMail = null,
         $fromMail = null,
-        $html = true
+        $html = true,
+        $replayTo = null,
+        $attachments = array()
     ) {
         $this->logger->info(sprintf(
             'L91 FormBundle NullMailHelper: ' . PHP_EOL .
-            '   From: ' . $fromMail . PHP_EOL .
-            '   To: ' . $toMail . PHP_EOL .
-            '   Subject: ' . $subject
+            '   From: %s' . PHP_EOL .
+            '   To: %s' . PHP_EOL .
+            '   Reply to: %s' . PHP_EOL .
+            '   Subject: %s' . PHP_EOL,
+            is_string($fromMail) ? $fromMail : serialize($fromMail),
+            is_string($toMail) ? $toMail : serialize($toMail),
+            is_string($replayTo) ? $replayTo : serialize($toMail),
+            is_string($subject) ? $subject : serialize($subject)
         ));
     }
 }
