@@ -1,0 +1,5 @@
+l91_sulu_form.tests:
+    type: rest
+    resource: L91\Sulu\Bundle\FormBundle\Controller\ListController
+    prefix: l91/form
+    name_prefix: l91_sulu_form.

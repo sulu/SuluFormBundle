@@ -1,0 +1,1 @@
+require.config({paths:{l91suluform:"../../l91suluform/js"}}),define({name:"L91SuluFormBundle",initialize:function(a){"use strict";a.sandbox;a.components.addSource("l91suluform","/bundles/l91suluform/js/components")}});
