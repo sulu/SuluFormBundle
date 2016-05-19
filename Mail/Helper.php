@@ -101,10 +101,14 @@ class Helper implements HelperInterface
 
         $this->logger->info(sprintf(
             'Try register mail from L91 FormBundle: ' . PHP_EOL .
-            '   From: ' . $fromMail . PHP_EOL .
-            '   To: ' . $toMail . PHP_EOL .
-            ($replayTo != null) ? 'Reply to: ' . $replayTo . PHP_EOL : '' .
-            '   Subject: ' . $subject
+            '   From: %s' . PHP_EOL .
+            '   To: %s' . PHP_EOL .
+            '   Reply to: %s' . PHP_EOL .
+            '   Subject: %s' . PHP_EOL,
+            is_string($fromMail) ? $fromMail : serialize($fromMail),
+            is_string($toMail) ? $toMail : serialize($toMail),
+            is_string($replayTo) ? $replayTo : serialize($toMail),
+            is_string($subject) ? $subject : serialize($subject)
         ));
 
         return $this->mailer->send($message);
