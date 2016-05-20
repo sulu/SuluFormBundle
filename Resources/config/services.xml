@@ -39,5 +39,22 @@
         <service id="l91.sulu.form.example" class="%l91.sulu.form.example.class%">
             <tag name="form.type" alias="l91_form_example" />
         </service>
+
+        <service id="l91.sulu.admin" class="L91\Sulu\Bundle\FormBundle\Admin\FormAdmin">
+            <argument>%sulu_admin.name%</argument>
+
+            <tag name="sulu.admin"/>
+            <tag name="sulu.context" context="admin"/>
+        </service>
+
+        <service id="l91.sulu.navigation_provider.template"
+                 class="L91\Sulu\Bundle\FormBundle\Admin\TemplateNavigationProvider">
+            <argument type="service" id="l91.sulu.list.provider.registry" />
+
+            <tag name="sulu_admin.content_navigation" alias="content"/>
+        </service>
+
+        <service id="l91.sulu.list.provider.registry"
+                 class="L91\Sulu\Bundle\FormBundle\Provider\ListProviderRegistry" />
     </services>
 </container>
