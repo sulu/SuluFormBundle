@@ -14,3 +14,11 @@
 
 # Dependencies
 /vendor/
+
+# frontend caches
+bower_components/
+.tmp/
+.sass-cache/
+node_modules/
+npm-debug.log
+

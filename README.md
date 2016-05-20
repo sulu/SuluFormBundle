@@ -11,7 +11,7 @@ Use composer to install this Bundle:
 ``` json
 {
     "require": {
-        "l91/sulu-form-bundle": "~0.3"
+        "l91/sulu-form-bundle": "~0.4"
     }
 }
 ```
@@ -19,7 +19,7 @@ Use composer to install this Bundle:
 or
 
 ``` bash
-composer require l91/sulu-form-bundle:~0.3
+composer require l91/sulu-form-bundle:~0.4
 ```
 
 Add to AbstractKernel (app/AbstractKernel.php)
@@ -245,7 +245,7 @@ The form is loaded by the template key so create a form type with the name same 
 
 Add ajax route to website config (app/config/website/routing.yml)
 
-```
+```yml
 l91_sulu_form:
     resource: "@L91SuluFormBundle/Resources/config/routing.yml"
 ```
@@ -310,3 +310,81 @@ Lastname: {{ form.data.lastName }}<br/>
 {{ content.mail_success_text }}
 ```
 
+### Create a ListProvider (optional)
+
+For the list provider you need first register the admin api in `app/config/admin/routing.yml`
+
+```yml
+l91_sulu_form_api:
+    type: rest
+    resource: "@L91SuluFormBundle/Resources/config/routing_api.yml"
+    prefix: /admin/api
+```
+
+After this you need to create a new class which implements the `ListProviderInterface`
+
+```php
+<?php
+
+namespace Client\Bundle\WebsiteBundle\Provider;
+
+use Client\Bundle\WebsiteBundle\Entity\Example;
+use L91\Sulu\Bundle\FormBundle\Provider\ListProviderInterface;
+use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
+
+class ExampleListProvider implements ListProviderInterface
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function getFieldDescriptors($webspace, $locale, $uuid)
+    {
+        $fieldDescriptors['id'] = $this->createFieldDescriptor('id');
+        $fieldDescriptors['uuid'] = $this->createFieldDescriptor('uuid', true);
+        $fieldDescriptors['email'] = $this->createFieldDescriptor('email');
+        $fieldDescriptors['created'] = $this->createFieldDescriptor('created', false, 'date');
+
+        return $fieldDescriptors;
+    }
+
+    /**
+     * @param string $fieldName
+     * @param $disabled $isDate
+     * @param string $type
+     *
+     * @return DoctrineFieldDescriptor
+     */
+    protected function createFieldDescriptor($fieldName, $disabled = false, $type = '')
+    {
+        return new DoctrineFieldDescriptor(
+            $fieldName,
+            $fieldName,
+            Example::class,
+            'public.' . $fieldName,
+            [],
+            $disabled,
+            false,
+            $type
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getEntityName($webspace, $locale, $uuid)
+    {
+        return Example::class;
+    }
+}
+
+```
+
+Register the class and tag it 
+
+```xml
+<service id="client_website.list_provider.example" class="Client\Bundle\WebsiteBundle\Provider\ExampleListProvider">
+    <tag name="l91_sulu_form.list_provider" template="pages_template_key" />
+</service>
+```
+
+**Now a tab should be visible with a list you can export**

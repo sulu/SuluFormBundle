@@ -3,7 +3,8 @@
     "description": "Bundle for handling Symfony forms in Sulu templates.",
     "type": "sulu-bundle",
     "require": {
-        "php": ">=5.5"
+        "php": "^5.5 || ^7.0",
+        "sulu/sulu": "~1.2 || dev-develop"
     },
     "license": "MIT",
     "authors": [
