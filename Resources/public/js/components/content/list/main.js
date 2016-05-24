@@ -16,14 +16,27 @@ define(['jquery'], function ($) {
 
     return {
 
-        layout: {
-            content: {
-                width: 'fixed'
-            }
+        layout: function() {
+            return {
+                extendExisting: true,
+                content: {
+                    width: 'fixed',
+                    leftSpace: true,
+                    rightSpace: true
+                }
+            };
         },
 
         initialize: function() {
             this.render();
+            this.initPreview();
+        },
+
+        /**
+         * Initilize the sulu preview
+         */
+        initPreview: function() {
+            this.sandbox.emit('sulu.preview.initialize', null, true);
         },
 
         /**
