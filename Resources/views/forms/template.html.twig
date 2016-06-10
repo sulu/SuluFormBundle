@@ -1,9 +1,9 @@
 <form id="form-form">
     <div class="grid">
-        <div class="grid-row m-bottom-40">
+        <div class="grid-row m-bottom-20">
             <div class="grid-col-12">
                 <div class="form-group">
-                    <label for="title"><%= translate('Title') %></label>
+                    <label for="title" class="required"><%= translate('Title') %></label>
 
                     <div id="title-element" class="form-element husky-validate"
                          data-type="husky-input"
@@ -13,6 +13,92 @@
                          data-validation-required="true"
                          autofocus
                          data-mapper-property="title">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-row m-bottom-20">
+            <div class="grid-col-12">
+                <div class="form-group">
+                    <label for="subject">
+                        Subject
+                    </label>
+
+                    <div id="subject-element" class="form-element husky-validate"
+                         data-type="husky-input"
+                         data-aura-component="input@husky"
+                         data-aura-instance-name="subject"
+                         data-form="true"
+                         data-validation-required="false"
+                         data-mapper-property="subject">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-row m-bottom-20">
+            <div class="grid-col-6">
+                <div class="form-group">
+                    <label for="fromEmail">
+                        From Email
+                    </label>
+
+                    <div id="fromMail-element" class="form-element husky-validate"
+                         data-type="husky-input"
+                         data-aura-component="input@husky"
+                         data-aura-instance-name="fromEmail"
+                         data-form="true"
+                         data-validation-required="false"
+                         data-mapper-property="fromEmail">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-col-6">
+                <div class="form-group">
+                    <label for="toEmail">
+                        To Email
+                    </label>
+
+                    <div id="toMail-element" class="form-element husky-validate"
+                         data-type="husky-input"
+                         data-aura-component="input@husky"
+                         data-aura-instance-name="toEmail"
+                         data-form="true"
+                         data-validation-required="false"
+                         data-mapper-property="toEmail">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-row m-bottom-40">
+            <div class="grid-col-6">
+                <div class="form-group">
+                    <label for="fromName">
+                        From Name
+                    </label>
+
+                    <div id="fromName-element" class="form-element husky-validate"
+                         data-type="husky-input"
+                         data-aura-component="input@husky"
+                         data-aura-instance-name="fromName"
+                         data-form="true"
+                         data-validation-required="false"
+                         data-mapper-property="fromName">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-col-6">
+                <div class="form-group">
+                    <label for="toName">
+                        To Name
+                    </label>
+
+                    <div id="toName-element" class="form-element husky-validate"
+                         data-type="husky-input"
+                         data-aura-component="input@husky"
+                         data-aura-instance-name="toName"
+                         data-form="true"
+                         data-validation-required="false"
+                         data-mapper-property="toName">
                     </div>
                 </div>
             </div>
