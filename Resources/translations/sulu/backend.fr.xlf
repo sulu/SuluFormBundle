@@ -6,6 +6,14 @@
                 <source>l91_sulu_form.form</source>
                 <target>Form de Baguette</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>l91_sulu_form.forms.title</source>
+                <target>Form de Baguette</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>l91_sulu_form.forms.new_form</source>
+                <target>Nouveau Baguette de Form</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

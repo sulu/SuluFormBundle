@@ -6,6 +6,14 @@
                 <source>l91_sulu_form.form</source>
                 <target>Forms</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>l91_sulu_form.forms.title</source>
+                <target>Forms</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>l91_sulu_form.forms.new_form</source>
+                <target>New Form</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
