@@ -430,6 +430,7 @@ class FormController
                 'fromName' => $translation->getFromName(),
                 'toEmail' => $translation->getToEmail(),
                 'toName' => $translation->getToName(),
+                'subject' => $translation->getSubject(),
             ];
         }
 
