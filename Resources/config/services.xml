@@ -6,7 +6,6 @@
 
     <parameters>
         <parameter key="l91.sulu.form.handler.class">L91\Sulu\Bundle\FormBundle\Form\Handler</parameter>
-        <parameter key="l91.sulu.form.example.class">L91\Sulu\Bundle\FormBundle\Form\Type\FormExampleType</parameter>
         <parameter key="l91.sulu.mail.helper.class">L91\Sulu\Bundle\FormBundle\Mail\Helper</parameter>
         <parameter key="l91.sulu.mail.null_helper.class">L91\Sulu\Bundle\FormBundle\Mail\NullHelper</parameter>
     </parameters>
@@ -36,17 +35,6 @@
             <argument type="service" id="logger" />
         </service>
 
-        <service id="l91.sulu.form.example" class="%l91.sulu.form.example.class%">
-            <tag name="form.type" alias="l91_form_example" />
-        </service>
-
-        <service id="l91.sulu.admin" class="L91\Sulu\Bundle\FormBundle\Admin\FormAdmin">
-            <argument>%sulu_admin.name%</argument>
-
-            <tag name="sulu.admin"/>
-            <tag name="sulu.context" context="admin"/>
-        </service>
-
         <service id="l91.sulu.navigation_provider.template"
                  class="L91\Sulu\Bundle\FormBundle\Admin\TemplateNavigationProvider">
             <argument type="service" id="l91.sulu.list.provider.registry" />
@@ -56,5 +44,31 @@
 
         <service id="l91.sulu.list.provider.registry"
                  class="L91\Sulu\Bundle\FormBundle\Provider\ListProviderRegistry" />
+
+        <!-- Dyn Form -->
+        <service id="l91_sulu_form.repository.form" class="L91\Sulu\Bundle\FormBundle\Repository\FormRepository">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>L91SuluFormBundle:Form</argument>
+        </service>
+
+        <service id="l91_sulu_form.navigation_provider.form"
+                 class="L91\Sulu\Bundle\FormBundle\Admin\FormNavigationProvider">
+            <tag name="sulu_admin.content_navigation" alias="l91_sulu_form_form" />
+            <tag name="sulu.context" context="admin" />
+        </service>
+
+        <service id="l91_sulu_form.admin"
+                 class="L91\Sulu\Bundle\FormBundle\Admin\FormAdmin">
+            <tag name="sulu.admin"/>
+            <tag name="sulu.context" context="admin"/>
+            <argument type="service" id="sulu_security.security_checker"/>
+            <argument>%sulu_admin.name%</argument>
+        </service>
+
+        <service id="l91_sulu_form.manager.form"
+                 class="L91\Sulu\Bundle\FormBundle\Manager\FormManager">
+            <argument id="doctrine.orm.default_entity_manager" type="service" />
+            <argument id="l91_sulu_form.repository.form" type="service" />
+        </service>
     </services>
 </container>

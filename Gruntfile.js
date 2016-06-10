@@ -69,7 +69,7 @@ module.exports = function (grunt) {
             build: {
                 options: {
                     variables: {
-                        'blackriverevent/js': 'blackriverevent/dist'
+                        'l91suluform/js': 'l91suluform/dist'
                     },
                     prefix: ''
                 },
