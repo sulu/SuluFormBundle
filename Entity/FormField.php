@@ -127,11 +127,11 @@ class FormField
     /**
      * Set required
      *
-     * @param \bool $required
+     * @param bool $required
      *
      * @return FormField
      */
-    public function setRequired(\bool $required)
+    public function setRequired($required)
     {
         $this->required = $required;
 

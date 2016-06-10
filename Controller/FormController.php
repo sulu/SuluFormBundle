@@ -7,7 +7,10 @@ use L91\Sulu\Bundle\FormBundle\Manager\FormManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactory;
+use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineCaseFieldDescriptor;
+use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineDescriptor;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
+use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineJoinDescriptor;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\ListRestHelper;
 use Sulu\Component\Rest\RestHelperInterface;
@@ -20,8 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class FormController
     extends FOSRestController
-    implements ClassResourceInterface,
-    SecuredControllerInterface
+    implements ClassResourceInterface, SecuredControllerInterface
 {
     /**
      * {@inheritdoc}
@@ -57,6 +59,32 @@ class FormController
             [],
             false,
             true
+        );
+
+        $fieldDescriptors['title'] = new DoctrineCaseFieldDescriptor(
+            'title',
+            new DoctrineDescriptor(
+                'translation',
+                'title',
+                [
+                    'translation' => new DoctrineJoinDescriptor(
+                        'translation',
+                        Form::class . '.translations',
+                        sprintf('translation.locale = \'%s\'', $locale)
+                    ),
+                ]
+            ),
+            new DoctrineDescriptor(
+                'defaultTranslation',
+                'title',
+                [
+                    'defaultTranslation' => new DoctrineJoinDescriptor(
+                        'defaultTranslation',
+                        Form::class . '.defaultTranslation'
+                    ),
+                ]
+            ),
+            'public.title'
         );
 
         return $fieldDescriptors;
@@ -115,6 +143,21 @@ class FormController
      *
      * @return Response
      */
+    public function cgetFieldsAction(Request $request)
+    {
+        $fieldDescriptors = $this->getFieldDescriptors(
+            $this->getLocale($request),
+            $this->getFilters($request)
+        );
+
+        return $this->handleView($this->view($fieldDescriptors));
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function cgetAction(Request $request)
     {
         $locale = $this->getLocale($request);
@@ -161,7 +204,7 @@ class FormController
         // create list representation
         $representation = new ListRepresentation(
             $list,
-            'entities',
+            $this->getListName(),
             $request->get('_route'),
             $request->query->all(),
             $page,
@@ -237,21 +280,6 @@ class FormController
         }
 
         return $this->handleView($this->view($entity));
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function cgetFieldsAction(Request $request)
-    {
-        $fieldDescriptors = $this->getFieldDescriptors(
-            $this->getLocale($request),
-            $this->getFilters($request)
-        );
-
-        return $this->handleView($this->view($fieldDescriptors));
     }
 
     /**
