@@ -12,7 +12,7 @@
                    class="form-element preview-update trigger-save-button"
                    data-mapper-property="title"/>
 
-            <div class="block-content" data-sort-mode-id="title"></div>
+            <div class="block-content" data-sort-mode-id="{{ blockId }}title{{ loop.index }}"></div>
 
             <div class="input-description"></div>
         </div>
@@ -34,7 +34,7 @@
                    class="form-element preview-update trigger-save-button"
                    data-mapper-property="placeholder"/>
 
-            <div class="block-content" data-sort-mode-id="placeholder"></div>
+            <div class="block-content" data-sort-mode-id="{{ blockId }}placeholder{{ loop.index }}"></div>
 
             <div class="input-description"></div>
         </div>
@@ -51,7 +51,7 @@
                    class="form-element preview-update trigger-save-button"
                    data-mapper-property="defaultValue"/>
 
-            <div class="block-content" data-sort-mode-id="defaultValue"></div>
+            <div class="block-content" data-sort-mode-id="{{ blockId }}defaultValue{{ loop.index }}"></div>
 
             <div class="input-description"></div>
         </div>
