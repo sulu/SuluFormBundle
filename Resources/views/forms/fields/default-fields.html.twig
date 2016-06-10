@@ -1,16 +1,55 @@
 <div class="grid-col-12 floating form-group">
-    <label for="lable" class="pointer"
-           title="Label">
-        Label
+    <label for="title{{ loop.index }}" class="pointer"
+           title="Title">
+        Title
     </label>
 
-    <input id="lable"
-           data-property='lable'
+    <input id="title{{ loop.index }}"
+           data-property='title'
            type="text"
            class="form-element preview-update trigger-save-button"
-           data-mapper-property="lable"/>
+           data-mapper-property="title"/>
 
-    <div class="block-content" data-sort-mode-id="lable"></div>
+    <div class="block-content" data-sort-mode-id="title"></div>
 
     <div class="input-description"></div>
+</div>
+
+
+<div class="grid">
+    <div class="grid-row m-top-40 m-bottom-40">
+        <div class="grid-col-6 floating form-group">
+            <label for="placeholder{{ loop.index }}" class="pointer"
+                   title="Placeholder">
+                Placeholder
+            </label>
+
+            <input id="placeholder{{ loop.index }}"
+                   data-property='placeholder'
+                   type="text"
+                   class="form-element preview-update trigger-save-button"
+                   data-mapper-property="placeholder"/>
+
+            <div class="block-content" data-sort-mode-id="placeholder"></div>
+
+            <div class="input-description"></div>
+        </div>
+
+        <div class="grid-col-6 floating form-group">
+            <label for="default-value{{ loop.index }}" class="pointer"
+                   title="Default Value">
+                Default Value
+            </label>
+
+            <input id="default-value{{ loop.index }}"
+                   data-property='default-value'
+                   type="text"
+                   class="form-element preview-update trigger-save-button"
+                   data-mapper-property="default-value"/>
+
+            <div class="block-content" data-sort-mode-id="default-value"></div>
+
+            <div class="input-description"></div>
+        </div>
+    </div>
 </div>

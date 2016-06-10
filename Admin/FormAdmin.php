@@ -24,7 +24,7 @@ class FormAdmin extends Admin
 
         // create section
         $navigationItem = new NavigationItem('l91_sulu_form.form');
-        $navigationItem->setIcon('globe');
+        $navigationItem->setIcon('magic');
         $section->addChild($navigationItem);
 
         // add Form navigation

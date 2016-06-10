@@ -127,7 +127,22 @@ class FormController
             'firstName',
             'lastName',
             'company',
-            'email'
+            'email',
+            'phone',
+            'fax',
+            'function',
+            'street',
+            'zip',
+            'city',
+            'state',
+            'country',
+            'attachment',
+            'textarea',
+            'headline',
+            'checkbox',
+            'radiobuttons',
+            'selectbox',
+            'date'
         ];
 
         return $this->render(
