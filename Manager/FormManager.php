@@ -91,7 +91,7 @@ class FormManager
             $field->setWidth(self::getValue($fieldData, 'width'));
             $field->setRequired(self::getValue($fieldData, 'required', false));
 
-            $fieldTranslation = $field->getTranslation($locale);
+            $fieldTranslation = $field->getTranslation($locale, true);
             $fieldTranslation->setTitle(self::getValue($fieldData, 'title'));
             $fieldTranslation->setPlaceholder(self::getValue($fieldData, 'placeholder'));
             $fieldTranslation->setDefaultValue(self::getValue($fieldData, 'defaultValue'));
