@@ -75,6 +75,11 @@ class FormManager
         // Translation
         $translation = $form->getTranslation($locale, true);
         $translation->setTitle(self::getValue($data, 'title'));
+        $translation->setSubject(self::getValue($data, 'subject'));
+        $translation->setFromEmail(self::getValue($data, 'fromEmail'));
+        $translation->setFromName(self::getValue($data, 'fromName'));
+        $translation->setToEmail(self::getValue($data, 'toEmail'));
+        $translation->setToName(self::getValue($data, 'toName'));
 
         if (!$translation->getId()) {
             $translation->setForm($form);
