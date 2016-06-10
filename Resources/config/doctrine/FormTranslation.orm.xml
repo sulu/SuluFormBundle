@@ -10,13 +10,13 @@
 
         <field name="title" column="title" type="string" length="255"/>
 
-        <field name="subject" column="subject" type="string" length="255"/>
-        <field name="fromEmail" column="fromEmail" type="string" length="255"/>
-        <field name="fromName" column="fromName" type="string" length="255"/>
-        <field name="toEmail" column="toEmail" type="string" length="255"/>
-        <field name="toName" column="toName" type="string" length="255"/>
+        <field name="subject" column="subject" type="string" length="255" nullable="true"/>
+        <field name="fromEmail" column="fromEmail" type="string" length="255" nullable="true"/>
+        <field name="fromName" column="fromName" type="string" length="255" nullable="true"/>
+        <field name="toEmail" column="toEmail" type="string" length="255" nullable="true"/>
+        <field name="toName" column="toName" type="string" length="255" nullable="true"/>
 
-        <field name="options" column="options" type="text"/>
+        <field name="options" column="options" type="text" nullable="true"/>
         <field name="locale" column="locale" type="string" length="5"/>
 
         <many-to-one field="form"

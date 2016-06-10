@@ -64,13 +64,24 @@ class FormManager
      */
     public function save($data, $locale = null, $id = null)
     {
+        $form = new Form();
+
         // find exist or create new entity
-        if (!$id) {
-            $form = new Form();
-        } else {
+        if ($id) {
             $form = $this->findById($id, $locale);
         }
 
+        // Translation
+        $translation = $form->getTranslation($locale, true);
+        $translation->setTitle(self::getValue($data, 'title'));
+
+        if (!$form->getId()) {
+            $translation->setForm($form);
+            $form->addTranslation($translation);
+            $form->setDefaultTranslation($translation);
+        }
+
+        // save
         $this->entityManager->persist($form);
         $this->entityManager->flush();
 
