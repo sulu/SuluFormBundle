@@ -3,6 +3,7 @@
 namespace L91\Sulu\Bundle\FormBundle\Manager;
 
 use L91\Sulu\Bundle\FormBundle\Entity\Form;
+use L91\Sulu\Bundle\FormBundle\Entity\FormField;
 use L91\Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -75,10 +76,36 @@ class FormManager
         $translation = $form->getTranslation($locale, true);
         $translation->setTitle(self::getValue($data, 'title'));
 
-        if (!$form->getId()) {
+        if (!$translation->getId()) {
             $translation->setForm($form);
             $form->addTranslation($translation);
+        }
+
+        if (!$form->getId()) {
             $form->setDefaultTranslation($translation);
+        }
+
+        foreach (self::getValue($data, 'fields', []) as $field) {
+            $field = $form->getField(self::getValue($field, 'key', uniqid('', true)));
+            $field->setType(self::getValue($field, 'type'));
+            $field->setWidth(self::getValue($field, 'width'));
+            $field->setRequired(self::getValue($field, 'required', false));
+
+            $fieldTranslation = $field->getTranslation($locale);
+            $fieldTranslation->setTitle(self::getValue($field, 'title'));
+            $fieldTranslation->setPlaceholder(self::getValue($field, 'placeholder'));
+            $fieldTranslation->setDefaultValue(self::getValue($field, 'defaultValue'));
+
+            if (!$fieldTranslation->getId()) {
+                $fieldTranslation->setField($field);
+                $field->addTranslation($fieldTranslation);
+            }
+
+            if (!$field->getId()) {
+                $field->setDefaultTranslation($fieldTranslation);
+                $field->setForm($form);
+                $form->addField($field);
+            }
         }
 
         // save
