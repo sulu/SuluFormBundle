@@ -94,7 +94,7 @@ class Form
     /**
      * Get translations
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection|FormTranslation[]
      */
     public function getTranslations()
     {
@@ -105,7 +105,7 @@ class Form
      * @param string $locale
      * @param bool $create
      *
-     * @return FormTranslation|mixed|null
+     * @return FormTranslation
      */
     public function getTranslation($locale, $create = false)
     {
@@ -150,10 +150,32 @@ class Form
     /**
      * Get fields
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection|FormField[]
      */
     public function getFields()
     {
         return $this->fields;
+    }
+
+    /**
+     * @param string $key
+     * @param bool $create
+     *
+     * @return FormField
+     */
+    public function getField($key, $create = false)
+    {
+        foreach ($this->fields as $field) {
+            if ($field->getKey() == $key) {
+                return $field;
+            }
+        }
+
+        if ($create) {
+            $field = new FormField();
+            $field->setKey($key);
+
+            return $field;
+        }
     }
 }

@@ -30,17 +30,17 @@ class FormField
     private $id;
 
     /**
-     * @var \L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation
+     * @var FormFieldTranslation
      */
     private $defaultTranslation;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \Doctrine\Common\Collections\Collection|FormTranslation
      */
     private $translations;
 
     /**
-     * @var \L91\Sulu\Bundle\FormBundle\Entity\Form
+     * @var Form
      */
     private $form;
 
@@ -141,7 +141,7 @@ class FormField
     /**
      * Get required
      *
-     * @return \bool
+     * @return bool
      */
     public function getRequired()
     {
@@ -161,11 +161,11 @@ class FormField
     /**
      * Set defaultTranslation
      *
-     * @param \L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation $defaultTranslation
+     * @param FormFieldTranslation $defaultTranslation
      *
      * @return FormField
      */
-    public function setDefaultTranslation(\L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation $defaultTranslation = null)
+    public function setDefaultTranslation(FormFieldTranslation $defaultTranslation = null)
     {
         $this->defaultTranslation = $defaultTranslation;
 
@@ -173,9 +173,31 @@ class FormField
     }
 
     /**
+     * @param string $locale
+     * @param bool $create
+     *
+     * @return FormFieldTranslation
+     */
+    public function getTranslation($locale, $create = false)
+    {
+        foreach ($this->translations as $translation) {
+            if ($translation->getLocale() == $locale) {
+                return $translation;
+            }
+        }
+
+        if ($create) {
+            $translation = new FormFieldTranslation();
+            $translation->setLocale($locale);
+
+            return $translation;
+        }
+    }
+
+    /**
      * Get defaultTranslation
      *
-     * @return \L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation
+     * @return FormFieldTranslation
      */
     public function getDefaultTranslation()
     {
@@ -185,11 +207,11 @@ class FormField
     /**
      * Add translation
      *
-     * @param \L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation $translation
+     * @param FormFieldTranslation $translation
      *
      * @return FormField
      */
-    public function addTranslation(\L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation $translation)
+    public function addTranslation(FormFieldTranslation $translation)
     {
         $this->translations[] = $translation;
 
@@ -199,9 +221,9 @@ class FormField
     /**
      * Remove translation
      *
-     * @param \L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation $translation
+     * @param FormFieldTranslation $translation
      */
-    public function removeTranslation(\L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation $translation)
+    public function removeTranslation(FormFieldTranslation $translation)
     {
         $this->translations->removeElement($translation);
     }
@@ -209,7 +231,7 @@ class FormField
     /**
      * Get translations
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection|FormFieldTranslation[]
      */
     public function getTranslations()
     {
@@ -219,11 +241,11 @@ class FormField
     /**
      * Set form
      *
-     * @param \L91\Sulu\Bundle\FormBundle\Entity\Form $form
+     * @param Form $form
      *
      * @return FormField
      */
-    public function setForm(\L91\Sulu\Bundle\FormBundle\Entity\Form $form)
+    public function setForm(Form $form)
     {
         $this->form = $form;
 
@@ -233,7 +255,7 @@ class FormField
     /**
      * Get form
      *
-     * @return \L91\Sulu\Bundle\FormBundle\Entity\Form
+     * @return Form
      */
     public function getForm()
     {

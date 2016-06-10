@@ -418,6 +418,7 @@ class FormController
      */
     private function getApiEntity(Form $entity, $locale)
     {
+        // Translation
         $translation = $entity->getTranslation($locale);
 
         $translations = [];
@@ -432,10 +433,33 @@ class FormController
             ];
         }
 
+        // Fields
+        $fields = [];
+
+        foreach ($entity->getFields() as $field) {
+            $fieldTranslation = $field->getTranslation($locale);
+
+            $fieldData = [
+                'id' => $field->getId(),
+                'type' => $field->getType(),
+                'key' => $field->getKey(),
+                'required' => $field->getRequired(),
+                'width' => $field->getWidth(),
+            ];
+
+            if ($fieldTranslation) {
+                $fieldData['title'] = $fieldTranslation->getTitle();
+            }
+
+            $fields[] = $fieldData;
+        }
+
+        // Api Entity
         return array_merge(
             [
                 'id' => $entity->getId(),
                 'locale' => $locale,
+                'fields' => $fields,
             ],
             $translations
         );

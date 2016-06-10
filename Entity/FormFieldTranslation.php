@@ -24,6 +24,15 @@ class FormFieldTranslation
      */
     private $field;
 
+    /**
+     * @var string
+     */
+    private $placeholder;
+
+    /**
+     * @var string
+     */
+    private $defaultValue;
 
     /**
      * Set title
@@ -105,5 +114,45 @@ class FormFieldTranslation
     public function getField()
     {
         return $this->field;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlaceholder()
+    {
+        return $this->placeholder;
+    }
+
+    /**
+     * @param string $placeholder
+     *
+     * @return $this
+     */
+    public function setPlaceholder($placeholder)
+    {
+        $this->placeholder = $placeholder;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultValue()
+    {
+        return $this->defaultValue;
+    }
+
+    /**
+     * @param string $defaultValue
+     *
+     * @return $this
+     */
+    public function setDefaultValue($defaultValue)
+    {
+        $this->defaultValue = $defaultValue;
+
+        return $this;
     }
 }
