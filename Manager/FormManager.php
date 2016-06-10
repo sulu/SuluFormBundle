@@ -88,7 +88,7 @@ class FormManager
         foreach (self::getValue($data, 'fields', []) as $fieldData) {
             $field = $form->getField(self::getValue($fieldData, 'key', uniqid('', true)), true);
             $field->setType(self::getValue($fieldData, 'type'));
-            $field->setWidth(self::getValue($fieldData, 'width'));
+            $field->setWidth(self::getValue($fieldData, 'width', 'full'));
             $field->setRequired(self::getValue($fieldData, 'required', false));
 
             $fieldTranslation = $field->getTranslation($locale, true);
