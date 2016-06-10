@@ -189,6 +189,10 @@ class FormController
             // load all entities by filters
             $list = $this->getManager()->findAll($locale, $filters);
 
+            foreach ($list as $key => $entity) {
+                $list[$key] = $this->getApiEntity($entity, $locale);
+            }
+
             // get pagination
             $offset = $this->getOffset($filters);
             $limit = $this->getLimit($filters);
@@ -228,7 +232,7 @@ class FormController
         // get entity
         $entity = $this->getManager()->findById($id, $locale);
 
-        return $this->handleView($this->view($entity));
+        return $this->handleView($this->view($this->getApiEntity($entity, $locale)));
     }
 
     /**
@@ -387,5 +391,38 @@ class FormController
         }
 
         return $filters['page'];
+    }
+
+    /**
+     * TODO use seralizer.
+     *
+     * @param Form $entity
+     * @param string $locale
+     *
+     * @return array
+     */
+    private function getApiEntity(Form $entity, $locale)
+    {
+        $translation = $entity->getTranslation($locale);
+
+        $translations = [];
+
+        if ($translation) {
+            $translations = [
+                'title' => $translation->getTitle(),
+                'fromEmail' => $translation->getFromEmail(),
+                'fromName' => $translation->getFromName(),
+                'toEmail' => $translation->getToEmail(),
+                'toName' => $translation->getToName(),
+            ];
+        }
+
+        return array_merge(
+            [
+                'id' => $entity->getId(),
+                'locale' => $locale,
+            ],
+            $translations
+        );
     }
 }
