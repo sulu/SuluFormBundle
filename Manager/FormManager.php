@@ -86,7 +86,7 @@ class FormManager
         }
 
         foreach (self::getValue($data, 'fields', []) as $fieldData) {
-            $field = $form->getField(self::getValue($fieldData, 'key', uniqid('', true)));
+            $field = $form->getField(self::getValue($fieldData, 'key', uniqid('', true)), true);
             $field->setType(self::getValue($fieldData, 'type'));
             $field->setWidth(self::getValue($fieldData, 'width'));
             $field->setRequired(self::getValue($fieldData, 'required', false));
