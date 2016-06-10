@@ -1,23 +1,27 @@
-<div class="grid-col-12 floating form-group">
-    <label for="title{{ loop.index }}" class="pointer"
-           title="Title">
-        Title
-    </label>
+<div class="grid">
+    <div class="grid-row m-bottom-20">
+        <div class="grid-col-12 floating form-group">
+            <label for="title{{ loop.index }}" class="pointer"
+                   title="Title">
+                Title
+            </label>
 
-    <input id="title{{ loop.index }}"
-           data-property='title'
-           type="text"
-           class="form-element preview-update trigger-save-button"
-           data-mapper-property="title"/>
+            <input id="title{{ loop.index }}"
+                   data-property='title'
+                   type="text"
+                   class="form-element preview-update trigger-save-button"
+                   data-mapper-property="title"/>
 
-    <div class="block-content" data-sort-mode-id="title"></div>
+            <div class="block-content" data-sort-mode-id="title"></div>
 
-    <div class="input-description"></div>
+            <div class="input-description"></div>
+        </div>
+    </div>
 </div>
 
 
 <div class="grid">
-    <div class="grid-row m-top-40 m-bottom-40">
+    <div class="grid-row m-bottom-20">
         <div class="grid-col-6 floating form-group">
             <label for="placeholder{{ loop.index }}" class="pointer"
                    title="Placeholder">
@@ -42,12 +46,12 @@
             </label>
 
             <input id="default-value{{ loop.index }}"
-                   data-property='default-value'
+                   data-property='defaultValue'
                    type="text"
                    class="form-element preview-update trigger-save-button"
-                   data-mapper-property="default-value"/>
+                   data-mapper-property="defaultValue"/>
 
-            <div class="block-content" data-sort-mode-id="default-value"></div>
+            <div class="block-content" data-sort-mode-id="defaultValue"></div>
 
             <div class="input-description"></div>
         </div>

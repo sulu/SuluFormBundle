@@ -23,20 +23,12 @@ class FormAdmin extends Admin
         $section = new NavigationItem('navigation.modules');
 
         // create section
-        $navigationItem = new NavigationItem('l91_sulu_form.form');
-        $navigationItem->setIcon('magic');
-        $section->addChild($navigationItem);
-
-        // add Form navigation
         if ($securityChecker->hasPermission('l91.sulu.form.forms', 'view')) {
-            $childItem = new NavigationItem('l91_sulu_form.forms');
-            $childItem->setAction('l91/forms');
-            $childItem->setPosition(10);
-            $navigationItem->addChild($childItem);
-        }
-
-        // add section only when exist
-        if ($navigationItem->hasChildren()) {
+            $navigationItem = new NavigationItem('l91_sulu_form.form');
+            $navigationItem->setIcon('magic');
+            $navigationItem->setAction('l91/forms');
+            $navigationItem->setPosition(10);
+            $section->addChild($navigationItem);
             $rootNavigationItem->addChild($section);
         }
 
