@@ -17,4 +17,98 @@
             </div>
         </div>
     </div>
+
+    <div class="grid">
+        <div class="grid-row m-bottom-40">
+            <div class="grid-col-12">
+                <div class="grid-col-12 floating m-top-20">
+                    <h2 class="light">Form Fields</h2>
+
+                    <div class="grid">
+                        <div id="text-block-header-blocks" class="text-blocks-header">
+                            <div id="collapse-text-blocks-blocks" tabindex="0" class="text-blocks-toggle-btn"><%=
+                                translate('sulu.content.collapse.blocks') %>
+                            </div>
+                            <div id="expand-text-blocks-blocks" tabindex="0" class="text-blocks-toggle-btn"><%=
+                                translate('sulu.content.expand.blocks') %>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="grid-row small"
+                             id="blocks"
+                             data-form="true"
+                             data-type="block"
+                             data-type-config='[
+                                    {% for type in types %}
+                                        {"data": "{{ type }}", "title": "{{ type }}", "tpl": "{{ type }}-blocks-tpl"}
+                                        {% if not loop.last %}
+                                            ,
+                                        {% endif %}
+                                    {% endfor %}
+                                ]'
+                             data-type-min="0"
+                             data-type-max="999"
+                             data-type-default="{{ types|first }}"
+                             data-mapper-property="blocks"
+                             data-mapper-full-class="full"
+                             data-mapper-empty-class="empty">
+
+                            {% for type in types %}
+                                <script id="{{ type }}-blocks-tpl" type="text/template">
+                                    <div class="text-block {{ type }}-element blocks-element"
+                                         data-mapper-property-tpl="{{ type }}">
+                                        <div class="move"></div>
+                                        <input type="hidden" data-mapper-property="type" value="{{ type }}"/>
+
+                                        <div class="collapsed-container empty">
+                                            <div class="type">{{ type }}</div>
+                                            <div class="title"></div>
+                                            <div class="image"></div>
+                                            <div class="text hidden"></div>
+                                        </div>
+
+                                        <div class="container grid pos-rel">
+                                            <div class="text-block-controls pull-right">
+                                                <div class="fa-eye-slash options-collapse"></div>
+                                                <div data-mapper-remove="{{ type }}"
+                                                     class="fa-times options-remove mapper-remove-{{ type }}"></div>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div class="grid-row small">
+                                                <div class="grid-col-3 m-top-10 floating form-group hidden">
+                                                    <div class="type-select"></div>
+                                                </div>
+                                            </div>
+                                            <div class="block block-{{ type }} grid-row small">
+                                                {% include 'L91SuluFormBundle:forms:fields/' ~ type ~ '.html.twig' %}
+                                                {#{% for child in type.childProperties %}
+
+                                                    #}{# get Type for property #}{#
+                                                    {% set type = sulu_get_type(child.contentTypeName) %}
+                                                    #}{# get params for property #}{#
+                                                    {% set params = sulu_get_params(child) %}
+
+                                                    {% if child is multiple %}
+                                                        {% include 'SuluContentBundle:Template:macros/multiple.html.twig' with {'property': child, 'params': params, 'type': type, 'id': id ~ '-' ~ child.name ~ '<~=index~>', 'webspaceKey': webspaceKey, 'languageCode': languageCode, 'userLocale': userLocale} only %}
+                                                    {% else %}
+                                                        {% include 'SuluContentBundle:Template:macros/single.html.twig' with {'property': child, 'params': params, 'type': type, 'id': id ~ '-' ~ child.name ~ '<~=index~>', 'webspaceKey': webspaceKey, 'languageCode': languageCode, 'userLocale': userLocale} only %}
+                                                    {% endif %}
+                                                {% endfor %}#}
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </script>
+                            {% endfor %}
+                        </div>
+
+                        <div class="text-block-footer" id="blocks-add" style="width: 200px">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>

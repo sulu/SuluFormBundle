@@ -93,7 +93,21 @@ class FormController
      */
     public function cgetTemplateAction(Request $request)
     {
-        return $this->render($this->getBundleName() . ':' . $this->getListName() . ':template.html.twig');
+        $types = [
+            'salutation',
+            'title',
+            'firstName',
+            'lastName',
+            'company',
+            'email'
+        ];
+
+        return $this->render(
+            $this->getBundleName() . ':' . $this->getListName() . ':template.html.twig',
+            [
+                'types' => $types,
+            ]
+        );
     }
 
     /**
