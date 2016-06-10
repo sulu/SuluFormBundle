@@ -247,7 +247,7 @@ class FormController
         // create entity
         $entity = $this->getManager()->save($this->getData($request), $locale);
 
-        return $this->handleView($this->view($entity));
+        return $this->handleView($this->view($this->getApiEntity($entity, $locale)));
     }
 
     /**
@@ -263,7 +263,7 @@ class FormController
         // save entity
         $entity = $this->getManager()->save($this->getData($request), $locale, $id);
 
-        return $this->handleView($this->view($entity));
+        return $this->handleView($this->view($this->getApiEntity($entity, $locale)));
     }
 
     /**
@@ -283,7 +283,7 @@ class FormController
             return new Response('', 204);
         }
 
-        return $this->handleView($this->view($entity));
+        return $this->handleView($this->view($this->getApiEntity($entity, $locale)));
     }
 
     /**
