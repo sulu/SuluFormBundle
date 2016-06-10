@@ -85,16 +85,16 @@ class FormManager
             $form->setDefaultTranslation($translation);
         }
 
-        foreach (self::getValue($data, 'fields', []) as $field) {
-            $field = $form->getField(self::getValue($field, 'key', uniqid('', true)));
-            $field->setType(self::getValue($field, 'type'));
-            $field->setWidth(self::getValue($field, 'width'));
-            $field->setRequired(self::getValue($field, 'required', false));
+        foreach (self::getValue($data, 'fields', []) as $fieldData) {
+            $field = $form->getField(self::getValue($fieldData, 'key', uniqid('', true)));
+            $field->setType(self::getValue($fieldData, 'type'));
+            $field->setWidth(self::getValue($fieldData, 'width'));
+            $field->setRequired(self::getValue($fieldData, 'required', false));
 
             $fieldTranslation = $field->getTranslation($locale);
-            $fieldTranslation->setTitle(self::getValue($field, 'title'));
-            $fieldTranslation->setPlaceholder(self::getValue($field, 'placeholder'));
-            $fieldTranslation->setDefaultValue(self::getValue($field, 'defaultValue'));
+            $fieldTranslation->setTitle(self::getValue($fieldData, 'title'));
+            $fieldTranslation->setPlaceholder(self::getValue($fieldData, 'placeholder'));
+            $fieldTranslation->setDefaultValue(self::getValue($fieldData, 'defaultValue'));
 
             if (!$fieldTranslation->getId()) {
                 $fieldTranslation->setField($field);
