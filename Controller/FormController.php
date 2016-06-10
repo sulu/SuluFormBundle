@@ -449,6 +449,8 @@ class FormController
 
             if ($fieldTranslation) {
                 $fieldData['title'] = $fieldTranslation->getTitle();
+                $fieldData['placeholder'] = $fieldTranslation->getPlaceholder();
+                $fieldData['defaultValue'] = $fieldTranslation->getDefaultValue();
             }
 
             $fields[] = $fieldData;
