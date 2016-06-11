@@ -3,7 +3,9 @@
         <div class="grid-row m-bottom-40">
             <div class="grid-col-12">
                 <div class="form-group">
-                    <label for="title" class="required"><%= translate('Title') %></label>
+                    <label for="title" class="required">
+                        <%= translate('l91_sulu_form.title') %>
+                    </label>
 
                     <div id="title-element" class="form-element husky-validate"
                          data-type="husky-input"
@@ -11,18 +13,20 @@
                          data-aura-instance-name="title"
                          data-form="true"
                          data-validation-required="true"
-                         autofocus
-                         data-mapper-property="title">
+                         data-mapper-property="title"
+                         autofocus>
                     </div>
                 </div>
             </div>
         </div>
-        <h2 class="light">Email Configuration</h2>
+        <h2 class="light">
+            <%= translate('l91_sulu_form.email_configuration') %>
+        </h2>
         <div class="grid-row m-bottom-20">
             <div class="grid-col-12">
                 <div class="form-group">
                     <label for="subject">
-                        Subject
+                        <%= translate('l91_sulu_form.subject') %>
                     </label>
 
                     <div id="subject-element" class="form-element husky-validate"
@@ -40,13 +44,14 @@
             <div class="grid-col-6">
                 <div class="form-group">
                     <label for="fromEmail">
-                        From Email
+                        <%= translate('l91_sulu_form.from_email') %>
                     </label>
 
-                    <div id="fromMail-element" class="form-element husky-validate"
+                    <div id="fromEmail-element" class="form-element husky-validate"
                          data-type="husky-input"
                          data-aura-component="input@husky"
                          data-aura-instance-name="fromEmail"
+                         data-aura-skin="email"
                          data-form="true"
                          data-validation-required="false"
                          data-mapper-property="fromEmail">
@@ -55,26 +60,8 @@
             </div>
             <div class="grid-col-6">
                 <div class="form-group">
-                    <label for="toEmail">
-                        To Email
-                    </label>
-
-                    <div id="toMail-element" class="form-element husky-validate"
-                         data-type="husky-input"
-                         data-aura-component="input@husky"
-                         data-aura-instance-name="toEmail"
-                         data-form="true"
-                         data-validation-required="false"
-                         data-mapper-property="toEmail">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="grid-row m-bottom-40">
-            <div class="grid-col-6">
-                <div class="form-group">
                     <label for="fromName">
-                        From Name
+                        <%= translate('l91_sulu_form.from_name') %>
                     </label>
 
                     <div id="fromName-element" class="form-element husky-validate"
@@ -87,10 +74,29 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="grid-row m-bottom-40">
+            <div class="grid-col-6">
+                <div class="form-group">
+                    <label for="toEmail">
+                        <%= translate('l91_sulu_form.to_email') %>
+                    </label>
+
+                    <div id="toEmail-element" class="form-element husky-validate"
+                         data-type="husky-input"
+                         data-aura-component="input@husky"
+                         data-aura-instance-name="toEmail"
+                         data-aura-skin="email"
+                         data-form="true"
+                         data-validation-required="false"
+                         data-mapper-property="toEmail">
+                    </div>
+                </div>
+            </div>
             <div class="grid-col-6">
                 <div class="form-group">
                     <label for="toName">
-                        To Name
+                        <%= translate('l91_sulu_form.to_name') %>
                     </label>
 
                     <div id="toName-element" class="form-element husky-validate"
@@ -110,7 +116,9 @@
         <div class="grid-row m-bottom-40">
             <div class="grid-col-12">
                 <div class="grid-col-12 floating m-top-20">
-                    <h2 class="light">Form Fields</h2>
+                    <h2 class="light">
+                        <%= translate('l91_sulu_form.form_fields') %>
+                    </h2>
 
                     {% set blockId = 'fields' %}
 
@@ -125,16 +133,30 @@
                             <div class="clear"></div>
                         </div>
 
+                        <style>
+                            /* FIXME DropDown to big */
+                            #form-form .grid-row.dropdown-list.dropdown-shadow.husky-select-dropdown-container.top {
+                                height: 160px;
+                                height: 70vh;
+                            }
+
+                            #form-form .grid-row.dropdown-list.dropdown-shadow.husky-select-dropdown-container {
+                                height: 200px;
+                            }
+                        </style>
+
                         <div class="grid-row small"
                              id="{{ blockId }}"
                              data-form="true"
                              data-type="block"
                              data-type-config='[
                                     {% for type in types %}
-                                        {"data": "{{ type }}", "title": "{{ type|trans }}", "tpl": "{{ type }}-{{ blockId }}-tpl"}
-                                        {% if not loop.last %}
-                                            ,
-                                        {% endif %}
+
+                                        {
+                                            "data": "{{ type }}",
+                                            "title": "<%= translate('{{ 'l91_sulu_form.type.'~ type|lower }}') %>",
+                                            "tpl": "{{ type }}-{{ blockId }}-tpl"
+                                        }{% if not loop.last %},{% endif %}
                                     {% endfor %}
                                 ]'
                              data-type-min="0"
@@ -181,12 +203,12 @@
                                                                    class="preview-update trigger-save-button form-element"/>
                                                             <span class="icon"></span>
                                                         </div>
-                                                        Required
+                                                        <%= translate('l91_sulu_form.required') %>
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="block block-{{ type }} grid-row small">
-                                                {% include 'L91SuluFormBundle:forms:fields/' ~ type ~ '.html.twig' %}
+                                                {% include 'L91SuluFormBundle:forms:fields/types/' ~ type ~ '.html.twig' %}
                                                 <div class="clear"></div>
                                             </div>
                                         </div>

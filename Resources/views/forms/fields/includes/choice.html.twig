@@ -1,0 +1,22 @@
+{% block choice %}
+    <div class="grid">
+        <div class="grid-row m-bottom-20">
+            <div class="grid-col-12 floating form-group">
+                <label for="choices{{ loop.index }}"
+                       class="pointer"
+                       title="Choice">
+                    <%= translate('l91_sulu_form.choice') %>
+                </label>
+
+                <textarea id="choices{{ loop.index }}"
+                          data-property="options[choices]"
+                          class="form-element preview-update trigger-save-button"
+                          data-mapper-property="options[choices]"></textarea>
+
+                <div class="block-content" data-sort-mode-id="{{ blockId }}title{{ loop.index }}"></div>
+
+                <div class="input-description"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

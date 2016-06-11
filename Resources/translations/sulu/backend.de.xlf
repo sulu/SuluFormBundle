@@ -2,6 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
     <file source-language="de" datatype="plaintext" original="file.ext">
         <body>
+            <!-- Basic -->
             <trans-unit id="1">
                 <source>l91_sulu_form.form</source>
                 <target>Formulare</target>
@@ -13,6 +14,176 @@
             <trans-unit id="3">
                 <source>l91_sulu_form.forms.new_form</source>
                 <target>Neues Formular</target>
+            </trans-unit>
+
+            <!-- Types -->
+            <trans-unit id="10">
+                <source>l91_sulu_form.type.salutation</source>
+                <target>Anrede</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>l91_sulu_form.type.title</source>
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>l91_sulu_form.type.firstname</source>
+                <target>Vorname</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>l91_sulu_form.type.lastname</source>
+                <target>Nachname</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>l91_sulu_form.type.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>l91_sulu_form.type.phone</source>
+                <target>Telefon</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>l91_sulu_form.type.fax</source>
+                <target>Fax</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>l91_sulu_form.type.street</source>
+                <target>Straße</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>l91_sulu_form.type.zip</source>
+                <target>PLZ</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>l91_sulu_form.type.city</source>
+                <target>Stadt</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>l91_sulu_form.type.state</source>
+                <target>Bundesland</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>l91_sulu_form.type.country</source>
+                <target>Land</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>l91_sulu_form.type.function</source>
+                <target>Funktion</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>l91_sulu_form.type.company</source>
+                <target>Firma</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>l91_sulu_form.type.text</source>
+                <target>Einzeiliges Textfeld</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>l91_sulu_form.type.textarea</source>
+                <target>Mehrzeiliges Textfeld</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>l91_sulu_form.type.date</source>
+                <target>Datum</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>l91_sulu_form.type.headline</source>
+                <target>Überschrift</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>l91_sulu_form.type.attachment</source>
+                <target>Anhang</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>l91_sulu_form.type.checkbox</source>
+                <target>Checkbox</target>
+            </trans-unit>
+            <trans-unit id="31">
+                <source>l91_sulu_form.type.choice</source>
+                <target>Auswahl</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>l91_sulu_form.type.multiple-choice</source>
+                <target>Mehrfach Auswahl</target>
+            </trans-unit>
+
+            <!-- Form -->
+            <trans-unit id="50">
+                <source>l91_sulu_form.title</source>
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="51">
+                <source>l91_sulu_form.email_configuration</source>
+                <target>Email Konfiguration</target>
+            </trans-unit>
+            <trans-unit id="52">
+                <source>l91_sulu_form.subject</source>
+                <target>Betreff</target>
+            </trans-unit>
+            <trans-unit id="53">
+                <source>l91_sulu_form.from_email</source>
+                <target>Sender Email</target>
+            </trans-unit>
+            <trans-unit id="54">
+                <source>l91_sulu_form.from_name</source>
+                <target>Sender Name</target>
+            </trans-unit>
+            <trans-unit id="55">
+                <source>l91_sulu_form.to_email</source>
+                <target>Empfänger Email</target>
+            </trans-unit>
+            <trans-unit id="56">
+                <source>l91_sulu_form.to_name</source>
+                <target>Empfänger Name</target>
+            </trans-unit>
+            <trans-unit id="57">
+                <source>l91_sulu_form.form_fields</source>
+                <target>Formular Felder</target>
+            </trans-unit>
+            <trans-unit id="58">
+                <source>l91_sulu_form.required</source>
+                <target>Pflichtfeld</target>
+            </trans-unit>
+            <trans-unit id="59">
+                <source>l91_sulu_form.placeholder</source>
+                <target>Platzhalter</target>
+            </trans-unit>
+            <trans-unit id="60">
+                <source>l91_sulu_form.default</source>
+                <target>Standard</target>
+            </trans-unit>
+            <trans-unit id="61">
+                <source>l91_sulu_form.values</source>
+                <target>Werte</target>
+            </trans-unit>
+            <trans-unit id="62">
+                <source>l91_sulu_form.width</source>
+                <target>Breite</target>
+            </trans-unit>
+
+            <!-- Width -->
+            <trans-unit id="63">
+                <source>l91_sulu_form.width.full</source>
+                <target>Voll</target>
+            </trans-unit>
+            <trans-unit id="64">
+                <source>l91_sulu_form.width.half</source>
+                <target>Halb</target>
+            </trans-unit>
+            <trans-unit id="65">
+                <source>l91_sulu_form.width.one-quarter</source>
+                <target>Ein Viertel</target>
+            </trans-unit>
+            <trans-unit id="66">
+                <source>l91_sulu_form.width.three-quarter</source>
+                <target>Drei Viertel</target>
+            </trans-unit>
+            <trans-unit id="67">
+                <source>l91_sulu_form.width.one-third</source>
+                <target>Ein Drittel</target>
+            </trans-unit>
+            <trans-unit id="68">
+                <source>l91_sulu_form.width.two-third</source>
+                <target>Zwei Drittel</target>
             </trans-unit>
         </body>
     </file>
