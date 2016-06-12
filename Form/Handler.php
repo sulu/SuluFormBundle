@@ -181,7 +181,7 @@ class Handler implements HandlerInterface
      */
     protected function sendMails(
         TypeInterface $type,
-        $attributes = [],
+        $attributes,
         FormInterface $form
     ) {
         $notifyMailTemplatePath = $type->getNotifyMail($form->getData());
