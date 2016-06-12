@@ -3,12 +3,10 @@
 namespace L91\Sulu\Bundle\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType as SymfonyAbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class AbstractType
- * @package L91\Sulu\Bundle\FormBundle\Form\Type
+ * Class AbstractType.
  */
 abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
 {
@@ -30,7 +28,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * @var array
      */
-    protected $attributes = array();
+    protected $attributes = [];
 
     /**
      * {@inheritdoc}
@@ -45,9 +43,9 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $defaults = array(
-            'csrf_protection' => $this->csrfProtection
-        );
+        $defaults = [
+            'csrf_protection' => $this->csrfProtection,
+        ];
 
         if ($this->csrfProtection) {
             $defaults['csrf_field_name'] = $this->csrfFieldName;
@@ -84,29 +82,29 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
             return $this->attributes[$parent][$name];
         }
 
-        return null;
+        return;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getCustomerSubject($formData = array())
+    public function getCustomerSubject($formData = [])
     {
-        return null;
+        return;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getNotifySubject($formData = array())
+    public function getNotifySubject($formData = [])
     {
-        return null;
+        return;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getCustomerMail($formData = array())
+    public function getCustomerMail($formData = [])
     {
         return 'ClientWebsiteBundle:views:form/mail/' . $this->getName() . '/success.html.twig';
     }
@@ -114,7 +112,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getNotifyMail($formData = array())
+    public function getNotifyMail($formData = [])
     {
         return 'ClientWebsiteBundle:views:form/mail/' . $this->getName() . '/notify.html.twig';
     }
@@ -122,7 +120,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getCustomerFromMailAddress($formData = array())
+    public function getCustomerFromMailAddress($formData = [])
     {
         return $this->getAttribute('mail_customer_from_address');
     }
@@ -130,7 +128,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getCustomerToMailAddress($formData = array())
+    public function getCustomerToMailAddress($formData = [])
     {
         $email = $this->getAttribute('mail_customer_to_address');
 
@@ -150,7 +148,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getCustomerReplyToMailAddress($formData = array())
+    public function getCustomerReplyToMailAddress($formData = [])
     {
         return $this->getAttribute('mail_customer_replyto_address');
     }
@@ -158,7 +156,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getCustomerSendAttachments($formData = array())
+    public function getCustomerSendAttachments($formData = [])
     {
         return false;
     }
@@ -166,7 +164,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getNotifyFromMailAddress($formData = array())
+    public function getNotifyFromMailAddress($formData = [])
     {
         return $this->getAttribute('mail_notify_from_address');
     }
@@ -174,7 +172,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getNotifyToMailAddress($formData = array())
+    public function getNotifyToMailAddress($formData = [])
     {
         return $this->getAttribute('mail_notify_to_address');
     }
@@ -182,7 +180,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getNotifyReplyToMailAddress($formData = array())
+    public function getNotifyReplyToMailAddress($formData = [])
     {
         return $this->getAttribute('mail_notify_replyto_address');
     }
@@ -190,7 +188,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getNotifySendAttachments($formData = array())
+    public function getNotifySendAttachments($formData = [])
     {
         return false;
     }

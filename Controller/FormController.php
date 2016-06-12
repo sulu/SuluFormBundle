@@ -32,7 +32,7 @@ class FormController extends DefaultController
         $request = $this->container->get('request_stack')->getCurrentRequest();
 
         // get attributes
-        $attributes = $this->getAttributes(array(), $structure, $preview);
+        $attributes = $this->getAttributes([], $structure, $preview);
 
         $this->form = $this->getFormHandler()->get($structure->getKey(), $attributes);
 
@@ -40,17 +40,17 @@ class FormController extends DefaultController
             $this->form->handleRequest($request);
             if ($this->getFormHandler()->handle($this->form, $attributes)) {
                 if ($request->isXmlHttpRequest()) {
-                    return new JsonResponse(array('send' => true));
+                    return new JsonResponse(['send' => true]);
                 }
 
                 return new RedirectResponse('?send=true');
             } else {
                 if ($request->isXmlHttpRequest()) {
                     return new JsonResponse(
-                        array(
+                        [
                             'send' => false,
-                            'errors' => $this->getErrors()
-                        ),
+                            'errors' => $this->getErrors(),
+                        ],
                         400
                     );
                 }
@@ -98,7 +98,9 @@ class FormController extends DefaultController
     /**
      * @param Request $request
      * @param string $key
+     *
      * @return RedirectResponse|Response
+     *
      * @throws NotFoundHttpException
      */
     public function onlyAction(Request $request, $key)
@@ -118,12 +120,14 @@ class FormController extends DefaultController
             }
         }
 
-        return $this->render($ajaxTemplates[$key], array('form' => $this->form->createView()));
+        return $this->render($ajaxTemplates[$key], ['form' => $this->form->createView()]);
     }
 
     /**
-     * Generates a token for the form
+     * Generates a token for the form.
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function tokenAction(Request $request)

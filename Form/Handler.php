@@ -2,10 +2,10 @@
 
 namespace L91\Sulu\Bundle\FormBundle\Form;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
 use L91\Sulu\Bundle\FormBundle\Form\Type\TypeInterface;
 use L91\Sulu\Bundle\FormBundle\Mail;
-use Doctrine\Common\Persistence\ObjectManager;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
@@ -68,7 +68,7 @@ class Handler implements HandlerInterface
     /**
      * @var array
      */
-    protected $attachments = array();
+    protected $attachments = [];
 
     /**
      * @param FormFactoryInterface $formFactory
@@ -106,7 +106,7 @@ class Handler implements HandlerInterface
     /**
      * @{@inheritdoc}
      */
-    public function get($name, $attributes = array())
+    public function get($name, $attributes = [])
     {
         $type = $this->formExtension->getType($name);
 
@@ -118,9 +118,9 @@ class Handler implements HandlerInterface
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
-    public function handle(FormInterface $form, $attributes = array())
+    public function handle(FormInterface $form, $attributes = [])
     {
         if (!$form->isValid()) {
             return false;
@@ -177,7 +177,7 @@ class Handler implements HandlerInterface
      */
     protected function sendMails(
         TypeInterface $type,
-        $attributes = array(),
+        $attributes,
         FormInterface $form
     ) {
         $notifyMailTemplatePath = $type->getNotifyMail($form->getData());
@@ -193,7 +193,7 @@ class Handler implements HandlerInterface
                 $type->getNotifyFromMailAddress($form->getData()),
                 true,
                 $type->getNotifyReplyToMailAddress($form->getData()),
-                $type->getNotifySendAttachments($form->getData()) ? $this->attachments : array()
+                $type->getNotifySendAttachments($form->getData()) ? $this->attachments : []
             );
         }
 
@@ -207,7 +207,7 @@ class Handler implements HandlerInterface
                 $type->getCustomerFromMailAddress($form->getData()),
                 true,
                 $type->getCustomerReplyToMailAddress($form->getData()),
-                $type->getCustomerSendAttachments($form->getData()) ? $this->attachments : array()
+                $type->getCustomerSendAttachments($form->getData()) ? $this->attachments : []
             );
         }
     }
@@ -217,7 +217,7 @@ class Handler implements HandlerInterface
      * @param array $attributes
      * @param array $mediaIds
      */
-    protected function saveForm(FormInterface $form, $attributes = array(), $mediaIds = array())
+    protected function saveForm(FormInterface $form, $attributes = [], $mediaIds = [])
     {
         $formData = $form->getData();
 
@@ -249,6 +249,7 @@ class Handler implements HandlerInterface
 
     /**
      * @param $name
+     *
      * @return string
      */
     public function getToken($name)

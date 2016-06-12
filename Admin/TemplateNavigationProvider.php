@@ -30,18 +30,18 @@ class TemplateNavigationProvider implements ContentNavigationProviderInterface
      *
      * @return array
      */
-    public function getNavigationItems(array $options = array())
+    public function getNavigationItems(array $options = [])
     {
         $items = [];
 
         foreach ($this->listProviderRegistry->getProviders() as $name => $provider) {
             $item = new ContentNavigationItem('Formular');
             $item->setAction('form-list');
-            $item->setDisplay(array('edit'));
+            $item->setDisplay(['edit']);
             $item->setComponent('content/list@l91suluform');
-            $item->setComponentOptions(array(
-                'template' => $name
-            ));
+            $item->setComponentOptions([
+                'template' => $name,
+            ]);
 
             $item->setDisplayConditions(
                 [

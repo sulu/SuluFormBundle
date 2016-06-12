@@ -2,10 +2,8 @@
 
 namespace L91\Sulu\Bundle\FormBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Example
+ * Example.
  */
 class Example
 {
@@ -35,7 +33,7 @@ class Example
     private $customOption;
 
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -45,7 +43,7 @@ class Example
     private $created;
 
     /**
-     * set created time
+     * set created time.
      */
     public function __construct()
     {
@@ -53,22 +51,23 @@ class Example
     }
 
     /**
-     * Set firstName
+     * Set firstName.
      *
      * @param string $firstName
+     *
      * @return Example
      */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
-    
+
         return $this;
     }
 
     /**
-     * Get firstName
+     * Get firstName.
      *
-     * @return string 
+     * @return string
      */
     public function getFirstName()
     {
@@ -76,22 +75,23 @@ class Example
     }
 
     /**
-     * Set lastName
+     * Set lastName.
      *
      * @param string $lastName
+     *
      * @return Example
      */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
-    
+
         return $this;
     }
 
     /**
-     * Get lastName
+     * Get lastName.
      *
-     * @return string 
+     * @return string
      */
     public function getLastName()
     {
@@ -99,22 +99,23 @@ class Example
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
+     *
      * @return Example
      */
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
     /**
-     * Get email
+     * Get email.
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -122,22 +123,23 @@ class Example
     }
 
     /**
-     * Set message
+     * Set message.
      *
      * @param string $message
+     *
      * @return Example
      */
     public function setMessage($message)
     {
         $this->message = $message;
-    
+
         return $this;
     }
 
     /**
-     * Get message
+     * Get message.
      *
-     * @return string 
+     * @return string
      */
     public function getMessage()
     {
@@ -145,22 +147,23 @@ class Example
     }
 
     /**
-     * Set customOption
+     * Set customOption.
      *
      * @param string $customOption
+     *
      * @return Example
      */
     public function setCustomOption($customOption)
     {
         $this->customOption = $customOption;
-    
+
         return $this;
     }
 
     /**
-     * Get customOption
+     * Get customOption.
      *
-     * @return string 
+     * @return string
      */
     public function getCustomOption()
     {
@@ -168,9 +171,9 @@ class Example
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -178,22 +181,23 @@ class Example
     }
 
     /**
-     * Set created
+     * Set created.
      *
      * @param \DateTime $created
+     *
      * @return Example
      */
     public function setCreated($created)
     {
         $this->created = $created;
-    
+
         return $this;
     }
 
     /**
-     * Get created
+     * Get created.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {

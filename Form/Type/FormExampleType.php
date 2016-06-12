@@ -22,9 +22,9 @@ class FormExampleType extends AbstractType
         $builder->add('firstName', 'text')
             ->add('lastName', 'text')
             ->add('email', 'text')
-            ->add('customOption', 'choice', array(
-                'choices' => preg_split('/\r\n|\r|\n/',  $this->getAttribute('options'))
-            ))
+            ->add('customOption', 'choice', [
+                'choices' => preg_split('/\r\n|\r|\n/', $this->getAttribute('options')),
+            ])
             ->add('submit', 'submit');
     }
 

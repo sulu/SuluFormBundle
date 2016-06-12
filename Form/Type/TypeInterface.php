@@ -11,63 +11,73 @@ interface TypeInterface
 
     /**
      * @param $formData
+     *
      * @return string
      */
-    public function getCustomerSubject($formData = array());
+    public function getCustomerSubject($formData = []);
 
     /**
      * @param $formData
+     *
      * @return string
      */
-    public function getNotifySubject($formData = array());
+    public function getNotifySubject($formData = []);
 
     /**
      * @param $formData
+     *
      * @return string
      */
-    public function getCustomerMail($formData = array());
+    public function getCustomerMail($formData = []);
 
     /**
      * @param $formData
+     *
      * @return string
      */
-    public function getNotifyMail($formData = array());
+    public function getNotifyMail($formData = []);
 
     /**
      * @param $formData
+     *
      * @return string
      */
-    public function getCustomerFromMailAddress($formData = array());
+    public function getCustomerFromMailAddress($formData = []);
 
     /**
      * @param $formData
+     *
      * @return string
      */
-    public function getCustomerToMailAddress($formData = array());
+    public function getCustomerToMailAddress($formData = []);
 
     /**
      * @param $formData
+     *
      * @return string
      */
-    public function getCustomerReplyToMailAddress($formData = array());
+    public function getCustomerReplyToMailAddress($formData = []);
 
     /**
      * @param $formData
+     *
      * @return string
      */
-    public function getNotifyFromMailAddress($formData = array());
+    public function getNotifyFromMailAddress($formData = []);
 
     /**
      * @param $formData
+     *
      * @return string
      */
-    public function getNotifyToMailAddress($formData = array());
+    public function getNotifyToMailAddress($formData = []);
 
     /**
      * @param $formData
+     *
      * @return string
      */
-    public function getNotifyReplyToMailAddress($formData = array());
+    public function getNotifyReplyToMailAddress($formData = []);
 
     /**
      * @return string
