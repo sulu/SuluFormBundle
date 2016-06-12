@@ -13,7 +13,7 @@ class FormNavigationProvider implements ContentNavigationProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function getNavigationItems(array $options = array())
+    public function getNavigationItems(array $options = [])
     {
         $navigationItems = [];
 

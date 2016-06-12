@@ -25,7 +25,7 @@ class FormField
     private $required;
 
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -35,7 +35,7 @@ class FormField
     private $defaultTranslation;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection|FormTranslation
+     * @var \Doctrine\Common\Collections\Collection|FormTranslation[]
      */
     private $translations;
 
@@ -45,7 +45,7 @@ class FormField
     private $form;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -53,8 +53,6 @@ class FormField
     }
 
     /**
-     * Set key
-     *
      * @param string $key
      *
      * @return FormField
@@ -67,8 +65,6 @@ class FormField
     }
 
     /**
-     * Get key
-     *
      * @return string
      */
     public function getKey()
@@ -77,8 +73,6 @@ class FormField
     }
 
     /**
-     * Set type
-     *
      * @param string $type
      *
      * @return FormField
@@ -91,8 +85,6 @@ class FormField
     }
 
     /**
-     * Get type
-     *
      * @return string
      */
     public function getType()
@@ -101,8 +93,6 @@ class FormField
     }
 
     /**
-     * Set width
-     *
      * @param string $width
      *
      * @return FormField
@@ -115,8 +105,6 @@ class FormField
     }
 
     /**
-     * Get width
-     *
      * @return string
      */
     public function getWidth()
@@ -125,8 +113,6 @@ class FormField
     }
 
     /**
-     * Set required
-     *
      * @param bool $required
      *
      * @return FormField
@@ -139,8 +125,6 @@ class FormField
     }
 
     /**
-     * Get required
-     *
      * @return bool
      */
     public function getRequired()
@@ -149,9 +133,7 @@ class FormField
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -159,8 +141,6 @@ class FormField
     }
 
     /**
-     * Set defaultTranslation
-     *
      * @param FormFieldTranslation $defaultTranslation
      *
      * @return FormField
@@ -195,8 +175,6 @@ class FormField
     }
 
     /**
-     * Get defaultTranslation
-     *
      * @return FormFieldTranslation
      */
     public function getDefaultTranslation()
@@ -205,8 +183,6 @@ class FormField
     }
 
     /**
-     * Add translation
-     *
      * @param FormFieldTranslation $translation
      *
      * @return FormField
@@ -219,8 +195,6 @@ class FormField
     }
 
     /**
-     * Remove translation
-     *
      * @param FormFieldTranslation $translation
      */
     public function removeTranslation(FormFieldTranslation $translation)
@@ -229,8 +203,6 @@ class FormField
     }
 
     /**
-     * Get translations
-     *
      * @return \Doctrine\Common\Collections\Collection|FormFieldTranslation[]
      */
     public function getTranslations()
@@ -239,8 +211,6 @@ class FormField
     }
 
     /**
-     * Set form
-     *
      * @param Form $form
      *
      * @return FormField
@@ -253,8 +223,6 @@ class FormField
     }
 
     /**
-     * Get form
-     *
      * @return Form
      */
     public function getForm()

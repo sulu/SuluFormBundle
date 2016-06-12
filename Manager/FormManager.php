@@ -3,7 +3,6 @@
 namespace L91\Sulu\Bundle\FormBundle\Manager;
 
 use L91\Sulu\Bundle\FormBundle\Entity\Form;
-use L91\Sulu\Bundle\FormBundle\Entity\FormField;
 use L91\Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -47,7 +46,7 @@ class FormManager
     /**
      * {@inheritdoc}
      */
-    public function findAll($locale = null, $filters)
+    public function findAll($locale = null, $filters = [])
     {
         return $this->formRepository->findAll($locale, $filters);
     }
@@ -55,7 +54,7 @@ class FormManager
     /**
      * {@inheritdoc}
      */
-    public function count($locale = null, $filters)
+    public function count($locale = null, $filters = [])
     {
         return $this->formRepository->count($locale, $filters);
     }
@@ -143,7 +142,7 @@ class FormManager
         $object = $this->findById($id, $locale);
 
         if (!$object) {
-            return null;
+            return;
         }
 
         $this->entityManager->remove($object);
@@ -194,6 +193,7 @@ class FormManager
 
         if (!in_array($name, $keys)) {
             $keys[] = $name;
+
             return $name;
         }
 

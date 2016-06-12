@@ -43,7 +43,7 @@ class Helper implements HelperInterface
         $this->mailer = $mailer;
         $this->toMail = $toMail;
         $this->fromMail = $fromMail;
-        $this->logger = $logger ? : new NullLogger();
+        $this->logger = $logger ?: new NullLogger();
     }
 
     /**
@@ -56,7 +56,7 @@ class Helper implements HelperInterface
         $fromMail = null,
         $html = true,
         $replayTo = null,
-        $attachments = array()
+        $attachments = []
     ) {
         $message = new \Swift_Message(
             $subject,
@@ -80,7 +80,7 @@ class Helper implements HelperInterface
 
         // Add attachments to the Swift Message
         if (count($attachments) > 0) {
-            foreach($attachments as $file) {
+            foreach ($attachments as $file) {
                 if ($file instanceof \SplFileInfo) {
                     $path = $file->getPathName();
                     $name = $file->getFileName();

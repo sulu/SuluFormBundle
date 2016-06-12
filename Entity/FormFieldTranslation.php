@@ -15,7 +15,7 @@ class FormFieldTranslation
     private $locale;
 
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -35,8 +35,6 @@ class FormFieldTranslation
     private $defaultValue;
 
     /**
-     * Set title
-     *
      * @param string $title
      *
      * @return FormFieldTranslation
@@ -49,8 +47,6 @@ class FormFieldTranslation
     }
 
     /**
-     * Get title
-     *
      * @return string
      */
     public function getTitle()
@@ -59,8 +55,6 @@ class FormFieldTranslation
     }
 
     /**
-     * Set locale
-     *
      * @param string $locale
      *
      * @return FormFieldTranslation
@@ -73,8 +67,6 @@ class FormFieldTranslation
     }
 
     /**
-     * Get locale
-     *
      * @return string
      */
     public function getLocale()
@@ -83,9 +75,7 @@ class FormFieldTranslation
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -93,8 +83,6 @@ class FormFieldTranslation
     }
 
     /**
-     * Set field
-     *
      * @param FormField $field
      *
      * @return FormFieldTranslation
@@ -107,8 +95,6 @@ class FormFieldTranslation
     }
 
     /**
-     * Get field
-     *
      * @return FormField
      */
     public function getField()

@@ -5,7 +5,7 @@ namespace L91\Sulu\Bundle\FormBundle\Entity;
 class Form
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -15,17 +15,17 @@ class Form
     private $defaultTranslation;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection|FormTranslation
+     * @var \Doctrine\Common\Collections\Collection|FormTranslation[]
      */
     private $translations;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection|FormField
+     * @var \Doctrine\Common\Collections\Collection|FormField[]
      */
     private $fields;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -34,9 +34,7 @@ class Form
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -44,8 +42,6 @@ class Form
     }
 
     /**
-     * Set defaultTranslation
-     *
      * @param FormTranslation $defaultTranslation
      *
      * @return Form
@@ -58,8 +54,6 @@ class Form
     }
 
     /**
-     * Get defaultTranslation
-     *
      * @return FormTranslation
      */
     public function getDefaultTranslation()
@@ -68,8 +62,6 @@ class Form
     }
 
     /**
-     * Add translation
-     *
      * @param FormTranslation $translation
      *
      * @return Form
@@ -82,8 +74,6 @@ class Form
     }
 
     /**
-     * Remove translation
-     *
      * @param FormTranslation $translation
      */
     public function removeTranslation(FormTranslation $translation)
@@ -92,8 +82,6 @@ class Form
     }
 
     /**
-     * Get translations
-     *
      * @return \Doctrine\Common\Collections\Collection|FormTranslation[]
      */
     public function getTranslations()
@@ -124,8 +112,6 @@ class Form
     }
 
     /**
-     * Add field
-     *
      * @param FormField $field
      *
      * @return Form
@@ -138,8 +124,6 @@ class Form
     }
 
     /**
-     * Remove field
-     *
      * @param FormField $field
      */
     public function removeField(FormField $field)
@@ -148,8 +132,6 @@ class Form
     }
 
     /**
-     * Get fields
-     *
      * @return \Doctrine\Common\Collections\Collection|FormField[]
      */
     public function getFields()

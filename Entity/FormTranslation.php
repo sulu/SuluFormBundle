@@ -48,7 +48,7 @@ class FormTranslation implements AuditableInterface
     private $locale;
 
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -78,8 +78,6 @@ class FormTranslation implements AuditableInterface
     private $changed;
 
     /**
-     * Set title
-     *
      * @param string $title
      *
      * @return FormTranslation
@@ -92,8 +90,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Get title
-     *
      * @return string
      */
     public function getTitle()
@@ -102,8 +98,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Set subject
-     *
      * @param string $subject
      *
      * @return FormTranslation
@@ -116,8 +110,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Get subject
-     *
      * @return string
      */
     public function getSubject()
@@ -126,8 +118,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Set fromEmail
-     *
      * @param string $fromEmail
      *
      * @return FormTranslation
@@ -140,8 +130,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Get fromEmail
-     *
      * @return string
      */
     public function getFromEmail()
@@ -150,8 +138,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Set fromName
-     *
      * @param string $fromName
      *
      * @return FormTranslation
@@ -164,8 +150,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Get fromName
-     *
      * @return string
      */
     public function getFromName()
@@ -174,8 +158,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Set toEmail
-     *
      * @param string $toEmail
      *
      * @return FormTranslation
@@ -188,8 +170,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Get toEmail
-     *
      * @return string
      */
     public function getToEmail()
@@ -198,8 +178,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Set toName
-     *
      * @param string $toName
      *
      * @return FormTranslation
@@ -212,8 +190,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Get toName
-     *
      * @return string
      */
     public function getToName()
@@ -222,8 +198,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Set options
-     *
      * @param string $options
      *
      * @return FormTranslation
@@ -236,8 +210,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Get options
-     *
      * @return string
      */
     public function getOptions()
@@ -246,8 +218,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Set locale
-     *
      * @param string $locale
      *
      * @return FormTranslation
@@ -260,8 +230,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Get locale
-     *
      * @return string
      */
     public function getLocale()
@@ -270,9 +238,7 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -280,8 +246,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Set form
-     *
      * @param Form $form
      *
      * @return FormTranslation
@@ -294,8 +258,6 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Get form
-     *
      * @return Form
      */
     public function getForm()

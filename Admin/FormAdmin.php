@@ -12,6 +12,12 @@ use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
  */
 class FormAdmin extends Admin
 {
+    /**
+     * FormAdmin constructor.
+     *
+     * @param SecurityCheckerInterface $securityChecker
+     * @param string $title
+     */
     public function __construct(
         SecurityCheckerInterface $securityChecker,
         $title
@@ -53,7 +59,7 @@ class FormAdmin extends Admin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getSecurityContexts()
     {
@@ -61,8 +67,8 @@ class FormAdmin extends Admin
             'Sulu' => [
                 'Form' => [
                     'l91.sulu.form.forms',
-                ]
-            ]
+                ],
+            ],
         ];
     }
 }
