@@ -102,7 +102,7 @@
                 <target>Auswahl</target>
             </trans-unit>
             <trans-unit id="32">
-                <source>l91_sulu_form.type.multiple-choice</source>
+                <source>l91_sulu_form.type.multiplechoice</source>
                 <target>Mehrfach Auswahl</target>
             </trans-unit>
 
@@ -159,30 +159,34 @@
                 <source>l91_sulu_form.width</source>
                 <target>Breite</target>
             </trans-unit>
+            <trans-unit id="63">
+                <source>l91_sulu_form.choice</source>
+                <target>Auswahl</target>
+            </trans-unit>
 
             <!-- Width -->
-            <trans-unit id="63">
+            <trans-unit id="70">
                 <source>l91_sulu_form.width.full</source>
                 <target>Voll</target>
             </trans-unit>
-            <trans-unit id="64">
+            <trans-unit id="71">
                 <source>l91_sulu_form.width.half</source>
                 <target>Halb</target>
             </trans-unit>
-            <trans-unit id="65">
+            <trans-unit id="72">
                 <source>l91_sulu_form.width.one-quarter</source>
                 <target>Ein Viertel</target>
             </trans-unit>
-            <trans-unit id="66">
-                <source>l91_sulu_form.width.three-quarter</source>
+            <trans-unit id="73">
+                <source>l91_sulu_form.width.three-quarters</source>
                 <target>Drei Viertel</target>
             </trans-unit>
-            <trans-unit id="67">
+            <trans-unit id="74">
                 <source>l91_sulu_form.width.one-third</source>
                 <target>Ein Drittel</target>
             </trans-unit>
-            <trans-unit id="68">
-                <source>l91_sulu_form.width.two-third</source>
+            <trans-unit id="75">
+                <source>l91_sulu_form.width.two-thirds</source>
                 <target>Zwei Drittel</target>
             </trans-unit>
         </body>

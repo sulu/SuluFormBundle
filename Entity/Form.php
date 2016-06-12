@@ -2,6 +2,8 @@
 
 namespace L91\Sulu\Bundle\FormBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Form
 {
     /**
@@ -10,9 +12,9 @@ class Form
     private $id;
 
     /**
-     * @var FormTranslation
+     * @var string
      */
-    private $defaultTranslation;
+    private $defaultLocale;
 
     /**
      * @var \Doctrine\Common\Collections\Collection|FormTranslation[]
@@ -29,8 +31,8 @@ class Form
      */
     public function __construct()
     {
-        $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->fields = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->translations = new ArrayCollection();
+        $this->fields = new ArrayCollection();
     }
 
     /**
@@ -42,23 +44,19 @@ class Form
     }
 
     /**
-     * @param FormTranslation $defaultTranslation
-     *
-     * @return Form
+     * @return string
      */
-    public function setDefaultTranslation(FormTranslation $defaultTranslation = null)
+    public function getDefaultLocale()
     {
-        $this->defaultTranslation = $defaultTranslation;
-
-        return $this;
+        return $this->defaultLocale;
     }
 
     /**
-     * @return FormTranslation
+     * @param string $defaultLocale
      */
-    public function getDefaultTranslation()
+    public function setDefaultLocale($defaultLocale)
     {
-        return $this->defaultTranslation;
+        $this->defaultLocale = $defaultLocale;
     }
 
     /**
@@ -93,7 +91,7 @@ class Form
      * @param string $locale
      * @param bool $create
      *
-     * @return FormTranslation
+     * @return FormTranslation|null
      */
     public function getTranslation($locale, $create = false)
     {
@@ -103,12 +101,14 @@ class Form
             }
         }
 
-        if ($create) {
-            $translation = new FormTranslation();
-            $translation->setLocale($locale);
-
-            return $translation;
+        if (!$create) {
+            return;
         }
+
+        $translation = new FormTranslation();
+        $translation->setLocale($locale);
+
+        return $translation;
     }
 
     /**
@@ -143,7 +143,7 @@ class Form
      * @param string $key
      * @param bool $create
      *
-     * @return FormField
+     * @return FormField|null
      */
     public function getField($key, $create = false)
     {
@@ -153,11 +153,31 @@ class Form
             }
         }
 
-        if ($create) {
-            $field = new FormField();
-            $field->setKey($key);
-
-            return $field;
+        if (!$create) {
+            return;
         }
+
+        $field = new FormField();
+        $field->setKey($key);
+
+        return $field;
+    }
+
+    /**
+     * @param $keys
+     *
+     * @return FormField[]
+     */
+    public function getFieldsNotInArray($keys)
+    {
+        $fields = [];
+
+        foreach ($this->fields as $field) {
+            if (!in_array($field->getKey(), $keys)) {
+                $fields[] = $field;
+            }
+        }
+
+        return $fields;
     }
 }

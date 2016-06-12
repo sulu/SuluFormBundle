@@ -2,10 +2,15 @@
 
 namespace L91\Sulu\Bundle\FormBundle\Repository;
 
+use L91\Sulu\Bundle\FormBundle\Entity\Form;
+
 class FormRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * {@inheritdoc}
+     * @param int $id
+     * @param string $locale
+     *
+     * @return Form
      */
     public function findById($id, $locale = null)
     {
@@ -13,9 +18,10 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * When overwrite this method its recommended to create an own count method.
+     * @param string $locale
+     * @param array $filters
      *
-     * {@inheritdoc}
+     * @return Form[]
      */
     public function findAll($locale = null, $filters = [])
     {
@@ -28,7 +34,10 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $locale
+     * @param array $filters
+     *
+     * @return int
      */
     public function count($locale = null, $filters = [])
     {

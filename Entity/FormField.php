@@ -2,6 +2,8 @@
 
 namespace L91\Sulu\Bundle\FormBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class FormField
 {
     /**
@@ -30,9 +32,14 @@ class FormField
     private $id;
 
     /**
-     * @var FormFieldTranslation
+     * @var int
      */
-    private $defaultTranslation;
+    private $order;
+
+    /**
+     * @var string
+     */
+    private $defaultLocale;
 
     /**
      * @var \Doctrine\Common\Collections\Collection|FormTranslation[]
@@ -49,7 +56,47 @@ class FormField
      */
     public function __construct()
     {
-        $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->translations = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultLocale()
+    {
+        return $this->defaultLocale;
+    }
+
+    /**
+     * @param string $defaultLocale
+     *
+     * @return FormField
+     */
+    public function setDefaultLocale($defaultLocale)
+    {
+        $this->defaultLocale = $defaultLocale;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * @param int $order
+     *
+     * @return FormField
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+
+        return $this;
     }
 
     /**
@@ -141,22 +188,10 @@ class FormField
     }
 
     /**
-     * @param FormFieldTranslation $defaultTranslation
-     *
-     * @return FormField
-     */
-    public function setDefaultTranslation(FormFieldTranslation $defaultTranslation = null)
-    {
-        $this->defaultTranslation = $defaultTranslation;
-
-        return $this;
-    }
-
-    /**
      * @param string $locale
      * @param bool $create
      *
-     * @return FormFieldTranslation
+     * @return FormFieldTranslation|null
      */
     public function getTranslation($locale, $create = false)
     {
@@ -166,20 +201,14 @@ class FormField
             }
         }
 
-        if ($create) {
-            $translation = new FormFieldTranslation();
-            $translation->setLocale($locale);
-
-            return $translation;
+        if (!$create) {
+            return;
         }
-    }
 
-    /**
-     * @return FormFieldTranslation
-     */
-    public function getDefaultTranslation()
-    {
-        return $this->defaultTranslation;
+        $translation = new FormFieldTranslation();
+        $translation->setLocale($locale);
+
+        return $translation;
     }
 
     /**

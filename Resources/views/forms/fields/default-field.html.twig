@@ -1,25 +1,58 @@
-{% block title %}
+{% block title_width %}
     <div class="grid">
         <div class="grid-row m-bottom-20">
-            <div class="grid-col-12 floating form-group">
-                <label for="title{{ loop.index }}"
-                       class="pointer"
-                       title="Title">
-                    <%= translate('l91_sulu_form.title') %>
-                </label>
+            {% block title %}
+                <div class="grid-col-9 floating form-group">
+                    <label for="title{{ loop.index }}"
+                           class="pointer"
+                           title="Title">
+                        <%= translate('l91_sulu_form.title') %>
+                    </label>
 
-                <input id="title{{ loop.index }}"
-                       data-property='title'
-                       type="text"
-                       class="form-element preview-update trigger-save-button"
-                       data-mapper-property="title"/>
+                    <input id="title{{ loop.index }}"
+                           data-property="title"
+                           type="text"
+                           class="form-element preview-update trigger-save-button"
+                           data-mapper-property="title"/>
+                    <div class="block-content" data-sort-mode-id="{{ blockId }}title{{ loop.index }}"></div>
 
-                <div class="block-content" data-sort-mode-id="{{ blockId }}title{{ loop.index }}"></div>
+                    <div class="input-description"></div>
+                </div>
+            {% endblock %}
+            {% block width %}
+                <div class="grid-col-3 floating form-group">
+                    <label for="width{{ loop.index }}"
+                           class="pointer"
+                           title="width">
+                        <%= translate('l91_sulu_form.width') %>
+                    </label>
 
-                <div class="input-description"></div>
-            </div>
+                    <div id="width{{ loop.index }}"
+                         class="preview-update trigger-save-button"
+                         data-aura-component="select@husky"
+                         data-aura-data='{{ widths|json_encode() }}'
+                         data-aura-multiple-select="false"
+                         data-type="husky-select"
+                         data-form="true"
+                         data-mapper-return-value="value"
+                         data-mapper-property="width">
+                    </div>
+
+                    <div class="block-content" data-sort-mode-id="{{ blockId }}width{{ loop.index }}"></div>
+
+                    <div class="input-description"></div>
+                </div>
+            {% endblock %}
         </div>
     </div>
+{% endblock %}
+
+{% block key %}
+    <input id="key{{ loop.index }}"
+           data-property="key"
+           type="hidden"
+           class="form-element"
+           data-mapper-property="key"/>
 {% endblock %}
 
 {% block placeholder_default %}

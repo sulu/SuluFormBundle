@@ -101,7 +101,7 @@
                 <target>Choice</target>
             </trans-unit>
             <trans-unit id="32">
-                <source>l91_sulu_form.type.multiple-choice</source>
+                <source>l91_sulu_form.type.multiplechoice</source>
                 <target>Multiple Choice</target>
             </trans-unit>
 
@@ -158,30 +158,34 @@
                 <source>l91_sulu_form.width</source>
                 <target>Width</target>
             </trans-unit>
+            <trans-unit id="63">
+                <source>l91_sulu_form.choice</source>
+                <target>Choices</target>
+            </trans-unit>
 
             <!-- Width -->
-            <trans-unit id="63">
+            <trans-unit id="70">
                 <source>l91_sulu_form.width.full</source>
-                <target>Voll</target>
+                <target>Full</target>
             </trans-unit>
-            <trans-unit id="64">
+            <trans-unit id="71">
                 <source>l91_sulu_form.width.half</source>
                 <target>Half</target>
             </trans-unit>
-            <trans-unit id="65">
+            <trans-unit id="72">
                 <source>l91_sulu_form.width.one-quarter</source>
                 <target>One quarter</target>
             </trans-unit>
-            <trans-unit id="66">
-                <source>l91_sulu_form.width.three-quarter</source>
+            <trans-unit id="73">
+                <source>l91_sulu_form.width.three-quarters</source>
                 <target>Three quarters</target>
             </trans-unit>
-            <trans-unit id="67">
+            <trans-unit id="74">
                 <source>l91_sulu_form.width.one-third</source>
                 <target>One third</target>
             </trans-unit>
-            <trans-unit id="68">
-                <source>l91_sulu_form.width.two-third</source>
+            <trans-unit id="75">
+                <source>l91_sulu_form.width.two-thirds</source>
                 <target>Two thirds</target>
             </trans-unit>
         </body>

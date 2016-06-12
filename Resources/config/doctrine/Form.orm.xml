@@ -7,14 +7,7 @@
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
-
-        <one-to-one field="defaultTranslation" target-entity="L91\Sulu\Bundle\FormBundle\Entity\FormTranslation">
-            <cascade>
-                <cascade-all />
-            </cascade>
-
-            <join-column name="idFormTranslationDefault" referenced-column-name="id" nullable="true" on-delete="CASCADE" />
-        </one-to-one>
+        <field name="defaultLocale" column="defaultLocale" type="string" length="5"/>
 
         <one-to-many field="translations"
                      target-entity="L91\Sulu\Bundle\FormBundle\Entity\FormTranslation"

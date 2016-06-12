@@ -8,17 +8,12 @@
             <generator strategy="AUTO"/>
         </id>
 
-        <field name="key" column="key_name" type="string" length="255"/>
+        <field name="key" column="keyName" type="string" length="255"/>
+        <field name="order" column="orderNumber" type="integer"/>
         <field name="type" column="type" type="string" length="255"/>
         <field name="width" column="width" type="string" length="16"/><!-- full / half / one-third / two-third / quarter -->
         <field name="required" column="required" type="boolean"/>
-
-        <one-to-one field="defaultTranslation" target-entity="L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation">
-            <cascade>
-                <cascade-all />
-            </cascade>
-            <join-column name="idFormFieldTranslationDefault" referenced-column-name="id" nullable="true" />
-        </one-to-one>
+        <field name="defaultLocale" column="defaultLocale" type="string" length="5"/>
 
         <one-to-many field="translations"
                      target-entity="L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation"

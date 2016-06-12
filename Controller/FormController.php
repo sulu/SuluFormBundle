@@ -78,11 +78,41 @@ class FormController extends FOSRestController implements ClassResourceInterface
                 [
                     'defaultTranslation' => new DoctrineJoinDescriptor(
                         'defaultTranslation',
-                        Form::class . '.defaultTranslation'
+                        Form::class . '.translations',
+                        sprintf('defaultTranslation.locale = %s.defaultLocale', Form::class)
                     ),
                 ]
             ),
             'public.title'
+        );
+
+        $fieldDescriptors['changed'] = new DoctrineCaseFieldDescriptor(
+            'changed',
+            new DoctrineDescriptor(
+                'translation',
+                'changed',
+                [
+                    'translation' => new DoctrineJoinDescriptor(
+                        'translation',
+                        Form::class . '.translations',
+                        sprintf('translation.locale = \'%s\'', $locale)
+                    ),
+                ]
+            ),
+            new DoctrineDescriptor(
+                'defaultTranslation',
+                'changed',
+                [
+                    'defaultTranslation' => new DoctrineJoinDescriptor(
+                        'defaultTranslation',
+                        Form::class . '.translations',
+                        sprintf('defaultTranslation.locale = %s.defaultLocale', Form::class)
+                    ),
+                ]
+            ),
+            'public.changed',
+            false,
+            false
         );
 
         return $fieldDescriptors;
@@ -141,13 +171,41 @@ class FormController extends FOSRestController implements ClassResourceInterface
             'attachment',
             'checkbox',
             'choice',
-            'multiple-choice',
+            'multipleChoice',
+        ];
+
+        $widths = [
+            [
+                'id' => 'full',
+                'name' => 'l91_sulu_form.width.full',
+            ],
+            [
+                'id' => 'half',
+                'name' => 'l91_sulu_form.width.half',
+            ],
+            [
+                'id' => 'one-third',
+                'name' => 'l91_sulu_form.width.one-third',
+            ],
+            [
+                'id' => 'two-thirds',
+                'name' => 'l91_sulu_form.width.two-thirds',
+            ],
+            [
+                'id' => 'one-quarter',
+                'name' => 'l91_sulu_form.width.one-quarter',
+            ],
+            [
+                'id' => 'three-quarters',
+                'name' => 'l91_sulu_form.width.three-quarters',
+            ],
         ];
 
         return $this->render(
             $this->getBundleName() . ':' . $this->getListName() . ':template.html.twig',
             [
                 'types' => $types,
+                'widths' => $widths,
             ]
         );
     }
@@ -328,8 +386,8 @@ class FormController extends FOSRestController implements ClassResourceInterface
         unset($filters['flat']);
 
         $filters['fields'] = $listRestHelper->getFields();
-        $filters['limit'] = (int)$listRestHelper->getLimit();
-        $filters['offset'] = (int)$listRestHelper->getOffset();
+        $filters['limit'] = (int) $listRestHelper->getLimit();
+        $filters['offset'] = (int) $listRestHelper->getOffset();
         $filters['sortColumn'] = $listRestHelper->getSortColumn();
         $filters['sortOrder'] = $listRestHelper->getSortOrder();
         $filters['searchFields'] = $listRestHelper->getSearchFields();
