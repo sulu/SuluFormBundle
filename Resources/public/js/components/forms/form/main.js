@@ -87,13 +87,17 @@ define(function () {
 
             this.sandbox.dom.on(formSelector, 'keyup', this.activateSaveButton.bind(this), 'input, textarea');
             this.sandbox.dom.on(formSelector, 'change', this.activateSaveButton.bind(this), 'input[type="checkbox"], select');
+            this.sandbox.on('husky.select.width.selected.item', this.activateSaveButton.bind(this));
             this.sandbox.on('husky.ckeditor.changed', this.activateSaveButton.bind(this));
             this.sandbox.on('sulu.content.changed', this.activateSaveButton.bind(this));
+            this.sandbox.on('husky.overlay.alert.closed', this.activateSaveButton.bind(this));
+
             this.initSortableBlock();
 
             this.sandbox.dom.on(formSelector, 'init-sortable', function(e) {
                 // reinit sorting
                 this.initSortableBlock();
+                this.sandbox.emit('sulu.content.changed');
             }.bind(this));
         },
 
@@ -112,10 +116,6 @@ define(function () {
                 this.sandbox.dom.unbind(sortable, 'sortupdate');
 
                 sortable.bind('sortupdate', function(event) {
-                    var changes = this.sandbox.form.getData(this.formId),
-                        propertyName = this.sandbox.dom.data(event.currentTarget, 'mapperProperty');
-
-                    this.sandbox.emit('sulu.preview.update-property', propertyName, changes[propertyName]);
                     this.sandbox.emit('sulu.content.changed');
                 }.bind(this));
             }
@@ -165,7 +165,10 @@ define(function () {
             var formSelector = this.getActiveFormSelector();
             if (this.sandbox.form.validate(formSelector)) {
                 var data = this.sandbox.form.getData(formSelector);
-                this.options.data = this.sandbox.util.extend(true, {}, this.options.data, data);
+                data.id = this.options.data.id;
+                data.locale = this.options.data.locale;
+
+                this.options.data = data;
 
                 this.sandbox.emit('sulu.header.toolbar.item.loading', 'save');
                 this.sandbox.emit(eventPrefix + 'save', this.options.data, this.savedCallback.bind(this, !this.options.data.id));

@@ -408,6 +408,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
 
     /**
      * @param array $filters
+     *
      * @return array
      */
     protected function getCountFilters($filters)

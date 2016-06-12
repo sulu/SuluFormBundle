@@ -110,7 +110,7 @@ class FormManager
         $counter = 0;
 
         foreach (self::getValue($data, 'fields', []) as $fieldData) {
-            $counter++;
+            ++$counter;
             $fieldType = self::getValue($fieldData, 'type');
             $fieldKey = self::getValue($fieldData, 'key');
 
@@ -146,6 +146,7 @@ class FormManager
 
         // Remove Fields
         foreach ($form->getFieldsNotInArray($reservedKeys) as $deletedField) {
+            $form->removeField($deletedField);
             $this->entityManager->remove($deletedField);
         }
 
