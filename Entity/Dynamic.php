@@ -2,10 +2,8 @@
 
 namespace L91\Sulu\Bundle\FormBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Dynamic
+ * Dynamic.
  */
 class Dynamic
 {
@@ -25,12 +23,12 @@ class Dynamic
     private $created;
 
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * set created time
+     * set created time.
      */
     public function __construct()
     {
@@ -38,22 +36,23 @@ class Dynamic
     }
 
     /**
-     * Set form
+     * Set form.
      *
      * @param string $form
+     *
      * @return Dynamic
      */
     public function setForm($form)
     {
         $this->form = $form;
-    
+
         return $this;
     }
 
     /**
-     * Get form
+     * Get form.
      *
-     * @return string 
+     * @return string
      */
     public function getForm()
     {
@@ -61,22 +60,23 @@ class Dynamic
     }
 
     /**
-     * Set data
+     * Set data.
      *
      * @param string $data
+     *
      * @return Dynamic
      */
     public function setData($data)
     {
         $this->data = $data;
-    
+
         return $this;
     }
 
     /**
-     * Get data
+     * Get data.
      *
-     * @return string 
+     * @return string
      */
     public function getData()
     {
@@ -84,22 +84,23 @@ class Dynamic
     }
 
     /**
-     * Set created
+     * Set created.
      *
      * @param \DateTime $created
+     *
      * @return Dynamic
      */
     public function setCreated($created)
     {
         $this->created = $created;
-    
+
         return $this;
     }
 
     /**
-     * Get created
+     * Get created.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -107,9 +108,9 @@ class Dynamic
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
