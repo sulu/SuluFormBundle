@@ -20,7 +20,7 @@ class FormFieldTranslation
     private $id;
 
     /**
-     * @var \L91\Sulu\Bundle\FormBundle\Entity\FormField
+     * @var FormField
      */
     private $field;
 
@@ -95,11 +95,11 @@ class FormFieldTranslation
     /**
      * Set field
      *
-     * @param \L91\Sulu\Bundle\FormBundle\Entity\FormField $field
+     * @param FormField $field
      *
      * @return FormFieldTranslation
      */
-    public function setField(\L91\Sulu\Bundle\FormBundle\Entity\FormField $field)
+    public function setField(FormField $field)
     {
         $this->field = $field;
 
@@ -109,7 +109,7 @@ class FormFieldTranslation
     /**
      * Get field
      *
-     * @return \L91\Sulu\Bundle\FormBundle\Entity\FormField
+     * @return FormField
      */
     public function getField()
     {

@@ -121,7 +121,37 @@ class FormController
      */
     public function cgetTemplateAction(Request $request)
     {
-        return $this->render($this->getBundleName() . ':' . $this->getListName() . ':template.html.twig');
+        $types = [
+            'salutation',
+            'title',
+            'firstName',
+            'lastName',
+            'email',
+            'phone',
+            'fax',
+            'street',
+            'zip',
+            'city',
+            'state',
+            'country',
+            'function',
+            'company',
+            'text',
+            'textarea',
+            'date',
+            'headline',
+            'attachment',
+            'checkbox',
+            'choice',
+            'multiple-choice',
+        ];
+
+        return $this->render(
+            $this->getBundleName() . ':' . $this->getListName() . ':template.html.twig',
+            [
+                'types' => $types,
+            ]
+        );
     }
 
     /**
@@ -401,6 +431,7 @@ class FormController
                 'fromName' => $translation->getFromName(),
                 'toEmail' => $translation->getToEmail(),
                 'toName' => $translation->getToName(),
+                'subject' => $translation->getSubject(),
             ];
         }
 

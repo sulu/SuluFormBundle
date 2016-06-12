@@ -2,7 +2,10 @@
 
 namespace L91\Sulu\Bundle\FormBundle\Entity;
 
-class FormTranslation
+use Sulu\Component\Persistence\Model\AuditableInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+
+class FormTranslation implements AuditableInterface
 {
     /**
      * @var string
@@ -50,10 +53,29 @@ class FormTranslation
     private $id;
 
     /**
-     * @var \L91\Sulu\Bundle\FormBundle\Entity\Form
+     * @var Form
      */
     private $form;
 
+    /**
+     * @var UserInterface
+     */
+    private $creator;
+
+    /**
+     * @var UserInterface
+     */
+    private $changer;
+
+    /**
+     * @var \DateTime
+     */
+    private $created;
+
+    /**
+     * @var \DateTime
+     */
+    private $changed;
 
     /**
      * Set title
@@ -260,11 +282,11 @@ class FormTranslation
     /**
      * Set form
      *
-     * @param \L91\Sulu\Bundle\FormBundle\Entity\Form $form
+     * @param Form $form
      *
      * @return FormTranslation
      */
-    public function setForm(\L91\Sulu\Bundle\FormBundle\Entity\Form $form)
+    public function setForm(Form $form)
     {
         $this->form = $form;
 
@@ -274,10 +296,90 @@ class FormTranslation
     /**
      * Get form
      *
-     * @return \L91\Sulu\Bundle\FormBundle\Entity\Form
+     * @return Form
      */
     public function getForm()
     {
         return $this->form;
+    }
+
+    /**
+     * @return UserInterface
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * @param UserInterface $creator
+     *
+     * @return FormTranslation
+     */
+    public function setCreator($creator)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * @return UserInterface
+     */
+    public function getChanger()
+    {
+        return $this->changer;
+    }
+
+    /**
+     * @param UserInterface $changer
+     *
+     * @return FormTranslation
+     */
+    public function setChanger($changer)
+    {
+        $this->changer = $changer;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param \DateTime $created
+     *
+     * @return FormTranslation
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getChanged()
+    {
+        return $this->changed;
+    }
+
+    /**
+     * @param \DateTime $changed
+     *
+     * @return FormTranslation
+     */
+    public function setChanged($changed)
+    {
+        $this->changed = $changed;
+
+        return $this;
     }
 }

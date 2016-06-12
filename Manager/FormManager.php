@@ -80,6 +80,7 @@ class FormManager
         $translation->setFromName(self::getValue($data, 'fromName'));
         $translation->setToEmail(self::getValue($data, 'toEmail'));
         $translation->setToName(self::getValue($data, 'toName'));
+        $translation->setChanged(new \DateTime());
 
         if (!$translation->getId()) {
             $translation->setForm($form);
@@ -90,9 +91,17 @@ class FormManager
             $form->setDefaultTranslation($translation);
         }
 
+        $keys = array_column(self::getValue($data, 'fields', []), 'key');
+
         foreach (self::getValue($data, 'fields', []) as $fieldData) {
-            $field = $form->getField(self::getValue($fieldData, 'key', uniqid('', true)), true);
-            $field->setType(self::getValue($fieldData, 'type'));
+            $fieldType = self::getValue($fieldData, 'type');
+            $fieldKey = self::getValue($fieldData, 'key');
+            if ($fieldKey) {
+                $fieldKey = $this->getUniqueKey($fieldType, $keys);
+            }
+
+            $field = $form->getField($fieldKey, true);
+            $field->setType($fieldType);
             $field->setWidth(self::getValue($fieldData, 'width', 'full'));
             $field->setRequired(self::getValue($fieldData, 'required', false));
 
@@ -144,9 +153,9 @@ class FormManager
     }
 
     /**
-     * @param $data
-     * @param $value
-     * @param null $default
+     * @param array $data
+     * @param string $value
+     * @param mixed $default
      * @param string $type
      *
      * @return mixed
@@ -166,5 +175,28 @@ class FormManager
         }
 
         return $default;
+    }
+
+    /**
+     * @param string $type
+     * @param array $keys
+     * @param int $counter
+     *
+     * @return string
+     */
+    protected function getUniqueKey($type, &$keys, $counter = 0)
+    {
+        $name = $type;
+
+        if ($counter) {
+            $name .= $counter;
+        }
+
+        if (!in_array($name, $keys)) {
+            $keys[] = $name;
+            return $name;
+        }
+
+        return $this->getUniqueKey($type, $keys, $counter);
     }
 }

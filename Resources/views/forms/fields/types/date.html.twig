@@ -1,0 +1,26 @@
+{% extends "L91SuluFormBundle:forms:fields/default-field.html.twig" %}
+
+{% block default %}
+    <div class="grid-col-6 floating form-group">
+        <label for="default-value{{ loop.index }}" class="pointer" title="Default Value">
+            <%= translate('l91_sulu_form.default') %>
+        </label>
+
+        <div id="defaultValue-element" class="form-element preview-update trigger-save-button"
+             data-type="husky-input"
+             data-aura-component="input@husky"
+             data-aura-instance-name="defaultValue"
+             data-aura-skin="date"
+             data-form="true"
+             data-validation-required="false"
+             data-mapper-property="defaultValue">
+        </div>
+
+        <div class="block-content" data-sort-mode-id="{{ blockId }}defaultValue{{ loop.index }}"></div>
+
+        <div class="input-description"></div>
+    </div>
+{% endblock %}
+
+{% block extended %}
+{% endblock %}
