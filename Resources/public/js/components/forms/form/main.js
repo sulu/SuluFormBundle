@@ -92,7 +92,19 @@ define(function () {
             this.sandbox.on('sulu.content.changed', this.activateSaveButton.bind(this));
             this.sandbox.on('husky.overlay.alert.closed', this.activateSaveButton.bind(this));
 
+            // FIXME https://github.com/sulu/sulu/issues/2652
             this.initSortableBlock();
+
+            this.sandbox.dom.on(formSelector, 'form-add', function(e, propertyName, data, index) {
+                var $elements = this.sandbox.dom.children(this.$find('[data-mapper-property="' + propertyName + '"]')),
+                    $element = (index !== undefined && $elements.length > index) ? $elements[index] : this.sandbox.dom.last($elements);
+
+                // start new subcomponents
+                this.sandbox.start($element);
+
+                // reinit sorting
+                this.initSortableBlock();
+            }.bind(this));
 
             this.sandbox.dom.on(formSelector, 'init-sortable', function(e) {
                 // reinit sorting

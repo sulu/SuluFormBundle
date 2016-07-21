@@ -2,7 +2,7 @@
 
 {% block default %}
     <div class="grid-col-6 floating form-group">
-        <label for="default-value{{ loop.index }}" class="pointer" title="Default Value">
+        <label for="default-value<~=index~>" class="pointer" title="Default Value">
             <%= translate('l91_sulu_form.default') %>
         </label>
 
@@ -16,7 +16,7 @@
              data-mapper-property="defaultValue">
         </div>
 
-        <div class="block-content" data-sort-mode-id="{{ blockId }}defaultValue{{ loop.index }}"></div>
+        <div class="block-content" data-sort-mode-id="{{ blockId }}defaultValue<~=index~>"></div>
 
         <div class="input-description"></div>
     </div>

@@ -3,31 +3,31 @@
         <div class="grid-row m-bottom-20">
             {% block title %}
                 <div class="grid-col-9 floating form-group">
-                    <label for="title{{ loop.index }}"
+                    <label for="title<~=index~>"
                            class="pointer"
                            title="Title">
                         <%= translate('l91_sulu_form.title') %>
                     </label>
 
-                    <input id="title{{ loop.index }}"
+                    <input id="title<~=index~>"
                            data-property="title"
                            type="text"
                            class="form-element preview-update trigger-save-button"
                            data-mapper-property="title"/>
-                    <div class="block-content" data-sort-mode-id="{{ blockId }}title{{ loop.index }}"></div>
+                    <div class="block-content" data-sort-mode-id="{{ blockId }}title<~=index~>"></div>
 
                     <div class="input-description"></div>
                 </div>
             {% endblock %}
             {% block width %}
                 <div class="grid-col-3 floating form-group">
-                    <label for="width{{ loop.index }}"
+                    <label for="width<~=index~>"
                            class="pointer"
                            title="width">
                         <%= translate('l91_sulu_form.width') %>
                     </label>
 
-                    <div id="width{{ loop.index }}"
+                    <div id="width<~=index~>"
                          class="preview-update trigger-save-button"
                          data-aura-component="select@husky"
                          data-aura-data='{{ widths|json_encode() }}'
@@ -39,7 +39,7 @@
                          data-mapper-property="width">
                     </div>
 
-                    <div class="block-content" data-sort-mode-id="{{ blockId }}width{{ loop.index }}"></div>
+                    <div class="block-content" data-sort-mode-id="{{ blockId }}width<~=index~>"></div>
 
                     <div class="input-description"></div>
                 </div>
@@ -49,7 +49,7 @@
 {% endblock %}
 
 {% block key %}
-    <input id="key{{ loop.index }}"
+    <input id="key<~=index~>"
            data-property="key"
            type="hidden"
            class="form-element"
@@ -61,17 +61,17 @@
         <div class="grid-row m-bottom-20">
             {% block placeholder %}
                 <div class="grid-col-6 floating form-group">
-                    <label for="placeholder{{ loop.index }}" class="pointer" title="Placeholder">
+                    <label for="placeholder<~=index~>" class="pointer" title="Placeholder">
                         <%= translate('l91_sulu_form.placeholder') %>
                     </label>
 
-                    <input id="placeholder{{ loop.index }}"
+                    <input id="placeholder<~=index~>"
                            data-property='placeholder'
                            type="text"
                            class="form-element preview-update trigger-save-button"
                            data-mapper-property="placeholder"/>
 
-                    <div class="block-content" data-sort-mode-id="{{ blockId }}placeholder{{ loop.index }}"></div>
+                    <div class="block-content" data-sort-mode-id="{{ blockId }}placeholder<~=index~>"></div>
 
                     <div class="input-description"></div>
                 </div>
@@ -79,17 +79,17 @@
 
             {% block default %}
                 <div class="grid-col-6 floating form-group">
-                    <label for="default-value{{ loop.index }}" class="pointer" title="Default Value">
+                    <label for="default-value<~=index~>" class="pointer" title="Default Value">
                         <%= translate('l91_sulu_form.default') %>
                     </label>
 
-                    <input id="default-value{{ loop.index }}"
+                    <input id="default-value<~=index~>"
                            data-property="defaultValue"
                            type="text"
                            class="form-element preview-update trigger-save-button"
                            data-mapper-property="defaultValue"/>
 
-                    <div class="block-content" data-sort-mode-id="{{ blockId }}defaultValue{{ loop.index }}"></div>
+                    <div class="block-content" data-sort-mode-id="{{ blockId }}defaultValue<~=index~>"></div>
 
                     <div class="input-description"></div>
                 </div>
