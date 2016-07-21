@@ -14,7 +14,16 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
      */
     public function findById($id, $locale = null)
     {
-        return $this->find($id);
+        $queryBuilder = $this->createQueryBuilder('form')
+            ->leftJoin('form.translations', 'translation')->addSelect('translation')
+            ->leftJoin('form.fields', 'field')->addSelect('field')
+            ->leftJoin('field.translations', 'fieldTranslation')->addSelect('fieldTranslation');
+
+        $queryBuilder->where($queryBuilder->expr()->eq('form.id', $id));
+        $queryBuilder->orderBy('field.order');
+        $query = $queryBuilder->getQuery();
+
+        return $query->getSingleResult();
     }
 
     /**
@@ -25,12 +34,19 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
      */
     public function findAll($locale = null, $filters = [])
     {
-        return $this->findBy(
-            [],
-            ['id' => 'asc'],
-            self::getValue($filters, 'limit'),
-            self::getValue($filters, 'offset')
-        );
+        $queryBuilder = $this->createQueryBuilder('form')
+            ->leftJoin('form.translations', 'translation')->addSelect('translation')
+            ->leftJoin('form.fields', 'field')->addSelect('field')
+            ->leftJoin('field.translations', 'fieldTranslation')->addSelect('fieldTranslation');
+
+        $queryBuilder->setMaxResults(self::getValue($filters, 'limit'))
+            ->setFirstResult(self::getValue($filters, 'offset'));
+
+        $queryBuilder->orderBy('form.id');
+        $queryBuilder->addOrderBy('field.order');
+        $query = $queryBuilder->getQuery();
+
+        return $query->getResult();
     }
 
     /**
@@ -41,7 +57,10 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
      */
     public function count($locale = null, $filters = [])
     {
-        return count($this->findAll($locale, $filters));
+        $queryBuilder = $this->createQueryBuilder('form');
+        $queryBuilder->select($queryBuilder->expr()->count('form.id'));
+
+        return (int) $queryBuilder->getQuery()->getSingleScalarResult();
     }
 
     /**

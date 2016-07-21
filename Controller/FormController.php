@@ -503,6 +503,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
                 'type' => $field->getType(),
                 'key' => $field->getKey(),
                 'required' => $field->getRequired(),
+                'order' => $field->getOrder(),
                 'width' => $field->getWidth(),
             ];
 
