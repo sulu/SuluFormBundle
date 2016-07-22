@@ -12,6 +12,7 @@
         <field name="placeholder" column="placeholder" type="string" length="255" nullable="true"/>
         <field name="defaultValue" column="defaultValue" type="string" length="255" nullable="true"/>
         <field name="locale" column="locale" type="string" length="5"/>
+        <field name="options" column="options" type="text" nullable="true" />
 
         <many-to-one field="field"
                      target-entity="L91\Sulu\Bundle\FormBundle\Entity\FormField"

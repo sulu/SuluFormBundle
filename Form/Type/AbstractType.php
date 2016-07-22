@@ -3,7 +3,7 @@
 namespace L91\Sulu\Bundle\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType as SymfonyAbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
 {
@@ -38,7 +38,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $defaults = [
             'csrf_protection' => $this->csrfProtection,
@@ -52,8 +52,6 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
         if ($this->dataClass) {
             $defaults['data_class'] = $this->dataClass;
         }
-
-        $resolver->setDefaults($defaults);
     }
 
     /**

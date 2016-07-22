@@ -72,7 +72,12 @@
         </service>
 
         <service id="l91_sulu_form.content_type.form_select" class="L91\Sulu\Bundle\FormBundle\Content\Types\FormSelect">
-            <argument>L91SuluFormBundle:Template:content-types/form_select.html.twig</argument>
+            <argument>L91SuluFormBundle:Template:content-types/form_select_simple.html.twig</argument>
+            <argument id="l91_sulu_form.repository.form" type="service" />
+            <argument id="request_stack" type="service" />
+            <argument id="form.factory" type="service" />
+            <argument id="l91.sulu.form.handler" type="service" />
+
             <tag name="sulu.content.type" alias="form_select"/>
         </service>
     </services>

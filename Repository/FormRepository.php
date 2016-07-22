@@ -19,10 +19,11 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
             ->leftJoin('form.fields', 'field')->addSelect('field')
             ->leftJoin('field.translations', 'fieldTranslation')->addSelect('fieldTranslation');
 
-        $queryBuilder->where($queryBuilder->expr()->eq('form.id', $id));
+        $queryBuilder->where($queryBuilder->expr()->eq('form.id', ':id'));
+        $queryBuilder->setParameter('id', $id);
         $queryBuilder->orderBy('field.order');
         $query = $queryBuilder->getQuery();
-
+        
         return $query->getSingleResult();
     }
 

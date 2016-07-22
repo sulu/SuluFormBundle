@@ -35,6 +35,11 @@ class FormFieldTranslation
     private $defaultValue;
 
     /**
+     * @var string
+     */
+    private $options;
+
+    /**
      * @param string $title
      *
      * @return FormFieldTranslation
@@ -140,5 +145,45 @@ class FormFieldTranslation
         $this->defaultValue = $defaultValue;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        if (!$this->options) {
+            return [];
+        }
+
+        return json_decode($this->options, true);
+    }
+
+    /**
+     * @param array $options
+     *
+     * @return $this
+     */
+    public function setOptions($options)
+    {
+        if (is_array($options)) {
+            $options = json_encode($options);
+        }
+
+        $this->options = $options;
+
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return string
+     */
+    public function getOption($key)
+    {
+        if (isset($this->getOptions()[$key])) {
+            return $this->getOptions()[$key];
+        }
     }
 }

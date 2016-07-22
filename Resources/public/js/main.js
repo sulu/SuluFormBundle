@@ -6,7 +6,8 @@ require.config({
     paths: {
         l91suluform: '../../l91suluform/js',
 
-        "type/formSelect": '../../l91suluform/js/validation/types/formSelect'
+        "type/formSelect": '../../l91suluform/js/validation/types/formSelect',
+        "type/select-type-custom": '../../l91suluform/js/validation/types/select-type-custom'
     }
 });
 
