@@ -23,7 +23,7 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
         $queryBuilder->setParameter('id', $id);
         $queryBuilder->orderBy('field.order');
         $query = $queryBuilder->getQuery();
-        
+
         return $query->getSingleResult();
     }
 
