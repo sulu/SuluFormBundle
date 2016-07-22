@@ -165,7 +165,11 @@ class Handler implements HandlerInterface
 
         $this->saveForm($form, $attributes, $mediaIds);
 
-        $type = $this->formExtension->getType($form->getName());
+        if (isset($attributes['_form_type'])) {
+            $type = $attributes['_form_type'];
+        } else {
+            $type = $this->formExtension->getType($form->getName());
+        }
 
         if ($type instanceof TypeInterface) {
             $this->sendMails($type, $attributes, $form);

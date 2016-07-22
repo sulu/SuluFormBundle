@@ -74,11 +74,13 @@ class FormSelect extends SimpleContentType
         $form = null;
 
         try {
-            $uuid = null; // TODO get uuid
-            $webspaceKey = null; // TODO get webspaceKey
+            // Create Dynamic Data
+            $uuid = $property->getStructure()->getUuid();
+            $webspaceKey = $property->getStructure()->getWebspaceKey();
             $locale = $request->getLocale();
             $formEntity = $this->formRepository->findById($id, $locale);
 
+            // set Defaults
             $defaults = [];
             foreach ($formEntity->getFields() as $field) {
                 $translation = $field->getTranslation($locale);
@@ -88,15 +90,25 @@ class FormSelect extends SimpleContentType
                 }
             }
 
+            // Create Form Type
+            $formType = new DynamicFormType(
+                $formEntity,
+                $locale,
+                $property->getName(),
+                $property->getStructure()->getView()
+            );
+
             $form = $this->formFactory->create(
-                new DynamicFormType($formEntity, $property->getName(), $locale),
+                $formType,
                 new Dynamic($uuid, $locale, $webspaceKey, $defaults)
             );
 
+            // handle request
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $this->formHandler->handle($form);
+                // save
+                $this->formHandler->handle($form, ['_form_type' => $formType]);
 
                 // Do redirect after success
                 throw new HttpException(302, null, null, ['Location' => '?send=true']);

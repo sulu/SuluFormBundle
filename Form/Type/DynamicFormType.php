@@ -23,25 +23,31 @@ class DynamicFormType extends AbstractType
     /**
      * @var string
      */
-    private $name;
+    private $locale;
 
     /**
      * @var string
      */
-    private $locale;
+    private $structureView;
+
+    /**
+     * @var string
+     */
+    private $name;
 
     /**
      * DynamicFormType constructor.
      *
      * @param Form $formEntity
-     * @param string $name
      * @param string $locale
+     * @param string $structureView
      */
-    public function __construct($formEntity, $name, $locale)
+    public function __construct($formEntity, $locale, $name, $structureView)
     {
         $this->formEntity = $formEntity;
-        $this->name = $name;
         $this->locale = $locale;
+        $this->name = $name;
+        $this->structureView = $structureView;
     }
 
     /**
@@ -132,5 +138,69 @@ class DynamicFormType extends AbstractType
         return 'dynamic_' . $this->name;
     }
 
-    // TODO email settings
+    /**
+     * {@inheritdoc}
+     */
+    public function getCustomerSubject($formData = [])
+    {
+        $translation = $this->formEntity->getTranslation($this->locale, true);
+
+        return $translation->getSubject();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotifySubject($formData = [])
+    {
+        $translation = $this->formEntity->getTranslation($this->locale, true);
+
+        return $translation->getSubject();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCustomerFromMailAddress($formData = [])
+    {
+        $translation = $this->formEntity->getTranslation($this->locale, true);
+
+        return [$translation->getFromEmail() => $translation->getFromName()];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotifyFromMailAddress($formData = [])
+    {
+        $translation = $this->formEntity->getTranslation($this->locale, true);
+
+        return [$translation->getFromEmail() => $translation->getFromName()];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotifyToMailAddress($formData = [])
+    {
+        $translation = $this->formEntity->getTranslation($this->locale, true);
+
+        return [$translation->getToEmail() => $translation->getToName()];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCustomerMail($formData = [])
+    {
+        return $this->structureView . '-mail/' . $this->name . '-success.html.twig';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotifyMail($formData = [])
+    {
+        return $this->structureView . '-mail/' . $this->name . '-notify.html.twig';
+    }
 }

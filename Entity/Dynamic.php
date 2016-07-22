@@ -3,7 +3,9 @@
 
 namespace L91\Sulu\Bundle\FormBundle\Entity;
 
-class Dynamic
+use Sulu\Component\Persistence\Model\TimestampableInterface;
+
+class Dynamic implements TimestampableInterface
 {
     /**
      * @var string
@@ -135,6 +137,16 @@ class Dynamic
      */
     private $id;
 
+    /**
+     * @var \DateTime
+     */
+    private $created;
+
+    /**
+     * @var \DateTime
+     */
+    private $changed;
+
     public function __construct($uuid, $locale, $webspaceKey = null, $data = [])
     {
         $this->uuid = $uuid;
@@ -187,5 +199,22 @@ class Dynamic
                 return $array[$name];
             }
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getChanged()
+    {
+        return $this->changed;
     }
 }
