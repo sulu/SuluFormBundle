@@ -1,6 +1,5 @@
 <?php
 
-
 namespace L91\Sulu\Bundle\FormBundle\Entity;
 
 use Sulu\Component\Persistence\Model\TimestampableInterface;
@@ -133,7 +132,7 @@ class Dynamic implements TimestampableInterface
     private $data = '[]';
 
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -208,7 +207,6 @@ class Dynamic implements TimestampableInterface
     {
         return $this->created;
     }
-
 
     /**
      * {@inheritdoc}
