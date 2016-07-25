@@ -47,7 +47,6 @@ module.exports = function (grunt) {
             }
         },
         cssmin: {
-            // TODO: options: { banner: '<%= meta.banner %>' },
             compress: {
                 files: {
                     'Resources/public/css/main.min.css': ['Resources/public/css/main.css']

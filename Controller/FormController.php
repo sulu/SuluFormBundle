@@ -135,8 +135,8 @@ class FormController extends FOSRestController implements ClassResourceInterface
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function getBundleName()
     {
         return 'L91SuluFormBundle';
@@ -170,8 +170,10 @@ class FormController extends FOSRestController implements ClassResourceInterface
             'headline',
             'attachment',
             'checkbox',
-            'choice',
-            'multipleChoice',
+            'checkboxes',
+            'select',
+            'multiple_select',
+            'radio_buttons',
         ];
 
         $widths = [
@@ -386,8 +388,8 @@ class FormController extends FOSRestController implements ClassResourceInterface
         unset($filters['flat']);
 
         $filters['fields'] = $listRestHelper->getFields();
-        $filters['limit'] = (int) $listRestHelper->getLimit();
-        $filters['offset'] = (int) $listRestHelper->getOffset();
+        $filters['limit'] = (int)$listRestHelper->getLimit();
+        $filters['offset'] = (int)$listRestHelper->getOffset();
         $filters['sortColumn'] = $listRestHelper->getSortColumn();
         $filters['sortOrder'] = $listRestHelper->getSortOrder();
         $filters['searchFields'] = $listRestHelper->getSearchFields();

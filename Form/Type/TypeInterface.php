@@ -83,4 +83,14 @@ interface TypeInterface
      * @return string
      */
     public function getDefaultIntention();
+
+    /**
+     * @return string[]
+     */
+    public function getFileFields();
+
+    /**
+     * @return integer
+     */
+    public function getCollectionId();
 }

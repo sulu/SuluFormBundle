@@ -55,7 +55,7 @@ class Helper implements HelperInterface
         $toMail = null,
         $fromMail = null,
         $html = true,
-        $replayTo = null,
+        $replyTo = null,
         $attachments = []
     ) {
         $message = new \Swift_Message(
@@ -95,8 +95,8 @@ class Helper implements HelperInterface
             }
         }
 
-        if ($replayTo != null) {
-            $message->setReplyTo($replayTo);
+        if ($replyTo != null) {
+            $message->setReplyTo($replyTo);
         }
 
         $this->logger->info(sprintf(
@@ -107,7 +107,7 @@ class Helper implements HelperInterface
             '   Subject: %s' . PHP_EOL,
             is_string($fromMail) ? $fromMail : serialize($fromMail),
             is_string($toMail) ? $toMail : serialize($toMail),
-            is_string($replayTo) ? $replayTo : serialize($toMail),
+            is_string($replyTo) ? $replyTo : serialize($toMail),
             is_string($subject) ? $subject : serialize($subject)
         ));
 

@@ -10,7 +10,7 @@ interface HelperInterface
      * @param string $toMail
      * @param string $fromMail
      * @param bool $html
-     * @param string $replayTo
+     * @param string $replyTo
      * @param \SplFileInfo[] $attachments
      *
      * @return int
@@ -21,7 +21,7 @@ interface HelperInterface
         $toMail = null,
         $fromMail = null,
         $html = true,
-        $replayTo = null,
+        $replyTo = null,
         $attachments = []
     );
 }

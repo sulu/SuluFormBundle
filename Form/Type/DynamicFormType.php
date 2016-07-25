@@ -4,10 +4,12 @@ namespace L91\Sulu\Bundle\FormBundle\Form\Type;
 
 use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
 use L91\Sulu\Bundle\FormBundle\Entity\Form;
+use L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -40,6 +42,7 @@ class DynamicFormType extends AbstractType
      *
      * @param Form $formEntity
      * @param string $locale
+     * @param string $name
      * @param string $structureView
      */
     public function __construct($formEntity, $locale, $name, $structureView)
@@ -61,14 +64,22 @@ class DynamicFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         foreach ($this->formEntity->getFields() as $field) {
-            if (in_array($field->getType(), ['headline'])) {
-                continue;
-            }
-
             $translation = $field->getTranslation($this->locale);
             $name = $field->getKey();
             $type = TextType::class;
             $options = ['constraints' => [], 'attr' => [], 'required' => false];
+
+            // skip $type headline, use for the next field
+            if ('headline' === $field->getType()) {
+                $headline = $translation->getTitle();
+                continue;
+            }
+
+            // headline
+            if (isset($headline) && '' !== $headline) {
+                $options['attr']['headline'] = $headline;
+                $headline = '';
+            }
 
             // required
             $options['required'] = $field->getRequired();
@@ -86,6 +97,14 @@ class DynamicFormType extends AbstractType
 
             // Form Type
             switch ($field->getType()) {
+                case 'salutation':
+                    $type = ChoiceType::class;
+
+                    $options['choices'] = [
+                        'mr' => 'l91_sulu_form.salutation_mr',
+                        'ms' => 'l91_sulu_form.salutation_ms',
+                    ];
+                    break;
                 case 'headline':
                     continue;
                     break;
@@ -95,39 +114,57 @@ class DynamicFormType extends AbstractType
                 case 'country':
                     $type = CountryType::class;
                     break;
-                case 'checkbox':
-                    $type = CheckboxType::class;
-                    break;
                 case 'attachment':
                     $type = FileType::class;
                     break;
-                // Choices
-                case 'multipleChoice':
-                    $options['multiple'] = true;
-                case 'choice':
-                    $type = ChoiceType::class;
-
-                    if ($translation) {
-                        // placeholder
-                        $options['placeholder'] = $translation->getPlaceholder();
-
-                        // expanded
-                        if ($translation->getOption('expanded')) {
-                            $options['expanded'] = true;
-                        }
-
-                        // choices
-                        $choices = explode("\n", $translation->getOption('choices'));
-                        $options['choices'] = array_combine($choices, $choices);
-                    }
-
+                case 'checkbox':
+                    $type = CheckboxType::class;
+                    break;
+                case 'checkboxes':
+                    $type = $this->createChoiceType($translation, $options, true, true);
+                    break;
+                case 'select':
+                    $type = $this->createChoiceType($translation, $options);
+                    break;
+                case 'multiple_select':
+                    $type = $this->createChoiceType($translation, $options, false, true);
+                    break;
+                case 'radio_buttons':
+                    $type = $this->createChoiceType($translation, $options, true);
                     break;
             }
 
             $builder->add($name, $type, $options);
         }
 
-        $builder->add('submit', 'submit');
+        $builder->add('submit', SubmitType::class);
+    }
+
+    /**
+     * @description Choice Type handles four form types (select, multiple select, radio, checkboxes)
+     * (http://symfony.com/doc/current/reference/forms/types/choice.html)
+     *
+     * @param FormFieldTranslation $translation
+     * @param array $options
+     * @param boolean $expanded
+     * @param boolean $multiple
+     */
+    public function createChoiceType($translation, &$options, $expanded = false, $multiple = false)
+    {
+        if ($translation) {
+            // placeholder
+            $options['placeholder'] = $translation->getPlaceholder();
+
+            // choices
+            $choices = explode("\n", $translation->getOption('choices'));
+            $options['choices'] = array_combine($choices, $choices);
+
+            // type
+            $options['expanded'] = $expanded;
+            $options['multiple'] = $multiple;
+        }
+
+        return ChoiceType::class;
     }
 
     /**
@@ -202,5 +239,10 @@ class DynamicFormType extends AbstractType
     public function getNotifyMail($formData = [])
     {
         return $this->structureView . '-mail/' . $this->name . '-notify.html.twig';
+    }
+
+    public function getCollectionId()
+    {
+        // TODO
     }
 }
