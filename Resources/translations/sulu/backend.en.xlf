@@ -2,6 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
+            <!-- Basic -->
             <trans-unit id="1">
                 <source>l91_sulu_form.form</source>
                 <target>Forms</target>
@@ -13,6 +14,10 @@
             <trans-unit id="3">
                 <source>l91_sulu_form.forms.new_form</source>
                 <target>New Form</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>l91_sulu_form.please_choose</source>
+                <target>Please choose ...</target>
             </trans-unit>
 
             <!-- Types -->
@@ -34,7 +39,7 @@
             </trans-unit>
             <trans-unit id="15">
                 <source>l91_sulu_form.type.email</source>
-                <target>Email</target>
+                <target>E-Mail</target>
             </trans-unit>
             <trans-unit id="16">
                 <source>l91_sulu_form.type.phone</source>
@@ -97,12 +102,20 @@
                 <target>Checkbox</target>
             </trans-unit>
             <trans-unit id="31">
-                <source>l91_sulu_form.type.choice</source>
-                <target>Choice</target>
+                <source>l91_sulu_form.type.checkboxes</source>
+                <target>Checkboxes</target>
             </trans-unit>
             <trans-unit id="32">
-                <source>l91_sulu_form.type.multiplechoice</source>
-                <target>Multiple Choice</target>
+                <source>l91_sulu_form.type.select</source>
+                <target>Select</target>
+            </trans-unit>
+            <trans-unit id="33">
+                <source>l91_sulu_form.type.multiple_select</source>
+                <target>Multiple Select</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>l91_sulu_form.type.radio_buttons</source>
+                <target>Radio Buttons</target>
             </trans-unit>
 
             <!-- Form -->
@@ -112,7 +125,7 @@
             </trans-unit>
             <trans-unit id="51">
                 <source>l91_sulu_form.email_configuration</source>
-                <target>Email Configuration</target>
+                <target>E-Mail Configuration</target>
             </trans-unit>
             <trans-unit id="52">
                 <source>l91_sulu_form.subject</source>
@@ -120,19 +133,19 @@
             </trans-unit>
             <trans-unit id="53">
                 <source>l91_sulu_form.from_email</source>
-                <target>Sender Email</target>
+                <target>Sender: E-Mail</target>
             </trans-unit>
             <trans-unit id="54">
                 <source>l91_sulu_form.from_name</source>
-                <target>Sender Name</target>
+                <target>Sender: Name</target>
             </trans-unit>
             <trans-unit id="55">
                 <source>l91_sulu_form.to_email</source>
-                <target>Receiver Email</target>
+                <target>Receiver: E-Mail</target>
             </trans-unit>
             <trans-unit id="56">
                 <source>l91_sulu_form.to_name</source>
-                <target>Receiver Name</target>
+                <target>Receiver: Name</target>
             </trans-unit>
             <trans-unit id="57">
                 <source>l91_sulu_form.form_fields</source>

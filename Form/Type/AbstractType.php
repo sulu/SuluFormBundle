@@ -187,4 +187,20 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     {
         return false;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFileFields()
+    {
+        return ['files'];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCollectionId()
+    {
+        return;
+    }
 }

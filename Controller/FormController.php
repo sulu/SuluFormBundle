@@ -135,8 +135,8 @@ class FormController extends FOSRestController implements ClassResourceInterface
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function getBundleName()
     {
         return 'L91SuluFormBundle';
@@ -170,8 +170,10 @@ class FormController extends FOSRestController implements ClassResourceInterface
             'headline',
             'attachment',
             'checkbox',
-            'choice',
-            'multipleChoice',
+            'checkboxes',
+            'select',
+            'multiple_select',
+            'radio_buttons',
         ];
 
         $widths = [

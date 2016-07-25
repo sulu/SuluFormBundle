@@ -105,6 +105,8 @@ class Handler implements HandlerInterface
         $this->eventDispatcher = $eventDispatcher;
         $this->mediaManager = $mediaManager;
         $this->logger = $logger ? $logger : new NullLogger();
+
+        $this->attachments = [];
     }
 
     /**
@@ -131,15 +133,31 @@ class Handler implements HandlerInterface
         }
 
         $mediaIds = [];
-        if ($form->has('files')) {
-            $files = $form['files']->getData();
-            if (count($files)) {
+
+        if (isset($attributes['_form_type'])) {
+            $type = $attributes['_form_type'];
+        } else {
+            $type = $this->formExtension->getType($form->getName());
+        }
+
+        if ($type instanceof TypeInterface) {
+            foreach ($type->getFileFields() as $field) {
+                if (!$form->has($field)) {
+                    continue;
+                }
+
+                $files = $form[$field]->getData();
+
+                if (!count($files)) {
+                    continue;
+                }
+
                 $type = $this->formExtension->getType($form->getName());
                 $collectionId = $type->getCollectionId();
-
                 $ids = [];
+
                 /** @var UploadedFile $file */
-                foreach ($form['files']->getData() as $file) {
+                foreach ($files as $file) {
                     if ($file instanceof UploadedFile) {
                         $media = $this->mediaManager->save(
                             $file,
@@ -157,19 +175,13 @@ class Handler implements HandlerInterface
                     }
                 }
 
-                $mediaIds['files'] = $ids;
+                $mediaIds[$field] = $ids;
             }
         }
 
         $attributes['form'] = $form;
 
         $this->saveForm($form, $attributes, $mediaIds);
-
-        if (isset($attributes['_form_type'])) {
-            $type = $attributes['_form_type'];
-        } else {
-            $type = $this->formExtension->getType($form->getName());
-        }
 
         if ($type instanceof TypeInterface) {
             $this->sendMails($type, $attributes, $form);
@@ -201,7 +213,7 @@ class Handler implements HandlerInterface
                 $type->getNotifyFromMailAddress($form->getData()),
                 true,
                 $type->getNotifyReplyToMailAddress($form->getData()),
-                $type->getNotifySendAttachments($form->getData()) ? $this->attachments : []
+                $this->attachments
             );
         }
 
@@ -214,8 +226,7 @@ class Handler implements HandlerInterface
                 $type->getCustomerToMailAddress($form->getData()),
                 $type->getCustomerFromMailAddress($form->getData()),
                 true,
-                $type->getCustomerReplyToMailAddress($form->getData()),
-                $type->getCustomerSendAttachments($form->getData()) ? $this->attachments : []
+                $type->getCustomerReplyToMailAddress($form->getData())
             );
         }
     }

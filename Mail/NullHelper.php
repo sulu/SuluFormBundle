@@ -30,7 +30,7 @@ class NullHelper implements HelperInterface
         $toMail = null,
         $fromMail = null,
         $html = true,
-        $replayTo = null,
+        $replyTo = null,
         $attachments = []
     ) {
         $this->logger->info(sprintf(
@@ -41,7 +41,7 @@ class NullHelper implements HelperInterface
             '   Subject: %s' . PHP_EOL,
             is_string($fromMail) ? $fromMail : serialize($fromMail),
             is_string($toMail) ? $toMail : serialize($toMail),
-            is_string($replayTo) ? $replayTo : serialize($toMail),
+            is_string($replyTo) ? $replyTo : serialize($toMail),
             is_string($subject) ? $subject : serialize($subject)
         ));
     }

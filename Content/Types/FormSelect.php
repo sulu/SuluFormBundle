@@ -43,6 +43,15 @@ class FormSelect extends SimpleContentType
      */
     private $formHandler;
 
+    /**
+     * FormSelect constructor.
+     *
+     * @param string $template
+     * @param FormRepository $formRepository
+     * @param RequestStack $requestStack
+     * @param FormFactoryInterface $formFactory
+     * @param HandlerInterface $formHandler
+     */
     public function __construct(
         $template,
         FormRepository $formRepository,
@@ -96,6 +105,7 @@ class FormSelect extends SimpleContentType
                 $locale,
                 $property->getName(),
                 $property->getStructure()->getView()
+                // TODO collection id of systemCollection
             );
 
             $form = $this->formFactory->create(
