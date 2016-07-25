@@ -138,7 +138,7 @@ class Handler implements HandlerInterface
             $type = $attributes['_form_type'];
         } else {
             $type = $this->formExtension->getType($form->getName());
-        };
+        }
 
         if ($type instanceof TypeInterface) {
             foreach ($type->getFileFields() as $field) {

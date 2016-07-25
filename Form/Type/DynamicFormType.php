@@ -146,8 +146,8 @@ class DynamicFormType extends AbstractType
      *
      * @param FormFieldTranslation $translation
      * @param array $options
-     * @param boolean $expanded
-     * @param boolean $multiple
+     * @param bool $expanded
+     * @param bool $multiple
      */
     public function createChoiceType($translation, &$options, $expanded = false, $multiple = false)
     {

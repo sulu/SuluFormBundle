@@ -72,7 +72,7 @@ class FormSelect extends SimpleContentType
      */
     public function getContentData(PropertyInterface $property)
     {
-        $id = (int)$property->getValue();
+        $id = (int) $property->getValue();
 
         if (!$id) {
             return;

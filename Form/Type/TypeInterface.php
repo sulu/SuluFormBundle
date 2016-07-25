@@ -90,7 +90,7 @@ interface TypeInterface
     public function getFileFields();
 
     /**
-     * @return integer
+     * @return int
      */
     public function getCollectionId();
 }
