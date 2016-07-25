@@ -213,7 +213,7 @@ class Handler implements HandlerInterface
                 $type->getNotifyFromMailAddress($form->getData()),
                 true,
                 $type->getNotifyReplyToMailAddress($form->getData()),
-                $this->attachments
+                $type->getNotifySendAttachments($form->getData()) ? $this->attachments : []
             );
         }
 

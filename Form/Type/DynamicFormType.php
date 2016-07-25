@@ -5,6 +5,7 @@ namespace L91\Sulu\Bundle\FormBundle\Form\Type;
 use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
 use L91\Sulu\Bundle\FormBundle\Entity\Form;
 use L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
+use L91\Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
@@ -180,9 +181,7 @@ class DynamicFormType extends AbstractType
      */
     public function getCustomerSubject($formData = [])
     {
-        $translation = $this->formEntity->getTranslation($this->locale, true);
-
-        return $translation->getSubject();
+        return $this->getTranslation()->getSubject();
     }
 
     /**
@@ -190,9 +189,7 @@ class DynamicFormType extends AbstractType
      */
     public function getNotifySubject($formData = [])
     {
-        $translation = $this->formEntity->getTranslation($this->locale, true);
-
-        return $translation->getSubject();
+        return $this->getTranslation()->getSubject();
     }
 
     /**
@@ -200,9 +197,14 @@ class DynamicFormType extends AbstractType
      */
     public function getCustomerFromMailAddress($formData = [])
     {
-        $translation = $this->formEntity->getTranslation($this->locale, true);
+        $fromMail = $this->getTranslation()->getFromEmail();
+        $fromName = $this->getTranslation()->getFromName();
 
-        return [$translation->getFromEmail() => $translation->getFromName()];
+        if (!$fromMail || !$fromName) {
+            return;
+        }
+
+        return [$fromMail => $fromName];
     }
 
     /**
@@ -210,9 +212,14 @@ class DynamicFormType extends AbstractType
      */
     public function getNotifyFromMailAddress($formData = [])
     {
-        $translation = $this->formEntity->getTranslation($this->locale, true);
+        $fromMail = $this->getTranslation()->getFromEmail();
+        $fromName = $this->getTranslation()->getFromName();
 
-        return [$translation->getFromEmail() => $translation->getFromName()];
+        if (!$fromMail || !$fromName) {
+            return;
+        }
+
+        return [$fromMail => $fromName];
     }
 
     /**
@@ -220,9 +227,14 @@ class DynamicFormType extends AbstractType
      */
     public function getNotifyToMailAddress($formData = [])
     {
-        $translation = $this->formEntity->getTranslation($this->locale, true);
+        $toMail = $this->getTranslation()->getToEmail();
+        $toName = $this->getTranslation()->getToName();
 
-        return [$translation->getToEmail() => $translation->getToName()];
+        if (!$toMail || !$toName) {
+            return;
+        }
+
+        return [$toMail => $toName];
     }
 
     /**
@@ -241,8 +253,27 @@ class DynamicFormType extends AbstractType
         return $this->structureView . '-mail/' . $this->name . '-notify.html.twig';
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotifySendAttachments($formData = [])
+    {
+        return $this->getTranslation()->getSendAttachments();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getCollectionId()
     {
         // TODO
+    }
+
+    /**
+     * @return FormTranslation|null
+     */
+    public function getTranslation()
+    {
+        return $this->formEntity->getTranslation($this->locale, true);
     }
 }

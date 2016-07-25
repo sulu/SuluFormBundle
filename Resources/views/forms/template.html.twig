@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid-row m-bottom-40">
+        <div class="grid-row m-bottom-20">
             <div class="grid-col-6">
                 <div class="form-group">
                     <label for="toEmail">
@@ -107,6 +107,22 @@
                          data-validation-required="false"
                          data-mapper-property="toName">
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-row m-bottom-40">
+            <div class="grid-col-6">
+                <div class="form-group">
+                    <label for="sendAttachments" style="margin-top: 5px; margin-bottom: 5px;">
+                        <div class="custom-checkbox">
+                            <input type="checkbox"
+                                   id="sendAttachments-element"
+                                   data-mapper-property="sendAttachments"
+                                   class="form-element husky-validate"/>
+                            <span class="icon"></span>
+                        </div>
+                        <%= translate('l91_sulu_form.send_attachments') %>
+                    </label>
                 </div>
             </div>
         </div>

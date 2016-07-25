@@ -80,6 +80,13 @@ interface TypeInterface
     public function getNotifyReplyToMailAddress($formData = []);
 
     /**
+     * @param $formData
+     *
+     * @return bool
+     */
+    public function getNotifySendAttachments($formData = []);
+
+    /**
      * @return string
      */
     public function getDefaultIntention();
