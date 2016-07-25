@@ -142,36 +142,40 @@ class Handler implements HandlerInterface
 
         if ($type instanceof TypeInterface) {
             foreach ($type->getFileFields() as $field) {
-                if ($form->has($field)) {
-                    $files = $form[$field]->getData();
+                if (!$form->has($field)) {
+                    continue;
+                }
 
-                    if (count($files)) {
-                        $type = $this->formExtension->getType($form->getName());
-                        $collectionId = $type->getCollectionId();
-                        $ids = [];
+                $files = $form[$field]->getData();
 
-                        /** @var UploadedFile $file */
-                        foreach ($form[$field]->getData() as $file) {
-                            if ($file instanceof UploadedFile) {
-                                $media = $this->mediaManager->save(
-                                    $file,
-                                    [
-                                        'collection' => $collectionId,
-                                        'locale' => $form->get('locale')->getData(),
-                                        'title' => $file->getClientOriginalName(),
-                                    ],
-                                    null
-                                );
+                if (!count($files)) {
+                    continue;
+                }
 
-                                // save attachments data for swift message
-                                $this->attachments[] = $file;
-                                $ids[] = $media->getId();
-                            }
-                        }
+                $type = $this->formExtension->getType($form->getName());
+                $collectionId = $type->getCollectionId();
+                $ids = [];
 
-                        $mediaIds[$field] = $ids;
+                /** @var UploadedFile $file */
+                foreach ($files as $file) {
+                    if ($file instanceof UploadedFile) {
+                        $media = $this->mediaManager->save(
+                            $file,
+                            [
+                                'collection' => $collectionId,
+                                'locale' => $form->get('locale')->getData(),
+                                'title' => $file->getClientOriginalName(),
+                            ],
+                            null
+                        );
+
+                        // save attachments data for swift message
+                        $this->attachments[] = $file;
+                        $ids[] = $media->getId();
                     }
                 }
+
+                $mediaIds[$field] = $ids;
             }
         }
 
