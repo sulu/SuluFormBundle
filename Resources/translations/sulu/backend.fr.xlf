@@ -18,6 +18,10 @@
                 <source>l91_sulu_form.please_choose</source>
                 <target>Choisissez ...</target>
             </trans-unit>
+            <trans-unit id="5">
+                <source>l91_sulu_form.send_attachments</source>
+                <target>Send attachments?</target>
+            </trans-unit>
 
             <!-- Types -->
             <trans-unit id="10">
