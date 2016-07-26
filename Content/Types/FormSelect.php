@@ -9,6 +9,7 @@ use L91\Sulu\Bundle\FormBundle\Form\Type\DynamicFormType;
 use L91\Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\SimpleContentType;
+use Sulu\Component\Media\SystemCollections\SystemCollectionManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -44,6 +45,11 @@ class FormSelect extends SimpleContentType
     private $formHandler;
 
     /**
+     * @var SystemCollectionManagerInterface
+     */
+    private $systemCollectionManager;
+
+    /**
      * FormSelect constructor.
      *
      * @param string $template
@@ -51,13 +57,15 @@ class FormSelect extends SimpleContentType
      * @param RequestStack $requestStack
      * @param FormFactoryInterface $formFactory
      * @param HandlerInterface $formHandler
+     * @param SystemCollectionManagerInterface $systemCollectionManager
      */
     public function __construct(
         $template,
         FormRepository $formRepository,
         RequestStack $requestStack,
         FormFactoryInterface $formFactory,
-        HandlerInterface $formHandler
+        HandlerInterface $formHandler,
+        SystemCollectionManagerInterface $systemCollectionManager
     ) {
         parent::__construct('FormSelect', '');
         $this->template = $template;
@@ -65,6 +73,7 @@ class FormSelect extends SimpleContentType
         $this->requestStack = $requestStack;
         $this->formFactory = $formFactory;
         $this->formHandler = $formHandler;
+        $this->systemCollectionManager = $systemCollectionManager;
     }
 
     /**
@@ -104,8 +113,8 @@ class FormSelect extends SimpleContentType
                 $formEntity,
                 $locale,
                 $property->getName(),
-                $property->getStructure()->getView()
-                // TODO collection id of systemCollection
+                $property->getStructure()->getView(),
+                $this->systemCollectionManager->getSystemCollection()
             );
 
             $form = $this->formFactory->create(

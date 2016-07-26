@@ -142,19 +142,18 @@ class Handler implements HandlerInterface
 
         if ($type instanceof TypeInterface) {
             foreach ($type->getFileFields() as $field) {
-                if (!$form->has($field)) {
+                if (!$form->has($field) || !count($form[$field]->getData())) {
                     continue;
                 }
 
                 $files = $form[$field]->getData();
-
-                if (!count($files)) {
-                    continue;
-                }
-
-                $type = $this->formExtension->getType($form->getName());
                 $collectionId = $type->getCollectionId();
                 $ids = [];
+
+                // convert $files to array
+                if (!is_array($files)) {
+                    $files = [$files];
+                }
 
                 /** @var UploadedFile $file */
                 foreach ($files as $file) {
@@ -163,7 +162,7 @@ class Handler implements HandlerInterface
                             $file,
                             [
                                 'collection' => $collectionId,
-                                'locale' => $form->get('locale')->getData(),
+                                'locale' => $this->getFormLocale($form),
                                 'title' => $file->getClientOriginalName(),
                             ],
                             null
@@ -261,6 +260,27 @@ class Handler implements HandlerInterface
                 $attributes
             )
         );
+    }
+
+    /**
+     * @description Returns the correct form locale.
+     * TODO What's the correct way to handle both types?
+     *
+     * @param FormInterface $form
+     *
+     * @return string
+     */
+    public function getFormLocale($form)
+    {
+        $locale = 'de';
+
+        if ($form->has('locale')) {
+            $locale = $form->get('locale')->getData();
+        } elseif ($form->getData()->locale) {
+            $locale = $form->getData()->locale;
+        }
+
+        return $locale;
     }
 
     /**

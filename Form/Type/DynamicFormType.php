@@ -9,6 +9,7 @@ use L91\Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -39,19 +40,26 @@ class DynamicFormType extends AbstractType
     private $name;
 
     /**
+     * @var int
+     */
+    private $systemCollectionId;
+
+    /**
      * DynamicFormType constructor.
      *
      * @param Form $formEntity
      * @param string $locale
      * @param string $name
      * @param string $structureView
+     * @param int $systemCollectionId
      */
-    public function __construct($formEntity, $locale, $name, $structureView)
+    public function __construct($formEntity, $locale, $name, $structureView, $systemCollectionId)
     {
         $this->formEntity = $formEntity;
         $this->locale = $locale;
         $this->name = $name;
         $this->structureView = $structureView;
+        $this->systemCollectionId = $systemCollectionId;
     }
 
     /**
@@ -114,6 +122,10 @@ class DynamicFormType extends AbstractType
                     break;
                 case 'country':
                     $type = CountryType::class;
+                    break;
+                case 'date':
+                    $type = DateType::class;
+                    $options['widget'] = 'single_text';
                     break;
                 case 'attachment':
                     $type = FileType::class;
@@ -266,7 +278,23 @@ class DynamicFormType extends AbstractType
      */
     public function getCollectionId()
     {
-        // TODO
+        return $this->systemCollectionId;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFileFields()
+    {
+        $fileFields = [];
+
+        foreach ($this->formEntity->getFields() as $field) {
+            if ('attachment' === $field->getType()) {
+                $fileFields[] = $field->getKey();
+            }
+        }
+
+        return $fileFields;
     }
 
     /**
