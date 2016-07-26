@@ -4,6 +4,7 @@ namespace L91\Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
@@ -12,8 +13,34 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class L91SuluFormExtension extends Extension
+class L91SuluFormExtension extends Extension implements PrependExtensionInterface
 {
+    /**
+     * Allow an extension to prepend the extension configurations.
+     *
+     * @param ContainerBuilder $container
+     */
+    public function prepend(ContainerBuilder $container)
+    {
+        if ($container->hasExtension('sulu_media')) {
+            $container->prependExtensionConfig(
+                'sulu_media',
+                [
+                    'system_collections' => [
+                        'l91_sulu_form' => [
+                            'meta_title' => ['en' => 'Sulu forms', 'de' => 'Sulu Formulare'],
+                            'collections' => [
+                                'attachments' => [
+                                    'meta_title' => ['en' => 'Attachments', 'de' => 'Anhänge'],
+                                ],
+                            ],
+                        ],
+                    ],
+                ]
+            );
+        }
+    }
+
     /**
      * {@inheritdoc}
      */
