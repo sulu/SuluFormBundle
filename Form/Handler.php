@@ -276,7 +276,7 @@ class Handler implements HandlerInterface
 
         if ($form->has('locale')) {
             $locale = $form->get('locale')->getData();
-        } else if ($form->getData()->locale) {
+        } elseif ($form->getData()->locale) {
             $locale = $form->getData()->locale;
         }
 
