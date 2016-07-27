@@ -146,6 +146,12 @@ class Dynamic implements TimestampableInterface
      */
     private $changed;
 
+    /**
+     * @param string $uuid
+     * @param string $locale
+     * @param null|string $webspaceKey
+     * @param array $data
+     */
     public function __construct($uuid, $locale, $webspaceKey = null, $data = [])
     {
         $this->uuid = $uuid;

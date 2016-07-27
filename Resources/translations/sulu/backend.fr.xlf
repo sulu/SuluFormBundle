@@ -120,6 +120,14 @@
                 <source>l91_sulu_form.type.radio_buttons</source>
                 <target>Radio Buttons</target>
             </trans-unit>
+            <trans-unit id="35">
+                <source>l91_sulu_form.type.free_text</source>
+                <target>Free Text</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source>l91_sulu_form.type.spacer</source>
+                <target>Spacer</target>
+            </trans-unit>
 
             <!-- Form -->
             <trans-unit id="50">

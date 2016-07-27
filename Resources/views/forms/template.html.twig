@@ -204,11 +204,17 @@
                                                 <div class="clear"></div>
                                             </div>
                                             <div class="grid-row">
-                                                <div class="grid-col-3 m-top-10 floating form-group hidden">
+                                                {% set marginClass = 'm-top-10' %}
+
+                                                {% if type in ['spacer'] %}
+                                                    {% set marginClass = 'm-top-30' %}
+                                                {% endif %}
+
+                                                <div class="grid-col-3 {{ marginClass }} floating form-group hidden">
                                                     <div class="type-select"></div>
                                                 </div>
 
-                                                {% if type not in ['headline'] %}
+                                                {% if type not in ['headline', 'spacer', 'free_text'] %}
                                                     <div class="grid-col-2 m-top-10 floating form-group">
                                                     </div>
                                                     <div class="grid-col-6 m-top-10 floating form-group">
@@ -225,11 +231,41 @@
                                                         </label>
                                                     </div>
                                                 {% endif %}
+
+                                                {% if type in ['spacer'] %}
+                                                    <div class="grid-col-3 floating form-group">
+                                                        <label for="width<~=index~>"
+                                                               class="pointer"
+                                                               title="width">
+                                                            <%= translate('l91_sulu_form.width') %>
+                                                        </label>
+
+                                                        <div id="width<~=index~>"
+                                                             class="preview-update trigger-save-button"
+                                                             data-aura-component="select@husky"
+                                                             data-aura-data='{{ widths|json_encode() }}'
+                                                             data-aura-multiple-select="false"
+                                                             data-aura-instance-name="width"
+                                                             data-aura-default-label="<%= translate('l91_sulu_form.please_choose') %>"
+                                                             data-type="husky-select"
+                                                             data-form="true"
+                                                             data-mapper-return-value="id"
+                                                             data-mapper-property="width">
+                                                        </div>
+
+                                                        <div class="block-content" data-sort-mode-id="{{ blockId }}width<~=index~>"></div>
+
+                                                        <div class="input-description"></div>
+                                                    </div>
+                                                {% endif %}
                                             </div>
-                                            <div class="block block-{{ type }} grid-row small">
-                                                {% include 'L91SuluFormBundle:forms:fields/types/' ~ type|lower ~ '.html.twig' %}
-                                                <div class="clear"></div>
-                                            </div>
+
+                                            {% if type not in ['spacer'] %}
+                                                <div class="block block-{{ type }} grid-row small">
+                                                    {% include 'L91SuluFormBundle:forms:fields/types/' ~ type|lower ~ '.html.twig' %}
+                                                    <div class="clear"></div>
+                                                </div>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </script>

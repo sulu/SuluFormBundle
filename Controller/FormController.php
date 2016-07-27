@@ -150,6 +150,8 @@ class FormController extends FOSRestController implements ClassResourceInterface
     public function cgetTemplateAction(Request $request)
     {
         $types = [
+            'spacer',
+            'free_text',
             'salutation',
             'title',
             'firstName',

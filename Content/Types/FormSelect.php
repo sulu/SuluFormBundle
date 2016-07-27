@@ -104,7 +104,15 @@ class FormSelect extends SimpleContentType
                 $translation = $field->getTranslation($locale);
 
                 if ($translation && $translation->getDefaultValue()) {
-                    $defaults[$field->getKey()] = $translation->getDefaultValue();
+                    $value = $translation->getDefaultValue();
+
+                    // handle date type
+                    if (0 === strpos($field->getKey(), 'date')) {
+                        $datetime = new \DateTime();
+                        $value = $datetime->createFromFormat('Y-m-d', $value);
+                    }
+
+                    $defaults[$field->getKey()] = $value;
                 }
             }
 

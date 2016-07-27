@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -119,6 +120,14 @@ class DynamicFormType extends AbstractType
 
             // Form Type
             switch ($field->getType()) {
+                case 'spacer':
+                    $type = HiddenType::class;
+                    $options['attr']['spacer'] = true;
+                    break;
+                case 'free_text':
+                    $type = HiddenType::class;
+                    $options['attr']['free_text'] = true;
+                    break;
                 case 'salutation':
                     $type = ChoiceType::class;
 
@@ -128,6 +137,7 @@ class DynamicFormType extends AbstractType
                     ];
                     break;
                 case 'headline':
+                    // headline is handled separately and used as attribute
                     continue;
                     break;
                 case 'textarea':
@@ -160,6 +170,7 @@ class DynamicFormType extends AbstractType
                     break;
                 case 'radio_buttons':
                     $type = $this->createChoiceType($translation, $options, true);
+                    $options['attr']['class'] = 'radio-buttons';
                     break;
             }
 

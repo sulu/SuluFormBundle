@@ -1,0 +1,25 @@
+{% extends "L91SuluFormBundle:forms:fields/default-field.html.twig" %}
+
+{% block title %}
+    <div class="grid-col-9 floating form-group">
+        <label for="title<~=index~>"
+               class="pointer required"
+               title="Title">
+            <%= translate('l91_sulu_form.title') %>
+        </label>
+
+        <textarea id="title<~=index~>"
+                  data-property="title"
+                  class="form-element preview-update trigger-save-button"
+                  data-mapper-property="title"
+                  data-validation-required="true"></textarea>
+
+        <div class="block-content" data-sort-mode-id="{{ blockId }}title<~=index~>"></div>
+    </div>
+{% endblock %}
+
+{% block placeholder_default %}
+{% endblock %}
+
+{% block extended %}
+{% endblock %}
