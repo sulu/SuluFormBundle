@@ -170,6 +170,10 @@ class Dynamic implements TimestampableInterface
      */
     public function __set($name, $value)
     {
+        if ($value instanceof \DateTime) {
+            $value = $value->format('Y-m-d H:i:s');
+        }
+
         if (property_exists($this, $name)) {
             if (is_array($value)) {
                 $value = json_encode($value);

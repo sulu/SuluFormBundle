@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -90,18 +91,30 @@ class DynamicFormType extends AbstractType
                 $headline = '';
             }
 
-            // required
-            $options['required'] = $field->getRequired();
-
-            if ($field->getRequired()) {
-                $options['required'] = true;
-                $options['constraints'][] = new NotBlank();
-            }
+            // title
+            $title = '';
+            $placeholder = '';
+            $width = 'full';
 
             // title / placeholder
             if ($translation) {
-                $options['attr']['placeholder'] = $translation->getPlaceholder();
-                $options['label'] = $translation->getTitle();
+                $title = $translation->getTitle();
+                $placeholder = $translation->getPlaceholder();
+            }
+
+            // width
+            if ($field->getWidth()) {
+                $width = $field->getWidth();
+            }
+
+            $options['label'] = $title;
+            $options['required'] = $field->getRequired();
+            $options['attr']['width'] = $width;
+            $options['attr']['placeholder'] = $placeholder;
+
+            // required
+            if ($field->getRequired()) {
+                $options['constraints'][] = new NotBlank();
             }
 
             // Form Type
@@ -122,6 +135,9 @@ class DynamicFormType extends AbstractType
                     break;
                 case 'country':
                     $type = CountryType::class;
+                    break;
+                case 'email':
+                    $type = EmailType::class;
                     break;
                 case 'date':
                     $type = DateType::class;

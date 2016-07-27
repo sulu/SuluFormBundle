@@ -114,7 +114,7 @@ class FormSelect extends SimpleContentType
                 $locale,
                 $property->getName(),
                 $property->getStructure()->getView(),
-                $this->systemCollectionManager->getSystemCollection()
+                $this->systemCollectionManager->getSystemCollection('l91_sulu_form.attachments')
             );
 
             $form = $this->formFactory->create(
