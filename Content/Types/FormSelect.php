@@ -104,7 +104,14 @@ class FormSelect extends SimpleContentType
                 $translation = $field->getTranslation($locale);
 
                 if ($translation && $translation->getDefaultValue()) {
-                    $defaults[$field->getKey()] = $translation->getDefaultValue();
+                    $value = $translation->getDefaultValue();
+
+                    // handle date type
+                    if (strpos($field->getKey(), Dynamic::TYPE_DATE) === 0) {
+                        $value = new \DateTime($value);
+                    }
+
+                    $defaults[$field->getKey()] = $value;
                 }
             }
 
@@ -114,7 +121,7 @@ class FormSelect extends SimpleContentType
                 $locale,
                 $property->getName(),
                 $property->getStructure()->getView(),
-                $this->systemCollectionManager->getSystemCollection()
+                $this->systemCollectionManager->getSystemCollection('l91_sulu_form.attachments')
             );
 
             $form = $this->formFactory->create(

@@ -16,9 +16,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 class L91SuluFormExtension extends Extension implements PrependExtensionInterface
 {
     /**
-     * Allow an extension to prepend the extension configurations.
-     *
-     * @param ContainerBuilder $container
+     * {@inheritdoc}
      */
     public function prepend(ContainerBuilder $container)
     {

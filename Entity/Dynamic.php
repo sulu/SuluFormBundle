@@ -2,10 +2,43 @@
 
 namespace L91\Sulu\Bundle\FormBundle\Entity;
 
+use ReflectionClass;
 use Sulu\Component\Persistence\Model\TimestampableInterface;
 
 class Dynamic implements TimestampableInterface
 {
+    const TYPE_SPACER = 'spacer';
+    const TYPE_FREE_TEXT = 'freeText';
+    const TYPE_SALUTATION = 'salutation';
+    const TYPE_TITLE = 'title';
+    const TYPE_FIRST_NAME = 'firstName';
+    const TYPE_LAST_NAME = 'lastName';
+    const TYPE_EMAIL = 'email';
+    const TYPE_PHONE = 'phone';
+    const TYPE_FAX = 'fax';
+    const TYPE_STREET = 'street';
+    const TYPE_ZIP = 'zip';
+    const TYPE_CITY = 'city';
+    const TYPE_STATE = 'state';
+    const TYPE_COUNTRY = 'country';
+    const TYPE_FUNCTION = 'function';
+    const TYPE_COMPANY = 'company';
+    const TYPE_TEXT = 'text';
+    const TYPE_TEXTAREA = 'textarea';
+    const TYPE_DATE = 'date';
+    const TYPE_HEADLINE = 'headline';
+    const TYPE_ATTACHMENT = 'attachment';
+    const TYPE_CHECKBOX = 'checkbox';
+    const TYPE_CHECKBOX_MULTIPLE = 'checkboxMultiple';
+    const TYPE_SELECT = 'select';
+    const TYPE_SELECT_MULTIPLE = 'selectMultiple';
+    const TYPE_RADIO_BUTTONS = 'radioButtons';
+
+    /**
+     * @var int
+     */
+    private $id;
+
     /**
      * @var string
      */
@@ -89,6 +122,11 @@ class Dynamic implements TimestampableInterface
     /**
      * @var string
      */
+    private $company;
+
+    /**
+     * @var string
+     */
     private $text;
 
     /**
@@ -97,12 +135,7 @@ class Dynamic implements TimestampableInterface
     private $textarea;
 
     /**
-     * @var string
-     */
-    private $company;
-
-    /**
-     * @var string
+     * @var \DateTime
      */
     private $date;
 
@@ -119,22 +152,27 @@ class Dynamic implements TimestampableInterface
     /**
      * @var string
      */
-    private $choice;
+    private $checkboxMultiple;
 
     /**
      * @var string
      */
-    private $multipleChoice;
+    private $select;
+
+    /**
+     * @var string
+     */
+    private $selectMultiple;
+
+    /**
+     * @var string
+     */
+    private $radioButtons;
 
     /**
      * @var string
      */
     private $data = '[]';
-
-    /**
-     * @var int
-     */
-    private $id;
 
     /**
      * @var \DateTime
@@ -146,6 +184,24 @@ class Dynamic implements TimestampableInterface
      */
     private $changed;
 
+    /**
+     * Returns an array of all constants.
+     *
+     * @return array
+     */
+    public static function getConstants()
+    {
+        $reflectionClass = new ReflectionClass(__CLASS__);
+
+        return $reflectionClass->getConstants();
+    }
+
+    /**
+     * @param string $uuid
+     * @param string $locale
+     * @param null|string $webspaceKey
+     * @param array $data
+     */
     public function __construct($uuid, $locale, $webspaceKey = null, $data = [])
     {
         $this->uuid = $uuid;
@@ -190,13 +246,21 @@ class Dynamic implements TimestampableInterface
     public function __get($name)
     {
         if (property_exists($this, $name)) {
-            return $this->$name;
-        } else {
-            $array = $this->getData();
-
-            if (isset($array[$name])) {
-                return $array[$name];
+            if (in_array($name, [self::TYPE_CHECKBOX_MULTIPLE, self::TYPE_CHECKBOX_MULTIPLE])) {
+                return json_decode($this->$name, true);
             }
+
+            return $this->$name;
+        }
+
+        $array = $this->getData();
+
+        if (isset($array[$name])) {
+            if (strpos($name, 'date') === 0) {
+                return new \DateTime($array[$name]);
+            }
+
+            return $array[$name];
         }
     }
 

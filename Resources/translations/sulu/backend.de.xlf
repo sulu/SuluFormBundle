@@ -106,20 +106,28 @@
                 <target>Checkbox</target>
             </trans-unit>
             <trans-unit id="31">
-                <source>l91_sulu_form.type.checkboxes</source>
+                <source>l91_sulu_form.type.checkboxmultiple</source>
                 <target>Checkboxes</target>
             </trans-unit>
             <trans-unit id="32">
                 <source>l91_sulu_form.type.select</source>
-                <target>Select</target>
+                <target>Dropdown</target>
             </trans-unit>
             <trans-unit id="33">
-                <source>l91_sulu_form.type.multiple_select</source>
-                <target>Multiple Select</target>
+                <source>l91_sulu_form.type.selectmultiple</source>
+                <target>Dropdown (Mehrfachauswahl)</target>
             </trans-unit>
             <trans-unit id="34">
-                <source>l91_sulu_form.type.radio_buttons</source>
+                <source>l91_sulu_form.type.radiobuttons</source>
                 <target>Radio Buttons</target>
+            </trans-unit>
+            <trans-unit id="35">
+                <source>l91_sulu_form.type.freetext</source>
+                <target>Freier Text</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source>l91_sulu_form.type.spacer</source>
+                <target>Leerraum</target>
             </trans-unit>
 
             <!-- Form -->

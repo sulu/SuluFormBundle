@@ -4,6 +4,7 @@ namespace L91\Sulu\Bundle\FormBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
 use L91\Sulu\Bundle\FormBundle\Entity\Form;
 use L91\Sulu\Bundle\FormBundle\Manager\FormManager;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactory;
@@ -149,33 +150,6 @@ class FormController extends FOSRestController implements ClassResourceInterface
      */
     public function cgetTemplateAction(Request $request)
     {
-        $types = [
-            'salutation',
-            'title',
-            'firstName',
-            'lastName',
-            'email',
-            'phone',
-            'fax',
-            'street',
-            'zip',
-            'city',
-            'state',
-            'country',
-            'function',
-            'company',
-            'text',
-            'textarea',
-            'date',
-            'headline',
-            'attachment',
-            'checkbox',
-            'checkboxes',
-            'select',
-            'multiple_select',
-            'radio_buttons',
-        ];
-
         $widths = [
             [
                 'id' => 'full',
@@ -206,7 +180,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
         return $this->render(
             $this->getBundleName() . ':' . $this->getListName() . ':template.html.twig',
             [
-                'types' => $types,
+                'types' => Dynamic::getConstants(),
                 'widths' => $widths,
             ]
         );

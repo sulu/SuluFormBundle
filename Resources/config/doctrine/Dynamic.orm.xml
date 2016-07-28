@@ -7,32 +7,34 @@
             <generator strategy="AUTO"/>
         </id>
 
-        <field name="uuid" column="uuid" type="string" nullable="false" />
-        <field name="locale" column="locale" type="string" nullable="false" />
-        <field name="webspaceKey" column="webspaceKey" type="string" nullable="false" />
+        <field name="uuid" column="uuid" type="string" nullable="false"/>
+        <field name="locale" column="locale" type="string" nullable="false"/>
+        <field name="webspaceKey" column="webspaceKey" type="string" nullable="false"/>
 
-        <field name="salutation" column="salutation" type="string" nullable="true" />
-        <field name="title" column="title" type="string" nullable="true" />
-        <field name="firstName" column="firstName" type="string" nullable="true" />
-        <field name="lastName" column="lastName" type="string" nullable="true" />
-        <field name="email" column="email" type="string" nullable="true" />
-        <field name="phone" column="phone" type="string" nullable="true" />
-        <field name="fax" column="fax" type="string" nullable="true" />
-        <field name="street" column="street" type="string" nullable="true" />
-        <field name="zip" column="zip" type="string" nullable="true" />
-        <field name="city" column="city" type="string" nullable="true" />
-        <field name="state" column="state" type="string" nullable="true" />
-        <field name="country" column="country" type="string" length="2" nullable="true" />
-        <field name="function" column="function" type="string" nullable="true" />
-        <field name="text" column="text" type="string" nullable="true" />
-        <field name="textarea" column="textarea" type="text" nullable="true" />
-        <field name="company" column="company" type="text" nullable="true" />
-        <field name="date" column="date" type="string" nullable="true" />
-        <field name="attachment" column="attachment" type="string" nullable="true" />
-        <field name="checkbox" column="checkbox" type="string" nullable="true" />
-        <field name="choice" column="choice" type="text" nullable="true" />
-        <field name="multipleChoice" column="multipleChoice" type="text" nullable="true" />
+        <field name="salutation" column="salutation" type="string" nullable="true"/>
+        <field name="title" column="title" type="string" nullable="true"/>
+        <field name="firstName" column="firstName" type="string" nullable="true"/>
+        <field name="lastName" column="lastName" type="string" nullable="true"/>
+        <field name="email" column="email" type="string" nullable="true"/>
+        <field name="phone" column="phone" type="string" nullable="true"/>
+        <field name="fax" column="fax" type="string" nullable="true"/>
+        <field name="street" column="street" type="string" nullable="true"/>
+        <field name="zip" column="zip" type="string" nullable="true"/>
+        <field name="city" column="city" type="string" nullable="true"/>
+        <field name="state" column="state" type="string" nullable="true"/>
+        <field name="country" column="country" type="string" length="2" nullable="true"/>
+        <field name="function" column="function" type="string" nullable="true"/>
+        <field name="company" column="company" type="text" nullable="true"/>
+        <field name="text" column="text" type="string" nullable="true"/>
+        <field name="textarea" column="textarea" type="text" nullable="true"/>
+        <field name="date" column="date" type="date" nullable="true"/>
+        <field name="attachment" column="attachment" type="string" nullable="true"/>
+        <field name="checkbox" column="checkbox" type="string" nullable="true"/>
+        <field name="checkboxMultiple" column="checkboxMultiple" type="string" nullable="true"/>
+        <field name="select" column="select" type="string" nullable="true"/>
+        <field name="selectMultiple" column="selectMultiple" type="string" nullable="true"/>
+        <field name="radioButtons" column="radioButtons" type="string" nullable="true"/>
 
-        <field name="data" column="data" type="text" nullable="true" />
+        <field name="data" column="data" type="text" nullable="true"/>
     </entity>
 </doctrine-mapping>

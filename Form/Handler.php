@@ -245,6 +245,7 @@ class Handler implements HandlerInterface
             throw new \Exception('Form Data need to be an object!');
         } else {
             $entity = $formData;
+
             if (!empty($mediaIds) && array_key_exists('files', $mediaIds)) {
                 $entity->setFiles($mediaIds['files']);
             }
