@@ -32,8 +32,8 @@
         <field name="attachment" column="attachment" type="string" nullable="true"/>
         <field name="checkbox" column="checkbox" type="string" nullable="true"/>
         <field name="checkboxMultiple" column="checkboxMultiple" type="string" nullable="true"/>
-        <field name="select" column="select" type="string" nullable="true"/>
-        <field name="selectMultiple" column="selectMultiple" type="string" nullable="true"/>
+        <field name="dropdown" column="dropdown" type="string" nullable="true"/>
+        <field name="dropdownMultiple" column="dropdownMultiple" type="string" nullable="true"/>
         <field name="radioButtons" column="radioButtons" type="string" nullable="true"/>
 
         <field name="data" column="data" type="text" nullable="true"/>
