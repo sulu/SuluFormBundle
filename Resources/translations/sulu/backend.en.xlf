@@ -115,7 +115,7 @@
             </trans-unit>
             <trans-unit id="33">
                 <source>l91_sulu_form.type.selectmultiple</source>
-                <target>Multiple Select</target>
+                <target>Select (multiple)</target>
             </trans-unit>
             <trans-unit id="34">
                 <source>l91_sulu_form.type.radiobuttons</source>

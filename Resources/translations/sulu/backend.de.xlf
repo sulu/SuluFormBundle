@@ -111,11 +111,11 @@
             </trans-unit>
             <trans-unit id="32">
                 <source>l91_sulu_form.type.select</source>
-                <target>Select</target>
+                <target>Dropdown</target>
             </trans-unit>
             <trans-unit id="33">
                 <source>l91_sulu_form.type.selectmultiple</source>
-                <target>Multiple Select</target>
+                <target>Dropdown (Mehrfachauswahl)</target>
             </trans-unit>
             <trans-unit id="34">
                 <source>l91_sulu_form.type.radiobuttons</source>
