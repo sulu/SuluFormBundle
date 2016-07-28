@@ -189,7 +189,7 @@ class Dynamic implements TimestampableInterface
      *
      * @return array
      */
-    static function getConstants()
+    public static function getConstants()
     {
         $reflectionClass = new ReflectionClass(__CLASS__);
 
