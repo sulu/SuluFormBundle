@@ -74,6 +74,10 @@ class DynamicFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        if (!$this->formEntity->getTranslation($this->locale)) {
+            throw new \Exception('The form with the ID "' . $this->formEntity->getId() . '" does not exist for the locale "' . $this->locale . '"!');
+        }
+
         foreach ($this->formEntity->getFields() as $field) {
             $translation = $field->getTranslation($this->locale);
             $name = $field->getKey();
@@ -81,7 +85,7 @@ class DynamicFormType extends AbstractType
             $options = ['constraints' => [], 'attr' => [], 'required' => false];
 
             // skip $type headline, use for the next field
-            if ('headline' === $field->getType()) {
+            if ($translation && $field->getType() === Dynamic::TYPE_HEADLINE) {
                 $headline = $translation->getTitle();
                 continue;
             }
@@ -120,15 +124,15 @@ class DynamicFormType extends AbstractType
 
             // Form Type
             switch ($field->getType()) {
-                case 'spacer':
+                case Dynamic::TYPE_SPACER:
                     $type = HiddenType::class;
                     $options['attr']['spacer'] = true;
                     break;
-                case 'free_text':
+                case Dynamic::TYPE_FREE_TEXT:
                     $type = HiddenType::class;
                     $options['attr']['free_text'] = true;
                     break;
-                case 'salutation':
+                case Dynamic::TYPE_SALUTATION:
                     $type = ChoiceType::class;
 
                     $options['choices'] = [
@@ -136,39 +140,39 @@ class DynamicFormType extends AbstractType
                         'ms' => 'l91_sulu_form.salutation_ms',
                     ];
                     break;
-                case 'headline':
+                case Dynamic::TYPE_HEADLINE:
                     // headline is handled separately and used as attribute
                     continue;
                     break;
-                case 'textarea':
+                case Dynamic::TYPE_TEXTAREA:
                     $type = TextareaType::class;
                     break;
-                case 'country':
+                case Dynamic::TYPE_COUNTRY:
                     $type = CountryType::class;
                     break;
-                case 'email':
+                case Dynamic::TYPE_EMAIL:
                     $type = EmailType::class;
                     break;
-                case 'date':
+                case Dynamic::TYPE_DATE:
                     $type = DateType::class;
                     $options['widget'] = 'single_text';
                     break;
-                case 'attachment':
+                case Dynamic::TYPE_ATTACHMENT:
                     $type = FileType::class;
                     break;
-                case 'checkbox':
+                case Dynamic::TYPE_CHECKBOX:
                     $type = CheckboxType::class;
                     break;
-                case 'checkboxes':
+                case Dynamic::TYPE_CHECKBOX_MULTIPLE:
                     $type = $this->createChoiceType($translation, $options, true, true);
                     break;
-                case 'select':
+                case Dynamic::TYPE_SELECT:
                     $type = $this->createChoiceType($translation, $options);
                     break;
-                case 'multiple_select':
+                case Dynamic::TYPE_SELECT_MULTIPLE:
                     $type = $this->createChoiceType($translation, $options, false, true);
                     break;
-                case 'radio_buttons':
+                case Dynamic::TYPE_RADIO_BUTTONS:
                     $type = $this->createChoiceType($translation, $options, true);
                     $options['attr']['class'] = 'radio-buttons';
                     break;
@@ -316,7 +320,7 @@ class DynamicFormType extends AbstractType
         $fileFields = [];
 
         foreach ($this->formEntity->getFields() as $field) {
-            if ('attachment' === $field->getType()) {
+            if ($field->getType() === Dynamic::TYPE_ATTACHMENT) {
                 $fileFields[] = $field->getKey();
             }
         }
