@@ -107,9 +107,8 @@ class FormSelect extends SimpleContentType
                     $value = $translation->getDefaultValue();
 
                     // handle date type
-                    if (0 === strpos($field->getKey(), 'date')) {
-                        $datetime = new \DateTime();
-                        $value = $datetime->createFromFormat('Y-m-d', $value);
+                    if (strpos($field->getKey(), Dynamic::TYPE_DATE) === 0) {
+                        $value = new \DateTime($value);
                     }
 
                     $defaults[$field->getKey()] = $value;
