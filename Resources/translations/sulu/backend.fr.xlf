@@ -109,11 +109,11 @@
                 <target>Checkboxes</target>
             </trans-unit>
             <trans-unit id="32">
-                <source>l91_sulu_form.type.select</source>
+                <source>l91_sulu_form.type.dropdown</source>
                 <target>Select</target>
             </trans-unit>
             <trans-unit id="33">
-                <source>l91_sulu_form.type.selectmultiple</source>
+                <source>l91_sulu_form.type.dropdownmultiple</source>
                 <target>Select (multiple)</target>
             </trans-unit>
             <trans-unit id="34">

@@ -9,6 +9,7 @@
 
         <field name="uuid" column="uuid" type="string" nullable="false"/>
         <field name="locale" column="locale" type="string" nullable="false"/>
+        <field name="formId" column="formId" type="integer" nullable="false"/>
         <field name="webspaceKey" column="webspaceKey" type="string" nullable="false"/>
 
         <field name="salutation" column="salutation" type="string" nullable="true"/>
