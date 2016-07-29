@@ -2,7 +2,6 @@
 
 namespace L91\Sulu\Bundle\FormBundle\Entity;
 
-use ReflectionClass;
 use Sulu\Component\Persistence\Model\TimestampableInterface;
 
 class Dynamic implements TimestampableInterface
