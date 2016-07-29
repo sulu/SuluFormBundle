@@ -30,8 +30,8 @@ class Dynamic implements TimestampableInterface
     const TYPE_ATTACHMENT = 'attachment';
     const TYPE_CHECKBOX = 'checkbox';
     const TYPE_CHECKBOX_MULTIPLE = 'checkboxMultiple';
-    const TYPE_SELECT = 'select';
-    const TYPE_SELECT_MULTIPLE = 'selectMultiple';
+    const TYPE_DROPDOWN = 'dropdown';
+    const TYPE_DROPDOWN_MULTIPLE = 'dropdownMultiple';
     const TYPE_RADIO_BUTTONS = 'radioButtons';
 
     /**
@@ -48,6 +48,11 @@ class Dynamic implements TimestampableInterface
      * @var string
      */
     private $locale;
+
+    /**
+     * @var int
+     */
+    private $formId;
 
     /**
      * @var string
@@ -157,12 +162,12 @@ class Dynamic implements TimestampableInterface
     /**
      * @var string
      */
-    private $select;
+    private $dropdown;
 
     /**
      * @var string
      */
-    private $selectMultiple;
+    private $dropdownMultiple;
 
     /**
      * @var string
@@ -199,13 +204,15 @@ class Dynamic implements TimestampableInterface
     /**
      * @param string $uuid
      * @param string $locale
+     * @param int $formId
      * @param null|string $webspaceKey
      * @param array $data
      */
-    public function __construct($uuid, $locale, $webspaceKey = null, $data = [])
+    public function __construct($uuid, $locale, $formId, $webspaceKey = null, $data = [])
     {
         $this->uuid = $uuid;
         $this->locale = $locale;
+        $this->formId = $formId;
         $this->webspaceKey = $webspaceKey;
 
         foreach ($data as $name => $value) {

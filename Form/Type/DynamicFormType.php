@@ -166,10 +166,10 @@ class DynamicFormType extends AbstractType
                 case Dynamic::TYPE_CHECKBOX_MULTIPLE:
                     $type = $this->createChoiceType($translation, $options, true, true);
                     break;
-                case Dynamic::TYPE_SELECT:
+                case Dynamic::TYPE_DROPDOWN:
                     $type = $this->createChoiceType($translation, $options);
                     break;
-                case Dynamic::TYPE_SELECT_MULTIPLE:
+                case Dynamic::TYPE_DROPDOWN_MULTIPLE:
                     $type = $this->createChoiceType($translation, $options, false, true);
                     break;
                 case Dynamic::TYPE_RADIO_BUTTONS:
