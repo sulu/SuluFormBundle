@@ -190,16 +190,36 @@ class Dynamic implements TimestampableInterface
     private $changed;
 
     /**
-     * Returns an array of all constants.
-     *
-     * @return array
+     * @var array
      */
-    public static function getConstants()
-    {
-        $reflectionClass = new ReflectionClass(__CLASS__);
-
-        return $reflectionClass->getConstants();
-    }
+    public static $TYPES = [
+        self::TYPE_SPACER,
+        self::TYPE_FREE_TEXT,
+        self::TYPE_SALUTATION,
+        self::TYPE_TITLE,
+        self::TYPE_FIRST_NAME,
+        self::TYPE_LAST_NAME,
+        self::TYPE_EMAIL,
+        self::TYPE_PHONE,
+        self::TYPE_FAX,
+        self::TYPE_STREET,
+        self::TYPE_ZIP,
+        self::TYPE_CITY,
+        self::TYPE_STATE,
+        self::TYPE_COUNTRY,
+        self::TYPE_FUNCTION,
+        self::TYPE_COMPANY,
+        self::TYPE_TEXT,
+        self::TYPE_TEXTAREA,
+        self::TYPE_DATE,
+        self::TYPE_HEADLINE,
+        self::TYPE_ATTACHMENT,
+        self::TYPE_CHECKBOX,
+        self::TYPE_CHECKBOX_MULTIPLE,
+        self::TYPE_DROPDOWN,
+        self::TYPE_DROPDOWN_MULTIPLE,
+        self::TYPE_RADIO_BUTTONS,
+    ];
 
     /**
      * @param string $uuid
