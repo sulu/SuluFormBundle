@@ -23,6 +23,10 @@
                 <source>l91_sulu_form.send_attachments</source>
                 <target>Anhang versenden?</target>
             </trans-unit>
+            <trans-unit id="6">
+                <source>l91_sulu_form.created</source>
+                <target>Erstellt am</target>
+            </trans-unit>
 
             <!-- Types -->
             <trans-unit id="10">
@@ -186,6 +190,10 @@
             <trans-unit id="63">
                 <source>l91_sulu_form.choice</source>
                 <target>Auswahl</target>
+            </trans-unit>
+            <trans-unit id="64">
+                <source>l91_sulu_form.mail_text</source>
+                <target>Bestätigungstext</target>
             </trans-unit>
 
             <!-- Width -->

@@ -63,6 +63,13 @@ interface TypeInterface
      *
      * @return string
      */
+    public function getCustomerMailText($formData = []);
+
+    /**
+     * @param $formData
+     *
+     * @return string
+     */
     public function getNotifyFromMailAddress($formData = []);
 
     /**

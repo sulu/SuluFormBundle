@@ -38,6 +38,11 @@ class FormTranslation implements AuditableInterface
     private $toName;
 
     /**
+     * @var string
+     */
+    private $mailText;
+
+    /**
      * @var bool
      */
     private $sendAttachments;
@@ -200,6 +205,26 @@ class FormTranslation implements AuditableInterface
     public function getToName()
     {
         return $this->toName;
+    }
+
+    /**
+     * @param string $mailText
+     *
+     * @return FormTranslation
+     */
+    public function setMailText($mailText)
+    {
+        $this->mailText = $mailText;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMailText()
+    {
+        return $this->mailText;
     }
 
     /**

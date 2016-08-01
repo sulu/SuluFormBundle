@@ -92,6 +92,7 @@ class FormManager
         $translation->setFromName(self::getValue($data, 'fromName'));
         $translation->setToEmail(self::getValue($data, 'toEmail'));
         $translation->setToName(self::getValue($data, 'toName'));
+        $translation->setMailText(self::getValue($data, 'mailText'));
         $translation->setSendAttachments(self::getValue($data, 'sendAttachments'));
         $translation->setChanged(new \DateTime());
 

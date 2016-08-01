@@ -217,6 +217,9 @@ class Handler implements HandlerInterface
         }
 
         if ($customerMailTemplatePath) {
+            // add mail text
+            $attributes['mail_text'] = $type->getCustomerMailText($form->getData());
+
             $customerMail = $this->templating->render($customerMailTemplatePath, $attributes);
 
             $this->mailHelper->sendMail(
