@@ -159,6 +159,8 @@ class DynamicFormType extends AbstractType
                     break;
                 case Dynamic::TYPE_ATTACHMENT:
                     $type = FileType::class;
+                    $options['mapped'] = false;
+                    $options['multiple'] = true;
                     break;
                 case Dynamic::TYPE_CHECKBOX:
                     $type = CheckboxType::class;

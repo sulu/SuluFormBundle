@@ -22,7 +22,6 @@
             </options>
         </field>
 
-        <field name="options" column="options" type="text" nullable="true"/>
         <field name="locale" column="locale" type="string" length="5"/>
 
         <many-to-one field="form"

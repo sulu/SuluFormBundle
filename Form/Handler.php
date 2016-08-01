@@ -136,6 +136,7 @@ class Handler implements HandlerInterface
 
         if (isset($attributes['_form_type'])) {
             $type = $attributes['_form_type'];
+            unset($attributes['_form_type']);
         } else {
             $type = $this->formExtension->getType($form->getName());
         }
@@ -157,21 +158,23 @@ class Handler implements HandlerInterface
 
                 /** @var UploadedFile $file */
                 foreach ($files as $file) {
-                    if ($file instanceof UploadedFile) {
-                        $media = $this->mediaManager->save(
-                            $file,
-                            [
-                                'collection' => $collectionId,
-                                'locale' => $this->getFormLocale($form),
-                                'title' => $file->getClientOriginalName(),
-                            ],
-                            null
-                        );
-
-                        // save attachments data for swift message
-                        $this->attachments[] = $file;
-                        $ids[] = $media->getId();
+                    if (!$file instanceof UploadedFile) {
+                        continue;
                     }
+
+                    $media = $this->mediaManager->save(
+                        $file,
+                        [
+                            'collection' => $collectionId,
+                            'locale' => $this->getFormLocale($form),
+                            'title' => $file->getClientOriginalName(),
+                        ],
+                        null
+                    );
+
+                    // save attachments data for swift message
+                    $this->attachments[] = $file;
+                    $ids[] = $media->getId();
                 }
 
                 $mediaIds[$field] = $ids;
@@ -217,9 +220,6 @@ class Handler implements HandlerInterface
         }
 
         if ($customerMailTemplatePath) {
-            // add mail text
-            $attributes['mail_text'] = $type->getCustomerMailText($form->getData());
-
             $customerMail = $this->templating->render($customerMailTemplatePath, $attributes);
 
             $this->mailHelper->sendMail(
@@ -249,8 +249,15 @@ class Handler implements HandlerInterface
         } else {
             $entity = $formData;
 
-            if (!empty($mediaIds) && array_key_exists('files', $mediaIds)) {
-                $entity->setFiles($mediaIds['files']);
+            foreach ($mediaIds as $key => $value) {
+                $setterMethod = 'set' . ucfirst($key);
+
+                // Here to avoid a BC break
+                if (method_exists($entity, $setterMethod)) {
+                    $entity->$setterMethod($value);
+                } else {
+                    $entity->$key = $value;
+                }
             }
         }
 

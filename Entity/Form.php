@@ -102,6 +102,8 @@ class Form
         }
 
         if (!$create) {
+            // TODO get defaultLocale
+
             return;
         }
 
@@ -179,5 +181,53 @@ class Form
         }
 
         return $fields;
+    }
+
+    /**
+     * Return a localized array of the object.
+     *
+     * @param $locale
+     * @param Dynamic $dynamic
+     *
+     * @return array
+     */
+    public function serializeForLocale($locale, Dynamic $dynamic = null)
+    {
+        $fields = [];
+
+        foreach ($this->fields as $field) {
+            $fieldTranslation = $field->getTranslation($locale, true);
+            $value = null;
+
+            if ($dynamic) {
+                $value = $dynamic->{$field->getKey()};
+            }
+
+            $fields[$field->getOrder()] = [
+                'key' => $field->getKey(),
+                'type' => $field->getType(),
+                'title' => $fieldTranslation->getTitle(),
+                'options' => $fieldTranslation->getOptions(),
+                'defaultValue' => $fieldTranslation->getDefaultValue(),
+                'placeholder' => $fieldTranslation->getPlaceholder(),
+                'value' => $value,
+            ];
+
+            ksort($fields);
+        }
+
+        $translation = $this->getTranslation($locale, true);
+
+        return [
+            'id' => $this->getId(),
+            'title' => $translation->getTitle(),
+            'subject' => $translation->getSubject(),
+            'mailText' => $translation->getMailText(),
+            'fromEmail' => $translation->getFromEmail(),
+            'fromName' => $translation->getFromName(),
+            'toEmail' => $translation->getToEmail(),
+            'toName' => $translation->getToName(),
+            'fields' => $fields,
+        ];
     }
 }

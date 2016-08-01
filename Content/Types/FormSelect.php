@@ -95,7 +95,7 @@ class FormSelect extends SimpleContentType
             // Create Dynamic Data
             $uuid = $property->getStructure()->getUuid();
             $webspaceKey = $property->getStructure()->getWebspaceKey();
-            $locale = $request->getLocale();
+            $locale = $property->getStructure()->getLanguageCode();
             $formEntity = $this->formRepository->findById($id, $locale);
 
             // set Defaults
@@ -134,7 +134,13 @@ class FormSelect extends SimpleContentType
 
             if ($form->isSubmitted() && $form->isValid()) {
                 // save
-                $this->formHandler->handle($form, ['_form_type' => $formType]);
+                $this->formHandler->handle(
+                    $form,
+                    [
+                        '_form_type' => $formType,
+                        'formEntity' => $formEntity->serializeForLocale($locale, $form->getData()),
+                    ]
+                );
 
                 // Do redirect after success
                 throw new HttpException(302, null, null, ['Location' => '?send=true']);
@@ -146,6 +152,26 @@ class FormSelect extends SimpleContentType
         }
 
         return;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getViewData(PropertyInterface $property)
+    {
+        $id = (int) $property->getValue();
+
+        if (!$id) {
+            return [];
+        }
+
+        $locale = $property->getStructure()->getLanguageCode();
+
+        $formEntity = $this->formRepository->findById($id, $locale);
+
+        return [
+            'formEntity' => $formEntity->serializeForLocale($locale),
+        ];
     }
 
     /**

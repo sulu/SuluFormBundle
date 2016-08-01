@@ -50,11 +50,6 @@ class FormTranslation implements AuditableInterface
     /**
      * @var string
      */
-    private $options;
-
-    /**
-     * @var string
-     */
     private $locale;
 
     /**
@@ -245,26 +240,6 @@ class FormTranslation implements AuditableInterface
     public function getSendAttachments()
     {
         return $this->sendAttachments;
-    }
-
-    /**
-     * @param string $options
-     *
-     * @return FormTranslation
-     */
-    public function setOptions($options)
-    {
-        $this->options = $options;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOptions()
-    {
-        return $this->options;
     }
 
     /**
