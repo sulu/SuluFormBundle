@@ -10,6 +10,112 @@
                 <source>l91_sulu_form.salutation_ms</source>
                 <target>Frau</target>
             </trans-unit>
+
+            <!-- Types -->
+            <trans-unit id="10">
+                <source>l91_sulu_form.type.salutation</source>
+                <target>Anrede</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>l91_sulu_form.type.title</source>
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>l91_sulu_form.type.firstName</source>
+                <target>Vorname</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>l91_sulu_form.type.lastName</source>
+                <target>Nachname</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>l91_sulu_form.type.email</source>
+                <target>E-Mail</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>l91_sulu_form.type.phone</source>
+                <target>Telefon</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>l91_sulu_form.type.fax</source>
+                <target>Fax</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>l91_sulu_form.type.street</source>
+                <target>Straße</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>l91_sulu_form.type.zip</source>
+                <target>PLZ</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>l91_sulu_form.type.city</source>
+                <target>Stadt</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>l91_sulu_form.type.state</source>
+                <target>Bundesland</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>l91_sulu_form.type.country</source>
+                <target>Land</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>l91_sulu_form.type.function</source>
+                <target>Funktion</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>l91_sulu_form.type.company</source>
+                <target>Firma</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>l91_sulu_form.type.text</source>
+                <target>Einzeiliges Textfeld</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>l91_sulu_form.type.textarea</source>
+                <target>Mehrzeiliges Textfeld</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>l91_sulu_form.type.date</source>
+                <target>Datum</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>l91_sulu_form.type.headline</source>
+                <target>Überschrift</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>l91_sulu_form.type.attachment</source>
+                <target>Anhang</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>l91_sulu_form.type.checkbox</source>
+                <target>Checkbox</target>
+            </trans-unit>
+            <trans-unit id="31">
+                <source>l91_sulu_form.type.checkboxMultiple</source>
+                <target>Checkboxes</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>l91_sulu_form.type.dropdown</source>
+                <target>Dropdown</target>
+            </trans-unit>
+            <trans-unit id="33">
+                <source>l91_sulu_form.type.dropdownMultiple</source>
+                <target>Dropdown (Mehrfachauswahl)</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>l91_sulu_form.type.radioButtons</source>
+                <target>Radio Buttons</target>
+            </trans-unit>
+            <trans-unit id="35">
+                <source>l91_sulu_form.type.freeText</source>
+                <target>Freier Text</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source>l91_sulu_form.type.spacer</source>
+                <target>Leerraum</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

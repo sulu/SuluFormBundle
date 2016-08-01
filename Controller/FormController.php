@@ -180,7 +180,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
         return $this->render(
             $this->getBundleName() . ':' . $this->getListName() . ':template.html.twig',
             [
-                'types' => Dynamic::getConstants(),
+                'types' => Dynamic::$TYPES,
                 'widths' => $widths,
             ]
         );
