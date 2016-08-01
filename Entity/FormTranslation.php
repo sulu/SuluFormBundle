@@ -38,14 +38,19 @@ class FormTranslation implements AuditableInterface
     private $toName;
 
     /**
-     * @var bool
+     * @var string
      */
-    private $sendAttachments;
+    private $mailText;
 
     /**
      * @var string
      */
-    private $options;
+    private $successText;
+
+    /**
+     * @var bool
+     */
+    private $sendAttachments;
 
     /**
      * @var string
@@ -203,6 +208,46 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
+     * @param string $mailText
+     *
+     * @return FormTranslation
+     */
+    public function setMailText($mailText)
+    {
+        $this->mailText = $mailText;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMailText()
+    {
+        return $this->mailText;
+    }
+
+    /**
+     * @param string $successText
+     *
+     * @return FormTranslation
+     */
+    public function setSuccessText($successText)
+    {
+        $this->successText = $successText;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSuccessText()
+    {
+        return $this->successText;
+    }
+
+    /**
      * @param bool $sendAttachments
      *
      * @return $this
@@ -220,26 +265,6 @@ class FormTranslation implements AuditableInterface
     public function getSendAttachments()
     {
         return $this->sendAttachments;
-    }
-
-    /**
-     * @param string $options
-     *
-     * @return FormTranslation
-     */
-    public function setOptions($options)
-    {
-        $this->options = $options;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOptions()
-    {
-        return $this->options;
     }
 
     /**

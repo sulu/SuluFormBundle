@@ -21,7 +21,7 @@
                      target-entity="L91\Sulu\Bundle\FormBundle\Entity\FormField"
                      mapped-by="form">
             <cascade>
-                <cascade-persist />
+                <cascade-persist/>
             </cascade>
         </one-to-many>
     </entity>

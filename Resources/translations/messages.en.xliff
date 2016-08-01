@@ -10,6 +10,10 @@
                 <source>l91_sulu_form.salutation_ms</source>
                 <target>Ms.</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>l91_sulu_form.created</source>
+                <target>Created on</target>
+            </trans-unit>
 
             <!-- Types -->
             <trans-unit id="10">

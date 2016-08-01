@@ -159,6 +159,8 @@ class DynamicFormType extends AbstractType
                     break;
                 case Dynamic::TYPE_ATTACHMENT:
                     $type = FileType::class;
+                    $options['mapped'] = false;
+                    $options['multiple'] = true;
                     break;
                 case Dynamic::TYPE_CHECKBOX:
                     $type = CheckboxType::class;
@@ -302,6 +304,22 @@ class DynamicFormType extends AbstractType
     public function getNotifySendAttachments($formData = [])
     {
         return $this->getTranslation()->getSendAttachments();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMailText($formData = [])
+    {
+        return $this->getTranslation()->getMailText();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSuccessText($formData = [])
+    {
+        return $this->getTranslation()->getSuccessText();
     }
 
     /**

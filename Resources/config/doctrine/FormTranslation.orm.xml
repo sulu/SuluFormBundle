@@ -15,13 +15,14 @@
         <field name="fromName" column="fromName" type="string" length="255" nullable="true"/>
         <field name="toEmail" column="toEmail" type="string" length="255" nullable="true"/>
         <field name="toName" column="toName" type="string" length="255" nullable="true"/>
+        <field name="mailText" column="mailText" type="text" nullable="true"/>
+        <field name="successText" column="successText" type="text" nullable="true"/>
         <field name="sendAttachments" column="sendAttachments" type="boolean" nullable="false">
             <options>
                 <option name="default">0</option>
             </options>
         </field>
 
-        <field name="options" column="options" type="text" nullable="true"/>
         <field name="locale" column="locale" type="string" length="5"/>
 
         <many-to-one field="form"

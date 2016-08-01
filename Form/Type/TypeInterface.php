@@ -87,6 +87,20 @@ interface TypeInterface
     public function getNotifySendAttachments($formData = []);
 
     /**
+     * @param $formData
+     *
+     * @return string
+     */
+    public function getMailText($formData = []);
+
+    /**
+     * @param $formData
+     *
+     * @return string
+     */
+    public function getSuccessText($formData = []);
+
+    /**
      * @return string
      */
     public function getDefaultIntention();

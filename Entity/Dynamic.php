@@ -272,7 +272,7 @@ class Dynamic implements TimestampableInterface
     public function __get($name)
     {
         if (property_exists($this, $name)) {
-            if (in_array($name, [self::TYPE_CHECKBOX_MULTIPLE, self::TYPE_CHECKBOX_MULTIPLE])) {
+            if (in_array($name, [self::TYPE_CHECKBOX_MULTIPLE, self::TYPE_DROPDOWN_MULTIPLE, self::TYPE_ATTACHMENT])) {
                 return json_decode($this->$name, true);
             }
 
