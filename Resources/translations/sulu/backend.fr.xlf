@@ -194,6 +194,10 @@
                 <source>l91_sulu_form.success_text</source>
                 <target>Confirmation</target>
             </trans-unit>
+            <trans-unit id="65">
+                <source>l91_sulu_form.website_configuration</source>
+                <target>Website Configuration</target>
+            </trans-unit>
 
             <!-- Width -->
             <trans-unit id="70">
