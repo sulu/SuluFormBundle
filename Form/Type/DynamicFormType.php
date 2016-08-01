@@ -255,14 +255,6 @@ class DynamicFormType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getCustomerMailText($formData = [])
-    {
-        return $this->getTranslation()->getMailText();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getNotifyFromMailAddress($formData = [])
     {
         $fromMail = $this->getTranslation()->getFromEmail();
@@ -312,6 +304,22 @@ class DynamicFormType extends AbstractType
     public function getNotifySendAttachments($formData = [])
     {
         return $this->getTranslation()->getSendAttachments();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMailText($formData = [])
+    {
+        return $this->getTranslation()->getMailText();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSuccessText($formData = [])
+    {
+        return $this->getTranslation()->getSuccessText();
     }
 
     /**

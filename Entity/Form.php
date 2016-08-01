@@ -223,6 +223,7 @@ class Form
             'title' => $translation->getTitle(),
             'subject' => $translation->getSubject(),
             'mailText' => $translation->getMailText(),
+            'successText' => $translation->getSuccessText(),
             'fromEmail' => $translation->getFromEmail(),
             'fromName' => $translation->getFromName(),
             'toEmail' => $translation->getToEmail(),

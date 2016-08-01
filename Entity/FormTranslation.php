@@ -43,6 +43,11 @@ class FormTranslation implements AuditableInterface
     private $mailText;
 
     /**
+     * @var string
+     */
+    private $successText;
+
+    /**
      * @var bool
      */
     private $sendAttachments;
@@ -220,6 +225,26 @@ class FormTranslation implements AuditableInterface
     public function getMailText()
     {
         return $this->mailText;
+    }
+
+    /**
+     * @param string $successText
+     *
+     * @return FormTranslation
+     */
+    public function setSuccessText($successText)
+    {
+        $this->successText = $successText;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSuccessText()
+    {
+        return $this->successText;
     }
 
     /**

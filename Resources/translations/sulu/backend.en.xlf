@@ -192,7 +192,7 @@
                 <target>Choices</target>
             </trans-unit>
             <trans-unit id="64">
-                <source>l91_sulu_form.mail_text</source>
+                <source>l91_sulu_form.success_text</source>
                 <target>Success message</target>
             </trans-unit>
 

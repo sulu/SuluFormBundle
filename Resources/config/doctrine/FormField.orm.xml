@@ -5,7 +5,7 @@
 
     <entity name="L91\Sulu\Bundle\FormBundle\Entity\FormField" table="l91_fo_form_fields">
         <unique-constraints>
-            <unique-constraint columns="order,idForms"/>
+            <unique-constraint columns="orderNumber,idForms"/>
         </unique-constraints>
 
         <id name="id" type="integer" column="id">

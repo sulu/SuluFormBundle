@@ -10,12 +10,36 @@
                     <div id="title-element"
                          class="form-element husky-validate"
                          data-type="husky-input"
+                         data-form="true"
                          data-aura-component="input@husky"
                          data-aura-instance-name="title"
-                         data-form="true"
                          data-validation-required="true"
                          data-mapper-property="title">
                     </div>
+                </div>
+            </div>
+        </div>
+        <h2 class="light">
+            <%= translate('l91_sulu_form.website_configuration') %>
+        </h2>
+        <div class="grid-row m-bottom-40">
+            <div class="grid-col-12">
+                <div class="form-group">
+                    <label for="successText">
+                        <%= translate('l91_sulu_form.success_text') %>
+                    </label>
+
+                    <textarea id="successText-element"
+                              class="form-element vertical hidden husky-validate"
+                              data-aura-instance-name="successText"
+                              data-form="true"
+                              data-aura-component="ckeditor@husky"
+                              data-aura-table="false"
+                              data-aura-height="150"
+                              data-aura-max-height="300"
+                              data-aura-paste-from-word="true"
+                              data-validation-required="false"
+                              data-mapper-property="successText"></textarea>
                 </div>
             </div>
         </div>
@@ -32,9 +56,9 @@
                     <div id="subject-element"
                          class="form-element husky-validate"
                          data-type="husky-input"
+                         data-form="true"
                          data-aura-component="input@husky"
                          data-aura-instance-name="subject"
-                         data-form="true"
                          data-validation-required="false"
                          data-mapper-property="subject">
                     </div>
@@ -51,10 +75,10 @@
                     <div id="fromEmail-element"
                          class="form-element husky-validate"
                          data-type="husky-input"
+                         data-form="true"
                          data-aura-component="input@husky"
                          data-aura-instance-name="fromEmail"
                          data-aura-skin="email"
-                         data-form="true"
                          data-validation-required="false"
                          data-mapper-property="fromEmail">
                     </div>
@@ -69,9 +93,9 @@
                     <div id="fromName-element"
                          class="form-element husky-validate"
                          data-type="husky-input"
+                         data-form="true"
                          data-aura-component="input@husky"
                          data-aura-instance-name="fromName"
-                         data-form="true"
                          data-validation-required="false"
                          data-mapper-property="fromName">
                     </div>
@@ -88,10 +112,10 @@
                     <div id="toEmail-element"
                          class="form-element husky-validate"
                          data-type="husky-input"
+                         data-form="true"
                          data-aura-component="input@husky"
                          data-aura-instance-name="toEmail"
                          data-aura-skin="email"
-                         data-form="true"
                          data-validation-required="false"
                          data-mapper-property="toEmail">
                     </div>
@@ -106,9 +130,9 @@
                     <div id="toName-element"
                          class="form-element husky-validate"
                          data-type="husky-input"
+                         data-form="true"
                          data-aura-component="input@husky"
                          data-aura-instance-name="toName"
-                         data-form="true"
                          data-validation-required="false"
                          data-mapper-property="toName">
                     </div>
@@ -119,13 +143,18 @@
             <div class="grid-col-12">
                 <div class="form-group">
                     <label for="mailText">
-                        <%= translate('l91_sulu_form.mail_text') %>
+                        <%= translate('l91_sulu_form.success_text') %>
                     </label>
 
                     <textarea id="mailText-element"
-                              class="form-element vertical husky-validate"
+                              class="form-element vertical hidden husky-validate"
                               data-aura-instance-name="mailText"
                               data-form="true"
+                              data-aura-component="ckeditor@husky"
+                              data-aura-table="false"
+                              data-aura-height="150"
+                              data-aura-max-height="300"
+                              data-aura-paste-from-word="true"
                               data-validation-required="false"
                               data-mapper-property="mailText"></textarea>
                 </div>

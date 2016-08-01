@@ -192,8 +192,12 @@
                 <target>Auswahl</target>
             </trans-unit>
             <trans-unit id="64">
-                <source>l91_sulu_form.mail_text</source>
+                <source>l91_sulu_form.success_text</source>
                 <target>Bestätigungstext</target>
+            </trans-unit>
+            <trans-unit id="65">
+                <source>l91_sulu_form.website_configuration</source>
+                <target>Website Konfiguration</target>
             </trans-unit>
 
             <!-- Width -->

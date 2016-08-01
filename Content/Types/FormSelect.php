@@ -170,7 +170,7 @@ class FormSelect extends SimpleContentType
         $formEntity = $this->formRepository->findById($id, $locale);
 
         return [
-            'formEntity' => $formEntity->serializeForLocale($locale),
+            'entity' => $formEntity->serializeForLocale($locale),
         ];
     }
 

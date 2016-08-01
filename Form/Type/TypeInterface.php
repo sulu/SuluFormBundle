@@ -63,13 +63,6 @@ interface TypeInterface
      *
      * @return string
      */
-    public function getCustomerMailText($formData = []);
-
-    /**
-     * @param $formData
-     *
-     * @return string
-     */
     public function getNotifyFromMailAddress($formData = []);
 
     /**
@@ -92,6 +85,20 @@ interface TypeInterface
      * @return bool
      */
     public function getNotifySendAttachments($formData = []);
+
+    /**
+     * @param $formData
+     *
+     * @return string
+     */
+    public function getMailText($formData = []);
+
+    /**
+     * @param $formData
+     *
+     * @return string
+     */
+    public function getSuccessText($formData = []);
 
     /**
      * @return string
