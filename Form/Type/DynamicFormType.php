@@ -84,18 +84,6 @@ class DynamicFormType extends AbstractType
             $type = TextType::class;
             $options = ['constraints' => [], 'attr' => [], 'required' => false];
 
-            // skip $type headline, use for the next field
-            if ($translation && $field->getType() === Dynamic::TYPE_HEADLINE) {
-                $headline = $translation->getTitle();
-                continue;
-            }
-
-            // headline
-            if (isset($headline) && '' !== $headline) {
-                $options['attr']['headline'] = $headline;
-                $headline = '';
-            }
-
             // title
             $title = '';
             $placeholder = '';
@@ -124,13 +112,12 @@ class DynamicFormType extends AbstractType
 
             // Form Type
             switch ($field->getType()) {
+                case Dynamic::TYPE_HEADLINE:
                 case Dynamic::TYPE_SPACER:
-                    $type = HiddenType::class;
-                    $options['attr']['spacer'] = true;
-                    break;
                 case Dynamic::TYPE_FREE_TEXT:
                     $type = HiddenType::class;
-                    $options['attr']['free_text'] = true;
+                    $options['mapped'] = false;
+                    $options['attr']['type'] = $field->getType();
                     break;
                 case Dynamic::TYPE_SALUTATION:
                     $type = ChoiceType::class;
@@ -139,10 +126,6 @@ class DynamicFormType extends AbstractType
                         'mr' => 'l91_sulu_form.salutation_mr',
                         'ms' => 'l91_sulu_form.salutation_ms',
                     ];
-                    break;
-                case Dynamic::TYPE_HEADLINE:
-                    // headline is handled separately and used as attribute
-                    continue;
                     break;
                 case Dynamic::TYPE_TEXTAREA:
                     $type = TextareaType::class;
@@ -203,6 +186,7 @@ class DynamicFormType extends AbstractType
 
             // choices
             $choices = preg_split('/\r\n|\r|\n/', $translation->getOption('choices'), -1, PREG_SPLIT_NO_EMPTY);
+
             $options['choices'] = array_combine($choices, $choices);
 
             // type
