@@ -42,6 +42,16 @@ https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources
 </html>
 ```
 
+## Theme
+
+```twig
+{% block _dynamic_form__token_widget %}
+    {% set type = type|default('hidden') %}
+    <input type="{{ type }}" {{ block('widget_attributes') }} value="{{ render_esi(controller('L91SuluFormBundle:Form:token', { 'form': 'dynamic_form' })) }}" /> {#  #}
+{% endblock _dynamic_form__token_widget %}
+```
+
+
 ## Create Form
 
 To create a dynamic form (which is selectable in the property type `form_select`) simply

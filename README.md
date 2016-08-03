@@ -16,26 +16,26 @@ Use composer to install this Bundle:
 ``` json
 {
     "require": {
-        "l91/sulu-form-bundle": "~0.4"
+        "l91/sulu-form-bundle": "1.0.*"
     }
 }
 ```
 
 or
 
-``` bash
-composer require l91/sulu-form-bundle:~0.4
+```bash
+composer require l91/sulu-form-bundle:1.0.*
 ```
 
 Add to AbstractKernel (app/AbstractKernel.php)
 
-``` php
+```php
 new L91\Sulu\Bundle\FormBundle\L91SuluFormBundle(),
 ```
 
 Execute following command to update your database
 
-``` bash
+```bash
 app/console doctrine:schema:update --force
 ```
 
@@ -43,7 +43,7 @@ app/console doctrine:schema:update --force
 
 add the following config to `app/config/config.yml`
 
-``` yml
+```yml
 framework:
     esi: { enabled: true } # use to reload csrf token
 
@@ -68,11 +68,8 @@ l91_sulu_form_api:
 
 Make sure you've set the correct permissions in the Sulu backend for this bundle!
 
-## Caching
-
-The Template itself including the form fields should be cached, but not the CSRF Token!
-
 ## Usage
 
 - [Static Forms](Resources/doc/static.md "Static Forms")
 - [Dynamic Forms](Resources/doc/dynamic.md "Dynamic Forms")
+
