@@ -4,10 +4,6 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="L91\Sulu\Bundle\FormBundle\Entity\FormField" table="l91_fo_form_fields">
-        <unique-constraints>
-            <unique-constraint columns="orderNumber,idForms"/>
-        </unique-constraints>
-
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>

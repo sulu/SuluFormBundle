@@ -190,10 +190,11 @@ class FormField
     /**
      * @param string $locale
      * @param bool $create
+     * @param bool $fallback
      *
      * @return FormFieldTranslation|null
      */
-    public function getTranslation($locale, $create = false)
+    public function getTranslation($locale, $create = false, $fallback = false)
     {
         foreach ($this->translations as $translation) {
             if ($translation->getLocale() == $locale) {
@@ -201,14 +202,18 @@ class FormField
             }
         }
 
-        if (!$create) {
-            return;
+        if ($create) {
+            $translation = new FormFieldTranslation();
+            $translation->setLocale($locale);
+
+            return $translation;
         }
 
-        $translation = new FormFieldTranslation();
-        $translation->setLocale($locale);
+        if ($fallback) {
+            return $this->getTranslation($this->getDefaultLocale());
+        }
 
-        return $translation;
+        return;
     }
 
     /**

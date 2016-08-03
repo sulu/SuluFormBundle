@@ -106,9 +106,15 @@ class FormSelect extends SimpleContentType
                 if ($translation && $translation->getDefaultValue()) {
                     $value = $translation->getDefaultValue();
 
-                    // handle date type
-                    if (strpos($field->getKey(), Dynamic::TYPE_DATE) === 0) {
-                        $value = new \DateTime($value);
+                    // handle special types
+                    switch ($field->getType()) {
+                        case Dynamic::TYPE_DATE:
+                            $value = new \DateTime($value);
+                            break;
+                        case Dynamic::TYPE_DROPDOWN_MULTIPLE:
+                        case Dynamic::TYPE_CHECKBOX_MULTIPLE:
+                            $value = preg_split('/\r\n|\r|\n/', $value, -1, PREG_SPLIT_NO_EMPTY);
+                            break;
                     }
 
                     $defaults[$field->getKey()] = $value;

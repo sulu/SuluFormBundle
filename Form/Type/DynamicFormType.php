@@ -202,7 +202,7 @@ class DynamicFormType extends AbstractType
             $options['placeholder'] = $translation->getPlaceholder();
 
             // choices
-            $choices = explode("\n", $translation->getOption('choices'));
+            $choices = preg_split('/\r\n|\r|\n/', $translation->getOption('choices'), -1, PREG_SPLIT_NO_EMPTY);
             $options['choices'] = array_combine($choices, $choices);
 
             // type
@@ -351,6 +351,6 @@ class DynamicFormType extends AbstractType
      */
     public function getTranslation()
     {
-        return $this->formEntity->getTranslation($this->locale, true);
+        return $this->formEntity->getTranslation($this->locale, false, true);
     }
 }
