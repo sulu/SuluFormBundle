@@ -113,7 +113,7 @@ class FormSelect extends SimpleContentType
                             break;
                         case Dynamic::TYPE_DROPDOWN_MULTIPLE:
                         case Dynamic::TYPE_CHECKBOX_MULTIPLE:
-                            $value = [$value];
+                            $value = preg_split("/\\r\\n|\\r|\\n/", $value);
                             break;
                     }
 
