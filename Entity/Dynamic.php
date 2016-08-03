@@ -254,7 +254,7 @@ class Dynamic implements TimestampableInterface
     {
         if (property_exists($this, $name)) {
             if (is_array($value)) {
-                $value = json_encode($value);
+                $value = json_encode($value, JSON_UNESCAPED_UNICODE);
             }
 
             $this->$name = $value;
@@ -262,7 +262,7 @@ class Dynamic implements TimestampableInterface
             $array = $this->getData();
             $array[$name] = $value;
 
-            $this->data = json_encode($array);
+            $this->data = json_encode($array, JSON_UNESCAPED_UNICODE);
         }
     }
 
