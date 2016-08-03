@@ -90,10 +90,11 @@ class Form
     /**
      * @param string $locale
      * @param bool $create
+     * @param bool $fallback
      *
      * @return FormTranslation|null
      */
-    public function getTranslation($locale, $create = false)
+    public function getTranslation($locale, $create = false, $fallback = false)
     {
         foreach ($this->translations as $translation) {
             if ($translation->getLocale() == $locale) {
@@ -101,16 +102,18 @@ class Form
             }
         }
 
-        if (!$create) {
-            // TODO get defaultLocale
+        if ($create) {
+            $translation = new FormTranslation();
+            $translation->setLocale($locale);
 
-            return;
+            return $translation;
         }
 
-        $translation = new FormTranslation();
-        $translation->setLocale($locale);
+        if ($fallback) {
+            return $this->getTranslation($this->getDefaultLocale());
+        }
 
-        return $translation;
+        return;
     }
 
     /**
@@ -196,7 +199,7 @@ class Form
         $fields = [];
 
         foreach ($this->fields as $field) {
-            $fieldTranslation = $field->getTranslation($locale, true);
+            $fieldTranslation = $field->getTranslation($locale, false, true);
             $value = null;
 
             if ($dynamic) {
@@ -216,7 +219,7 @@ class Form
             ksort($fields);
         }
 
-        $translation = $this->getTranslation($locale, true);
+        $translation = $this->getTranslation($locale, false, true);
 
         return [
             'id' => $this->getId(),

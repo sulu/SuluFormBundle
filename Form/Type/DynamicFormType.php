@@ -351,6 +351,6 @@ class DynamicFormType extends AbstractType
      */
     public function getTranslation()
     {
-        return $this->formEntity->getTranslation($this->locale, true);
+        return $this->formEntity->getTranslation($this->locale, false, true);
     }
 }
