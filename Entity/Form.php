@@ -229,7 +229,7 @@ class Form
             'toEmail' => $translation->getToEmail(),
             'toName' => $translation->getToName(),
             'fields' => $fields,
-            'created' => $dynamic ? $dynamic->getCreated() : null
+            'created' => $dynamic ? $dynamic->getCreated() : null,
         ];
     }
 }
