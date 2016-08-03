@@ -48,7 +48,7 @@ To create a dynamic form (which is selectable in the property type `form_select`
 click on the magic icon in the Sulu backend navigation and create a new form.
 
 
-### List Tab - Export
+## List Tab - Export
 
 To visualise a tab in the Sulu template, simply add following lines to your Bundles `services.xml`:
 
