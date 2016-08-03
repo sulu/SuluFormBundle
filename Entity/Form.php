@@ -146,26 +146,16 @@ class Form
 
     /**
      * @param string $key
-     * @param bool $create
      *
      * @return FormField|null
      */
-    public function getField($key, $create = false)
+    public function getField($key)
     {
         foreach ($this->fields as $field) {
             if ($field->getKey() == $key) {
                 return $field;
             }
         }
-
-        if (!$create) {
-            return;
-        }
-
-        $field = new FormField();
-        $field->setKey($key);
-
-        return $field;
     }
 
     /**
