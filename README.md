@@ -33,6 +33,12 @@ Add to AbstractKernel (app/AbstractKernel.php)
 new L91\Sulu\Bundle\FormBundle\L91SuluFormBundle(),
 ```
 
+Execute following command to update your database
+
+``` bash
+app/console doctrine:schema:update --force
+```
+
 ## Config
 
 add the following config to `app/config/config.yml`
@@ -50,7 +56,6 @@ l91_sulu_form:
 ## Routing
 
 add the following lines to `app/config/admin/routing.yml`
-
 
 ``` xml
 l91_sulu_form_api:
