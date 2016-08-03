@@ -197,8 +197,12 @@ define(function () {
             if (success === true) {
                 this.setHeaderInfos();
                 this.sandbox.emit('sulu.header.toolbar.item.disable', 'save', true);
+
                 this.saved = true;
                 if (toEdit === true) {
+                    this.sandbox.emit(eventPrefix + 'navigate-to', result.id);
+                } else {
+                    // TODO FIXME else the key of the fields are not set
                     this.sandbox.emit(eventPrefix + 'navigate-to', result.id);
                 }
                 this.sandbox.emit('sulu.labels.success.show', translatePrefix + 'save.success', 'labels.success');

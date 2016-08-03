@@ -4,6 +4,7 @@ namespace L91\Sulu\Bundle\FormBundle\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
 use L91\Sulu\Bundle\FormBundle\Entity\Form;
+use L91\Sulu\Bundle\FormBundle\Entity\FormField;
 use L91\Sulu\Bundle\FormBundle\Repository\FormRepository;
 
 /**
@@ -110,6 +111,7 @@ class FormManager
 
         // Fields
         $reservedKeys = array_column(self::getValue($data, 'fields', []), 'key');
+
         $counter = 0;
 
         foreach (self::getValue($data, 'fields', []) as $fieldData) {
@@ -117,11 +119,22 @@ class FormManager
             $fieldType = self::getValue($fieldData, 'type');
             $fieldKey = self::getValue($fieldData, 'key');
 
-            if (!$fieldKey) {
-                $fieldKey = $this->getUniqueKey($fieldType, $reservedKeys);
+            $uniqueKey = $this->getUniqueKey($fieldType, $reservedKeys);
+
+            $field = $form->getField($fieldKey);
+
+            if (!$field) {
+                $field = new FormField();
+                $field->setKey($uniqueKey);
+                $reservedKeys[] = $uniqueKey;
+            } elseif ($field->getType() !== $fieldType) {
+                $field->setKey($uniqueKey);
+                $reservedKeys[] = $uniqueKey;
+            } elseif (!$field->getKey()) {
+                $field->setKey($uniqueKey);
+                $reservedKeys[] = $uniqueKey;
             }
 
-            $field = $form->getField($fieldKey, true);
             $field->setOrder($counter);
             $field->setType($fieldType);
             $field->setWidth(self::getValue($fieldData, 'width', 'full'));
@@ -235,7 +248,7 @@ class FormManager
      *
      * @return string
      */
-    protected function getUniqueKey($type, &$keys, $counter = 0)
+    protected function getUniqueKey($type, $keys, $counter = 0)
     {
         $name = $type;
 
@@ -244,8 +257,6 @@ class FormManager
         }
 
         if (!in_array($name, $keys)) {
-            $keys[] = $name;
-
             return $name;
         }
 
