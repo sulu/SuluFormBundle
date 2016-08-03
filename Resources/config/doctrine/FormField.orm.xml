@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="L91\Sulu\Bundle\FormBundle\Entity\FormField" table="l91_fo_form_fields">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="key" column="keyName" type="string" length="255"/>
+        <field name="order" column="orderNumber" type="integer"/>
+        <field name="type" column="type" type="string" length="255"/>
+        <field name="width" column="width" type="string" length="16"/><!-- full / half / one-third / two-third / quarter -->
+        <field name="required" column="required" type="boolean"/>
+        <field name="defaultLocale" column="defaultLocale" type="string" length="5"/>
+
+        <one-to-many field="translations"
+                     target-entity="L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation"
+                     mapped-by="field">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one field="form"
+                     target-entity="L91\Sulu\Bundle\FormBundle\Entity\Form"
+                     inversed-by="translations">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+            <join-columns>
+                <join-column name="idForms" on-delete="CASCADE" referenced-column-name="id" nullable="false"/>
+            </join-columns>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

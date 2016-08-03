@@ -3,11 +3,8 @@
 namespace L91\Sulu\Bundle\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType as SymfonyAbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class AbstractType.
- */
 abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
 {
     /**
@@ -41,7 +38,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $defaults = [
             'csrf_protection' => $this->csrfProtection,
@@ -55,8 +52,6 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
         if ($this->dataClass) {
             $defaults['data_class'] = $this->dataClass;
         }
-
-        $resolver->setDefaults($defaults);
     }
 
     /**
@@ -156,14 +151,6 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getCustomerSendAttachments($formData = [])
-    {
-        return false;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getNotifyFromMailAddress($formData = [])
     {
         return $this->getAttribute('mail_notify_from_address');
@@ -191,5 +178,37 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     public function getNotifySendAttachments($formData = [])
     {
         return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMailText($formData = [])
+    {
+        return $this->getAttribute('mail_text');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSuccessText($formData = [])
+    {
+        return $this->getAttribute('success_text');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFileFields()
+    {
+        return ['files'];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCollectionId()
+    {
+        return;
     }
 }

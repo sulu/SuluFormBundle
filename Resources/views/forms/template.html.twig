@@ -1,0 +1,333 @@
+<form id="form-form">
+    <div class="grid">
+        <div class="grid-row m-bottom-40">
+            <div class="grid-col-12">
+                <div class="form-group">
+                    <label for="title" class="required">
+                        <%= translate('l91_sulu_form.title') %>
+                    </label>
+
+                    <div id="title-element"
+                         class="form-element husky-validate"
+                         data-type="husky-input"
+                         data-form="true"
+                         data-aura-component="input@husky"
+                         data-aura-instance-name="title"
+                         data-validation-required="true"
+                         data-mapper-property="title">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2 class="light">
+            <%= translate('l91_sulu_form.website_configuration') %>
+        </h2>
+        <div class="grid-row m-bottom-40">
+            <div class="grid-col-12">
+                <div class="form-group">
+                    <label for="successText">
+                        <%= translate('l91_sulu_form.success_text') %>
+                    </label>
+
+                    <textarea id="successText-element"
+                              class="form-element vertical hidden husky-validate"
+                              data-aura-instance-name="successText"
+                              data-form="true"
+                              data-aura-component="ckeditor@husky"
+                              data-aura-table="false"
+                              data-aura-height="150"
+                              data-aura-max-height="300"
+                              data-aura-paste-from-word="true"
+                              data-validation-required="false"
+                              data-mapper-property="successText"></textarea>
+                </div>
+            </div>
+        </div>
+        <h2 class="light">
+            <%= translate('l91_sulu_form.email_configuration') %>
+        </h2>
+        <div class="grid-row m-bottom-20">
+            <div class="grid-col-12">
+                <div class="form-group">
+                    <label for="subject">
+                        <%= translate('l91_sulu_form.subject') %>
+                    </label>
+
+                    <div id="subject-element"
+                         class="form-element husky-validate"
+                         data-type="husky-input"
+                         data-form="true"
+                         data-aura-component="input@husky"
+                         data-aura-instance-name="subject"
+                         data-validation-required="false"
+                         data-mapper-property="subject">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-row m-bottom-20">
+            <div class="grid-col-6">
+                <div class="form-group">
+                    <label for="fromEmail">
+                        <%= translate('l91_sulu_form.from_email') %>
+                    </label>
+
+                    <div id="fromEmail-element"
+                         class="form-element husky-validate"
+                         data-type="husky-input"
+                         data-form="true"
+                         data-aura-component="input@husky"
+                         data-aura-instance-name="fromEmail"
+                         data-aura-skin="email"
+                         data-validation-required="false"
+                         data-mapper-property="fromEmail">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-col-6">
+                <div class="form-group">
+                    <label for="fromName">
+                        <%= translate('l91_sulu_form.from_name') %>
+                    </label>
+
+                    <div id="fromName-element"
+                         class="form-element husky-validate"
+                         data-type="husky-input"
+                         data-form="true"
+                         data-aura-component="input@husky"
+                         data-aura-instance-name="fromName"
+                         data-validation-required="false"
+                         data-mapper-property="fromName">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-row m-bottom-20">
+            <div class="grid-col-6">
+                <div class="form-group">
+                    <label for="toEmail">
+                        <%= translate('l91_sulu_form.to_email') %>
+                    </label>
+
+                    <div id="toEmail-element"
+                         class="form-element husky-validate"
+                         data-type="husky-input"
+                         data-form="true"
+                         data-aura-component="input@husky"
+                         data-aura-instance-name="toEmail"
+                         data-aura-skin="email"
+                         data-validation-required="false"
+                         data-mapper-property="toEmail">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-col-6">
+                <div class="form-group">
+                    <label for="toName">
+                        <%= translate('l91_sulu_form.to_name') %>
+                    </label>
+
+                    <div id="toName-element"
+                         class="form-element husky-validate"
+                         data-type="husky-input"
+                         data-form="true"
+                         data-aura-component="input@husky"
+                         data-aura-instance-name="toName"
+                         data-validation-required="false"
+                         data-mapper-property="toName">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-row m-bottom-20">
+            <div class="grid-col-12">
+                <div class="form-group">
+                    <label for="mailText">
+                        <%= translate('l91_sulu_form.success_text') %>
+                    </label>
+
+                    <textarea id="mailText-element"
+                              class="form-element vertical hidden husky-validate"
+                              data-aura-instance-name="mailText"
+                              data-form="true"
+                              data-aura-component="ckeditor@husky"
+                              data-aura-table="false"
+                              data-aura-height="150"
+                              data-aura-max-height="300"
+                              data-aura-paste-from-word="true"
+                              data-validation-required="false"
+                              data-mapper-property="mailText"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="grid-row m-bottom-40">
+            <div class="grid-col-6">
+                <div class="form-group">
+                    <label for="sendAttachments" style="margin-top: 5px; margin-bottom: 5px;">
+                        <div class="custom-checkbox">
+                            <input type="checkbox"
+                                   id="sendAttachments-element"
+                                   data-mapper-property="sendAttachments"
+                                   class="form-element husky-validate"/>
+                            <span class="icon"></span>
+                        </div>
+                        <%= translate('l91_sulu_form.send_attachments') %>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="grid-row m-bottom-40">
+            <div class="grid-col-12">
+                <div class="grid-col-12 floating m-top-20">
+                    <h2 class="light">
+                        <%= translate('l91_sulu_form.form_fields') %>
+                    </h2>
+
+                    {% set blockId = 'fields' %}
+
+                    <div class="grid">
+                        <div id="text-block-header-{{ blockId }}"> {#class="text-blocks-header"#}
+                            <div id="collapse-text-blocks-{{ blockId }}" tabindex="0" class="text-blocks-toggle-btn">
+                                <%= translate('sulu.content.collapse.blocks') %>
+                            </div>
+                            <div id="expand-text-blocks-{{ blockId }}" tabindex="0" class="text-blocks-toggle-btn">
+                                <%= translate('sulu.content.expand.blocks') %>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                        <style>
+                            /* FIXME DropDown to big */
+                            #form-form .grid-row.dropdown-list.dropdown-shadow.husky-select-dropdown-container.top {
+                                height: 160px;
+                                height: 70vh;
+                            }
+
+                            #form-form .grid-row.dropdown-list.dropdown-shadow.husky-select-dropdown-container {
+                                height: 200px;
+                            }
+                        </style>
+
+                        <div class="grid-row small"
+                             id="{{ blockId }}"
+                             data-form="true"
+                             data-type="block"
+                             data-type-config='[
+                                    {% for type in types %}
+
+                                        {
+                                            "data": "{{ type }}",
+                                            "title": "<%= translate('{{ 'l91_sulu_form.type.'~ type|lower }}') %>",
+                                            "tpl": "{{ type }}-{{ blockId }}-tpl"
+                                        }{% if not loop.last %},{% endif %}
+                                    {% endfor %}
+                                ]'
+                             data-type-min="0"
+                             data-type-max="999"
+                             data-type-default="{{ types|first }}"
+                             data-mapper-property="{{ blockId }}"
+                             data-mapper-full-class="full"
+                             data-mapper-empty-class="empty">
+
+                            {% for type in types %}
+                                <script id="{{ type }}-{{ blockId }}-tpl" type="text/template">
+                                    <div class="text-block {{ type }}-element {{ blockId }}-element"
+                                         data-mapper-property-tpl="{{ type }}">
+                                        <div class="move"></div>
+                                        <input type="hidden" data-mapper-property="type" value="{{ type }}"/>
+
+                                        <div class="collapsed-container empty">
+                                            <div class="type">{{ type }}</div>
+                                            <div class="title"></div>
+                                            <div class="image"></div>
+                                            <div class="text hidden"></div>
+                                        </div>
+
+                                        <div class="container grid pos-rel">
+                                            <div class="text-block-controls pull-right">
+                                                <div class="fa-eye-slash options-collapse"></div>
+                                                <div data-mapper-remove="{{ blockId }}"
+                                                     class="fa-times options-remove mapper-remove-{{ type }}"></div>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div class="grid-row">
+                                                {% set marginClass = 'm-top-10' %}
+
+                                                {% if type in ['spacer'] %}
+                                                    {% set marginClass = 'm-top-30' %}
+                                                {% endif %}
+
+                                                <div class="grid-col-3 {{ marginClass }} floating form-group hidden">
+                                                    <div class="type-select"></div>
+                                                </div>
+
+                                                {% if type not in ['headline', 'spacer', 'free_text'] %}
+                                                    <div class="grid-col-2 m-top-10 floating form-group">
+                                                    </div>
+                                                    <div class="grid-col-6 m-top-10 floating form-group">
+                                                        <label for="required<~=index~>" style="margin-top: 5px; margin-bottom: 5px;">
+                                                            <div class="custom-checkbox">
+                                                                <input type="checkbox"
+                                                                       id="required<~=index~>"
+                                                                       data-property='required'
+                                                                       data-mapper-property="required"
+                                                                       class="preview-update trigger-save-button form-element"/>
+                                                                <span class="icon"></span>
+                                                            </div>
+                                                            <%= translate('l91_sulu_form.required') %>
+                                                        </label>
+                                                    </div>
+                                                {% endif %}
+
+                                                {% if type in ['spacer'] %}
+                                                    <div class="grid-col-3 floating form-group">
+                                                        <label for="width<~=index~>"
+                                                               class="pointer"
+                                                               title="width">
+                                                            <%= translate('l91_sulu_form.width') %>
+                                                        </label>
+
+                                                        <div id="width<~=index~>"
+                                                             class="preview-update trigger-save-button"
+                                                             data-aura-component="select@husky"
+                                                             data-aura-data='{{ widths|json_encode() }}'
+                                                             data-aura-multiple-select="false"
+                                                             data-aura-instance-name="width"
+                                                             data-aura-default-label="<%= translate('l91_sulu_form.please_choose') %>"
+                                                             data-type="husky-select"
+                                                             data-form="true"
+                                                             data-mapper-return-value="id"
+                                                             data-mapper-property="width">
+                                                        </div>
+
+                                                        <div class="block-content" data-sort-mode-id="{{ blockId }}width<~=index~>"></div>
+
+                                                        <div class="input-description"></div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+
+                                            {% if type not in ['spacer'] %}
+                                                <div class="block block-{{ type }} grid-row small">
+                                                    {% include 'L91SuluFormBundle:forms:fields/types/' ~ type|lower ~ '.html.twig' %}
+                                                    <div class="clear"></div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </script>
+                            {% endfor %}
+                        </div>
+
+                        <div class="text-block-footer" id="{{ blockId }}-add" style="width: 200px">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -47,7 +47,6 @@ module.exports = function (grunt) {
             }
         },
         cssmin: {
-            // TODO: options: { banner: '<%= meta.banner %>' },
             compress: {
                 files: {
                     'Resources/public/css/main.min.css': ['Resources/public/css/main.css']
@@ -69,7 +68,7 @@ module.exports = function (grunt) {
             build: {
                 options: {
                     variables: {
-                        'blackriverevent/js': 'blackriverevent/dist'
+                        'l91suluform/js': 'l91suluform/dist'
                     },
                     prefix: ''
                 },

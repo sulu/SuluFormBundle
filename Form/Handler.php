@@ -3,7 +3,6 @@
 namespace L91\Sulu\Bundle\FormBundle\Form;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
 use L91\Sulu\Bundle\FormBundle\Form\Type\TypeInterface;
 use L91\Sulu\Bundle\FormBundle\Mail;
 use Psr\Log\LoggerInterface;
@@ -66,6 +65,11 @@ class Handler implements HandlerInterface
     protected $mediaManager;
 
     /**
+     * @var Mail\HelperInterface
+     */
+    protected $mailHelper;
+
+    /**
      * @var array
      */
     protected $attachments = [];
@@ -101,6 +105,8 @@ class Handler implements HandlerInterface
         $this->eventDispatcher = $eventDispatcher;
         $this->mediaManager = $mediaManager;
         $this->logger = $logger ? $logger : new NullLogger();
+
+        $this->attachments = [];
     }
 
     /**
@@ -127,41 +133,57 @@ class Handler implements HandlerInterface
         }
 
         $mediaIds = [];
-        if ($form->has('files')) {
-            $files = $form['files']->getData();
-            if (count($files)) {
-                $type = $this->formExtension->getType($form->getName());
-                $collectionId = $type->getCollectionId();
 
-                $ids = [];
-                /** @var UploadedFile $file */
-                foreach ($form['files']->getData() as $file) {
-                    if ($file instanceof UploadedFile) {
-                        $media = $this->mediaManager->save(
-                            $file,
-                            [
-                                'collection' => $collectionId,
-                                'locale' => $form->get('locale')->getData(),
-                                'title' => $file->getClientOriginalName(),
-                            ],
-                            null
-                        );
+        if (isset($attributes['_form_type'])) {
+            $type = $attributes['_form_type'];
+            unset($attributes['_form_type']);
+        } else {
+            $type = $this->formExtension->getType($form->getName());
+        }
 
-                        // save attachments data for swift message
-                        $this->attachments[] = $file;
-                        $ids[] = $media->getId();
-                    }
+        if ($type instanceof TypeInterface) {
+            foreach ($type->getFileFields() as $field) {
+                if (!$form->has($field) || !count($form[$field]->getData())) {
+                    continue;
                 }
 
-                $mediaIds['files'] = $ids;
+                $files = $form[$field]->getData();
+                $collectionId = $type->getCollectionId();
+                $ids = [];
+
+                // convert $files to array
+                if (!is_array($files)) {
+                    $files = [$files];
+                }
+
+                /** @var UploadedFile $file */
+                foreach ($files as $file) {
+                    if (!$file instanceof UploadedFile) {
+                        continue;
+                    }
+
+                    $media = $this->mediaManager->save(
+                        $file,
+                        [
+                            'collection' => $collectionId,
+                            'locale' => $this->getFormLocale($form),
+                            'title' => $file->getClientOriginalName(),
+                        ],
+                        null
+                    );
+
+                    // save attachments data for swift message
+                    $this->attachments[] = $file;
+                    $ids[] = $media->getId();
+                }
+
+                $mediaIds[$field] = $ids;
             }
         }
 
         $attributes['form'] = $form;
 
         $this->saveForm($form, $attributes, $mediaIds);
-
-        $type = $this->formExtension->getType($form->getName());
 
         if ($type instanceof TypeInterface) {
             $this->sendMails($type, $attributes, $form);
@@ -206,8 +228,7 @@ class Handler implements HandlerInterface
                 $type->getCustomerToMailAddress($form->getData()),
                 $type->getCustomerFromMailAddress($form->getData()),
                 true,
-                $type->getCustomerReplyToMailAddress($form->getData()),
-                $type->getCustomerSendAttachments($form->getData()) ? $this->attachments : []
+                $type->getCustomerReplyToMailAddress($form->getData())
             );
         }
     }
@@ -216,22 +237,27 @@ class Handler implements HandlerInterface
      * @param FormInterface $form
      * @param array $attributes
      * @param array $mediaIds
+     *
+     * @throws \Exception
      */
     protected function saveForm(FormInterface $form, $attributes = [], $mediaIds = [])
     {
         $formData = $form->getData();
 
         if (is_array($formData)) {
-            $entity = new Dynamic();
-            if (!empty($mediaIds) && array_key_exists('files', $mediaIds)) {
-                $formData['files'] = $mediaIds['files'];
-            }
-            $entity->setData(json_encode($formData));
-            $entity->setCreated(new \DateTime());
+            throw new \Exception('Form Data need to be an object!');
         } else {
             $entity = $formData;
-            if (!empty($mediaIds) && array_key_exists('files', $mediaIds)) {
-                $entity->setFiles($mediaIds['files']);
+
+            foreach ($mediaIds as $key => $value) {
+                $setterMethod = 'set' . ucfirst($key);
+
+                // Here to avoid a BC break
+                if (method_exists($entity, $setterMethod)) {
+                    $entity->$setterMethod($value);
+                } else {
+                    $entity->$key = $value;
+                }
             }
         }
 
@@ -245,6 +271,27 @@ class Handler implements HandlerInterface
                 $attributes
             )
         );
+    }
+
+    /**
+     * @description Returns the correct form locale.
+     * TODO What's the correct way to handle both types?
+     *
+     * @param FormInterface $form
+     *
+     * @return string
+     */
+    public function getFormLocale($form)
+    {
+        $locale = 'de';
+
+        if ($form->has('locale')) {
+            $locale = $form->get('locale')->getData();
+        } elseif ($form->getData()->locale) {
+            $locale = $form->getData()->locale;
+        }
+
+        return $locale;
     }
 
     /**
