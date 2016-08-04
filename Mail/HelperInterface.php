@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: Alexander
- * Date: 13.06.2015
- * Time: 17:20
- */
+
 namespace L91\Sulu\Bundle\FormBundle\Mail;
 
 interface HelperInterface
@@ -15,9 +10,18 @@ interface HelperInterface
      * @param string $toMail
      * @param string $fromMail
      * @param bool $html
-     * @param string $replayTo
+     * @param string $replyTo
      * @param \SplFileInfo[] $attachments
+     *
      * @return int
      */
-    public function sendMail($subject, $body, $toMail = null, $fromMail = null, $html = true, $replayTo = null, $attachments = array());
+    public function sendMail(
+        $subject,
+        $body,
+        $toMail = null,
+        $fromMail = null,
+        $html = true,
+        $replyTo = null,
+        $attachments = []
+    );
 }

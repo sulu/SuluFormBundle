@@ -43,7 +43,7 @@ class Helper implements HelperInterface
         $this->mailer = $mailer;
         $this->toMail = $toMail;
         $this->fromMail = $fromMail;
-        $this->logger = $logger ? : new NullLogger();
+        $this->logger = $logger ?: new NullLogger();
     }
 
     /**
@@ -55,8 +55,8 @@ class Helper implements HelperInterface
         $toMail = null,
         $fromMail = null,
         $html = true,
-        $replayTo = null,
-        $attachments = array()
+        $replyTo = null,
+        $attachments = []
     ) {
         $message = new \Swift_Message(
             $subject,
@@ -80,7 +80,7 @@ class Helper implements HelperInterface
 
         // Add attachments to the Swift Message
         if (count($attachments) > 0) {
-            foreach($attachments as $file) {
+            foreach ($attachments as $file) {
                 if ($file instanceof \SplFileInfo) {
                     $path = $file->getPathName();
                     $name = $file->getFileName();
@@ -95,8 +95,8 @@ class Helper implements HelperInterface
             }
         }
 
-        if ($replayTo != null) {
-            $message->setReplyTo($replayTo);
+        if ($replyTo != null) {
+            $message->setReplyTo($replyTo);
         }
 
         $this->logger->info(sprintf(
@@ -107,7 +107,7 @@ class Helper implements HelperInterface
             '   Subject: %s' . PHP_EOL,
             is_string($fromMail) ? $fromMail : serialize($fromMail),
             is_string($toMail) ? $toMail : serialize($toMail),
-            is_string($replayTo) ? $replayTo : serialize($toMail),
+            is_string($replyTo) ? $replyTo : serialize($toMail),
             is_string($subject) ? $subject : serialize($subject)
         ));
 

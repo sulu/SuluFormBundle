@@ -11,19 +11,22 @@ interface HandlerInterface
     /**
      * @param string $name
      * @param array $attributes
+     *
      * @return FormInterface
      */
-    public function get($name, $attributes = array());
+    public function get($name, $attributes = []);
 
     /**
      * @param FormInterface $form
      * @param array $attributes
-     * @return boolean
+     *
+     * @return bool
      */
-    public function handle(FormInterface $form, $attributes = array());
+    public function handle(FormInterface $form, $attributes = []);
 
     /**
      * @param $name
+     *
      * @return string
      */
     public function getToken($name);

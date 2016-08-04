@@ -18,7 +18,7 @@ class NullHelper implements HelperInterface
     public function __construct(
         $logger = null
     ) {
-        $this->logger = $logger ? : new NullLogger();
+        $this->logger = $logger ?: new NullLogger();
     }
 
     /**
@@ -30,8 +30,8 @@ class NullHelper implements HelperInterface
         $toMail = null,
         $fromMail = null,
         $html = true,
-        $replayTo = null,
-        $attachments = array()
+        $replyTo = null,
+        $attachments = []
     ) {
         $this->logger->info(sprintf(
             'L91 FormBundle NullMailHelper: ' . PHP_EOL .
@@ -41,7 +41,7 @@ class NullHelper implements HelperInterface
             '   Subject: %s' . PHP_EOL,
             is_string($fromMail) ? $fromMail : serialize($fromMail),
             is_string($toMail) ? $toMail : serialize($toMail),
-            is_string($replayTo) ? $replayTo : serialize($toMail),
+            is_string($replyTo) ? $replyTo : serialize($toMail),
             is_string($subject) ? $subject : serialize($subject)
         ));
     }

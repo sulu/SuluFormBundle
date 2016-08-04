@@ -53,7 +53,7 @@ class ListController extends RestController implements ClassResourceInterface
         $entityName = $this->getProviderRegistry()->getEntityName($template, $webspace, $locale, $uuid);
 
         /** @var RestHelperInterface $restHelper */
-        $restHelper = $this->get('sulu_core.doctrine_rest_helper');;
+        $restHelper = $this->get('sulu_core.doctrine_rest_helper');
 
         /** @var DoctrineListBuilderFactory $factory */
         $factory = $this->get('sulu_core.doctrine_list_builder_factory');

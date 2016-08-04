@@ -1,0 +1,1 @@
+define(["mvc/collection","l91suluform/model/form"],function(a,b){return a({model:b,url:function(){return"/admin/api/l91/forms"},fieldsUrl:function(){return"/admin/api/l91/forms/fields"},parse:function(a){return a._embedded.forms}})});
