@@ -5,9 +5,11 @@ You can use this Bundle to create and handle static *(integrated in a Sulu page 
 
 ## Features
 
-This Bundle handles the problem with the `CSRF Token` and `HTTP Cache`.  
+This Bundle will allow the content manager to create `custom forms` in the backend which can selected with a content type to be displayed at a specific page.
+
+Also this Bundle handles the problem with the `CSRF Token` and `HTTP Cache`.  
 A simple Controller is provided to handle a Symfony Form with CSRF Token.  
-Also `mail` dispatching is handled by the bundle.
+The `mail` dispatching is handled by the bundle.
 
 ## Installation
 
