@@ -118,19 +118,14 @@ class FormManager
             ++$counter;
             $fieldType = self::getValue($fieldData, 'type');
             $fieldKey = self::getValue($fieldData, 'key');
-
-            $uniqueKey = $this->getUniqueKey($fieldType, $reservedKeys);
-
             $field = $form->getField($fieldKey);
+            $uniqueKey = $this->getUniqueKey($fieldType, $reservedKeys);
 
             if (!$field) {
                 $field = new FormField();
                 $field->setKey($uniqueKey);
                 $reservedKeys[] = $uniqueKey;
-            } elseif ($field->getType() !== $fieldType) {
-                $field->setKey($uniqueKey);
-                $reservedKeys[] = $uniqueKey;
-            } elseif (!$field->getKey()) {
+            } elseif ($field->getType() !== $fieldType || !$field->getKey()) {
                 $field->setKey($uniqueKey);
                 $reservedKeys[] = $uniqueKey;
             }
@@ -147,7 +142,7 @@ class FormManager
             $fieldTranslation->setDefaultValue(self::getValue($fieldData, 'defaultValue'));
 
 
-            // Field OPtions
+            // Field Options
             $prefix = 'options[';
 
             $keys = array_filter(array_keys($fieldData), function ($key) use ($prefix) {

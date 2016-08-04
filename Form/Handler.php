@@ -261,9 +261,6 @@ class Handler implements HandlerInterface
             }
         }
 
-        dump($entity);
-        exit;
-
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
 
