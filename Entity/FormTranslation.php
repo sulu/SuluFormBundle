@@ -60,7 +60,7 @@ class FormTranslation implements AuditableInterface
     /**
      * @var bool
      */
-    private $deactivateSuccessMails;
+    private $deactivateCustomerMails;
 
     /**
      * @var string
@@ -302,27 +302,27 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Set deactivateSuccessMails
+     * Set deactivateCustomerMails
      *
-     * @param boolean $deactivateSuccessMails
+     * @param boolean $deactivateCustomerMails
      *
      * @return FormTranslation
      */
-    public function setDeactivateSuccessMails($deactivateSuccessMails)
+    public function setDeactivateCustomerMails($deactivateCustomerMails)
     {
-        $this->deactivateSuccessMails = $deactivateSuccessMails;
+        $this->deactivateCustomerMails = $deactivateCustomerMails;
 
         return $this;
     }
 
     /**
-     * Get deactivateSuccessMails
+     * Get deactivateCustomerMails
      *
      * @return boolean
      */
-    public function getDeactivateSuccessMails()
+    public function getDeactivateCustomerMails()
     {
-        return $this->deactivateSuccessMails;
+        return $this->deactivateCustomerMails;
     }
 
     /**

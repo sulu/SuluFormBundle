@@ -295,7 +295,7 @@ class DynamicFormType extends AbstractType
      *
      * @return bool
      */
-    public function getDeactivateNotifyMails($formData = [])
+    public function getNotifyDeactivateMails($formData = [])
     {
         return $this->getTranslation()->getDeactivateNotifyMails();
     }
@@ -305,7 +305,7 @@ class DynamicFormType extends AbstractType
      *
      * @return bool
      */
-    public function getDeactivateSuccessMails($formData = [])
+    public function getCustomerDeactivateMails($formData = [])
     {
         return $this->getTranslation()->getDeactivateSuccessMails();
     }

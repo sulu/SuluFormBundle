@@ -31,7 +31,7 @@
                 <target>déactiver les mails d'information</target>
             </trans-unit>
             <trans-unit id="8">
-                <source>l91_sulu_form.deactivate_success</source>
+                <source>l91_sulu_form.deactivate_customer</source>
                 <target>déactiver les mails de confirmation</target>
             </trans-unit>
 

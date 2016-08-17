@@ -32,7 +32,7 @@
                 <target>Benachrichtigsemails deaktivieren</target>
             </trans-unit>
             <trans-unit id="8">
-                <source>l91_sulu_form.deactivate_success</source>
+                <source>l91_sulu_form.deactivate_customer</source>
                 <target>Bestätigungsemails deaktivieren</target>
             </trans-unit>
 

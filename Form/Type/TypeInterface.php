@@ -91,14 +91,14 @@ interface TypeInterface
      *
      * @return bool
      */
-    public function getDeactivateNotifyMails($formData = []);
+    public function getNotifyDeactivateMails($formData = []);
 
     /**
      * @param $formData
      *
      * @return bool
      */
-    public function getDeactivateSuccessMails($formData = []);
+    public function getCustomerDeactivateMails($formData = []);
 
     /**
      * @param $formData
