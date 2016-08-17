@@ -305,4 +305,676 @@ class Dynamic implements TimestampableInterface
     {
         return $this->changed;
     }
+
+    /**
+     * Set uuid
+     *
+     * @param string $uuid
+     *
+     * @return Dynamic
+     */
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    /**
+     * Get uuid
+     *
+     * @return string
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * Set locale
+     *
+     * @param string $locale
+     *
+     * @return Dynamic
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     * Get locale
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * Set webspaceKey
+     *
+     * @param string $webspaceKey
+     *
+     * @return Dynamic
+     */
+    public function setWebspaceKey($webspaceKey)
+    {
+        $this->webspaceKey = $webspaceKey;
+
+        return $this;
+    }
+
+    /**
+     * Get webspaceKey
+     *
+     * @return string
+     */
+    public function getWebspaceKey()
+    {
+        return $this->webspaceKey;
+    }
+
+    /**
+     * Set salutation
+     *
+     * @param string $salutation
+     *
+     * @return Dynamic
+     */
+    public function setSalutation($salutation)
+    {
+        $this->salutation = $salutation;
+
+        return $this;
+    }
+
+    /**
+     * Get salutation
+     *
+     * @return string
+     */
+    public function getSalutation()
+    {
+        return $this->salutation;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Dynamic
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set firstName
+     *
+     * @param string $firstName
+     *
+     * @return Dynamic
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Set lastName
+     *
+     * @param string $lastName
+     *
+     * @return Dynamic
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Dynamic
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     *
+     * @return Dynamic
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set fax
+     *
+     * @param string $fax
+     *
+     * @return Dynamic
+     */
+    public function setFax($fax)
+    {
+        $this->fax = $fax;
+
+        return $this;
+    }
+
+    /**
+     * Get fax
+     *
+     * @return string
+     */
+    public function getFax()
+    {
+        return $this->fax;
+    }
+
+    /**
+     * Set street
+     *
+     * @param string $street
+     *
+     * @return Dynamic
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+
+        return $this;
+    }
+
+    /**
+     * Get street
+     *
+     * @return string
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * Set zip
+     *
+     * @param string $zip
+     *
+     * @return Dynamic
+     */
+    public function setZip($zip)
+    {
+        $this->zip = $zip;
+
+        return $this;
+    }
+
+    /**
+     * Get zip
+     *
+     * @return string
+     */
+    public function getZip()
+    {
+        return $this->zip;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return Dynamic
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set state
+     *
+     * @param string $state
+     *
+     * @return Dynamic
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return string
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     *
+     * @return Dynamic
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set function
+     *
+     * @param string $function
+     *
+     * @return Dynamic
+     */
+    public function setFunction($function)
+    {
+        $this->function = $function;
+
+        return $this;
+    }
+
+    /**
+     * Get function
+     *
+     * @return string
+     */
+    public function getFunction()
+    {
+        return $this->function;
+    }
+
+    /**
+     * Set company
+     *
+     * @param string $company
+     *
+     * @return Dynamic
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return string
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set text
+     *
+     * @param string $text
+     *
+     * @return Dynamic
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    /**
+     * Get text
+     *
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * Set textarea
+     *
+     * @param string $textarea
+     *
+     * @return Dynamic
+     */
+    public function setTextarea($textarea)
+    {
+        $this->textarea = $textarea;
+
+        return $this;
+    }
+
+    /**
+     * Get textarea
+     *
+     * @return string
+     */
+    public function getTextarea()
+    {
+        return $this->textarea;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Dynamic
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set attachment
+     *
+     * @param string $attachment
+     *
+     * @return Dynamic
+     */
+    public function setAttachment($attachment)
+    {
+        $this->attachment = $attachment;
+
+        return $this;
+    }
+
+    /**
+     * Get attachment
+     *
+     * @return string
+     */
+    public function getAttachment()
+    {
+        return $this->attachment;
+    }
+
+    /**
+     * Set checkbox
+     *
+     * @param string $checkbox
+     *
+     * @return Dynamic
+     */
+    public function setCheckbox($checkbox)
+    {
+        $this->checkbox = $checkbox;
+
+        return $this;
+    }
+
+    /**
+     * Get checkbox
+     *
+     * @return string
+     */
+    public function getCheckbox()
+    {
+        return $this->checkbox;
+    }
+
+    /**
+     * Set checkboxMultiple
+     *
+     * @param string $checkboxMultiple
+     *
+     * @return Dynamic
+     */
+    public function setCheckboxMultiple($checkboxMultiple)
+    {
+        $this->checkboxMultiple = $checkboxMultiple;
+
+        return $this;
+    }
+
+    /**
+     * Get checkboxMultiple
+     *
+     * @return string
+     */
+    public function getCheckboxMultiple()
+    {
+        return $this->checkboxMultiple;
+    }
+
+    /**
+     * Set dropdown
+     *
+     * @param string $dropdown
+     *
+     * @return Dynamic
+     */
+    public function setDropdown($dropdown)
+    {
+        $this->dropdown = $dropdown;
+
+        return $this;
+    }
+
+    /**
+     * Get dropdown
+     *
+     * @return string
+     */
+    public function getDropdown()
+    {
+        return $this->dropdown;
+    }
+
+    /**
+     * Set dropdownMultiple
+     *
+     * @param string $dropdownMultiple
+     *
+     * @return Dynamic
+     */
+    public function setDropdownMultiple($dropdownMultiple)
+    {
+        $this->dropdownMultiple = $dropdownMultiple;
+
+        return $this;
+    }
+
+    /**
+     * Get dropdownMultiple
+     *
+     * @return string
+     */
+    public function getDropdownMultiple()
+    {
+        return $this->dropdownMultiple;
+    }
+
+    /**
+     * Set radioButtons
+     *
+     * @param string $radioButtons
+     *
+     * @return Dynamic
+     */
+    public function setRadioButtons($radioButtons)
+    {
+        $this->radioButtons = $radioButtons;
+
+        return $this;
+    }
+
+    /**
+     * Get radioButtons
+     *
+     * @return string
+     */
+    public function getRadioButtons()
+    {
+        return $this->radioButtons;
+    }
+
+    /**
+     * Set data
+     *
+     * @param string $data
+     *
+     * @return Dynamic
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set form
+     *
+     * @param \L91\Sulu\Bundle\FormBundle\Entity\Form $form
+     *
+     * @return Dynamic
+     */
+    public function setForm(\L91\Sulu\Bundle\FormBundle\Entity\Form $form = null)
+    {
+        $this->form = $form;
+
+        return $this;
+    }
+
+    /**
+     * Get form
+     *
+     * @return \L91\Sulu\Bundle\FormBundle\Entity\Form
+     */
+    public function getForm()
+    {
+        return $this->form;
+    }
 }

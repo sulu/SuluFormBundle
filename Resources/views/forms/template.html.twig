@@ -161,7 +161,7 @@
             </div>
         </div>
         <div class="grid-row m-bottom-40">
-            <div class="grid-col-6">
+            <div class="grid-col-4">
                 <div class="form-group">
                     <label for="sendAttachments" style="margin-top: 5px; margin-bottom: 5px;">
                         <div class="custom-checkbox">
@@ -172,6 +172,34 @@
                             <span class="icon"></span>
                         </div>
                         <%= translate('l91_sulu_form.send_attachments') %>
+                    </label>
+                </div>
+            </div>
+            <div class="grid-col-4">
+                <div class="form-group">
+                    <label for="deactivateNotifyMails" style="margin-top: 5px; margin-bottom: 5px;">
+                        <div class="custom-checkbox">
+                            <input type="checkbox"
+                                   id="deactivateNotifyMails-element"
+                                   data-mapper-property="deactivateNotifyMails"
+                                   class="form-element husky-validate"/>
+                            <span class="icon"></span>
+                        </div>
+                        <%= translate('l91_sulu_form.deactivate_notify') %>
+                    </label>
+                </div>
+            </div>
+            <div class="grid-col-4">
+                <div class="form-group">
+                    <label for="deactivateSuccessMails" style="margin-top: 5px; margin-bottom: 5px;">
+                        <div class="custom-checkbox">
+                            <input type="checkbox"
+                                   id="deactivateSuccessMails-element"
+                                   data-mapper-property="deactivateSuccessMails"
+                                   class="form-element husky-validate"/>
+                            <span class="icon"></span>
+                        </div>
+                        <%= translate('l91_sulu_form.deactivate_success') %>
                     </label>
                 </div>
             </div>

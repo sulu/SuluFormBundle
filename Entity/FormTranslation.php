@@ -53,6 +53,16 @@ class FormTranslation implements AuditableInterface
     private $sendAttachments;
 
     /**
+     * @var bool
+     */
+    private $deactivateNotifyMails;
+
+    /**
+     * @var bool
+     */
+    private $deactivateSuccessMails;
+
+    /**
      * @var string
      */
     private $locale;
@@ -265,6 +275,54 @@ class FormTranslation implements AuditableInterface
     public function getSendAttachments()
     {
         return $this->sendAttachments;
+    }
+
+    /**
+     * Set deactivateNotifyMails
+     *
+     * @param boolean $deactivateNotifyMails
+     *
+     * @return FormTranslation
+     */
+    public function setDeactivateNotifyMails($deactivateNotifyMails)
+    {
+        $this->deactivateNotifyMails = $deactivateNotifyMails;
+
+        return $this;
+    }
+
+    /**
+     * Get deactivateNotifyMails
+     *
+     * @return boolean
+     */
+    public function getDeactivateNotifyMails()
+    {
+        return $this->deactivateNotifyMails;
+    }
+
+    /**
+     * Set deactivateSuccessMails
+     *
+     * @param boolean $deactivateSuccessMails
+     *
+     * @return FormTranslation
+     */
+    public function setDeactivateSuccessMails($deactivateSuccessMails)
+    {
+        $this->deactivateSuccessMails = $deactivateSuccessMails;
+
+        return $this;
+    }
+
+    /**
+     * Get deactivateSuccessMails
+     *
+     * @return boolean
+     */
+    public function getDeactivateSuccessMails()
+    {
+        return $this->deactivateSuccessMails;
     }
 
     /**

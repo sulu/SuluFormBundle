@@ -27,6 +27,14 @@
                 <source>l91_sulu_form.created</source>
                 <target>Erstellt am</target>
             </trans-unit>
+            <trans-unit id="7">
+                <source>l91_sulu_form.deactivate_notify</source>
+                <target>Benachrichtigsemails deaktivieren</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>l91_sulu_form.deactivate_success</source>
+                <target>Bestätigungsemails deaktivieren</target>
+            </trans-unit>
 
             <!-- Types -->
             <trans-unit id="10">
