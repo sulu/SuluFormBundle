@@ -27,6 +27,14 @@
                 <source>l91_sulu_form.created</source>
                 <target>Created on</target>
             </trans-unit>
+            <trans-unit id="7">
+                <source>l91_sulu_form.deactivate_notify</source>
+                <target>deactivate Notifymails</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>l91_sulu_form.deactivate_customer</source>
+                <target>deactivate Successmails</target>
+            </trans-unit>
 
             <!-- Types -->
             <trans-unit id="10">

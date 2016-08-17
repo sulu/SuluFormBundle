@@ -89,6 +89,20 @@ interface TypeInterface
     /**
      * @param $formData
      *
+     * @return bool
+     */
+    public function getNotifyDeactivateMails($formData = []);
+
+    /**
+     * @param $formData
+     *
+     * @return bool
+     */
+    public function getCustomerDeactivateMails($formData = []);
+
+    /**
+     * @param $formData
+     *
      * @return string
      */
     public function getMailText($formData = []);
