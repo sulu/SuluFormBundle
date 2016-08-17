@@ -28,11 +28,11 @@
             </trans-unit>
             <trans-unit id="7">
                 <source>l91_sulu_form.deactivate_notify</source>
-                <target>inactiver les notifications e-mail</target>
+                <target>déactiver les mails d'information</target>
             </trans-unit>
             <trans-unit id="8">
                 <source>l91_sulu_form.deactivate_success</source>
-                <target>inactiver les e-mails de confirmation</target>
+                <target>déactiver les mails de confirmation</target>
             </trans-unit>
 
             <!-- Types -->
