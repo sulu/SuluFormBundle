@@ -278,9 +278,9 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Set deactivateNotifyMails
+     * Set deactivateNotifyMails.
      *
-     * @param boolean $deactivateNotifyMails
+     * @param bool $deactivateNotifyMails
      *
      * @return FormTranslation
      */
@@ -292,9 +292,9 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Get deactivateNotifyMails
+     * Get deactivateNotifyMails.
      *
-     * @return boolean
+     * @return bool
      */
     public function getDeactivateNotifyMails()
     {
@@ -302,9 +302,9 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Set deactivateCustomerMails
+     * Set deactivateCustomerMails.
      *
-     * @param boolean $deactivateCustomerMails
+     * @param bool $deactivateCustomerMails
      *
      * @return FormTranslation
      */
@@ -316,9 +316,9 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Get deactivateCustomerMails
+     * Get deactivateCustomerMails.
      *
-     * @return boolean
+     * @return bool
      */
     public function getDeactivateCustomerMails()
     {
