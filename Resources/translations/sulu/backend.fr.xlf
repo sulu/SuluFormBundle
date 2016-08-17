@@ -224,6 +224,14 @@
                 <source>l91_sulu_form.width.two-thirds</source>
                 <target>Deux tiers</target>
             </trans-unit>
+            <trans-unit id="76">
+                <source>l91_sulu_form.width.one-sixth</source>
+                <target>un sixième</target>
+            </trans-unit>
+            <trans-unit id="77">
+                <source>l91_sulu_form.width.five-sixths</source>
+                <target>cinq sixièmes</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
