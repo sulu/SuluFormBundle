@@ -269,6 +269,24 @@ class Dynamic implements TimestampableInterface
     /**
      * {@inheritdoc}
      */
+    public function __isset($name)
+    {
+        if (!is_string($name)) {
+            return false;
+        }
+
+        if (property_exists($this, $name) && $this->$name !== null) {
+            return true;
+        }
+
+        $data = $this->getData();
+
+        return isset($data[$name]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function __get($name)
     {
         if (property_exists($this, $name)) {
