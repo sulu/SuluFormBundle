@@ -33,25 +33,33 @@ class MailchimpListSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * @param DynFormSavedEvent $event
+     */
     public function listSubscribe(DynFormSavedEvent $event) {
-        $form = $event->getForm();
-        $email = $form->has('email') ? $form->get('email')->getData() : '';
-        $mailchimpChecked = false;
-        $listId = '';
+        $form = $event->getFormSelect();
+        $email = isset($form['toEmail']) ? $form['toEmail'] : '';
+        $mailchimpFields = [];
 
-        if ($form->has('mailchimp')) {
-            $mailchimpChecked = $form->get('mailchimp')->getData();
-            //$form->get('mailchimp')->getSerializedObject()['fields']['mailchimp']['options'];
+        foreach($form['fields'] as $field) {
+            if (strpos($field['key'], 'mailchimp') !== false) {
+                $mailchimpFields[] = $field;
+            }
         }
-        var_dump($form->get('mailchimp')->getConfig()->getOptions());
-        exit;
 
-        if ($mailchimpChecked && $email != '' && $listId != '' && $this->mailchimpApiKey != '') {
+        if ($email != '' && $this->mailchimpApiKey != '' && count($mailchimpFields) > 0) {
             $MailChimp = new MailChimp($this->mailchimpApiKey);
-            $MailChimp->post('lists/' . $listId . '/members', [
-                'email_address' => $email,
-                'status'        => 'subscribed',
-            ]);
+            foreach ($mailchimpFields as $mailchimpField) {
+                if (isset($mailchimpField['options']['mailchimpListId'])
+                    && $mailchimpField['options']['mailchimpListId'] != ''
+                    && $mailchimpField['value']
+                ) {
+                    $MailChimp->post('lists/' . $mailchimpField['options']['mailchimpListId'] . '/members', [
+                        'email_address' => $email,
+                        'status'        => 'subscribed',
+                    ]);
+                }
+            }
         }
     }
 }

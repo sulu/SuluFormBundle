@@ -3,21 +3,33 @@
 namespace L91\Sulu\Bundle\FormBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\Form\Form;
 
 class DynFormSavedEvent extends Event
 {
     const NAME = 'l91.dynform.saved';
 
-    protected $form;
+    /**
+     * @var array
+     */
+    protected $formSelect;
 
-    public function __construct(Form $form)
+    /**
+     * DynFormSavedEvent constructor.
+     *
+     * @param $formSelect
+     */
+    public function __construct($formSelect)
     {
-        $this->form = $form;
+        $this->formSelect = $formSelect;
     }
 
-    public function getForm()
+    /**
+     * Get FormSelect.
+     *
+     * @return array
+     */
+    public function getFormSelect()
     {
-        return $this->form;
+        return $this->formSelect;
     }
 }

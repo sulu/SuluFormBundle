@@ -149,16 +149,19 @@ class FormSelect extends SimpleContentType
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+
+                $serializedObject =  $formEntity->serializeForLocale($locale, $form->getData());
+
                 // save
                 $this->formHandler->handle(
                     $form,
                     [
                         '_form_type' => $formType,
-                        'formEntity' => $formEntity->serializeForLocale($locale, $form->getData()),
+                        'formEntity' => $serializedObject,
                     ]
                 );
 
-                $event = new DynFormSavedEvent($form);
+                $event = new DynFormSavedEvent($serializedObject);
                 $this->eventDispatcher->dispatch(DynFormSavedEvent::NAME, $event);
 
                 // Do redirect after success
