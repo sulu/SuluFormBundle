@@ -204,12 +204,11 @@ class FormController extends FOSRestController implements ClassResourceInterface
     {
         /** @var Translator $translator */
         $translator = $this->get('translator');
-        $prefix = 'l91_sulu_form.type.';
         $sortedTypes = [];
 
-        foreach ($types as $type) {
-            $translation = $translator->trans($prefix . $type, array(), null, 'de');
-            $sortedTypes[$translation] = $type;
+        foreach ($types as $key => $type) {
+            $translation = $translator->trans('l91_sulu_form.type.' . $type);
+            $sortedTypes[$translation . $key] = $type;
         }
 
         ksort($sortedTypes);
