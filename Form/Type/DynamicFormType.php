@@ -146,6 +146,7 @@ class DynamicFormType extends AbstractType
                     $options['multiple'] = true;
                     break;
                 case Dynamic::TYPE_CHECKBOX:
+                case Dynamic::TYPE_MAILCHIMP:
                     $type = CheckboxType::class;
                     break;
                 case Dynamic::TYPE_CHECKBOX_MULTIPLE:

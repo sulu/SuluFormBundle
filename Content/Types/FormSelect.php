@@ -4,6 +4,7 @@ namespace L91\Sulu\Bundle\FormBundle\Content\Types;
 
 use Doctrine\ORM\NoResultException;
 use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
+use L91\Sulu\Bundle\FormBundle\Event\DynFormSavedEvent;
 use L91\Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use L91\Sulu\Bundle\FormBundle\Form\Type\DynamicFormType;
 use L91\Sulu\Bundle\FormBundle\Repository\FormRepository;
@@ -12,6 +13,7 @@ use Sulu\Component\Content\SimpleContentType;
 use Sulu\Component\Media\SystemCollections\SystemCollectionManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
@@ -50,6 +52,11 @@ class FormSelect extends SimpleContentType
     private $systemCollectionManager;
 
     /**
+     * @var TraceableEventDispatcher
+     */
+    private $eventDispatcher;
+
+    /**
      * FormSelect constructor.
      *
      * @param string $template
@@ -58,6 +65,7 @@ class FormSelect extends SimpleContentType
      * @param FormFactoryInterface $formFactory
      * @param HandlerInterface $formHandler
      * @param SystemCollectionManagerInterface $systemCollectionManager
+     * @param TraceableEventDispatcher $eventDispatcher
      */
     public function __construct(
         $template,
@@ -65,7 +73,8 @@ class FormSelect extends SimpleContentType
         RequestStack $requestStack,
         FormFactoryInterface $formFactory,
         HandlerInterface $formHandler,
-        SystemCollectionManagerInterface $systemCollectionManager
+        SystemCollectionManagerInterface $systemCollectionManager,
+        TraceableEventDispatcher $eventDispatcher
     ) {
         parent::__construct('FormSelect', '');
         $this->template = $template;
@@ -74,6 +83,7 @@ class FormSelect extends SimpleContentType
         $this->formFactory = $formFactory;
         $this->formHandler = $formHandler;
         $this->systemCollectionManager = $systemCollectionManager;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -147,6 +157,9 @@ class FormSelect extends SimpleContentType
                         'formEntity' => $formEntity->serializeForLocale($locale, $form->getData()),
                     ]
                 );
+
+                $event = new DynFormSavedEvent($form);
+                $this->eventDispatcher->dispatch(DynFormSavedEvent::NAME, $event);
 
                 // Do redirect after success
                 throw new HttpException(302, null, null, ['Location' => '?send=true']);

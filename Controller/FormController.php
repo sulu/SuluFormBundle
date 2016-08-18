@@ -2,6 +2,7 @@
 
 namespace L91\Sulu\Bundle\FormBundle\Controller;
 
+use DrewM\MailChimp\MailChimp;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
@@ -186,11 +187,28 @@ class FormController extends FOSRestController implements ClassResourceInterface
             ],
         ];
 
+        $mailchimpLists = [];
+
+        // if mailchimp class exists, add it to types and add list to dropdown
+        if (class_exists('DrewM\MailChimp\MailChimp')) {
+            Dynamic::$TYPES = array_merge(Dynamic::$TYPES, array(Dynamic::TYPE_MAILCHIMP));
+            $MailChimp = new MailChimp('11f7f0c4ba00a39e46bf877a61f0cabe-us14');
+            $lists = $MailChimp->get('lists');
+
+            foreach ($lists['lists'] as $list) {
+                $mailchimpLists[] = [
+                    'id' => $list['id'],
+                    'name' => $list['name']
+                ];
+            }
+        }
+
         return $this->render(
             $this->getBundleName() . ':' . $this->getListName() . ':template.html.twig',
             [
                 'types' => $this->getSortedTypes(Dynamic::$TYPES),
                 'widths' => $widths,
+                'mailchimpLists' => $mailchimpLists,
             ]
         );
     }

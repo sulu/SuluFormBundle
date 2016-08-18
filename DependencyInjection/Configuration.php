@@ -21,6 +21,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('l91_sulu_form');
 
         $rootNode->children()
+            ->scalarNode('mailchimp_api_key')->end()
             ->arrayNode('mail_helper')
                 ->children()
                     ->scalarNode('from')->end()

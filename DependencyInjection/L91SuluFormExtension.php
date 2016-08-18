@@ -53,5 +53,10 @@ class L91SuluFormExtension extends Extension implements PrependExtensionInterfac
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
+
+        $container->setParameter(
+            'l91_sulu_form.mailchimp_api_key',
+            $config['mailchimp_api_key']
+        );
     }
 }
