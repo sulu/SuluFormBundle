@@ -1,6 +1,6 @@
 # Changelog
 
-## dev-develop
+## 1.0.0-RC2
 
  - BUGFIX     #70    Fixed token esi response header
  - BUGFIX     #71    Fixed customer emails for dynamic forms
