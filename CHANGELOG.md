@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - BUGFIX     #70    Fixed token esi response header
  - BUGFIX     #71    Fixed customer emails for dynamic forms
  - FEATURE    #68    Added checkboxes to deactivate notify and success emails
  - FEATURE    #67    Added sixths widths to fields

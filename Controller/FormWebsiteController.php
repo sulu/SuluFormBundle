@@ -139,9 +139,10 @@ class FormWebsiteController extends DefaultController
         );
 
         /* Deactivate Cache for this token action */
-        $response->setPrivate();
-        $response->setMaxAge(0);
         $response->setSharedMaxAge(0);
+        $response->setMaxAge(0);
+        // set shared will set the request to public so it need to be done after shared max set to 0
+        $response->setPrivate();
         $response->headers->addCacheControlDirective('no-cache', true);
         $response->headers->addCacheControlDirective('must-revalidate', true);
         $response->headers->addCacheControlDirective('no-store', true);
