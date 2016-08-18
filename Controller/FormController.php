@@ -175,6 +175,14 @@ class FormController extends FOSRestController implements ClassResourceInterface
                 'id' => 'three-quarters',
                 'name' => 'l91_sulu_form.width.three-quarters',
             ],
+            [
+                'id' => 'one-sixth',
+                'name' => 'l91_sulu_form.width.one-sixth',
+            ],
+            [
+                'id' => 'five-sixths',
+                'name' => 'l91_sulu_form.width.five-sixths',
+            ],
         ];
 
         return $this->render(
@@ -468,6 +476,8 @@ class FormController extends FOSRestController implements ClassResourceInterface
                 'mailText' => $translation->getMailText(),
                 'successText' => $translation->getSuccessText(),
                 'sendAttachments' => $translation->getSendAttachments(),
+                'deactivateNotifyMails' => $translation->getDeactivateNotifyMails(),
+                'deactivateCustomerMails' => $translation->getDeactivateCustomerMails(),
             ];
         }
 

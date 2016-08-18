@@ -49,9 +49,9 @@ class Dynamic implements TimestampableInterface
     private $locale;
 
     /**
-     * @var int
+     * @var Form
      */
-    private $formId;
+    private $form;
 
     /**
      * @var string
@@ -223,7 +223,7 @@ class Dynamic implements TimestampableInterface
     /**
      * @param string $uuid
      * @param string $locale
-     * @param int $formId
+     * @param Form $formId
      * @param null|string $webspaceKey
      * @param array $data
      */
@@ -231,7 +231,7 @@ class Dynamic implements TimestampableInterface
     {
         $this->uuid = $uuid;
         $this->locale = $locale;
-        $this->formId = $formId;
+        $this->form = $formId;
         $this->webspaceKey = $webspaceKey;
 
         foreach ($data as $name => $value) {
@@ -264,6 +264,24 @@ class Dynamic implements TimestampableInterface
 
             $this->data = json_encode($array, JSON_UNESCAPED_UNICODE);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __isset($name)
+    {
+        if (!is_string($name)) {
+            return false;
+        }
+
+        if (property_exists($this, $name) && $this->$name !== null) {
+            return true;
+        }
+
+        $data = $this->getData();
+
+        return isset($data[$name]);
     }
 
     /**

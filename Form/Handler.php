@@ -205,7 +205,7 @@ class Handler implements HandlerInterface
         $notifyMailTemplatePath = $type->getNotifyMail($form->getData());
         $customerMailTemplatePath = $type->getCustomerMail($form->getData());
 
-        if ($notifyMailTemplatePath) {
+        if (!$type->getNotifyDeactivateMails($form->getData())) {
             $notifyMail = $this->templating->render($notifyMailTemplatePath, $attributes);
 
             $this->mailHelper->sendMail(
@@ -219,7 +219,7 @@ class Handler implements HandlerInterface
             );
         }
 
-        if ($customerMailTemplatePath) {
+        if (!$type->getCustomerDeactivateMails($form->getData())) {
             $customerMail = $this->templating->render($customerMailTemplatePath, $attributes);
 
             $this->mailHelper->sendMail(

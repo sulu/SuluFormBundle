@@ -75,6 +75,12 @@ https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources
 {%- endblock hidden_row -%}
 ```
 
+## Issues
+
+Please check to following issue before using it in production:
+
+[https://github.com/alexander-schranz/sulu-form-bundle/issues/69](https://github.com/alexander-schranz/sulu-form-bundle/issues/69)
+
 ## Create Form
 
 To create a dynamic form (which is selectable in the property type `form_select`) simply
@@ -91,3 +97,4 @@ To visualise a tab in the Sulu template, simply add following lines to your Bund
 ```
 
 **Now a tab should be visible with a list you can export**
+

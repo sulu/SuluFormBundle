@@ -132,7 +132,7 @@ class FormSelect extends SimpleContentType
 
             $form = $this->formFactory->create(
                 $formType,
-                new Dynamic($uuid, $locale, $id, $webspaceKey, $defaults)
+                new Dynamic($uuid, $locale, $formEntity, $webspaceKey, $defaults)
             );
 
             // handle request

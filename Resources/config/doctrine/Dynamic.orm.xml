@@ -9,7 +9,6 @@
 
         <field name="uuid" column="uuid" type="string" nullable="false"/>
         <field name="locale" column="locale" type="string" nullable="false"/>
-        <field name="formId" column="formId" type="integer" nullable="false"/>
         <field name="webspaceKey" column="webspaceKey" type="string" nullable="false"/>
 
         <field name="salutation" column="salutation" type="string" nullable="true"/>
@@ -37,5 +36,12 @@
         <field name="radioButtons" column="radioButtons" type="string" nullable="true"/>
 
         <field name="data" column="data" type="text" nullable="true"/>
+
+        <many-to-one field="form"
+                     target-entity="L91\Sulu\Bundle\FormBundle\Entity\Form">
+            <join-columns>
+                <join-column name="formId" on-delete="SET NULL" referenced-column-name="id" nullable="true"/>
+            </join-columns>
+        </many-to-one>
     </entity>
 </doctrine-mapping>
