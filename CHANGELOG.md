@@ -2,6 +2,7 @@
 
 ## 1.0.0-RC2
 
+ - FEATURE    #73    Added type sort after translation function
  - BUGFIX     #70    Fixed token esi response header
  - BUGFIX     #71    Fixed customer emails for dynamic forms
  - FEATURE    #68    Added checkboxes to deactivate notify and success emails
