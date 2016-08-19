@@ -41,7 +41,7 @@ class MailchimpListSubscriber implements EventSubscriberInterface
         $email = '';
         $fname = '';
         $lname = '';
-        $mailchimpFields = [];
+        $listIds = [];
 
         foreach ($form['fields'] as $field) {
             if ($field['type'] == 'firstName' && !$fname) {
@@ -50,22 +50,17 @@ class MailchimpListSubscriber implements EventSubscriberInterface
                 $lname = $field['value'];
             } elseif ($field['type'] == 'email' && !$email) {
                 $email = $field['value'];
-            } elseif ($field['type'] == 'mailchimp') {
-                $mailchimpFields[] = $field;
+            } elseif ($field['type'] == 'mailchimp' && $field['value']) {
+                $listIds[] = $field['options']['listId'];
             }
         }
 
-        if ($email != '' && $this->apiKey != '' && count($mailchimpFields) > 0) {
+        if ($email != '' && $this->apiKey != '' && count($listIds) > 0) {
             $MailChimp = new MailChimp($this->apiKey);
-            foreach ($mailchimpFields as $mailchimpField) {
-                if (!isset($mailchimpField['options']['listId'])
-                    || !$mailchimpField['options']['listId']
-                    || !$mailchimpField['value']
-                ) {
+            foreach ($listIds as $listId) {
+                if (!$listId) {
                     continue;
                 }
-
-                $listId = $mailchimpField['options']['listId'];
 
                 $MailChimp->post('lists/' . $listId . '/members', [
                     'email_address' => $email,

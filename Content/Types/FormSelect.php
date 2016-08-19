@@ -13,7 +13,7 @@ use Sulu\Component\Content\SimpleContentType;
 use Sulu\Component\Media\SystemCollections\SystemCollectionManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
@@ -52,7 +52,7 @@ class FormSelect extends SimpleContentType
     private $systemCollectionManager;
 
     /**
-     * @var TraceableEventDispatcher
+     * @var EventDispatcherInterface
      */
     private $eventDispatcher;
 
@@ -65,7 +65,7 @@ class FormSelect extends SimpleContentType
      * @param FormFactoryInterface $formFactory
      * @param HandlerInterface $formHandler
      * @param SystemCollectionManagerInterface $systemCollectionManager
-     * @param TraceableEventDispatcher $eventDispatcher
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         $template,
@@ -74,7 +74,7 @@ class FormSelect extends SimpleContentType
         FormFactoryInterface $formFactory,
         HandlerInterface $formHandler,
         SystemCollectionManagerInterface $systemCollectionManager,
-        TraceableEventDispatcher $eventDispatcher
+        EventDispatcherInterface $eventDispatcher
     ) {
         parent::__construct('FormSelect', '');
         $this->template = $template;
