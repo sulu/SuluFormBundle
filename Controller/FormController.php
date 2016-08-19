@@ -188,14 +188,14 @@ class FormController extends FOSRestController implements ClassResourceInterface
         ];
 
         //load mailchimp lists if possible
-        $mailchimpLists = $this->getMailchimpLists();
+        $mailChimpLists = $this->getMailChimpLists();
 
         return $this->render(
             $this->getBundleName() . ':' . $this->getListName() . ':template.html.twig',
             [
                 'types' => $this->getSortedTypes(Dynamic::$TYPES),
                 'widths' => $widths,
-                'mailchimpLists' => $mailchimpLists,
+                'mailchimpLists' => $mailChimpLists,
             ]
         );
     }
@@ -205,26 +205,25 @@ class FormController extends FOSRestController implements ClassResourceInterface
      *
      * @return array
      */
-    public function getMailchimpLists()
+    public function getMailChimpLists()
     {
-        $mailchimpLists = [];
-        $mailchimpApiKey = $this->getParameter('mailchimp_api_key');
+        $lists = [];
+        $apiKey = $this->getParameter('mailchimp_api_key');
 
         // if mailchimp class exists, add it to types and add list to dropdown
-        if (class_exists('DrewM\MailChimp\MailChimp') && $mailchimpApiKey != '') {
+        if (class_exists('DrewM\MailChimp\MailChimp') && $apiKey) {
             Dynamic::$TYPES = array_merge(Dynamic::$TYPES, [Dynamic::TYPE_MAILCHIMP]);
-            $MailChimp = new MailChimp($mailchimpApiKey);
-            $lists = $MailChimp->get('lists');
+            $mailChimp = new MailChimp($apiKey);
 
-            foreach ($lists['lists'] as $list) {
-                $mailchimpLists[] = [
+            foreach ($mailChimp->get('lists') as $list) {
+                $lists[] = [
                     'id' => $list['id'],
                     'name' => $list['name'],
                 ];
             }
         }
 
-        return $mailchimpLists;
+        return $lists;
     }
 
     /**

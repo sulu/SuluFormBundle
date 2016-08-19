@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="l91_sulu_form.subscriber.mailchimp_list_subscriber" class="L91\Sulu\Bundle\FormBundle\Event\MailchimpListSubscriber">
+            <argument>%l91_sulu_form.mailchimp_api_key%</argument>
+
+            <tag name="kernel.event_subscriber" />
+        </service>
+    </services>
+</container>
