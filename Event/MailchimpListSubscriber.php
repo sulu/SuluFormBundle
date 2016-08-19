@@ -58,8 +58,8 @@ class MailchimpListSubscriber implements EventSubscriberInterface
         if ($email != '' && $this->apiKey != '' && count($mailchimpFields) > 0) {
             $MailChimp = new MailChimp($this->apiKey);
             foreach ($mailchimpFields as $mailchimpField) {
-                if (isset($mailchimpField['options']['listId'])
-                    || !$mailchimpField['options']['listId'] != ''
+                if (!isset($mailchimpField['options']['listId'])
+                    || !$mailchimpField['options']['listId']
                     || !$mailchimpField['value']
                 ) {
                     continue;
