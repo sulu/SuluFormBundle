@@ -38,10 +38,24 @@ class MailchimpListSubscriber implements EventSubscriberInterface
      */
     public function listSubscribe(DynFormSavedEvent $event) {
         $form = $event->getFormSelect();
-        $email = isset($form['toEmail']) ? $form['toEmail'] : '';
+        $email = '';
+        $fname = '';
+        $lname = '';
         $mailchimpFields = [];
 
         foreach($form['fields'] as $field) {
+            if ($field['key'] == 'firstName') {
+                $fname = $field['value'];
+            }
+
+            if ($field['key'] == 'lastName') {
+                $lname = $field['value'];
+            }
+
+            if ($field['key'] == 'email') {
+                $email = $field['value'];
+            }
+
             if (strpos($field['key'], 'mailchimp') !== false) {
                 $mailchimpFields[] = $field;
             }
@@ -54,8 +68,10 @@ class MailchimpListSubscriber implements EventSubscriberInterface
                     && $mailchimpField['options']['mailchimpListId'] != ''
                     && $mailchimpField['value']
                 ) {
-                    $MailChimp->post('lists/' . $mailchimpField['options']['mailchimpListId'] . '/members', [
+                    $result = $MailChimp->post('lists/' . $mailchimpField['options']['mailchimpListId'] . '/members', [
                         'email_address' => $email,
+                        'FNAME'         => $fname,
+                        'LNAME'         => $lname,
                         'status'        => 'subscribed',
                     ]);
                 }
