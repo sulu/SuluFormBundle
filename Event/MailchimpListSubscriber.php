@@ -68,7 +68,7 @@ class MailchimpListSubscriber implements EventSubscriberInterface
                     && $mailchimpField['options']['mailchimpListId'] != ''
                     && $mailchimpField['value']
                 ) {
-                    $result = $MailChimp->post('lists/' . $mailchimpField['options']['mailchimpListId'] . '/members', [
+                    $MailChimp->post('lists/' . $mailchimpField['options']['mailchimpListId'] . '/members', [
                         'email_address' => $email,
                         'FNAME'         => $fname,
                         'LNAME'         => $lname,
