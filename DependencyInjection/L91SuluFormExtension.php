@@ -57,7 +57,7 @@ class L91SuluFormExtension extends Extension implements PrependExtensionInterfac
         $loader->load('services.xml');
 
         if ($config['mailchimp_api_key']) {
-            $loader->load('mailchimp_service.xml');
+            $loader->load('mailchimp_services.xml');
         }
     }
 }
