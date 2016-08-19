@@ -70,10 +70,18 @@ class MailchimpListSubscriber implements EventSubscriberInterface
                 ) {
                     $MailChimp->post('lists/' . $mailchimpField['options']['mailchimpListId'] . '/members', [
                         'email_address' => $email,
-                        'FNAME'         => $fname,
-                        'LNAME'         => $lname,
                         'status'        => 'subscribed',
                     ]);
+
+                    if ($fname != '' || $lname != '') {
+                        $subscriber_hash = $MailChimp->subscriberHash($email);
+                        $MailChimp->patch('lists/' . $mailchimpField['options']['mailchimpListId'] . '/members/' . $subscriber_hash, [
+                            'merge_fields' => [
+                                'FNAME'=>$fname,
+                                'LNAME'=>$lname
+                            ]
+                        ]);
+                    }
                 }
             }
         }
