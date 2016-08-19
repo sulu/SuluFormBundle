@@ -201,7 +201,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
             [
                 'types' => $this->getSortedTypes($types),
                 'widths' => $widths,
-                'mailchimpLists' => $mailChimpLists,
+                'mailChimpLists' => $mailChimpLists,
             ]
         );
     }
