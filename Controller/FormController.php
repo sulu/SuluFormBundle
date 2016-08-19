@@ -219,8 +219,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
         // if mailchimp class exists, add it to types and add list to dropdown
         if (class_exists('DrewM\MailChimp\MailChimp') && $apiKey) {
             $mailChimp = new MailChimp($apiKey);
-
-            foreach ($mailChimp->get('lists') as $list) {
+            foreach ($mailChimp->get('lists')['lists'] as $list) {
                 $lists[] = [
                     'id' => $list['id'],
                     'name' => $list['name'],
