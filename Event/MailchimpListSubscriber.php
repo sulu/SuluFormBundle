@@ -46,11 +46,11 @@ class MailchimpListSubscriber implements EventSubscriberInterface
         foreach ($form['fields'] as $field) {
             if ($field['type'] == 'firstName' && !$fname) {
                 $fname = $field['value'];
-            } else if ($field['type'] == 'lastName' && !$lname) {
+            } elseif ($field['type'] == 'lastName' && !$lname) {
                 $lname = $field['value'];
-            } else if ($field['type'] == 'email' && !$email) {
+            } elseif ($field['type'] == 'email' && !$email) {
                 $email = $field['value'];
-            } else if ($field['type'] == 'mailchimp') {
+            } elseif ($field['type'] == 'mailchimp') {
                 $mailchimpFields[] = $field;
             }
         }
