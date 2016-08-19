@@ -187,6 +187,25 @@ class FormController extends FOSRestController implements ClassResourceInterface
             ],
         ];
 
+        //load mailchimp lists if possible
+        $mailchimpLists = $this->getMailchimpLists();
+
+        return $this->render(
+            $this->getBundleName() . ':' . $this->getListName() . ':template.html.twig',
+            [
+                'types' => $this->getSortedTypes(Dynamic::$TYPES),
+                'widths' => $widths,
+                'mailchimpLists' => $mailchimpLists,
+            ]
+        );
+    }
+
+    /**
+     * getMailchimpLists.
+     * 
+     * @return array
+     */
+    public function getMailchimpLists() {
         $mailchimpLists = [];
 
         // if mailchimp class exists, add it to types and add list to dropdown
@@ -203,14 +222,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
             }
         }
 
-        return $this->render(
-            $this->getBundleName() . ':' . $this->getListName() . ':template.html.twig',
-            [
-                'types' => $this->getSortedTypes(Dynamic::$TYPES),
-                'widths' => $widths,
-                'mailchimpLists' => $mailchimpLists,
-            ]
-        );
+        return $mailchimpLists;
     }
 
     /**
