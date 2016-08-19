@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - FEATURE    #74    Added mailchimp field type (requires https://github.com/drewm/mailchimp-api)
  - FEATURE    #73    Added type sort after translation function
  
 ## 1.0.0-RC2
