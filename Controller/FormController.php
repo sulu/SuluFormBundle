@@ -190,10 +190,16 @@ class FormController extends FOSRestController implements ClassResourceInterface
         //load mailchimp lists if possible
         $mailChimpLists = $this->getMailChimpLists();
 
+        $types = Dynamic::$TYPES;
+
+        if (!empty($mailChimpLists)) {
+            $types = array_merge(Dynamic::$TYPES, [Dynamic::TYPE_MAILCHIMP]);
+        }
+
         return $this->render(
             $this->getBundleName() . ':' . $this->getListName() . ':template.html.twig',
             [
-                'types' => $this->getSortedTypes(Dynamic::$TYPES),
+                'types' => $this->getSortedTypes($types),
                 'widths' => $widths,
                 'mailchimpLists' => $mailChimpLists,
             ]
@@ -212,7 +218,6 @@ class FormController extends FOSRestController implements ClassResourceInterface
 
         // if mailchimp class exists, add it to types and add list to dropdown
         if (class_exists('DrewM\MailChimp\MailChimp') && $apiKey) {
-            Dynamic::$TYPES = array_merge(Dynamic::$TYPES, [Dynamic::TYPE_MAILCHIMP]);
             $mailChimp = new MailChimp($apiKey);
 
             foreach ($mailChimp->get('lists') as $list) {
