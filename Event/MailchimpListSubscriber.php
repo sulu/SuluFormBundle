@@ -10,16 +10,16 @@ class MailchimpListSubscriber implements EventSubscriberInterface
     /**
      * @var string
      */
-    protected $mailchimpApiKey;
+    protected $apiKey;
 
     /**
      * MailchimpListSubscriber constructor.
      *
-     * @param string $mailchimpApiKey
+     * @param string $apiKey
      */
-    public function __construct($mailchimpApiKey = '')
+    public function __construct($apiKey = '')
     {
-        $this->mailchimpApiKey = $mailchimpApiKey;
+        $this->apiKey = $apiKey;
     }
 
     /**
@@ -44,45 +44,45 @@ class MailchimpListSubscriber implements EventSubscriberInterface
         $mailchimpFields = [];
 
         foreach ($form['fields'] as $field) {
-            if ($field['key'] == 'firstName') {
+            if ($field['type'] == 'firstName' && !$fname) {
                 $fname = $field['value'];
-            }
-
-            if ($field['key'] == 'lastName') {
+            } else if ($field['type'] == 'lastName' && !$lname) {
                 $lname = $field['value'];
-            }
-
-            if ($field['key'] == 'email') {
+            } else if ($field['type'] == 'email' && !$email) {
                 $email = $field['value'];
-            }
-
-            if (strpos($field['key'], 'mailchimp') !== false) {
+            } else if ($field['type'] == 'mailchimp') {
                 $mailchimpFields[] = $field;
             }
         }
 
-        if ($email != '' && $this->mailchimpApiKey != '' && count($mailchimpFields) > 0) {
-            $MailChimp = new MailChimp($this->mailchimpApiKey);
+        if ($email != '' && $this->apiKey != '' && count($mailchimpFields) > 0) {
+            $MailChimp = new MailChimp($this->apiKey);
             foreach ($mailchimpFields as $mailchimpField) {
-                if (isset($mailchimpField['options']['mailchimpListId'])
-                    && $mailchimpField['options']['mailchimpListId'] != ''
-                    && $mailchimpField['value']
+                if (isset($mailchimpField['options']['listId'])
+                    || !$mailchimpField['options']['listId'] != ''
+                    || !$mailchimpField['value']
                 ) {
-                    $MailChimp->post('lists/' . $mailchimpField['options']['mailchimpListId'] . '/members', [
-                        'email_address' => $email,
-                        'status' => 'subscribed',
-                    ]);
-
-                    if ($fname != '' || $lname != '') {
-                        $subscriber_hash = $MailChimp->subscriberHash($email);
-                        $MailChimp->patch('lists/' . $mailchimpField['options']['mailchimpListId'] . '/members/' . $subscriber_hash, [
-                            'merge_fields' => [
-                                'FNAME' => $fname,
-                                'LNAME' => $lname,
-                            ],
-                        ]);
-                    }
+                    continue;
                 }
+
+                $listId = $mailchimpField['options']['listId'];
+
+                $MailChimp->post('lists/' . $listId . '/members', [
+                    'email_address' => $email,
+                    'status' => 'subscribed',
+                ]);
+
+                if ($fname == '' && $lname == '') {
+                    continue;
+                }
+
+                $subscriber_hash = $MailChimp->subscriberHash($email);
+                $MailChimp->patch('lists/' . $listId . '/members/' . $subscriber_hash, [
+                    'merge_fields' => [
+                        'FNAME' => $fname,
+                        'LNAME' => $lname,
+                    ],
+                ]);
             }
         }
     }
