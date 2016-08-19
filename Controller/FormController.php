@@ -222,7 +222,13 @@ class FormController extends FOSRestController implements ClassResourceInterface
         }
 
         $mailChimp = new MailChimp($apiKey);
-        foreach ($mailChimp->get('lists')['lists'] as $list) {
+        $response = $mailChimp->get('lists');
+
+        if (!isset($response['lists'])) {
+            return $lists;
+        }
+
+        foreach ($response['lists'] as $list) {
             $lists[] = [
                 'id' => $list['id'],
                 'name' => $list['name'],
