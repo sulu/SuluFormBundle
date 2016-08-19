@@ -205,20 +205,21 @@ class FormController extends FOSRestController implements ClassResourceInterface
      *
      * @return array
      */
-    public function getMailchimpLists() {
+    public function getMailchimpLists()
+    {
         $mailchimpLists = [];
         $mailchimpApiKey = $this->getParameter('mailchimp_api_key');
 
         // if mailchimp class exists, add it to types and add list to dropdown
         if (class_exists('DrewM\MailChimp\MailChimp') && $mailchimpApiKey != '') {
-            Dynamic::$TYPES = array_merge(Dynamic::$TYPES, array(Dynamic::TYPE_MAILCHIMP));
+            Dynamic::$TYPES = array_merge(Dynamic::$TYPES, [Dynamic::TYPE_MAILCHIMP]);
             $MailChimp = new MailChimp($mailchimpApiKey);
             $lists = $MailChimp->get('lists');
 
             foreach ($lists['lists'] as $list) {
                 $mailchimpLists[] = [
                     'id' => $list['id'],
-                    'name' => $list['name']
+                    'name' => $list['name'],
                 ];
             }
         }

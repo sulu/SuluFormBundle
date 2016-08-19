@@ -149,8 +149,7 @@ class FormSelect extends SimpleContentType
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-
-                $serializedObject =  $formEntity->serializeForLocale($locale, $form->getData());
+                $serializedObject = $formEntity->serializeForLocale($locale, $form->getData());
 
                 // save
                 $this->formHandler->handle(

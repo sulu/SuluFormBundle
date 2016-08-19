@@ -22,7 +22,6 @@ class MailchimpListSubscriber implements EventSubscriberInterface
         $this->mailchimpApiKey = $mailchimpApiKey;
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -36,14 +35,15 @@ class MailchimpListSubscriber implements EventSubscriberInterface
     /**
      * @param DynFormSavedEvent $event
      */
-    public function listSubscribe(DynFormSavedEvent $event) {
+    public function listSubscribe(DynFormSavedEvent $event)
+    {
         $form = $event->getFormSelect();
         $email = '';
         $fname = '';
         $lname = '';
         $mailchimpFields = [];
 
-        foreach($form['fields'] as $field) {
+        foreach ($form['fields'] as $field) {
             if ($field['key'] == 'firstName') {
                 $fname = $field['value'];
             }
@@ -70,16 +70,16 @@ class MailchimpListSubscriber implements EventSubscriberInterface
                 ) {
                     $MailChimp->post('lists/' . $mailchimpField['options']['mailchimpListId'] . '/members', [
                         'email_address' => $email,
-                        'status'        => 'subscribed',
+                        'status' => 'subscribed',
                     ]);
 
                     if ($fname != '' || $lname != '') {
                         $subscriber_hash = $MailChimp->subscriberHash($email);
                         $MailChimp->patch('lists/' . $mailchimpField['options']['mailchimpListId'] . '/members/' . $subscriber_hash, [
                             'merge_fields' => [
-                                'FNAME'=>$fname,
-                                'LNAME'=>$lname
-                            ]
+                                'FNAME' => $fname,
+                                'LNAME' => $lname,
+                            ],
                         ]);
                     }
                 }
