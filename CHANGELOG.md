@@ -2,7 +2,8 @@
 
 ## dev-develop
 
- - BUGFIX     #75    Fixed dynamic form csrf token generation
+ - BUGFIX     #76    Fixed csrf token generation in esi
+ - BUGFIX     #75    Fixed csrf token generation for dynamic form
  - FEATURE    #73    Added type sort after translation function
  
 ## 1.0.0-RC2

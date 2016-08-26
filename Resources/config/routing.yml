@@ -1,3 +1,8 @@
 l91_sulu_form.only:
     path: /form/only/{key}
     defaults: { _controller: L91SuluFormBundle:FormWebsite:only }
+
+l91_sulu_form.token:
+    path: /form/token
+    defaults: { _controller: L91SuluFormBundle:FormWebsite:token }
+
