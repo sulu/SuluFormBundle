@@ -224,7 +224,7 @@ ClientWebsiteBundle:forms:theme.html.twig:
 ``` twig
 {% block token_widget %}
     {% set type = type|default('hidden') %}
-    <input type="{{ type }}" {{ block('widget_attributes') }} value="{{ render_esi(controller('L91SuluFormBundle:Form:token', { 'form': 'form_type_alias' })) }}" /> {#  #}
+    <input type="{{ type }}" {{ block('widget_attributes') }} value="{{ render_esi(controller('L91SuluFormBundle:FormWebsite:token', { 'form': 'form_type_alias' })) }}" />
 {% endblock token_widget %}
 ```
 

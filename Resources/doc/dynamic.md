@@ -45,9 +45,10 @@ https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources
 ## Theme
 
 ```twig
-{%- block _dynamic_form__token -%}
-    <input type="{{ type }}" {{ block('widget_attributes') }} value="{{ render_esi(controller('L91SuluFormBundle:Form:token', { 'form': form.parent.name })) }}" />
-{% endblock %}
++{%- block _dynamic_form__token_widget -%}
++    {% set type = type|default('hidden') %}
++    <input type="{{ type }}" {{ block('widget_attributes') }} value="{{ render_esi(controller('L91SuluFormBundle:FormWebsite:token', { 'form': form.parent.vars.name })) }}" />
++{% endblock %}
 
 {%- block hidden_row -%}
     {% set width = attr.width|default('half')|replace({
