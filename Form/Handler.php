@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\Exception\InvalidArgumentException;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -309,8 +310,11 @@ class Handler implements HandlerInterface
             if ($type instanceof TypeInterface) {
                 $intention = $type->getDefaultIntention();
             }
-        } catch (\Exception $e) {
-            // do nothing when type is not found (e.g. dynamic)
+        } catch (InvalidArgumentException $e) {
+            // generate the intention the same way as in the AbstractType when it is a dynamic form
+            if (strpos($name, 'dynamic_') === 0) {
+                $intention = md5($name);
+            }
         }
 
         return $this->csrfTokenManager->refreshToken(
