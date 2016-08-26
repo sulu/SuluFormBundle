@@ -9,7 +9,6 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Form\Exception\InvalidArgumentException;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -302,8 +301,6 @@ class Handler implements HandlerInterface
      */
     public function getToken($name)
     {
-        return $this->csrfTokenManager->getToken(
-            $name
-        )->getValue();
+        return $this->csrfTokenManager->getToken($name)->getValue();
     }
 }

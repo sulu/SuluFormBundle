@@ -135,9 +135,9 @@ class FormSelect extends SimpleContentType
                 new Dynamic($uuid, $locale, $formEntity, $webspaceKey, $defaults)
             );
 
+            // handle request
             $form->handleRequest($request);
 
-            // handle request
             if ($form->isSubmitted() && $form->isValid()) {
                 // save
                 $this->formHandler->handle(
