@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - BUGFIX     #75    Fixed dynamic form csrf token generation
  - FEATURE    #73    Added type sort after translation function
  
 ## 1.0.0-RC2
