@@ -140,6 +140,10 @@
                 <source>l91_sulu_form.type.spacer</source>
                 <target>Spacer</target>
             </trans-unit>
+            <trans-unit id="37">
+                <source>l91_sulu_form.type.mailchimp</source>
+                <target>Mailchimp</target>
+            </trans-unit>
 
             <!-- Form -->
             <trans-unit id="50">
@@ -205,6 +209,10 @@
             <trans-unit id="65">
                 <source>l91_sulu_form.website_configuration</source>
                 <target>Website Configuration</target>
+            </trans-unit>
+            <trans-unit id="66">
+                <source>l91_sulu_form.mailchimp_list</source>
+                <target>Mailchimp List</target>
             </trans-unit>
 
             <!-- Width -->

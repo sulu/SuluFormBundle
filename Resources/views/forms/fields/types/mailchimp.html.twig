@@ -1,0 +1,35 @@
+{% extends "L91SuluFormBundle:forms:fields/default-field.html.twig" %}
+
+{% block placeholder_default %}
+{% endblock %}
+
+{% block extended %}
+    <div class="grid">
+        <div class="grid-row m-bottom-20">
+            <div class="grid-col-6 floating form-group">
+                <label for="listId<~=index~>"
+                       class="pointer"
+                       title="listId">
+                    <%= translate('l91_sulu_form.mailchimp_list') %>
+                </label>
+
+                <div id="listId<~=index~>"
+                     class="preview-update trigger-save-button"
+                     data-aura-component="select@husky"
+                     data-aura-data='{{ mailChimpLists|json_encode() }}'
+                     data-aura-multiple-select="false"
+                     data-aura-instance-name="options[listId]"
+                     data-aura-default-label="<%= translate('l91_sulu_form.please_choose') %>"
+                     data-type="husky-select"
+                     data-form="true"
+                     data-mapper-return-value="id"
+                     data-mapper-property="options[listId]">
+                </div>
+
+                <div class="block-content" data-sort-mode-id="{{ blockId }}listId<~=index~>"></div>
+
+                <div class="input-description"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

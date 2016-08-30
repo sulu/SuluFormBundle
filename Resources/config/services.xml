@@ -78,6 +78,7 @@
             <argument id="form.factory" type="service" />
             <argument id="l91.sulu.form.handler" type="service" />
             <argument type="service" id="sulu_media.system_collections.manager"/>
+            <argument type="service" id="event_dispatcher"/>
 
             <tag name="sulu.content.type" alias="form_select"/>
         </service>

@@ -2,6 +2,7 @@
 
 namespace L91\Sulu\Bundle\FormBundle\Controller;
 
+use DrewM\MailChimp\MailChimp;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
@@ -186,13 +187,55 @@ class FormController extends FOSRestController implements ClassResourceInterface
             ],
         ];
 
+        // load mailchimp lists if possible
+        $mailChimpLists = $this->getMailChimpLists();
+
+        $types = Dynamic::$TYPES;
+
+        if (!empty($mailChimpLists)) {
+            $types = array_merge(Dynamic::$TYPES, [Dynamic::TYPE_MAILCHIMP]);
+        }
+
         return $this->render(
             $this->getBundleName() . ':' . $this->getListName() . ':template.html.twig',
             [
-                'types' => $this->getSortedTypes(Dynamic::$TYPES),
+                'types' => $this->getSortedTypes($types),
                 'widths' => $widths,
+                'mailChimpLists' => $mailChimpLists,
             ]
         );
+    }
+
+    /**
+     * getMailchimpLists.
+     *
+     * @return array
+     */
+    public function getMailChimpLists()
+    {
+        $lists = [];
+        $apiKey = $this->getParameter('mailchimp_api_key');
+
+        // if mailchimp class doesn't exist or no key is set return empty list
+        if (!class_exists('DrewM\MailChimp\MailChimp') || !$apiKey) {
+            return $lists;
+        }
+
+        $mailChimp = new MailChimp($apiKey);
+        $response = $mailChimp->get('lists');
+
+        if (!isset($response['lists'])) {
+            return $lists;
+        }
+
+        foreach ($response['lists'] as $list) {
+            $lists[] = [
+                'id' => $list['id'],
+                'name' => $list['name'],
+            ];
+        }
+
+        return $lists;
     }
 
     /**
