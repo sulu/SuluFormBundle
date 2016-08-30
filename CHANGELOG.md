@@ -1,6 +1,6 @@
 # Changelog
 
-## dev-develop
+## 1.0.0-RC3
 
  - FEATURE    #74    Added mailchimp field type (requires https://github.com/drewm/mailchimp-api)
  - BUGFIX     #76    Fixed csrf token generation in esi
