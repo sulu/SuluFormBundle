@@ -115,6 +115,8 @@ interface TypeInterface
     public function getSuccessText($formData = []);
 
     /**
+     * @deprecated
+     *
      * @return string
      */
     public function getDefaultIntention();

@@ -301,20 +301,6 @@ class Handler implements HandlerInterface
      */
     public function getToken($name)
     {
-        $intention = '';
-
-        $type = $this->formExtension->getType($name);
-
-        if ($type instanceof TypeInterface) {
-            $intention = $type->getDefaultIntention();
-        }
-
-        if (isset($defaults['intention'])) {
-            $intention = $defaults['intention'];
-        }
-
-        return $this->csrfTokenManager->refreshToken(
-            $intention
-        );
+        return $this->csrfTokenManager->getToken($name)->getValue();
     }
 }

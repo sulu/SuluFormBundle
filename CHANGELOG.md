@@ -3,6 +3,8 @@
 ## dev-develop
 
  - FEATURE    #74    Added mailchimp field type (requires https://github.com/drewm/mailchimp-api)
+ - BUGFIX     #76    Fixed csrf token generation in esi
+ - BUGFIX     #75    Fixed csrf token generation for dynamic form
  - FEATURE    #73    Added type sort after translation function
  
 ## 1.0.0-RC2

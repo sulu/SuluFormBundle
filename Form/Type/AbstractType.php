@@ -59,7 +59,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
      */
     public function getDefaultIntention()
     {
-        return md5($this->getName());
+        return $this->getName();
     }
 
     /**
