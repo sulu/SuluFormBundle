@@ -75,3 +75,6 @@ Make sure you've set the correct permissions in the Sulu backend for this bundle
 - [Static Forms](Resources/doc/static.md "Static Forms")
 - [Dynamic Forms](Resources/doc/dynamic.md "Dynamic Forms")
 
+## Additional form fields
+
+- [Mailchimp](Resources/doc/mailchimp.md "Mailchimp Form Field")
