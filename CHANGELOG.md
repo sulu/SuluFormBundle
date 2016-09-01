@@ -1,5 +1,7 @@
 # Changelog
 
+ - BUGFIX     #79    Fixed resolver of configureOptions in AbstractType
+
 ## 1.0.0-RC3
 
  - FEATURE    #74    Added mailchimp field type (requires https://github.com/drewm/mailchimp-api)

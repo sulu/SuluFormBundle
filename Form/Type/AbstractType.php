@@ -52,6 +52,8 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
         if ($this->dataClass) {
             $defaults['data_class'] = $this->dataClass;
         }
+
+        $resolver->setDefaults($defaults);
     }
 
     /**
