@@ -187,7 +187,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
      */
     public function getNotifyDeactivateMails($formData = [])
     {
-        return (bool) $this->getNotifyMail($formData);
+        return !$this->getNotifyMail($formData);
     }
 
     /**
@@ -195,7 +195,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
      */
     public function getCustomerDeactivateMails($formData = [])
     {
-        return (bool) $this->getCustomerMail($formData);
+        return !$this->getCustomerMail($formData);
     }
 
     /**
