@@ -1,5 +1,9 @@
 # Changelog
 
+## dev-develop
+
+ - BUGFIX     #85    Fixed MailChimp-Key parameter in FormController 
+
 ## 1.0.0-RC4
 
  - BUGFIX     #80    Fixed getCustomerDeactivateMails and getNotifyDeactivateMails Method
