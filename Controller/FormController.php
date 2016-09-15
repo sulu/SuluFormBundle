@@ -14,7 +14,6 @@ use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineDescriptor;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineJoinDescriptor;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
-use Sulu\Component\Rest\ListBuilder\ListRestHelper;
 use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,8 +57,8 @@ class FormController extends FOSRestController implements ClassResourceInterface
             Form::class,
             'public.id',
             [],
-            false,
-            true
+            true,
+            false
         );
 
         $fieldDescriptors['title'] = new DoctrineCaseFieldDescriptor(
@@ -86,7 +85,9 @@ class FormController extends FOSRestController implements ClassResourceInterface
                     ),
                 ]
             ),
-            'public.title'
+            'public.title',
+            false,
+            true
         );
 
         $fieldDescriptors['changed'] = new DoctrineCaseFieldDescriptor(
@@ -424,7 +425,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
     {
         $filters = $request->query->all();
 
-        $listRestHelper = new ListRestHelper($request);
+        $listRestHelper = $this->get('sulu_core.list_rest_helper');
 
         unset($filters['page']);
         unset($filters['limit']);

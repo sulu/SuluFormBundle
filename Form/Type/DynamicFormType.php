@@ -78,6 +78,8 @@ class DynamicFormType extends AbstractType
             throw new \Exception('The form with the ID "' . $this->formEntity->getId() . '" does not exist for the locale "' . $this->locale . '"!');
         }
 
+        $currentWidthValue = 0;
+
         foreach ($this->formEntity->getFields() as $field) {
             $translation = $field->getTranslation($this->locale);
             $name = $field->getKey();
@@ -100,9 +102,12 @@ class DynamicFormType extends AbstractType
                 $width = $field->getWidth();
             }
 
+            $lastWidth = $this->getLastWidth($currentWidthValue, $width);
+
             $options['label'] = $title;
             $options['required'] = $field->getRequired();
             $options['attr']['width'] = $width;
+            $options['attr']['lastWidth'] = $lastWidth;
             $options['attr']['placeholder'] = $placeholder;
 
             // required
@@ -357,5 +362,51 @@ class DynamicFormType extends AbstractType
     public function getTranslation()
     {
         return $this->formEntity->getTranslation($this->locale, false, true);
+    }
+
+    /**
+     * @param int $currentWidthValue
+     * @param string $width
+     *
+     * @return bool
+     */
+    private function getLastWidth(&$currentWidthValue, $width)
+    {
+        switch ($width) {
+            case 'one-sixth':
+                $itemWidth = 2;
+                break;
+            case 'five-sixths':
+                $itemWidth = 10;
+                break;
+            case 'one-quarter':
+                $itemWidth = 3;
+                break;
+            case 'three-quarters':
+                $itemWidth = 9;
+                break;
+            case 'one-third':
+                $itemWidth = 4;
+                break;
+            case 'two-thirds':
+                $itemWidth = 8;
+                break;
+            case 'half':
+                $itemWidth = 6;
+                break;
+            case 'full':
+                $itemWidth = 12;
+                break;
+            default:
+                $itemWidth = 12;
+        }
+
+        $currentWidthValue += $itemWidth;
+
+        if ($currentWidthValue % 12 == 0) {
+            return true;
+        }
+
+        return false;
     }
 }

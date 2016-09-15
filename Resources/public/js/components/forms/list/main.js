@@ -89,14 +89,14 @@ define(['l91suluform/collections/forms'], function (Collection) {
                     // options for the content (datagrid)
                     el: this.$find('#' + constants.listId),
                     instanceName: this.instanceName,
-                    url: constants.endPointUrl + '?locale=' + this.options.language + '&flat=true',
+                    url: constants.endPointUrl + '?locale=' + this.options.language + '&flat=true&sortBy=title&sortOrder=asc',
                     resultKey: constants.toolbarKey,
                     searchFields: constants.toolbarSearchFields,
                     viewOptions: {
                         table: {
                             icons: [
                                 {
-                                    column: 'id',
+                                    column: 'title',
                                     icon: 'pencil',
                                     align: 'left',
                                     callback: this.edit.bind(this)

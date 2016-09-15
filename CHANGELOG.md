@@ -2,6 +2,8 @@
 
 ## dev-develop
 
+ - FEATURE    #92    Clean up the backend view
+ - FEATURE    #92    Added last flag for grid and update documentation
  - BUGFIX     #85    Fixed MailChimp-Key parameter in FormController 
 
 ## 1.0.0-RC4

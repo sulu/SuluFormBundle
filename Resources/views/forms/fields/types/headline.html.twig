@@ -1,7 +1,9 @@
 {% extends "L91SuluFormBundle:forms:fields/default-field.html.twig" %}
 
+{% block required %}{% endblock %}
+
 {% block title %}
-    <div class="grid-col-12 floating form-group">
+    <div class="grid-col-9 floating form-group">
         <label for="title<~=index~>"
                class="pointer required"
                title="Title">
@@ -18,9 +20,6 @@
 
         <div class="input-description"></div>
     </div>
-{% endblock %}
-
-{% block width %}
 {% endblock %}
 
 {% block placeholder_default %}

@@ -1,104 +1,160 @@
-{% block title_width %}
-    <div class="grid">
-        <div class="grid-row m-bottom-20">
-            {% block title %}
-                <div class="grid-col-9 floating form-group">
-                    <label for="title<~=index~>"
-                           class="pointer required"
-                           title="Title">
-                        <%= translate('l91_sulu_form.title') %>
-                    </label>
+<script id="{{ type }}-{{ blockId }}-tpl" type="text/template">
+    <div class="text-block {{ type }}-element {{ blockId }}-element"
+         data-mapper-property-tpl="{{ type }}">
+        <div class="move"></div>
+        <input type="hidden" data-mapper-property="type" value="{{ type }}"/>
 
-                    <input id="title<~=index~>"
-                           data-property="title"
-                           type="text"
-                           class="form-element preview-update trigger-save-button"
-                           data-mapper-property="title"
-                           data-validation-required="true"/>
-                    <div class="block-content" data-sort-mode-id="{{ blockId }}title<~=index~>"></div>
+        <div class="collapsed-container empty">
+            <div class="type">{{ type }}</div>
+            <div class="title"></div>
+            <div class="image"></div>
+            <div class="text hidden"></div>
+        </div>
 
-                    <div class="input-description"></div>
+        <div class="container grid pos-rel">
+            <div class="text-block-controls pull-right">
+                <div class="fa-eye-slash options-collapse"></div>
+                <div data-mapper-remove="{{ blockId }}"
+                     class="fa-times options-remove mapper-remove-{{ type }}"></div>
+                <div class="clear"></div>
+            </div>
+            <div class="grid-row">
+                {% set marginClass = 'm-top-10' %}
+
+                {% if type in ['spacer'] %}
+                    {% set marginClass = 'm-top-30' %}
+                {% endif %}
+
+                <div class="grid-col-3 {{ marginClass }} floating form-group hidden">
+                    <div class="type-select"></div>
                 </div>
-            {% endblock %}
-            {% block width %}
-                <div class="grid-col-3 floating form-group">
-                    <label for="width<~=index~>"
-                           class="pointer"
-                           title="width">
-                        <%= translate('l91_sulu_form.width') %>
-                    </label>
 
-                    <div id="width<~=index~>"
-                         class="preview-update trigger-save-button"
-                         data-aura-component="select@husky"
-                         data-aura-data='{{ widths|json_encode() }}'
-                         data-aura-multiple-select="false"
-                         data-aura-instance-name="width"
-                         data-aura-default-label="<%= translate('l91_sulu_form.please_choose') %>"
-                         data-type="husky-select"
-                         data-form="true"
-                         data-mapper-return-value="id"
-                         data-mapper-property="width">
+                {% block required %}
+                    <div class="grid-col-2 m-top-10 floating form-group">
                     </div>
+                    <div class="grid-col-6 m-top-10 floating form-group">
+                        <label for="required<~=index~>" style="margin-top: 5px; margin-bottom: 5px;">
+                            <div class="custom-checkbox">
+                                <input type="checkbox"
+                                       id="required<~=index~>"
+                                       data-property='required'
+                                       data-mapper-property="required"
+                                       class="preview-update trigger-save-button form-element"/>
+                                <span class="icon"></span>
+                            </div>
+                            <%= translate('l91_sulu_form.required') %>
+                        </label>
+                    </div>
+                {% endblock %}
+            </div>
 
-                    <div class="block-content" data-sort-mode-id="{{ blockId }}width<~=index~>"></div>
+            <div class="block block-{{ type }} grid-row small">
+                {% block title_width %}
+                    <div class="grid">
+                        <div class="grid-row m-bottom-20">
+                            {% block title %}
+                                <div class="grid-col-9 floating form-group">
+                                    <label for="title<~=index~>"
+                                           class="pointer required"
+                                           title="Title">
+                                        <%= translate('l91_sulu_form.title') %>
+                                    </label>
 
-                    <div class="input-description"></div>
-                </div>
-            {% endblock %}
+                                    <input id="title<~=index~>"
+                                           data-property="title"
+                                           type="text"
+                                           class="form-element preview-update trigger-save-button"
+                                           data-mapper-property="title"
+                                           data-validation-required="true"/>
+                                    <div class="block-content" data-sort-mode-id="{{ blockId }}title<~=index~>"></div>
+
+                                    <div class="input-description"></div>
+                                </div>
+                            {% endblock %}
+                            {% block width %}
+                                <div class="grid-col-3 floating form-group">
+                                    <label for="width<~=index~>"
+                                           class="pointer"
+                                           title="width">
+                                        <%= translate('l91_sulu_form.width') %>
+                                    </label>
+
+                                    <div id="width<~=index~>"
+                                         class="preview-update trigger-save-button"
+                                         data-aura-component="select@husky"
+                                         data-aura-data='{{ widths|json_encode() }}'
+                                         data-aura-multiple-select="false"
+                                         data-aura-instance-name="width"
+                                         data-aura-default-value='{"id":"full","name":"l91_sulu_form.width.full"}'
+                                         data-type="husky-select"
+                                         data-form="true"
+                                         data-mapper-return-value="id"
+                                         data-mapper-property="width">
+                                    </div>
+
+                                    <div class="block-content" data-sort-mode-id="{{ blockId }}width<~=index~>"></div>
+
+                                    <div class="input-description"></div>
+                                </div>
+                            {% endblock %}
+                        </div>
+                    </div>
+                {% endblock %}
+
+                {% block key %}
+                    <input id="key<~=index~>"
+                           data-property="key"
+                           type="hidden"
+                           class="form-element"
+                           data-mapper-property="key"/>
+                {% endblock %}
+
+                {% block placeholder_default %}
+                    <div class="grid">
+                        <div class="grid-row m-bottom-20">
+                            {% block placeholder %}
+                                <div class="grid-col-6 floating form-group">
+                                    <label for="placeholder<~=index~>" class="pointer" title="Placeholder">
+                                        <%= translate('l91_sulu_form.placeholder') %>
+                                    </label>
+
+                                    <input id="placeholder<~=index~>"
+                                           data-property='placeholder'
+                                           type="text"
+                                           class="form-element preview-update trigger-save-button"
+                                           data-mapper-property="placeholder"/>
+
+                                    <div class="block-content" data-sort-mode-id="{{ blockId }}placeholder<~=index~>"></div>
+
+                                    <div class="input-description"></div>
+                                </div>
+                            {% endblock %}
+
+                            {% block default %}
+                                <div class="grid-col-6 floating form-group">
+                                    <label for="default-value<~=index~>" class="pointer" title="Default Value">
+                                        <%= translate('l91_sulu_form.default') %>
+                                    </label>
+
+                                    <input id="default-value<~=index~>"
+                                           data-property="defaultValue"
+                                           type="text"
+                                           class="form-element preview-update trigger-save-button"
+                                           data-mapper-property="defaultValue"/>
+
+                                    <div class="block-content" data-sort-mode-id="{{ blockId }}defaultValue<~=index~>"></div>
+
+                                    <div class="input-description"></div>
+                                </div>
+                            {% endblock %}
+                        </div>
+                    </div>
+                {% endblock %}
+
+                {% block extended %}
+                {% endblock %}
+                <div class="clear"></div>
+            </div>
         </div>
     </div>
-{% endblock %}
-
-{% block key %}
-    <input id="key<~=index~>"
-           data-property="key"
-           type="hidden"
-           class="form-element"
-           data-mapper-property="key"/>
-{% endblock %}
-
-{% block placeholder_default %}
-    <div class="grid">
-        <div class="grid-row m-bottom-20">
-            {% block placeholder %}
-                <div class="grid-col-6 floating form-group">
-                    <label for="placeholder<~=index~>" class="pointer" title="Placeholder">
-                        <%= translate('l91_sulu_form.placeholder') %>
-                    </label>
-
-                    <input id="placeholder<~=index~>"
-                           data-property='placeholder'
-                           type="text"
-                           class="form-element preview-update trigger-save-button"
-                           data-mapper-property="placeholder"/>
-
-                    <div class="block-content" data-sort-mode-id="{{ blockId }}placeholder<~=index~>"></div>
-
-                    <div class="input-description"></div>
-                </div>
-            {% endblock %}
-
-            {% block default %}
-                <div class="grid-col-6 floating form-group">
-                    <label for="default-value<~=index~>" class="pointer" title="Default Value">
-                        <%= translate('l91_sulu_form.default') %>
-                    </label>
-
-                    <input id="default-value<~=index~>"
-                           data-property="defaultValue"
-                           type="text"
-                           class="form-element preview-update trigger-save-button"
-                           data-mapper-property="defaultValue"/>
-
-                    <div class="block-content" data-sort-mode-id="{{ blockId }}defaultValue<~=index~>"></div>
-
-                    <div class="input-description"></div>
-                </div>
-            {% endblock %}
-        </div>
-    </div>
-{% endblock %}
-
-{% block extended %}
-{% endblock %}
+</script>
