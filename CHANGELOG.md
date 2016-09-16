@@ -1,6 +1,7 @@
 # Changelog
 
 ## dev-develop
+ - BUGFIX     #97    Fixed edit symbol on list
  - BUGFIX     #96    Fix inversedBy value at FormField#form property 
  - FEATURE    #92    Clean up the backend view
  - FEATURE    #92    Added last flag for grid and update documentation
