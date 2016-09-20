@@ -160,47 +160,60 @@
                 </div>
             </div>
         </div>
+        <!-- Mail Settings Togglers -->
         <div class="grid-row m-bottom-40">
             <div class="grid-col-4">
                 <div class="form-group">
-                    <label for="sendAttachments-element" style="margin-top: 5px; margin-bottom: 5px;">
-                        <div class="custom-checkbox">
-                            <input type="checkbox"
-                                   id="sendAttachments-element"
-                                   data-mapper-property="sendAttachments"
-                                   class="form-element husky-validate"/>
-                            <span class="icon"></span>
-                        </div>
+                    <label for="sendAttachments">
                         <%= translate('l91_sulu_form.send_attachments') %>
                     </label>
+
+                    <div class="grid-row small">
+                        <div id="sendAttachments"
+                             class="preview-update trigger-save-button"
+                             data-form="true"
+                             data-aura-component="toggler@husky"
+                             data-aura-instance-name="sendAttachments"
+                             data-type="toggler"
+                             data-type-instance-name="sendAttachments"
+                             data-mapper-property="sendAttachments"></div>
+                    </div>
                 </div>
             </div>
             <div class="grid-col-4">
                 <div class="form-group">
-                    <label for="deactivateNotifyMails-element" style="margin-top: 5px; margin-bottom: 5px;">
-                        <div class="custom-checkbox">
-                            <input type="checkbox"
-                                   id="deactivateNotifyMails-element"
-                                   data-mapper-property="deactivateNotifyMails"
-                                   class="form-element husky-validate"/>
-                            <span class="icon"></span>
-                        </div>
+                    <label for="deactivateNotifyMails">
                         <%= translate('l91_sulu_form.deactivate_notify') %>
                     </label>
+
+                    <div class="grid-row small">
+                        <div id="deactivateNotifyMails"
+                             class="preview-update trigger-save-button"
+                             data-form="true"
+                             data-aura-component="toggler@husky"
+                             data-aura-instance-name="deactivateNotifyMails"
+                             data-type="toggler"
+                             data-type-instance-name="deactivateNotifyMails"
+                             data-mapper-property="deactivateNotifyMails"></div>
+                    </div>
                 </div>
             </div>
             <div class="grid-col-4">
                 <div class="form-group">
-                    <label for="deactivateCustomerMails-element" style="margin-top: 5px; margin-bottom: 5px;">
-                        <div class="custom-checkbox">
-                            <input type="checkbox"
-                                   id="deactivateCustomerMails-element"
-                                   data-mapper-property="deactivateCustomerMails"
-                                   class="form-element husky-validate"/>
-                            <span class="icon"></span>
-                        </div>
+                    <label for="deactivateCustomerMails">
                         <%= translate('l91_sulu_form.deactivate_customer') %>
                     </label>
+
+                    <div class="grid-row small">
+                        <div id="deactivateCustomerMails"
+                             class="preview-update trigger-save-button"
+                             data-form="true"
+                             data-aura-component="toggler@husky"
+                             data-aura-instance-name="deactivateCustomerMails"
+                             data-type="toggler"
+                             data-type-instance-name="deactivateCustomerMails"
+                             data-mapper-property="deactivateCustomerMails"></div>
+                    </div>
                 </div>
             </div>
         </div>
