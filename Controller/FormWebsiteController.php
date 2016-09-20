@@ -132,11 +132,24 @@ class FormWebsiteController extends DefaultController
      */
     public function tokenAction(Request $request)
     {
-        $response = new Response(
-            $this->getFormHandler()->getToken(
-                $request->get('form')
-            )
+        $formName = $request->get('form');
+        $csrfToken = $this->getFormHandler()->getToken(
+            $request->get('form')
         );
+
+        $content = $csrfToken;
+
+        // this should be the default behaviour in future because for varnish its needed
+        if ($request->get('html')) {
+            $content = sprintf(
+                '<input type="hidden" id="%s__token" name="%s[_token]" value="%s" />',
+                $formName,
+                $formName,
+                $csrfToken
+            );
+        }
+
+        $response = new Response($content);
 
         /* Deactivate Cache for this token action */
         $response->setSharedMaxAge(0);
