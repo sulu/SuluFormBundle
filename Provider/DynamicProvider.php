@@ -14,6 +14,9 @@ class DynamicProvider implements ListProviderInterface
     {
         $fieldDescriptors = [
             'id' => $this->createFieldDescriptor('id', '', 'public.id'),
+            'uuid' => $this->createFieldDescriptor('uuid', '', 'uuid', true),
+            'webspaceKey' => $this->createFieldDescriptor('webspaceKey', '', 'webspaceKey', true),
+            'locale' => $this->createFieldDescriptor('locale', '', 'locale'),
             'firstName' => $this->createFieldDescriptor('firstName'),
             'lastName' => $this->createFieldDescriptor('lastName'),
             'email' => $this->createFieldDescriptor('email'),
@@ -33,8 +36,9 @@ class DynamicProvider implements ListProviderInterface
 
     /**
      * @param string $name
-     * @param bool $disabled
      * @param string $type
+     * @param string $translationKey
+     * @param bool $disabled
      *
      * @return DoctrineFieldDescriptor
      */

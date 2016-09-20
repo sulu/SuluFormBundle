@@ -1,7 +1,8 @@
 # Changelog
 
 ## dev-develop
- - BUGFIX     #98    Fixed csrf token esi for varnish
+ - FEATURE    #100   Added page based list output
+ - BUGFIX     #99    Fixed csrf token esi for varnish
  - BUGFIX     #97    Fixed edit symbol on list
  - BUGFIX     #96    Fix inversedBy value at FormField#form property 
  - FEATURE    #92    Clean up the backend view

@@ -65,11 +65,8 @@ class ListController extends RestController implements ClassResourceInterface
         if (isset($fieldDescriptors['uuid'])) {
             $listBuilder->where($fieldDescriptors['uuid'], $uuid);
         }
-        if (isset($fieldDescriptors['webspace'])) {
-            $listBuilder->where($fieldDescriptors['webspace'], $webspace);
-        }
-        if (isset($fieldDescriptors['locale'])) {
-            $listBuilder->where($fieldDescriptors['locale'], $locale);
+        if (isset($fieldDescriptors['webspaceKey'])) {
+            $listBuilder->where($fieldDescriptors['webspaceKey'], $webspace);
         }
         if (isset($fieldDescriptors['template'])) {
             $listBuilder->where($fieldDescriptors['template'], $template);
