@@ -32,7 +32,9 @@ class Dynamic implements TimestampableInterface
     const TYPE_DROPDOWN = 'dropdown';
     const TYPE_DROPDOWN_MULTIPLE = 'dropdownMultiple';
     const TYPE_RADIO_BUTTONS = 'radioButtons';
+
     const TYPE_MAILCHIMP = 'mailchimp';
+    const TYPE_RECAPTCHA = 'recaptcha';
 
     /**
      * @var int

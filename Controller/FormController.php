@@ -2,7 +2,6 @@
 
 namespace L91\Sulu\Bundle\FormBundle\Controller;
 
-use DrewM\MailChimp\MailChimp;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
@@ -194,7 +193,11 @@ class FormController extends FOSRestController implements ClassResourceInterface
         $types = Dynamic::$TYPES;
 
         if (!empty($mailChimpLists)) {
-            $types = array_merge(Dynamic::$TYPES, [Dynamic::TYPE_MAILCHIMP]);
+            $types[] = Dynamic::TYPE_MAILCHIMP;
+        }
+
+        if (class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\RecaptchaType::class)) {
+            $types[] = Dynamic::TYPE_RECAPTCHA;
         }
 
         return $this->render(
@@ -218,11 +221,11 @@ class FormController extends FOSRestController implements ClassResourceInterface
         $apiKey = $this->getParameter('l91_sulu_form.mailchimp_api_key');
 
         // if mailchimp class doesn't exist or no key is set return empty list
-        if (!class_exists('DrewM\MailChimp\MailChimp') || !$apiKey) {
+        if (!class_exists(\DrewM\MailChimp\MailChimp::class) || !$apiKey) {
             return $lists;
         }
 
-        $mailChimp = new MailChimp($apiKey);
+        $mailChimp = new \DrewM\MailChimp\MailChimp($apiKey);
         $response = $mailChimp->get('lists');
 
         if (!isset($response['lists'])) {
@@ -251,13 +254,13 @@ class FormController extends FOSRestController implements ClassResourceInterface
         $sortedTypes = [];
 
         foreach ($types as $key => $type) {
-            $translation = $translator->trans('l91_sulu_form.type.' . $type);
+            $translation = $translator->trans('l91_sulu_form.type.' . strtolower($type), [], 'backend');
             $sortedTypes[$translation . $key] = $type;
         }
 
         ksort($sortedTypes);
 
-        return $sortedTypes;
+        return array_values($sortedTypes);
     }
 
     /**

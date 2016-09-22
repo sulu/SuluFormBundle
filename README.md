@@ -80,3 +80,4 @@ Make sure you've set the correct permissions in the Sulu backend for this bundle
 ## Additional form fields
 
 - [Mailchimp](Resources/doc/mailchimp.md "Mailchimp Form Field")
+- [Recaptcha](Resources/doc/recaptcha.md "Recaptcha Form Field")

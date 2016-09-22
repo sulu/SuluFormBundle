@@ -214,6 +214,10 @@
                 <source>l91_sulu_form.mailchimp_list</source>
                 <target>Mailchimp List</target>
             </trans-unit>
+            <trans-unit id="67">
+                <source>l91_sulu_form.type.recaptcha</source>
+                <target>Captcha</target>
+            </trans-unit>
 
             <!-- Width -->
             <trans-unit id="70">

@@ -104,7 +104,7 @@ class DynamicFormType extends AbstractType
 
             $lastWidth = $this->getLastWidth($currentWidthValue, $width);
 
-            $options['label'] = $title;
+            $options['label'] = $title ?: false;
             $options['required'] = $field->getRequired();
             $options['attr']['width'] = $width;
             $options['attr']['lastWidth'] = $lastWidth;
@@ -153,6 +153,16 @@ class DynamicFormType extends AbstractType
                 case Dynamic::TYPE_CHECKBOX:
                 case Dynamic::TYPE_MAILCHIMP:
                     $type = CheckboxType::class;
+                    break;
+                case Dynamic::TYPE_RECAPTCHA:
+                    // use in this way the recaptcha bundle could maybe not exists
+                    $type = \EWZ\Bundle\RecaptchaBundle\Form\Type\RecaptchaType::class;
+                    $options['mapped'] = false;
+                    $options['constraints'][] = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue();
+                    $options['attr']['options'] = [
+                        'theme' => 'light',
+                        'type' => 'image',
+                    ];
                     break;
                 case Dynamic::TYPE_CHECKBOX_MULTIPLE:
                     $type = $this->createChoiceType($translation, $options, true, true);

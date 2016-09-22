@@ -2,11 +2,11 @@
 
 The following is showing an example how you can use the Mailchimp form field to add customers to your Mailchimp lists.
 
-## Requiered Bundles
+## Installation
 
 First of all you need to install drewn's Mailchimp API, if this bundle is missing the Mailchimp Fieldtype won't be available.
 
-``` json
+```json
 {
     "require": {
         "drewm/mailchimp-api": "^2.2"
