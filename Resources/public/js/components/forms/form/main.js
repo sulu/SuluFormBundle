@@ -27,6 +27,15 @@ define(function () {
     return {
         view: true,
 
+        layout: {
+            content: {
+                width: 'fixed',
+                topSpace: true,
+                leftSpace: false,
+                rightSpace: false
+            }
+        },
+
         templates: $.map(tabs, function(value) {
             return [value['url']];
         }),
@@ -152,7 +161,6 @@ define(function () {
          * like breadcrumb or title
          */
         setHeaderInfos: function () {
-            this.sandbox.emit('sulu.header.set-title', this.options.data.title || this.options.newTitle);
             if (!this.options.data.id) {
                 this.sandbox.emit('sulu.header.toolbar.item.disable', 'settings', false);
             }

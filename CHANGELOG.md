@@ -1,6 +1,7 @@
 # Changelog
 
 ## dev-develop
+ - ENHANCEMENT #103   Added new form layout
  - FEATURE     #102   Added recaptcha support with EWZRecaptchaBundle
  - ENHANCEMENT #101   Change mail settings options to toggler
  - FEATURE     #100   Added page based list output
