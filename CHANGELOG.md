@@ -1,8 +1,8 @@
 # Changelog
 
 ## dev-develop
- - BUGFIX      #104   Fixed datefield and add birthday option
- - ENHANCEMENT #103   Added new form layout
+ - BUGFIX      #106   Fixed datefield and add birthday option
+ - ENHANCEMENT #105   Added new form layout
  - FEATURE     #102   Added recaptcha support with EWZRecaptchaBundle
  - ENHANCEMENT #101   Change mail settings options to toggler
  - FEATURE     #100   Added page based list output
