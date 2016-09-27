@@ -1,12 +1,12 @@
 {% extends "L91SuluFormBundle:forms:fields/default-field.html.twig" %}
 
 {% block default %}
-    <div class="grid-col-6 floating form-group">
+    <div class="grid-col-4 floating form-group">
         <label for="default-value<~=index~>" class="pointer" title="Default Value">
             <%= translate('l91_sulu_form.default') %>
         </label>
 
-        <div id="defaultValue-element" class="form-element preview-update trigger-save-button"
+        <div id="default-value<~=index~>" class="form-element preview-update trigger-save-button"
              data-type="husky-input"
              data-aura-component="input@husky"
              data-aura-instance-name="defaultValue"
@@ -19,6 +19,21 @@
         <div class="block-content" data-sort-mode-id="{{ blockId }}defaultValue<~=index~>"></div>
 
         <div class="input-description"></div>
+    </div>
+
+    <div class="grid-col-2 floating form-group">
+        <label for="birthday-<~=index~>" class="pointer" title="Birthday">
+            <%= translate('l91_sulu_form.birthday') %>
+        </label>
+
+        <div id="birthday-<~=index~>"
+             class="preview-update trigger-save-button"
+             data-form="true"
+             data-aura-component="toggler@husky"
+             data-aura-instance-name="options[birthday]"
+             data-type="toggler"
+             data-type-instance-name="options[birthday]"
+             data-mapper-property="options[birthday]"></div>
     </div>
 {% endblock %}
 

@@ -6,6 +6,7 @@ use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
 use L91\Sulu\Bundle\FormBundle\Entity\Form;
 use L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 use L91\Sulu\Bundle\FormBundle\Entity\FormTranslation;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
@@ -143,7 +144,11 @@ class DynamicFormType extends AbstractType
                     break;
                 case Dynamic::TYPE_DATE:
                     $type = DateType::class;
-                    $options['widget'] = 'single_text';
+                    if ($translation && $translation->getOption('birthday')) {
+                        $type = BirthdayType::class;
+                    }
+                    $options['format'] = \IntlDateFormatter::LONG;
+
                     break;
                 case Dynamic::TYPE_ATTACHMENT:
                     $type = FileType::class;
