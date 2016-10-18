@@ -37,7 +37,7 @@ class MailchimpListSubscriber implements EventSubscriberInterface
      */
     public function listSubscribe(DynFormSavedEvent $event)
     {
-        $form = $event->getFormSelect();
+        $form = $event->getData();
         $email = '';
         $fname = '';
         $lname = '';

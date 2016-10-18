@@ -212,7 +212,8 @@ class Form
         $translation = $this->getTranslation($locale, false, true);
 
         return [
-            'id' => $this->getId(),
+            'id' => $dynamic ? $dynamic->id : null,
+            'formId' => $this->getId(),
             'title' => $translation->getTitle(),
             'subject' => $translation->getSubject(),
             'mailText' => $translation->getMailText(),

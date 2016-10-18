@@ -1,6 +1,7 @@
 # Changelog
 
 ## dev-develop
+ - BUGFIX      #112   Fixed id of serialized dynamic array
  - BUGFIX      #106   Fixed datefield and add birthday option
  - ENHANCEMENT #105   Added new form layout
  - FEATURE     #102   Added recaptcha support with EWZRecaptchaBundle
