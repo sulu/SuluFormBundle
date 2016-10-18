@@ -25,7 +25,7 @@ composer require drewm/mailchimp-api:^2.2
 add the following config to `app/config/config.yml`
 
 ```yml
-l91_sulu_form:
+sulu_form:
     mailchimp_api_key: %parameter_recommended_for_mailchimp_api_key%
 ```
 

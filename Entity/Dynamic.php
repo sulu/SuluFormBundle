@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Entity;
+namespace Sulu\Bundle\FormBundle\Entity;
 
 use Sulu\Component\Persistence\Model\TimestampableInterface;
 

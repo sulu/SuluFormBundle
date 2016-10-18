@@ -1,8 +1,8 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Controller;
+namespace Sulu\Bundle\FormBundle\Controller;
 
-use L91\Sulu\Bundle\FormBundle\Form\HandlerInterface;
+use Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Sulu\Bundle\WebsiteBundle\Controller\DefaultController;
 use Sulu\Component\Content\Compat\StructureInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -105,7 +105,7 @@ class FormWebsiteController extends DefaultController
      */
     public function onlyAction(Request $request, $key)
     {
-        $ajaxTemplates = $this->container->getParameter('l91.sulu.form.ajax_templates');
+        $ajaxTemplates = $this->container->getParameter('sulu.form.ajax_templates');
 
         if (!$ajaxTemplates[$key]) {
             throw new NotFoundHttpException();
@@ -184,6 +184,6 @@ class FormWebsiteController extends DefaultController
      */
     protected function getFormHandler()
     {
-        return $this->get('l91.sulu.form.handler');
+        return $this->get('sulu.form.handler');
     }
 }

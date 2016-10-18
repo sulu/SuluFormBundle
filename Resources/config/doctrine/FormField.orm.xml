@@ -3,7 +3,7 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="L91\Sulu\Bundle\FormBundle\Entity\FormField" table="l91_fo_form_fields">
+    <entity name="Sulu\Bundle\FormBundle\Entity\FormField" table="fo_form_fields">
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
@@ -16,7 +16,7 @@
         <field name="defaultLocale" column="defaultLocale" type="string" length="5"/>
 
         <one-to-many field="translations"
-                     target-entity="L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation"
+                     target-entity="Sulu\Bundle\FormBundle\Entity\FormFieldTranslation"
                      mapped-by="field">
             <cascade>
                 <cascade-all/>
@@ -24,7 +24,7 @@
         </one-to-many>
 
         <many-to-one field="form"
-                     target-entity="L91\Sulu\Bundle\FormBundle\Entity\Form"
+                     target-entity="Sulu\Bundle\FormBundle\Entity\Form"
                      inversed-by="fields">
             <cascade>
                 <cascade-all/>

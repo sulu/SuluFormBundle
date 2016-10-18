@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Mail;
+namespace Sulu\Bundle\FormBundle\Mail;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -100,7 +100,7 @@ class Helper implements HelperInterface
         }
 
         $this->logger->info(sprintf(
-            'Try register mail from L91 FormBundle: ' . PHP_EOL .
+            'Try register mail from SuluFormBundle: ' . PHP_EOL .
             '   From: %s' . PHP_EOL .
             '   To: %s' . PHP_EOL .
             '   Reply to: %s' . PHP_EOL .

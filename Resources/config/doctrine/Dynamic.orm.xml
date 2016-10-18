@@ -1,8 +1,8 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-    <entity name="L91\Sulu\Bundle\FormBundle\Entity\Dynamic"
-            table="l91_fo_dynamic">
+    <entity name="Sulu\Bundle\FormBundle\Entity\Dynamic"
+            table="fo_dynamics">
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
@@ -38,7 +38,7 @@
         <field name="data" column="data" type="text" nullable="true"/>
 
         <many-to-one field="form"
-                     target-entity="L91\Sulu\Bundle\FormBundle\Entity\Form">
+                     target-entity="Sulu\Bundle\FormBundle\Entity\Form">
             <join-columns>
                 <join-column name="formId" on-delete="SET NULL" referenced-column-name="id" nullable="true"/>
             </join-columns>

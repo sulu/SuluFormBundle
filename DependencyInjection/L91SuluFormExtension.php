@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\DependencyInjection;
+namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class L91SuluFormExtension extends Extension implements PrependExtensionInterface
+class SuluFormExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritdoc}
@@ -25,7 +25,7 @@ class L91SuluFormExtension extends Extension implements PrependExtensionInterfac
                 'sulu_media',
                 [
                     'system_collections' => [
-                        'l91_sulu_form' => [
+                        'sulu_form' => [
                             'meta_title' => ['en' => 'Sulu forms', 'de' => 'Sulu Formulare'],
                             'collections' => [
                                 'attachments' => [
@@ -47,11 +47,11 @@ class L91SuluFormExtension extends Extension implements PrependExtensionInterfac
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('l91.sulu.form.mail.from', $config['mail_helper']['from']);
-        $container->setParameter('l91.sulu.form.mail.to', $config['mail_helper']['to']);
-        $container->setParameter('l91.sulu.form.ajax_templates', $config['ajax_templates']);
+        $container->setParameter('sulu.form.mail.from', $config['mail_helper']['from']);
+        $container->setParameter('sulu.form.mail.to', $config['mail_helper']['to']);
+        $container->setParameter('sulu.form.ajax_templates', $config['ajax_templates']);
 
-        $container->setParameter('l91_sulu_form.mailchimp_api_key', $config['mailchimp_api_key']);
+        $container->setParameter('sulu_form.mailchimp_api_key', $config['mailchimp_api_key']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');

@@ -8,7 +8,7 @@
                             <div class="grid-col-12">
                                 <div class="form-group">
                                     <label for="title" class="required">
-                                        <%= translate('l91_sulu_form.title') %>
+                                        <%= translate('sulu_form.title') %>
                                     </label>
 
                                     <input id="title"
@@ -29,13 +29,13 @@
     <div class="fixed-width">
         <div class="grid">
             <h2 class="divider m-bottom-20">
-                <%= translate('l91_sulu_form.website_configuration') %>
+                <%= translate('sulu_form.website_configuration') %>
             </h2>
             <div class="grid-row m-bottom-40">
                 <div class="grid-col-12">
                     <div class="form-group">
                         <label for="successText">
-                            <%= translate('l91_sulu_form.success_text') %>
+                            <%= translate('sulu_form.success_text') %>
                         </label>
 
                         <textarea id="successText"
@@ -55,13 +55,13 @@
                 </div>
             </div>
             <h2 class="divider m-bottom-20">
-                <%= translate('l91_sulu_form.email_configuration') %>
+                <%= translate('sulu_form.email_configuration') %>
             </h2>
             <div class="grid-row m-bottom-20">
                 <div class="grid-col-12">
                     <div class="form-group">
                         <label for="subject">
-                            <%= translate('l91_sulu_form.subject') %>
+                            <%= translate('sulu_form.subject') %>
                         </label>
 
                         <div id="subject"
@@ -80,7 +80,7 @@
                 <div class="grid-col-6">
                     <div class="form-group">
                         <label for="fromEmail">
-                            <%= translate('l91_sulu_form.from_email') %>
+                            <%= translate('sulu_form.from_email') %>
                         </label>
 
                         <div id="fromEmail"
@@ -98,7 +98,7 @@
                 <div class="grid-col-6">
                     <div class="form-group">
                         <label for="fromName">
-                            <%= translate('l91_sulu_form.from_name') %>
+                            <%= translate('sulu_form.from_name') %>
                         </label>
 
                         <div id="fromName"
@@ -117,7 +117,7 @@
                 <div class="grid-col-6">
                     <div class="form-group">
                         <label for="toEmail">
-                            <%= translate('l91_sulu_form.to_email') %>
+                            <%= translate('sulu_form.to_email') %>
                         </label>
 
                         <div id="toEmail"
@@ -135,7 +135,7 @@
                 <div class="grid-col-6">
                     <div class="form-group">
                         <label for="toName">
-                            <%= translate('l91_sulu_form.to_name') %>
+                            <%= translate('sulu_form.to_name') %>
                         </label>
 
                         <div id="toName"
@@ -154,7 +154,7 @@
                 <div class="grid-col-12">
                     <div class="form-group">
                         <label for="mailText">
-                            <%= translate('l91_sulu_form.success_text') %>
+                            <%= translate('sulu_form.success_text') %>
                         </label>
 
                         <textarea id="mailText"
@@ -176,7 +176,7 @@
                 <div class="grid-col-4">
                     <div class="form-group">
                         <label for="sendAttachments">
-                            <%= translate('l91_sulu_form.send_attachments') %>
+                            <%= translate('sulu_form.send_attachments') %>
                         </label>
 
                         <div class="grid-row small">
@@ -194,7 +194,7 @@
                 <div class="grid-col-4">
                     <div class="form-group">
                         <label for="deactivateNotifyMails">
-                            <%= translate('l91_sulu_form.deactivate_notify') %>
+                            <%= translate('sulu_form.deactivate_notify') %>
                         </label>
 
                         <div class="grid-row small">
@@ -212,7 +212,7 @@
                 <div class="grid-col-4">
                     <div class="form-group">
                         <label for="deactivateCustomerMails">
-                            <%= translate('l91_sulu_form.deactivate_customer') %>
+                            <%= translate('sulu_form.deactivate_customer') %>
                         </label>
 
                         <div class="grid-row small">
@@ -235,7 +235,7 @@
                 <div class="grid-col-12">
                     <div class="grid-col-12 floating m-top-20">
                         <h2 class="divider m-bottom-20">
-                            <%= translate('l91_sulu_form.form_fields') %>
+                            <%= translate('sulu_form.form_fields') %>
                         </h2>
 
                         {% set blockId = 'fields' %}
@@ -272,7 +272,7 @@
 
                                             {
                                                 "data": "{{ type }}",
-                                                "title": "<%= translate('{{ 'l91_sulu_form.type.'~ type|lower }}') %>",
+                                                "title": "<%= translate('{{ 'sulu_form.type.'~ type|lower }}') %>",
                                                 "tpl": "{{ type }}-{{ blockId }}-tpl"
                                             }{% if not loop.last %},{% endif %}
                                         {% endfor %}
@@ -285,7 +285,7 @@
                                  data-mapper-empty-class="empty">
 
                                 {% for type in types %}
-                                    {% include 'L91SuluFormBundle:forms:fields/types/' ~ type|lower ~ '.html.twig' %}
+                                    {% include 'SuluFormBundle:forms:fields/types/' ~ type|lower ~ '.html.twig' %}
                                 {% endfor %}
                             </div>
 

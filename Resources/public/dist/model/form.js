@@ -1,1 +1,1 @@
-define(["mvc/relationalmodel"],function(a){"use strict";return a({urlRoot:"/admin/api/l91/forms",defaults:function(){return{id:null}}})});
+define(["mvc/relationalmodel"],function(a){"use strict";return a({urlRoot:"/admin/api/forms",defaults:function(){return{id:null}}})});

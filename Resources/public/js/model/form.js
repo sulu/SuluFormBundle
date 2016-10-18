@@ -7,7 +7,7 @@ define(['mvc/relationalmodel'], function (relationalModel) {
     'use strict';
 
     return relationalModel({
-        urlRoot: '/admin/api/l91/forms',
+        urlRoot: '/admin/api/forms',
 
         defaults: function() {
             return {

@@ -3,15 +3,15 @@
     <file source-language="de" datatype="plaintext" original="file.ext">
         <body>
             <trans-unit id="1">
-                <source>l91_sulu_form.salutation_mr</source>
+                <source>sulu_form.salutation_mr</source>
                 <target>Monsieur</target>
             </trans-unit>
             <trans-unit id="2">
-                <source>l91_sulu_form.salutation_ms</source>
+                <source>sulu_form.salutation_ms</source>
                 <target>Madame</target>
             </trans-unit>
             <trans-unit id="3">
-                <source>l91_sulu_form.created</source>
+                <source>sulu_form.created</source>
                 <target>Créer le</target>
             </trans-unit>
         </body>

@@ -1,8 +1,8 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Repository;
+namespace Sulu\Bundle\FormBundle\Repository;
 
-use L91\Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Entity\Form;
 
 class FormRepository extends \Doctrine\ORM\EntityRepository
 {

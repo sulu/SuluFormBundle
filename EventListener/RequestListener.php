@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\EventListener;
+namespace Sulu\Bundle\FormBundle\EventListener;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 

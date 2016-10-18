@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Provider;
+namespace Sulu\Bundle\FormBundle\Provider;
 
 use Sulu\Component\Rest\ListBuilder\FieldDescriptor;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Admin;
+namespace Sulu\Bundle\FormBundle\Admin;
 
 use Sulu\Bundle\AdminBundle\Navigation\ContentNavigationItem;
 use Sulu\Bundle\AdminBundle\Navigation\ContentNavigationProviderInterface;
@@ -17,9 +17,9 @@ class FormNavigationProvider implements ContentNavigationProviderInterface
     {
         $navigationItems = [];
 
-        $navigationItems['detail'] = new ContentNavigationItem('l91.sulu.form.navigation.details');
+        $navigationItems['detail'] = new ContentNavigationItem('sulu.form.navigation.details');
         $navigationItems['detail']->setAction('general');
-        $navigationItems['detail']->setComponent('forms@l91suluform');
+        $navigationItems['detail']->setComponent('forms@suluform');
         $navigationItems['detail']->setComponentOptions([
             'display' => 'form',
             'content' => 'general',

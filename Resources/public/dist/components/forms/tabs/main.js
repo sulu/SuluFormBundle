@@ -1,1 +1,1 @@
-define(function(){"use strict";return{header:function(){return{tabs:{url:"/admin/content-navigations?alias=l91_sulu_form_form"},toolbar:{buttons:{save:{},settings:{options:{dropdownItems:{"delete":{}}}}},languageChanger:{preSelected:this.options.language}}}}}});
+define(function(){"use strict";return{header:function(){return{tabs:{url:"/admin/content-navigations?alias=sulu_form_form"},toolbar:{buttons:{save:{},settings:{options:{dropdownItems:{"delete":{}}}}},languageChanger:{preSelected:this.options.language}}}}}});

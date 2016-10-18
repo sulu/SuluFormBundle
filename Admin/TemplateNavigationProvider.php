@@ -1,8 +1,8 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Admin;
+namespace Sulu\Bundle\FormBundle\Admin;
 
-use L91\Sulu\Bundle\FormBundle\Provider\ListProviderRegistry;
+use Sulu\Bundle\FormBundle\Provider\ListProviderRegistry;
 use Sulu\Bundle\AdminBundle\Navigation\ContentNavigationItem;
 use Sulu\Bundle\AdminBundle\Navigation\ContentNavigationProviderInterface;
 use Sulu\Bundle\AdminBundle\Navigation\DisplayCondition;
@@ -38,7 +38,7 @@ class TemplateNavigationProvider implements ContentNavigationProviderInterface
             $item = new ContentNavigationItem('Formular');
             $item->setAction('form-list');
             $item->setDisplay(['edit']);
-            $item->setComponent('content/list@l91suluform');
+            $item->setComponent('content/list@suluform');
             $item->setComponentOptions([
                 'template' => $name,
             ]);

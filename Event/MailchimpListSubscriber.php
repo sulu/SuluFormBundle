@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Event;
+namespace Sulu\Bundle\FormBundle\Event;
 
 use DrewM\MailChimp\MailChimp;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

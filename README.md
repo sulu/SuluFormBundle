@@ -1,4 +1,4 @@
-# Form Bundle for Sulu
+# Sulu Form Bundle
 
 Simple handling from Symfony Forms in [Sulu.io](http://sulu.io).  
 You can use this Bundle to create and handle static *(integrated in a Sulu page or loaded via AJAX)* or dynamic forms.
@@ -18,7 +18,7 @@ Use composer to install this Bundle:
 ```json
 {
     "require": {
-        "l91/sulu-form-bundle": "1.0.*"
+        "sulu/sulu-form-bundle": "1.0.*"
     }
 }
 ```
@@ -26,13 +26,13 @@ Use composer to install this Bundle:
 or
 
 ```bash
-composer require l91/sulu-form-bundle:1.0.*
+composer require sulu/sulu-form-bundle:1.0.*
 ```
 
 Add to AbstractKernel (app/AbstractKernel.php)
 
 ```php
-new L91\Sulu\Bundle\FormBundle\L91SuluFormBundle(),
+new Sulu\Bundle\FormBundle\SuluFormBundle(),
 ```
 
 ## Config
@@ -43,7 +43,7 @@ Add the following config to `app/config/config.yml`
 framework:
     esi: { enabled: true } # use to reload csrf token
 
-l91_sulu_form:
+sulu_form:
     mail_helper:
         from: %parameter_recommended_for_from%
         to: %parameter_recommended_for_to%
@@ -61,10 +61,10 @@ app/console doctrine:schema:update --force
 
 Add the following lines to `app/config/admin/routing.yml`
 
-``` xml
-l91_sulu_form_api:
+```yml
+sulu_form_api:
     type: rest
-    resource: "@L91SuluFormBundle/Resources/config/routing_api.yml"
+    resource: "@SuluFormBundle/Resources/config/routing_api.yml"
     prefix: /admin/api
  ```
 

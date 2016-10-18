@@ -9,9 +9,9 @@ define(['jquery'], function ($) {
         toolbarId: 'list-toolbar',
         toolbarKey: 'lists',
         listId: 'list-list',
-        endPointUrl: '/admin/api/l91/form/lists',
+        endPointUrl: '/admin/api/form/lists',
         toolbarSearchFields: ['email'],
-        fieldsAction: '/admin/api/l91/form/lists/fields'
+        fieldsAction: '/admin/api/form/lists/fields'
     };
 
     return {

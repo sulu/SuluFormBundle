@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Controller;
+namespace Sulu\Bundle\FormBundle\Controller;
 
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactory;
@@ -99,10 +99,10 @@ class ListController extends RestController implements ClassResourceInterface
     }
 
     /**
-     * @return \L91\Sulu\Bundle\FormBundle\Provider\ListProviderRegistry
+     * @return \Sulu\Bundle\FormBundle\Provider\ListProviderRegistry
      */
     protected function getProviderRegistry()
     {
-        return $this->get('l91.sulu.list.provider.registry');
+        return $this->get('sulu.list.provider.registry');
     }
 }

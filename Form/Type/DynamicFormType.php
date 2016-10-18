@@ -1,11 +1,11 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Form\Type;
+namespace Sulu\Bundle\FormBundle\Form\Type;
 
-use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
-use L91\Sulu\Bundle\FormBundle\Entity\Form;
-use L91\Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
-use L91\Sulu\Bundle\FormBundle\Entity\FormTranslation;
+use Sulu\Bundle\FormBundle\Entity\Dynamic;
+use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
+use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -129,8 +129,8 @@ class DynamicFormType extends AbstractType
                     $type = ChoiceType::class;
 
                     $options['choices'] = [
-                        'mr' => 'l91_sulu_form.salutation_mr',
-                        'ms' => 'l91_sulu_form.salutation_ms',
+                        'mr' => 'sulu_form.salutation_mr',
+                        'ms' => 'sulu_form.salutation_ms',
                     ];
                     break;
                 case Dynamic::TYPE_TEXTAREA:

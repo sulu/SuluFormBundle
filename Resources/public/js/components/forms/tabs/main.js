@@ -10,7 +10,7 @@ define(function () {
         header: function () {
             return {
                 tabs: {
-                    url: '/admin/content-navigations?alias=l91_sulu_form_form'
+                    url: '/admin/content-navigations?alias=sulu_form_form'
                     // alias for a the admin service tagged with `sulu_admin.content_navigation`
                 },
                 toolbar: {

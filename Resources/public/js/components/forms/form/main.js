@@ -10,19 +10,19 @@ define(function () {
         activeTab: 'general',
         data: {},
         instanceName: 'form',
-        newTitle: 'l91_sulu_form.forms.new_form'
+        newTitle: 'sulu_form.forms.new_form'
     };
 
     var tabs = {
         'general': {
             'name': 'general',
-            'url': '/admin/api/l91/forms/template',
+            'url': '/admin/api/forms/template',
             'formSelector': '#form-form'
         }
     };
 
-    var translatePrefix = 'l91_sulu_form.forms.';
-    var eventPrefix = 'l91.sulu.form.forms.';
+    var translatePrefix = 'sulu_form.forms.';
+    var eventPrefix = 'sulu.form.forms.';
 
     return {
         view: true,

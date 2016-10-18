@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\DependencyInjection\CompilerPass;
+namespace Sulu\Bundle\FormBundle\DependencyInjection\CompilerPass;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -13,12 +13,12 @@ class ListProviderCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('l91.sulu.list.provider.registry')) {
+        if (!$container->hasDefinition('sulu.list.provider.registry')) {
             return;
         }
 
-        $definition = $container->getDefinition('l91.sulu.list.provider.registry');
-        $taggedServices = $container->findTaggedServiceIds('l91_sulu_form.list_provider');
+        $definition = $container->getDefinition('sulu.list.provider.registry');
+        $taggedServices = $container->findTaggedServiceIds('sulu_form.list_provider');
 
         foreach ($taggedServices as $id => $tags) {
             foreach ($tags as $attributes) {

@@ -68,7 +68,7 @@ module.exports = function (grunt) {
             build: {
                 options: {
                     variables: {
-                        'l91suluform/js': 'l91suluform/dist'
+                        'suluform/js': 'suluform/dist'
                     },
                     prefix: ''
                 },

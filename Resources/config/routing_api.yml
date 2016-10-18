@@ -1,11 +1,10 @@
-l91_sulu_form.tests:
+sulu_form.list:
     type: rest
-    resource: L91\Sulu\Bundle\FormBundle\Controller\ListController
-    prefix: l91/form
-    name_prefix: l91_sulu_form.
+    resource: Sulu\Bundle\FormBundle\Controller\ListController
+    prefix: form
+    name_prefix: sulu_form.
 
-l91.sulu.form.forms:
+sulu_form.forms:
     type: rest
-    resource: L91\Sulu\Bundle\FormBundle\Controller\FormController
-    prefix: l91
-    name_prefix: l91_sulu_form.
+    resource: Sulu\Bundle\FormBundle\Controller\FormController
+    name_prefix: sulu_form.

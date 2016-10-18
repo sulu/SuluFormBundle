@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Admin;
+namespace Sulu\Bundle\FormBundle\Admin;
 
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Navigation\Navigation;
@@ -29,10 +29,10 @@ class FormAdmin extends Admin
         $section = new NavigationItem('navigation.modules');
 
         // create section
-        if ($securityChecker->hasPermission('l91.sulu.form.forms', 'view')) {
-            $navigationItem = new NavigationItem('l91_sulu_form.form');
+        if ($securityChecker->hasPermission('sulu.form.forms', 'view')) {
+            $navigationItem = new NavigationItem('sulu_form.form');
             $navigationItem->setIcon('magic');
-            $navigationItem->setAction('l91/forms');
+            $navigationItem->setAction('forms');
             $navigationItem->setPosition(10);
             $section->addChild($navigationItem);
             $rootNavigationItem->addChild($section);
@@ -55,7 +55,7 @@ class FormAdmin extends Admin
      */
     public function getJsBundleName()
     {
-        return 'l91suluform';
+        return 'suluform';
     }
 
     /**
@@ -66,7 +66,7 @@ class FormAdmin extends Admin
         return [
             'Sulu' => [
                 'Form' => [
-                    'l91.sulu.form.forms',
+                    'sulu.form.forms',
                 ],
             ],
         ];

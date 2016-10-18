@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Form\Type;
+namespace Sulu\Bundle\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType as SymfonyAbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;

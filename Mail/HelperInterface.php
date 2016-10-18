@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Mail;
+namespace Sulu\Bundle\FormBundle\Mail;
 
 interface HelperInterface
 {

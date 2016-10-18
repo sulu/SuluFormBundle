@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Mail;
+namespace Sulu\Bundle\FormBundle\Mail;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -34,7 +34,7 @@ class NullHelper implements HelperInterface
         $attachments = []
     ) {
         $this->logger->info(sprintf(
-            'L91 FormBundle NullMailHelper: ' . PHP_EOL .
+            'SuluFormBundle NullMailHelper: ' . PHP_EOL .
             '   From: %s' . PHP_EOL .
             '   To: %s' . PHP_EOL .
             '   Reply to: %s' . PHP_EOL .

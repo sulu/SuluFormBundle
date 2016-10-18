@@ -46,7 +46,7 @@ https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources
 
 ```twig
 {%- block _dynamic_form__token_widget -%}
-    {{ render_esi(controller('L91SuluFormBundle:FormWebsite:token', { 'form': form.parent.vars.name, 'html': true })) }}
+    {{ render_esi(controller('SuluFormBundle:FormWebsite:token', { 'form': form.parent.vars.name, 'html': true })) }}
 {% endblock %}
 
 {%- block form_row -%}
@@ -153,8 +153,8 @@ form-notify.html.twig
 To visualise a tab in the Sulu template, simply add following lines to your Bundles `services.xml`:
 
 ```xml
-<service id="client_website.list_provider.form" class="L91\Sulu\Bundle\FormBundle\Provider\DynamicProvider">
-    <tag name="l91_sulu_form.list_provider" template="form" />
+<service id="client_website.list_provider.form" class="Sulu\Bundle\FormBundle\Provider\DynamicProvider">
+    <tag name="sulu_form.list_provider" template="form" />
 </service>
 ```
 

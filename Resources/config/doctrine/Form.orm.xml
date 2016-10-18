@@ -1,16 +1,16 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-    <entity name="L91\Sulu\Bundle\FormBundle\Entity\Form"
-            table="l91_fo_form"
-            repository-class="L91\Sulu\Bundle\FormBundle\Repository\FormRepository">
+    <entity name="Sulu\Bundle\FormBundle\Entity\Form"
+            table="fo_forms"
+            repository-class="Sulu\Bundle\FormBundle\Repository\FormRepository">
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
         <field name="defaultLocale" column="defaultLocale" type="string" length="5"/>
 
         <one-to-many field="translations"
-                     target-entity="L91\Sulu\Bundle\FormBundle\Entity\FormTranslation"
+                     target-entity="Sulu\Bundle\FormBundle\Entity\FormTranslation"
                      mapped-by="form">
             <cascade>
                 <cascade-all/>
@@ -18,7 +18,7 @@
         </one-to-many>
 
         <one-to-many field="fields"
-                     target-entity="L91\Sulu\Bundle\FormBundle\Entity\FormField"
+                     target-entity="Sulu\Bundle\FormBundle\Entity\FormField"
                      mapped-by="form">
             <cascade>
                 <cascade-persist/>

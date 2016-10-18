@@ -1,13 +1,13 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Event;
+namespace Sulu\Bundle\FormBundle\Event;
 
-use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
+use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Symfony\Component\EventDispatcher\Event;
 
 class DynFormSavedEvent extends Event
 {
-    const NAME = 'l91.dynform.saved';
+    const NAME = 'sulu.dynform.saved';
 
     /**
      * @var array

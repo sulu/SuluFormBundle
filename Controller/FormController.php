@@ -1,12 +1,12 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Controller;
+namespace Sulu\Bundle\FormBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
-use L91\Sulu\Bundle\FormBundle\Entity\Form;
-use L91\Sulu\Bundle\FormBundle\Manager\FormManager;
+use Sulu\Bundle\FormBundle\Entity\Dynamic;
+use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Manager\FormManager;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactory;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineCaseFieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineDescriptor;
@@ -29,7 +29,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
      */
     public function getSecurityContext()
     {
-        return 'l91.sulu.form.forms';
+        return 'sulu.form.forms';
     }
 
     /**
@@ -37,7 +37,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
      */
     public function getManager()
     {
-        return $this->get('l91_sulu_form.manager.form');
+        return $this->get('sulu_form.manager.form');
     }
 
     /**
@@ -142,7 +142,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
      */
     public function getBundleName()
     {
-        return 'L91SuluFormBundle';
+        return 'SuluFormBundle';
     }
 
     /**
@@ -155,35 +155,35 @@ class FormController extends FOSRestController implements ClassResourceInterface
         $widths = [
             [
                 'id' => 'full',
-                'name' => 'l91_sulu_form.width.full',
+                'name' => 'sulu_form.width.full',
             ],
             [
                 'id' => 'half',
-                'name' => 'l91_sulu_form.width.half',
+                'name' => 'sulu_form.width.half',
             ],
             [
                 'id' => 'one-third',
-                'name' => 'l91_sulu_form.width.one-third',
+                'name' => 'sulu_form.width.one-third',
             ],
             [
                 'id' => 'two-thirds',
-                'name' => 'l91_sulu_form.width.two-thirds',
+                'name' => 'sulu_form.width.two-thirds',
             ],
             [
                 'id' => 'one-quarter',
-                'name' => 'l91_sulu_form.width.one-quarter',
+                'name' => 'sulu_form.width.one-quarter',
             ],
             [
                 'id' => 'three-quarters',
-                'name' => 'l91_sulu_form.width.three-quarters',
+                'name' => 'sulu_form.width.three-quarters',
             ],
             [
                 'id' => 'one-sixth',
-                'name' => 'l91_sulu_form.width.one-sixth',
+                'name' => 'sulu_form.width.one-sixth',
             ],
             [
                 'id' => 'five-sixths',
-                'name' => 'l91_sulu_form.width.five-sixths',
+                'name' => 'sulu_form.width.five-sixths',
             ],
         ];
 
@@ -218,7 +218,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
     public function getMailChimpLists()
     {
         $lists = [];
-        $apiKey = $this->getParameter('l91_sulu_form.mailchimp_api_key');
+        $apiKey = $this->getParameter('sulu_form.mailchimp_api_key');
 
         // if mailchimp class doesn't exist or no key is set return empty list
         if (!class_exists(\DrewM\MailChimp\MailChimp::class) || !$apiKey) {
@@ -254,7 +254,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
         $sortedTypes = [];
 
         foreach ($types as $key => $type) {
-            $translation = $translator->trans('l91_sulu_form.type.' . strtolower($type), [], 'backend');
+            $translation = $translator->trans('sulu_form.type.' . strtolower($type), [], 'backend');
             $sortedTypes[$translation . $key] = $type;
         }
 

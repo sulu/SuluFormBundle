@@ -4,7 +4,7 @@
 
 define([
     'mvc/collection',
-    'l91suluform/model/form'
+    'suluform/model/form'
 ], function (Collection, Model) {
 
     return Collection({
@@ -12,11 +12,11 @@ define([
         model: Model,
 
         url: function () {
-            return '/admin/api/l91/forms';
+            return '/admin/api/forms';
         },
 
         fieldsUrl: function () {
-            return '/admin/api/l91/forms/fields';
+            return '/admin/api/forms/fields';
         },
 
         parse: function (resp) {

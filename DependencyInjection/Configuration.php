@@ -1,6 +1,6 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\DependencyInjection;
+namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('l91_sulu_form');
+        $rootNode = $treeBuilder->root('sulu_form');
 
         $rootNode->children()
             ->scalarNode('mailchimp_api_key')->defaultValue(null)->end()

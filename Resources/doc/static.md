@@ -15,7 +15,7 @@ Sulu template is not needed when using a ajax loaded form.
     <key>pages_template_key</key>
 
     <view>ClientWebsiteBundle:templates:pages_template_key</view>
-    <controller>L91SuluFormBundle:Form:form</controller>
+    <controller>SuluFormBundle:Form:form</controller>
     <cacheLifetime>2400</cacheLifetime>
 
     <meta>
@@ -128,13 +128,13 @@ Sulu have sometimes problem with this command and you maybe need first create th
 
 ## Create Form Type
 
-In your Symfony Form Type extend from `L91\Sulu\Bundle\FormBunde\Form\Type\AbstractType` and use and create the following function.
+In your Symfony Form Type extend from `Sulu\Bundle\FormBundle\Form\Type\AbstractType` and use and create the following function.
 
 ``` php
 namespace Client\Bundle\WebsiteBundle\Form\Type;
 
-use L91\Sulu\Bundle\FormBundle\Entity\Example;
-use L91\Sulu\Bundle\FormBundle\Form\Type;
+use Sulu\Bundle\FormBundle\Entity\Example;
+use Sulu\Bundle\FormBundle\Form\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class FormExampleType extends AbstractType
@@ -142,7 +142,7 @@ class FormExampleType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    protected $dataClass = 'L91\Sulu\Bundle\FormBundle\Entity\Example';
+    protected $dataClass = 'Sulu\Bundle\FormBundle\Entity\Example';
 
     /**
      * {@inheritdoc}
@@ -185,8 +185,8 @@ The form is loaded by the template key so create a form type with the name same 
 Add ajax route to website config (app/config/website/routing.yml)
 
 ```yml
-l91_sulu_form:
-    resource: "@L91SuluFormBundle/Resources/config/routing.yml"
+sulu_form:
+    resource: "@SuluFormBundle/Resources/config/routing.yml"
 ```
 
 To form can now be requested under `/form/only/{form_type_alias}`  
@@ -223,7 +223,7 @@ ClientWebsiteBundle:forms:theme.html.twig:
 
 ``` twig
 {% block token_widget %}
-    { render_esi(controller('L91SuluFormBundle:FormWebsite:token', { 'form': 'form_type_alias', 'html': true })) }}
+    { render_esi(controller('SuluFormBundle:FormWebsite:token', { 'form': 'form_type_alias', 'html': true })) }}
 {% endblock token_widget %}
 ```
 
@@ -252,9 +252,9 @@ Lastname: {{ form.data.lastName }}<br/>
 For the list provider you need first register the admin api in `app/config/admin/routing.yml`
 
 ```yml
-l91_sulu_form_api:
+sulu_form_api:
     type: rest
-    resource: "@L91SuluFormBundle/Resources/config/routing_api.yml"
+    resource: "@SuluFormBundle/Resources/config/routing_api.yml"
     prefix: /admin/api
 ```
 
@@ -266,7 +266,7 @@ After this you need to create a new class which implements the `ListProviderInte
 namespace Client\Bundle\WebsiteBundle\Provider;
 
 use Client\Bundle\WebsiteBundle\Entity\Example;
-use L91\Sulu\Bundle\FormBundle\Provider\ListProviderInterface;
+use Sulu\Bundle\FormBundle\Provider\ListProviderInterface;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
 
 class ExampleListProvider implements ListProviderInterface
@@ -320,7 +320,7 @@ Register the class and tag it
 
 ```xml
 <service id="client_website.list_provider.example" class="Client\Bundle\WebsiteBundle\Provider\ExampleListProvider">
-    <tag name="l91_sulu_form.list_provider" template="pages_template_key" />
+    <tag name="sulu_form.list_provider" template="pages_template_key" />
 </service>
 ```
 

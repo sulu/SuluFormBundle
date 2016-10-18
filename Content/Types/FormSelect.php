@@ -1,13 +1,13 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Content\Types;
+namespace Sulu\Bundle\FormBundle\Content\Types;
 
 use Doctrine\ORM\NoResultException;
-use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
-use L91\Sulu\Bundle\FormBundle\Event\DynFormSavedEvent;
-use L91\Sulu\Bundle\FormBundle\Form\HandlerInterface;
-use L91\Sulu\Bundle\FormBundle\Form\Type\DynamicFormType;
-use L91\Sulu\Bundle\FormBundle\Repository\FormRepository;
+use Sulu\Bundle\FormBundle\Entity\Dynamic;
+use Sulu\Bundle\FormBundle\Event\DynFormSavedEvent;
+use Sulu\Bundle\FormBundle\Form\HandlerInterface;
+use Sulu\Bundle\FormBundle\Form\Type\DynamicFormType;
+use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\SimpleContentType;
 use Sulu\Component\Media\SystemCollections\SystemCollectionManagerInterface;
@@ -137,7 +137,7 @@ class FormSelect extends SimpleContentType
                 $locale,
                 $property->getName(),
                 $property->getStructure()->getView(),
-                $this->systemCollectionManager->getSystemCollection('l91_sulu_form.attachments')
+                $this->systemCollectionManager->getSystemCollection('sulu_form.attachments')
             );
 
             $form = $this->formFactory->create(

@@ -1,12 +1,12 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle;
+namespace Sulu\Bundle\FormBundle;
 
-use L91\Sulu\Bundle\FormBundle\DependencyInjection\CompilerPass\ListProviderCompilerPass;
+use Sulu\Bundle\FormBundle\DependencyInjection\CompilerPass\ListProviderCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class L91SuluFormBundle extends Bundle
+class SuluFormBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {

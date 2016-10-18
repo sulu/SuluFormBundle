@@ -1,4 +1,4 @@
-{% extends "L91SuluFormBundle:forms:fields/default-field.html.twig" %}
+{% extends "SuluFormBundle:forms:fields/default-field.html.twig" %}
 
 {% block placeholder_default %}
 {% endblock %}
@@ -10,7 +10,7 @@
                 <label for="listId<~=index~>"
                        class="pointer"
                        title="listId">
-                    <%= translate('l91_sulu_form.mailchimp_list') %>
+                    <%= translate('sulu_form.mailchimp_list') %>
                 </label>
 
                 <div id="listId<~=index~>"
@@ -19,7 +19,7 @@
                      data-aura-data='{{ mailChimpLists|json_encode() }}'
                      data-aura-multiple-select="false"
                      data-aura-instance-name="options[listId]"
-                     data-aura-default-label="<%= translate('l91_sulu_form.please_choose') %>"
+                     data-aura-default-label="<%= translate('sulu_form.please_choose') %>"
                      data-type="husky-select"
                      data-form="true"
                      data-mapper-return-value="id"

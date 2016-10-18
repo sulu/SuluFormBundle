@@ -1,8 +1,8 @@
 <?php
 
-namespace L91\Sulu\Bundle\FormBundle\Provider;
+namespace Sulu\Bundle\FormBundle\Provider;
 
-use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
+use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
 
 class DynamicProvider implements ListProviderInterface
@@ -45,7 +45,7 @@ class DynamicProvider implements ListProviderInterface
     protected function createFieldDescriptor($name, $type = '', $translationKey = '', $disabled = false)
     {
         if (!$translationKey) {
-            $translationKey = 'l91_sulu_form.type.' . strtolower($name);
+            $translationKey = 'sulu_form.type.' . strtolower($name);
         }
 
         return new DoctrineFieldDescriptor(

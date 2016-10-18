@@ -1,9 +1,9 @@
-{% extends "L91SuluFormBundle:forms:fields/default-field.html.twig" %}
+{% extends "SuluFormBundle:forms:fields/default-field.html.twig" %}
 
 {% block default %}
     <div class="grid-col-4 floating form-group">
         <label for="default-value<~=index~>" class="pointer" title="Default Value">
-            <%= translate('l91_sulu_form.default') %>
+            <%= translate('sulu_form.default') %>
         </label>
 
         <div id="default-value<~=index~>" class="form-element preview-update trigger-save-button"
@@ -23,7 +23,7 @@
 
     <div class="grid-col-2 floating form-group">
         <label for="birthday-<~=index~>" class="pointer" title="Birthday">
-            <%= translate('l91_sulu_form.birthday') %>
+            <%= translate('sulu_form.birthday') %>
         </label>
 
         <div id="birthday-<~=index~>"
