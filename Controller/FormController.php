@@ -218,7 +218,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
     public function getMailChimpLists()
     {
         $lists = [];
-        $apiKey = $this->getParameter('l91_sulu_form.mailchimp_api_key');
+        $apiKey = $this->getParameter('l91.sulu.form.mailchimp_api_key');
 
         // if mailchimp class doesn't exist or no key is set return empty list
         if (!class_exists(\DrewM\MailChimp\MailChimp::class) || !$apiKey) {

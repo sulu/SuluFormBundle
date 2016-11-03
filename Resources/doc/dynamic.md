@@ -75,7 +75,7 @@ https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources
             </div>
         {% elseif attr.type|default('') == 'headline' %}
             <div class="grid__item one-whole">
-                <h2>{{ label }}</h4>
+                <h2>{{ label }}</h2>
             </div>
         {% else %}
             {{ form_widget(form) }}
