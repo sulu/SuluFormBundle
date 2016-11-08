@@ -4,4 +4,63 @@
 {% endblock %}
 
 {% block extended %}
+    <div class="grid">
+        <div class="grid-row m-bottom-20">
+            <div class="grid-col-3 floating form-group">
+                <label for="option-image<~=index~>"
+                       class="pointer"
+                       title="image">
+                    <%= translate('l91_sulu_form.attachment_restrict') %>
+                </label>
+
+                {% set types = [
+                    'image',
+                    'audio',
+                    'video',
+                ] %}
+
+                <div>
+                    {% for type in types %}
+                        <label for="option-image-{{ type }}<~=index~>" class="choice">
+                            <div class="custom-checkbox">
+                                <input type="checkbox"
+                                       id="option-image-{{ type }}<~=index~>"
+                                       name="options[type][]"
+                                       value="{{ type }}"
+                                       data-mapper-property="options[type]"
+                                       class="preview-update trigger-save-button form-element"/>
+                                <span class="icon"></span>
+                            </div>
+                            <%= translate('l91_sulu_form.attachment.{{ type }}') %>
+                        </label>
+                    {% endfor %}
+                </div>
+
+                <div class="block-content" data-sort-mode-id="{{ blockId }}type<~=index~>"></div>
+
+                <div class="input-description">
+                    <%= translate('l91_sulu_form.attachment_restrict.hint') %>
+                </div>
+            </div>
+
+            <div class="grid-col-3 floating form-group">
+                <label for="option-image<~=index~>"
+                       title="image">
+                    <%= translate('l91_sulu_form.attachment_max') %>
+                </label>
+
+                <input id="option-max<~=index~>"
+                       data-property='options[max]'
+                       type="number"
+                       data-type="decimal"
+                       data-type-format="d"
+                       data-validation-min="0"
+                       min="0"
+                       class="form-element preview-update trigger-save-button"
+                       data-mapper-property="options[max]"/>
+
+                <div class="input-description"></div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
