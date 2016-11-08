@@ -1,6 +1,7 @@
 # Changelog
 
 ## dev-develop
+ - FEATURE     #115   Added options for attachment validation
  - BUGFIX      #114   Fixed multiple choices to text type columns
  - BUGFIX      #113   Fixed naming of mailchimp parameters
  - BUGFIX      #112   Fixed id of serialized dynamic array

@@ -257,6 +257,33 @@
                 <source>l91_sulu_form.width.five-sixths</source>
                 <target>Fünf Sechstel</target>
             </trans-unit>
+
+            <!-- Attachment -->
+            <trans-unit id="80">
+                <source>l91_sulu_form.attachment_restrict</source>
+                <target>Dateitypen beschränken</target>
+            </trans-unit>
+            <trans-unit id="81">
+                <source>l91_sulu_form.attachment_restrict.hint</source>
+                <target>Bei keiner Auswahl sind alle Dateitypen möglich.</target>
+            </trans-unit>
+            <trans-unit id="82">
+                <source>l91_sulu_form.attachment.image</source>
+                <target>Bilder</target>
+            </trans-unit>
+            <trans-unit id="83">
+                <source>l91_sulu_form.attachment.audio</source>
+                <target>Audios</target>
+            </trans-unit>
+            <trans-unit id="84">
+                <source>l91_sulu_form.attachment.video</source>
+                <target>Videos</target>
+            </trans-unit>
+
+            <trans-unit id="86">
+                <source>l91_sulu_form.attachment_max</source>
+                <target>Maximale Anzahl</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

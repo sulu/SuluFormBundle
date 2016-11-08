@@ -18,6 +18,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\All;
+use Symfony\Component\Validator\Constraints\Count;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class DynamicFormType extends AbstractType
@@ -141,6 +146,7 @@ class DynamicFormType extends AbstractType
                     break;
                 case Dynamic::TYPE_EMAIL:
                     $type = EmailType::class;
+                    $options['constraints'][] = new Email();
                     break;
                 case Dynamic::TYPE_DATE:
                     $type = DateType::class;
@@ -153,6 +159,46 @@ class DynamicFormType extends AbstractType
                 case Dynamic::TYPE_ATTACHMENT:
                     $type = FileType::class;
                     $options['mapped'] = false;
+                    $allConstraints = [];
+
+                    // Mime Types Filter
+                    if ($translation->getOption('type') === ['image']) {
+                        $fileConstraint = new Image();
+                    } else {
+                        $mimeTypes = [];
+
+                        if (is_array($translation->getOption('type'))) {
+                            foreach ($translation->getOption('type') as $attachmentType) {
+                                $mimeTypes[] = $attachmentType . '/*';
+                            }
+                        }
+
+                        $fileConstraint = new File([
+                            'mimeTypes' => $mimeTypes,
+                        ]);
+
+                        $options['attr']['accept'] = implode(',', $mimeTypes);
+                    }
+
+                    $allConstraints[] = $fileConstraint;
+
+                    // Required for Files
+                    if ($field->getRequired()) {
+                        $allConstraints[] = new NotBlank();
+                    }
+
+                    // File Constraint
+                    $options['constraints'][] = new All([
+                        'constraints' => $allConstraints,
+                    ]);
+
+                    // Max File Constraint
+                    if ($translation->getOption('max')) {
+                        $options['constraints'][] = new Count([
+                            'max' => (int) $translation->getOption('max'),
+                        ]);
+                    }
+
                     $options['multiple'] = true;
                     break;
                 case Dynamic::TYPE_CHECKBOX:
