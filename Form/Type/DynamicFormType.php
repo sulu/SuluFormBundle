@@ -162,22 +162,23 @@ class DynamicFormType extends AbstractType
                     $allConstraints = [];
 
                     // Mime Types Filter
+                    $mimeTypes = [];
+
+                    if (is_array($translation->getOption('type'))) {
+                        foreach ($translation->getOption('type') as $attachmentType) {
+                            $mimeTypes[] = $attachmentType . '/*';
+                        }
+                    }
+
+                    $options['attr']['accept'] = implode(',', $mimeTypes);
+
+                    // File Constraint
                     if ($translation->getOption('type') === ['image']) {
                         $fileConstraint = new Image();
                     } else {
-                        $mimeTypes = [];
-
-                        if (is_array($translation->getOption('type'))) {
-                            foreach ($translation->getOption('type') as $attachmentType) {
-                                $mimeTypes[] = $attachmentType . '/*';
-                            }
-                        }
-
                         $fileConstraint = new File([
                             'mimeTypes' => $mimeTypes,
                         ]);
-
-                        $options['attr']['accept'] = implode(',', $mimeTypes);
                     }
 
                     $allConstraints[] = $fileConstraint;
@@ -193,10 +194,12 @@ class DynamicFormType extends AbstractType
                     ]);
 
                     // Max File Constraint
-                    if ($translation->getOption('max')) {
+                    if ($fileMax = (int) $translation->getOption('max')) {
                         $options['constraints'][] = new Count([
-                            'max' => (int) $translation->getOption('max'),
+                            'max' => $fileMax,
                         ]);
+
+                        $options['attr']['max'] = $fileMax;
                     }
 
                     $options['multiple'] = true;
