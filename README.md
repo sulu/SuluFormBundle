@@ -81,3 +81,4 @@ Make sure you've set the correct permissions in the Sulu backend for this bundle
 
 - [Mailchimp](Resources/doc/mailchimp.md "Mailchimp Form Field")
 - [Recaptcha](Resources/doc/recaptcha.md "Recaptcha Form Field")
+- [Dropzone](Resources/doc/dropzone.md "Dropzone Form Field")
