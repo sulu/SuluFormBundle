@@ -32,6 +32,9 @@ The following JS will show you how you can submit a form
 over multiple dropzones:
 
 ```js
+var $ = require('jquery');
+var Dropzone = require('dropzone');
+
 var component = function() {
     return {
         $el: $('#dynamic-form'),
