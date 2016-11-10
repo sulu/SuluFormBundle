@@ -1,6 +1,7 @@
 # Changelog
 
 ## dev-develop
+ - BUGFIX      #117   Fixed limitation of content type select
  - FEATURE     #115   Added options for attachment validation
  - BUGFIX      #114   Fixed multiple choices to text type columns
  - BUGFIX      #113   Fixed naming of mailchimp parameters

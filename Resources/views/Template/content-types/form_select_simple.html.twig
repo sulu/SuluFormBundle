@@ -2,7 +2,7 @@
      class="preview-update trigger-save-button"
      data-form="true"
      data-property='{{ property|json_encode }}'
-     data-aura-url="/admin/api/l91/forms?flat=true&fields=id,title&sortBy=title&locale={{ languageCode }}"
+     data-aura-url="/admin/api/l91/forms?flat=true&fields=id,title&sortBy=title&limit=999&locale={{ languageCode }}"
      data-aura-result-key="forms"
      data-aura-component="select@husky"
      data-aura-instance-name="{{ id|raw }}"
