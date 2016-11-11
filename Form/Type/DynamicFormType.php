@@ -94,7 +94,7 @@ class DynamicFormType extends AbstractType
 
             // title / placeholder
             if ($translation) {
-                $title = $translation->getTitle();
+                $title = ($translation->getTitle());
                 $placeholder = $translation->getPlaceholder();
             }
 

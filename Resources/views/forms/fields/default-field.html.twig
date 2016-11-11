@@ -19,20 +19,14 @@
                 <div class="clear"></div>
             </div>
             <div class="grid-row">
-                {% set marginClass = 'm-top-10' %}
-
-                {% if type in ['spacer'] %}
-                    {% set marginClass = 'm-top-30' %}
-                {% endif %}
-
-                <div class="grid-col-3 {{ marginClass }} floating form-group hidden">
+                <div class="grid-col-3 m-top-20 floating form-group hidden">
                     <div class="type-select"></div>
                 </div>
 
                 {% block required %}
-                    <div class="grid-col-2 m-top-10 floating form-group">
+                    <div class="grid-col-1 m-top-20 floating form-group">
                     </div>
-                    <div class="grid-col-6 m-top-10 floating form-group">
+                    <div class="grid-col-4 m-top-20 floating form-group">
                         <label for="required<~=index~>" style="margin-top: 5px; margin-bottom: 5px;">
                             <div class="custom-checkbox">
                                 <input type="checkbox"
@@ -46,53 +40,62 @@
                         </label>
                     </div>
                 {% endblock %}
+                {% block width %}
+                    <div class="grid-col-3 m-top-20 floating form-group pull-right">
+                        <div id="width<~=index~>"
+                             class="preview-update trigger-save-button"
+                             data-aura-component="select@husky"
+                             data-aura-data='{{ widths|json_encode() }}'
+                             data-aura-multiple-select="false"
+                             data-aura-instance-name="width"
+                             data-aura-default-value='{"id":"full","name":"sulu_form.width.full"}'
+                             data-type="husky-select"
+                             data-form="true"
+                             data-mapper-return-value="id"
+                             data-mapper-property="width">
+                        </div>
+
+                        <div class="block-content" data-sort-mode-id="{{ blockId }}width<~=index~>"></div>
+
+                        <div class="input-description"></div>
+                    </div>
+                    <div class="grid-col-1 m-top-25 floating form-group pull-right">
+                        <label for="width<~=index~>"
+                               class="pointer"
+                               title="width">
+                            <%= translate('sulu_form.width') %>
+                        </label>
+                    </div>
+                {% endblock %}
             </div>
 
             <div class="block block-{{ type }} grid-row small">
-                {% block title_width %}
+                {% block title_default %}
                     <div class="grid">
                         <div class="grid-row m-bottom-20">
                             {% block title %}
-                                <div class="grid-col-9 floating form-group">
+                                <div class="grid-col-12 floating form-group">
                                     <label for="title<~=index~>"
                                            class="pointer required"
                                            title="Title">
                                         <%= translate('sulu_form.title') %>
                                     </label>
 
-                                    <input id="title<~=index~>"
-                                           data-property="title"
-                                           type="text"
-                                           class="form-element preview-update trigger-save-button"
-                                           data-mapper-property="title"
-                                           data-validation-required="true"/>
+                                    <textarea id="title<~=index~>"
+                                              class="form-element vertical hidden husky-validate preview-update"
+                                              data-aura-instance-name="title<~=index~>"
+                                              data-type="textEditor"
+                                              data-type-instance-name="title<~=index~>"
+                                              data-mapper-property="title"
+                                              data-form="true"
+                                              data-aura-component="ckeditor@husky"
+                                              data-aura-table="false"
+                                              data-aura-height="100"
+                                              data-aura-max-height="100"
+                                              data-validation-required="true"
+                                              data-aura-enter-mode="br"></textarea>
+
                                     <div class="block-content" data-sort-mode-id="{{ blockId }}title<~=index~>"></div>
-
-                                    <div class="input-description"></div>
-                                </div>
-                            {% endblock %}
-                            {% block width %}
-                                <div class="grid-col-3 floating form-group">
-                                    <label for="width<~=index~>"
-                                           class="pointer"
-                                           title="width">
-                                        <%= translate('sulu_form.width') %>
-                                    </label>
-
-                                    <div id="width<~=index~>"
-                                         class="preview-update trigger-save-button"
-                                         data-aura-component="select@husky"
-                                         data-aura-data='{{ widths|json_encode() }}'
-                                         data-aura-multiple-select="false"
-                                         data-aura-instance-name="width"
-                                         data-aura-default-value='{"id":"full","name":"sulu_form.width.full"}'
-                                         data-type="husky-select"
-                                         data-form="true"
-                                         data-mapper-return-value="id"
-                                         data-mapper-property="width">
-                                    </div>
-
-                                    <div class="block-content" data-sort-mode-id="{{ blockId }}width<~=index~>"></div>
 
                                     <div class="input-description"></div>
                                 </div>

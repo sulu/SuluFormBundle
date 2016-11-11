@@ -93,7 +93,6 @@ define(function () {
          */
         bindFormEvents: function () {
             var formSelector = this.getActiveFormSelector();
-
             this.sandbox.dom.on(formSelector, 'keyup', this.activateSaveButton.bind(this), 'input, textarea');
             this.sandbox.dom.on(formSelector, 'change', this.activateSaveButton.bind(this), 'input[type="checkbox"], select');
             this.sandbox.on('husky.select.width.selected.item', this.activateSaveButton.bind(this));
