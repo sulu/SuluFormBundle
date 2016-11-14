@@ -257,6 +257,10 @@
                 <source>sulu_form.width.five-sixths</source>
                 <target>five sixths</target>
             </trans-unit>
+            <trans-unit id="78">
+                <source>sulu_form.short_title</source>
+                <target>Short title (Optional title of field in notification mail, e. g.)</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -256,6 +256,10 @@
                 <source>sulu_form.width.five-sixths</source>
                 <target>cinq sixièmes</target>
             </trans-unit>
+            <trans-unit id="78">
+                <source>sulu_form.short_title</source>
+                <target>Titre abrégé (p. ex. titre facultatif du champ dans la notification email)</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
