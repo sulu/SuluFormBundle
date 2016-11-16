@@ -259,7 +259,11 @@
             </trans-unit>
             <trans-unit id="78">
                 <source>sulu_form.short_title</source>
-                <target>Short title (Optional title of field in notification mail, e. g.)</target>
+                <target>Short title</target>
+            </trans-unit>
+            <trans-unit id="79">
+                <source>sulu_form.short_title_description</source>
+                <target>Optional title of field, for example in notification mail.</target>
             </trans-unit>
         </body>
     </file>

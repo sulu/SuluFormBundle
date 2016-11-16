@@ -258,7 +258,11 @@
             </trans-unit>
             <trans-unit id="78">
                 <source>sulu_form.short_title</source>
-                <target>Titre abrégé (p. ex. titre facultatif du champ dans la notification email)</target>
+                <target>Titre abrégé</target>
+            </trans-unit>
+            <trans-unit id="79">
+                <source>sulu_form.short_title_description</source>
+                <target>Titre facultatif du champ dans la notification email p. ex.</target>
             </trans-unit>
         </body>
     </file>
