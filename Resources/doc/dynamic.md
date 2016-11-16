@@ -75,7 +75,7 @@ https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources
             </div>
         {% elseif attr.type|default('') == 'headline' %}
             <div class="grid__item one-whole">
-                <h2>{{ label }}</h4>
+                <h4>{{ label }}</h4>
             </div>
         {% else %}
             {{ form_widget(form) }}
@@ -137,7 +137,7 @@ form-notify.html.twig
     {% endif %}
 
     {% if value is not empty %}
-        <strong>{{ field.title|default('') }}</strong>: {{ value }}<br>
+        <strong>{{ field.title|default('')|raw }}</strong>: {{ value }}<br>
     {% endif %}
 {% endfor %}
 ```

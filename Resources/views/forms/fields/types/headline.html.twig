@@ -2,26 +2,6 @@
 
 {% block required %}{% endblock %}
 
-{% block title %}
-    <div class="grid-col-9 floating form-group">
-        <label for="title<~=index~>"
-               class="pointer required"
-               title="Title">
-            <%= translate('sulu_form.title') %>
-        </label>
-
-        <input id="title<~=index~>"
-               data-property="title"
-               type="text"
-               class="form-element preview-update trigger-save-button"
-               data-mapper-property="title"
-               data-validation-required="true"/>
-        <div class="block-content" data-sort-mode-id="{{ blockId }}title<~=index~>"></div>
-
-        <div class="input-description"></div>
-    </div>
-{% endblock %}
-
 {% block placeholder_default %}
 {% endblock %}
 
