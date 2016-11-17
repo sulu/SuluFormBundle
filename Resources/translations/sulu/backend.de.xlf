@@ -257,6 +257,14 @@
                 <source>sulu_form.width.five-sixths</source>
                 <target>Fünf Sechstel</target>
             </trans-unit>
+            <trans-unit id="78">
+                <source>sulu_form.short_title</source>
+                <target>Kurztitel</target>
+            </trans-unit>
+            <trans-unit id="79">
+                <source>sulu_form.short_title_description</source>
+                <target>Optionaler Titel des Feldes, z.B. in der Benachrichtigungs-Email.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

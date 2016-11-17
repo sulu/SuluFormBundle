@@ -37,6 +37,11 @@ class FormFieldTranslation
     /**
      * @var string
      */
+    private $shortTitle;
+
+    /**
+     * @var string
+     */
     private $options;
 
     /**
@@ -143,6 +148,26 @@ class FormFieldTranslation
     public function setDefaultValue($defaultValue)
     {
         $this->defaultValue = $defaultValue;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShortTitle()
+    {
+        return $this->shortTitle;
+    }
+
+    /**
+     * @param string $shortTitle
+     *
+     * @return FormFieldTranslation
+     */
+    public function setShortTitle($shortTitle)
+    {
+        $this->shortTitle = $shortTitle;
 
         return $this;
     }

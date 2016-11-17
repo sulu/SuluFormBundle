@@ -569,6 +569,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
                 $fieldData['title'] = $fieldTranslation->getTitle();
                 $fieldData['placeholder'] = $fieldTranslation->getPlaceholder();
                 $fieldData['defaultValue'] = $fieldTranslation->getDefaultValue();
+                $fieldData['shortTitle'] = $fieldTranslation->getShortTitle();
 
                 foreach ($fieldTranslation->getOptions() as $key => $option) {
                     $fieldData['options[' . $key . ']'] = $option;

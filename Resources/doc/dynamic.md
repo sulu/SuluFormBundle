@@ -137,7 +137,7 @@ form-notify.html.twig
     {% endif %}
 
     {% if value is not empty %}
-        <strong>{{ field.title|default('')|raw }}</strong>: {{ value }}<br>
+        <strong>{{ field.shortTitle|default(field.title)|raw }}</strong>: {{ value }}<br>
     {% endif %}
 {% endfor %}
 ```

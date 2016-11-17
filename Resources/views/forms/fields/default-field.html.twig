@@ -99,6 +99,25 @@
                                     <div class="input-description"></div>
                                 </div>
                             {% endblock %}
+
+                            {% block short_title %}
+                                <div class="grid-col-12 floating form-group">
+                                    <label for="short-title<~=index~>" class="pointer" title="Short Title">
+                                        <%= translate('sulu_form.short_title') %>
+                                    </label>
+
+                                    <input id="short-title<~=index~>"
+                                           data-property="shortTitle"
+                                           type="text"
+                                           class="form-element preview-update trigger-save-button"
+                                           maxlength="255"
+                                           data-mapper-property="shortTitle"/>
+
+                                    <div class="block-content" data-sort-mode-id="{{ blockId }}shortTitle<~=index~>"></div>
+
+                                    <div class="input-description"><%= translate('sulu_form.short_title_description') %></div>
+                                </div>
+                            {% endblock %}
                         </div>
                     </div>
                 {% endblock %}
