@@ -2,10 +2,10 @@
 
 namespace Sulu\Bundle\FormBundle\Admin;
 
-use Sulu\Bundle\FormBundle\Provider\ListProviderRegistry;
 use Sulu\Bundle\AdminBundle\Navigation\ContentNavigationItem;
 use Sulu\Bundle\AdminBundle\Navigation\ContentNavigationProviderInterface;
 use Sulu\Bundle\AdminBundle\Navigation\DisplayCondition;
+use Sulu\Bundle\FormBundle\Provider\ListProviderRegistry;
 
 class TemplateNavigationProvider implements ContentNavigationProviderInterface
 {
