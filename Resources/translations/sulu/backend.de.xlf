@@ -223,6 +223,14 @@
                 <source>sulu_form.birthday</source>
                 <target>Geburtstag</target>
             </trans-unit>
+            <trans-unit id="68">
+                <source>sulu_form.short_title</source>
+                <target>Kurztitel</target>
+            </trans-unit>
+            <trans-unit id="69">
+                <source>sulu_form.short_title_description</source>
+                <target>Optionaler Titel des Feldes, z.B. in der Benachrichtigungs-Email.</target>
+            </trans-unit>
 
             <!-- Width -->
             <trans-unit id="70">
@@ -257,13 +265,32 @@
                 <source>sulu_form.width.five-sixths</source>
                 <target>Fünf Sechstel</target>
             </trans-unit>
-            <trans-unit id="78">
-                <source>sulu_form.short_title</source>
-                <target>Kurztitel</target>
+
+            <!-- Attachment -->
+            <trans-unit id="80">
+                <source>sulu_form.attachment_restrict</source>
+                <target>Dateitypen beschränken</target>
             </trans-unit>
-            <trans-unit id="79">
-                <source>sulu_form.short_title_description</source>
-                <target>Optionaler Titel des Feldes, z.B. in der Benachrichtigungs-Email.</target>
+            <trans-unit id="81">
+                <source>sulu_form.attachment_restrict.hint</source>
+                <target>Bei keiner Auswahl sind alle Dateitypen möglich.</target>
+            </trans-unit>
+            <trans-unit id="82">
+                <source>sulu_form.attachment.image</source>
+                <target>Bilder</target>
+            </trans-unit>
+            <trans-unit id="83">
+                <source>sulu_form.attachment.audio</source>
+                <target>Audios</target>
+            </trans-unit>
+            <trans-unit id="84">
+                <source>sulu_form.attachment.video</source>
+                <target>Videos</target>
+            </trans-unit>
+
+            <trans-unit id="86">
+                <source>sulu_form.attachment_max</source>
+                <target>Maximale Anzahl</target>
             </trans-unit>
         </body>
     </file>
