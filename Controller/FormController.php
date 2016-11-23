@@ -190,13 +190,6 @@ class FormController extends FOSRestController implements ClassResourceInterface
 
         $types = $this->get('sulu_form.dynamic.form_field_type_pool')->all();
 
-        // load mailchimp lists if possible
-        $mailChimpLists = $this->getMailChimpLists();
-
-        if (!empty($mailChimpLists)) {
-            $types[] = Dynamic::TYPE_MAILCHIMP;
-        }
-
         if (class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\RecaptchaType::class)) {
             $types[] = Dynamic::TYPE_RECAPTCHA;
         }
@@ -206,41 +199,8 @@ class FormController extends FOSRestController implements ClassResourceInterface
             [
                 'types' => $this->getSortedTypes($types),
                 'widths' => $widths,
-                'mailChimpLists' => $mailChimpLists,
             ]
         );
-    }
-
-    /**
-     * getMailchimpLists.
-     *
-     * @return array
-     */
-    public function getMailChimpLists()
-    {
-        $lists = [];
-        $apiKey = $this->getParameter('sulu_form.mailchimp_api_key');
-
-        // if mailchimp class doesn't exist or no key is set return empty list
-        if (!class_exists(\DrewM\MailChimp\MailChimp::class) || !$apiKey) {
-            return $lists;
-        }
-
-        $mailChimp = new \DrewM\MailChimp\MailChimp($apiKey);
-        $response = $mailChimp->get('lists');
-
-        if (!isset($response['lists'])) {
-            return $lists;
-        }
-
-        foreach ($response['lists'] as $list) {
-            $lists[] = [
-                'id' => $list['id'],
-                'name' => $list['name'],
-            ];
-        }
-
-        return $lists;
     }
 
     /**
