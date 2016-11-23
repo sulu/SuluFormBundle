@@ -10,10 +10,13 @@
         <parameter key="sulu.mail.null_helper.class">Sulu\Bundle\FormBundle\Mail\NullHelper</parameter>
     </parameters>
 
-    <!-- Define here your own services: -->
     <services>
         <service id="sulu_form.dynamic.type_text" class="Sulu\Bundle\FormBundle\Dynamic\Types\Text">
             <tag name="sulu_form.dynamic.type" alias="text"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_textarea" class="Sulu\Bundle\FormBundle\Dynamic\Types\Textarea">
+            <tag name="sulu_form.dynamic.type" alias="textarea"/>
         </service>
     </services>
 </container>
