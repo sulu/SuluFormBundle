@@ -1,11 +1,11 @@
-<script id="{{ type }}-{{ blockId }}-tpl" type="text/template">
-    <div class="text-block {{ type }}-element {{ blockId }}-element"
-         data-mapper-property-tpl="{{ type }}">
+<script id="{{ type.alias }}-{{ blockId }}-tpl" type="text/template">
+    <div class="text-block {{ type.alias }}-element {{ blockId }}-element"
+         data-mapper-property-tpl="{{ type.alias }}">
         <div class="move"></div>
-        <input type="hidden" data-mapper-property="type" value="{{ type }}"/>
+        <input type="hidden" data-mapper-property="type" value="{{ type.alias }}"/>
 
         <div class="collapsed-container empty">
-            <div class="type">{{ type }}</div>
+            <div class="type">{{ type.alias }}</div>
             <div class="title"></div>
             <div class="image"></div>
             <div class="text hidden"></div>
@@ -15,7 +15,7 @@
             <div class="text-block-controls pull-right">
                 <div class="fa-eye-slash options-collapse"></div>
                 <div data-mapper-remove="{{ blockId }}"
-                     class="fa-times options-remove mapper-remove-{{ type }}"></div>
+                     class="fa-times options-remove mapper-remove-{{ type.alias }}"></div>
                 <div class="clear"></div>
             </div>
             <div class="grid-row">
@@ -69,7 +69,7 @@
                 {% endblock %}
             </div>
 
-            <div class="block block-{{ type }} grid-row small">
+            <div class="block block-{{ type.alias }} grid-row small">
                 {% block title_short_title %}
                     <div class="grid">
                         <div class="grid-row m-bottom-20">

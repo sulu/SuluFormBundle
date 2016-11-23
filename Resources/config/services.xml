@@ -79,8 +79,11 @@
             <argument id="sulu.form.handler" type="service" />
             <argument type="service" id="sulu_media.system_collections.manager"/>
             <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="sulu_form.dynamic.form_field_type_pool"/>
 
             <tag name="sulu.content.type" alias="form_select"/>
         </service>
+
+        <service id="sulu_form.dynamic.form_field_type_pool" class="Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool" />
     </services>
 </container>

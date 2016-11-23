@@ -3,6 +3,7 @@
 namespace Sulu\Bundle\FormBundle\Content\Types;
 
 use Doctrine\ORM\NoResultException;
+use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Event\DynFormSavedEvent;
 use Sulu\Bundle\FormBundle\Form\HandlerInterface;
@@ -57,6 +58,11 @@ class FormSelect extends SimpleContentType
     private $eventDispatcher;
 
     /**
+     * @var FormFieldTypePool
+     */
+    private $typePool;
+
+    /**
      * FormSelect constructor.
      *
      * @param string $template
@@ -66,6 +72,7 @@ class FormSelect extends SimpleContentType
      * @param HandlerInterface $formHandler
      * @param SystemCollectionManagerInterface $systemCollectionManager
      * @param EventDispatcherInterface $eventDispatcher
+     * @param FormFieldTypePool $typePool
      */
     public function __construct(
         $template,
@@ -74,7 +81,8 @@ class FormSelect extends SimpleContentType
         FormFactoryInterface $formFactory,
         HandlerInterface $formHandler,
         SystemCollectionManagerInterface $systemCollectionManager,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        FormFieldTypePool $typePool
     ) {
         parent::__construct('FormSelect', '');
         $this->template = $template;
@@ -84,6 +92,7 @@ class FormSelect extends SimpleContentType
         $this->formHandler = $formHandler;
         $this->systemCollectionManager = $systemCollectionManager;
         $this->eventDispatcher = $eventDispatcher;
+        $this->typePool = $typePool;
     }
 
     /**
@@ -137,7 +146,8 @@ class FormSelect extends SimpleContentType
                 $locale,
                 $property->getName(),
                 $property->getStructure()->getView(),
-                $this->systemCollectionManager->getSystemCollection('sulu_form.attachments')
+                $this->systemCollectionManager->getSystemCollection('sulu_form.attachments'),
+                $this->typePool
             );
 
             $form = $this->formFactory->create(

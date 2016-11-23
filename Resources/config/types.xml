@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="sulu.form.handler.class">Sulu\Bundle\FormBundle\Form\Handler</parameter>
+        <parameter key="sulu.mail.helper.class">Sulu\Bundle\FormBundle\Mail\Helper</parameter>
+        <parameter key="sulu.mail.null_helper.class">Sulu\Bundle\FormBundle\Mail\NullHelper</parameter>
+    </parameters>
+
+    <!-- Define here your own services: -->
+    <services>
+        <service id="sulu_form.dynamic.type_text" class="Sulu\Bundle\FormBundle\Dynamic\Types\Text">
+            <tag name="sulu_form.dynamic.type" alias="text"/>
+        </service>
+    </services>
+</container>

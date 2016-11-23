@@ -2,8 +2,10 @@
 
 namespace Sulu\Bundle\FormBundle\Form\Type;
 
+use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Entity\FormField;
 use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
@@ -48,6 +50,11 @@ class DynamicFormType extends AbstractType
     private $systemCollectionId;
 
     /**
+     * @var FormFieldTypePool
+     */
+    private $typePool;
+
+    /**
      * DynamicFormType constructor.
      *
      * @param Form $formEntity
@@ -55,14 +62,22 @@ class DynamicFormType extends AbstractType
      * @param string $name
      * @param string $structureView
      * @param int $systemCollectionId
+     * @param FormFieldTypePool $typePool
      */
-    public function __construct($formEntity, $locale, $name, $structureView, $systemCollectionId)
-    {
+    public function __construct(
+        Form $formEntity,
+        $locale,
+        $name,
+        $structureView,
+        $systemCollectionId,
+        FormFieldTypePool $typePool
+    ) {
         $this->formEntity = $formEntity;
         $this->locale = $locale;
         $this->name = $name;
         $this->structureView = $structureView;
         $this->systemCollectionId = $systemCollectionId;
+        $this->typePool = $typePool;
     }
 
     /**
@@ -83,8 +98,6 @@ class DynamicFormType extends AbstractType
 
         foreach ($this->formEntity->getFields() as $field) {
             $translation = $field->getTranslation($this->locale);
-            $name = $field->getKey();
-            $type = TextType::class;
             $options = ['constraints' => [], 'attr' => [], 'required' => false];
 
             // title
@@ -116,75 +129,7 @@ class DynamicFormType extends AbstractType
                 $options['constraints'][] = new NotBlank();
             }
 
-            // Form Type
-            switch ($field->getType()) {
-                case Dynamic::TYPE_HEADLINE:
-                case Dynamic::TYPE_SPACER:
-                case Dynamic::TYPE_FREE_TEXT:
-                    $type = HiddenType::class;
-                    $options['mapped'] = false;
-                    $options['attr']['type'] = $field->getType();
-                    break;
-                case Dynamic::TYPE_SALUTATION:
-                    $type = ChoiceType::class;
-
-                    $options['choices'] = [
-                        'mr' => 'sulu_form.salutation_mr',
-                        'ms' => 'sulu_form.salutation_ms',
-                    ];
-                    break;
-                case Dynamic::TYPE_TEXTAREA:
-                    $type = TextareaType::class;
-                    break;
-                case Dynamic::TYPE_COUNTRY:
-                    $type = CountryType::class;
-                    break;
-                case Dynamic::TYPE_EMAIL:
-                    $type = EmailType::class;
-                    break;
-                case Dynamic::TYPE_DATE:
-                    $type = DateType::class;
-                    if ($translation && $translation->getOption('birthday')) {
-                        $type = BirthdayType::class;
-                    }
-                    $options['format'] = \IntlDateFormatter::LONG;
-
-                    break;
-                case Dynamic::TYPE_ATTACHMENT:
-                    $type = FileType::class;
-                    $options['mapped'] = false;
-                    $options['multiple'] = true;
-                    break;
-                case Dynamic::TYPE_CHECKBOX:
-                case Dynamic::TYPE_MAILCHIMP:
-                    $type = CheckboxType::class;
-                    break;
-                case Dynamic::TYPE_RECAPTCHA:
-                    // use in this way the recaptcha bundle could maybe not exists
-                    $type = \EWZ\Bundle\RecaptchaBundle\Form\Type\RecaptchaType::class;
-                    $options['mapped'] = false;
-                    $options['constraints'][] = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue();
-                    $options['attr']['options'] = [
-                        'theme' => 'light',
-                        'type' => 'image',
-                    ];
-                    break;
-                case Dynamic::TYPE_CHECKBOX_MULTIPLE:
-                    $type = $this->createChoiceType($translation, $options, true, true);
-                    break;
-                case Dynamic::TYPE_DROPDOWN:
-                    $type = $this->createChoiceType($translation, $options);
-                    break;
-                case Dynamic::TYPE_DROPDOWN_MULTIPLE:
-                    $type = $this->createChoiceType($translation, $options, false, true);
-                    break;
-                case Dynamic::TYPE_RADIO_BUTTONS:
-                    $type = $this->createChoiceType($translation, $options, true);
-                    $options['attr']['class'] = 'radio-buttons';
-                    break;
-            }
-
-            $builder->add($name, $type, $options);
+            $this->typePool->get($field->getType())->build($builder, $field, $this->locale, $options);
         }
 
         $builder->add('submit', SubmitType::class);

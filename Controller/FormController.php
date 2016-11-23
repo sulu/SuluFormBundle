@@ -4,6 +4,7 @@ namespace Sulu\Bundle\FormBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Manager\FormManager;
@@ -187,10 +188,10 @@ class FormController extends FOSRestController implements ClassResourceInterface
             ],
         ];
 
+        $types = $this->get('sulu_form.dynamic.form_field_type_pool')->all();
+
         // load mailchimp lists if possible
         $mailChimpLists = $this->getMailChimpLists();
-
-        $types = Dynamic::$TYPES;
 
         if (!empty($mailChimpLists)) {
             $types[] = Dynamic::TYPE_MAILCHIMP;
@@ -243,9 +244,9 @@ class FormController extends FOSRestController implements ClassResourceInterface
     }
 
     /**
-     * @param $types
+     * @param FormFieldTypeInterface[] $types
      *
-     * @return array
+     * @return FormFieldTypeInterface[]
      */
     public function getSortedTypes($types = [])
     {
@@ -253,9 +254,9 @@ class FormController extends FOSRestController implements ClassResourceInterface
         $translator = $this->get('translator');
         $sortedTypes = [];
 
-        foreach ($types as $key => $type) {
-            $translation = $translator->trans('sulu_form.type.' . strtolower($type), [], 'backend');
-            $sortedTypes[$translation . $key] = $type;
+        foreach ($types as $alias => $type) {
+            $translation = $translator->trans('sulu_form.type.' . $type->getAlias(), [], 'backend');
+            $sortedTypes[$translation . $alias] = $type;
         }
 
         ksort($sortedTypes);
