@@ -14,7 +14,7 @@ class Mailchimp implements FormFieldTypeInterface
     private $apiKey;
 
     /**
-     * @param string $apiKey.
+     * @param string $apiKey
      */
     public function __construct($apiKey)
     {
