@@ -51,7 +51,20 @@ class L91SuluFormExtension extends Extension implements PrependExtensionInterfac
         $container->setParameter('l91.sulu.form.mail.to', $config['mail_helper']['to']);
         $container->setParameter('l91.sulu.form.ajax_templates', $config['ajax_templates']);
         $container->setParameter('l91.sulu.form.mailchimp_api_key', $config['mailchimp_api_key']);
+        $container->setParameter('l91.sulu.form.content_dynamic_list_config', $config['content_dynamic_lists']);
 
+        // Dynamic List Builder
+        $container->setParameter(
+            'l91.sulu.form.dynamic_list_builder.default',
+            $config['dynamic_list_builder']['default']
+        );
+
+        $container->setParameter(
+            'l91.sulu.form.dynamic_list_builder.delimiter',
+            $config['dynamic_list_builder']['delimiter']
+        );
+
+        // Load services
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
 

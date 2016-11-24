@@ -4,6 +4,12 @@ l91_sulu_form.tests:
     prefix: l91/form
     name_prefix: l91_sulu_form.
 
+l91_sulu_form.dynamic:
+    type: rest
+    resource: L91\Sulu\Bundle\FormBundle\Controller\DynamicController
+    prefix: l91/form
+    name_prefix: l91_sulu_form.
+
 l91.sulu.form.forms:
     type: rest
     resource: L91\Sulu\Bundle\FormBundle\Controller\FormController

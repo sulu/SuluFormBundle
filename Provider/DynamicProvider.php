@@ -12,6 +12,11 @@ class DynamicProvider implements ListProviderInterface
      */
     public function getFieldDescriptors($webspace, $locale, $uuid)
     {
+        @trigger_error(
+            __method__ . '() use the new dynamic list provider.',
+            E_USER_DEPRECATED
+        );
+
         $fieldDescriptors = [
             'id' => $this->createFieldDescriptor('id', '', 'public.id'),
             'uuid' => $this->createFieldDescriptor('uuid', '', 'uuid', true),

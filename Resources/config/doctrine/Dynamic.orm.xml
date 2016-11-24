@@ -2,7 +2,8 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <entity name="L91\Sulu\Bundle\FormBundle\Entity\Dynamic"
-            table="l91_fo_dynamic">
+            table="l91_fo_dynamic"
+            repository-class="L91\Sulu\Bundle\FormBundle\Repository\DynamicRepository">
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>

@@ -224,6 +224,16 @@ class Dynamic implements TimestampableInterface
     ];
 
     /**
+     * @var array
+     */
+    public static $HIDDEN_TYPES = [
+        self::TYPE_SPACER,
+        self::TYPE_FREE_TEXT,
+        self::TYPE_HEADLINE,
+        self::TYPE_RECAPTCHA,
+    ];
+
+    /**
      * @param string $uuid
      * @param string $locale
      * @param Form $formId
@@ -292,23 +302,7 @@ class Dynamic implements TimestampableInterface
      */
     public function __get($name)
     {
-        if (property_exists($this, $name)) {
-            if (in_array($name, [self::TYPE_CHECKBOX_MULTIPLE, self::TYPE_DROPDOWN_MULTIPLE, self::TYPE_ATTACHMENT])) {
-                return json_decode($this->$name, true);
-            }
-
-            return $this->$name;
-        }
-
-        $array = $this->getData();
-
-        if (isset($array[$name])) {
-            if (strpos($name, 'date') === 0) {
-                return new \DateTime($array[$name]);
-            }
-
-            return $array[$name];
-        }
+        return $this->getField($name);
     }
 
     /**
@@ -325,5 +319,95 @@ class Dynamic implements TimestampableInterface
     public function getChanged()
     {
         return $this->changed;
+    }
+
+    /**
+     * Get id.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get form.
+     *
+     * @return Form
+     */
+    public function getForm()
+    {
+        return $this->form;
+    }
+
+    /**
+     * Get field.
+     *
+     * @param string $key
+     *
+     * @return string|array
+     */
+    public function getField($key)
+    {
+        if (property_exists($this, $key)) {
+            if (in_array($key, [self::TYPE_CHECKBOX_MULTIPLE, self::TYPE_DROPDOWN_MULTIPLE, self::TYPE_ATTACHMENT])) {
+                return json_decode($this->$key, true);
+            }
+
+            return $this->$key;
+        }
+
+        $array = $this->getData();
+
+        if (isset($array[$key])) {
+            if (strpos($key, 'date') === 0) {
+                return new \DateTime($array[$key]);
+            }
+
+            return $array[$key];
+        }
+    }
+
+    /**
+     * Get fields.
+     *
+     * @param bool $hideHidden
+     *
+     * @return array
+     */
+    public function getFields($hideHidden = false)
+    {
+        $entry = [];
+
+        if (!$this->form) {
+            return [];
+        }
+
+        foreach ($this->form->getFields() as $field) {
+            if ($hideHidden && in_array($field->getType(), self::$HIDDEN_TYPES)) {
+                continue;
+            }
+
+            $entry[$field->getKey()] = $this->getField($field->getKey());
+        }
+
+        return $entry;
+    }
+
+    /**
+     * Get type.
+     *
+     * @param string $key
+     *
+     * @return string
+     */
+    public function getType($key)
+    {
+        if (!$this->form) {
+            return;
+        }
+
+        return $this->form->getFieldType($key);
     }
 }

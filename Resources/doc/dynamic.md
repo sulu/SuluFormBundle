@@ -150,12 +150,13 @@ form-notify.html.twig
 
 ## List Tab - Export
 
-To visualise a tab in the Sulu template, simply add following lines to your Bundles `services.xml`:
+To visualise a tab in the Sulu template, simply configured the following in your `app/config/config.yml`:
 
 ```xml
-<service id="client_website.list_provider.form" class="L91\Sulu\Bundle\FormBundle\Provider\DynamicProvider">
-    <tag name="l91_sulu_form.list_provider" template="form" />
-</service>
+l91_sulu_form:
+    content_dynamic_lists:
+        <template_key>:
+            property: <form_select_property_name>
 ```
 
 **Now a tab should be visible with a list you can export**
