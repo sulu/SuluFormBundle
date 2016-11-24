@@ -1,7 +1,8 @@
 # Changelog
 
 ## dev-develop
- 
+
+ - ENHANCEMENT #122   Fixed sort on dynamic list and removed search 
  - FEATURE     #121   Added dynamic form list and export
  - BUGFIX      #120   Fixed permission problem on false locale
  - BUGFIX      #117   Fixed limitation of content type select

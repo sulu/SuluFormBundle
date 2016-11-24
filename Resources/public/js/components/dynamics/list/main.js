@@ -47,7 +47,9 @@ define(['jquery'], function ($) {
                 'webspaceKey': this.options.webspace,
                 'locale': this.options.language,
                 'view': this.options.view,
-                'uuid': this.options.id
+                'uuid': this.options.id,
+                'sortBy': 'created',
+                'sortOrder': 'desc'
             };
         },
 
@@ -104,6 +106,7 @@ define(['jquery'], function ($) {
                             }
                         }
                     }),
+                    hasSearch: false,
                     instanceName: this.instanceName
                 },
                 {

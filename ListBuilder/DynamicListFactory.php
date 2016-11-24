@@ -68,7 +68,7 @@ class DynamicListFactory implements DynamicListFactoryInterface
             'l91_sulu_form.created',
             false,
             true,
-            'date'
+            'datetime'
         );
 
         return $fieldDescriptors;
