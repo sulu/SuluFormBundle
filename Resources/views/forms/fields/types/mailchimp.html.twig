@@ -16,7 +16,7 @@
                 <div id="listId<~=index~>"
                      class="preview-update trigger-save-button"
                      data-aura-component="select@husky"
-                     data-aura-data='{{ mailChimpLists|json_encode() }}'
+                     data-aura-data='{{ viewData.mailChimpLists|json_encode() }}'
                      data-aura-multiple-select="false"
                      data-aura-instance-name="options[listId]"
                      data-aura-default-label="<%= translate('sulu_form.please_choose') %>"

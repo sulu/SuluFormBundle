@@ -285,7 +285,7 @@
                                  data-mapper-empty-class="empty">
 
                                 {% for type in types %}
-                                    {% include type.template %}
+                                    {% include type.template with {'viewData': type.viewData} %}
                                 {% endfor %}
                             </div>
 
