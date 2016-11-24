@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - BUGFIX      #123   Fixed csv export for bool values
  - ENHANCEMENT #122   Fixed sort on dynamic list and removed search 
  - FEATURE     #121   Added dynamic form list and export
  - BUGFIX      #120   Fixed permission problem on false locale

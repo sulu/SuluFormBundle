@@ -92,6 +92,10 @@ class DynamicListBuilder implements DynamicListBuilderInterface
             return $value;
         }
 
+        if (is_bool($value)) {
+            return $value ? 1 : 0;
+        }
+
         if ($value instanceof \DateTime) {
             return $value->format('c');
         }
