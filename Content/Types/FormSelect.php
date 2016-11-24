@@ -104,8 +104,16 @@ class FormSelect extends SimpleContentType
         try {
             // Create Dynamic Data
             $uuid = $property->getStructure()->getUuid();
-            $webspaceKey = $property->getStructure()->getWebspaceKey();
             $locale = $property->getStructure()->getLanguageCode();
+            $webspaceKey = $property->getStructure()->getWebspaceKey();
+
+            if ($request->get('_sulu')) {
+                if ($request->get('_sulu')->getAttribute('webspace')) {
+                    $webspaceKey = $request->get('_sulu')->getAttribute('webspace')->getKey();
+                }
+                $locale = $request->getLocale();
+            }
+
             $formEntity = $this->formRepository->findById($id, $locale);
 
             // set Defaults

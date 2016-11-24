@@ -154,9 +154,10 @@ To visualise a tab in the Sulu template, simply configured the following in your
 
 ```xml
 l91_sulu_form:
-    content_dynamic_lists:
-        <template_key>:
-            property: <form_select_property_name>
+    dynamic_lists:
+        content:
+            <template_key>:
+                property: <form_select_property_name>
 ```
 
 **Now a tab should be visible with a list you can export**

@@ -50,14 +50,6 @@
             <tag name="sulu_admin.content_navigation" alias="content"/>
         </service>
 
-        <service id="l91_sulu_form.navigation_provider.dynamic_list"
-                 class="L91\Sulu\Bundle\FormBundle\Admin\DynamicListNavigationProvider">
-            <argument>%l91.sulu.form.content_dynamic_list_config%</argument>
-
-            <tag name="sulu_admin.content_navigation" alias="content" />
-            <tag name="sulu.context" context="admin" />
-        </service>
-
         <!-- Manager -->
         <service id="l91_sulu_form.manager.form"
                  class="L91\Sulu\Bundle\FormBundle\Manager\FormManager">

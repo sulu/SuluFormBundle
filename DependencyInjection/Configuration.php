@@ -35,7 +35,7 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('delimiter')->defaultValue(PHP_EOL)->end()
                 ->end()
             ->end()
-            ->variableNode('content_dynamic_lists')->defaultValue([])->end()
+            ->variableNode('dynamic_lists')->defaultValue([])->end()
             ->arrayNode('ajax_templates')
                 ->prototype('scalar')->end()->defaultValue([])
             ->end()

@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - FEATURE     #124   Added support to add dynamic list to article bundle
  - BUGFIX      #123   Fixed csv export for bool values
  - ENHANCEMENT #122   Fixed sort on dynamic list and removed search 
  - FEATURE     #121   Added dynamic form list and export

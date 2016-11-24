@@ -98,7 +98,7 @@ class DynamicController extends RestController implements ClassResourceInterface
             'form' => $request->get('form'),
         ];
 
-        return $filters;
+        return array_filter($filters);
     }
 
     /**

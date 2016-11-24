@@ -2,8 +2,10 @@
 
 namespace L91\Sulu\Bundle\FormBundle\DependencyInjection;
 
+use L91\Sulu\Bundle\FormBundle\Admin\DynamicListNavigationProvider;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -51,7 +53,21 @@ class L91SuluFormExtension extends Extension implements PrependExtensionInterfac
         $container->setParameter('l91.sulu.form.mail.to', $config['mail_helper']['to']);
         $container->setParameter('l91.sulu.form.ajax_templates', $config['ajax_templates']);
         $container->setParameter('l91.sulu.form.mailchimp_api_key', $config['mailchimp_api_key']);
-        $container->setParameter('l91.sulu.form.content_dynamic_list_config', $config['content_dynamic_lists']);
+        $container->setParameter('l91.sulu.form.dynamic_lists.config', $config['dynamic_lists']);
+
+        // add dynamic lists
+        foreach ($config['dynamic_lists'] as $key => $value) {
+            $parameter = 'l91.sulu.form.dynamic_lists.' . $key . '.config';
+            $container->setParameter($parameter, $value);
+
+            $definition = new Definition(DynamicListNavigationProvider::class);
+            $definition->addArgument('%' . $parameter . '%');
+            $definition->addArgument($key);
+            $definition->setClass(DynamicListNavigationProvider::class);
+            $definition->addTag('sulu_admin.content_navigation', ['alias' => $key]);
+            $definition->addTag('sulu.context', ['context' => 'admin']);
+            $container->setDefinition('l91_sulu_form.navigation_provider.' . $key . '.dynamic_list', $definition);
+        }
 
         // Dynamic List Builder
         $container->setParameter(
