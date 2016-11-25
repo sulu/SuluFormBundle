@@ -4,15 +4,9 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="sulu.form.handler.class">Sulu\Bundle\FormBundle\Form\Handler</parameter>
-        <parameter key="sulu.mail.helper.class">Sulu\Bundle\FormBundle\Mail\Helper</parameter>
-        <parameter key="sulu.mail.null_helper.class">Sulu\Bundle\FormBundle\Mail\NullHelper</parameter>
-    </parameters>
-
     <!-- Define here your own services: -->
     <services>
-        <service id="sulu.form.handler" class="%sulu.form.handler.class%">
+        <service id="sulu.form.handler" class="Sulu\Bundle\FormBundle\Form\Handler">
             <argument type="service" id="form.factory" />
             <argument type="service" id="form.extension" />
             <argument type="service" id="doctrine.orm.default_entity_manager" />
@@ -24,14 +18,14 @@
             <argument type="service" id="logger" />
         </service>
 
-        <service id="sulu.mail.helper" class="%sulu.mail.helper.class%">
+        <service id="sulu.mail.helper" class="Sulu\Bundle\FormBundle\Mail\Helper">
             <argument type="service" id="mailer" />
             <argument>%sulu.form.mail.from%</argument>
             <argument>%sulu.form.mail.to%</argument>
             <argument type="service" id="logger" />
         </service>
 
-        <service id="sulu.mail.null_helper" class="%sulu.mail.null_helper.class%">
+        <service id="sulu.mail.null_helper" class="Sulu\Bundle\FormBundle\Mail\NullHelper">
             <argument type="service" id="logger" />
         </service>
 

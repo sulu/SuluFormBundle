@@ -3,10 +3,10 @@
 namespace Sulu\Bundle\FormBundle\Form;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Sulu\Bundle\FormBundle\Form\Type\TypeInterface;
-use Sulu\Bundle\FormBundle\Mail;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Sulu\Bundle\FormBundle\Form\Type\TypeInterface;
+use Sulu\Bundle\FormBundle\Mail;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormEvent;

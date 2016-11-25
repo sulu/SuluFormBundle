@@ -22,11 +22,11 @@
     </div>
 
     <div class="grid-col-2 floating form-group">
-        <label for="birthday-<~=index~>" class="pointer" title="Birthday">
+        <label for="option-birthday<~=index~>" class="pointer" title="Birthday">
             <%= translate('sulu_form.birthday') %>
         </label>
 
-        <div id="birthday-<~=index~>"
+        <div id="option-birthday<~=index~>"
              class="preview-update trigger-save-button"
              data-form="true"
              data-aura-component="toggler@husky"
@@ -34,6 +34,8 @@
              data-type="toggler"
              data-type-instance-name="options[birthday]"
              data-mapper-property="options[birthday]"></div>
+
+        <div class="input-description"></div>
     </div>
 {% endblock %}
 
