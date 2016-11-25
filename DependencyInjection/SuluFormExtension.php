@@ -47,11 +47,11 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('sulu.form.mail.from', $config['mail_helper']['from']);
-        $container->setParameter('sulu.form.mail.to', $config['mail_helper']['to']);
-        $container->setParameter('sulu.form.ajax_templates', $config['ajax_templates']);
+        $container->setParameter('sulu_form.mail.from', $config['mail_helper']['from']);
+        $container->setParameter('sulu_form.mail.to', $config['mail_helper']['to']);
+        $container->setParameter('sulu:form.ajax_templates', $config['ajax_templates']);
 
-        $container->setParameter('sulu.form.mailchimp_api_key', $config['mailchimp_api_key']);
+        $container->setParameter('sulu_form.mailchimp_api_key', $config['mailchimp_api_key']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');

@@ -6,7 +6,7 @@
 
     <!-- Define here your own services: -->
     <services>
-        <service id="sulu.form.handler" class="Sulu\Bundle\FormBundle\Form\Handler">
+        <service id="sulu_form.handler" class="Sulu\Bundle\FormBundle\Form\Handler">
             <argument type="service" id="form.factory" />
             <argument type="service" id="form.extension" />
             <argument type="service" id="doctrine.orm.default_entity_manager" />
@@ -20,12 +20,12 @@
 
         <service id="sulu.mail.helper" class="Sulu\Bundle\FormBundle\Mail\Helper">
             <argument type="service" id="mailer" />
-            <argument>%sulu.form.mail.from%</argument>
-            <argument>%sulu.form.mail.to%</argument>
+            <argument>%sulu_form.mail.from%</argument>
+            <argument>%sulu_form.mail.to%</argument>
             <argument type="service" id="logger" />
         </service>
 
-        <service id="sulu.mail.null_helper" class="Sulu\Bundle\FormBundle\Mail\NullHelper">
+        <service id="sulu_mail.null_helper" class="Sulu\Bundle\FormBundle\Mail\NullHelper">
             <argument type="service" id="logger" />
         </service>
 
@@ -70,7 +70,7 @@
             <argument id="sulu_form.repository.form" type="service" />
             <argument id="request_stack" type="service" />
             <argument id="form.factory" type="service" />
-            <argument id="sulu.form.handler" type="service" />
+            <argument id="sulu_form.handler" type="service" />
             <argument type="service" id="sulu_media.system_collections.manager"/>
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="sulu_form.dynamic.form_field_type_pool"/>

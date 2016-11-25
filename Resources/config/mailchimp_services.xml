@@ -5,13 +5,13 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="sulu_form.subscriber.mailchimp_list_subscriber" class="Sulu\Bundle\FormBundle\Event\MailchimpListSubscriber">
-            <argument>%sulu.form.mailchimp_api_key%</argument>
+            <argument>%sulu_form.mailchimp_api_key%</argument>
             <tag name="kernel.event_subscriber" />
         </service>
 
 
         <service id="sulu_form.dynamic.type_mailchimp" class="Sulu\Bundle\FormBundle\Dynamic\Types\Mailchimp">
-            <argument>%sulu.form.mailchimp_api_key%</argument>
+            <argument>%sulu_form.mailchimp_api_key%</argument>
             <tag name="sulu_form.dynamic.type" alias="mailchimp"/>
         </service>
     </services>
