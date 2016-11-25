@@ -9,7 +9,6 @@
             <tag name="kernel.event_subscriber" />
         </service>
 
-
         <service id="sulu_form.dynamic.type_mailchimp" class="Sulu\Bundle\FormBundle\Dynamic\Types\Mailchimp">
             <argument>%sulu_form.mailchimp_api_key%</argument>
             <tag name="sulu_form.dynamic.type" alias="mailchimp"/>

@@ -2,15 +2,20 @@
 
 namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 
+use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * The Mailchimp form type.
+ */
 class Mailchimp implements FormFieldTypeInterface
 {
-    const TYPE_ALIAS = 'mailchimp';
-
+    /**
+     * @var string
+     */
     private $apiKey;
 
     /**
@@ -22,51 +27,36 @@ class Mailchimp implements FormFieldTypeInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
-    public function getAlias()
+    public function getConfiguration()
     {
-        return self::TYPE_ALIAS;
+        return new FormFieldTypeConfiguration(
+            'sulu_form.type.mailchimp',
+            'SuluFormBundle:forms:fields/types/mailchimp.html.twig',
+            ['mailChimpLists' => $this->getMailChimpLists()]
+        );
     }
 
     /**
-     * @return string
-     */
-    public function getTemplate()
-    {
-        return 'SuluFormBundle:forms:fields/types/mailchimp.html.twig';
-    }
-
-    /**
-     * @param FormBuilderInterface $builder
-     * @param FormField $field
-     * @param string $locale
-     * @param array $options
+     * {@inheritdoc}
      */
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
-        $name = $field->getKey();
         $type = CheckboxType::class;
-
         $builder->add($field->getKey(), $type, $options);
     }
 
     /**
-     * @return array
-     */
-    public function getViewData()
-    {
-        return ['mailChimpLists' => $this->getMailChimpLists()];
-    }
-
-    /**
+     * Returns array of Mailchimp lists of given account defined by the API key.
+     *
      * @return array
      */
     private function getMailChimpLists()
     {
         $lists = [];
 
-        // If mailchimp class doesn't exist or no key is set return empty list.
+        // If Milchimp class doesn't exist or no key is set return empty list.
         if (!class_exists(\DrewM\MailChimp\MailChimp::class) || !$this->apiKey) {
             return $lists;
         }

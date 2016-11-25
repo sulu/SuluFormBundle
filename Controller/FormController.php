@@ -213,15 +213,18 @@ class FormController extends FOSRestController implements ClassResourceInterface
         /** @var Translator $translator */
         $translator = $this->get('translator');
         $sortedTypes = [];
+        $returnTypes = [];
 
         foreach ($types as $alias => $type) {
-            $translation = $translator->trans('sulu_form.type.' . $type->getAlias(), [], 'backend');
-            $sortedTypes[$translation . $alias] = $type;
+            $translation = $translator->trans($type->getConfiguration()->getTitle());
+            $sortedTypes[$translation . $alias] = ['alias'=> $alias, 'type' => $type];
         }
 
-        ksort($sortedTypes);
+        foreach ($sortedTypes as $sortedType) {
+            $returnTypes[$sortedType['alias']] = $sortedType['type'];
+        }
 
-        return array_values($sortedTypes);
+        return $returnTypes;
     }
 
     /**

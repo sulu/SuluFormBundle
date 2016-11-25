@@ -5,13 +5,13 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Text form type.
+ * The Headline form type.
  */
-class Text implements FormFieldTypeInterface
+class Headline implements FormFieldTypeInterface
 {
     /**
      * {@inheritdoc}
@@ -19,17 +19,20 @@ class Text implements FormFieldTypeInterface
     public function getConfiguration()
     {
         return new FormFieldTypeConfiguration(
-            'sulu_form.type.text',
-            'SuluFormBundle:forms:fields/types/text.html.twig'
+            'sulu_form.type.headline',
+            'SuluFormBundle:forms:fields/types/headline.html.twig'
         );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
+    public function build(FormBuilderInterface $builder, FormField $field, $locale, $options = [])
     {
-        $type = TextType::class;
+        $options['mapped'] = false;
+        $options['attr']['type'] = $field->getType();
+
+        $type = HiddenType::class;
         $builder->add($field->getKey(), $type, $options);
     }
 }

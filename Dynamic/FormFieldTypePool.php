@@ -2,6 +2,9 @@
 
 namespace Sulu\Bundle\FormBundle\Dynamic;
 
+/**
+ * Holds the available form types.
+ */
 class FormFieldTypePool
 {
     /**
@@ -9,21 +12,19 @@ class FormFieldTypePool
      */
     private $types;
 
-    public function __construct()
-    {
-        $this->types = [];
-    }
-
     /**
-     * @param FormFieldTypeInterface $type
-     * @param string $alias
+     * FormFieldTypePool constructor.
+     *
+     * @param FormFieldTypeInterface[] $types
      */
-    public function add(FormFieldTypeInterface $type, $alias)
+    public function __construct($types)
     {
-        $this->types[$alias] = $type;
+        $this->types = $types;
     }
 
     /**
+     * Returns type specified by alias.
+     *
      * @param string $alias
      *
      * @return FormFieldTypeInterface
@@ -34,6 +35,8 @@ class FormFieldTypePool
     }
 
     /**
+     * Returns all types.
+     *
      * @return FormFieldTypeInterface[]
      */
     public function all()

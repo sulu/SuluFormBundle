@@ -2,50 +2,34 @@
 
 namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 
+use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * The Textarea form type.
+ */
 class Textarea implements FormFieldTypeInterface
 {
-    const TYPE_ALIAS = 'textarea';
-
     /**
-     * @return string
+     * {@inheritdoc}
      */
-    public function getAlias()
+    public function getConfiguration()
     {
-        return self::TYPE_ALIAS;
+        return new FormFieldTypeConfiguration(
+            'sulu_form.type.textarea',
+            'SuluFormBundle:forms:fields/types/textarea.html.twig'
+        );
     }
 
     /**
-     * @return string
-     */
-    public function getTemplate()
-    {
-        return 'SuluFormBundle:forms:fields/types/textarea.html.twig';
-    }
-
-    /**
-     * @param FormBuilderInterface $builder
-     * @param FormField $field
-     * @param string $locale
-     * @param array $options
+     * {@inheritdoc}
      */
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
-        $name = $field->getKey();
         $type = TextareaType::class;
-
         $builder->add($field->getKey(), $type, $options);
-    }
-
-    /**
-     * @return array
-     */
-    public function getViewData()
-    {
-        return [];
     }
 }

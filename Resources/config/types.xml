@@ -12,5 +12,17 @@
         <service id="sulu_form.dynamic.type_textarea" class="Sulu\Bundle\FormBundle\Dynamic\Types\Textarea">
             <tag name="sulu_form.dynamic.type" alias="textarea"/>
         </service>
+
+        <service id="sulu_form.dynamic.type_type_headline" class="Sulu\Bundle\FormBundle\Dynamic\Types\Headline">
+            <tag name="sulu_form.dynamic.type" alias="headline"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_type_spacer" class="Sulu\Bundle\FormBundle\Dynamic\Types\Spacer">
+            <tag name="sulu_form.dynamic.type" alias="spacer"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_type_freetext" class="Sulu\Bundle\FormBundle\Dynamic\Types\Freetext">
+            <tag name="sulu_form.dynamic.type" alias="freetext"/>
+        </service>
     </services>
 </container>

@@ -268,24 +268,26 @@
                                  data-form="true"
                                  data-type="block"
                                  data-type-config='[
-                                        {% for type in types %}
-
+                                        {% for alias, type in types %}
                                             {
-                                                "data": "{{ type.alias }}",
-                                                "title": "<%= translate('{{ 'sulu_form.type.'~ type.alias|lower }}') %>",
-                                                "tpl": "{{ type.alias }}-{{ blockId }}-tpl"
+                                                "data": "{{ alias }}",
+                                                "title": "<%= translate('{{ type.configuration.title }}') %>",
+                                                "tpl": "{{ alias }}-{{ blockId }}-tpl"
                                             }{% if not loop.last %},{% endif %}
                                         {% endfor %}
                                     ]'
                                  data-type-min="0"
                                  data-type-max="999"
-                                 data-type-default="{{ types|first.alias }}"
+                                 data-type-default="{{ types|keys|first }}"
                                  data-mapper-property="{{ blockId }}"
                                  data-mapper-full-class="full"
                                  data-mapper-empty-class="empty">
 
-                                {% for type in types %}
-                                    {% include type.template with {'viewData': type.viewData} %}
+                                {% for alias, type in types %}
+                                    {% include type.configuration.template with {
+                                        'viewData': type.configuration.attributes,
+                                        'alias': alias
+                                    }%}
                                 {% endfor %}
                             </div>
 
