@@ -5,9 +5,9 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 
 /**
- * Abstraction class for creating multi choise form types.
+ * Abstraction class for creating multi choice form types.
  */
-class MultiChoisAbstract
+class AbstractMultiChoice
 {
     /**
      * Returns options for multichois form type like select, multiple select, radio or checkboxes.
@@ -18,7 +18,7 @@ class MultiChoisAbstract
      *
      * @return array
      */
-    public function getChoiseOptions(FormFieldTranslation $translation, $expanded = false, $multiple = false)
+    public function getChoiceOptions(FormFieldTranslation $translation, $expanded = false, $multiple = false)
     {
         $options = [];
         if ($translation) {

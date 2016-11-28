@@ -42,11 +42,28 @@
         </service>
 
         <service id="sulu_form.dynamic.type_checkboxmultiple"
-                 class="Sulu\Bundle\FormBundle\Dynamic\Types\Checkboxmultiple">
+                 class="Sulu\Bundle\FormBundle\Dynamic\Types\CheckboxMultiple">
             <tag name="sulu_form.dynamic.type" alias="checkboxmultiple"/>
         </service>
 
+        <service id="sulu_form.dynamic.type_dropdown" class="Sulu\Bundle\FormBundle\Dynamic\Types\Dropdown">
+            <tag name="sulu_form.dynamic.type" alias="dropdown"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_radiobuttons" class="Sulu\Bundle\FormBundle\Dynamic\Types\Radiobuttons">
+            <tag name="sulu_form.dynamic.type" alias="radiobuttons"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_dropdownmultiple"
+                 class="Sulu\Bundle\FormBundle\Dynamic\Types\DropdownMultiple">
+            <tag name="sulu_form.dynamic.type" alias="dropdownmultiple"/>
+        </service>
+
         <service id="sulu_form.dynamic.type_salutation" class="Sulu\Bundle\FormBundle\Dynamic\Types\Salutation">
+            <tag name="sulu_form.dynamic.type" alias="salutation"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_attachment" class="Sulu\Bundle\FormBundle\Dynamic\Types\Attachment">
             <tag name="sulu_form.dynamic.type" alias="salutation"/>
         </service>
     </services>

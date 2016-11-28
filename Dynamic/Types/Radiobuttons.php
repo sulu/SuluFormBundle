@@ -5,13 +5,13 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Multiple checkbox form type.
+ * The Radiobuttons form type.
  */
-class Checkboxmultiple extends MultiChoisAbstract implements FormFieldTypeInterface
+class Radiobuttons extends AbstractMultiChoice implements FormFieldTypeInterface
 {
     /**
      * {@inheritdoc}
@@ -19,8 +19,8 @@ class Checkboxmultiple extends MultiChoisAbstract implements FormFieldTypeInterf
     public function getConfiguration()
     {
         return new FormFieldTypeConfiguration(
-            'sulu_form.type.checkboxmultiple',
-            'SuluFormBundle:forms:fields/types/checkboxmultiple.html.twig'
+            'sulu_form.type.radiobuttons',
+            'SuluFormBundle:forms:fields/types/radiobuttons.html.twig'
         );
     }
 
@@ -30,8 +30,9 @@ class Checkboxmultiple extends MultiChoisAbstract implements FormFieldTypeInterf
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
         $translation = $field->getTranslation($locale);
-        $options = array_merge($options, $this->getChoiseOptions($translation, true, true));
-        $type = CheckboxType::class;
+        $options = array_merge($options, $this->getChoiceOptions($translation, true));
+        $options['attr']['class'] = 'radio-buttons';
+        $type = ChoiceType::class;
         $builder->add($field->getKey(), $type, $options);
     }
 }
