@@ -13,16 +13,41 @@
             <tag name="sulu_form.dynamic.type" alias="textarea"/>
         </service>
 
-        <service id="sulu_form.dynamic.type_type_headline" class="Sulu\Bundle\FormBundle\Dynamic\Types\Headline">
+        <service id="sulu_form.dynamic.type_headline" class="Sulu\Bundle\FormBundle\Dynamic\Types\Headline">
             <tag name="sulu_form.dynamic.type" alias="headline"/>
         </service>
 
-        <service id="sulu_form.dynamic.type_type_spacer" class="Sulu\Bundle\FormBundle\Dynamic\Types\Spacer">
+        <service id="sulu_form.dynamic.type_spacer" class="Sulu\Bundle\FormBundle\Dynamic\Types\Spacer">
             <tag name="sulu_form.dynamic.type" alias="spacer"/>
         </service>
 
-        <service id="sulu_form.dynamic.type_type_freetext" class="Sulu\Bundle\FormBundle\Dynamic\Types\Freetext">
+        <service id="sulu_form.dynamic.type_freetext" class="Sulu\Bundle\FormBundle\Dynamic\Types\Freetext">
             <tag name="sulu_form.dynamic.type" alias="freetext"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_country" class="Sulu\Bundle\FormBundle\Dynamic\Types\Country">
+            <tag name="sulu_form.dynamic.type" alias="country"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_email" class="Sulu\Bundle\FormBundle\Dynamic\Types\Email">
+            <tag name="sulu_form.dynamic.type" alias="email"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_date" class="Sulu\Bundle\FormBundle\Dynamic\Types\Date">
+            <tag name="sulu_form.dynamic.type" alias="date"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_checkobox" class="Sulu\Bundle\FormBundle\Dynamic\Types\Checkbox">
+            <tag name="sulu_form.dynamic.type" alias="checkbox"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_checkboxmultiple"
+                 class="Sulu\Bundle\FormBundle\Dynamic\Types\Checkboxmultiple">
+            <tag name="sulu_form.dynamic.type" alias="checkboxmultiple"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_salutation" class="Sulu\Bundle\FormBundle\Dynamic\Types\Salutation">
+            <tag name="sulu_form.dynamic.type" alias="salutation"/>
         </service>
     </services>
 </container>

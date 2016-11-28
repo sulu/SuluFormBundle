@@ -126,34 +126,6 @@ class DynamicFormType extends AbstractType
     }
 
     /**
-     * @description Choice Type handles four form types (select, multiple select, radio, checkboxes)
-     * (http://symfony.com/doc/current/reference/forms/types/choice.html)
-     *
-     * @param FormFieldTranslation $translation
-     * @param array $options
-     * @param bool $expanded
-     * @param bool $multiple
-     */
-    public function createChoiceType($translation, &$options, $expanded = false, $multiple = false)
-    {
-        if ($translation) {
-            // placeholder
-            $options['placeholder'] = $translation->getPlaceholder();
-
-            // choices
-            $choices = preg_split('/\r\n|\r|\n/', $translation->getOption('choices'), -1, PREG_SPLIT_NO_EMPTY);
-
-            $options['choices'] = array_combine($choices, $choices);
-
-            // type
-            $options['expanded'] = $expanded;
-            $options['multiple'] = $multiple;
-        }
-
-        return ChoiceType::class;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getName()
