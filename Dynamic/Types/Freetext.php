@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Freetext form type.
+ * The Freetext form field type.
  */
 class Freetext implements FormFieldTypeInterface
 {

@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Textarea form type.
+ * The Textarea form field type.
  */
 class Textarea implements FormFieldTypeInterface
 {

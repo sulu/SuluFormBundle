@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Radiobuttons form type.
+ * The Radiobuttons form field type.
  */
 class Radiobuttons extends AbstractMultiChoice implements FormFieldTypeInterface
 {

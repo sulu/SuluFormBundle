@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * The Attachment form type.
+ * The Attachment form field type.
  */
 class Attachment implements FormFieldTypeInterface
 {

@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Email form type.
+ * The Email form field type.
  */
 class Email implements FormFieldTypeInterface
 {

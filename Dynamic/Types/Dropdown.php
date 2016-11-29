@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Dropdown form type.
+ * The Dropdown form field type.
  */
 class Dropdown extends AbstractMultiChoice implements FormFieldTypeInterface
 {

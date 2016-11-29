@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Text form type.
+ * The Text form field type.
  */
 class Text implements FormFieldTypeInterface
 {

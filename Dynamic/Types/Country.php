@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Country form type.
+ * The Country form field type.
  */
 class Country implements FormFieldTypeInterface
 {

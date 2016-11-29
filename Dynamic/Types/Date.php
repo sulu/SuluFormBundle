@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Date form type.
+ * The Date form field type.
  */
 class Date implements FormFieldTypeInterface
 {

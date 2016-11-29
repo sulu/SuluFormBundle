@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Headline form type.
+ * The Headline form field type.
  */
 class Headline implements FormFieldTypeInterface
 {

@@ -8,7 +8,7 @@ use Sulu\Bundle\FormBundle\Entity\FormField;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Recaptcha form type.
+ * The Recaptcha form field type.
  */
 class Recaptcha implements FormFieldTypeInterface
 {

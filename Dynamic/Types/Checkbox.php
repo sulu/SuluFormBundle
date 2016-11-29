@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Checkbox form type.
+ * The Checkbox form field type.
  */
 class Checkbox implements FormFieldTypeInterface
 {

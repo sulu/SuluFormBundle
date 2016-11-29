@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Multiple checkbox form type.
+ * The Multiple checkbox form field type.
  */
 class CheckboxMultiple extends AbstractMultiChoice implements FormFieldTypeInterface
 {

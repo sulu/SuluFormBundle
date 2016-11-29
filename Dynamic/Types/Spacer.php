@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Spacer form type.
+ * The Spacer form field type.
  */
 class Spacer implements FormFieldTypeInterface
 {

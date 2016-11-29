@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Salutation form type.
+ * The Salutation form field type.
  */
 class Salutation implements FormFieldTypeInterface
 {
