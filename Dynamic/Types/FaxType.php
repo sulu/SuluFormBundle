@@ -5,13 +5,13 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType as TypeTextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Textarea form field type.
+ * The Fax form field type.
  */
-class Textarea implements FormFieldTypeInterface
+class FaxType implements FormFieldTypeInterface
 {
     /**
      * {@inheritdoc}
@@ -19,8 +19,8 @@ class Textarea implements FormFieldTypeInterface
     public function getConfiguration()
     {
         return new FormFieldTypeConfiguration(
-            'sulu_form.type.textarea',
-            'SuluFormBundle:forms:fields/types/textarea.html.twig'
+            'sulu_form.type.fax',
+            'SuluFormBundle:forms:fields/types/fax.html.twig'
         );
     }
 
@@ -29,7 +29,7 @@ class Textarea implements FormFieldTypeInterface
      */
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
-        $type = TextareaType::class;
+        $type = TypeTextType::class;
         $builder->add($field->getKey(), $type, $options);
     }
 }

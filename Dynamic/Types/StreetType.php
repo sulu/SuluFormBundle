@@ -5,13 +5,13 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType as TypeTextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Multiple checkbox form field type.
+ * The Street form field type.
  */
-class CheckboxMultiple extends AbstractMultiChoice implements FormFieldTypeInterface
+class StreetType implements FormFieldTypeInterface
 {
     /**
      * {@inheritdoc}
@@ -19,8 +19,8 @@ class CheckboxMultiple extends AbstractMultiChoice implements FormFieldTypeInter
     public function getConfiguration()
     {
         return new FormFieldTypeConfiguration(
-            'sulu_form.type.checkboxmultiple',
-            'SuluFormBundle:forms:fields/types/checkboxmultiple.html.twig'
+            'sulu_form.type.street',
+            'SuluFormBundle:forms:fields/types/street.html.twig'
         );
     }
 
@@ -29,9 +29,7 @@ class CheckboxMultiple extends AbstractMultiChoice implements FormFieldTypeInter
      */
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
-        $translation = $field->getTranslation($locale);
-        $options = array_merge($options, $this->getChoiceOptions($translation, true, true));
-        $type = ChoiceType::class;
+        $type = TypeTextType::class;
         $builder->add($field->getKey(), $type, $options);
     }
 }

@@ -5,13 +5,13 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Text form field type.
+ * The Radio buttons form field type.
  */
-class Text implements FormFieldTypeInterface
+class RadioButtonsType extends AbstractMultiChoice implements FormFieldTypeInterface
 {
     /**
      * {@inheritdoc}
@@ -19,8 +19,8 @@ class Text implements FormFieldTypeInterface
     public function getConfiguration()
     {
         return new FormFieldTypeConfiguration(
-            'sulu_form.type.text',
-            'SuluFormBundle:forms:fields/types/text.html.twig'
+            'sulu_form.type.radiobuttons',
+            'SuluFormBundle:forms:fields/types/radiobuttons.html.twig'
         );
     }
 
@@ -29,7 +29,10 @@ class Text implements FormFieldTypeInterface
      */
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
-        $type = TextType::class;
+        $translation = $field->getTranslation($locale);
+        $options = array_merge($options, $this->getChoiceOptions($translation, true));
+        $options['attr']['class'] = 'radio-buttons';
+        $type = ChoiceType::class;
         $builder->add($field->getKey(), $type, $options);
     }
 }

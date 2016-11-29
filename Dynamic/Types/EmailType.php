@@ -5,13 +5,14 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType as TypeEmailType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
 
 /**
- * The Freetext form field type.
+ * The Email form field type.
  */
-class Freetext implements FormFieldTypeInterface
+class EmailType implements FormFieldTypeInterface
 {
     /**
      * {@inheritdoc}
@@ -19,20 +20,18 @@ class Freetext implements FormFieldTypeInterface
     public function getConfiguration()
     {
         return new FormFieldTypeConfiguration(
-            'sulu_form.type.freetext',
-            'SuluFormBundle:forms:fields/types/freetext.html.twig'
+            'sulu_form.type.email',
+            'SuluFormBundle:forms:fields/types/email.html.twig'
         );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function build(FormBuilderInterface $builder, FormField $field, $locale, $options = [])
+    public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
-        $options['mapped'] = false;
-        $options['attr']['type'] = $field->getType();
-
-        $type = HiddenType::class;
+        $options['constraints'][] = new EmailConstraint();
+        $type = TypeEmailType::class;
         $builder->add($field->getKey(), $type, $options);
     }
 }

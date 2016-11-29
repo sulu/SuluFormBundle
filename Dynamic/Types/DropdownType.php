@@ -5,14 +5,13 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Date form field type.
+ * The Dropdown form field type.
  */
-class Date implements FormFieldTypeInterface
+class DropdownType extends AbstractMultiChoice implements FormFieldTypeInterface
 {
     /**
      * {@inheritdoc}
@@ -20,8 +19,8 @@ class Date implements FormFieldTypeInterface
     public function getConfiguration()
     {
         return new FormFieldTypeConfiguration(
-            'sulu_form.type.date',
-            'SuluFormBundle:forms:fields/types/date.html.twig'
+            'sulu_form.type.dropdown',
+            'SuluFormBundle:forms:fields/types/dropdown.html.twig'
         );
     }
 
@@ -30,12 +29,9 @@ class Date implements FormFieldTypeInterface
      */
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
-        $type = DateType::class;
         $translation = $field->getTranslation($locale);
-        if ($translation && $translation->getOption('birthday')) {
-            $type = BirthdayType::class;
-        }
-        $options['format'] = \IntlDateFormatter::LONG;
+        $options = array_merge($options, $this->getChoiceOptions($translation));
+        $type = ChoiceType::class;
         $builder->add($field->getKey(), $type, $options);
     }
 }

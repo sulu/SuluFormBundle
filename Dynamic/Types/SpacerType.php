@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * The Spacer form field type.
  */
-class Spacer implements FormFieldTypeInterface
+class SpacerType implements FormFieldTypeInterface
 {
     /**
      * {@inheritdoc}

@@ -5,13 +5,13 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType as TypeTextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Dropdown form field type.
+ * The Phone form field type.
  */
-class Dropdown extends AbstractMultiChoice implements FormFieldTypeInterface
+class PhoneType implements FormFieldTypeInterface
 {
     /**
      * {@inheritdoc}
@@ -19,8 +19,8 @@ class Dropdown extends AbstractMultiChoice implements FormFieldTypeInterface
     public function getConfiguration()
     {
         return new FormFieldTypeConfiguration(
-            'sulu_form.type.dropdown',
-            'SuluFormBundle:forms:fields/types/dropdown.html.twig'
+            'sulu_form.type.phone',
+            'SuluFormBundle:forms:fields/types/phone.html.twig'
         );
     }
 
@@ -29,9 +29,7 @@ class Dropdown extends AbstractMultiChoice implements FormFieldTypeInterface
      */
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
-        $translation = $field->getTranslation($locale);
-        $options = array_merge($options, $this->getChoiceOptions($translation));
-        $type = ChoiceType::class;
+        $type = TypeTextType::class;
         $builder->add($field->getKey(), $type, $options);
     }
 }

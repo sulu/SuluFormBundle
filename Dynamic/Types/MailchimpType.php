@@ -5,13 +5,13 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType as TypeCheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * The Mailchimp form field type.
  */
-class Mailchimp implements FormFieldTypeInterface
+class MailchimpType implements FormFieldTypeInterface
 {
     /**
      * @var string
@@ -43,7 +43,7 @@ class Mailchimp implements FormFieldTypeInterface
      */
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
-        $type = CheckboxType::class;
+        $type = TypeCheckboxType::class;
         $builder->add($field->getKey(), $type, $options);
     }
 

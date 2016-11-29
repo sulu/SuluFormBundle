@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 /**
  * The Attachment form field type.
  */
-class Attachment implements FormFieldTypeInterface
+class AttachmentType implements FormFieldTypeInterface
 {
     /**
      * {@inheritdoc}

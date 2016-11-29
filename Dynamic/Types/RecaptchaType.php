@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * The Recaptcha form field type.
  */
-class Recaptcha implements FormFieldTypeInterface
+class RecaptchaType implements FormFieldTypeInterface
 {
     /**
      * {@inheritdoc}

@@ -5,14 +5,13 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
 
 /**
- * The Email form field type.
+ * The Multiple checkbox form field type.
  */
-class Email implements FormFieldTypeInterface
+class CheckboxMultipleType extends AbstractMultiChoice implements FormFieldTypeInterface
 {
     /**
      * {@inheritdoc}
@@ -20,8 +19,8 @@ class Email implements FormFieldTypeInterface
     public function getConfiguration()
     {
         return new FormFieldTypeConfiguration(
-            'sulu_form.type.email',
-            'SuluFormBundle:forms:fields/types/email.html.twig'
+            'sulu_form.type.checkboxmultiple',
+            'SuluFormBundle:forms:fields/types/checkboxmultiple.html.twig'
         );
     }
 
@@ -30,8 +29,9 @@ class Email implements FormFieldTypeInterface
      */
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
-        $options['constraints'][] = new EmailConstraint();
-        $type = EmailType::class;
+        $translation = $field->getTranslation($locale);
+        $options = array_merge($options, $this->getChoiceOptions($translation, true, true));
+        $type = ChoiceType::class;
         $builder->add($field->getKey(), $type, $options);
     }
 }

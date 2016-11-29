@@ -5,13 +5,13 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType as TypeTextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Salutation form field type.
+ * The Company form field type.
  */
-class Salutation implements FormFieldTypeInterface
+class CompanyType implements FormFieldTypeInterface
 {
     /**
      * {@inheritdoc}
@@ -19,8 +19,8 @@ class Salutation implements FormFieldTypeInterface
     public function getConfiguration()
     {
         return new FormFieldTypeConfiguration(
-            'sulu_form.type.salutation',
-            'SuluFormBundle:forms:fields/types/salutation.html.twig'
+            'sulu_form.type.company',
+            'SuluFormBundle:forms:fields/types/company.html.twig'
         );
     }
 
@@ -29,11 +29,7 @@ class Salutation implements FormFieldTypeInterface
      */
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
-        $type = ChoiceType::class;
-        $options['choices'] = [
-            'mr' => 'sulu_form.salutation_mr',
-            'ms' => 'sulu_form.salutation_ms',
-        ];
+        $type = TypeTextType::class;
         $builder->add($field->getKey(), $type, $options);
     }
 }
