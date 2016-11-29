@@ -30,7 +30,7 @@ class DateType implements FormFieldTypeInterface
      */
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
-        $type = DateType::class;
+        $type = TypeDateType::class;
         $translation = $field->getTranslation($locale);
         if ($translation && $translation->getOption('birthday')) {
             $type = BirthdayType::class;
