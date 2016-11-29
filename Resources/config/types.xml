@@ -64,7 +64,7 @@
         </service>
 
         <service id="sulu_form.dynamic.type_attachment" class="Sulu\Bundle\FormBundle\Dynamic\Types\Attachment">
-            <tag name="sulu_form.dynamic.type" alias="salutation"/>
+            <tag name="sulu_form.dynamic.type" alias="attachment"/>
         </service>
     </services>
 </container>

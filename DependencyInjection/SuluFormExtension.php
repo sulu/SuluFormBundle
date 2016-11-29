@@ -58,7 +58,11 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $loader->load('types.xml');
 
         if ($config['mailchimp_api_key']) {
-            $loader->load('mailchimp_services.xml');
+            $loader->load('type_mailchimp.xml');
+        }
+
+        if (class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class)) {
+            $loader->load('type_recaptcha.xml');
         }
     }
 }
