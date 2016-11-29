@@ -37,7 +37,7 @@ class FormFieldTypeConfiguration
     }
 
     /**
-     * Returns title;
+     * Returns title.
      *
      * @return string
      */

@@ -219,7 +219,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
         $i = 0;
         foreach ($types as $alias => $type) {
             $translation = $translator->trans($type->getConfiguration()->getTitle(), [], 'backend');
-            $sortedTypes[$translation . $i] = ['alias'=> $alias, 'type' => $type];
+            $sortedTypes[$translation . $i] = ['alias' => $alias, 'type' => $type];
             $i++;
         }
 

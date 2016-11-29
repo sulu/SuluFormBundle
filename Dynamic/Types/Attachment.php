@@ -54,7 +54,7 @@ class Attachment implements FormFieldTypeInterface
         if ($translation->getOption('type') === ['image']) {
             $fileConstraint = new Image();
         } else {
-            $fileConstraint = new File(['mimeTypes' => $mimeTypes,]);
+            $fileConstraint = new File(['mimeTypes' => $mimeTypes]);
         }
 
         $allConstraints[] = $fileConstraint;
@@ -65,7 +65,7 @@ class Attachment implements FormFieldTypeInterface
         }
 
         // File Constraint.
-        $options['constraints'][] = new All(['constraints' => $allConstraints,]);
+        $options['constraints'][] = new All(['constraints' => $allConstraints]);
 
         // Max File Constraint.
         if ($fileMax = (int) $translation->getOption('max')) {

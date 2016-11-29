@@ -34,7 +34,7 @@ class Recaptcha implements FormFieldTypeInterface
         $options['attr']['options'] = [
             'theme' => 'light',
             'type' => 'image',
-            'size'  => 'normal',
+            'size' => 'normal',
         ];
         $builder->add($field->getKey(), \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class, $options);
     }
