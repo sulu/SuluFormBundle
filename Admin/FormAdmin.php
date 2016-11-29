@@ -66,7 +66,7 @@ class FormAdmin extends Admin
         return [
             'Sulu' => [
                 'Form' => [
-                    'sulu_form.forms',
+                    'sulu.form.forms',
                 ],
             ],
         ];
