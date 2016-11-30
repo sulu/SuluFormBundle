@@ -65,7 +65,7 @@
             <argument id="request_stack" type="service" />
             <argument id="form.factory" type="service" />
             <argument id="l91.sulu.form.handler" type="service" />
-            <argument type="service" id="sulu_media.system_collections.manager"/>
+            <argument id="l91_sulu_form.media_collection_strategy.default" type="service" />
             <argument type="service" id="event_dispatcher"/>
 
             <tag name="sulu.content.type" alias="form_select"/>
@@ -106,6 +106,18 @@
 
         <service id="l91.sulu.mail.null_helper" class="%l91.sulu.mail.null_helper.class%">
             <argument type="service" id="logger" />
+        </service>
+
+        <!-- Collection Strategy -->
+        <service id="l91_sulu_form.media_collection_strategy.tree"
+                 class="L91\Sulu\Bundle\FormBundle\Media\CollectionStrategyTree">
+            <argument type="service" id="sulu_media.collection_manager" />
+            <argument type="service" id="sulu_media.system_collections.manager" />
+        </service>
+
+        <service id="l91_sulu_form.media_collection_strategy.single"
+                 class="L91\Sulu\Bundle\FormBundle\Media\CollectionStrategySingle">
+            <argument type="service" id="sulu_media.system_collections.manager" />
         </service>
     </services>
 </container>

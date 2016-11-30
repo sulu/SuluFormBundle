@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - FEATURE     #118   Added media collection strategy tree
  - FEATURE     #124   Added support to add dynamic list to article bundle
  - BUGFIX      #123   Fixed csv export for bool values
  - ENHANCEMENT #122   Fixed sort on dynamic list and removed search 
@@ -44,4 +45,3 @@
  - FEATURE     #67    Added sixths widths to fields
  - BUGFIX      #66    Fixed that dynamic is related to a form
  - BUGFIX      #65    Unlimited title column and changed string to text
-

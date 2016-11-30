@@ -17,6 +17,10 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class L91SuluFormExtension extends Extension implements PrependExtensionInterface
 {
+    const SYSTEM_COLLECTION_ROOT = 'l91_sulu_form';
+    const MEDIA_COLLECTION_STRATEGY_SINGLE = 'single';
+    const MEDIA_COLLECTION_STRATEGY_TREE = 'tree';
+
     /**
      * {@inheritdoc}
      */
@@ -27,7 +31,7 @@ class L91SuluFormExtension extends Extension implements PrependExtensionInterfac
                 'sulu_media',
                 [
                     'system_collections' => [
-                        'l91_sulu_form' => [
+                        self::SYSTEM_COLLECTION_ROOT => [
                             'meta_title' => ['en' => 'Sulu forms', 'de' => 'Sulu Formulare'],
                             'collections' => [
                                 'attachments' => [
@@ -54,6 +58,13 @@ class L91SuluFormExtension extends Extension implements PrependExtensionInterfac
         $container->setParameter('l91.sulu.form.ajax_templates', $config['ajax_templates']);
         $container->setParameter('l91.sulu.form.mailchimp_api_key', $config['mailchimp_api_key']);
         $container->setParameter('l91.sulu.form.dynamic_lists.config', $config['dynamic_lists']);
+        $container->setParameter('l91.sulu.form.media_collection_strategy', $config['media_collection_strategy']);
+
+        // Default Media Collection Strategy
+        $container->setAlias(
+            'l91_sulu_form.media_collection_strategy.default',
+            'l91_sulu_form.media_collection_strategy.' . $config['media_collection_strategy']
+        );
 
         // add dynamic lists
         foreach ($config['dynamic_lists'] as $key => $value) {

@@ -7,10 +7,10 @@ use L91\Sulu\Bundle\FormBundle\Entity\Dynamic;
 use L91\Sulu\Bundle\FormBundle\Event\DynFormSavedEvent;
 use L91\Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use L91\Sulu\Bundle\FormBundle\Form\Type\DynamicFormType;
+use L91\Sulu\Bundle\FormBundle\Media\CollectionStrategyInterface;
 use L91\Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\SimpleContentType;
-use Sulu\Component\Media\SystemCollections\SystemCollectionManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -47,9 +47,9 @@ class FormSelect extends SimpleContentType
     private $formHandler;
 
     /**
-     * @var SystemCollectionManagerInterface
+     * @var CollectionStrategyInterface
      */
-    private $systemCollectionManager;
+    private $collectionStrategy;
 
     /**
      * @var EventDispatcherInterface
@@ -64,7 +64,7 @@ class FormSelect extends SimpleContentType
      * @param RequestStack $requestStack
      * @param FormFactoryInterface $formFactory
      * @param HandlerInterface $formHandler
-     * @param SystemCollectionManagerInterface $systemCollectionManager
+     * @param CollectionStrategyInterface $collectionStrategy
      * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
@@ -73,7 +73,7 @@ class FormSelect extends SimpleContentType
         RequestStack $requestStack,
         FormFactoryInterface $formFactory,
         HandlerInterface $formHandler,
-        SystemCollectionManagerInterface $systemCollectionManager,
+        CollectionStrategyInterface $collectionStrategy,
         EventDispatcherInterface $eventDispatcher
     ) {
         parent::__construct('FormSelect', '');
@@ -82,7 +82,7 @@ class FormSelect extends SimpleContentType
         $this->requestStack = $requestStack;
         $this->formFactory = $formFactory;
         $this->formHandler = $formHandler;
-        $this->systemCollectionManager = $systemCollectionManager;
+        $this->collectionStrategy = $collectionStrategy;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -116,13 +116,20 @@ class FormSelect extends SimpleContentType
 
             $formEntity = $this->formRepository->findById($id, $locale);
 
+            $translation = $formEntity->getTranslation($locale);
+
+            if (!$translation) {
+                // No translation for this locale exists
+                return;
+            }
+
             // set Defaults
             $defaults = [];
             foreach ($formEntity->getFields() as $field) {
-                $translation = $field->getTranslation($locale);
+                $fieldTranslation = $field->getTranslation($locale);
 
-                if ($translation && $translation->getDefaultValue()) {
-                    $value = $translation->getDefaultValue();
+                if ($fieldTranslation && $fieldTranslation->getDefaultValue()) {
+                    $value = $fieldTranslation->getDefaultValue();
 
                     // handle special types
                     switch ($field->getType()) {
@@ -145,7 +152,14 @@ class FormSelect extends SimpleContentType
                 $locale,
                 $property->getName(),
                 $property->getStructure()->getView(),
-                $this->systemCollectionManager->getSystemCollection('l91_sulu_form.attachments')
+                $this->collectionStrategy->getCollectionId(
+                    $formEntity->getId(),
+                    $translation->getTitle(),
+                    'page',
+                    $property->getStructure()->getUuid(),
+                    $property->getStructure()->getProperty('title')->getValue(),
+                    $locale
+                )
             );
 
             $form = $this->formFactory->create(

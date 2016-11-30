@@ -22,6 +22,13 @@ class Configuration implements ConfigurationInterface
 
         $rootNode->children()
             ->scalarNode('mailchimp_api_key')->defaultValue(null)->end()
+            ->enumNode('media_collection_strategy')
+                ->values([
+                    L91SuluFormExtension::MEDIA_COLLECTION_STRATEGY_SINGLE,
+                    L91SuluFormExtension::MEDIA_COLLECTION_STRATEGY_TREE,
+                ])
+                ->defaultValue(L91SuluFormExtension::MEDIA_COLLECTION_STRATEGY_SINGLE)
+            ->end()
             ->arrayNode('mail_helper')
                 ->children()
                     ->scalarNode('from')->end()

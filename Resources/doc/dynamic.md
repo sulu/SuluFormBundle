@@ -161,3 +161,12 @@ l91_sulu_form:
 ```
 
 **Now a tab should be visible with a list you can export**
+
+## Media Collections
+
+To create for every form and page an own collection you need to configure the following in your `config.yml`:
+
+```yml
+l91_sulu_form:
+    media_collection_strategy: "tree"
+```
