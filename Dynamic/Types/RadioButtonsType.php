@@ -35,4 +35,17 @@ class RadioButtonsType extends AbstractMultiChoice implements FormFieldTypeInter
         $type = ChoiceType::class;
         $builder->add($field->getKey(), $type, $options);
     }
+
+    /**
+     * Return the default value.
+     *
+     * @param FormField $field
+     * @param string $locale
+     *
+     * @return string
+     */
+    public function getDefaultValue(FormField $field, $locale)
+    {
+        return $field->getTranslation($locale)->getDefaultValue();
+    }
 }

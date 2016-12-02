@@ -48,6 +48,14 @@ class MailchimpType implements FormFieldTypeInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getDefaultValue(FormField $field, $locale)
+    {
+        return $field->getTranslation($locale)->getDefaultValue();
+    }
+
+    /**
      * Returns array of Mailchimp lists of given account defined by the API key.
      *
      * @return array

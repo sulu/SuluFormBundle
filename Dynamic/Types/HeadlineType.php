@@ -35,4 +35,12 @@ class HeadlineType implements FormFieldTypeInterface
         $type = HiddenType::class;
         $builder->add($field->getKey(), $type, $options);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDefaultValue(FormField $field, $locale)
+    {
+        return $field->getTranslation($locale)->getDefaultValue();
+    }
 }

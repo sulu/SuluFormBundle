@@ -34,4 +34,12 @@ class EmailType implements FormFieldTypeInterface
         $type = TypeEmailType::class;
         $builder->add($field->getKey(), $type, $options);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDefaultValue(FormField $field, $locale)
+    {
+        return $field->getTranslation($locale)->getDefaultValue();
+    }
 }

@@ -38,4 +38,14 @@ class DateType implements FormFieldTypeInterface
         $options['format'] = \IntlDateFormatter::LONG;
         $builder->add($field->getKey(), $type, $options);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDefaultValue(FormField $field, $locale)
+    {
+        $value = $field->getTranslation($locale)->getDefaultValue();
+
+        return new \DateTime($value);
+    }
 }

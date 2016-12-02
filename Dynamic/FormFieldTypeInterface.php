@@ -26,4 +26,14 @@ interface FormFieldTypeInterface
      * @param array $options
      */
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options);
+
+    /**
+     * Return the default value.
+     *
+     * @param FormField $field
+     * @param string $locale
+     *
+     * @return mixed
+     */
+    public function getDefaultValue(FormField $field, $locale);
 }

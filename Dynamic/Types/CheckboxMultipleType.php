@@ -34,4 +34,14 @@ class CheckboxMultipleType extends AbstractMultiChoice implements FormFieldTypeI
         $type = ChoiceType::class;
         $builder->add($field->getKey(), $type, $options);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDefaultValue(FormField $field, $locale)
+    {
+        $value = $field->getTranslation($locale)->getDefaultValue();
+
+        return $this->getDefaultOptions($value);
+    }
 }

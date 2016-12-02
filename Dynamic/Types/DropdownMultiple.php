@@ -34,4 +34,14 @@ class DropdownMultiple extends AbstractMultiChoice implements FormFieldTypeInter
         $type = ChoiceType::class;
         $builder->add($field->getKey(), $type, $options);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDefaultValue(FormField $field, $locale)
+    {
+        $value = $field->getTranslation($locale)->getDefaultValue();
+
+        return $this->getDefaultOptions($value);
+    }
 }

@@ -120,24 +120,8 @@ class FormSelect extends SimpleContentType
             // set Defaults
             $defaults = [];
             foreach ($formEntity->getFields() as $field) {
-                $translation = $field->getTranslation($locale);
 
-                if ($translation && $translation->getDefaultValue()) {
-                    $value = $translation->getDefaultValue();
-
-                    // handle special types
-                    switch ($field->getType()) {
-                        case Dynamic::TYPE_DATE:
-                            $value = new \DateTime($value);
-                            break;
-                        case Dynamic::TYPE_DROPDOWN_MULTIPLE:
-                        case Dynamic::TYPE_CHECKBOX_MULTIPLE:
-                            $value = preg_split('/\r\n|\r|\n/', $value, -1, PREG_SPLIT_NO_EMPTY);
-                            break;
-                    }
-
-                    $defaults[$field->getKey()] = $value;
-                }
+                $defaults[$field->getKey()] = $this->typePool->get($field->getType())->getDefaultValue($field, $locale);
             }
 
             // Create Form Type

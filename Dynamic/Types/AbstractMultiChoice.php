@@ -10,7 +10,7 @@ use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 class AbstractMultiChoice
 {
     /**
-     * Returns options for multichois form type like select, multiple select, radio or checkboxes.
+     * Returns options for multichoice form type like select, multiple select, radio or checkboxes.
      *
      * @param FormFieldTranslation $translation
      * @param bool $expanded
@@ -36,5 +36,17 @@ class AbstractMultiChoice
         }
 
         return $options;
+    }
+
+    /**
+     * Returns default options for multichoise form type.
+     *
+     * @param string $value
+     *
+     * @return string[]
+     */
+    public function getDefaultOptions($value)
+    {
+        return preg_split('/\r\n|\r|\n/', $value, -1, PREG_SPLIT_NO_EMPTY);
     }
 }
