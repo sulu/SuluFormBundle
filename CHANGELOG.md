@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - BUGFIX      #125   Fixed form select by using native select
  - FEATURE     #118   Added media collection strategy tree
  - FEATURE     #124   Added support to add dynamic list to article bundle
  - BUGFIX      #123   Fixed csv export for bool values

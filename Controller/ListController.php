@@ -83,7 +83,6 @@ class ListController extends RestController implements ClassResourceInterface
         $page = $listBuilder->getCurrentPage();
         $limit = $listBuilder->getLimit();
 
-
         // create list representation
         $representation = new ListRepresentation(
             $list,

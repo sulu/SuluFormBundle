@@ -143,7 +143,6 @@ class FormManager
             $fieldTranslation->setPlaceholder(self::getValue($fieldData, 'placeholder'));
             $fieldTranslation->setDefaultValue(self::getValue($fieldData, 'defaultValue'));
 
-
             // Field Options
             $prefix = 'options[';
 
