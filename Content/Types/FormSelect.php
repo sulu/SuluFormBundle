@@ -120,7 +120,6 @@ class FormSelect extends SimpleContentType
             // set Defaults
             $defaults = [];
             foreach ($formEntity->getFields() as $field) {
-
                 $defaults[$field->getKey()] = $this->typePool->get($field->getType())->getDefaultValue($field, $locale);
             }
 

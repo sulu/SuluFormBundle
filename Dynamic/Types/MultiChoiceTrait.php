@@ -18,7 +18,7 @@ trait MultiChoiceTrait
      *
      * @return array
      */
-    function getChoiceOptions(FormFieldTranslation $translation, $expanded = false, $multiple = false)
+    public function getChoiceOptions(FormFieldTranslation $translation, $expanded = false, $multiple = false)
     {
         $options = [];
         if ($translation) {
@@ -45,7 +45,7 @@ trait MultiChoiceTrait
      *
      * @return string[]
      */
-    function getDefaultOptions($value)
+    public function getDefaultOptions($value)
     {
         return preg_split('/\r\n|\r|\n/', $value, -1, PREG_SPLIT_NO_EMPTY);
     }

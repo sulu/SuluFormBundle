@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * The Dropdown form field type.
  */
-class DropdownType  implements FormFieldTypeInterface
+class DropdownType implements FormFieldTypeInterface
 {
     use MultiChoiceTrait;
 

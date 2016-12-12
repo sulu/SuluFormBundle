@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * The Radio buttons form field type.
  */
-class RadioButtonsType  implements FormFieldTypeInterface
+class RadioButtonsType implements FormFieldTypeInterface
 {
     use MultiChoiceTrait;
 
