@@ -11,8 +11,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * The Multiple checkbox form field type.
  */
-class CheckboxMultipleType extends AbstractMultiChoice implements FormFieldTypeInterface
+class CheckboxMultipleType implements FormFieldTypeInterface
 {
+    use MultiChoiceTrait;
+
     /**
      * {@inheritdoc}
      */
