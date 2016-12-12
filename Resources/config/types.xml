@@ -41,6 +41,18 @@
             <tag name="sulu_form.dynamic.type" alias="company"/>
         </service>
 
+        <service id="sulu_form.dynamic.type_phone" class="Sulu\Bundle\FormBundle\Dynamic\Types\PhoneType">
+            <tag name="sulu_form.dynamic.type" alias="phone"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_fax" class="Sulu\Bundle\FormBundle\Dynamic\Types\FaxType">
+            <tag name="sulu_form.dynamic.type" alias="fax"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_title" class="Sulu\Bundle\FormBundle\Dynamic\Types\TitleType">
+            <tag name="sulu_form.dynamic.type" alias="title"/>
+        </service>
+
         <service id="sulu_form.dynamic.type_textarea" class="Sulu\Bundle\FormBundle\Dynamic\Types\TextareaType">
             <tag name="sulu_form.dynamic.type" alias="textarea"/>
         </service>
