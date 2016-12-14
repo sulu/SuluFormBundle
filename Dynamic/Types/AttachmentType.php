@@ -18,6 +18,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  */
 class AttachmentType implements FormFieldTypeInterface
 {
+    use SimpleTypeTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -78,13 +80,5 @@ class AttachmentType implements FormFieldTypeInterface
 
         $options['multiple'] = true;
         $builder->add($field->getKey(), $type, $options);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDefaultValue(FormField $field, $locale)
-    {
-        return $field->getTranslation($locale)->getDefaultValue();
     }
 }

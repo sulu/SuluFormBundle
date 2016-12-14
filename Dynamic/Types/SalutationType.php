@@ -13,6 +13,8 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class SalutationType implements FormFieldTypeInterface
 {
+    use SimpleTypeTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -35,13 +37,5 @@ class SalutationType implements FormFieldTypeInterface
             'ms' => 'sulu_form.salutation_ms',
         ];
         $builder->add($field->getKey(), $type, $options);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDefaultValue(FormField $field, $locale)
-    {
-        return $field->getTranslation($locale)->getDefaultValue();
     }
 }

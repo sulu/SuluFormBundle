@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class RadioButtonsType implements FormFieldTypeInterface
 {
     use MultiChoiceTrait;
+    use SimpleTypeTrait;
 
     /**
      * {@inheritdoc}
@@ -36,18 +37,5 @@ class RadioButtonsType implements FormFieldTypeInterface
         $options['attr']['class'] = 'radio-buttons';
         $type = ChoiceType::class;
         $builder->add($field->getKey(), $type, $options);
-    }
-
-    /**
-     * Return the default value.
-     *
-     * @param FormField $field
-     * @param string $locale
-     *
-     * @return string
-     */
-    public function getDefaultValue(FormField $field, $locale)
-    {
-        return $field->getTranslation($locale)->getDefaultValue();
     }
 }

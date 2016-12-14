@@ -14,6 +14,8 @@ use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
  */
 class EmailType implements FormFieldTypeInterface
 {
+    use SimpleTypeTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -33,13 +35,5 @@ class EmailType implements FormFieldTypeInterface
         $options['constraints'][] = new EmailConstraint();
         $type = TypeEmailType::class;
         $builder->add($field->getKey(), $type, $options);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDefaultValue(FormField $field, $locale)
-    {
-        return $field->getTranslation($locale)->getDefaultValue();
     }
 }

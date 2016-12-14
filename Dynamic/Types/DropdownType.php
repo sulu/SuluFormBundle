@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class DropdownType implements FormFieldTypeInterface
 {
     use MultiChoiceTrait;
+    use SimpleTypeTrait;
 
     /**
      * {@inheritdoc}
@@ -35,13 +36,5 @@ class DropdownType implements FormFieldTypeInterface
         $options = array_merge($options, $this->getChoiceOptions($translation));
         $type = ChoiceType::class;
         $builder->add($field->getKey(), $type, $options);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDefaultValue(FormField $field, $locale)
-    {
-        return $field->getTranslation($locale)->getDefaultValue();
     }
 }

@@ -12,6 +12,8 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class RecaptchaType implements FormFieldTypeInterface
 {
+    use SimpleTypeTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -37,13 +39,5 @@ class RecaptchaType implements FormFieldTypeInterface
             'size' => 'normal',
         ];
         $builder->add($field->getKey(), \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class, $options);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDefaultValue(FormField $field, $locale)
-    {
-        return $field->getTranslation($locale)->getDefaultValue();
     }
 }

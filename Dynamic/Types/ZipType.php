@@ -13,6 +13,8 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class ZipType implements FormFieldTypeInterface
 {
+    use SimpleTypeTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -31,13 +33,5 @@ class ZipType implements FormFieldTypeInterface
     {
         $type = TypeTextType::class;
         $builder->add($field->getKey(), $type, $options);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDefaultValue(FormField $field, $locale)
-    {
-        return $field->getTranslation($locale)->getDefaultValue();
     }
 }

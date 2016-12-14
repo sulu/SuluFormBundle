@@ -13,6 +13,8 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class CheckboxType implements FormFieldTypeInterface
 {
+    use SimpleTypeTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -31,13 +33,5 @@ class CheckboxType implements FormFieldTypeInterface
     {
         $type = TypeCheckboxType::class;
         $builder->add($field->getKey(), $type, $options);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDefaultValue(FormField $field, $locale)
-    {
-        return $field->getTranslation($locale)->getDefaultValue();
     }
 }
