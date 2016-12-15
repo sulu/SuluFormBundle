@@ -9,7 +9,7 @@ First of all you need to install ewz's RecaptchaBundle, if this bundle is missin
 ```json
 {
     "require": {
-        "excelwebzone/recaptcha-bundle": "^1.4"
+        "excelwebzone/recaptcha-bundle": "^1.4.2"
     }
 }
 ```

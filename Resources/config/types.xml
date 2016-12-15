@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="sulu_form.dynamic.type_text" class="Sulu\Bundle\FormBundle\Dynamic\Types\TextType">
+            <tag name="sulu_form.dynamic.type" alias="text"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_firstname" class="Sulu\Bundle\FormBundle\Dynamic\Types\FirstNameType">
+            <tag name="sulu_form.dynamic.type" alias="firstName"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_lastname" class="Sulu\Bundle\FormBundle\Dynamic\Types\LastNameType">
+            <tag name="sulu_form.dynamic.type" alias="lastName"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_street" class="Sulu\Bundle\FormBundle\Dynamic\Types\StreetType">
+            <tag name="sulu_form.dynamic.type" alias="street"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_zip" class="Sulu\Bundle\FormBundle\Dynamic\Types\ZipType">
+            <tag name="sulu_form.dynamic.type" alias="zip"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_city" class="Sulu\Bundle\FormBundle\Dynamic\Types\CityType">
+            <tag name="sulu_form.dynamic.type" alias="city"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_state" class="Sulu\Bundle\FormBundle\Dynamic\Types\StateType">
+            <tag name="sulu_form.dynamic.type" alias="state"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_function" class="Sulu\Bundle\FormBundle\Dynamic\Types\FunctionType">
+            <tag name="sulu_form.dynamic.type" alias="function"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_company" class="Sulu\Bundle\FormBundle\Dynamic\Types\CompanyType">
+            <tag name="sulu_form.dynamic.type" alias="company"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_phone" class="Sulu\Bundle\FormBundle\Dynamic\Types\PhoneType">
+            <tag name="sulu_form.dynamic.type" alias="phone"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_fax" class="Sulu\Bundle\FormBundle\Dynamic\Types\FaxType">
+            <tag name="sulu_form.dynamic.type" alias="fax"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_title" class="Sulu\Bundle\FormBundle\Dynamic\Types\TitleType">
+            <tag name="sulu_form.dynamic.type" alias="title"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_textarea" class="Sulu\Bundle\FormBundle\Dynamic\Types\TextareaType">
+            <tag name="sulu_form.dynamic.type" alias="textarea"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_headline" class="Sulu\Bundle\FormBundle\Dynamic\Types\HeadlineType">
+            <tag name="sulu_form.dynamic.type" alias="headline"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_spacer" class="Sulu\Bundle\FormBundle\Dynamic\Types\SpacerType">
+            <tag name="sulu_form.dynamic.type" alias="spacer"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_freetext" class="Sulu\Bundle\FormBundle\Dynamic\Types\FreeTextType">
+            <tag name="sulu_form.dynamic.type" alias="freeText"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_country" class="Sulu\Bundle\FormBundle\Dynamic\Types\CountryType">
+            <tag name="sulu_form.dynamic.type" alias="country"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_email" class="Sulu\Bundle\FormBundle\Dynamic\Types\EmailType">
+            <tag name="sulu_form.dynamic.type" alias="email"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_date" class="Sulu\Bundle\FormBundle\Dynamic\Types\DateType">
+            <tag name="sulu_form.dynamic.type" alias="date"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_checkobox"
+                 class="Sulu\Bundle\FormBundle\Dynamic\Types\CheckboxType">
+            <tag name="sulu_form.dynamic.type" alias="checkbox"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_checkboxmultiple"
+                 class="Sulu\Bundle\FormBundle\Dynamic\Types\CheckboxMultipleType">
+            <tag name="sulu_form.dynamic.type" alias="checkboxMultiple"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_dropdown" class="Sulu\Bundle\FormBundle\Dynamic\Types\DropdownType">
+            <tag name="sulu_form.dynamic.type" alias="dropdown"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_radiobuttons" class="Sulu\Bundle\FormBundle\Dynamic\Types\RadioButtonsType">
+            <tag name="sulu_form.dynamic.type" alias="radioButtons"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_dropdownmultiple"
+                 class="Sulu\Bundle\FormBundle\Dynamic\Types\DropdownMultiple">
+            <tag name="sulu_form.dynamic.type" alias="dropdownMultiple"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_salutation" class="Sulu\Bundle\FormBundle\Dynamic\Types\SalutationType">
+            <tag name="sulu_form.dynamic.type" alias="salutation"/>
+        </service>
+
+        <service id="sulu_form.dynamic.type_attachment" class="Sulu\Bundle\FormBundle\Dynamic\Types\AttachmentType">
+            <tag name="sulu_form.dynamic.type" alias="attachment"/>
+        </service>
+    </services>
+</container>

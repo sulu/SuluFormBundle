@@ -4,6 +4,7 @@ namespace Sulu\Bundle\FormBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Manager\FormManager;
@@ -187,14 +188,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
             ],
         ];
 
-        // load mailchimp lists if possible
-        $mailChimpLists = $this->getMailChimpLists();
-
-        $types = Dynamic::$TYPES;
-
-        if (!empty($mailChimpLists)) {
-            $types[] = Dynamic::TYPE_MAILCHIMP;
-        }
+        $types = $this->get('sulu_form.dynamic.form_field_type_pool')->all();
 
         if (class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\RecaptchaType::class)) {
             $types[] = Dynamic::TYPE_RECAPTCHA;
@@ -205,62 +199,36 @@ class FormController extends FOSRestController implements ClassResourceInterface
             [
                 'types' => $this->getSortedTypes($types),
                 'widths' => $widths,
-                'mailChimpLists' => $mailChimpLists,
             ]
         );
     }
 
     /**
-     * getMailchimpLists.
+     * @param FormFieldTypeInterface[] $types
      *
-     * @return array
-     */
-    public function getMailChimpLists()
-    {
-        $lists = [];
-        $apiKey = $this->getParameter('sulu.form.mailchimp_api_key');
-
-        // if mailchimp class doesn't exist or no key is set return empty list
-        if (!class_exists(\DrewM\MailChimp\MailChimp::class) || !$apiKey) {
-            return $lists;
-        }
-
-        $mailChimp = new \DrewM\MailChimp\MailChimp($apiKey);
-        $response = $mailChimp->get('lists');
-
-        if (!isset($response['lists'])) {
-            return $lists;
-        }
-
-        foreach ($response['lists'] as $list) {
-            $lists[] = [
-                'id' => $list['id'],
-                'name' => $list['name'],
-            ];
-        }
-
-        return $lists;
-    }
-
-    /**
-     * @param $types
-     *
-     * @return array
+     * @return FormFieldTypeInterface[]
      */
     public function getSortedTypes($types = [])
     {
         /** @var Translator $translator */
         $translator = $this->get('translator');
-        $sortedTypes = [];
 
-        foreach ($types as $key => $type) {
-            $translation = $translator->trans('sulu_form.type.' . strtolower($type), [], 'backend');
-            $sortedTypes[$translation . $key] = $type;
+        $sortedTypes = [];
+        $returnTypes = [];
+
+        $i = 0;
+        foreach ($types as $alias => $type) {
+            $translation = $translator->trans($type->getConfiguration()->getTitle(), [], 'backend');
+            $sortedTypes[$translation . $i] = ['alias' => $alias, 'type' => $type];
+            ++$i;
         }
 
         ksort($sortedTypes);
+        foreach ($sortedTypes as $sortedType) {
+            $returnTypes[$sortedType['alias']] = $sortedType['type'];
+        }
 
-        return array_values($sortedTypes);
+        return $returnTypes;
     }
 
     /**

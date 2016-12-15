@@ -6,7 +6,7 @@ use Symfony\Component\Form\FormInterface;
 
 interface HandlerInterface
 {
-    const EVENT_FORM_SAVED = 'sulu.form.handler.saved';
+    const EVENT_FORM_SAVED = 'sulu_form.handler.saved';
 
     /**
      * @param string $name

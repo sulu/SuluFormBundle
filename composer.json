@@ -4,7 +4,7 @@
     "type": "sulu-bundle",
     "require": {
         "php": "^5.5 || ^7.0",
-        "sulu/sulu": "~1.2 || dev-develop"
+        "sulu/sulu": "~1.3 || dev-develop"
     },
     "keywords": [
         "sulu",

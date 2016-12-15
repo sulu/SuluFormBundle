@@ -105,7 +105,7 @@ class FormWebsiteController extends DefaultController
      */
     public function onlyAction(Request $request, $key)
     {
-        $ajaxTemplates = $this->container->getParameter('sulu.form.ajax_templates');
+        $ajaxTemplates = $this->container->getParameter('sulu_form.ajax_templates');
 
         if (!$ajaxTemplates[$key]) {
             throw new NotFoundHttpException();
@@ -184,6 +184,6 @@ class FormWebsiteController extends DefaultController
      */
     protected function getFormHandler()
     {
-        return $this->get('sulu.form.handler');
+        return $this->get('sulu_form.handler');
     }
 }

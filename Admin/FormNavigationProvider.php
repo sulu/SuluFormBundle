@@ -17,7 +17,7 @@ class FormNavigationProvider implements ContentNavigationProviderInterface
     {
         $navigationItems = [];
 
-        $navigationItems['detail'] = new ContentNavigationItem('sulu.form.navigation.details');
+        $navigationItems['detail'] = new ContentNavigationItem('sulu_form.navigation.details');
         $navigationItems['detail']->setAction('general');
         $navigationItems['detail']->setComponent('forms@suluform');
         $navigationItems['detail']->setComponentOptions([
