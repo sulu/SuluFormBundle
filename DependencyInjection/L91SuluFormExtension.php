@@ -57,6 +57,7 @@ class L91SuluFormExtension extends Extension implements PrependExtensionInterfac
         $container->setParameter('l91.sulu.form.mail.to', $config['mail_helper']['to']);
         $container->setParameter('l91.sulu.form.ajax_templates', $config['ajax_templates']);
         $container->setParameter('l91.sulu.form.mailchimp_api_key', $config['mailchimp_api_key']);
+        $container->setParameter('l91.sulu.form.dynamic_default_view', $config['dynamic_default_view']);
         $container->setParameter('l91.sulu.form.dynamic_lists.config', $config['dynamic_lists']);
         $container->setParameter('l91.sulu.form.media_collection_strategy', $config['media_collection_strategy']);
 

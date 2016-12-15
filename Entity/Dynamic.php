@@ -342,6 +342,16 @@ class Dynamic implements TimestampableInterface
     }
 
     /**
+     * Get locale.
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
      * Get field.
      *
      * @param string $key

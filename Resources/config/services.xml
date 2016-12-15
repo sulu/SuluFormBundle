@@ -62,13 +62,27 @@
                  class="L91\Sulu\Bundle\FormBundle\Content\Types\FormSelect">
             <argument>L91SuluFormBundle:Template:content-types/form_select_simple.html.twig</argument>
             <argument id="l91_sulu_form.repository.form" type="service" />
-            <argument id="request_stack" type="service" />
-            <argument id="form.factory" type="service" />
-            <argument id="l91.sulu.form.handler" type="service" />
-            <argument id="l91_sulu_form.media_collection_strategy.default" type="service" />
-            <argument type="service" id="event_dispatcher"/>
+            <argument id="l91_sulu_form.builder" type="service" />
 
             <tag name="sulu.content.type" alias="form_select"/>
+        </service>
+
+        <!-- Form Builder -->
+        <service id="l91_sulu_form.builder" class="L91\Sulu\Bundle\FormBundle\Form\Builder">
+            <argument id="request_stack" type="service" />
+            <argument id="l91_sulu_form.repository.form" type="service" />
+            <argument id="l91_sulu_form.media_collection_strategy.default" type="service" />
+            <argument type="service" id="form.factory" />
+            <argument>%l91.sulu.form.dynamic_default_view%</argument>
+        </service>
+
+        <!-- Request Listener -->
+        <service id="l91_sulu_form.request_listener" class="L91\Sulu\Bundle\FormBundle\EventListener\RequestListener">
+            <argument type="service" id="l91_sulu_form.builder" />
+            <argument type="service" id="l91.sulu.form.handler" />
+            <argument type="service" id="event_dispatcher" />
+
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
         </service>
 
         <!-- List Builder -->

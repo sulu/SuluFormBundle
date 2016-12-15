@@ -108,12 +108,6 @@ https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources
 {%- endblock form_label -%}
 ```
 
-## Issues
-
-Please check to following issue before using it in production:
-
-[https://github.com/alexander-schranz/sulu-form-bundle/issues/69](https://github.com/alexander-schranz/sulu-form-bundle/issues/69)
-
 ## Create Form
 
 To create a dynamic form (which is selectable in the property type `form_select`) simply

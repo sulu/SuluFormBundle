@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - BUGFIX      #111   Fixed exception controller redirect
  - BUGFIX      #125   Fixed form select by using native select
  - FEATURE     #118   Added media collection strategy tree
  - FEATURE     #124   Added support to add dynamic list to article bundle

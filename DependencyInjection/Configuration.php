@@ -42,6 +42,7 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('delimiter')->defaultValue(PHP_EOL)->end()
                 ->end()
             ->end()
+            ->scalarNode('dynamic_default_view')->defaultValue('AppBundle:templates:dynamic')->end()
             ->variableNode('dynamic_lists')->defaultValue([])->end()
             ->arrayNode('ajax_templates')
                 ->prototype('scalar')->end()->defaultValue([])
