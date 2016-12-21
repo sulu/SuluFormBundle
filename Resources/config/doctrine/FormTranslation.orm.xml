@@ -32,6 +32,11 @@
                 <option name="default">0</option>
             </options>
         </field>
+        <field name="replyTo" column="replyTo" type="boolean" nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
 
         <field name="locale" column="locale" type="string" length="5"/>
 

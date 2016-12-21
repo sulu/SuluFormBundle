@@ -34,6 +34,10 @@
                 <source>l91_sulu_form.deactivate_customer</source>
                 <target>déactiver les mails de confirmation</target>
             </trans-unit>
+            <trans-unit id="9">
+                <source>l91_sulu_form.user_as_reply_to</source>
+                <target>"répondre" compléter l'adresse automatiquement</target>
+            </trans-unit>
 
             <!-- Types -->
             <trans-unit id="10">

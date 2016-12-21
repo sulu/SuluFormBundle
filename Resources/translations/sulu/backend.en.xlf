@@ -35,6 +35,10 @@
                 <source>l91_sulu_form.deactivate_customer</source>
                 <target>deactivate Successmails</target>
             </trans-unit>
+            <trans-unit id="9">
+                <source>l91_sulu_form.user_as_reply_to</source>
+                <target>Autofill "reply-to" address</target>
+            </trans-unit>
 
             <!-- Types -->
             <trans-unit id="10">

@@ -339,6 +339,20 @@ class DynamicFormType extends AbstractType
     /**
      * {@inheritdoc}
      */
+    public function getNotifyReplyToMailAddress($formData = [])
+    {
+        if ($this->getTranslation()->getReplyTo()) {
+            if ($formData->__isset('email')) {
+                return $formData->__get('email');
+            }
+        }
+
+        return parent::getNotifyReplyToMailAddress($formData);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getCustomerMail($formData = [])
     {
         return $this->structureView . '-mail/' . $this->name . '-success.html.twig';
