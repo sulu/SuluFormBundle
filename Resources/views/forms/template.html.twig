@@ -17,7 +17,6 @@
                                            class="form-element input-bold husky-validate"
                                            data-mapper-property="title"
                                            data-validation-required="true">
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -27,6 +26,75 @@
         </div>
     </div>
     <div class="fixed-width">
+        <div class="grid">
+            <div class="grid-row m-bottom-40">
+                <div class="grid-col-12">
+                    <div class="grid-col-12 floating m-top-20">
+                        <h2 class="divider m-bottom-20">
+                            <%= translate('sulu_form.form_fields') %>
+                        </h2>
+
+                        {% set blockId = 'fields' %}
+
+                        <div class="grid">
+                            <div id="text-block-header-{{ blockId }}"> {#class="text-blocks-header"#}
+                                <div id="collapse-text-blocks-{{ blockId }}" tabindex="0" class="text-blocks-toggle-btn">
+                                    <%= translate('sulu.content.collapse.blocks') %>
+                                </div>
+                                <div id="expand-text-blocks-{{ blockId }}" tabindex="0" class="text-blocks-toggle-btn">
+                                    <%= translate('sulu.content.expand.blocks') %>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+
+                            <style>
+                                /* FIXME DropDown to big */
+                                #form-form .grid-row.dropdown-list.dropdown-shadow.husky-select-dropdown-container.top {
+                                    height: 160px;
+                                    height: 70vh;
+                                }
+
+                                #form-form .grid-row.dropdown-list.dropdown-shadow.husky-select-dropdown-container {
+                                    height: 200px;
+                                }
+                            </style>
+
+                            <div class="grid-row small"
+                                 id="{{ blockId }}"
+                                 data-form="true"
+                                 data-type="block"
+                                 data-type-config='[
+                                        {% for alias, type in types %}
+                                            {
+                                                "data": "{{ alias }}",
+                                                "title": "<%= translate('{{ type.configuration.title }}') %>",
+                            "tpl": "{{ alias }}-{{ blockId }}-tpl"
+                            }{% if not loop.last %},{% endif %}
+                            {% endfor %}
+                            ]'
+                            data-type-min="0"
+                            data-type-max="999"
+                            data-type-default="{{ types|keys|first }}"
+                            data-mapper-property="{{ blockId }}"
+                            data-mapper-full-class="full"
+                            data-mapper-empty-class="empty">
+
+                            {% for alias, type in types %}
+                                {% include type.configuration.template with {
+                                'viewData': type.configuration.attributes,
+                                'alias': alias
+                                }%}
+                            {% endfor %}
+                        </div>
+
+                        <div class="text-block-footer" id="{{ blockId }}-add" style="width: 200px">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <div class="grid">
             <h2 class="divider m-bottom-20">
                 <%= translate('sulu_form.website_configuration') %>
@@ -225,77 +293,6 @@
                                  data-type-instance-name="deactivateCustomerMails"
                                  data-mapper-property="deactivateCustomerMails"></div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid">
-            <div class="grid-row m-bottom-40">
-                <div class="grid-col-12">
-                    <div class="grid-col-12 floating m-top-20">
-                        <h2 class="divider m-bottom-20">
-                            <%= translate('sulu_form.form_fields') %>
-                        </h2>
-
-                        {% set blockId = 'fields' %}
-
-                        <div class="grid">
-                            <div id="text-block-header-{{ blockId }}"> {#class="text-blocks-header"#}
-                                <div id="collapse-text-blocks-{{ blockId }}" tabindex="0" class="text-blocks-toggle-btn">
-                                    <%= translate('sulu.content.collapse.blocks') %>
-                                </div>
-                                <div id="expand-text-blocks-{{ blockId }}" tabindex="0" class="text-blocks-toggle-btn">
-                                    <%= translate('sulu.content.expand.blocks') %>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-
-                            <style>
-                                /* FIXME DropDown to big */
-                                #form-form .grid-row.dropdown-list.dropdown-shadow.husky-select-dropdown-container.top {
-                                    height: 160px;
-                                    height: 70vh;
-                                }
-
-                                #form-form .grid-row.dropdown-list.dropdown-shadow.husky-select-dropdown-container {
-                                    height: 200px;
-                                }
-                            </style>
-
-                            <div class="grid-row small"
-                                 id="{{ blockId }}"
-                                 data-form="true"
-                                 data-type="block"
-                                 data-type-config='[
-                                        {% for alias, type in types %}
-                                            {
-                                                "data": "{{ alias }}",
-                                                "title": "<%= translate('{{ type.configuration.title }}') %>",
-                                                "tpl": "{{ alias }}-{{ blockId }}-tpl"
-                                            }{% if not loop.last %},{% endif %}
-                                        {% endfor %}
-                                    ]'
-                                 data-type-min="0"
-                                 data-type-max="999"
-                                 data-type-default="{{ types|keys|first }}"
-                                 data-mapper-property="{{ blockId }}"
-                                 data-mapper-full-class="full"
-                                 data-mapper-empty-class="empty">
-
-                                {% for alias, type in types %}
-                                    {% include type.configuration.template with {
-                                        'viewData': type.configuration.attributes,
-                                        'alias': alias
-                                    }%}
-                                {% endfor %}
-                            </div>
-
-                            <div class="text-block-footer" id="{{ blockId }}-add" style="width: 200px">
-
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
