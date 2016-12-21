@@ -185,7 +185,7 @@ class Dynamic implements TimestampableInterface
 
         foreach ($data as $name => $value) {
             $this->__set($name, $value);
-	}
+        }
     }
 
     /**
@@ -243,6 +243,7 @@ class Dynamic implements TimestampableInterface
                 if (!is_string($this->$name)) {
                     return;
                 }
+
                 return json_decode($this->$name, true);
             }
 
