@@ -184,8 +184,8 @@ class Dynamic implements TimestampableInterface
         $this->webspaceKey = $webspaceKey;
 
         foreach ($data as $name => $value) {
-            $this->$name = $value;
-        }
+            $this->__set($name, $value);
+	}
     }
 
     /**
@@ -202,7 +202,7 @@ class Dynamic implements TimestampableInterface
     public function __set($name, $value)
     {
         if (property_exists($this, $name)) {
-            if (is_array($value)) {
+            if (in_array($name, self::$arrayTypes)) {
                 $value = json_encode($value, JSON_UNESCAPED_UNICODE);
             }
 
@@ -240,6 +240,9 @@ class Dynamic implements TimestampableInterface
     {
         if (property_exists($this, $name)) {
             if (in_array($name, self::$arrayTypes)) {
+                if (!is_string($this->$name)) {
+                    return;
+                }
                 return json_decode($this->$name, true);
             }
 
