@@ -1,0 +1,70 @@
+<script id="{{ name }}-receivers-tpl" type="text/template">
+    <div class="text-block {{ name }}-element receivers-element"
+         data-mapper-property-tpl="{{ name }}">
+        <div class="move"></div>
+        <input type="hidden" data-mapper-property="type" value="{{ name }}"/>
+
+        <div class="collapsed-container empty">
+            <div class="type"><%= translate('sulu_form.receiver.{{ name }}') %></div>
+            <div class="title"></div>
+            <div class="image"></div>
+            <div class="text hidden"></div>
+        </div>
+
+        <div class="container grid pos-rel">
+            <div class="text-block-controls pull-right">
+                <div class="fa-eye-slash options-collapse"></div>
+                <div data-mapper-remove="receivers"
+                     class="fa-times options-remove mapper-remove-{{ name }}"></div>
+                <div class="clear"></div>
+            </div>
+            <div class="grid-row small">
+                <div class="grid-col-2 m-top-30 floating form-group hidden">
+                    <div class="type-select"></div>
+                </div>
+
+                <div class="grid-col-5 m-top-0 floating form-group">
+                    <label for="receivers-email<~=index~>" class="pointer "
+                           title="">
+                        <%= translate('public.email') %>
+                    </label>
+
+                    <div id="receivers-email<~=index~>"
+                         data-mapper-property="email"
+                         data-aura-component="input@husky"
+                         data-aura-skin="email"
+                         data-aura-instance-name="receivers-email<~=index~>"
+                         data-aura-input-id="receivers-email<~=index~>"
+                         data-type="husky-input"
+                         data-form="true"
+                         class="preview-update trigger-save-button"
+                    ></div>
+
+                    <div class="block-content" data-sort-mode-id="receivers-email<~=index~>"></div>
+
+                    <div class="input-description"></div>
+                </div>
+
+
+                <div class="grid-col-5 m-top-0 floating form-group">
+                    <label for="receivers-name<~=index~>" class="pointer "
+                           title="">
+                        <%= translate('public.name') %>
+                    </label>
+
+                    <input id="receivers-name<~=index~>"
+                           type="text"
+                           class="form-element preview-update trigger-save-button"
+                           data-mapper-property="name"
+                           placeholder=""
+                    />
+
+                    <div class="block-content" data-sort-mode-id="receivers-name<~=index~>"></div>
+
+                    <div class="input-description"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</script>

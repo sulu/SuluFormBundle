@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Sulu\Bundle\FormBundle\Entity\FormTranslationReceiver" table="fo_form_translation_receivers">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+        <field name="type" column="type" type="string" length="16" nullable="false"/>
+        <field name="email" column="email" type="string" length="255" nullable="false"/>
+        <field name="name" column="name" type="string" length="255" nullable="false"/>
+
+        <many-to-one field="formTranslation"
+                     target-entity="Sulu\Bundle\FormBundle\Entity\FormTranslation"
+                     inversed-by="receivers">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+            <join-columns>
+                <join-column name="idFormTranslations" on-delete="CASCADE" referenced-column-name="id" nullable="false"/>
+            </join-columns>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>
