@@ -190,10 +190,6 @@ class FormController extends FOSRestController implements ClassResourceInterface
 
         $types = $this->get('sulu_form.dynamic.form_field_type_pool')->all();
 
-        if (class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\RecaptchaType::class)) {
-            $types[] = Dynamic::TYPE_RECAPTCHA;
-        }
-
         return $this->render(
             $this->getBundleName() . ':' . $this->getListName() . ':template.html.twig',
             [
@@ -212,13 +208,14 @@ class FormController extends FOSRestController implements ClassResourceInterface
     {
         /** @var Translator $translator */
         $translator = $this->get('translator');
+        $locale = $this->getUser()->getLocale();
 
         $sortedTypes = [];
         $returnTypes = [];
 
         $i = 0;
         foreach ($types as $alias => $type) {
-            $translation = $translator->trans($type->getConfiguration()->getTitle(), [], 'backend');
+            $translation = $translator->trans($type->getConfiguration()->getTitle(), [], 'backend', $locale);
             $sortedTypes[$translation . $i] = ['alias' => $alias, 'type' => $type];
             ++$i;
         }

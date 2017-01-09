@@ -5,6 +5,8 @@ namespace Sulu\Bundle\FormBundle\Manager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormField;
+use Sulu\Bundle\FormBundle\Entity\FormTranslation;
+use Sulu\Bundle\FormBundle\Entity\FormTranslationReceiver;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 
 /**
@@ -111,7 +113,76 @@ class FormManager
             $form->setDefaultLocale($locale);
         }
 
-        // Fields
+        $this->updateFields($data, $form, $locale);
+        $this->updateReceivers($data, $translation);
+
+        // Save
+        $this->entityManager->persist($form);
+        $this->entityManager->flush();
+
+        if (!$id) {
+            // to avoid lazy load of sub entities in the serializer reload whole object with sub entities from db
+            // remove this when you don`t join anything in `findById`
+            $form = $this->findById($form->getId(), $locale);
+        }
+
+        return $form;
+    }
+
+    /**
+     * @param int $id
+     * @param string $locale
+     *
+     * @return Form|null
+     */
+    public function delete($id, $locale = null)
+    {
+        $object = $this->findById($id, $locale);
+
+        if (!$object) {
+            return;
+        }
+
+        $this->entityManager->remove($object);
+        $this->entityManager->flush();
+
+        return $object;
+    }
+
+    /**
+     * @param array $data
+     * @param FormTranslation $translation
+     */
+    public function updateReceivers($data, $translation)
+    {
+        $receiversRepository = $this->entityManager->getRepository('SuluFormBundle:FormTranslationReceiver');
+        $receiverDatas = self::getValue($data, 'receivers', []);
+
+        // Remove old receivers.
+        $oldReceivers = $receiversRepository->findBy(array('formTranslation' => $translation));
+        foreach ($oldReceivers as $oldReceiver) {
+            $this->entityManager->remove($oldReceiver);
+        }
+
+        $receivers = [];
+        foreach ($receiverDatas as $receiverData) {
+            $receiver = new FormTranslationReceiver();
+            $receiver->setType($receiverData['type']);
+            $receiver->setEmail($receiverData['email']);
+            $receiver->setName($receiverData['name']);
+            $receiver->setFormTranslation($translation);
+            $this->entityManager->persist($receiver);
+        }
+        $translation->setReceivers($receivers);
+    }
+
+    /**
+     * @param array $data
+     * @param Form $form
+     * @param string $locale
+     */
+    protected function updateFields($data, $form, $locale)
+    {
         $reservedKeys = array_column(self::getValue($data, 'fields', []), 'key');
 
         $counter = 0;
@@ -180,38 +251,6 @@ class FormManager
             $form->removeField($deletedField);
             $this->entityManager->remove($deletedField);
         }
-
-        // Save
-        $this->entityManager->persist($form);
-        $this->entityManager->flush();
-
-        if (!$id) {
-            // to avoid lazy load of sub entities in the serializer reload whole object with sub entities from db
-            // remove this when you don`t join anything in `findById`
-            $form = $this->findById($form->getId(), $locale);
-        }
-
-        return $form;
-    }
-
-    /**
-     * @param int $id
-     * @param string $locale
-     *
-     * @return Form|null
-     */
-    public function delete($id, $locale = null)
-    {
-        $object = $this->findById($id, $locale);
-
-        if (!$object) {
-            return;
-        }
-
-        $this->entityManager->remove($object);
-        $this->entityManager->flush();
-
-        return $object;
     }
 
     /**

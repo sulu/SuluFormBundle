@@ -98,6 +98,11 @@ class FormTranslation implements AuditableInterface
     private $changed;
 
     /**
+     * @var FormTranslationReceiver[]
+     */
+    private $receivers;
+
+    /**
      * @param string $title
      *
      * @return FormTranslation
@@ -451,5 +456,25 @@ class FormTranslation implements AuditableInterface
         $this->changed = $changed;
 
         return $this;
+    }
+
+    /**
+     * Returns receivers.
+     *
+     * @return FormTranslationReceiver[]
+     */
+    public function getReceivers()
+    {
+        return $this->receivers;
+    }
+
+    /**
+     * Sets receivers.
+     *
+     * @param FormTranslationReceiver[] $receivers
+     */
+    public function setReceivers($receivers)
+    {
+        $this->receivers = $receivers;
     }
 }

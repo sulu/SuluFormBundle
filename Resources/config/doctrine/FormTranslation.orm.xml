@@ -45,5 +45,13 @@
                 <join-column name="idForms" on-delete="CASCADE" referenced-column-name="id" nullable="false"/>
             </join-columns>
         </many-to-one>
+
+        <one-to-many field="receivers"
+                     target-entity="Sulu\Bundle\FormBundle\Entity\FormTranslationReceiver"
+                     mapped-by="formTranslation">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
     </entity>
 </doctrine-mapping>
