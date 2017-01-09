@@ -159,7 +159,7 @@ class FormManager
         $receiverDatas = self::getValue($data, 'receivers', []);
 
         // Remove old receivers.
-        $oldReceivers = $receiversRepository->findBy(array('formTranslation' => $translation));
+        $oldReceivers = $receiversRepository->findBy(['formTranslation' => $translation]);
         foreach ($oldReceivers as $oldReceiver) {
             $this->entityManager->remove($oldReceiver);
         }
