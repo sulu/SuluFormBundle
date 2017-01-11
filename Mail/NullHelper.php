@@ -41,7 +41,7 @@ class NullHelper implements HelperInterface
             '   To: %s' . PHP_EOL .
             '   Reply to: %s' . PHP_EOL .
             '   Subject: %s' . PHP_EOL .
-            '   CC: %s' , PHP_EOL .
+            '   CC: %s' . PHP_EOL .
             '   BCC: %s' . PHP_EOL,
             is_string($fromMail) ? $fromMail : serialize($fromMail),
             is_string($toMail) ? $toMail : serialize($toMail),

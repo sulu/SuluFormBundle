@@ -207,4 +207,3 @@ class MailSubscriber implements EventSubscriberInterface
         return $attachments;
     }
 }
-
