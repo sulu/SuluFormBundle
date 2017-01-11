@@ -77,7 +77,7 @@ class MailSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Handles the mail delivery on saving an dynamic form.
+     * Handles the mail delivery on saving a dynamic form.
      *
      * @param DynFormSavedEvent $event
      */
@@ -109,10 +109,10 @@ class MailSubscriber implements EventSubscriberInterface
             // Add main receiver of form.
             $mainReceiver = $this->getNotifyToMailAddress($translation);
             if ($mainReceiver) {
-                $allReceivers[MailHelperInterface::MAIL_RECEIVER_TO][] = $mainReceiver;
+                $allReceivers[MailHelperInterface::MAIL_RECEIVER_TO] = $mainReceiver;
             }
 
-            // Add additional receivers
+            // Add additional receivers.
             foreach ($translation->getReceivers() as $receiver) {
                 $allReceivers[$receiver->getType()][$receiver->getEmail()] = $receiver->getName();
             }
@@ -136,6 +136,8 @@ class MailSubscriber implements EventSubscriberInterface
     }
 
     /**
+     * Returns the sender email address.
+     *
      * @param FormTranslation $translation
      *
      * @return array|null
@@ -153,6 +155,8 @@ class MailSubscriber implements EventSubscriberInterface
     }
 
     /**
+     * Returns the main email address for sending notification.
+     *
      * @param FormTranslation $translation
      *
      * @return string
@@ -170,6 +174,8 @@ class MailSubscriber implements EventSubscriberInterface
     }
 
     /**
+     * Returns the ids of medias which was uploaded in the form.
+     *
      * @param Form $formEntity
      * @param Dynamic $dynamic
      *
@@ -189,6 +195,8 @@ class MailSubscriber implements EventSubscriberInterface
     }
 
     /**
+     * Returns the files which should be attached to the mail.
+     *
      * @param array $attachedMediaIds
      * @param string $locale
      *
