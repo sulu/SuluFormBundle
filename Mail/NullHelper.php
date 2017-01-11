@@ -31,18 +31,24 @@ class NullHelper implements HelperInterface
         $fromMail = null,
         $html = true,
         $replyTo = null,
-        $attachments = []
+        $attachments = [],
+        $ccMail = [],
+        $bccMail = []
     ) {
         $this->logger->info(sprintf(
             'SuluFormBundle NullMailHelper: ' . PHP_EOL .
             '   From: %s' . PHP_EOL .
             '   To: %s' . PHP_EOL .
             '   Reply to: %s' . PHP_EOL .
-            '   Subject: %s' . PHP_EOL,
+            '   Subject: %s' . PHP_EOL .
+            '   CC: %s' , PHP_EOL .
+            '   BCC: %s' . PHP_EOL,
             is_string($fromMail) ? $fromMail : serialize($fromMail),
             is_string($toMail) ? $toMail : serialize($toMail),
             is_string($replyTo) ? $replyTo : serialize($toMail),
-            is_string($subject) ? $subject : serialize($subject)
+            is_string($subject) ? $subject : serialize($subject),
+            is_string($subject) ? $ccMail : serialize($ccMail),
+            is_string($subject) ? $bccMail : serialize($bccMail)
         ));
     }
 }

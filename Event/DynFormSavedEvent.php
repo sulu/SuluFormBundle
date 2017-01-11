@@ -3,6 +3,7 @@
 namespace Sulu\Bundle\FormBundle\Event;
 
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
+use Sulu\Bundle\FormBundle\Form\Type\DynamicFormType;
 use Symfony\Component\EventDispatcher\Event;
 
 class DynFormSavedEvent extends Event
@@ -20,10 +21,15 @@ class DynFormSavedEvent extends Event
     protected $dynamic;
 
     /**
+     * @var DynamicFormType
+     */
+    protected $formType;
+
+    /**
      * DynFormSavedEvent constructor.
      *
      * @param array $data
-     * @param Dynamic $dynamic will be required in the future
+     * @param Dynamic $dynamic
      */
     public function __construct($data, $dynamic = null)
     {
@@ -44,7 +50,7 @@ class DynFormSavedEvent extends Event
     }
 
     /**
-     * Get data.
+     * Returns data.
      *
      * @return array
      */
@@ -54,7 +60,7 @@ class DynFormSavedEvent extends Event
     }
 
     /**
-     * Get dynamic.
+     * Returns dynamic.
      *
      * @return Dynamic|null
      */

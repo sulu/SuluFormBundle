@@ -238,6 +238,18 @@ class Dynamic implements TimestampableInterface
      */
     public function __get($name)
     {
+        return $this->getField($name);
+    }
+
+    /**
+     * Returns the fields value identified by its name.
+     *
+     * @param string $name
+     *
+     * @return mixed
+     */
+    public function getField($name)
+    {
         if (property_exists($this, $name)) {
             if (in_array($name, self::$arrayTypes)) {
                 if (!is_string($this->$name)) {

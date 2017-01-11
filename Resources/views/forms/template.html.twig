@@ -328,13 +328,13 @@
                      data-mapper-empty-class="empty">
 
                     {% include 'SuluFormBundle:forms/blocks:email-receiver.html.twig' with {
-                        name: 'to'
+                        name: receiverTypes['to']
                     } %}
                     {% include 'SuluFormBundle:forms/blocks:email-receiver.html.twig' with {
-                        name: 'cc'
+                        name: receiverTypes['cc']
                     } %}
                     {% include 'SuluFormBundle:forms/blocks:email-receiver.html.twig' with {
-                        name: 'bcc'
+                        name: receiverTypes['bcc']
                     } %}
                 </div>
 

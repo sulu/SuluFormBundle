@@ -155,6 +155,7 @@ class FormManager
      */
     public function updateReceivers($data, $translation)
     {
+        $translation->setReceivers([]);
         $receiversRepository = $this->entityManager->getRepository('SuluFormBundle:FormTranslationReceiver');
         $receiverDatas = self::getValue($data, 'receivers', []);
 
@@ -171,6 +172,8 @@ class FormManager
             $receiver->setEmail($receiverData['email']);
             $receiver->setName($receiverData['name']);
             $receiver->setFormTranslation($translation);
+
+            $receivers[] = $receiver;
             $this->entityManager->persist($receiver);
         }
         $translation->setReceivers($receivers);

@@ -7,6 +7,7 @@ use FOS\RestBundle\Routing\ClassResourceInterface;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Mail\HelperInterface;
 use Sulu\Bundle\FormBundle\Manager\FormManager;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactory;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineCaseFieldDescriptor;
@@ -189,12 +190,18 @@ class FormController extends FOSRestController implements ClassResourceInterface
         ];
 
         $types = $this->get('sulu_form.dynamic.form_field_type_pool')->all();
+        $receiverTypes = [
+            'to' => HelperInterface::MAIL_RECEIVER_TO,
+            'cc' => HelperInterface::MAIL_RECEIVER_CC,
+            'bcc' => HelperInterface::MAIL_RECEIVER_BCC,
+        ];
 
         return $this->render(
             $this->getBundleName() . ':' . $this->getListName() . ':template.html.twig',
             [
                 'types' => $this->getSortedTypes($types),
                 'widths' => $widths,
+                'receiverTypes' => $receiverTypes,
             ]
         );
     }
@@ -512,6 +519,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
                 'sendAttachments' => $translation->getSendAttachments(),
                 'deactivateNotifyMails' => $translation->getDeactivateNotifyMails(),
                 'deactivateCustomerMails' => $translation->getDeactivateCustomerMails(),
+                'receivers' => $translation->getReceivers(),
             ];
         }
 

@@ -81,5 +81,15 @@
         <service id="sulu_form.dynamic.form_field_type_pool" class="Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool">
             <argument type="collection"/>
         </service>
+
+        <service id="sulu_form.subscriber.mail_subscriber" class="Sulu\Bundle\FormBundle\Event\MailSubscriber">
+            <argument type="service" id="sulu.mail.helper"/>
+            <argument type="service" id="templating"/>
+            <argument type="service" id="sulu_media.media_manager"/>
+            <argument type="service" id="sulu_media.storage"/>
+            <argument>%sulu_form.mail.template.notify%</argument>
+            <argument>%sulu_form.mail.template.customer%</argument>
+            <tag name="kernel.event_subscriber"/>
+        </service>
     </services>
 </container>
