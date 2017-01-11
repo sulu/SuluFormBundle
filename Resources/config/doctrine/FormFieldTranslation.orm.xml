@@ -18,9 +18,6 @@
         <many-to-one field="field"
                      target-entity="Sulu\Bundle\FormBundle\Entity\FormField"
                      inversed-by="translations">
-            <cascade>
-                <cascade-all/>
-            </cascade>
             <join-columns>
                 <join-column name="idFormFields" on-delete="CASCADE" referenced-column-name="id" nullable="false"/>
             </join-columns>

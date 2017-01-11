@@ -26,9 +26,6 @@
         <many-to-one field="form"
                      target-entity="Sulu\Bundle\FormBundle\Entity\Form"
                      inversed-by="fields">
-            <cascade>
-                <cascade-all/>
-            </cascade>
             <join-columns>
                 <join-column name="idForms" on-delete="CASCADE" referenced-column-name="id" nullable="false"/>
             </join-columns>

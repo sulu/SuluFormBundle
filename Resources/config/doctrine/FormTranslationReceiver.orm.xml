@@ -14,9 +14,6 @@
         <many-to-one field="formTranslation"
                      target-entity="Sulu\Bundle\FormBundle\Entity\FormTranslation"
                      inversed-by="receivers">
-            <cascade>
-                <cascade-all/>
-            </cascade>
             <join-columns>
                 <join-column name="idFormTranslations" on-delete="CASCADE" referenced-column-name="id" nullable="false"/>
             </join-columns>
