@@ -47,8 +47,8 @@ class NullHelper implements HelperInterface
             is_string($toMail) ? $toMail : serialize($toMail),
             is_string($replyTo) ? $replyTo : serialize($toMail),
             is_string($subject) ? $subject : serialize($subject),
-            is_string($subject) ? $ccMail : serialize($ccMail),
-            is_string($subject) ? $bccMail : serialize($bccMail)
+            is_string($ccMail) ? $ccMail : serialize($ccMail),
+            is_string($bccMail) ? $bccMail : serialize($bccMail)
         ));
     }
 }

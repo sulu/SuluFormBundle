@@ -1,0 +1,14 @@
+{% for field in formEntity.fields|default([]) %}
+    {% set value = field.value %}
+
+    {# get formatted value #}
+    {% if value is iterable %}
+        {% set value = value|json_encode %}
+    {% elseif value.timestamp is defined %}
+        {% set value = value|date('d.m.Y') %}
+    {% endif %}
+
+    {% if value is not empty %}
+        <strong>{{ field.shortTitle|default(field.title)|raw }}</strong>: {{ value }}<br>
+    {% endif %}
+{% endfor %}

@@ -27,6 +27,7 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('from')->end()
                     ->scalarNode('to')->end()
                     ->arrayNode('templates')
+                        ->addDefaultsIfNotSet()
                         ->children()
                             ->scalarNode('notify')
                                 ->defaultValue('SuluFormBundle:mail:notify.html.twig')

@@ -32,7 +32,7 @@ framework:
     esi: { enabled: true } # use to reload csrf token
 
 sulu_form:
-    mail_helper:
+    mail:
         from: %parameter_recommended_for_from%
         to: %parameter_recommended_for_to%
 ```
