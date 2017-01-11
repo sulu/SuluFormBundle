@@ -82,12 +82,12 @@ class FormManager
     {
         $form = new Form();
 
-        // find exist or create new entity
+        // Find exist or create new entity
         if ($id) {
             $form = $this->findById($id, $locale);
         }
 
-        // Translation
+        // Translation.
         $translation = $form->getTranslation($locale, true);
         $translation->setTitle(self::getValue($data, 'title'));
         $translation->setSubject(self::getValue($data, 'subject'));
@@ -102,27 +102,30 @@ class FormManager
         $translation->setDeactivateCustomerMails(self::getValue($data, 'deactivateCustomerMails'));
         $translation->setChanged(new \DateTime());
 
-        // Add Translation to Form
+        // Add Translation to Form.
         if (!$translation->getId()) {
             $translation->setForm($form);
             $form->addTranslation($translation);
         }
 
-        // Set Default Locale
+        // Set Default Locale.
         if (!$form->getId()) {
             $form->setDefaultLocale($locale);
         }
 
+        // Fields.
         $this->updateFields($data, $form, $locale);
+
+        // Receivers.
         $this->updateReceivers($data, $translation);
 
-        // Save
+        // Save.
         $this->entityManager->persist($form);
         $this->entityManager->flush();
 
         if (!$id) {
-            // to avoid lazy load of sub entities in the serializer reload whole object with sub entities from db
-            // remove this when you don`t join anything in `findById`
+            // To avoid lazy load of sub entities in the serializer reload whole object with sub entities from db
+            // remove this when you don`t join anything in `findById`.
             $form = $this->findById($form->getId(), $locale);
         }
 
