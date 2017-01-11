@@ -21,11 +21,6 @@ class DynFormSavedEvent extends Event
     protected $dynamic;
 
     /**
-     * @var DynamicFormType
-     */
-    protected $formType;
-
-    /**
      * DynFormSavedEvent constructor.
      *
      * @param array $data
