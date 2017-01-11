@@ -5,7 +5,6 @@ namespace Sulu\Bundle\FormBundle\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
-use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Mail\HelperInterface;
 use Sulu\Bundle\FormBundle\Manager\FormManager;
