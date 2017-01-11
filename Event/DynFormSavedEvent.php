@@ -3,7 +3,6 @@
 namespace Sulu\Bundle\FormBundle\Event;
 
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
-use Sulu\Bundle\FormBundle\Form\Type\DynamicFormType;
 use Symfony\Component\EventDispatcher\Event;
 
 class DynFormSavedEvent extends Event
