@@ -64,21 +64,23 @@
                                  id="{{ blockId }}"
                                  data-form="true"
                                  data-type="block"
-                                 data-type-config='[
+                                 data-type-config='
+                                    [
                                         {% for alias, type in types %}
                                             {
                                                 "data": "{{ alias }}",
                                                 "title": "<%= translate('{{ type.configuration.title }}') %>",
-                            "tpl": "{{ alias }}-{{ blockId }}-tpl"
-                            }{% if not loop.last %},{% endif %}
-                            {% endfor %}
-                            ]'
-                            data-type-min="0"
-                            data-type-max="999"
-                            data-type-default="{{ types|keys|first }}"
-                            data-mapper-property="{{ blockId }}"
-                            data-mapper-full-class="full"
-                            data-mapper-empty-class="empty">
+                                                "tpl": "{{ alias }}-{{ blockId }}-tpl"
+                                            }
+                                            {% if not loop.last %},{% endif %}
+                                        {% endfor %}
+                                    ]'
+                                 data-type-min="0"
+                                 data-type-max="999"
+                                 data-type-default="{{ types|keys|first }}"
+                                 data-mapper-property="{{ blockId }}"
+                                 data-mapper-full-class="full"
+                                 data-mapper-empty-class="empty">
 
                             {% for alias, type in types %}
                                 {% include type.configuration.template with {

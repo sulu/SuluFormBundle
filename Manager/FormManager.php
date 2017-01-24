@@ -180,6 +180,8 @@ class FormManager
     }
 
     /**
+     * Updates the contained fields in the form.
+     *
      * @param array $data
      * @param Form $form
      * @param string $locale
