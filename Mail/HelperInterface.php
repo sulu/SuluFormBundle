@@ -32,4 +32,11 @@ interface HelperInterface
         $ccMail = [],
         $bccMail = []
     );
+
+    /**
+     * Returns an array for holding receivers divided by types.
+     *
+     * @return array
+     */
+    public function getReceiverTypes();
 }

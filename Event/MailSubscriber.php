@@ -11,6 +11,9 @@ use Sulu\Bundle\MediaBundle\Media\Storage\StorageInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Templating\EngineInterface;
 
+/**
+ * MailSubscriber listens on event which is thrown on saving a form entry.
+ */
 class MailSubscriber implements EventSubscriberInterface
 {
     /**
@@ -72,7 +75,7 @@ class MailSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            DynFormSavedEvent::NAME => 'handleMailDelivery',
+            DynFormSavedEvent::NAME => 'sendMails',
         ];
     }
 
@@ -81,7 +84,7 @@ class MailSubscriber implements EventSubscriberInterface
      *
      * @param DynFormSavedEvent $event
      */
-    public function handleMailDelivery(DynFormSavedEvent $event)
+    public function sendMails(DynFormSavedEvent $event)
     {
         $dynamic = $event->getDynamic();
         $form = $dynamic->form;
@@ -99,12 +102,21 @@ class MailSubscriber implements EventSubscriberInterface
             );
         }
 
+        $this->sendNotifyMail($dynamic, $form, $formEntity, $translation);
+    }
+
+    /**
+     * Sends the notification mails.
+     *
+     * @param Dynamic $dynamic
+     * @param Form $form
+     * @param array $formEntity
+     * @param FormTranslation $translation
+     */
+    protected function sendNotifyMail(Dynamic $dynamic, Form $form, $formEntity, FormTranslation $translation)
+    {
         if (!$translation->getDeactivateNotifyMails()) {
-            $allReceivers = [
-                MailHelperInterface::MAIL_RECEIVER_TO => [],
-                MailHelperInterface::MAIL_RECEIVER_CC => [],
-                MailHelperInterface::MAIL_RECEIVER_BCC => [],
-            ];
+            $allReceivers = $this->mailHelper->getReceiverTypes();
 
             // Add main receiver of form.
             $mainReceiver = $this->getNotifyToMailAddress($translation);

@@ -127,9 +127,11 @@ For customizing the notification mail and the customer confirmation mail, adding
 sulu_form:
     mail:
         templates:
-            notify: 'YourBundleName:your-notification-mail-template.html.twig'
-            customer: 'YourBundleName:your-customer-mail-template.html.twig'
+            notify: 'AppBundle:mails:dynamic-notify.html.twig'
+            customer: 'AppBundle:mails:dynamic-customer.html.twig'
 ```
+
+Examples for the notification and costumer mail you can find [here](https://github.com/sulu/SuluFormBundle/tree/master/Resources/views/mails/).
 
 ## List Tab - Export
 

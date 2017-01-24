@@ -113,13 +113,10 @@ class FormManager
             $form->setDefaultLocale($locale);
         }
 
-        // Fields.
         $this->updateFields($data, $form, $locale);
 
-        // Receivers.
         $this->updateReceivers($data, $translation);
 
-        // Save.
         $this->entityManager->persist($form);
         $this->entityManager->flush();
 
