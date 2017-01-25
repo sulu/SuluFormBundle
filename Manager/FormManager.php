@@ -82,12 +82,12 @@ class FormManager
     {
         $form = new Form();
 
-        // Find exist or create new entity
+        // Find exist or create new entity.
         if ($id) {
             $form = $this->findById($id, $locale);
         }
 
-        // Translation.
+        // Translation
         $translation = $form->getTranslation($locale, true);
         $translation->setTitle(self::getValue($data, 'title'));
         $translation->setSubject(self::getValue($data, 'subject'));
