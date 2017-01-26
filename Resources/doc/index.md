@@ -33,8 +33,8 @@ framework:
 
 sulu_form:
     mail:
-        from: %parameter_recommended_for_from%
-        to: %parameter_recommended_for_to%
+        from: %sulu_admin.email%
+        to: %sulu_admin.email%
 ```
 
 ## Create Database
