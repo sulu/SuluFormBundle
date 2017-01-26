@@ -144,7 +144,6 @@ class FormManager
             $fieldTranslation->setDefaultValue(self::getValue($fieldData, 'defaultValue'));
             $fieldTranslation->setShortTitle(self::getValue($fieldData, 'shortTitle'));
 
-
             // Field Options
             $prefix = 'options[';
 
