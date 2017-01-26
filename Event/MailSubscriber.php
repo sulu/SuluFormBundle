@@ -126,7 +126,9 @@ class MailSubscriber implements EventSubscriberInterface
 
             // Add additional receivers.
             foreach ($translation->getReceivers() as $receiver) {
-                $allReceivers[$receiver->getType()][$receiver->getEmail()] = $receiver->getName();
+                if (!empty($receiver->getEmail())) {
+                    $allReceivers[$receiver->getType()][$receiver->getEmail()] = $receiver->getName();
+                }
             }
 
             $attachedMediaIds = $this->getAttachedMediaIds($form, $dynamic);
