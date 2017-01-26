@@ -2,6 +2,7 @@
 
 ## dev-develop
  - FEATURE     #20    Added additional receivers for sending notification as CC or BCC
+ - ENHANCEMENT #23    Fixed composer json links and description
  - BUGFIX      #16    Fixed setting of entity value in dynamic which represents an array
  - ENHANCEMENT #13    Added dynamic type pool service for enabling custom form field types
  - ENHANCEMENT #10    Update sulu from `alexander-schranz/sulu-form-bundle` from commit `c16a04b15fe320c039064de05ddaef9d087dbc6f`

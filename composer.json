@@ -1,6 +1,6 @@
 {
     "name": "sulu/sulu-form-bundle",
-    "description": "Bundle for handling Symfony forms in Sulu templates.",
+    "description": "Bundle for creating forms in Sulu.",
     "type": "sulu-bundle",
     "require": {
         "php": "^5.5 || ^7.0",
@@ -15,15 +15,11 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Alexander Schranz",
-            "homepage": "https://alexanderschranz.com"
-        },
-        {
-            "name": "Sulu Community",
-            "homepage": "https://github.com/sulu/SuluCommunityBundle/contributors"
+            "name": "Sulu Form Community",
+            "homepage": "https://github.com/sulu/SuluFormBundle/contributors"
         }
     ],
-    "homepage": "https://github.com/alexander-schranz/sulu-form-bundle",
+    "homepage": "https://github.com/sulu/SuluFormBundle",
     "autoload": {
         "psr-4": {
             "Sulu\\Bundle\\FormBundle\\": ""
