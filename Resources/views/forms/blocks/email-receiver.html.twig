@@ -24,8 +24,7 @@
                 </div>
 
                 <div class="grid-col-5 m-top-0 floating form-group">
-                    <label for="receivers-email<~=index~>" class="pointer "
-                           title="">
+                    <label for="receivers-email<~=index~>" class="pointer required">
                         <%= translate('public.email') %>
                     </label>
 
@@ -37,7 +36,8 @@
                          data-aura-input-id="receivers-email<~=index~>"
                          data-type="husky-input"
                          data-form="true"
-                         class="preview-update trigger-save-button"
+                         class="form-element"
+                         data-validation-required="true"
                     ></div>
 
                     <div class="block-content" data-sort-mode-id="receivers-email<~=index~>"></div>
@@ -54,7 +54,7 @@
 
                     <input id="receivers-name<~=index~>"
                            type="text"
-                           class="form-element preview-update trigger-save-button"
+                           class="form-element"
                            data-mapper-property="name"
                     />
 
