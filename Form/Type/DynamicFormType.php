@@ -133,6 +133,8 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getCustomerSubject($formData = [])
     {
@@ -141,6 +143,8 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getNotifySubject($formData = [])
     {
@@ -149,6 +153,8 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getCustomerFromMailAddress($formData = [])
     {
@@ -164,6 +170,8 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getNotifyFromMailAddress($formData = [])
     {
@@ -179,6 +187,8 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getNotifyToMailAddress($formData = [])
     {
@@ -194,6 +204,8 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getCustomerMail($formData = [])
     {
@@ -202,6 +214,8 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getNotifyMail($formData = [])
     {
@@ -210,6 +224,8 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getNotifySendAttachments($formData = [])
     {
@@ -220,24 +236,32 @@ class DynamicFormType extends AbstractType
      * @param $formData
      *
      * @return bool
+     *
+     * @deprecated
      */
     public function getNotifyDeactivateMails($formData = [])
     {
-        return $this->getTranslation()->getDeactivateNotifyMails();
+        // Deactivated because of using MailSubscriber service.
+        return true;
     }
 
     /**
      * @param $formData
      *
      * @return bool
+     *
+     * @deprecated
      */
     public function getCustomerDeactivateMails($formData = [])
     {
-        return $this->getTranslation()->getDeactivateCustomerMails();
+        // Deactivated because of using MailSubscriber service.
+        return true;
     }
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getMailText($formData = [])
     {

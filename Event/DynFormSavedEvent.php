@@ -23,7 +23,7 @@ class DynFormSavedEvent extends Event
      * DynFormSavedEvent constructor.
      *
      * @param array $data
-     * @param Dynamic $dynamic will be required in the future
+     * @param Dynamic $dynamic
      */
     public function __construct($data, $dynamic = null)
     {
@@ -44,7 +44,7 @@ class DynFormSavedEvent extends Event
     }
 
     /**
-     * Get data.
+     * Returns data.
      *
      * @return array
      */
@@ -54,7 +54,7 @@ class DynFormSavedEvent extends Event
     }
 
     /**
-     * Get dynamic.
+     * Returns dynamic.
      *
      * @return Dynamic|null
      */

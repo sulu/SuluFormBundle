@@ -119,34 +119,19 @@ Please check to following issue before using it in production:
 To create a dynamic form (which is selectable in the property type `form_select`) simply
 click on the magic icon in the Sulu backend navigation and create a new form.
 
-## Emails
+## Custom emails
 
-Create the emails template in the a folder <templateKey-mail>.
+For customizing the notification mail and the customer confirmation mail, adding the following lines to the configuration:
 
-form-notify.html.twig
-
-```twig
-{% for field in formEntity.fields|default([]) %}
-    {% set value = field.value %}
-
-    {# get formatted value #}
-    {% if value is iterable %}
-        {% set value = value|json_encode %}
-    {% elseif value.timestamp is defined %}
-        {% set value = value|date('d.m.Y') %}
-    {% endif %}
-
-    {% if value is not empty %}
-        <strong>{{ field.shortTitle|default(field.title)|raw }}</strong>: {{ value }}<br>
-    {% endif %}
-{% endfor %}
+```
+sulu_form:
+    mail:
+        templates:
+            notify: 'AppBundle:mails:dynamic-notify.html.twig'
+            customer: 'AppBundle:mails:dynamic-customer.html.twig'
 ```
 
-form-notify.html.twig
-
-```twig
-{{ formEntity.mailText|default('')|raw }}
-```
+Examples for the notification and costumer mail you can find [here](https://github.com/sulu/SuluFormBundle/tree/master/Resources/views/mails/).
 
 ## List Tab - Export
 

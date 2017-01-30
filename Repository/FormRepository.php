@@ -17,7 +17,8 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
         $queryBuilder = $this->createQueryBuilder('form')
             ->leftJoin('form.translations', 'translation')->addSelect('translation')
             ->leftJoin('form.fields', 'field')->addSelect('field')
-            ->leftJoin('field.translations', 'fieldTranslation')->addSelect('fieldTranslation');
+            ->leftJoin('field.translations', 'fieldTranslation')->addSelect('fieldTranslation')
+            ->leftJoin('translation.receivers', 'receiver')->addSelect('receiver');
 
         $queryBuilder->where($queryBuilder->expr()->eq('form.id', ':id'));
         $queryBuilder->setParameter('id', $id);

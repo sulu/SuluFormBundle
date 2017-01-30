@@ -1,7 +1,7 @@
 # Changelog
 
 ## dev-develop
- 
+ - FEATURE     #20    Added additional receivers for sending notification as CC or BCC
  - ENHANCEMENT #23    Fixed composer json links and description
  - BUGFIX      #16    Fixed setting of entity value in dynamic which represents an array
  - ENHANCEMENT #13    Added dynamic type pool service for enabling custom form field types

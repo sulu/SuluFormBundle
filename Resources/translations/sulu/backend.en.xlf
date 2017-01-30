@@ -292,6 +292,24 @@
                 <source>sulu_form.attachment_max</source>
                 <target>Maximale amount</target>
             </trans-unit>
+
+            <!-- Receivers -->
+            <trans-unit id="90">
+                <source>sulu_form.receivers</source>
+                <target>Receivers</target>
+            </trans-unit>
+            <trans-unit id="91">
+                <source>sulu_form.receiver.to</source>
+                <target>To</target>
+            </trans-unit>
+            <trans-unit id="92">
+                <source>sulu_form.receiver.cc</source>
+                <target>CC</target>
+            </trans-unit>
+            <trans-unit id="93">
+                <source>sulu_form.receiver.bcc</source>
+                <target>BCC</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
