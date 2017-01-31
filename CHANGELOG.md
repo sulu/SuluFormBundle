@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - BUGFIX      #135   Fixed missing translation and documentation
  - ENHANCEMENT #134   Added missing documentation
  - BUGFIX      #133   Fixed success email not sent to email in data json
  - BUGFIX      #132   Fixed missing uniqueness in form fields table
@@ -12,7 +13,7 @@
  - FEATURE     #118   Added media collection strategy tree
  - FEATURE     #124   Added support to add dynamic list to article bundle
  - BUGFIX      #123   Fixed csv export for bool values
- - ENHANCEMENT #122   Fixed sort on dynamic list and removed search 
+ - ENHANCEMENT #122   Fixed sort on dynamic list and removed search
  - FEATURE     #121   Added dynamic form list and export
  - BUGFIX      #120   Fixed permission problem on false locale
  - BUGFIX      #117   Fixed limitation of content type select
@@ -27,10 +28,10 @@
  - FEATURE     #100   Added page based list output
  - BUGFIX      #99    Fixed csrf token esi for varnish
  - BUGFIX      #97    Fixed edit symbol on list
- - BUGFIX      #96    Fix inversedBy value at FormField#form property 
+ - BUGFIX      #96    Fix inversedBy value at FormField#form property
  - FEATURE     #92    Clean up the backend view
  - FEATURE     #92    Added last flag for grid and update documentation
- - BUGFIX      #85    Fixed MailChimp-Key parameter in FormController 
+ - BUGFIX      #85    Fixed MailChimp-Key parameter in FormController
 
 ## 1.0.0-RC4
 
@@ -43,9 +44,9 @@
  - BUGFIX      #76    Fixed csrf token generation in esi
  - BUGFIX      #75    Fixed csrf token generation for dynamic form
  - FEATURE     #73    Added type sort after translation function
- 
+
 ## 1.0.0-RC2
- 
+
  - BUGFIX      #70    Fixed token esi response header
  - BUGFIX      #71    Fixed customer emails for dynamic forms
  - FEATURE     #68    Added checkboxes to deactivate notify and success emails

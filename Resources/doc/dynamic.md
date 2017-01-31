@@ -20,9 +20,9 @@ one of the dynamic templates which can be created in the Sulu backend.
 
 For the dynamic form type you can use the default sulu controller in your template or a custom one.
 
-``` xml
+```xml
 <controller>SuluWebsiteBundle:Default:index</controller>
-``
+```
 
 ## Output Form and customize
 
@@ -49,8 +49,6 @@ https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources
 </body>
 </html>
 ```
-
-Attention: If used with a template.xml the form variable is accessed with content.form.
 
 ## Theme
 
@@ -181,8 +179,7 @@ The following things you should check when implement the dynamic form type on yo
 
  - Test CSRF Token on production in 2 different browser sessions
  - Test media upload
- - Test the notifiy email 
+ - Test the notifiy email
  - Test the customer email
  - Test backend field errors
  - Test backend general errors ( e.g. remove CSRF token value )
-

@@ -64,6 +64,12 @@ app/console doctrine:schema:update --force
 app/console assets:install --symlink --relative
 ```
 
+## Generate translations
+
+```bash
+app/console sulu:translate:export
+```
+
 ## Routing
 
 Add the following lines to `app/config/admin/routing.yml`
@@ -93,5 +99,3 @@ Make sure you've set the correct permissions in the Sulu backend for this bundle
 ## Varnish
 
 Using varnish have a look at the [CSRF](Resoucres/doc/csrf.md "CSRF Token") documentation.
-
-

@@ -227,6 +227,10 @@
                 <source>l91_sulu_form.birthday</source>
                 <target>Birthday</target>
             </trans-unit>
+            <trans-unit id="68">
+                <source>l91_sulu_form.forms.save.error</source>
+                <target>Formular was not saved</target>
+            </trans-unit>
 
             <!-- Width -->
             <trans-unit id="70">
