@@ -16,6 +16,14 @@ one of the dynamic templates which can be created in the Sulu backend.
 </property>
 ```
 
+## Controller
+
+For the dynamic form type you can use the default sulu controller in your template or a custom one.
+
+``` xml
+<controller>SuluWebsiteBundle:Default:index</controller>
+``
+
 ## Output Form and customize
 
 Create the view template which visualises the form or the success message if the form
@@ -164,3 +172,15 @@ To create for every form and page an own collection you need to configure the fo
 l91_sulu_form:
     media_collection_strategy: "tree"
 ```
+
+## Test Checklist
+
+The following things you should check when implement the dynamic form type on your website.
+
+ - Test CSRF Token on production in 2 different browser sessions
+ - Test media upload
+ - Test the notifiy email 
+ - Test the customer email
+ - Test backend field errors
+ - Test backend general errors ( e.g. remove CSRF token value )
+

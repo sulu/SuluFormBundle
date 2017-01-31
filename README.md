@@ -41,12 +41,13 @@ Add the following config to `app/config/config.yml`
 
 ```yml
 framework:
-    esi: { enabled: true } # use to reload csrf token
+    esi: ~  # use to reload csrf token
+    fragments: ~
 
 l91_sulu_form:
     mail_helper:
-        from: %parameter_recommended_for_from%
-        to: %parameter_recommended_for_to%
+        from: %sulu_admin.email%
+        to: %sulu_admin.email%
 ```
 
 ## Create Database
@@ -57,11 +58,17 @@ Execute following command to update your database
 app/console doctrine:schema:update --force
 ```
 
+## Install assets
+
+```bash
+app/console assets:install --symlink --relative
+```
+
 ## Routing
 
 Add the following lines to `app/config/admin/routing.yml`
 
-``` xml
+```yml
 l91_sulu_form_api:
     type: rest
     resource: "@L91SuluFormBundle/Resources/config/routing_api.yml"
@@ -82,3 +89,9 @@ Make sure you've set the correct permissions in the Sulu backend for this bundle
 - [Mailchimp](Resources/doc/mailchimp.md "Mailchimp Form Field")
 - [Recaptcha](Resources/doc/recaptcha.md "Recaptcha Form Field")
 - [Dropzone](Resources/doc/dropzone.md "Dropzone Form Field")
+
+## Varnish
+
+Using varnish have a look at the [CSRF](Resoucres/doc/csrf.md "CSRF Token") documentation.
+
+
