@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - BUGFIX      #133   Fixed success email not sent to email in data json
  - BUGFIX      #132   Fixed missing uniqueness in form fields table
  - BUGFIX      #131   Fixed permission denied on fields action
  - FEATURE     #130   Added toggler to set email as replyTo

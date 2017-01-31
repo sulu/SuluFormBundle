@@ -342,8 +342,10 @@ class DynamicFormType extends AbstractType
     public function getNotifyReplyToMailAddress($formData = [])
     {
         if ($this->getTranslation()->getReplyTo()) {
-            if ($formData->__isset('email')) {
-                return $formData->__get('email');
+            $email = $this->getCustomerToMailAddress($formData);
+
+            if (!$email) {
+                return $email;
             }
         }
 
@@ -356,6 +358,25 @@ class DynamicFormType extends AbstractType
     public function getCustomerMail($formData = [])
     {
         return $this->structureView . '-mail/' . $this->name . '-success.html.twig';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCustomerToMailAddress($formData = [])
+    {
+        $email = null;
+
+        if ($formData instanceof Dynamic) {
+            $emails = $formData->getFieldsByType('email');
+            $email = reset($emails);
+        }
+
+        if (!$email) {
+            $email = parent::getCustomerToMailAddress($formData);
+        }
+
+        return $email;
     }
 
     /**

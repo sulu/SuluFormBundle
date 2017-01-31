@@ -175,6 +175,24 @@ class Form
     }
 
     /**
+     * Get fields by type.
+     *
+     * @return \Doctrine\Common\Collections\Collection|FormField[]
+     */
+    public function getFieldsByType($type)
+    {
+        $fields = [];
+
+        foreach ($this->fields as $field) {
+            if ($field->getType() === $type) {
+                $fields[] = $field;
+            }
+        }
+
+        return $fields;
+    }
+
+    /**
      * Get field by key.
      *
      * @param string $key

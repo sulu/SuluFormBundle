@@ -406,6 +406,28 @@ class Dynamic implements TimestampableInterface
     }
 
     /**
+     * Get fields by type.
+     *
+     * @param string $type
+     *
+     * @return array
+     */
+    public function getFieldsByType($type)
+    {
+        $entry = [];
+
+        if (!$this->form) {
+            return [];
+        }
+
+        foreach ($this->form->getFieldsByType($type) as $field) {
+            $entry[$field->getKey()] = $this->getField($field->getKey());
+        }
+
+        return $entry;
+    }
+
+    /**
      * Get type.
      *
      * @param string $key
