@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - BUGFIX      #131   Fixed permission denied on fields action
  - FEATURE     #130   Added toggler to set email as replyTo
  - BUGFIX      #111   Fixed exception controller redirect
  - BUGFIX      #125   Fixed form select by using native select
