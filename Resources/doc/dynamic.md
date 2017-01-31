@@ -1,6 +1,6 @@
 # Dynamic Form
 
-This part describes step by step how to create a static form with this bundle.
+This part describes step by step how to create a dynamic form with this bundle.
 
 ## Basic Sulu Template
 
@@ -49,6 +49,8 @@ https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources
 </body>
 </html>
 ```
+
+Attention: If used with a template.xml the form variable is accessed with content.form.
 
 ## Theme
 
