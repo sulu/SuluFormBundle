@@ -1,8 +1,10 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
     <entity name="Sulu\Bundle\FormBundle\Entity\Dynamic"
-            table="fo_dynamics">
+            table="fo_dynamics"
+            repository-class="Sulu\Bundle\FormBundle\Repository\DynamicRepository">
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
@@ -27,7 +29,7 @@
         <field name="company" column="company" type="text" nullable="true"/>
         <field name="text" column="text" type="string" nullable="true"/>
         <field name="textarea" column="textarea" type="text" nullable="true"/>
-        <field name="date" column="date" type="date" nullable="true"/>
+        <field name="date" column="date" type="string" nullable="true"/>
         <field name="attachment" column="attachment" type="string" nullable="true"/>
         <field name="checkbox" column="checkbox" type="string" nullable="true"/>
         <field name="checkboxMultiple" column="checkboxMultiple" type="text" nullable="true"/>

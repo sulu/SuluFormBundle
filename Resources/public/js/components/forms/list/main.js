@@ -78,7 +78,9 @@ define(['suluform/collections/forms'], function (Collection) {
             );
 
             // init list-toolbar and datagrid
-            this.sandbox.sulu.initListToolbarAndList.call(this, constants.toolbarKey, constants.fieldsAction,
+            this.sandbox.sulu.initListToolbarAndList.call(
+                this, constants.toolbarKey,
+                constants.fieldsAction + '?locale=' + this.options.language,
                 {
                     // options for the header (list-toolbar)
                     el: this.$find('#' + constants.toolbarId),

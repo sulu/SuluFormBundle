@@ -87,16 +87,18 @@ class MailSubscriber implements EventSubscriberInterface
     public function sendMails(DynFormSavedEvent $event)
     {
         $dynamic = $event->getDynamic();
-        $form = $dynamic->form;
-        $formEntity = $form->serializeForLocale($dynamic->locale, $dynamic);
-        $translation = $form->getTranslation($dynamic->locale);
+        $form = $dynamic->getForm();
+        $formEntity = $form->serializeForLocale($dynamic->getLocale(), $dynamic);
+        $translation = $form->getTranslation($dynamic->getLocale());
 
-        if (!$translation->getDeactivateCustomerMails() && !empty($dynamic->email)) {
+        $email = $this->getToEmail($dynamic);
+
+        if (!$translation->getDeactivateCustomerMails() && !empty($email)) {
             $customerMail = $this->templating->render($this->customerTemplate, ['formEntity' => $formEntity]);
             $this->mailHelper->sendMail(
                 $translation->getSubject(),
                 $customerMail,
-                $dynamic->email,
+                $email,
                 $this->getFromAddress($translation),
                 true
             );
@@ -131,17 +133,22 @@ class MailSubscriber implements EventSubscriberInterface
                 }
             }
 
-            $attachedMediaIds = $this->getAttachedMediaIds($form, $dynamic);
-            $attachments = $this->loadAttachments($attachedMediaIds, $dynamic->locale);
+            $attachments = [];
+
+            if ($translation->getSendAttachments()) {
+                $attachedMediaIds = $this->getAttachedMediaIds($form, $dynamic);
+                $attachments = $this->loadAttachments($attachedMediaIds, $dynamic->getLocale());
+            }
 
             $notifyMail = $this->templating->render($this->notifyTemplate, ['formEntity' => $formEntity]);
+
             $this->mailHelper->sendMail(
                 $translation->getSubject(),
                 $notifyMail,
                 $allReceivers[MailHelperInterface::MAIL_RECEIVER_TO],
                 $this->getFromAddress($translation),
                 true,
-                null,
+                $translation->getReplyTo() ? $this->getToEmail($dynamic) : null,
                 $attachments,
                 $allReceivers[MailHelperInterface::MAIL_RECEIVER_CC],
                 $allReceivers[MailHelperInterface::MAIL_RECEIVER_BCC]
@@ -199,9 +206,11 @@ class MailSubscriber implements EventSubscriberInterface
     {
         $mediaIds = [];
 
-        foreach ($formEntity->getFields() as $field) {
-            if ($field->getType() === Dynamic::TYPE_ATTACHMENT) {
-                $mediaIds = array_merge($mediaIds, $dynamic->getField($field->getKey()));
+        foreach ($formEntity->getFieldsByType(Dynamic::TYPE_ATTACHMENT) as $field) {
+            $ids = $dynamic->getField($field->getKey());
+
+            if (is_array($ids)) {
+                $mediaIds = array_merge($mediaIds, $ids);
             }
         }
 
@@ -221,11 +230,24 @@ class MailSubscriber implements EventSubscriberInterface
         $attachments = [];
 
         $medias = $this->mediaManager->getByIds($attachedMediaIds, $locale);
+
         foreach ($medias as $media) {
             $path = $this->storageManager->load($media->getName(), $media->getVersion(), $media->getStorageOptions());
             $attachments[] = new \SplFileInfo($path);
         }
 
         return $attachments;
+    }
+
+    /**
+     * Get to email address from dynamic.
+     *
+     * @return string[]
+     */
+    private function getToEmail(Dynamic $dynamic)
+    {
+        $emails = $dynamic->getFieldsByType('email');
+
+        return reset($emails);
     }
 }

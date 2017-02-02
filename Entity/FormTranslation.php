@@ -63,6 +63,11 @@ class FormTranslation implements AuditableInterface
     private $deactivateCustomerMails;
 
     /**
+     * @var bool
+     */
+    private $replyTo;
+
+    /**
      * @var string
      */
     private $locale;
@@ -328,6 +333,30 @@ class FormTranslation implements AuditableInterface
     public function getDeactivateCustomerMails()
     {
         return $this->deactivateCustomerMails;
+    }
+
+    /**
+     * Set replyTo.
+     *
+     * @param bool $replyTo
+     *
+     * @return FormTranslation
+     */
+    public function setReplyTo($replyTo)
+    {
+        $this->replyTo = $replyTo;
+
+        return $this;
+    }
+
+    /**
+     * Get replyTo.
+     *
+     * @return bool
+     */
+    public function getReplyTo()
+    {
+        return $this->replyTo;
     }
 
     /**

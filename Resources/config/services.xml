@@ -6,10 +6,11 @@
 
     <!-- Define here your own services: -->
     <services>
+        <!-- Form Handler -->
         <service id="sulu_form.handler" class="Sulu\Bundle\FormBundle\Form\Handler">
             <argument type="service" id="form.factory" />
             <argument type="service" id="form.extension" />
-            <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="security.csrf.token_manager" />
             <argument type="service" id="sulu.mail.helper" />
             <argument type="service" id="templating" />
@@ -18,6 +19,7 @@
             <argument type="service" id="logger" />
         </service>
 
+        <!-- Mail -->
         <service id="sulu.mail.helper" class="Sulu\Bundle\FormBundle\Mail\Helper">
             <argument type="service" id="mailer" />
             <argument>%sulu_form.mail.from%</argument>
@@ -29,59 +31,6 @@
             <argument type="service" id="logger" />
         </service>
 
-        <service id="sulu.navigation_provider.template"
-                 class="Sulu\Bundle\FormBundle\Admin\TemplateNavigationProvider">
-            <argument type="service" id="sulu.list.provider.registry" />
-
-            <tag name="sulu_admin.content_navigation" alias="content"/>
-        </service>
-
-        <service id="sulu.list.provider.registry"
-                 class="Sulu\Bundle\FormBundle\Provider\ListProviderRegistry" />
-
-        <!-- Dyn Form -->
-        <service id="sulu_form.repository.form" class="Sulu\Bundle\FormBundle\Repository\FormRepository">
-            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
-            <argument>SuluFormBundle:Form</argument>
-        </service>
-
-        <service id="sulu_form.navigation_provider.form"
-                 class="Sulu\Bundle\FormBundle\Admin\FormNavigationProvider">
-            <tag name="sulu_admin.content_navigation" alias="sulu_form_form" />
-            <tag name="sulu.context" context="admin" />
-        </service>
-
-        <service id="sulu_form.admin"
-                 class="Sulu\Bundle\FormBundle\Admin\FormAdmin">
-            <tag name="sulu.admin"/>
-            <tag name="sulu.context" context="admin"/>
-            <argument type="service" id="sulu_security.security_checker"/>
-            <argument>%sulu_admin.name%</argument>
-        </service>
-
-        <service id="sulu_form.manager.form"
-                 class="Sulu\Bundle\FormBundle\Manager\FormManager">
-            <argument id="doctrine.orm.default_entity_manager" type="service" />
-            <argument id="sulu_form.repository.form" type="service" />
-        </service>
-
-        <service id="sulu_form.content_type.form_select" class="Sulu\Bundle\FormBundle\Content\Types\FormSelect">
-            <argument>SuluFormBundle:Template:content-types/form_select_simple.html.twig</argument>
-            <argument id="sulu_form.repository.form" type="service" />
-            <argument id="request_stack" type="service" />
-            <argument id="form.factory" type="service" />
-            <argument id="sulu_form.handler" type="service" />
-            <argument type="service" id="sulu_media.system_collections.manager"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="sulu_form.dynamic.form_field_type_pool"/>
-
-            <tag name="sulu.content.type" alias="form_select"/>
-        </service>
-
-        <service id="sulu_form.dynamic.form_field_type_pool" class="Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool">
-            <argument type="collection"/>
-        </service>
-
         <service id="sulu_form.subscriber.mail_subscriber" class="Sulu\Bundle\FormBundle\Event\MailSubscriber">
             <argument type="service" id="sulu.mail.helper"/>
             <argument type="service" id="templating"/>
@@ -90,6 +39,104 @@
             <argument>%sulu_form.mail.template.notify%</argument>
             <argument>%sulu_form.mail.template.customer%</argument>
             <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <!-- Admin -->
+        <service id="sulu_form.admin"
+                 class="Sulu\Bundle\FormBundle\Admin\FormAdmin">
+            <tag name="sulu.admin"/>
+            <tag name="sulu.context" context="admin"/>
+            <argument type="service" id="sulu_security.security_checker"/>
+            <argument>%sulu_admin.name%</argument>
+        </service>
+
+        <service id="sulu_form.navigation_provider.form"
+                 class="Sulu\Bundle\FormBundle\Admin\FormNavigationProvider">
+            <tag name="sulu_admin.content_navigation" alias="sulu_form_form" />
+            <tag name="sulu.context" context="admin" />
+        </service>
+
+        <!-- List Provider Registry -->
+        <service id="sulu.list.provider.registry"
+                 class="Sulu\Bundle\FormBundle\Provider\ListProviderRegistry" />
+
+        <!-- Manager -->
+        <service id="sulu_form.manager.form"
+                 class="Sulu\Bundle\FormBundle\Manager\FormManager">
+            <argument id="doctrine.orm.entity_manager" type="service" />
+            <argument id="sulu_form.repository.form" type="service" />
+        </service>
+
+        <!-- Content Types -->
+        <service id="sulu_form.content_type.form_select"
+                 class="Sulu\Bundle\FormBundle\Content\Types\FormSelect">
+            <argument>SuluFormBundle:Template:content-types/form_select_simple.html.twig</argument>
+            <argument id="sulu_form.repository.form" type="service" />
+            <argument id="sulu_form.builder" type="service" />
+
+            <tag name="sulu.content.type" alias="form_select"/>
+        </service>
+
+        <!-- Form Builder -->
+        <service id="sulu_form.builder" class="Sulu\Bundle\FormBundle\Form\Builder">
+            <argument id="request_stack" type="service" />
+            <argument id="sulu_form.dynamic.form_field_type_pool" type="service" />
+            <argument id="sulu_form.repository.form" type="service" />
+            <argument id="sulu_form.media_collection_strategy.default" type="service" />
+            <argument type="service" id="form.factory" />
+            <argument>%sulu_form.dynamic_default_view%</argument>
+        </service>
+
+        <!-- Request Listener -->
+        <service id="sulu_form.request_listener" class="Sulu\Bundle\FormBundle\EventListener\RequestListener">
+            <argument type="service" id="sulu_form.builder" />
+            <argument type="service" id="sulu_form.handler" />
+            <argument type="service" id="event_dispatcher" />
+
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
+        </service>
+
+        <!-- List Builder -->
+        <service id="sulu_form.list_builder.dynamic_list_factory"
+                 class="Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory">
+            <argument>%sulu_form.dynamic_list_builder.default%</argument>
+        </service>
+
+        <service id="sulu_form.list_builder.dynamic_list_builder"
+                 class="Sulu\Bundle\FormBundle\ListBuilder\DynamicListBuilder">
+            <argument>%sulu_form.dynamic_list_builder.delimiter%</argument>
+            <argument type="service" id="router" />
+
+            <tag name="sulu_form.dynamic_list_builder" alias="simple" />
+        </service>
+
+        <!-- Repositories -->
+        <service id="sulu_form.repository.form" class="Sulu\Bundle\FormBundle\Repository\FormRepository">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>SuluFormBundle:Form</argument>
+        </service>
+
+        <!-- Dynamic -->
+        <service id="sulu_form.repository.dynamic" class="Sulu\Bundle\FormBundle\Repository\DynamicRepository">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>SuluFormBundle:Dynamic</argument>
+        </service>
+
+        <!-- Collection Strategy -->
+        <service id="sulu_form.media_collection_strategy.tree"
+                 class="Sulu\Bundle\FormBundle\Media\CollectionStrategyTree">
+            <argument type="service" id="sulu_media.collection_manager" />
+            <argument type="service" id="sulu_media.system_collections.manager" />
+        </service>
+
+        <service id="sulu_form.media_collection_strategy.single"
+                 class="Sulu\Bundle\FormBundle\Media\CollectionStrategySingle">
+            <argument type="service" id="sulu_media.system_collections.manager" />
+        </service>
+
+        <!-- Type Pool -->
+        <service id="sulu_form.dynamic.form_field_type_pool" class="Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool">
+            <argument type="collection"/>
         </service>
     </services>
 </container>

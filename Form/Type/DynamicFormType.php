@@ -207,9 +207,48 @@ class DynamicFormType extends AbstractType
      *
      * @deprecated
      */
+    public function getNotifyReplyToMailAddress($formData = [])
+    {
+        if ($this->getTranslation()->getReplyTo()) {
+            $email = $this->getCustomerToMailAddress($formData);
+
+            if (!$email) {
+                return $email;
+            }
+        }
+
+        return parent::getNotifyReplyToMailAddress($formData);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @deprecated
+     */
     public function getCustomerMail($formData = [])
     {
         return $this->structureView . '-mail/' . $this->name . '-success.html.twig';
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @deprecated
+     */
+    public function getCustomerToMailAddress($formData = [])
+    {
+        $email = null;
+
+        if ($formData instanceof Dynamic) {
+            $emails = $formData->getFieldsByType('email');
+            $email = reset($emails);
+        }
+
+        if (!$email) {
+            $email = parent::getCustomerToMailAddress($formData);
+        }
+
+        return $email;
     }
 
     /**
@@ -291,10 +330,8 @@ class DynamicFormType extends AbstractType
     {
         $fileFields = [];
 
-        foreach ($this->formEntity->getFields() as $field) {
-            if ($field->getType() === Dynamic::TYPE_ATTACHMENT) {
-                $fileFields[] = $field->getKey();
-            }
+        foreach ($this->formEntity->getFieldsByType(Dynamic::TYPE_ATTACHMENT) as $field) {
+            $fileFields[] = $field->getKey();
         }
 
         return $fileFields;
