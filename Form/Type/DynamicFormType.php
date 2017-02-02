@@ -154,6 +154,7 @@ class DynamicFormType extends AbstractType
                         $type = BirthdayType::class;
                     }
                     $options['format'] = \IntlDateFormatter::LONG;
+                    $options['input'] = 'string';
 
                     break;
                 case Dynamic::TYPE_ATTACHMENT:

@@ -2,6 +2,7 @@
 
 ## 1.0.0
 
+ - BUGFIX      #138   Fixed second date field type
  - BUGFIX      #135   Fixed missing translation and documentation
  - ENHANCEMENT #134   Added missing documentation
  - BUGFIX      #133   Fixed success email not sent to email in data json

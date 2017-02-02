@@ -371,10 +371,6 @@ class Dynamic implements TimestampableInterface
         $array = $this->getData();
 
         if (isset($array[$key])) {
-            if (strpos($key, 'date') === 0) {
-                return new \DateTime($array[$key]);
-            }
-
             return $array[$key];
         }
     }

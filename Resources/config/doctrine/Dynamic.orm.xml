@@ -28,7 +28,7 @@
         <field name="company" column="company" type="text" nullable="true"/>
         <field name="text" column="text" type="string" nullable="true"/>
         <field name="textarea" column="textarea" type="text" nullable="true"/>
-        <field name="date" column="date" type="date" nullable="true"/>
+        <field name="date" column="date" type="string" nullable="true"/>
         <field name="attachment" column="attachment" type="string" nullable="true"/>
         <field name="checkbox" column="checkbox" type="string" nullable="true"/>
         <field name="checkboxMultiple" column="checkboxMultiple" type="text" nullable="true"/>
