@@ -2,7 +2,7 @@
 
 ## 1. The Form Theme
 
-To use a dropzone in forms you need edit your form theme 
+To use a dropzone in forms you need edit your form theme
 
 ```twig
 {%- block form_start -%}
@@ -39,17 +39,17 @@ var component = function() {
     return {
         $el: $('#dynamic-form'),
         dropzones: [],
-        
+
         /**
          * @method initialize
          */
         initialize: function() {
             this.initializeDropzones();
             this.$el.submit(this.submit.bind(this));
-    
+
             return true;
         },
-    
+
         /**
          * @method submit
          */
@@ -58,30 +58,45 @@ var component = function() {
                 // default form submit
                 return true;
             }
-    
+
             // submit over dropzone
             event.preventDefault();
-            this.dropzones[0].processQueue();
-    
+
+            // do submit for first dropzone with files
+            this.submitViaDropzone().bind(this);
+
+            // avoid default behaviour
             return false;
         },
-    
+
+        /**
+         * @method submitDropzones
+         */
+        submitDropzones: function() {
+            for (var i = 0, length = this.dropzones.length; i < length; i++) {
+                if (this.dropzones[i].getQueuedFiles().length) {
+                    this.dropzones[i].processQueue();
+                    break;
+                }
+            }
+        },
+
         /**
          * @method initializeDropzone
          */
         initializeDropzones: function() {
             var dropzones = [];
-    
+
             Dropzone.autoDiscover = false;
-    
+
             // create dropzones
             this.$el.find('.upload-files').each(function(index, el) {
                 var $dropzone = $(el);
-    
+
                 // need to slice [] because its added by dropzone
                 var paramName = $dropzone.data('name');
                 paramName = paramName.substr(0, paramName.length - 2);
-                
+
                 // add new dropzone
                 dropzones.push(
                     this.createDropzone(
@@ -92,10 +107,10 @@ var component = function() {
                     )
                 );
             }.bind(this));
-    
+
             this.dropzones = dropzones;
         },
-    
+
         /**
          * @method destroyDropzones
          */
@@ -104,7 +119,7 @@ var component = function() {
                 this.dropzones[i].destroy();
             }
         },
-    
+
         /**
          * @method hasFiles
          */
@@ -113,7 +128,7 @@ var component = function() {
             if (!this.dropzones.length) {
                 return false;
             }
-    
+
             // has files in dropzone
             for (var i = 0, length = this.dropzones.length; i < length; i++) {
                 if (this.dropzones[i].getQueuedFiles().length) {
@@ -121,19 +136,19 @@ var component = function() {
                 }
             }
         },
-    
+
         /**
          * @method createDropzone
          */
         createDropzone: function(id, paramName, maxFiles, accept) {
             var self = this;
-    
+
             // get form action url
             var url = this.$el.attr('action');
             if (!url) {
                 url = window.location.href;
             }
-    
+
             // create new dropzone
             return new Dropzone('#' + id, {
                 paramName: paramName,
@@ -161,59 +176,62 @@ var component = function() {
                 }
             })
         },
-    
+
         /**
          * @method createDropzone
          */
         sendingDropzone: function(data, xhr, formData) {
             // disable all submit buttons in form
             this.$el.find('[type=submit]').prop('disabled', true);
-    
+
             // add fields to form data
             $.each(this.$el.serializeArray(), function(index, item) {
                 formData.append(item.name, item.value);
             });
-    
+
             // add other dropzone files
-            for (var i = 1, length = this.dropzones.length; i < length; i++) {
+            for (var i = 0, length = this.dropzones.length; i < length; i++) {
                 var files = this.dropzones[i].getQueuedFiles();
-    
-                for (var x = 0, fileLength = files.length; x < fileLength; x++) {
-                    formData.append(
-                        this.dropzones[i]._getParamName(x),
-                        files[x],
-                        files[x].name
-                    );
+
+                // Append files only if it's not the same dropzone.
+                if (files.length && files[0].name !== data[0].name) {
+                    for (var x = 0, fileLength = files.length; x < fileLength; x++) {
+                        formData.append(
+                            this.dropzones[i]._getParamName(x),
+                            files[x],
+                            files[x].name
+                        );
+                    }
                 }
             }
         },
-    
+
         /**
          * @method successDropzone
          */
         successDropzone: function(file, response) {
             var $newForm = $(response).find('#' + this.id);
-    
+
             // on success no form is displayed we can redirect to
             if (!$newForm.length) {
                 window.location.href = '?send=true';
-    
+
                 return;
             }
-    
+
             // on error destroy dropzones
             this.destroyDropzones();
-            
+
             // replace form with
             this.$el.html($newForm.html());
-            
+
             // reinitilize dropzones
             this.initializeDropzones();
-            
+
             // scroll to first error here
             // initialize other js libraries
         },
-    
+
         /**
          * @method errorDropzone
          */
@@ -225,4 +243,38 @@ var component = function() {
 }();
 
 component.initialize();
+```
+
+## jQuery Validation
+
+Replace the following line
+
+```js
+this.$el.submit(this.submit.bind(this));
+```
+
+with:
+
+```js
+this.$el.validate({
+    submitHandler: this.submit.bind(this);
+});
+```
+
+change the submit function to the following:
+
+```js
+/**
+ * @method submit
+ */
+submit: function(form) {
+    if (!this.hasFiles()) {
+        // submit form normally
+        form.submit();
+        return;
+    }
+
+    // do submit for first dropzone with files
+    this.submitViaDropzone().bind(this);
+},
 ```

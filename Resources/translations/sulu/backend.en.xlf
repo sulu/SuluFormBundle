@@ -35,6 +35,10 @@
                 <source>sulu_form.deactivate_customer</source>
                 <target>deactivate Successmails</target>
             </trans-unit>
+            <trans-unit id="9">
+                <source>sulu_form.user_as_reply_to</source>
+                <target>Autofill "reply-to" address</target>
+            </trans-unit>
 
             <!-- Types -->
             <trans-unit id="10">
@@ -151,6 +155,10 @@
             </trans-unit>
 
             <!-- Form -->
+            <trans-unit id="49">
+                <source>sulu_form.forms.save.error</source>
+                <target>Formular was not saved</target>
+            </trans-unit>
             <trans-unit id="50">
                 <source>sulu_form.title</source>
                 <target>Title</target>

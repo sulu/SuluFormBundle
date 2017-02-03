@@ -29,7 +29,8 @@ Add the following config to `app/config/config.yml`
 
 ```yml
 framework:
-    esi: { enabled: true } # use to reload csrf token
+    esi: ~  # use to reload csrf token
+    fragments: ~
 
 sulu_form:
     mail:
@@ -43,6 +44,18 @@ Execute following command to update your database
 
 ```bash
 app/console doctrine:schema:update --force
+```
+
+## Install assets
+
+```bash
+app/console assets:install --symlink --relative
+```
+
+## Generate translations
+
+```bash
+app/console sulu:translate:export
 ```
 
 ## Routing
@@ -69,3 +82,8 @@ Make sure you've set the correct permissions in the Sulu backend for this bundle
 
 - [Mailchimp](mailchimp.md "Mailchimp Form Field")
 - [Recaptcha](recaptcha.md "Recaptcha Form Field")
+- [Dropzone](dropzone.md "Dropzone Form Field")
+
+## Varnish
+
+Using varnish have a look at the [CSRF](csrf.md "CSRF Token") documentation.

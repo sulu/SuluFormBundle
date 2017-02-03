@@ -1,6 +1,6 @@
 # Dynamic Form
 
-This part describes step by step how to create a static form with this bundle.
+This part describes step by step how to create a dynamic form with this bundle.
 
 ## Basic Sulu Template
 
@@ -14,6 +14,14 @@ one of the dynamic templates which can be created in the Sulu backend.
         <title lang="en">Form</title>
     </meta>
 </property>
+```
+
+## Controller
+
+For the dynamic form type you can use the default sulu controller in your template or a custom one.
+
+```xml
+<controller>SuluWebsiteBundle:Default:index</controller>
 ```
 
 ## Output Form and customize
@@ -46,7 +54,7 @@ https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources
 
 ```twig
 {%- block _dynamic_form__token_widget -%}
-    {{ render_esi(controller('SuluFormBundle:FormWebsite:token', { 'form': form.parent.vars.name, 'html': true })) }}
+    {{ render_esi(controller('SuluFormBundle:FormWebsite:token', { 'form': form.parent.vars.name, 'html': true, _requestAnalyzer: false })) }}
 {% endblock %}
 
 {%- block form_row -%}
@@ -108,12 +116,6 @@ https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources
 {%- endblock form_label -%}
 ```
 
-## Issues
-
-Please check to following issue before using it in production:
-
-[https://github.com/alexander-schranz/sulu-form-bundle/issues/69](https://github.com/alexander-schranz/sulu-form-bundle/issues/69)
-
 ## Create Form
 
 To create a dynamic form (which is selectable in the property type `form_select`) simply
@@ -135,12 +137,34 @@ Examples for the notification and costumer mail you can find [here](https://gith
 
 ## List Tab - Export
 
-To visualise a tab in the Sulu template, simply add following lines to your Bundles `services.xml`:
+To visualise a tab in the Sulu template, simply configured the following in your `app/config/config.yml`:
 
-```xml
-<service id="client_website.list_provider.form" class="Sulu\Bundle\FormBundle\Provider\DynamicProvider">
-    <tag name="sulu_form.list_provider" template="form" />
-</service>
+```yml
+sulu_form:
+    dynamic_lists:
+        content:
+            <template_key>:
+                property: <form_select_property_name>
 ```
 
 **Now a tab should be visible with a list you can export**
+
+## Media Collections
+
+To create for every form and page an own collection you need to configure the following in your `config.yml`:
+
+```yml
+sulu_form:
+    media_collection_strategy: "tree"
+```
+
+## Test Checklist
+
+The following things you should check when implement the dynamic form type on your website.
+
+ - Test CSRF Token on production in 2 different browser sessions
+ - Test media upload
+ - Test the notifiy email
+ - Test the customer email
+ - Test backend field errors
+ - Test backend general errors ( e.g. remove CSRF token value )

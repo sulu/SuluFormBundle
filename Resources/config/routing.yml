@@ -4,5 +4,4 @@ sulu_form.only:
 
 sulu_form.token:
     path: /form/token
-    defaults: { _controller: SuluFormBundle:FormWebsite:token }
-
+    defaults: { _controller: SuluFormBundle:FormWebsite:token, _requestAnalyzer: false }

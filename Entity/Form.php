@@ -36,6 +36,8 @@ class Form
     }
 
     /**
+     * Get id.
+     *
      * @return int
      */
     public function getId()
@@ -44,6 +46,8 @@ class Form
     }
 
     /**
+     * Get default locale.
+     *
      * @return string
      */
     public function getDefaultLocale()
@@ -52,17 +56,25 @@ class Form
     }
 
     /**
-     * @param string $defaultLocale
+     * Set default locale.
+     *
+     * @param $defaultLocale
+     *
+     * @return $this
      */
     public function setDefaultLocale($defaultLocale)
     {
         $this->defaultLocale = $defaultLocale;
+
+        return $this;
     }
 
     /**
+     * Add translation.
+     *
      * @param FormTranslation $translation
      *
-     * @return Form
+     * @return $this
      */
     public function addTranslation(FormTranslation $translation)
     {
@@ -72,14 +84,22 @@ class Form
     }
 
     /**
+     * Remove translation.
+     *
      * @param FormTranslation $translation
+     *
+     * @return $this
      */
     public function removeTranslation(FormTranslation $translation)
     {
         $this->translations->removeElement($translation);
+
+        return $this;
     }
 
     /**
+     * Get translations.
+     *
      * @return \Doctrine\Common\Collections\Collection|FormTranslation[]
      */
     public function getTranslations()
@@ -88,6 +108,8 @@ class Form
     }
 
     /**
+     * Get translation.
+     *
      * @param string $locale
      * @param bool $create
      * @param bool $fallback
@@ -117,6 +139,8 @@ class Form
     }
 
     /**
+     * Add field.
+     *
      * @param FormField $field
      *
      * @return Form
@@ -129,11 +153,17 @@ class Form
     }
 
     /**
+     * Remove field.
+     *
      * @param FormField $field
+     *
+     * @return $this
      */
     public function removeField(FormField $field)
     {
         $this->fields->removeElement($field);
+
+        return $this;
     }
 
     /**
@@ -145,6 +175,26 @@ class Form
     }
 
     /**
+     * Get fields by type.
+     *
+     * @return \Doctrine\Common\Collections\Collection|FormField[]
+     */
+    public function getFieldsByType($type)
+    {
+        $fields = [];
+
+        foreach ($this->fields as $field) {
+            if ($field->getType() === $type) {
+                $fields[] = $field;
+            }
+        }
+
+        return $fields;
+    }
+
+    /**
+     * Get field by key.
+     *
      * @param string $key
      *
      * @return FormField|null
@@ -159,6 +209,26 @@ class Form
     }
 
     /**
+     * Get field type by key.
+     *
+     * @param string $key
+     *
+     * @return string|void
+     */
+    public function getFieldType($key)
+    {
+        $field = $this->getField($key);
+
+        if (!$field) {
+            return;
+        }
+
+        return $field->getType();
+    }
+
+    /**
+     * Get fields not in array.
+     *
      * @param $keys
      *
      * @return FormField[]

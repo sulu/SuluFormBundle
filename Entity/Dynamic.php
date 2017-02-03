@@ -8,10 +8,17 @@ class Dynamic implements TimestampableInterface
 {
     const TYPE_ATTACHMENT = 'attachment';
 
-    protected static $arrayTypes = [
+    protected static $ARRAY_TYPES = [
         'checkboxMultiple',
         'dropdownMultiple',
-        'attachment',
+        self::TYPE_ATTACHMENT,
+    ];
+
+    protected static $HIDDEN_TYPES = [
+        'spacer',
+        'headline',
+        'freeText',
+        'recaptcha',
     ];
 
     /**
@@ -120,7 +127,7 @@ class Dynamic implements TimestampableInterface
     private $textarea;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $date;
 
@@ -202,7 +209,7 @@ class Dynamic implements TimestampableInterface
     public function __set($name, $value)
     {
         if (property_exists($this, $name)) {
-            if (in_array($name, self::$arrayTypes)) {
+            if (in_array($name, self::$ARRAY_TYPES)) {
                 $value = json_encode($value, JSON_UNESCAPED_UNICODE);
             }
 
@@ -242,38 +249,6 @@ class Dynamic implements TimestampableInterface
     }
 
     /**
-     * Returns the fields value identified by its name.
-     *
-     * @param string $name
-     *
-     * @return mixed
-     */
-    public function getField($name)
-    {
-        if (property_exists($this, $name)) {
-            if (in_array($name, self::$arrayTypes)) {
-                if (!is_string($this->$name)) {
-                    return;
-                }
-
-                return json_decode($this->$name, true);
-            }
-
-            return $this->$name;
-        }
-
-        $array = $this->getData();
-
-        if (isset($array[$name])) {
-            if (strpos($name, 'date') === 0) {
-                return new \DateTime($array[$name]);
-            }
-
-            return $array[$name];
-        }
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getCreated()
@@ -287,5 +262,127 @@ class Dynamic implements TimestampableInterface
     public function getChanged()
     {
         return $this->changed;
+    }
+
+    /**
+     * Get id.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get form.
+     *
+     * @return Form
+     */
+    public function getForm()
+    {
+        return $this->form;
+    }
+
+    /**
+     * Get locale.
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * Get field.
+     *
+     * @param string $key
+     *
+     * @return string|array
+     */
+    public function getField($key)
+    {
+        if (property_exists($this, $key)) {
+            if (in_array($key, self::$ARRAY_TYPES)) {
+                if (!is_string($this->$key)) {
+                    return;
+                }
+
+                return json_decode($this->$key, true);
+            }
+
+            return $this->$key;
+        }
+
+        $array = $this->getData();
+
+        if (isset($array[$key])) {
+            return $array[$key];
+        }
+    }
+
+    /**
+     * Get fields.
+     *
+     * @param bool $hideHidden
+     *
+     * @return array
+     */
+    public function getFields($hideHidden = false)
+    {
+        $entry = [];
+
+        if (!$this->form) {
+            return [];
+        }
+
+        foreach ($this->form->getFields() as $field) {
+            if ($hideHidden && in_array($field->getType(), self::$HIDDEN_TYPES)) {
+                continue;
+            }
+
+            $entry[$field->getKey()] = $this->getField($field->getKey());
+        }
+
+        return $entry;
+    }
+
+    /**
+     * Get fields by type.
+     *
+     * @param string $type
+     *
+     * @return array
+     */
+    public function getFieldsByType($type)
+    {
+        $entry = [];
+
+        if (!$this->form) {
+            return [];
+        }
+
+        foreach ($this->form->getFieldsByType($type) as $field) {
+            $entry[$field->getKey()] = $this->getField($field->getKey());
+        }
+
+        return $entry;
+    }
+
+    /**
+     * Get type.
+     *
+     * @param string $key
+     *
+     * @return string
+     */
+    public function getType($key)
+    {
+        if (!$this->form) {
+            return;
+        }
+
+        return $this->form->getFieldType($key);
     }
 }

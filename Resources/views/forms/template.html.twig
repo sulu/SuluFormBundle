@@ -242,9 +242,28 @@
                     </div>
                 </div>
             </div>
+
             <!-- Mail Settings Togglers -->
-            <div class="grid-row m-bottom-40">
-                <div class="grid-col-4">
+            <div class="grid-row m-bottom-20">
+                <div class="grid-col-6">
+                    <div class="form-group">
+                        <label for="replyTo">
+                            <%= translate('sulu_form.user_as_reply_to') %>
+                        </label>
+
+                        <div class="grid-row small">
+                            <div id="replyTo"
+                                 class="preview-update trigger-save-button"
+                                 data-form="true"
+                                 data-aura-component="toggler@husky"
+                                 data-aura-instance-name="replyTo"
+                                 data-type="toggler"
+                                 data-type-instance-name="replyTo"
+                                 data-mapper-property="replyTo"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-col-6">
                     <div class="form-group">
                         <label for="sendAttachments">
                             <%= translate('sulu_form.send_attachments') %>
@@ -262,7 +281,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid-col-4">
+            </div>
+            <div class="grid-row m-bottom-40">
+                <div class="grid-col-6">
                     <div class="form-group">
                         <label for="deactivateNotifyMails">
                             <%= translate('sulu_form.deactivate_notify') %>
@@ -280,7 +301,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid-col-4">
+                <div class="grid-col-6">
                     <div class="form-group">
                         <label for="deactivateCustomerMails">
                             <%= translate('sulu_form.deactivate_customer') %>
