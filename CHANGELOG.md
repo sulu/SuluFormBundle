@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - FEATURE     #56    Added daterange to csv export overlay for sulu 1.5
  - BUGFIX      #53    Fixed date type default value
  - ENHANCEMENT #24    Update sulu from `alexander-schranz/sulu-form-bundle` from commit `c110e72e44a58a0f53428c153e405124695506f6`
  - BUGFIX      #24    Fixed form preview request analyzer
@@ -33,3 +34,4 @@
  - FEATURE     #2     Changed title field for labels to texteditor
  - ENHANCEMENT #-     Updated namespaces and rename table names
  - ENHANCEMENT #-     Forked from `alexander-schranz/sulu-form-bundle` from commit `36a7cd11562ed0c9f64752b37707cc2771e0baca`
+

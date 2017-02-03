@@ -294,7 +294,6 @@
                 <source>sulu_form.attachment.video</source>
                 <target>Videos</target>
             </trans-unit>
-
             <trans-unit id="86">
                 <source>sulu_form.attachment_max</source>
                 <target>Maximale amount</target>
@@ -316,6 +315,16 @@
             <trans-unit id="93">
                 <source>sulu_form.receiver.bcc</source>
                 <target>BCC</target>
+            </trans-unit>
+
+            <!-- CSV Export -->
+            <trans-unit id="100">
+                <source>sulu_form.overlay.start_date</source>
+                <target>Date de début</target>
+            </trans-unit>
+            <trans-unit id="101">
+                <source>sulu_form.overlay.end_date</source>
+                <target>Date de fin</target>
             </trans-unit>
         </body>
     </file>

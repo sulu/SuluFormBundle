@@ -7,7 +7,7 @@ This part describes step by step how to create a dynamic form with this bundle.
 Create a template in `app/Resources/pages` which uses the content type of the bundle to select
 one of the dynamic templates which can be created in the Sulu backend.
 
-``` xml
+```xml
 <property name="form" type="form_select">
     <meta>
         <title lang="de">Formular</title>
@@ -32,7 +32,7 @@ has been submitted successfully!
 Create a Symfony Form Theme to modify the HTML structure of the form:
 https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
 
-``` twig
+```twig
 <!doctype html>
 <html>
 <head>
@@ -125,7 +125,7 @@ click on the magic icon in the Sulu backend navigation and create a new form.
 
 For customizing the notification mail and the customer confirmation mail, adding the following lines to the configuration:
 
-```
+```yml
 sulu_form:
     mail:
         templates:

@@ -15,3 +15,9 @@ sulu_form.dynamic:
     prefix: form
     name_prefix: sulu_form.
 
+sulu_form.csv_overlay:
+    path: /form/templates/csv-export.html
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: L91SuluFormBundle:CsvExport:form.html.twig
+

@@ -1,0 +1,36 @@
+{% extends 'SuluAdminBundle:CsvExport:form.html.twig' %}
+
+{% block content %}
+    <div class="grid-row">
+        <div class="grid-col-6">
+            <div class="form-group">
+                <label for="fromDate">{{ 'sulu_form.overlay.start_date'|trans({}, 'backend') }}</label>
+
+                <div id="fromDate"
+                     data-aura-component="input@husky"
+                     data-aura-skin="date"
+                     data-type="husky-input"
+                     data-form="true"
+                     data-mapper-return-value="value"
+                     data-mapper-property="fromDate">
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-6">
+            <div class="form-group">
+                <label for="toDate">{{ 'sulu_form.overlay.end_date'|trans({}, 'backend') }}</label>
+
+                <div id="toDate"
+                     data-aura-component="input@husky"
+                     data-aura-skin="date"
+                     data-type="husky-input"
+                     data-form="true"
+                     data-mapper-return-value="value"
+                     data-mapper-property="toDate">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ parent() }}
+{% endblock %}

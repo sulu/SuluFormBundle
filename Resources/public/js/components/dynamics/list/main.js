@@ -86,14 +86,25 @@ define(['jquery'], function ($) {
                                                 var $container = $('<div/>');
                                                 $('body').append($container);
 
+                                                var csvOptions = {
+                                                    el: $container,
+                                                    urlParameter: urlParameters,
+                                                    url: constants.endPointUrl + '.csv'
+                                                };
+
                                                 App.start([{
-                                                    name: 'csv-export@suluadmin',
-                                                    options: {
-                                                        el: $container,
-                                                        urlParameter: urlParameters,
-                                                        url: constants.endPointUrl + '.csv'
-                                                    }
-                                                }]);
+                                                    name: 'csv-export@suluform',
+                                                    options: csvOptions
+                                                }]).fail(function() {
+                                                    // Fallback to old version of csv-export
+                                                    // aura_1: Error loading component: csv-export@suluform Error: Script error for: __component__$csv-export@suluform
+                                                    console.warn('Ignore error! For date-range specific export at least Sulu 1.5 is needed. Automatic fallback to default export.');
+
+                                                    App.start([{
+                                                        name: 'csv-export@suluadmin',
+                                                        options: csvOptions
+                                                    }])
+                                                });
                                             }.bind(this)
                                         }
                                     },
