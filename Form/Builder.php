@@ -334,19 +334,7 @@ class Builder implements BuilderInterface
             $fieldTranslation = $field->getTranslation($locale);
 
             if ($fieldTranslation && $fieldTranslation->getDefaultValue()) {
-                $value = $fieldTranslation->getDefaultValue();
-
-                // handle special types
-                switch ($field->getType()) {
-                    case Dynamic::TYPE_DATE:
-                        $value = new \DateTime($value);
-                        break;
-                    case Dynamic::TYPE_DROPDOWN_MULTIPLE:
-                    case Dynamic::TYPE_CHECKBOX_MULTIPLE:
-                        $value = preg_split('/\r\n|\r|\n/', $value, -1, PREG_SPLIT_NO_EMPTY);
-                        break;
-                }
-
+                $value = $this->formFieldTypePool->get($field->getType())->getDefaultValue($field, $locale);
                 $defaults[$field->getKey()] = $value;
             }
         }

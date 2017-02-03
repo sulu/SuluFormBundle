@@ -47,6 +47,6 @@ class DateType implements FormFieldTypeInterface
     {
         $value = $field->getTranslation($locale)->getDefaultValue();
 
-        return new \DateTime($value);
+        return $value;
     }
 }
