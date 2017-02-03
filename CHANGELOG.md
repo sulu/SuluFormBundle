@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - BUGFIX      #53    Fixed date type default value
  - ENHANCEMENT #24    Update sulu from `alexander-schranz/sulu-form-bundle` from commit `c110e72e44a58a0f53428c153e405124695506f6`
  - BUGFIX      #24    Fixed form preview request analyzer
  - BUGFIX      #24    Fixed second date field type
