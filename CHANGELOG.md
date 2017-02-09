@@ -2,6 +2,7 @@
 
 ## 0.1.0
 
+ - FEATURE     #57    Added basic theme for dynamic forms
  - FEATURE     #56    Added daterange to csv export overlay for sulu 1.5
  - BUGFIX      #55    Fixed dynamic list factory with hidden fields
  - BUGFIX      #54    Fixed date type default value
