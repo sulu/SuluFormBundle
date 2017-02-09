@@ -34,7 +34,7 @@ class DynamicController extends RestController implements ClassResourceInterface
         $sortOrder = $request->get('sortOrder', 'asc');
         $sortBy = $request->get('sortBy', 'created');
 
-        $entries = $repository->findBy(
+        $entries = $repository->findByFilters(
             $filters,
             [$sortBy => $sortOrder],
             $limit,
@@ -45,7 +45,7 @@ class DynamicController extends RestController implements ClassResourceInterface
 
         // avoid total request when entries < limit
         if (count($entries) == $limit) {
-            $total = count($repository->findBy($filters));
+            $total = count($repository->countByFilters($filters));
         } else {
             // calculate total
             $total = count($entries) + $offset;
@@ -96,6 +96,8 @@ class DynamicController extends RestController implements ClassResourceInterface
             'uuid' => $request->get('uuid'),
             'webspaceKey' => $request->get('webspaceKey'),
             'form' => $request->get('form'),
+            'fromDate' => $request->get('fromDate'),
+            'toDate' => $request->get('toDate'),
         ];
 
         return array_filter($filters);
