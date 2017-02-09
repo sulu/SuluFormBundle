@@ -1,10 +1,10 @@
 # Changelog
 
-## dev-develop
+## 0.1.0
 
  - FEATURE     #56    Added daterange to csv export overlay for sulu 1.5
  - BUGFIX      #55    Fixed dynamic list factory with hidden fields
- - BUGFIX      #53    Fixed date type default value
+ - BUGFIX      #54    Fixed date type default value
  - ENHANCEMENT #52    Update sulu from `alexander-schranz/sulu-form-bundle` from commit `c110e72e44a58a0f53428c153e405124695506f6`
  - BUGFIX      #52    Fixed form preview request analyzer
  - BUGFIX      #52    Fixed second date field type
