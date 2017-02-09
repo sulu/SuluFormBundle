@@ -14,7 +14,7 @@ class Dynamic implements TimestampableInterface
         self::TYPE_ATTACHMENT,
     ];
 
-    protected static $HIDDEN_TYPES = [
+    public static $HIDDEN_TYPES = [
         'spacer',
         'headline',
         'freeText',
