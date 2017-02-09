@@ -1,0 +1,84 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{# Add grid to every row #}
+{%- block form_row -%}
+    {{ block('sulu_form_row_start') }}
+    {{- form_label(form) -}}
+    {{- form_errors(form) -}}
+    {{- form_widget(form) -}}
+    {{ block('sulu_form_row_end') }}
+{%- endblock -%}
+
+{# Output label as HTML #}
+{%- block form_label -%}
+    {%- if label is not same as(false) -%}
+        {%- set translation_domain = false -%}
+        {%- set label %}{{ label|raw }}{% endset -%}
+        {{ parent() }}
+    {%- endif -%}
+{%- endblock form_label -%}
+
+{# Overwrite special hidden fields #}
+{%- block hidden_row -%}
+    {%- if attr.type|default('') in ['spacer', 'freeText', 'headline'] -%}
+        {{ block('sulu_form_text_row') }}
+    {%- else -%}
+        {{ parent() }}
+    {%- endif -%}
+{%- endblock hidden_row -%}
+
+{# Render hidden widget #}
+{%- block hidden_widget -%}
+    {%- if form.vars.name == '_token' -%}
+        {{ block('sulu_form__token_widget') }}
+    {%- else -%}
+        {{ parent() }}
+    {%- endif -%}
+{%- endblock hidden_widget -%}
+
+{# CSRF Token over ESI #}
+{%- block sulu_form__token_widget %}
+    {{ render_esi(controller('SuluFormBundle:FormWebsite:token', {
+        'form': form.parent.vars.name,
+        'html': true,
+        _requestAnalyzer: false }))
+    }}
+{%- endblock sulu_form__token_widget -%}
+
+{# Text fields #}
+{%- block sulu_form_text_row -%}
+    {{ block('sulu_form_row_start') }}
+    {{ block('sulu_form_text_' ~ attr.type ~ '_widget') }}
+    {{ block('sulu_form_row_end') }}
+{%- endblock -%}
+
+{# Headline #}
+{%- block sulu_form_text_headline_widget -%}
+    <h4>{{- label|raw -}}</h4>
+{%- endblock sulu_form_text_headline_widget -%}
+
+{# Spacer #}
+{%- block sulu_form_text_spacer_widget -%}
+{%- endblock sulu_form_text_spacer_widget -%}
+
+{# Spacer #}
+{%- block sulu_form_text_freeText_widget -%}
+    <p>{{- label|raw -}}</p>
+{%- endblock sulu_form_text_freeText_widget -%}
+
+{# Grid  #}
+{%- block sulu_form_row_start -%}
+    <div class="{{- block('sulu_form_row_class_name') -}}">
+{%- endblock sulu_form_row_start -%}
+
+{%- block sulu_form_row_class_name -%}
+    {%- set className = 'form-item form-width-' ~ attr.width|default('full') -%}
+    {%- if attr.lastWidth|default(false) -%}
+        {%- set className = className ~ ' form-width-last' %}
+    {%- endif -%}
+    {{- className -}}
+{%- endblock sulu_form_row_class_name -%}
+
+{%- block sulu_form_row_end -%}
+    </div>
+{%- endblock sulu_form_row_end -%}
