@@ -63,6 +63,11 @@ class FormTranslation implements AuditableInterface
     private $deactivateCustomerMails;
 
     /**
+     * @var bool
+     */
+    private $replyTo;
+
+    /**
      * @var string
      */
     private $locale;
@@ -96,6 +101,11 @@ class FormTranslation implements AuditableInterface
      * @var \DateTime
      */
     private $changed;
+
+    /**
+     * @var FormTranslationReceiver[]
+     */
+    private $receivers;
 
     /**
      * @param string $title
@@ -326,6 +336,30 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
+     * Set replyTo.
+     *
+     * @param bool $replyTo
+     *
+     * @return FormTranslation
+     */
+    public function setReplyTo($replyTo)
+    {
+        $this->replyTo = $replyTo;
+
+        return $this;
+    }
+
+    /**
+     * Get replyTo.
+     *
+     * @return bool
+     */
+    public function getReplyTo()
+    {
+        return $this->replyTo;
+    }
+
+    /**
      * @param string $locale
      *
      * @return FormTranslation
@@ -451,5 +485,25 @@ class FormTranslation implements AuditableInterface
         $this->changed = $changed;
 
         return $this;
+    }
+
+    /**
+     * Returns receivers.
+     *
+     * @return FormTranslationReceiver[]
+     */
+    public function getReceivers()
+    {
+        return $this->receivers;
+    }
+
+    /**
+     * Sets receivers.
+     *
+     * @param FormTranslationReceiver[] $receivers
+     */
+    public function setReceivers($receivers)
+    {
+        $this->receivers = $receivers;
     }
 }

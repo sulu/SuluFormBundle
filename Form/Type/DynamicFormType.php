@@ -133,6 +133,8 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getCustomerSubject($formData = [])
     {
@@ -141,6 +143,8 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getNotifySubject($formData = [])
     {
@@ -149,6 +153,8 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getCustomerFromMailAddress($formData = [])
     {
@@ -164,6 +170,8 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getNotifyFromMailAddress($formData = [])
     {
@@ -179,6 +187,8 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getNotifyToMailAddress($formData = [])
     {
@@ -194,6 +204,26 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
+     */
+    public function getNotifyReplyToMailAddress($formData = [])
+    {
+        if ($this->getTranslation()->getReplyTo()) {
+            $email = $this->getCustomerToMailAddress($formData);
+
+            if (!$email) {
+                return $email;
+            }
+        }
+
+        return parent::getNotifyReplyToMailAddress($formData);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getCustomerMail($formData = [])
     {
@@ -202,6 +232,29 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
+     */
+    public function getCustomerToMailAddress($formData = [])
+    {
+        $email = null;
+
+        if ($formData instanceof Dynamic) {
+            $emails = $formData->getFieldsByType('email');
+            $email = reset($emails);
+        }
+
+        if (!$email) {
+            $email = parent::getCustomerToMailAddress($formData);
+        }
+
+        return $email;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getNotifyMail($formData = [])
     {
@@ -210,6 +263,8 @@ class DynamicFormType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getNotifySendAttachments($formData = [])
     {
@@ -220,24 +275,32 @@ class DynamicFormType extends AbstractType
      * @param $formData
      *
      * @return bool
+     *
+     * @deprecated
      */
     public function getNotifyDeactivateMails($formData = [])
     {
-        return $this->getTranslation()->getDeactivateNotifyMails();
+        // Deactivated because of using MailSubscriber service.
+        return true;
     }
 
     /**
      * @param $formData
      *
      * @return bool
+     *
+     * @deprecated
      */
     public function getCustomerDeactivateMails($formData = [])
     {
-        return $this->getTranslation()->getDeactivateCustomerMails();
+        // Deactivated because of using MailSubscriber service.
+        return true;
     }
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function getMailText($formData = [])
     {
@@ -267,10 +330,8 @@ class DynamicFormType extends AbstractType
     {
         $fileFields = [];
 
-        foreach ($this->formEntity->getFields() as $field) {
-            if ($field->getType() === Dynamic::TYPE_ATTACHMENT) {
-                $fileFields[] = $field->getKey();
-            }
+        foreach ($this->formEntity->getFieldsByType(Dynamic::TYPE_ATTACHMENT) as $field) {
+            $fileFields[] = $field->getKey();
         }
 
         return $fileFields;

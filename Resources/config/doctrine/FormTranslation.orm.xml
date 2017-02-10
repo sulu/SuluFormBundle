@@ -32,18 +32,28 @@
                 <option name="default">0</option>
             </options>
         </field>
+        <field name="replyTo" column="replyTo" type="boolean" nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
 
         <field name="locale" column="locale" type="string" length="5"/>
 
         <many-to-one field="form"
                      target-entity="Sulu\Bundle\FormBundle\Entity\Form"
                      inversed-by="translations">
-            <cascade>
-                <cascade-all/>
-            </cascade>
             <join-columns>
                 <join-column name="idForms" on-delete="CASCADE" referenced-column-name="id" nullable="false"/>
             </join-columns>
         </many-to-one>
+
+        <one-to-many field="receivers"
+                     target-entity="Sulu\Bundle\FormBundle\Entity\FormTranslationReceiver"
+                     mapped-by="formTranslation">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
     </entity>
 </doctrine-mapping>

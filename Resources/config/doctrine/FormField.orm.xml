@@ -4,6 +4,10 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="Sulu\Bundle\FormBundle\Entity\FormField" table="fo_form_fields">
+        <unique-constraints>
+            <unique-constraint columns="idForms,keyName"/>
+        </unique-constraints>
+
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
@@ -26,9 +30,6 @@
         <many-to-one field="form"
                      target-entity="Sulu\Bundle\FormBundle\Entity\Form"
                      inversed-by="fields">
-            <cascade>
-                <cascade-all/>
-            </cascade>
             <join-columns>
                 <join-column name="idForms" on-delete="CASCADE" referenced-column-name="id" nullable="false"/>
             </join-columns>

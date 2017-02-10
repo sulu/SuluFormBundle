@@ -5,8 +5,8 @@ namespace Sulu\Bundle\FormBundle\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
-use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Mail\HelperInterface;
 use Sulu\Bundle\FormBundle\Manager\FormManager;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactory;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineCaseFieldDescriptor;
@@ -189,16 +189,18 @@ class FormController extends FOSRestController implements ClassResourceInterface
         ];
 
         $types = $this->get('sulu_form.dynamic.form_field_type_pool')->all();
-
-        if (class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\RecaptchaType::class)) {
-            $types[] = Dynamic::TYPE_RECAPTCHA;
-        }
+        $receiverTypes = [
+            'to' => HelperInterface::MAIL_RECEIVER_TO,
+            'cc' => HelperInterface::MAIL_RECEIVER_CC,
+            'bcc' => HelperInterface::MAIL_RECEIVER_BCC,
+        ];
 
         return $this->render(
             $this->getBundleName() . ':' . $this->getListName() . ':template.html.twig',
             [
                 'types' => $this->getSortedTypes($types),
                 'widths' => $widths,
+                'receiverTypes' => $receiverTypes,
             ]
         );
     }
@@ -212,13 +214,14 @@ class FormController extends FOSRestController implements ClassResourceInterface
     {
         /** @var Translator $translator */
         $translator = $this->get('translator');
+        $locale = $this->getUser()->getLocale();
 
         $sortedTypes = [];
         $returnTypes = [];
 
         $i = 0;
         foreach ($types as $alias => $type) {
-            $translation = $translator->trans($type->getConfiguration()->getTitle(), [], 'backend');
+            $translation = $translator->trans($type->getConfiguration()->getTitle(), [], 'backend', $locale);
             $sortedTypes[$translation . $i] = ['alias' => $alias, 'type' => $type];
             ++$i;
         }
@@ -515,6 +518,8 @@ class FormController extends FOSRestController implements ClassResourceInterface
                 'sendAttachments' => $translation->getSendAttachments(),
                 'deactivateNotifyMails' => $translation->getDeactivateNotifyMails(),
                 'deactivateCustomerMails' => $translation->getDeactivateCustomerMails(),
+                'receivers' => $translation->getReceivers(),
+                'replyTo' => $translation->getReplyTo(),
             ];
         }
 

@@ -34,6 +34,10 @@
                 <source>sulu_form.deactivate_customer</source>
                 <target>déactiver les mails de confirmation</target>
             </trans-unit>
+            <trans-unit id="9">
+                <source>sulu_form.user_as_reply_to</source>
+                <target>"répondre" compléter l'adresse automatiquement</target>
+            </trans-unit>
 
             <!-- Types -->
             <trans-unit id="10">
@@ -150,6 +154,10 @@
             </trans-unit>
 
             <!-- Form -->
+            <trans-unit id="49">
+                <source>sulu_form.forms.save.error</source>
+                <target>Formular was not saved</target>
+            </trans-unit>
             <trans-unit id="50">
                 <source>sulu_form.title</source>
                 <target>Title</target>
@@ -286,10 +294,37 @@
                 <source>sulu_form.attachment.video</source>
                 <target>Videos</target>
             </trans-unit>
-
             <trans-unit id="86">
                 <source>sulu_form.attachment_max</source>
                 <target>Maximale amount</target>
+            </trans-unit>
+
+            <!-- Receivers -->
+            <trans-unit id="90">
+                <source>sulu_form.receivers</source>
+                <target>Récepteur</target>
+            </trans-unit>
+            <trans-unit id="91">
+                <source>sulu_form.receiver.to</source>
+                <target>À</target>
+            </trans-unit>
+            <trans-unit id="92">
+                <source>sulu_form.receiver.cc</source>
+                <target>CC</target>
+            </trans-unit>
+            <trans-unit id="93">
+                <source>sulu_form.receiver.bcc</source>
+                <target>BCC</target>
+            </trans-unit>
+
+            <!-- CSV Export -->
+            <trans-unit id="100">
+                <source>sulu_form.overlay.start_date</source>
+                <target>Date de début</target>
+            </trans-unit>
+            <trans-unit id="101">
+                <source>sulu_form.overlay.end_date</source>
+                <target>Date de fin</target>
             </trans-unit>
         </body>
     </file>

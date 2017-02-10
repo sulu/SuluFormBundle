@@ -1,0 +1,25 @@
+{% for field in formEntity.fields|default([]) %}
+    {% set value = field.value %}
+
+    {# get formatted value. #}
+    {% if value is iterable %}
+        {% if field.type == 'attachment' %}
+            {% set mediaUrls = [] %}
+            {% for mediaId in field.value %}
+                {% set media = sulu_resolve_media(mediaId, app.request.locale) %}
+                {% set mediaUrls = mediaUrls|merge(['<a href="' ~ media.url ~ '">' ~ media.title ~ '</a>']) %}
+            {% endfor %}
+            {% set value %}
+                {{ mediaUrls|join(', ')|raw  }}
+            {% endset %}
+        {% else %}
+            {% set value = value|json_encode %}
+        {% endif %}
+    {% elseif value.timestamp is defined %}
+        {% set value = value|date('d.m.Y') %}
+    {% endif %}
+
+    {% if value is not empty %}
+        <strong>{{ field.shortTitle|default(field.title)|raw }}</strong>: {{ value }}<br>
+    {% endif %}
+{% endfor %}

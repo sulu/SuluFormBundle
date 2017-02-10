@@ -1,6 +1,30 @@
 # Changelog
 
-## dev-develop
+## 0.1.0
+
+ - ENHANCEMENT #59    Added correct composer dependencies
+ - FEATURE     #57    Added basic theme for dynamic forms
+ - FEATURE     #56    Added daterange to csv export overlay for sulu 1.5
+ - BUGFIX      #55    Fixed dynamic list factory with hidden fields
+ - BUGFIX      #54    Fixed date type default value
+ - ENHANCEMENT #52    Update sulu from `alexander-schranz/sulu-form-bundle` from commit `c110e72e44a58a0f53428c153e405124695506f6`
+ - BUGFIX      #52    Fixed form preview request analyzer
+ - BUGFIX      #52    Fixed second date field type
+ - BUGFIX      #52    Fixed missing translation and documentation
+ - ENHANCEMENT #52    Added missing documentation
+ - BUGFIX      #52    Fixed success email not sent to email in data json
+ - BUGFIX      #52    Fixed missing uniqueness in form fields table
+ - BUGFIX      #52    Fixed permission denied on fields action
+ - FEATURE     #52    Added toggler to set email as replyTo
+ - BUGFIX      #52    Fixed exception controller redirect
+ - BUGFIX      #52    Fixed form select by using native select
+ - FEATURE     #52    Added media collection strategy tree
+ - FEATURE     #52    Added support to add dynamic list to article bundle
+ - BUGFIX      #52    Fixed csv export for bool values
+ - ENHANCEMENT #52    Fixed sort on dynamic list and removed search
+ - FEATURE     #52    Added dynamic form list and export
+ - FEATURE     #20    Added additional receivers for sending notification as CC or BCC
+ - ENHANCEMENT #23    Fixed composer json links and description
  - BUGFIX      #16    Fixed setting of entity value in dynamic which represents an array
  - ENHANCEMENT #13    Added dynamic type pool service for enabling custom form field types
  - ENHANCEMENT #10    Update sulu from `alexander-schranz/sulu-form-bundle` from commit `c16a04b15fe320c039064de05ddaef9d087dbc6f`

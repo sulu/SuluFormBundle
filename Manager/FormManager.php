@@ -5,6 +5,8 @@ namespace Sulu\Bundle\FormBundle\Manager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormField;
+use Sulu\Bundle\FormBundle\Entity\FormTranslation;
+use Sulu\Bundle\FormBundle\Entity\FormTranslationReceiver;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 
 /**
@@ -80,7 +82,7 @@ class FormManager
     {
         $form = new Form();
 
-        // find exist or create new entity
+        // Find exist or create new entity.
         if ($id) {
             $form = $this->findById($id, $locale);
         }
@@ -98,20 +100,95 @@ class FormManager
         $translation->setSendAttachments(self::getValue($data, 'sendAttachments'));
         $translation->setDeactivateNotifyMails(self::getValue($data, 'deactivateNotifyMails'));
         $translation->setDeactivateCustomerMails(self::getValue($data, 'deactivateCustomerMails'));
+        $translation->setReplyTo(self::getValue($data, 'replyTo'));
         $translation->setChanged(new \DateTime());
 
-        // Add Translation to Form
+        // Add Translation to Form.
         if (!$translation->getId()) {
             $translation->setForm($form);
             $form->addTranslation($translation);
         }
 
-        // Set Default Locale
+        // Set Default Locale.
         if (!$form->getId()) {
             $form->setDefaultLocale($locale);
         }
 
-        // Fields
+        // Update field of form and the receivers.
+        $this->updateFields($data, $form, $locale);
+        $this->updateReceivers($data, $translation);
+
+        $this->entityManager->persist($form);
+        $this->entityManager->flush();
+
+        if (!$id) {
+            // To avoid lazy load of sub entities in the serializer reload whole object with sub entities from db
+            // remove this when you don`t join anything in `findById`.
+            $form = $this->findById($form->getId(), $locale);
+        }
+
+        return $form;
+    }
+
+    /**
+     * @param int $id
+     * @param string $locale
+     *
+     * @return Form|null
+     */
+    public function delete($id, $locale = null)
+    {
+        $object = $this->findById($id, $locale);
+
+        if (!$object) {
+            return;
+        }
+
+        $this->entityManager->remove($object);
+        $this->entityManager->flush();
+
+        return $object;
+    }
+
+    /**
+     * @param array $data
+     * @param FormTranslation $translation
+     */
+    public function updateReceivers($data, $translation)
+    {
+        $translation->setReceivers([]);
+        $receiversRepository = $this->entityManager->getRepository('SuluFormBundle:FormTranslationReceiver');
+        $receiverDatas = self::getValue($data, 'receivers', []);
+
+        // Remove old receivers.
+        $oldReceivers = $receiversRepository->findBy(['formTranslation' => $translation]);
+        foreach ($oldReceivers as $oldReceiver) {
+            $this->entityManager->remove($oldReceiver);
+        }
+
+        $receivers = [];
+        foreach ($receiverDatas as $receiverData) {
+            $receiver = new FormTranslationReceiver();
+            $receiver->setType($receiverData['type']);
+            $receiver->setEmail($receiverData['email']);
+            $receiver->setName($receiverData['name']);
+            $receiver->setFormTranslation($translation);
+
+            $receivers[] = $receiver;
+            $this->entityManager->persist($receiver);
+        }
+        $translation->setReceivers($receivers);
+    }
+
+    /**
+     * Updates the contained fields in the form.
+     *
+     * @param array $data
+     * @param Form $form
+     * @param string $locale
+     */
+    protected function updateFields($data, $form, $locale)
+    {
         $reservedKeys = array_column(self::getValue($data, 'fields', []), 'key');
 
         $counter = 0;
@@ -143,7 +220,6 @@ class FormManager
             $fieldTranslation->setPlaceholder(self::getValue($fieldData, 'placeholder'));
             $fieldTranslation->setDefaultValue(self::getValue($fieldData, 'defaultValue'));
             $fieldTranslation->setShortTitle(self::getValue($fieldData, 'shortTitle'));
-
 
             // Field Options
             $prefix = 'options[';
@@ -180,38 +256,6 @@ class FormManager
             $form->removeField($deletedField);
             $this->entityManager->remove($deletedField);
         }
-
-        // Save
-        $this->entityManager->persist($form);
-        $this->entityManager->flush();
-
-        if (!$id) {
-            // to avoid lazy load of sub entities in the serializer reload whole object with sub entities from db
-            // remove this when you don`t join anything in `findById`
-            $form = $this->findById($form->getId(), $locale);
-        }
-
-        return $form;
-    }
-
-    /**
-     * @param int $id
-     * @param string $locale
-     *
-     * @return Form|null
-     */
-    public function delete($id, $locale = null)
-    {
-        $object = $this->findById($id, $locale);
-
-        if (!$object) {
-            return;
-        }
-
-        $this->entityManager->remove($object);
-        $this->entityManager->flush();
-
-        return $object;
     }
 
     /**

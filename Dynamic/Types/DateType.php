@@ -36,6 +36,7 @@ class DateType implements FormFieldTypeInterface
             $type = BirthdayType::class;
         }
         $options['format'] = \IntlDateFormatter::LONG;
+        $options['input'] = 'string';
         $builder->add($field->getKey(), $type, $options);
     }
 
@@ -46,6 +47,6 @@ class DateType implements FormFieldTypeInterface
     {
         $value = $field->getTranslation($locale)->getDefaultValue();
 
-        return new \DateTime($value);
+        return $value;
     }
 }
