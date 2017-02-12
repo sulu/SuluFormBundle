@@ -1,5 +1,9 @@
 # Changelog
 
+## dev-develop
+
+ - ENHANCEMENT #60    Added `sulu_admin.email` as default mail address and show them as placeholder in form template
+
 ## 0.1.0
 
  - ENHANCEMENT #59    Added correct composer dependencies

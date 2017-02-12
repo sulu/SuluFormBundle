@@ -25,37 +25,36 @@ new Sulu\Bundle\FormBundle\SuluFormBundle(),
 
 ## Config
 
-Add the following config to `app/config/config.yml`
+Activate esi for csrf token reload on cache pages
+by change the following lines in `app/config/config.yml`.
 
 ```yml
 framework:
-    esi: ~  # use to reload csrf token
+    esi: ~
     fragments: ~
-
-sulu_form:
-    mail:
-        from: %sulu_admin.email%
-        to: %sulu_admin.email%
 ```
 
 ## Create Database
 
-Execute following command to update your database
+Execute the following command to get the sqls to update your database.
 
 ```bash
-app/console doctrine:schema:update --force
+php bin/adminconsole doctrine:schema:update --dump-sql
 ```
+
+You can use `--force` to run the sqls but be carefully which other
+sql statements are executed.
 
 ## Install assets
 
 ```bash
-app/console assets:install --symlink --relative
+php bin/adminconsole assets:install --symlink --relative
 ```
 
 ## Generate translations
 
 ```bash
-app/console sulu:translate:export
+php bin/adminconsole sulu:translate:export
 ```
 
 ## Routing
@@ -67,7 +66,7 @@ sulu_form_api:
     type: rest
     resource: "@SuluFormBundle/Resources/config/routing_api.yml"
     prefix: /admin/api
- ```
+```
 
 ## Permissions
 
@@ -87,3 +86,4 @@ Make sure you've set the correct permissions in the Sulu backend for this bundle
 ## Varnish
 
 Using varnish have a look at the [CSRF](csrf.md "CSRF Token") documentation.
+
