@@ -61,7 +61,7 @@ class DynamicListBuilder implements DynamicListBuilderInterface
         ];
 
         foreach ($entry as $key => $value) {
-            if ($dynamic->getType($key) === Dynamic::TYPE_ATTACHMENT) {
+            if ($dynamic->getFieldType($key) === Dynamic::TYPE_ATTACHMENT) {
                 $singleEntry[$key] = $this->getMediaUrls($value);
             } else {
                 $singleEntry[$key] = $this->toString($value);

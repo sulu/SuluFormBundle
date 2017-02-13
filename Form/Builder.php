@@ -3,6 +3,7 @@
 namespace Sulu\Bundle\FormBundle\Form;
 
 use Doctrine\ORM\NoResultException;
+use Sulu\Bundle\FormBundle\Dynamic\FormCollectionTitlePool;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
@@ -37,6 +38,11 @@ class Builder implements BuilderInterface
     protected $formFieldTypePool;
 
     /**
+     * @var FormCollectionTitlePool
+     */
+    protected $formCollectionTitlePool;
+
+    /**
      * @var FormRepository
      */
     protected $formRepository;
@@ -61,14 +67,18 @@ class Builder implements BuilderInterface
      *
      * @param RequestStack $requestStack
      * @param FormFieldTypePool $formFieldTypePool
+     * @param FormCollectionTitlePool $formCollectionTitlePool
      * @param FormRepository $formRepository
      * @param CollectionStrategyInterface $collectionStrategy
      * @param FormFactory $formFactory
      * @param string $defaultStructureView
+     *
+     * @internal param FormCollectionTitlePool $collectionTitlePool
      */
     public function __construct(
         RequestStack $requestStack,
         FormFieldTypePool $formFieldTypePool,
+        FormCollectionTitlePool $formCollectionTitlePool,
         FormRepository $formRepository,
         CollectionStrategyInterface $collectionStrategy,
         FormFactory $formFactory,
@@ -76,6 +86,7 @@ class Builder implements BuilderInterface
     ) {
         $this->requestStack = $requestStack;
         $this->formFieldTypePool = $formFieldTypePool;
+        $this->formCollectionTitlePool = $formCollectionTitlePool;
         $this->formRepository = $formRepository;
         $this->collectionStrategy = $collectionStrategy;
         $this->formFactory = $formFactory;
@@ -118,6 +129,7 @@ class Builder implements BuilderInterface
                     continue;
                 }
 
+                // TODO: Remove $title parameter from CollectionStrategyInterface::getCollectionId ($typeName)
                 return $this->build($id, 'page', $typeId, $typeName, $locale, $name);
             }
         }
@@ -313,7 +325,10 @@ class Builder implements BuilderInterface
                 $typeName,
                 $locale
             ),
-            $this->formFieldTypePool
+            $this->formFieldTypePool,
+            $this->formCollectionTitlePool,
+            $type,
+            $typeId
         );
     }
 
