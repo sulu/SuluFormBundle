@@ -16,22 +16,7 @@ class Page implements FormCollectionTitleInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfiguration()
-    {
-        dump('getConfiguration');
-        exit;
-        return new FormFieldTypeConfiguration(
-            'sulu_form.type.attachment',
-            'SuluFormBundle:forms:fields/types/attachment.html.twig'
-        );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getTitle()
-    {
-        dump('getTitle');
-        exit;
+    public function CollectionTitleProvider() {
+        // TODO: implement it
     }
 }

@@ -1,12 +1,14 @@
 <?php
-
 namespace Sulu\Bundle\FormBundle\Dynamic;
 
+/**
+ * Holds the available Form-Collections Types.
+ */
 class FormCollectionTitlePool {
     private $types;
 
     /**
-     * FormFieldTypePool constructor.
+     * FormCollectionTitlePool constructor.
      */
     public function __construct($types)
     {
@@ -14,7 +16,7 @@ class FormCollectionTitlePool {
     }
 
     /**
-     * Returns type specified by alias.
+     * Returns collection-type specified by alias.
      *
      * @param string $alias
      *
@@ -26,7 +28,7 @@ class FormCollectionTitlePool {
     }
 
     /**
-     * Returns all types.
+     * Returns all collection-types.
      *
      * @return FormCollectionTitleInterface[]
      */
