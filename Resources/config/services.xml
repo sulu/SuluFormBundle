@@ -144,5 +144,11 @@
         <service id="sulu_form.dynamic.collection_title_pool" class="Sulu\Bundle\FormBundle\Dynamic\FormCollectionTitlePool">
             <argument type="collection"/>
         </service>
+
+        <!-- TWIG extension -->
+        <service id="sulu_form.twig_extension" class="Sulu\Bundle\FormBundle\Twig\FormTwigExtension">
+            <tag name="twig.extension"/>
+            <argument type="service" id="sulu_form.builder"/>
+        </service>
     </services>
 </container>
