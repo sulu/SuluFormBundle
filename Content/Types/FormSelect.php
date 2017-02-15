@@ -53,7 +53,7 @@ class FormSelect extends SimpleContentType
     public function getDefaultParams(PropertyInterface $property = null)
     {
         return [
-            'type' => new PropertyParameter('page', 'page'),
+            'type' => new PropertyParameter('type', 'page'),
         ];
     }
 
@@ -63,16 +63,17 @@ class FormSelect extends SimpleContentType
     public function getContentData(PropertyInterface $property)
     {
         $id = (int) $property->getValue();
-        $type = 'page';
 
         if (!$id) {
             return;
         }
 
-        // TODO: get default params
-        if (isset($property->getParams()['type'])) {
-            $type = $property->getParams()['type']->getValue();
-        }
+        $params = array_merge(
+            $this->getDefaultParams($property),
+            $property->getParams()
+        );
+
+        $type = $params['type']->getValue();
 
         /** @var FormInterface $form */
         list($formType, $form) = $this->formBuilder->build(

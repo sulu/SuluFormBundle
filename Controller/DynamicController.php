@@ -93,7 +93,8 @@ class DynamicController extends RestController implements ClassResourceInterface
     protected function getFilters(Request $request)
     {
         $filters = [
-            'uuid' => $request->get('uuid'),
+            'type' => $request->get('type'),
+            'typeId' => $request->get('typeId'),
             'webspaceKey' => $request->get('webspaceKey'),
             'form' => $request->get('form'),
             'fromDate' => $request->get('fromDate'),

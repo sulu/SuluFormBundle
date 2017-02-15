@@ -47,7 +47,8 @@ define(['jquery'], function ($) {
                 'webspaceKey': this.options.webspace,
                 'locale': this.options.language,
                 'view': this.options.view,
-                'uuid': this.options.id,
+                'typeId': this.options.id,
+                'type': this.options.type,
                 'sortBy': 'created',
                 'sortOrder': 'desc'
             };

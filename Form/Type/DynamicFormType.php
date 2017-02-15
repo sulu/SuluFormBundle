@@ -161,7 +161,7 @@ class DynamicFormType extends AbstractType
 
         //
         $builder->add('formId', HiddenType::class, [
-            'data' => $this->typeId
+            'data' => $this->formEntity->getId()
         ]);
 
         //
