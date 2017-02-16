@@ -24,6 +24,11 @@ class FormTwigExtension extends \Twig_Extension
      */
     private $formBuilder;
 
+    /**
+     * FormTwigExtension constructor.
+     *
+     * @param BuilderInterface $formBuilder
+     */
     public function __construct(BuilderInterface $formBuilder) {
         $this->formBuilder = $formBuilder;
     }
