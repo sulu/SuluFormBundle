@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Twig;
 
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
+use Symfony\Component\Form\FormView;
 
 /**
  * Extension for content form generation.
@@ -39,6 +40,17 @@ class FormTwigExtension extends \Twig_Extension
         ];
     }
 
+    /**
+     * Returns FormView by given params.
+     *
+     * @param int $id
+     * @param string $type
+     * @param string $typeId
+     * @param mixed $locale
+     * @param string $name
+     *
+     * @return FormView
+     */
     public function getFormById($id, $type, $typeId, $locale = null, $name = 'form') {
         list($formType, $form) = $this->formBuilder->build((int)$id, $type, $typeId, $locale = null, $name = 'form');
 

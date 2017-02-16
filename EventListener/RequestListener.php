@@ -57,7 +57,6 @@ class RequestListener
             return;
         }
 
-
         $request = $event->getRequest();
 
         if (!$request->isMethod('post')) {
