@@ -3,7 +3,8 @@
 namespace Sulu\Bundle\FormBundle\Form;
 
 use Doctrine\ORM\NoResultException;
-use Sulu\Bundle\FormBundle\Dynamic\FormCollectionTitlePool;
+use Sulu\Bundle\FormBundle\Dynamic\CollectionTitleProviderPool;
+use Sulu\Bundle\FormBundle\Dynamic\CollectionTitleProviderPoolInterface;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
@@ -11,7 +12,6 @@ use Sulu\Bundle\FormBundle\Form\Type\DynamicFormType;
 use Sulu\Bundle\FormBundle\Media\CollectionStrategyInterface;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Component\Content\Compat\Structure\PageBridge;
-use Sulu\Component\Content\Compat\StructureInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,9 +38,9 @@ class Builder implements BuilderInterface
     protected $formFieldTypePool;
 
     /**
-     * @var FormCollectionTitlePool
+     * @var CollectionTitleProviderPool
      */
-    protected $formCollectionTitlePool;
+    protected $collectionTitleProviderPool;
 
     /**
      * @var FormRepository
@@ -67,17 +67,16 @@ class Builder implements BuilderInterface
      *
      * @param RequestStack $requestStack
      * @param FormFieldTypePool $formFieldTypePool
-     * @param FormCollectionTitlePool $formCollectionTitlePool
+     * @param CollectionTitleProviderPoolInterface $collectionTitleProviderPool
      * @param FormRepository $formRepository
      * @param CollectionStrategyInterface $collectionStrategy
      * @param FormFactory $formFactory
      * @param string $defaultStructureView
-     * @internal param FormCollectionTitlePool $collectionTitlePool
      */
     public function __construct(
         RequestStack $requestStack,
         FormFieldTypePool $formFieldTypePool,
-        FormCollectionTitlePool $formCollectionTitlePool,
+        CollectionTitleProviderPoolInterface $collectionTitleProviderPool,
         FormRepository $formRepository,
         CollectionStrategyInterface $collectionStrategy,
         FormFactory $formFactory,
@@ -85,7 +84,7 @@ class Builder implements BuilderInterface
     ) {
         $this->requestStack = $requestStack;
         $this->formFieldTypePool = $formFieldTypePool;
-        $this->formCollectionTitlePool = $formCollectionTitlePool;
+        $this->collectionTitleProviderPool = $collectionTitleProviderPool;
         $this->formRepository = $formRepository;
         $this->collectionStrategy = $collectionStrategy;
         $this->formFactory = $formFactory;
@@ -307,7 +306,7 @@ class Builder implements BuilderInterface
                 $locale
             ),
             $this->formFieldTypePool,
-            $this->formCollectionTitlePool,
+            $this->collectionTitleProviderPool,
             $type,
             $typeId
         );

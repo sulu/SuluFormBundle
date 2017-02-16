@@ -142,7 +142,7 @@
         </service>
 
         <!-- CollectionTitle Pool -->
-        <service id="sulu_form.dynamic.collection_title_pool" class="Sulu\Bundle\FormBundle\Dynamic\FormCollectionTitlePool">
+        <service id="sulu_form.dynamic.collection_title_pool" class="Sulu\Bundle\FormBundle\Dynamic\CollectionTitleProviderPool">
             <argument type="collection"/>
         </service>
 

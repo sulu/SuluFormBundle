@@ -10,13 +10,13 @@
 
 namespace Sulu\Bundle\FormBundle\Dynamic\Collections;
 
-use Sulu\Bundle\FormBundle\Dynamic\FormCollectionTitleInterface;
+use Sulu\Bundle\FormBundle\Dynamic\CollectionTitleProviderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * The attached structure type.
  */
-class Page implements FormCollectionTitleInterface
+class PageCollectionTitleProvider implements CollectionTitleProviderInterface
 {
     /**
      * @var RequestStack

@@ -13,20 +13,21 @@ namespace Sulu\Bundle\FormBundle\Dynamic;
 /**
  * Holds the available Form-Collections Types.
  */
-class FormCollectionTitlePool implements FormCollectionTitlePoolInterface{
+class CollectionTitleProviderPool implements CollectionTitleProviderPoolInterface
+{
     /**
-     * @var array
+     * @var CollectionTitleProviderInterface[]
      */
-    private $types;
+    private $providers;
 
     /**
-     * FormCollectionTitlePool constructor.
+     * CollectionTitleProviderPool constructor.
      *
-     * @param array $types
+     * @param CollectionTitleProviderInterface[] $providers
      */
-    public function __construct($types)
+    public function __construct(array $providers)
     {
-        $this->types = $types;
+        $this->providers = $providers;
     }
 
     /**
@@ -34,7 +35,7 @@ class FormCollectionTitlePool implements FormCollectionTitlePoolInterface{
      */
     public function get($alias)
     {
-        return $this->types[$alias];
+        return $this->providers[$alias];
     }
 
     /**
@@ -42,6 +43,6 @@ class FormCollectionTitlePool implements FormCollectionTitlePoolInterface{
      */
     public function all()
     {
-        return $this->types;
+        return $this->providers;
     }
 }

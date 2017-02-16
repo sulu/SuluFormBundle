@@ -3,7 +3,7 @@
 namespace Sulu\Bundle\FormBundle\Media;
 
 use Sulu\Bundle\FormBundle\DependencyInjection\SuluFormExtension;
-use Sulu\Bundle\FormBundle\Dynamic\FormCollectionTitlePoolInterface;
+use Sulu\Bundle\FormBundle\Dynamic\CollectionTitleProviderPoolInterface;
 use Sulu\Bundle\MediaBundle\Collection\Manager\CollectionManagerInterface;
 use Sulu\Component\Media\SystemCollections\SystemCollectionManagerInterface;
 
@@ -23,25 +23,25 @@ class CollectionStrategyTree implements CollectionStrategyInterface
     protected $systemCollectionManager;
 
     /**
-     * @var FormCollectionTitlePoolInterface
+     * @var CollectionTitleProviderPoolInterface
      */
-    protected $collectionTitlePool;
+    protected $collectionTitleProviderPool;
 
     /**
      * CollectionTreeStrategy constructor.
      *
      * @param CollectionManagerInterface $collectionManager
      * @param SystemCollectionManagerInterface $systemCollectionManager
-     * @param FormCollectionTitlePoolInterface $collectionTitlePool
+     * @param CollectionTitleProviderPoolInterface $collectionTitleProviderPool
      */
     public function __construct(
         CollectionManagerInterface $collectionManager,
         SystemCollectionManagerInterface $systemCollectionManager,
-        FormCollectionTitlePoolInterface $collectionTitlePool
+        CollectionTitleProviderPoolInterface $collectionTitleProviderPool
     ) {
         $this->collectionManager = $collectionManager;
         $this->systemCollectionManager = $systemCollectionManager;
-        $this->collectionTitlePool = $collectionTitlePool;
+        $this->collectionTitleProviderPool = $collectionTitleProviderPool;
     }
 
     /**
@@ -54,13 +54,13 @@ class CollectionStrategyTree implements CollectionStrategyInterface
         $typeId,
         $locale
     ) {
-        $title = $this->collectionTitlePool->get($type)->getTitle($type, $typeId);
+        $title = $this->collectionTitleProviderPool->get($type)->getTitle($type, $typeId);
         $rootCollectionKey = SuluFormExtension::SYSTEM_COLLECTION_ROOT;
         $parentCollectionKey = $rootCollectionKey . '.' . $formId;
         $collectionKey = $parentCollectionKey . '.' . $type . '_' . $typeId;
 
         $collectionId = $this->loadCollectionId($collectionKey, $locale);
-
+        
         // Return collection when exists
         if ($collectionId) {
             return $collectionId;
