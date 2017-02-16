@@ -72,7 +72,6 @@ class Builder implements BuilderInterface
      * @param CollectionStrategyInterface $collectionStrategy
      * @param FormFactory $formFactory
      * @param string $defaultStructureView
-     *
      * @internal param FormCollectionTitlePool $collectionTitlePool
      */
     public function __construct(
