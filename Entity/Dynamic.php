@@ -392,6 +392,7 @@ class Dynamic implements TimestampableInterface
     }
 
     /**
+     * Returns the type of current page (e.g. page, event, blog,…)
      * @return string
      */
     public function getType()
@@ -400,6 +401,8 @@ class Dynamic implements TimestampableInterface
     }
 
     /**
+     * Set page type.
+     *
      * @param string $type
      */
     public function setType($type)
