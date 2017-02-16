@@ -81,6 +81,7 @@
         <service id="sulu_form.builder" class="Sulu\Bundle\FormBundle\Form\Builder">
             <argument id="request_stack" type="service" />
             <argument id="sulu_form.dynamic.form_field_type_pool" type="service" />
+            <argument id="sulu_form.dynamic.collection_title_pool" type="service" />
             <argument id="sulu_form.repository.form" type="service" />
             <argument id="sulu_form.media_collection_strategy.default" type="service" />
             <argument type="service" id="form.factory" />
@@ -137,6 +138,17 @@
         <!-- Type Pool -->
         <service id="sulu_form.dynamic.form_field_type_pool" class="Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool">
             <argument type="collection"/>
+        </service>
+
+        <!-- CollectionTitle Pool -->
+        <service id="sulu_form.dynamic.collection_title_pool" class="Sulu\Bundle\FormBundle\Dynamic\FormCollectionTitlePool">
+            <argument type="collection"/>
+        </service>
+
+        <!-- TWIG extension -->
+        <service id="sulu_form.twig_extension" class="Sulu\Bundle\FormBundle\Twig\FormTwigExtension">
+            <tag name="twig.extension"/>
+            <argument type="service" id="sulu_form.builder"/>
         </service>
     </services>
 </container>

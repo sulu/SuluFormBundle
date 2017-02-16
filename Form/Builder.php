@@ -3,6 +3,7 @@
 namespace Sulu\Bundle\FormBundle\Form;
 
 use Doctrine\ORM\NoResultException;
+use Sulu\Bundle\FormBundle\Dynamic\FormCollectionTitlePool;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
@@ -37,6 +38,11 @@ class Builder implements BuilderInterface
     protected $formFieldTypePool;
 
     /**
+     * @var FormCollectionTitlePool
+     */
+    protected $formCollectionTitlePool;
+
+    /**
      * @var FormRepository
      */
     protected $formRepository;
@@ -61,14 +67,17 @@ class Builder implements BuilderInterface
      *
      * @param RequestStack $requestStack
      * @param FormFieldTypePool $formFieldTypePool
+     * @param FormCollectionTitlePool $formCollectionTitlePool
      * @param FormRepository $formRepository
      * @param CollectionStrategyInterface $collectionStrategy
      * @param FormFactory $formFactory
      * @param string $defaultStructureView
+     * @internal param FormCollectionTitlePool $collectionTitlePool
      */
     public function __construct(
         RequestStack $requestStack,
         FormFieldTypePool $formFieldTypePool,
+        FormCollectionTitlePool $formCollectionTitlePool,
         FormRepository $formRepository,
         CollectionStrategyInterface $collectionStrategy,
         FormFactory $formFactory,
@@ -76,6 +85,7 @@ class Builder implements BuilderInterface
     ) {
         $this->requestStack = $requestStack;
         $this->formFieldTypePool = $formFieldTypePool;
+        $this->formCollectionTitlePool = $formCollectionTitlePool;
         $this->formRepository = $formRepository;
         $this->collectionStrategy = $collectionStrategy;
         $this->formFactory = $formFactory;
@@ -97,28 +107,17 @@ class Builder implements BuilderInterface
                     continue;
                 }
 
-                $name = $formNameParts[1];
                 $locale = $request->getLocale();
 
-                $structure = $request->attributes->get('structure');
-
-                if (
-                    !$structure instanceof StructureInterface
-                    || !$structure->hasProperty('title')
-                    || !$structure->hasProperty($name)
+                if (!isset($parameters['type'])
+                    || !isset($parameters['formId'])
+                    || !isset($parameters['formName'])
+                    || !isset($parameters['typeId'])
                 ) {
                     continue;
                 }
 
-                $typeId = $structure->getUuid();
-                $typeName = $structure->getProperty('title')->getValue();
-                $id = (int) $structure->getProperty($name)->getValue();
-
-                if (!$typeId || !$id || !$typeName) {
-                    continue;
-                }
-
-                return $this->build($id, 'page', $typeId, $typeName, $locale, $name);
+                return $this->build($parameters['formId'], $parameters['type'], $parameters['typeId'], $locale, $parameters['formName']);
             }
         }
 
@@ -131,13 +130,12 @@ class Builder implements BuilderInterface
      * @param int $id
      * @param string $type
      * @param string $typeId
-     * @param string $typeName
      * @param string $locale
      * @param string $name
      *
      * @return array
      */
-    public function build($id, $type, $typeId, $typeName, $locale = null, $name = 'form')
+    public function build($id, $type, $typeId, $locale = null, $name = 'form')
     {
         $request = $this->requestStack->getCurrentRequest();
 
@@ -146,10 +144,10 @@ class Builder implements BuilderInterface
         }
 
         // Check if form was builded before and return the cached form.
-        $key = $this->getKey($id, $type, $typeId, $typeName, $locale, $name);
+        $key = $this->getKey($id, $type, $typeId, $locale, $name);
 
         if (!isset($this->cache[$key])) {
-            $this->cache[$key] = $this->buildForm($id, $type, $typeId, $typeName, $locale, $name);
+            $this->cache[$key] = $this->buildForm($id, $type, $typeId, $locale, $name);
         }
 
         return $this->cache[$key];
@@ -161,13 +159,12 @@ class Builder implements BuilderInterface
      * @param int $id
      * @param string $type
      * @param string $typeId
-     * @param string $typeName
      * @param string $locale
      * @param string $name
      *
      * @return array
      */
-    protected function buildForm($id, $type, $typeId, $typeName, $locale, $name)
+    protected function buildForm($id, $type, $typeId, $locale, $name)
     {
         $request = $this->requestStack->getCurrentRequest();
 
@@ -187,8 +184,7 @@ class Builder implements BuilderInterface
             $locale,
             $name,
             $type,
-            $typeId,
-            $typeName
+            $typeId
         );
 
         // Create Form
@@ -213,13 +209,12 @@ class Builder implements BuilderInterface
      * @param int $id
      * @param string $type
      * @param string $typeId
-     * @param string $typeName
      * @param string $locale
      * @param string $name
      *
      * @return string
      */
-    protected function getKey($id, $type, $typeId, $typeName, $locale, $name)
+    protected function getKey($id, $type, $typeId, $locale, $name)
     {
         return implode('__', func_get_args());
     }
@@ -288,8 +283,7 @@ class Builder implements BuilderInterface
         $locale,
         $name,
         $type,
-        $typeId,
-        $typeName
+        $typeId
     ) {
         /** @var PageBridge $structure */
         $structure = $this->requestStack->getCurrentRequest()->attributes->get('structure');
@@ -310,10 +304,12 @@ class Builder implements BuilderInterface
                 $formEntity->getTranslation($locale)->getTitle(),
                 $type,
                 $typeId,
-                $typeName,
                 $locale
             ),
-            $this->formFieldTypePool
+            $this->formFieldTypePool,
+            $this->formCollectionTitlePool,
+            $type,
+            $typeId
         );
     }
 

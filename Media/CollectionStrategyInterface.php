@@ -14,7 +14,6 @@ interface CollectionStrategyInterface
      * @param string $formTitle
      * @param string $type
      * @param string $typeId
-     * @param string $title
      * @param string $locale
      *
      * @return array|int
@@ -24,7 +23,6 @@ interface CollectionStrategyInterface
         $formTitle,
         $type,
         $typeId,
-        $title,
         $locale
     );
 }
