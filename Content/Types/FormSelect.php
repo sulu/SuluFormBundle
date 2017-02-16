@@ -80,7 +80,6 @@ class FormSelect extends SimpleContentType
             $id,
             $type,
             $property->getStructure()->getUuid(),
-            $property->getStructure()->getProperty('title')->getValue(),
             $property->getStructure()->getLanguageCode(),
             $property->getName()
         );

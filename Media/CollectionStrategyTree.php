@@ -43,7 +43,6 @@ class CollectionStrategyTree implements CollectionStrategyInterface
         $formTitle,
         $type,
         $typeId,
-        $title,
         $locale
     ) {
         $rootCollectionKey = SuluFormExtension::SYSTEM_COLLECTION_ROOT;
@@ -72,7 +71,7 @@ class CollectionStrategyTree implements CollectionStrategyInterface
 
         // Create Collection
         return $this->createCollection(
-            $title,
+            'test', // TODO: load title
             $parentCollectionId,
             $collectionKey,
             $locale
