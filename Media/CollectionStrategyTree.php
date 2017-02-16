@@ -3,6 +3,7 @@
 namespace Sulu\Bundle\FormBundle\Media;
 
 use Sulu\Bundle\FormBundle\DependencyInjection\SuluFormExtension;
+use Sulu\Bundle\FormBundle\Dynamic\FormCollectionTitlePoolInterface;
 use Sulu\Bundle\MediaBundle\Collection\Manager\CollectionManagerInterface;
 use Sulu\Component\Media\SystemCollections\SystemCollectionManagerInterface;
 
@@ -22,17 +23,25 @@ class CollectionStrategyTree implements CollectionStrategyInterface
     protected $systemCollectionManager;
 
     /**
+     * @var FormCollectionTitlePoolInterface
+     */
+    protected $collectionTitlePool;
+
+    /**
      * CollectionTreeStrategy constructor.
      *
      * @param CollectionManagerInterface $collectionManager
      * @param SystemCollectionManagerInterface $systemCollectionManager
+     * @param FormCollectionTitlePoolInterface $collectionTitlePool
      */
     public function __construct(
         CollectionManagerInterface $collectionManager,
-        SystemCollectionManagerInterface $systemCollectionManager
+        SystemCollectionManagerInterface $systemCollectionManager,
+        FormCollectionTitlePoolInterface $collectionTitlePool
     ) {
         $this->collectionManager = $collectionManager;
         $this->systemCollectionManager = $systemCollectionManager;
+        $this->collectionTitlePool = $collectionTitlePool;
     }
 
     /**
@@ -45,6 +54,7 @@ class CollectionStrategyTree implements CollectionStrategyInterface
         $typeId,
         $locale
     ) {
+        $title = $this->collectionTitlePool->get($type)->getTitle($type, $typeId);
         $rootCollectionKey = SuluFormExtension::SYSTEM_COLLECTION_ROOT;
         $parentCollectionKey = $rootCollectionKey . '.' . $formId;
         $collectionKey = $parentCollectionKey . '.' . $type . '_' . $typeId;
@@ -71,7 +81,7 @@ class CollectionStrategyTree implements CollectionStrategyInterface
 
         // Create Collection
         return $this->createCollection(
-            'test', // TODO: load title
+            $title,
             $parentCollectionId,
             $collectionKey,
             $locale

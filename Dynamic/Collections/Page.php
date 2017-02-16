@@ -11,9 +11,7 @@
 namespace Sulu\Bundle\FormBundle\Dynamic\Collections;
 
 use Sulu\Bundle\FormBundle\Dynamic\FormCollectionTitleInterface;
-use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
-use Sulu\Bundle\FormBundle\Entity\FormField;
-use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * The attached structure type.
@@ -21,10 +19,26 @@ use Symfony\Component\Form\FormBuilderInterface;
 class Page implements FormCollectionTitleInterface
 {
     /**
+     * @var RequestStack
+     */
+    private $requestStack;
+
+    /**
+     * @param RequestStack $requestStack
+     */
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getTitle($type, $typeId)
     {
-        // TODO: Return title with registered service from given type (e.g. structure, event, blog,…)
+        $request = $this->requestStack->getMasterRequest();
+        $structure = $request->attributes->get('structure');
+
+        return $structure->getProperty('title')->getValue();
     }
 }

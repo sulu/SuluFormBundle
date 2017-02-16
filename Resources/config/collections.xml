@@ -6,6 +6,7 @@
     <services>
         <service id="sulu_form.dynamic.collection_title_page" class="Sulu\Bundle\FormBundle\Dynamic\Collections\Page">
             <tag name="sulu_form.dynamic.collection_title" alias="page"/>
+            <argument type="service" id="request_stack"/>
         </service>
     </services>
 </container>
