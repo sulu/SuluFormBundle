@@ -108,28 +108,17 @@ class Builder implements BuilderInterface
                     continue;
                 }
 
-                $name = $formNameParts[1];
                 $locale = $request->getLocale();
 
-                $structure = $request->attributes->get('structure');
-
-                if (
-                    !$structure instanceof StructureInterface
-                    || !$structure->hasProperty('title')
-                    || !$structure->hasProperty($name)
+                if (!isset($parameters['type'])
+                    || !isset($parameters['formId'])
+                    || !isset($parameters['formName'])
+                    || !isset($parameters['typeId'])
                 ) {
                     continue;
                 }
 
-                $typeId = $structure->getUuid();
-                $typeName = $structure->getProperty('title')->getValue();
-                $id = (int) $structure->getProperty($name)->getValue();
-
-                if (!$typeId || !$id || !$typeName) {
-                    continue;
-                }
-
-                return $this->build($id, 'page', $typeId, $locale, $name);
+                return $this->build($parameters['formId'], $parameters['type'], $parameters['typeId'], $locale, $parameters['formName']);
             }
         }
 
