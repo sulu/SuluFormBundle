@@ -34,7 +34,6 @@ class CollectionStrategySingle implements CollectionStrategyInterface
         $formTitle,
         $type,
         $typeId,
-        $title,
         $locale
     ) {
         return $this->systemCollectionManager->getSystemCollection(
