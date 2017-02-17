@@ -2,7 +2,7 @@
 
 namespace Sulu\Bundle\FormBundle\Form\Type;
 
-use Sulu\Bundle\FormBundle\Dynamic\FormCollectionTitlePool;
+use Sulu\Bundle\FormBundle\Dynamic\CollectionTitleProviderPoolInterface;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
@@ -68,7 +68,7 @@ class DynamicFormType extends AbstractType
      * @param string $structureView
      * @param int $systemCollectionId
      * @param FormFieldTypePool $typePool
-     * @param FormCollectionTitlePool $collectionTitlePool
+     * @param CollectionTitleProviderPoolInterface $collectionTitlePool
      * @param string $type
      * @param stgring $typeId
      */
@@ -79,7 +79,7 @@ class DynamicFormType extends AbstractType
         $structureView,
         $systemCollectionId,
         FormFieldTypePool $typePool,
-        FormCollectionTitlePool $collectionTitlePool,
+        CollectionTitleProviderPoolInterface $collectionTitlePool,
         $type,
         $typeId
     ) {

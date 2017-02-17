@@ -13,21 +13,21 @@ namespace Sulu\Bundle\FormBundle\Dynamic;
 /**
  * Holds the available collection-title types.
  */
-interface FormCollectionTitlePoolInterface {
-
+interface CollectionTitleProviderPoolInterface
+{
     /**
      * Returns collection-type specified by alias.
      *
      * @param string $alias
      *
-     * @return FormCollectionTitleInterface
+     * @return CollectionTitleProviderInterface
      */
     public function get($alias);
 
     /**
      * Returns all collection-types.
      *
-     * @return FormCollectionTitleInterface[]
+     * @return CollectionTitleProviderInterface[]
      */
     public function all();
 }
