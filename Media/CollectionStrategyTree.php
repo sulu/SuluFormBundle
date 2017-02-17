@@ -60,7 +60,7 @@ class CollectionStrategyTree implements CollectionStrategyInterface
         $collectionKey = $parentCollectionKey . '.' . $type . '_' . $typeId;
 
         $collectionId = $this->loadCollectionId($collectionKey, $locale);
-        
+
         // Return collection when exists
         if ($collectionId) {
             return $collectionId;
