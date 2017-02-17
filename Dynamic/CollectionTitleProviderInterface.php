@@ -13,8 +13,8 @@ namespace Sulu\Bundle\FormBundle\Dynamic;
 /**
  * Defines the form type implementation.
  */
-interface FormCollectionTitleInterface {
-
+interface CollectionTitleProviderInterface
+{
     /**
      * Returns the title with registered service from given type (e.g. structure, event, blog,…)
      *

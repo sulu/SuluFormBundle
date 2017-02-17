@@ -128,6 +128,7 @@
                  class="Sulu\Bundle\FormBundle\Media\CollectionStrategyTree">
             <argument type="service" id="sulu_media.collection_manager" />
             <argument type="service" id="sulu_media.system_collections.manager" />
+            <argument type="service" id="sulu_form.dynamic.collection_title_pool" />
         </service>
 
         <service id="sulu_form.media_collection_strategy.single"
@@ -141,7 +142,7 @@
         </service>
 
         <!-- CollectionTitle Pool -->
-        <service id="sulu_form.dynamic.collection_title_pool" class="Sulu\Bundle\FormBundle\Dynamic\FormCollectionTitlePool">
+        <service id="sulu_form.dynamic.collection_title_pool" class="Sulu\Bundle\FormBundle\Dynamic\CollectionTitleProviderPool">
             <argument type="collection"/>
         </service>
 
