@@ -38,12 +38,12 @@ class DynamicListNavigationProvider implements ContentNavigationProviderInterfac
             $item->setAction('form-list');
             $item->setDisplay(['edit']);
             $item->setComponent('dynamics/list@suluform');
-            // TODO: Change binding.
+
             $item->setComponentOptions([
                 'template' => $templateKey,
                 'property' => $config['property'],
                 'view' => isset($config['view']) ? $config['view'] : 'default',
-                'type' => 'page',
+                'type' => $options['alias'],
             ]);
 
             $item->setDisplayConditions(

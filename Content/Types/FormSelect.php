@@ -53,7 +53,7 @@ class FormSelect extends SimpleContentType
     public function getDefaultParams(PropertyInterface $property = null)
     {
         return [
-            'type' => new PropertyParameter('type', 'page'),
+            'type' => new PropertyParameter('type', 'content'),
         ];
     }
 

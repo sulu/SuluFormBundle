@@ -4,8 +4,8 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="sulu_form.dynamic.collection_title_page" class="Sulu\Bundle\FormBundle\Dynamic\Collections\PageCollectionTitleProvider">
-            <tag name="sulu_form.dynamic.collection_title" alias="page"/>
+        <service id="sulu_form.dynamic.collection_title_page" class="Sulu\Bundle\FormBundle\Dynamic\Collections\ContentCollectionTitleProvider">
+            <tag name="sulu_form.dynamic.collection_title" alias="content"/>
             <argument type="service" id="request_stack"/>
         </service>
     </services>

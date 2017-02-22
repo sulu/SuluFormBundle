@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * The attached structure type.
  */
-class PageCollectionTitleProvider implements CollectionTitleProviderInterface
+class ContentCollectionTitleProvider implements CollectionTitleProviderInterface
 {
     /**
      * @var RequestStack

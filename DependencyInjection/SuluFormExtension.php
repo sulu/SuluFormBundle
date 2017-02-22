@@ -72,7 +72,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         // add dynamic lists
         foreach ($config['dynamic_lists'] as $key => $value) {
             $parameter = 'sulu_form.dynamic_lists.' . $key . '.config';
-            $container->setParameter($parameter, $value);
+            $container->setParameter($parameter, $value ?: []);
 
             $definition = new Definition(DynamicListNavigationProvider::class);
             $definition->addArgument('%' . $parameter . '%');
