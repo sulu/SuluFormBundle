@@ -10,6 +10,7 @@ use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class DynamicFormType extends AbstractType
@@ -60,6 +61,16 @@ class DynamicFormType extends AbstractType
     private $typeId;
 
     /**
+     * @var MessageDigestPasswordEncoder
+     */
+    private $encoder;
+
+    /**
+     * @var string
+     */
+    private $secret;
+
+    /**
      * DynamicFormType constructor.
      *
      * @param Form $formEntity
@@ -71,6 +82,7 @@ class DynamicFormType extends AbstractType
      * @param CollectionTitleProviderPoolInterface $collectionTitlePool
      * @param string $type
      * @param stgring $typeId
+     * @param string $secret
      */
     public function __construct(
         Form $formEntity,
@@ -81,7 +93,8 @@ class DynamicFormType extends AbstractType
         FormFieldTypePool $typePool,
         CollectionTitleProviderPoolInterface $collectionTitlePool,
         $type,
-        $typeId
+        $typeId,
+        $secret
     ) {
         $this->formEntity = $formEntity;
         $this->locale = $locale;
@@ -92,6 +105,8 @@ class DynamicFormType extends AbstractType
         $this->collectionTitlePool = $collectionTitlePool;
         $this->type = $type;
         $this->typeId = $typeId;
+        $this->secret = $secret;
+        $this->encoder = new MessageDigestPasswordEncoder();
     }
 
     /**
@@ -166,8 +181,23 @@ class DynamicFormType extends AbstractType
             'data' => $this->name
         ]);
 
+        // Add hidden formName field. (Name of "form_select"-content-type.)
+        $builder->add('checksum', HiddenType::class, [
+            'data' => $this->encoder->encodePassword($this->getCheckSumRaw(), $this->secret)
+        ]);
+
         // Add submit button.
         $builder->add('submit', SubmitType::class);
+    }
+
+    /**
+     * Returns a checksum string with type + typeId + id + name.
+     *
+     * @return string
+     */
+    public function getCheckSumRaw()
+    {
+        return $this->type . $this->typeId . $this->formEntity->getId() . $this->name;
     }
 
     /**

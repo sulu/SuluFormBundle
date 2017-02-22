@@ -63,6 +63,11 @@ class Builder implements BuilderInterface
     protected $defaultStructureView;
 
     /**
+     * @var string
+     */
+    private $secret;
+
+    /**
      * Builder constructor.
      *
      * @param RequestStack $requestStack
@@ -72,6 +77,7 @@ class Builder implements BuilderInterface
      * @param CollectionStrategyInterface $collectionStrategy
      * @param FormFactory $formFactory
      * @param string $defaultStructureView
+     * @param string $secret
      */
     public function __construct(
         RequestStack $requestStack,
@@ -80,7 +86,8 @@ class Builder implements BuilderInterface
         FormRepository $formRepository,
         CollectionStrategyInterface $collectionStrategy,
         FormFactory $formFactory,
-        $defaultStructureView
+        $defaultStructureView,
+        $secret
     ) {
         $this->requestStack = $requestStack;
         $this->formFieldTypePool = $formFieldTypePool;
@@ -89,6 +96,7 @@ class Builder implements BuilderInterface
         $this->collectionStrategy = $collectionStrategy;
         $this->formFactory = $formFactory;
         $this->defaultStructureView = $defaultStructureView;
+        $this->secret = $secret;
     }
 
     /**
@@ -308,7 +316,8 @@ class Builder implements BuilderInterface
             $this->formFieldTypePool,
             $this->collectionTitleProviderPool,
             $type,
-            $typeId
+            $typeId,
+            $this->secret
         );
     }
 

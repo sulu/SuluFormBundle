@@ -43,7 +43,7 @@ define(['jquery'], function ($) {
          */
         getUrlParameters: function() {
             return {
-                'form': this.options.data(this.options.property)[this.options.property],
+                'form': this.options.data()[this.options.property],
                 'webspaceKey': this.options.webspace,
                 'locale': this.options.language,
                 'view': this.options.view,

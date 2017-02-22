@@ -17,13 +17,20 @@ class DynamicListNavigationProvider implements ContentNavigationProviderInterfac
     private $config;
 
     /**
+     * @var string
+     */
+    private $type;
+
+    /**
      * DynamicListNavigationProvider constructor.
      *
      * @param array $config
+     * @param array $type
      */
-    public function __construct(array $config)
+    public function __construct(array $config, $type)
     {
         $this->config = $config;
+        $this->type = $type;
     }
 
     /**
@@ -43,7 +50,7 @@ class DynamicListNavigationProvider implements ContentNavigationProviderInterfac
                 'template' => $templateKey,
                 'property' => $config['property'],
                 'view' => isset($config['view']) ? $config['view'] : 'default',
-                'type' => $options['alias'],
+                'type' => $this->type,
             ]);
 
             $item->setDisplayConditions(

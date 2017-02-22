@@ -17,6 +17,7 @@
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="sulu_media.media_manager" />
             <argument type="service" id="logger" />
+            <argument>%secret%</argument>
         </service>
 
         <!-- Mail -->
@@ -86,6 +87,7 @@
             <argument id="sulu_form.media_collection_strategy.default" type="service" />
             <argument type="service" id="form.factory" />
             <argument>%sulu_form.dynamic_default_view%</argument>
+            <argument>%secret%</argument>
         </service>
 
         <!-- Request Listener -->
