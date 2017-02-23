@@ -9,15 +9,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\Dynamic\Collections;
+namespace Sulu\Bundle\FormBundle\TitleProvider\Collections;
 
-use Sulu\Bundle\FormBundle\Dynamic\CollectionTitleProviderInterface;
+use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * The attached structure type.
  */
-class ContentCollectionTitleProvider implements CollectionTitleProviderInterface
+class StructureTitleProvider implements TitleProviderInterface
 {
     /**
      * @var RequestStack

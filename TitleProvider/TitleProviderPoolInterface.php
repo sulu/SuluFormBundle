@@ -9,26 +9,26 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\Dynamic;
+namespace Sulu\Bundle\FormBundle\TitleProvider;
 
 /**
  * Holds the available collection-title types.
  */
-interface CollectionTitleProviderPoolInterface
+interface TitleProviderPoolInterface
 {
     /**
      * Returns collection-type specified by alias.
      *
      * @param string $alias
      *
-     * @return CollectionTitleProviderInterface
+     * @return TitleProviderInterface
      */
     public function get($alias);
 
     /**
      * Returns all collection-types.
      *
-     * @return CollectionTitleProviderInterface[]
+     * @return TitleProviderInterface[]
      */
     public function all();
 }

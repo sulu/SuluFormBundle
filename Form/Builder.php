@@ -12,19 +12,20 @@
 namespace Sulu\Bundle\FormBundle\Form;
 
 use Doctrine\ORM\NoResultException;
-use Sulu\Bundle\FormBundle\Dynamic\CollectionTitleProviderPool;
-use Sulu\Bundle\FormBundle\Dynamic\CollectionTitleProviderPoolInterface;
+use Sulu\Bundle\FormBundle\Dynamic\Checksum;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Form\Type\DynamicFormType;
 use Sulu\Bundle\FormBundle\Media\CollectionStrategyInterface;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
+use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
 use Sulu\Component\Content\Compat\Structure\PageBridge;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Builds a dynamic form.
@@ -47,9 +48,9 @@ class Builder implements BuilderInterface
     protected $formFieldTypePool;
 
     /**
-     * @var CollectionTitleProviderPool
+     * @var TitleProviderPool
      */
-    protected $collectionTitleProviderPool;
+    protected $titleProviderPool;
 
     /**
      * @var FormRepository
@@ -72,40 +73,40 @@ class Builder implements BuilderInterface
     protected $defaultStructureView;
 
     /**
-     * @var string
+     * @var Checksum
      */
-    private $secret;
+    private $checksum;
 
     /**
      * Builder constructor.
      *
      * @param RequestStack $requestStack
      * @param FormFieldTypePool $formFieldTypePool
-     * @param CollectionTitleProviderPoolInterface $collectionTitleProviderPool
+     * @param TitleProviderPoolInterface $titleProviderPool
      * @param FormRepository $formRepository
      * @param CollectionStrategyInterface $collectionStrategy
      * @param FormFactory $formFactory
+     * @param Checksum $checksum
      * @param string $defaultStructureView
-     * @param string $secret
      */
     public function __construct(
         RequestStack $requestStack,
         FormFieldTypePool $formFieldTypePool,
-        CollectionTitleProviderPoolInterface $collectionTitleProviderPool,
+        TitleProviderPoolInterface $titleProviderPool,
         FormRepository $formRepository,
         CollectionStrategyInterface $collectionStrategy,
         FormFactory $formFactory,
-        $defaultStructureView,
-        $secret
+        Checksum $checksum,
+        $defaultStructureView
     ) {
         $this->requestStack = $requestStack;
         $this->formFieldTypePool = $formFieldTypePool;
-        $this->collectionTitleProviderPool = $collectionTitleProviderPool;
+        $this->titleProviderPool = $titleProviderPool;
         $this->formRepository = $formRepository;
         $this->collectionStrategy = $collectionStrategy;
         $this->formFactory = $formFactory;
         $this->defaultStructureView = $defaultStructureView;
-        $this->secret = $secret;
+        $this->checksum = $checksum;
     }
 
     /**
@@ -118,9 +119,20 @@ class Builder implements BuilderInterface
         foreach ($request->request->all() as $key => $parameters) {
             if (strpos($key, 'dynamic_') === 0) {
                 $formNameParts = explode('dynamic_', $key, 2);
+                $checksumCheck = $this->checksum->check(
+                    $parameters['checksum'],
+                    $parameters['type'],
+                    $parameters['typeId'],
+                    $parameters['formId'],
+                    $parameters['formName']
+                );
 
                 if (!isset($formNameParts[1])) {
                     continue;
+                }
+
+                if (!$checksumCheck) {
+                    throw new HttpException(400, 'SuluFormBundle: Checksum not valid!');
                 }
 
                 $locale = $request->getLocale();
@@ -132,6 +144,7 @@ class Builder implements BuilderInterface
                 ) {
                     continue;
                 }
+
 
                 return $this->build($parameters['formId'], $parameters['type'], $parameters['typeId'], $locale, $parameters['formName']);
             }
@@ -323,10 +336,10 @@ class Builder implements BuilderInterface
                 $locale
             ),
             $this->formFieldTypePool,
-            $this->collectionTitleProviderPool,
+            $this->titleProviderPool,
+            $this->checksum,
             $type,
-            $typeId,
-            $this->secret
+            $typeId
         );
     }
 

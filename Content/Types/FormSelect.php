@@ -17,6 +17,7 @@ use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\Compat\PropertyParameter;
 use Sulu\Component\Content\SimpleContentType;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 /**
  * ContentType for selecting a form.
@@ -59,16 +60,6 @@ class FormSelect extends SimpleContentType
     /**
      * {@inheritdoc}
      */
-    public function getDefaultParams(PropertyInterface $property = null)
-    {
-        return [
-            'type' => new PropertyParameter('type', 'content'),
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getContentData(PropertyInterface $property)
     {
         $id = (int) $property->getValue();
@@ -77,12 +68,14 @@ class FormSelect extends SimpleContentType
             return;
         }
 
-        $params = array_merge(
-            $this->getDefaultParams($property),
-            $property->getParams()
-        );
+        if (!isset($property->getParams()['type'])) {
+            throw new MissingOptionsException(
+                'SuluFormBundle: The parameter "type" is missing on "form_select" content-type.',
+                []
+            );
+        }
 
-        $type = $params['type']->getValue();
+        $type = $property->getParams()['type']->getValue();
 
         /** @var FormInterface $form */
         list($formType, $form) = $this->formBuilder->build(

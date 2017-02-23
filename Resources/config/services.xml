@@ -17,7 +17,7 @@
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="sulu_media.media_manager" />
             <argument type="service" id="logger" />
-            <argument>%secret%</argument>
+            <argument type="service" id="sulu_form.checksum" />
         </service>
 
         <!-- Mail -->
@@ -82,12 +82,12 @@
         <service id="sulu_form.builder" class="Sulu\Bundle\FormBundle\Form\Builder">
             <argument id="request_stack" type="service" />
             <argument id="sulu_form.dynamic.form_field_type_pool" type="service" />
-            <argument id="sulu_form.dynamic.collection_title_pool" type="service" />
+            <argument id="sulu_form.title_provider.pool" type="service" />
             <argument id="sulu_form.repository.form" type="service" />
             <argument id="sulu_form.media_collection_strategy.default" type="service" />
             <argument type="service" id="form.factory" />
+            <argument type="service" id="sulu_form.checksum" />
             <argument>%sulu_form.dynamic_default_view%</argument>
-            <argument>%secret%</argument>
         </service>
 
         <!-- Request Listener -->
@@ -130,7 +130,7 @@
                  class="Sulu\Bundle\FormBundle\Media\CollectionStrategyTree">
             <argument type="service" id="sulu_media.collection_manager" />
             <argument type="service" id="sulu_media.system_collections.manager" />
-            <argument type="service" id="sulu_form.dynamic.collection_title_pool" />
+            <argument type="service" id="sulu_form.title_provider.pool" />
         </service>
 
         <service id="sulu_form.media_collection_strategy.single"
@@ -143,15 +143,15 @@
             <argument type="collection"/>
         </service>
 
-        <!-- CollectionTitle Pool -->
-        <service id="sulu_form.dynamic.collection_title_pool" class="Sulu\Bundle\FormBundle\Dynamic\CollectionTitleProviderPool">
-            <argument type="collection"/>
-        </service>
-
         <!-- TWIG extension -->
         <service id="sulu_form.twig_extension" class="Sulu\Bundle\FormBundle\Twig\FormTwigExtension">
             <tag name="twig.extension"/>
             <argument type="service" id="sulu_form.builder"/>
+        </service>
+
+        <!-- Checksum -->
+        <service id="sulu_form.checksum" class="Sulu\Bundle\FormBundle\Dynamic\Checksum">
+            <argument>%secret%</argument>
         </service>
     </services>
 </container>

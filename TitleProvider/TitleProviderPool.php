@@ -9,22 +9,22 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\Dynamic;
+namespace Sulu\Bundle\FormBundle\TitleProvider;
 
 /**
- * Holds the available Form-Collections Types.
+ * Holds the available Form-Title Provider Types.
  */
-class CollectionTitleProviderPool implements CollectionTitleProviderPoolInterface
+class TitleProviderPool implements TitleProviderPoolInterface
 {
     /**
-     * @var CollectionTitleProviderInterface[]
+     * @var TitleProviderInterface[]
      */
     private $providers;
 
     /**
-     * CollectionTitleProviderPool constructor.
+     * TitleProviderPool constructor.
      *
-     * @param CollectionTitleProviderInterface[] $providers
+     * @param TitleProviderInterface[] $providers
      */
     public function __construct(array $providers)
     {

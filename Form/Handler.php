@@ -158,10 +158,6 @@ class Handler implements HandlerInterface
             return false;
         }
 
-        if (!$this->checkSum($form)) {
-            return false;
-        }
-
         $mediaIds = [];
 
         if (isset($attributes['_form_type'])) {
@@ -220,32 +216,6 @@ class Handler implements HandlerInterface
         }
 
         return true;
-    }
-
-    /**
-     * Check chcksum with given data.
-     *
-     * @param Form $form
-     *
-     * @return bool
-     */
-    private function checkSum(Form $form)
-    {
-        $checksum = $form->getData()->getData()['checksum'];
-
-        return $this->encoder->isPasswordValid($checksum, $this->getCheckSumRaw($form->getData()), $this->secret);
-    }
-
-    /**
-     * Returns a checksum string with type + typeId + id + name.
-     *
-     * @param Dynamic $formData
-     *
-     * @return string
-     */
-    public function getCheckSumRaw(Dynamic $formData)
-    {
-        return $formData->getType() . $formData->typeId . $formData->getData()['formId'] . $formData->getData()['formName'];
     }
 
     /**

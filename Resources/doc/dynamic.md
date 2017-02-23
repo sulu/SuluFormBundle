@@ -75,7 +75,7 @@ To visualise a tab in the Sulu template, simply configured the following in your
 ```yml
 sulu_form:
     dynamic_lists:
-        <module_name>: # For Sulu-content use "content".
+        <module_name>: # For Sulu-structure use "structure".
             <template_key>:
                 property: <form_select_property_name>
 ```
@@ -83,16 +83,16 @@ sulu_form:
 **Now a tab should be visible with a list you can export**
 
 ### Implement Tab into a custom module:
-- Implement a Provider for your Module with `CollectionTitleProviderInterface`.
+- Implement a Provider for your Module with `TitleProviderInterface`.
 - Create a service for this Provider:
 ```xml
-<service id="sulu_form.dynamic.collection_title_<module_name>" class="Sulu\Bundle\FormBundle\Dynamic\Collections\ContentCollectionTitleProvider">
-    <tag name="sulu_form.dynamic.collection_title" alias="<module_name>"/>
+<service id="sulu_form.dynamic.collection_title_<module_name>" class="Sulu\Bundle\FormBundle\TitleProvider\Collections\StructureTitleProvider">
+    <tag name="sulu_form.dynamic.title" alias="<module_name>"/>
     <argument type="service" id="request_stack"/>
 </service>
 ```
 
-**Provider for type "content" already exists**
+**Provider for type "structure" already exists**
 
 ## Media Collections
 

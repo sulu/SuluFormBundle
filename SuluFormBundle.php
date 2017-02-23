@@ -32,8 +32,8 @@ class SuluFormBundle extends Bundle
             'alias'
         ));
         $container->addCompilerPass(new TaggedServiceCollectorCompilerPass(
-            'sulu_form.dynamic.collection_title_pool',
-            'sulu_form.dynamic.collection_title',
+            'sulu_form.title_provider.pool',
+            'sulu_form.title_provider',
             0,
             'alias'
         ));

@@ -11,15 +11,15 @@
 
 namespace Sulu\Bundle\FormBundle\Form\Type;
 
-use Sulu\Bundle\FormBundle\Dynamic\CollectionTitleProviderPoolInterface;
+use Sulu\Bundle\FormBundle\Dynamic\Checksum;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
+use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class DynamicFormType extends AbstractType
@@ -55,9 +55,9 @@ class DynamicFormType extends AbstractType
     private $typePool;
 
     /**
-     * @var CollectionTitlePool
+     * @var TitleProviderPool
      */
-    private $collectionTitlePool;
+    private $titlePool;
 
     /**
      * @var string
@@ -70,14 +70,9 @@ class DynamicFormType extends AbstractType
     private $typeId;
 
     /**
-     * @var MessageDigestPasswordEncoder
+     * @var Checksum
      */
-    private $encoder;
-
-    /**
-     * @var string
-     */
-    private $secret;
+    private $checksum;
 
     /**
      * DynamicFormType constructor.
@@ -88,10 +83,12 @@ class DynamicFormType extends AbstractType
      * @param string $structureView
      * @param int $systemCollectionId
      * @param FormFieldTypePool $typePool
-     * @param CollectionTitleProviderPoolInterface $collectionTitlePool
+     * @param TitleProviderPoolInterface $titlePool
      * @param string $type
+     * @param Checksum $checksum
      * @param stgring $typeId
-     * @param string $secret
+     *
+     * @internal param string $secret
      */
     public function __construct(
         Form $formEntity,
@@ -100,10 +97,10 @@ class DynamicFormType extends AbstractType
         $structureView,
         $systemCollectionId,
         FormFieldTypePool $typePool,
-        CollectionTitleProviderPoolInterface $collectionTitlePool,
+        TitleProviderPoolInterface $titlePool,
+        Checksum $checksum,
         $type,
-        $typeId,
-        $secret
+        $typeId
     ) {
         $this->formEntity = $formEntity;
         $this->locale = $locale;
@@ -111,11 +108,10 @@ class DynamicFormType extends AbstractType
         $this->structureView = $structureView;
         $this->systemCollectionId = $systemCollectionId;
         $this->typePool = $typePool;
-        $this->collectionTitlePool = $collectionTitlePool;
+        $this->titlePool = $titlePool;
         $this->type = $type;
         $this->typeId = $typeId;
-        $this->secret = $secret;
-        $this->encoder = new MessageDigestPasswordEncoder();
+        $this->checksum = $checksum;
     }
 
     /**
@@ -170,7 +166,7 @@ class DynamicFormType extends AbstractType
             $this->typePool->get($field->getType())->build($builder, $field, $this->locale, $options);
         }
 
-        // Add hidden type field. (page, event, blog,…)
+        // Add hidden type field. (structure, event, blog,…)
         $builder->add('type', HiddenType::class, [
             'data' => $this->type,
         ]);
@@ -191,22 +187,13 @@ class DynamicFormType extends AbstractType
         ]);
 
         // Add hidden formName field. (Name of "form_select"-content-type.)
+        $checksum = $this->checksum->get($this->type, $this->typeId, $this->formEntity->getId(), $this->name);
         $builder->add('checksum', HiddenType::class, [
-            'data' => $this->encoder->encodePassword($this->getCheckSumRaw(), $this->secret),
+            'data' => $checksum,
         ]);
 
         // Add submit button.
         $builder->add('submit', SubmitType::class);
-    }
-
-    /**
-     * Returns a checksum string with type + typeId + id + name.
-     *
-     * @return string
-     */
-    public function getCheckSumRaw()
-    {
-        return $this->type . $this->typeId . $this->formEntity->getId() . $this->name;
     }
 
     /**
