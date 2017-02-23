@@ -32,6 +32,7 @@ class SalutationType implements FormFieldTypeInterface
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
         $type = ChoiceType::class;
+        $options['placeholder'] = $field->getTranslation($locale)->getTitle();
         $options['choices'] = [
             'mr' => 'sulu_form.salutation_mr',
             'ms' => 'sulu_form.salutation_ms',

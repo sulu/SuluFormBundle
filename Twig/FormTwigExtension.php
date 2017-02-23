@@ -29,7 +29,8 @@ class FormTwigExtension extends \Twig_Extension
      *
      * @param BuilderInterface $formBuilder
      */
-    public function __construct(BuilderInterface $formBuilder) {
+    public function __construct(BuilderInterface $formBuilder)
+    {
         $this->formBuilder = $formBuilder;
     }
 
@@ -56,8 +57,9 @@ class FormTwigExtension extends \Twig_Extension
      *
      * @return FormView
      */
-    public function getFormById($id, $type, $typeId, $locale = null, $name = 'form') {
-        list($formType, $form) = $this->formBuilder->build((int)$id, $type, $typeId, $locale = null, $name = 'form');
+    public function getFormById($id, $type, $typeId, $locale = null, $name = 'form')
+    {
+        list($formType, $form) = $this->formBuilder->build((int)$id, $type, $typeId, $locale, $name);
 
         return $form->createView();
     }
