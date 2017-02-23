@@ -145,7 +145,6 @@ class Builder implements BuilderInterface
                     continue;
                 }
 
-
                 return $this->build($parameters['formId'], $parameters['type'], $parameters['typeId'], $locale, $parameters['formName']);
             }
         }

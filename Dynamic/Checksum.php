@@ -10,10 +10,11 @@
  */
 
 namespace Sulu\Bundle\FormBundle\Dynamic;
+
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 /**
- * Checksum
+ * Checksum.
  */
 class Checksum
 {
@@ -47,7 +48,8 @@ class Checksum
      * @param string $formId
      * @param string $formName
      */
-    public function check($checksum, $type, $typeId, $formId, $formName) {
+    public function check($checksum, $type, $typeId, $formId, $formName)
+    {
         $checksumRaw = $this->createKey($type, $typeId, $formId, $formName);
 
         return $this->encoder->isPasswordValid($checksum, $checksumRaw, $this->secret);

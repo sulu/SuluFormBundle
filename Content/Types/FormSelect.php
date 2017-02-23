@@ -14,7 +14,6 @@ namespace Sulu\Bundle\FormBundle\Content\Types;
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Component\Content\Compat\PropertyInterface;
-use Sulu\Component\Content\Compat\PropertyParameter;
 use Sulu\Component\Content\SimpleContentType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
