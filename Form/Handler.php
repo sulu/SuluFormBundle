@@ -5,15 +5,18 @@ namespace Sulu\Bundle\FormBundle\Form;
 use Doctrine\Common\Persistence\ObjectManager;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Form\Type\TypeInterface;
 use Sulu\Bundle\FormBundle\Mail;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Templating\EngineInterface;
 
@@ -75,6 +78,16 @@ class Handler implements HandlerInterface
     protected $attachments = [];
 
     /**
+     * @var MessageDigestPasswordEncoder
+     */
+    private $encoder;
+
+    /**
+     * @var string
+     */
+    private $secret;
+
+    /**
      * @param FormFactoryInterface $formFactory
      * @param FormExtensionInterface $formExtension
      * @param ObjectManager $entityManager
@@ -84,6 +97,7 @@ class Handler implements HandlerInterface
      * @param EventDispatcherInterface $eventDispatcher
      * @param MediaManager $mediaManager
      * @param null $logger
+     * @param string $secret
      */
     public function __construct(
         FormFactoryInterface $formFactory,
@@ -94,7 +108,8 @@ class Handler implements HandlerInterface
         EngineInterface $templating,
         EventDispatcherInterface $eventDispatcher,
         MediaManager $mediaManager,
-        $logger = null
+        $logger = null,
+        $secret
     ) {
         $this->formFactory = $formFactory;
         $this->formExtension = $formExtension;
@@ -105,8 +120,10 @@ class Handler implements HandlerInterface
         $this->eventDispatcher = $eventDispatcher;
         $this->mediaManager = $mediaManager;
         $this->logger = $logger ? $logger : new NullLogger();
+        $this->secret = $secret;
 
         $this->attachments = [];
+        $this->encoder = new MessageDigestPasswordEncoder();
     }
 
     /**
@@ -129,6 +146,10 @@ class Handler implements HandlerInterface
     public function handle(FormInterface $form, $attributes = [])
     {
         if (!$form->isValid()) {
+            return false;
+        }
+
+        if (!$this->checkSum($form)) {
             return false;
         }
 
@@ -190,6 +211,32 @@ class Handler implements HandlerInterface
         }
 
         return true;
+    }
+
+    /**
+     * Check chcksum with given data.
+     *
+     * @param Form $form
+     *
+     * @return bool
+     */
+    private function checkSum(Form $form)
+    {
+        $checksum = $form->getData()->getData()['checksum'];
+
+        return $this->encoder->isPasswordValid($checksum, $this->getCheckSumRaw($form->getData()), $this->secret);
+    }
+
+    /**
+     * Returns a checksum string with type + typeId + id + name.
+     *
+     * @param Dynamic $formData
+     *
+     * @return string
+     */
+    public function getCheckSumRaw(Dynamic $formData)
+    {
+        return $formData->getType() . $formData->typeId . $formData->getData()['formId'] . $formData->getData()['formName'];
     }
 
     /**

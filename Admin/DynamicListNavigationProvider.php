@@ -17,13 +17,20 @@ class DynamicListNavigationProvider implements ContentNavigationProviderInterfac
     private $config;
 
     /**
+     * @var string
+     */
+    private $type;
+
+    /**
      * DynamicListNavigationProvider constructor.
      *
      * @param array $config
+     * @param array $type
      */
-    public function __construct(array $config)
+    public function __construct(array $config, $type)
     {
         $this->config = $config;
+        $this->type = $type;
     }
 
     /**
@@ -38,12 +45,12 @@ class DynamicListNavigationProvider implements ContentNavigationProviderInterfac
             $item->setAction('form-list');
             $item->setDisplay(['edit']);
             $item->setComponent('dynamics/list@suluform');
-            // TODO: Change binding.
+
             $item->setComponentOptions([
                 'template' => $templateKey,
                 'property' => $config['property'],
                 'view' => isset($config['view']) ? $config['view'] : 'default',
-                'type' => 'page',
+                'type' => $this->type,
             ]);
 
             $item->setDisplayConditions(
