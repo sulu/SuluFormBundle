@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Entity;
 
 use Sulu\Component\Persistence\Model\TimestampableInterface;
@@ -392,7 +401,8 @@ class Dynamic implements TimestampableInterface
     }
 
     /**
-     * Returns the type of current page (e.g. page, event, blog,…)
+     * Returns the type of current page (e.g. content, event, blog,…)
+     *
      * @return string
      */
     public function getType()

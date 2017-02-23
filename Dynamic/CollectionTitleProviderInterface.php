@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of Sulu.
  *
@@ -16,7 +17,7 @@ namespace Sulu\Bundle\FormBundle\Dynamic;
 interface CollectionTitleProviderInterface
 {
     /**
-     * Returns the title with registered service from given type (e.g. structure, event, blog,…)
+     * Returns the title with registered service from given type (e.g. content, event, blog,…).
      *
      * @param string $type
      * @param string $typeId

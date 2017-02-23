@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Form\Type;
 
 use Sulu\Bundle\FormBundle\Dynamic\CollectionTitleProviderPoolInterface;
@@ -163,27 +172,27 @@ class DynamicFormType extends AbstractType
 
         // Add hidden type field. (page, event, blog,…)
         $builder->add('type', HiddenType::class, [
-            'data' => $this->type
+            'data' => $this->type,
         ]);
 
         // Add hidden typeId field. (UUID, Database id,…)
         $builder->add('typeId', HiddenType::class, [
-            'data' => $this->typeId
+            'data' => $this->typeId,
         ]);
 
         // Add hidden formId. (id, uuid,…)
         $builder->add('formId', HiddenType::class, [
-            'data' => $this->formEntity->getId()
+            'data' => $this->formEntity->getId(),
         ]);
 
         // Add hidden formName field. (Name of "form_select"-content-type.)
         $builder->add('formName', HiddenType::class, [
-            'data' => $this->name
+            'data' => $this->name,
         ]);
 
         // Add hidden formName field. (Name of "form_select"-content-type.)
         $builder->add('checksum', HiddenType::class, [
-            'data' => $this->encoder->encodePassword($this->getCheckSumRaw(), $this->secret)
+            'data' => $this->encoder->encodePassword($this->getCheckSumRaw(), $this->secret),
         ]);
 
         // Add submit button.
