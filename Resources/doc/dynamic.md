@@ -75,12 +75,24 @@ To visualise a tab in the Sulu template, simply configured the following in your
 ```yml
 sulu_form:
     dynamic_lists:
-        content:
+        <module_name>: # For Sulu-content use "content".
             <template_key>:
                 property: <form_select_property_name>
 ```
 
 **Now a tab should be visible with a list you can export**
+
+### Implement Tab into a custom module:
+- Implement a Provider for your Module with `CollectionTitleProviderInterface`.
+- Create a service for this Provider:
+```xml
+<service id="sulu_form.dynamic.collection_title_<module_name>" class="Sulu\Bundle\FormBundle\Dynamic\Collections\ContentCollectionTitleProvider">
+    <tag name="sulu_form.dynamic.collection_title" alias="<module_name>"/>
+    <argument type="service" id="request_stack"/>
+</service>
+```
+
+**Provider for type "content" already exists**
 
 ## Media Collections
 
@@ -101,3 +113,5 @@ The following things you should check when implement the dynamic form type on yo
  - Test the customer email
  - Test backend field errors
  - Test backend general errors ( e.g. remove CSRF token value )
+ 
+ # Implement into Module
