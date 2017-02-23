@@ -401,7 +401,7 @@ class Dynamic implements TimestampableInterface
     }
 
     /**
-     * Returns the type of current page (e.g. content, event, blog,…)
+     * Returns the type of current page (e.g. content, event, blog,…).
      *
      * @return string
      */
@@ -419,5 +419,4 @@ class Dynamic implements TimestampableInterface
     {
         $this->type = $type;
     }
-
 }
