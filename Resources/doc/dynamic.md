@@ -77,7 +77,9 @@ sulu_form:
     dynamic_lists:
         <module_name>: # For Sulu-structure use "structure".
             <template_key>:
+                template: <template_key>
                 property: <form_select_property_name>
+                type: <form_type> # (e.g. page, event,…)
 ```
 
 **Now a tab should be visible with a list you can export**

@@ -36,10 +36,9 @@ class DynamicListNavigationProvider implements ContentNavigationProviderInterfac
      * @param array $config
      * @param array $type
      */
-    public function __construct(array $config, $type)
+    public function __construct(array $config)
     {
         $this->config = $config;
-        $this->type = $type;
     }
 
     /**
@@ -49,24 +48,25 @@ class DynamicListNavigationProvider implements ContentNavigationProviderInterfac
     {
         $items = [];
 
-        foreach ($this->config as $templateKey => $config) {
+        foreach ($this->config as $config) {
             $item = new ContentNavigationItem('Formular');
             $item->setAction('form-list');
             $item->setDisplay(['edit']);
             $item->setComponent('dynamics/list@suluform');
 
             $item->setComponentOptions([
-                'template' => $templateKey,
                 'property' => $config['property'],
                 'view' => isset($config['view']) ? $config['view'] : 'default',
-                'type' => $this->type,
+                'type' => isset($config['type']) ? $config['type'] : null,
             ]);
 
-            $item->setDisplayConditions(
-                [
-                    new DisplayCondition('template', DisplayCondition::OPERATOR_EQUAL, $templateKey),
-                ]
-            );
+            if (isset($config['template'])) {
+                $item->setDisplayConditions(
+                    [
+                        new DisplayCondition('template', DisplayCondition::OPERATOR_EQUAL, $config['template']),
+                    ]
+                );
+            }
 
             $items[] = $item;
         }

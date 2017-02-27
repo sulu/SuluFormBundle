@@ -85,7 +85,6 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
 
             $definition = new Definition(DynamicListNavigationProvider::class);
             $definition->addArgument('%' . $parameter . '%');
-            $definition->addArgument($key);
             $definition->setClass(DynamicListNavigationProvider::class);
             $definition->addTag('sulu_admin.content_navigation', ['alias' => $key]);
             $definition->addTag('sulu.context', ['context' => 'admin']);
