@@ -89,7 +89,7 @@ sulu_form:
 - Create a service for this Provider:
 ```xml
 <service id="sulu_form.dynamic.collection_title_<module_name>" class="Sulu\Bundle\FormBundle\TitleProvider\Collections\StructureTitleProvider">
-    <tag name="sulu_form.dynamic.title" alias="<module_name>"/>
+    <tag name="sulu_form.title_provider" alias="<module_name>"/>
     <argument type="service" id="request_stack"/>
 </service>
 ```

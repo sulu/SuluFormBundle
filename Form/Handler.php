@@ -18,13 +18,11 @@ use Sulu\Bundle\FormBundle\Form\Type\TypeInterface;
 use Sulu\Bundle\FormBundle\Mail;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Templating\EngineInterface;
 
@@ -86,16 +84,6 @@ class Handler implements HandlerInterface
     protected $attachments = [];
 
     /**
-     * @var MessageDigestPasswordEncoder
-     */
-    private $encoder;
-
-    /**
-     * @var string
-     */
-    private $secret;
-
-    /**
      * @param FormFactoryInterface $formFactory
      * @param FormExtensionInterface $formExtension
      * @param ObjectManager $entityManager
@@ -105,7 +93,6 @@ class Handler implements HandlerInterface
      * @param EventDispatcherInterface $eventDispatcher
      * @param MediaManager $mediaManager
      * @param null $logger
-     * @param string $secret
      */
     public function __construct(
         FormFactoryInterface $formFactory,
@@ -116,8 +103,7 @@ class Handler implements HandlerInterface
         EngineInterface $templating,
         EventDispatcherInterface $eventDispatcher,
         MediaManager $mediaManager,
-        $logger = null,
-        $secret
+        $logger = null
     ) {
         $this->formFactory = $formFactory;
         $this->formExtension = $formExtension;
@@ -128,10 +114,8 @@ class Handler implements HandlerInterface
         $this->eventDispatcher = $eventDispatcher;
         $this->mediaManager = $mediaManager;
         $this->logger = $logger ? $logger : new NullLogger();
-        $this->secret = $secret;
 
         $this->attachments = [];
-        $this->encoder = new MessageDigestPasswordEncoder();
     }
 
     /**

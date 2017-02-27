@@ -17,7 +17,6 @@
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="sulu_media.media_manager" />
             <argument type="service" id="logger" />
-            <argument type="service" id="sulu_form.checksum" />
         </service>
 
         <!-- Mail -->
