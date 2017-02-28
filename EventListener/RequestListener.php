@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\EventListener;
 
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
@@ -60,7 +69,7 @@ class RequestListener
         $request = $event->getRequest();
 
         if (!$request->isMethod('post')) {
-            // don't do anything iif it's not a post request
+            // don't do anything if it's not a post request
             return;
         }
 

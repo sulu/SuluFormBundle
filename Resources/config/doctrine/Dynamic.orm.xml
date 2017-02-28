@@ -9,9 +9,10 @@
             <generator strategy="AUTO"/>
         </id>
 
-        <field name="uuid" column="uuid" type="string" nullable="false"/>
+        <field name="typeId" column="typeId" type="string" nullable="false"/>
         <field name="locale" column="locale" type="string" nullable="false"/>
         <field name="webspaceKey" column="webspaceKey" type="string" nullable="false"/>
+        <field name="type" column="type" type="string" nullable="false"/>
 
         <field name="salutation" column="salutation" type="string" nullable="true"/>
         <field name="title" column="title" type="string" nullable="true"/>

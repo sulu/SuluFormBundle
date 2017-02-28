@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Entity;
 
 use Sulu\Component\Persistence\Model\TimestampableInterface;
@@ -29,7 +38,12 @@ class Dynamic implements TimestampableInterface
     /**
      * @var string
      */
-    private $uuid;
+    private $type;
+
+    /**
+     * @var string
+     */
+    private $typeId;
 
     /**
      * @var string
@@ -177,15 +191,15 @@ class Dynamic implements TimestampableInterface
     private $changed;
 
     /**
-     * @param string $uuid
+     * @param string $typeId
      * @param string $locale
      * @param Form $formId
      * @param null|string $webspaceKey
      * @param array $data
      */
-    public function __construct($uuid, $locale, $formId, $webspaceKey = null, $data = [])
+    public function __construct($typeId, $locale, $formId, $webspaceKey = null, $data = [])
     {
-        $this->uuid = $uuid;
+        $this->typeId = $typeId;
         $this->locale = $locale;
         $this->form = $formId;
         $this->webspaceKey = $webspaceKey;
@@ -371,18 +385,38 @@ class Dynamic implements TimestampableInterface
     }
 
     /**
-     * Get type.
+     * Get field type.
      *
      * @param string $key
      *
      * @return string
      */
-    public function getType($key)
+    public function getFieldType($key)
     {
         if (!$this->form) {
             return;
         }
 
         return $this->form->getFieldType($key);
+    }
+
+    /**
+     * Returns the type of current page (e.g. structure, event, blog,…).
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set page type.
+     *
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
     }
 }

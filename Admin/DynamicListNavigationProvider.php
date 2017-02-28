@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Admin;
 
 use Sulu\Bundle\AdminBundle\Navigation\ContentNavigationItem;
@@ -17,9 +26,15 @@ class DynamicListNavigationProvider implements ContentNavigationProviderInterfac
     private $config;
 
     /**
+     * @var string
+     */
+    private $type;
+
+    /**
      * DynamicListNavigationProvider constructor.
      *
      * @param array $config
+     * @param array $type
      */
     public function __construct(array $config)
     {
@@ -33,22 +48,25 @@ class DynamicListNavigationProvider implements ContentNavigationProviderInterfac
     {
         $items = [];
 
-        foreach ($this->config as $templateKey => $config) {
+        foreach ($this->config as $config) {
             $item = new ContentNavigationItem('Formular');
             $item->setAction('form-list');
             $item->setDisplay(['edit']);
             $item->setComponent('dynamics/list@suluform');
+
             $item->setComponentOptions([
-                'template' => $templateKey,
                 'property' => $config['property'],
                 'view' => isset($config['view']) ? $config['view'] : 'default',
+                'type' => isset($config['type']) ? $config['type'] : null,
             ]);
 
-            $item->setDisplayConditions(
-                [
-                    new DisplayCondition('template', DisplayCondition::OPERATOR_EQUAL, $templateKey),
-                ]
-            );
+            if (isset($config['template'])) {
+                $item->setDisplayConditions(
+                    [
+                        new DisplayCondition('template', DisplayCondition::OPERATOR_EQUAL, $config['template']),
+                    ]
+                );
+            }
 
             $items[] = $item;
         }

@@ -1,11 +1,23 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Form\Type;
 
+use Sulu\Bundle\FormBundle\Dynamic\Checksum;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
+use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -43,6 +55,26 @@ class DynamicFormType extends AbstractType
     private $typePool;
 
     /**
+     * @var TitleProviderPool
+     */
+    private $titlePool;
+
+    /**
+     * @var string
+     */
+    private $type;
+
+    /**
+     * @var stgring
+     */
+    private $typeId;
+
+    /**
+     * @var Checksum
+     */
+    private $checksum;
+
+    /**
      * DynamicFormType constructor.
      *
      * @param Form $formEntity
@@ -51,6 +83,12 @@ class DynamicFormType extends AbstractType
      * @param string $structureView
      * @param int $systemCollectionId
      * @param FormFieldTypePool $typePool
+     * @param TitleProviderPoolInterface $titlePool
+     * @param string $type
+     * @param Checksum $checksum
+     * @param stgring $typeId
+     *
+     * @internal param string $secret
      */
     public function __construct(
         Form $formEntity,
@@ -58,7 +96,11 @@ class DynamicFormType extends AbstractType
         $name,
         $structureView,
         $systemCollectionId,
-        FormFieldTypePool $typePool
+        FormFieldTypePool $typePool,
+        TitleProviderPoolInterface $titlePool,
+        Checksum $checksum,
+        $type,
+        $typeId
     ) {
         $this->formEntity = $formEntity;
         $this->locale = $locale;
@@ -66,6 +108,10 @@ class DynamicFormType extends AbstractType
         $this->structureView = $structureView;
         $this->systemCollectionId = $systemCollectionId;
         $this->typePool = $typePool;
+        $this->titlePool = $titlePool;
+        $this->type = $type;
+        $this->typeId = $typeId;
+        $this->checksum = $checksum;
     }
 
     /**
@@ -120,6 +166,33 @@ class DynamicFormType extends AbstractType
             $this->typePool->get($field->getType())->build($builder, $field, $this->locale, $options);
         }
 
+        // Add hidden type field. (structure, event, blog,…)
+        $builder->add('type', HiddenType::class, [
+            'data' => $this->type,
+        ]);
+
+        // Add hidden typeId field. (UUID, Database id,…)
+        $builder->add('typeId', HiddenType::class, [
+            'data' => $this->typeId,
+        ]);
+
+        // Add hidden formId. (id, uuid,…)
+        $builder->add('formId', HiddenType::class, [
+            'data' => $this->formEntity->getId(),
+        ]);
+
+        // Add hidden formName field. (Name of "form_select"-content-type.)
+        $builder->add('formName', HiddenType::class, [
+            'data' => $this->name,
+        ]);
+
+        // Add hidden formName field. (Name of "form_select"-content-type.)
+        $checksum = $this->checksum->get($this->type, $this->typeId, $this->formEntity->getId(), $this->name);
+        $builder->add('checksum', HiddenType::class, [
+            'data' => $checksum,
+        ]);
+
+        // Add submit button.
         $builder->add('submit', SubmitType::class);
     }
 
