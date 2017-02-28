@@ -1,5 +1,9 @@
 # Changelog
 
+## dev-develop
+
+ - FEATURE     #63    Added possibility to use form content type in other modules
+
 ## 0.1.0
 
  - ENHANCEMENT #59    Added correct composer dependencies
