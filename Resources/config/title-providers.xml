@@ -9,10 +9,11 @@
             <argument type="collection"/>
         </service>
 
-        <!-- Structure Title Provider -->
-        <service id="sulu_form.title_provider.structure" class="Sulu\Bundle\FormBundle\TitleProvider\Collections\StructureTitleProvider">
-            <tag name="sulu_form.title_provider" alias="structure"/>
+        <!-- Page Title Provider -->
+        <service id="sulu_form.title_provider.page" class="Sulu\Bundle\FormBundle\TitleProvider\Collections\StructureTitleProvider">
             <argument type="service" id="request_stack"/>
+
+            <tag name="sulu_form.title_provider" alias="page"/>
         </service>
     </services>
 </container>

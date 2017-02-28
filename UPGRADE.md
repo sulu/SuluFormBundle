@@ -10,20 +10,26 @@ ALTER TABLE fo_dynamics ADD type VARCHAR(255) NOT NULL, CHANGE uuid typeId VARCH
 
 ### Update configuration
 
+Change `app/config/config.yml` the `dynamic_lists` configuration need to be updated.
+
 **before:**
+
 ```yml
-dynamic_lists:
-    content:
-        default:
-            property: form
+sulu_form:
+    dynamic_lists:
+        content:
+            default:
+                property: form
 ```
 
 **after:**
+
 ```yml
-dynamic_lists:
-    content:
-        default:
-            template: default
-            property: form
-            type: page
+sulu_form:
+    dynamic_lists:
+        content:
+            default:
+                template: default
+                property: form
+                type: page
 ```
