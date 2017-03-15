@@ -39,7 +39,7 @@ trait MultiChoiceTrait
     }
 
     /**
-     * Returns default options for multichoise form type.
+     * Returns default options for multichoice form type.
      *
      * @param string $value
      *
