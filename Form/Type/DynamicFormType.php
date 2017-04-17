@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Form\Type;
 
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
@@ -119,8 +128,7 @@ class DynamicFormType extends AbstractType
 
             $this->typePool->get($field->getType())->build($builder, $field, $this->locale, $options);
         }
-
-        $builder->add('submit', SubmitType::class);
+        $builder->add('submit', SubmitType::class, ['label' => $this->getSubmitLabel()]);
     }
 
     /**
@@ -305,6 +313,14 @@ class DynamicFormType extends AbstractType
     public function getMailText($formData = [])
     {
         return $this->getTranslation()->getMailText();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSubmitLabel($formData = [])
+    {
+        return $this->getTranslation()->getSubmitLabel();
     }
 
     /**

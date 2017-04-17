@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType as SymfonyAbstractType;
@@ -204,6 +213,14 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     public function getMailText($formData = [])
     {
         return $this->getAttribute('mail_text');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSubmitLabel($formData = [])
+    {
+        return $this->getAttribute('submit_label');
     }
 
     /**
