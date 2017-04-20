@@ -13,6 +13,10 @@ one of the dynamic templates which can be created in the Sulu backend.
         <title lang="de">Formular</title>
         <title lang="en">Form</title>
     </meta>
+
+    <params>
+        <param name="type" value="page" />
+    </params>
 </property>
 ```
 
@@ -75,12 +79,28 @@ To visualise a tab in the Sulu template, simply configured the following in your
 ```yml
 sulu_form:
     dynamic_lists:
-        content:
-            <template_key>:
+        <tab_navigation>: # For sulu pages "content".
+            <unique_key>: # Mostly the same as the template key.
+                template: <template_key>
                 property: <form_select_property_name>
+                type: <form_type> # (e.g. page, article, event,…)
 ```
 
 **Now a tab should be visible with a list you can export**
+
+### Implement Tab into a custom module:
+
+ - Implement a Provider for your Module with `TitleProviderInterface`.
+ - Create a service for this Provider:
+
+```xml
+<service id="sulu_form.dynamic.collection_title_<module_name>" class="Sulu\Bundle\FormBundle\TitleProvider\Collections\StructureTitleProvider">
+    <tag name="sulu_form.title_provider" alias="<module_name>"/>
+    <argument type="service" id="request_stack"/>
+</service>
+```
+
+**Provider for type "structure" already exists**
 
 ## Media Collections
 

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Controller;
 
 use FOS\RestBundle\Routing\ClassResourceInterface;
@@ -93,7 +102,8 @@ class DynamicController extends RestController implements ClassResourceInterface
     protected function getFilters(Request $request)
     {
         $filters = [
-            'uuid' => $request->get('uuid'),
+            'type' => $request->get('type'),
+            'typeId' => $request->get('typeId'),
             'webspaceKey' => $request->get('webspaceKey'),
             'form' => $request->get('form'),
             'fromDate' => $request->get('fromDate'),

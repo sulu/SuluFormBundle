@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Sulu\Bundle\FormBundle\Admin\DynamicListNavigationProvider;
@@ -72,11 +81,10 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         // add dynamic lists
         foreach ($config['dynamic_lists'] as $key => $value) {
             $parameter = 'sulu_form.dynamic_lists.' . $key . '.config';
-            $container->setParameter($parameter, $value);
+            $container->setParameter($parameter, $value ?: []);
 
             $definition = new Definition(DynamicListNavigationProvider::class);
             $definition->addArgument('%' . $parameter . '%');
-            $definition->addArgument($key);
             $definition->setClass(DynamicListNavigationProvider::class);
             $definition->addTag('sulu_admin.content_navigation', ['alias' => $key]);
             $definition->addTag('sulu.context', ['context' => 'admin']);
@@ -98,9 +106,16 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
         $loader->load('types.xml');
+        $loader->load('title-providers.xml');
 
         if ($config['mailchimp_api_key']) {
             $loader->load('type_mailchimp.xml');
+        }
+
+        $bundles = $container->getParameter('kernel.bundles');
+
+        if (array_key_exists('SuluArticleBundle', $bundles)) {
+            $loader->load('article.xml');
         }
 
         if (class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class)) {

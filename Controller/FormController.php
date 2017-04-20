@@ -210,6 +210,10 @@ class FormController extends FOSRestController implements ClassResourceInterface
                 'types' => $this->getSortedTypes($types),
                 'widths' => $widths,
                 'receiverTypes' => $receiverTypes,
+                'fallbackEmails' => [
+                    'from' => $this->getParameter('sulu_form.mail.from'),
+                    'to' => $this->getParameter('sulu_form.mail.to'),
+                ],
             ]
         );
     }

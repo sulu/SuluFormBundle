@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Content\Types;
 
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
@@ -7,6 +16,7 @@ use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\SimpleContentType;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 /**
  * ContentType for selecting a form.
@@ -57,12 +67,20 @@ class FormSelect extends SimpleContentType
             return;
         }
 
+        if (!isset($property->getParams()['type'])) {
+            throw new MissingOptionsException(
+                'SuluFormBundle: The parameter "type" is missing on "form_select" content-type.',
+                []
+            );
+        }
+
+        $type = $property->getParams()['type']->getValue();
+
         /** @var FormInterface $form */
         list($formType, $form) = $this->formBuilder->build(
             $id,
-            'page',
+            $type,
             $property->getStructure()->getUuid(),
-            $property->getStructure()->getProperty('title')->getValue(),
             $property->getStructure()->getLanguageCode(),
             $property->getName()
         );

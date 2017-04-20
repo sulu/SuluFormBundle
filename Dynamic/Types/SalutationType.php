@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
@@ -32,6 +41,7 @@ class SalutationType implements FormFieldTypeInterface
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
         $type = ChoiceType::class;
+        $options['placeholder'] = $field->getTranslation($locale)->getTitle();
         $options['choices'] = [
             'mr' => 'sulu_form.salutation_mr',
             'ms' => 'sulu_form.salutation_ms',
