@@ -38,8 +38,7 @@
 
                         <div class="grid">
                             <div id="text-block-header-{{ blockId }}"> {#class="text-blocks-header"#}
-                                <div id="collapse-text-blocks-{{ blockId }}" tabindex="0"
-                                     class="text-blocks-toggle-btn">
+                                <div id="collapse-text-blocks-{{ blockId }}" tabindex="0" class="text-blocks-toggle-btn">
                                     <%= translate('sulu.content.collapse.blocks') %>
                                 </div>
                                 <div id="expand-text-blocks-{{ blockId }}" tabindex="0" class="text-blocks-toggle-btn">
@@ -71,23 +70,23 @@
                                             {
                                                 "data": "{{ alias }}",
                                                 "title": "<%= translate('{{ type.configuration.title }}') %>",
-                            "tpl": "{{ alias }}-{{ blockId }}-tpl"
-                            }
-                            {% if not loop.last %},{% endif %}
-                            {% endfor %}
-                            ]'
-                            data-type-min="0"
-                            data-type-max="999"
-                            data-type-default="{{ types|keys|first }}"
-                            data-mapper-property="{{ blockId }}"
-                            data-mapper-full-class="full"
-                            data-mapper-empty-class="empty">
+                                                "tpl": "{{ alias }}-{{ blockId }}-tpl"
+                                            }
+                                            {% if not loop.last %},{% endif %}
+                                        {% endfor %}
+                                    ]'
+                                 data-type-min="0"
+                                 data-type-max="999"
+                                 data-type-default="{{ types|keys|first }}"
+                                 data-mapper-property="{{ blockId }}"
+                                 data-mapper-full-class="full"
+                                 data-mapper-empty-class="empty">
 
                             {% for alias, type in types %}
                                 {% include type.configuration.template with {
                                 'viewData': type.configuration.attributes,
                                 'alias': alias
-                                } %}
+                                }%}
                             {% endfor %}
                         </div>
 
@@ -109,6 +108,7 @@
                         <label for="submitLabel">
                             <%= translate('sulu_form.submit_label') %>
                         </label>
+                        
                         <div id="submitLabel"
                              class="form-element husky-validate"
                              data-type="husky-input"
@@ -364,30 +364,30 @@
                      data-form="true"
                      data-type="block"
                      data-type-config='[{"data": "to", "title": "<%= translate('sulu_form.receiver.to') %>", "tpl": "to-receivers-tpl"},{"data": "cc", "title": "<%= translate('sulu_form.receiver.cc') %>", "tpl": "cc-receivers-tpl"},{"data": "bcc", "title": "<%= translate('sulu_form.receiver.bcc') %>", "tpl": "bcc-receivers-tpl"}]'
-                data-type-min="0"
-                data-type-max="999"
-                data-type-default="to"
-                data-mapper-property="receivers"
-                data-mapper-full-class="full"
-                data-mapper-empty-class="empty">
+                     data-type-min="0"
+                     data-type-max="999"
+                     data-type-default="to"
+                     data-mapper-property="receivers"
+                     data-mapper-full-class="full"
+                     data-mapper-empty-class="empty">
 
-                {% include 'SuluFormBundle:forms/blocks:email-receiver.html.twig' with {
-                name: receiverTypes['to']
-                } %}
-                {% include 'SuluFormBundle:forms/blocks:email-receiver.html.twig' with {
-                name: receiverTypes['cc']
-                } %}
-                {% include 'SuluFormBundle:forms/blocks:email-receiver.html.twig' with {
-                name: receiverTypes['bcc']
-                } %}
-            </div>
+                    {% include 'SuluFormBundle:forms/blocks:email-receiver.html.twig' with {
+                        name: receiverTypes['to']
+                    } %}
+                    {% include 'SuluFormBundle:forms/blocks:email-receiver.html.twig' with {
+                        name: receiverTypes['cc']
+                    } %}
+                    {% include 'SuluFormBundle:forms/blocks:email-receiver.html.twig' with {
+                        name: receiverTypes['bcc']
+                    } %}
+                </div>
 
-            <div class="text-block-footer" id="receivers-add" style="width: 200px">
+                <div class="text-block-footer" id="receivers-add" style="width: 200px">
 
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Closed -->
+        <!-- Closed -->
 
     </div>
 </form>
