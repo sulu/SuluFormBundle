@@ -193,7 +193,7 @@ class DynamicFormType extends AbstractType
         ]);
 
         // Add submit button.
-        $builder->add('submit', SubmitType::class);
+        $builder->add('submit', SubmitType::class, ['label' => $this->getSubmitLabel()]);
     }
 
     /**
@@ -378,6 +378,14 @@ class DynamicFormType extends AbstractType
     public function getMailText($formData = [])
     {
         return $this->getTranslation()->getMailText();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSubmitLabel($formData = [])
+    {
+        return $this->getTranslation()->getSubmitLabel();
     }
 
     /**
