@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
@@ -518,6 +527,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
                 'toName' => $translation->getToName(),
                 'subject' => $translation->getSubject(),
                 'mailText' => $translation->getMailText(),
+                'submitLabel' => $translation->getSubmitLabel(),
                 'successText' => $translation->getSuccessText(),
                 'sendAttachments' => $translation->getSendAttachments(),
                 'deactivateNotifyMails' => $translation->getDeactivateNotifyMails(),

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Entity;
 
 use Sulu\Component\Persistence\Model\AuditableInterface;
@@ -41,6 +50,11 @@ class FormTranslation implements AuditableInterface
      * @var string
      */
     private $mailText;
+
+    /**
+     * @var string
+     */
+    private $submitLabel;
 
     /**
      * @var string
@@ -245,6 +259,26 @@ class FormTranslation implements AuditableInterface
     public function getMailText()
     {
         return $this->mailText;
+    }
+
+    /**
+     * @param string $submitLabel
+     *
+     * @return FormTranslation
+     */
+    public function setSubmitLabel($submitLabel)
+    {
+        $this->submitLabel = $submitLabel;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubmitLabel()
+    {
+        return $this->submitLabel;
     }
 
     /**
