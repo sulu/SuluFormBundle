@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Provider;
 
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
@@ -13,7 +22,7 @@ class DynamicProvider implements ListProviderInterface
     public function getFieldDescriptors($webspace, $locale, $uuid)
     {
         @trigger_error(
-            __method__ . '() use the new dynamic list provider.',
+            __METHOD__ . '() use the new dynamic list provider.',
             E_USER_DEPRECATED
         );
 
