@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -199,6 +208,10 @@ class FormManager
             $fieldKey = self::getValue($fieldData, 'key');
             $field = $form->getField($fieldKey);
             $uniqueKey = $this->getUniqueKey($fieldType, $reservedKeys);
+
+            if (!$field) {
+                $field = $form->getField($uniqueKey);
+            }
 
             if (!$field) {
                 $field = new FormField();
