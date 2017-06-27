@@ -36,7 +36,14 @@ __after__
 ### Upgrade database schema
 
 ```sql
+ALTER TABLE fo_form_translations ADD submitLabel VARCHAR(255) DEFAULT NULL;
 ALTER TABLE fo_dynamics ADD type VARCHAR(255) NOT NULL, CHANGE uuid typeId VARCHAR(255) NOT NULL;
+```
+
+or run
+
+```bash
+php bin/adminconsole doctrine:schema:update --dump-sql # run with --force to actually run it
 ```
 
 ### Update configuration
