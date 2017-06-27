@@ -1,7 +1,7 @@
 # Sulu Form Bundle
 
 Simple handling from Symfony Forms in [Sulu.io](http://sulu.io).  
-You can use this Bundle to create and handle static *(integrated in a Sulu page or loaded via AJAX)* or dynamic forms.
+You can use this Bundle to create and handle dynamic forms.
 
 ## Features
 
@@ -74,8 +74,8 @@ Make sure you've set the correct permissions in the Sulu backend for this bundle
 
 ## Usage
 
-- [Static Forms](static.md "Static Forms")
 - [Dynamic Forms](dynamic.md "Dynamic Forms")
+- [Static Forms](static.md "Static Forms")(deprecated)
 
 ## Additional form fields
 

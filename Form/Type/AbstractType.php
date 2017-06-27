@@ -14,6 +14,9 @@ namespace Sulu\Bundle\FormBundle\Form\Type;
 use Symfony\Component\Form\AbstractType as SymfonyAbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @deprecated static forms are not longer supported this way
+ */
 abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
 {
     /**

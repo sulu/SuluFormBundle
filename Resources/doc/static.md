@@ -1,6 +1,10 @@
 # Static Form
 
-The following is showing an example how you can use the bundle to create a static form.
+_The current way to create static form is deprecated_
+_its recommend to create your own custom controller_
+_instead of using the form bundle for it_
+
+The following is showing an example how you can use the bundle to create a static form (deprecated).
 
 ## Basic Sulu Template
 

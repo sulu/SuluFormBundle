@@ -218,6 +218,7 @@ class Builder implements BuilderInterface
         // Create Form
         $form = $this->createForm(
             $formType,
+            $type,
             $typeId,
             $locale,
             $formEntity,
@@ -250,20 +251,21 @@ class Builder implements BuilderInterface
     /**
      * Create form.
      *
-     * @param $formType
-     * @param $typeId
-     * @param $locale
-     * @param $formEntity
-     * @param $webspaceKey
-     * @param $defaults
+     * @param string $formType
+     * @param string $type
+     * @param string $typeId
+     * @param string $locale
+     * @param Form $formEntity
+     * @param string $webspaceKey
+     * @param array $defaults
      *
      * @return FormInterface
      */
-    protected function createForm($formType, $typeId, $locale, $formEntity, $webspaceKey, $defaults)
+    protected function createForm($formType, $type, $typeId, $locale, $formEntity, $webspaceKey, $defaults)
     {
         return $this->formFactory->create(
             $formType,
-            new Dynamic($typeId, $locale, $formEntity, $webspaceKey, $defaults)
+            new Dynamic($type, $typeId, $locale, $formEntity, $webspaceKey, $defaults)
         );
     }
 
@@ -302,7 +304,6 @@ class Builder implements BuilderInterface
      * @param string $name
      * @param string $type
      * @param string $typeId
-     * @param string $typeName
      *
      * @return DynamicFormType
      */

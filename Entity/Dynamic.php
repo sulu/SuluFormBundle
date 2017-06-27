@@ -191,14 +191,16 @@ class Dynamic implements TimestampableInterface
     private $changed;
 
     /**
+     * @param string $type
      * @param string $typeId
      * @param string $locale
      * @param Form $formId
      * @param null|string $webspaceKey
      * @param array $data
      */
-    public function __construct($typeId, $locale, $formId, $webspaceKey = null, $data = [])
+    public function __construct($type, $typeId, $locale, $formId, $webspaceKey = null, $data = [])
     {
+        $this->type = $type;
         $this->typeId = $typeId;
         $this->locale = $locale;
         $this->form = $formId;

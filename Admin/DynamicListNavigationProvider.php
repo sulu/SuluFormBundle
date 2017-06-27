@@ -26,15 +26,9 @@ class DynamicListNavigationProvider implements ContentNavigationProviderInterfac
     private $config;
 
     /**
-     * @var string
-     */
-    private $type;
-
-    /**
      * DynamicListNavigationProvider constructor.
      *
      * @param array $config
-     * @param array $type
      */
     public function __construct(array $config)
     {
