@@ -48,7 +48,7 @@ class Builder implements BuilderInterface
     protected $formFieldTypePool;
 
     /**
-     * @var TitleProviderPool
+     * @var TitleProviderPoolInterface
      */
     protected $titleProviderPool;
 
@@ -58,19 +58,9 @@ class Builder implements BuilderInterface
     protected $formRepository;
 
     /**
-     * @var CollectionStrategyInterface
-     */
-    protected $collectionStrategy;
-
-    /**
      * @var FormFactory
      */
     protected $formFactory;
-
-    /**
-     * @var string
-     */
-    protected $defaultStructureView;
 
     /**
      * @var Checksum
@@ -82,30 +72,21 @@ class Builder implements BuilderInterface
      *
      * @param RequestStack $requestStack
      * @param FormFieldTypePool $formFieldTypePool
-     * @param TitleProviderPoolInterface $titleProviderPool
      * @param FormRepository $formRepository
-     * @param CollectionStrategyInterface $collectionStrategy
      * @param FormFactory $formFactory
      * @param Checksum $checksum
-     * @param string $defaultStructureView
      */
     public function __construct(
         RequestStack $requestStack,
         FormFieldTypePool $formFieldTypePool,
-        TitleProviderPoolInterface $titleProviderPool,
         FormRepository $formRepository,
-        CollectionStrategyInterface $collectionStrategy,
         FormFactory $formFactory,
-        Checksum $checksum,
-        $defaultStructureView
+        Checksum $checksum
     ) {
         $this->requestStack = $requestStack;
         $this->formFieldTypePool = $formFieldTypePool;
-        $this->titleProviderPool = $titleProviderPool;
         $this->formRepository = $formRepository;
-        $this->collectionStrategy = $collectionStrategy;
         $this->formFactory = $formFactory;
-        $this->defaultStructureView = $defaultStructureView;
         $this->checksum = $checksum;
     }
 
@@ -149,7 +130,7 @@ class Builder implements BuilderInterface
             }
         }
 
-        return [null, null];
+        return null;
     }
 
     /**
@@ -190,7 +171,7 @@ class Builder implements BuilderInterface
      * @param string $locale
      * @param string $name
      *
-     * @return array
+     * @return FormInterface
      */
     protected function buildForm($id, $type, $typeId, $locale, $name)
     {
@@ -200,24 +181,16 @@ class Builder implements BuilderInterface
         $formEntity = $this->loadFormEntity($id, $locale);
 
         if (!$formEntity) {
-            return [null, null];
+            return;
         }
 
         $webspaceKey = $this->getWebspaceKey();
         $defaults = $this->getDefaults($formEntity, $locale);
 
-        // Create Form Type
-        $formType = $this->createFormType(
-            $formEntity,
-            $locale,
-            $name,
-            $type,
-            $typeId
-        );
-
         // Create Form
         $form = $this->createForm(
-            $formType,
+            $name,
+            $type,
             $typeId,
             $locale,
             $formEntity,
@@ -228,7 +201,7 @@ class Builder implements BuilderInterface
         // Handle request
         $form->handleRequest($request);
 
-        return [$formType, $form];
+        return $form;
     }
 
     /**
@@ -250,20 +223,30 @@ class Builder implements BuilderInterface
     /**
      * Create form.
      *
-     * @param $formType
-     * @param $typeId
-     * @param $locale
-     * @param $formEntity
-     * @param $webspaceKey
-     * @param $defaults
+     * @param string $name
+     * @param string $type
+     * @param string $typeId
+     * @param string $locale
+     * @param Form $formEntity
+     * @param string $webspaceKey
+     * @param array $defaults
      *
      * @return FormInterface
      */
-    protected function createForm($formType, $typeId, $locale, $formEntity, $webspaceKey, $defaults)
+    protected function createForm($name, $type, $typeId, $locale, $formEntity, $webspaceKey, $defaults)
     {
-        return $this->formFactory->create(
-            $formType,
-            new Dynamic($typeId, $locale, $formEntity, $webspaceKey, $defaults)
+        return $this->formFactory->createNamed(
+            'dynamic_' . $name,
+            DynamicFormType::class,
+            new Dynamic($type, $typeId, $locale, $formEntity, $webspaceKey, $defaults),
+            [
+                'formEntity' => $formEntity,
+                'locale' => $locale,
+                'type' => $type,
+                'typeId' => $typeId,
+                'name' => $name,
+                'block_name' => 'dynamic_' . $name,
+            ]
         );
     }
 
@@ -292,54 +275,6 @@ class Builder implements BuilderInterface
         }
 
         return $formEntity;
-    }
-
-    /**
-     * Create form type.
-     *
-     * @param Form $formEntity
-     * @param string $locale
-     * @param string $name
-     * @param string $type
-     * @param string $typeId
-     * @param string $typeName
-     *
-     * @return DynamicFormType
-     */
-    protected function createFormType(
-        Form $formEntity,
-        $locale,
-        $name,
-        $type,
-        $typeId
-    ) {
-        /** @var PageBridge $structure */
-        $structure = $this->requestStack->getCurrentRequest()->attributes->get('structure');
-
-        $structureView = $this->defaultStructureView;
-
-        if ($structure) {
-            $structureView = $structure->getView();
-        }
-
-        return new DynamicFormType(
-            $formEntity,
-            $locale,
-            $name,
-            $structureView,
-            $this->collectionStrategy->getCollectionId(
-                $formEntity->getId(),
-                $formEntity->getTranslation($locale)->getTitle(),
-                $type,
-                $typeId,
-                $locale
-            ),
-            $this->formFieldTypePool,
-            $this->titleProviderPool,
-            $this->checksum,
-            $type,
-            $typeId
-        );
     }
 
     /**

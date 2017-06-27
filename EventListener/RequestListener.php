@@ -75,9 +75,9 @@ class RequestListener
 
         try {
             /** @var FormInterface $form */
-            list($formType, $form) = $this->formBuilder->buildByRequest($request);
+            $form = $this->formBuilder->buildByRequest($request);
 
-            if (!$form || !$formType) {
+            if (!$form) {
                 // do nothing when no form was found
                 return;
             }
@@ -96,7 +96,6 @@ class RequestListener
             $this->formHandler->handle(
                 $form,
                 [
-                    '_form_type' => $formType,
                     'formEntity' => $serializedObject,
                 ]
             );
