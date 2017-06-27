@@ -215,6 +215,10 @@
                 <source>sulu_form.choice</source>
                 <target>Auswahl</target>
             </trans-unit>
+            <trans-unit id="102">
+                <source>sulu_form.submit_label</source>
+                <target>Beschriftung Button Absenden</target>
+            </trans-unit>
             <trans-unit id="64">
                 <source>sulu_form.success_text</source>
                 <target>Bestätigungstext</target>

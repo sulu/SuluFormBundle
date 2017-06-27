@@ -51,7 +51,7 @@
                                 /* FIXME DropDown to big */
                                 #form-form .grid-row.dropdown-list.dropdown-shadow.husky-select-dropdown-container.top {
                                     max-height: 160px !important;
-                                    max-height: 70vh !impmortant;
+                                    max-height: 70vh !important;
                                 }
 
                                 #form-form .grid-row.dropdown-list.dropdown-shadow.husky-select-dropdown-container {
@@ -102,6 +102,25 @@
             <h2 class="divider m-bottom-20">
                 <%= translate('sulu_form.website_configuration') %>
             </h2>
+            <div class="grid-row m-bottom-20">
+                <div class="grid-col-12">
+                    <div class="form-group">
+                        <label for="submitLabel">
+                            <%= translate('sulu_form.submit_label') %>
+                        </label>
+                        
+                        <div id="submitLabel"
+                             class="form-element husky-validate"
+                             data-type="husky-input"
+                             data-form="true"
+                             data-aura-component="input@husky"
+                             data-aura-instance-name="submitLabel"
+                             data-validation-required="false"
+                             data-mapper-property="submitLabel">
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="grid-row m-bottom-40">
                 <div class="grid-col-12">
                     <div class="form-group">

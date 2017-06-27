@@ -527,6 +527,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
                 'toName' => $translation->getToName(),
                 'subject' => $translation->getSubject(),
                 'mailText' => $translation->getMailText(),
+                'submitLabel' => $translation->getSubmitLabel(),
                 'successText' => $translation->getSuccessText(),
                 'sendAttachments' => $translation->getSendAttachments(),
                 'deactivateNotifyMails' => $translation->getDeactivateNotifyMails(),

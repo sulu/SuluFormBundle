@@ -54,6 +54,11 @@ class FormTranslation implements AuditableInterface
     /**
      * @var string
      */
+    private $submitLabel;
+
+    /**
+     * @var string
+     */
     private $successText;
 
     /**
@@ -254,6 +259,26 @@ class FormTranslation implements AuditableInterface
     public function getMailText()
     {
         return $this->mailText;
+    }
+
+    /**
+     * @param string $submitLabel
+     *
+     * @return FormTranslation
+     */
+    public function setSubmitLabel($submitLabel)
+    {
+        $this->submitLabel = $submitLabel;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubmitLabel()
+    {
+        return $this->submitLabel;
     }
 
     /**

@@ -297,6 +297,7 @@ class Form
             'title' => $translation->getTitle(),
             'subject' => $translation->getSubject(),
             'mailText' => $translation->getMailText(),
+            'submitLabel' => $translation->getSubmitLabel(),
             'successText' => $translation->getSuccessText(),
             'fromEmail' => $translation->getFromEmail(),
             'fromName' => $translation->getFromName(),

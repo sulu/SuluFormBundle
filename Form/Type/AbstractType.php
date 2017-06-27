@@ -221,6 +221,14 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * {@inheritdoc}
      */
+    public function getSubmitLabel($formData = [])
+    {
+        return $this->getAttribute('submit_label');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getSuccessText($formData = [])
     {
         return $this->getAttribute('success_text');
