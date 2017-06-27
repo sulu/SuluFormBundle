@@ -8,25 +8,63 @@ Create a template in `app/Resources/pages` which uses the content type of the bu
 one of the dynamic templates which can be created in the Sulu backend.
 
 ```xml
-<property name="form" type="form_select">
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>form</key>
+
+    <view>AppBundle:website:templates/pages/default</view>
+    <controller>SuluWebsiteBundle:Default:index</controller>
+    <cacheLifetime>1209600</cacheLifetime>
+
     <meta>
-        <title lang="de">Formular</title>
         <title lang="en">Form</title>
+        <title lang="de">Formular</title>
     </meta>
 
-    <params>
-        <param name="type" value="page" />
-    </params>
-</property>
+    <properties>
+        <section name="highlight">
+            <properties>
+                <property name="title" type="text_line" mandatory="true">
+                    <meta>
+                        <title lang="en">Title</title>
+                        <title lang="de">Titel</title>
+                    </meta>
+                    <params>
+                        <param name="headline" value="true"/>
+                    </params>
+
+                    <tag name="sulu.rlp.part"/>
+                </property>
+
+                <property name="url" type="resource_locator" mandatory="true">
+                    <meta>
+                        <title lang="en">Resourcelocator</title>
+                        <title lang="de">Adresse</title>
+                    </meta>
+
+                    <tag name="sulu.rlp"/>
+                </property>
+            </properties>
+        </section>
+
+        <property name="form" type="form_select">
+            <meta>
+                <title lang="de">Formular</title>
+                <title lang="en">Form</title>
+            </meta>
+        
+            <params>
+                <param name="type" value="page" />
+            </params>
+        </property>
+    </properties>
+</template>
 ```
 
-## Controller
-
-For the dynamic form type you can use the default sulu controller in your template or a custom one.
-
-```xml
-<controller>SuluWebsiteBundle:Default:index</controller>
-```
+Use `article` as `type` when you use the form_select inside article template.
 
 ## Output Form and customize
 
@@ -79,11 +117,11 @@ To visualise a tab in the Sulu template, simply configured the following in your
 ```yml
 sulu_form:
     dynamic_lists:
-        <tab_navigation>: # For sulu pages "content".
-            <unique_key>: # Mostly the same as the template key.
-                template: <template_key>
-                property: <form_select_property_name>
-                type: <form_type> # (e.g. page, article, event,…)
+        content: # tab navigation key e.g. "content" for sulu pages or "article" for sulu articles.
+            form: # unique key mostly the same as the template key or a combination between template and property key.
+                template: form # template key
+                property: form # form property name
+                type: page # the site type e.g. page, article, … (same as the content type type param)
 ```
 
 **Now a tab should be visible with a list you can export**

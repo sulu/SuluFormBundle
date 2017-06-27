@@ -2,6 +2,37 @@
 
 ## dev-develop
 
+### Set type for content type definition
+
+With the compatibility to use the form bundle in articles it is needed to define
+the type in the xml definition.
+
+__before__
+
+```xml
+<property name="form" type="form_select">
+    <meta>
+        <title lang="de">Formular</title>
+        <title lang="en">Form</title>
+    </meta>
+</property>
+```
+
+__after__
+
+```xml
+<property name="form" type="form_select">
+    <meta>
+        <title lang="de">Formular</title>
+        <title lang="en">Form</title>
+    </meta>
+
+    <params>
+        <param name="type" value="page" />
+    </params>
+</property>
+```
+
 ### Upgrade database schema
 
 ```sql

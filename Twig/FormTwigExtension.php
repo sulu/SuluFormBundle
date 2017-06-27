@@ -20,7 +20,7 @@ use Symfony\Component\Form\FormView;
 class FormTwigExtension extends \Twig_Extension
 {
     /**
-     * @var FormRepository
+     * @var BuilderInterface
      */
     private $formBuilder;
 
