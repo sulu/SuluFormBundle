@@ -42,12 +42,28 @@ define(['jquery'], function ($) {
          * Get filter parameters for dynamics.
          */
         getUrlParameters: function() {
+            var formId = null;
+            var typeId = null;
+
+            if (typeof this.options.data === 'function') {
+                formId = this.options.data()[this.options.property];
+            } else if (typeof this.options.data === 'object') {
+                formId = this.options.data[this.options.property];
+            } else if (typeof this.options[this.options.property] !== 'undefined') {
+                formId = this.options[this.options.property];
+            }
+
+            if (this.options.type) {
+                // Only set typeId when type is set!
+                typeId = this.options.id;
+            }
+
             return {
-                'form': this.options.data()[this.options.property],
+                'form': formId,
                 'webspaceKey': this.options.webspace,
                 'locale': this.options.language,
                 'view': this.options.view,
-                'typeId': this.options.id,
+                'typeId': typeId,
                 'type': this.options.type,
                 'sortBy': 'created',
                 'sortOrder': 'desc'
@@ -64,6 +80,14 @@ define(['jquery'], function ($) {
             );
 
             var urlParameters = this.getUrlParameters();
+
+            if (!urlParameters.form) {
+                $('#' + constants.listId).html('<h3>' + app.sandbox.translate('select.no-choice') + '</h3>');
+                // No form set in content.
+
+                return;
+            }
+
             var queryString = '?' + $.param(urlParameters);
 
             // init list-toolbar and datagrid

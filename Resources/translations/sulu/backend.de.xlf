@@ -5,7 +5,7 @@
             <!-- Basic -->
             <trans-unit id="1">
                 <source>sulu_form.form</source>
-                <target>Formulare</target>
+                <target>Formular</target>
             </trans-unit>
             <trans-unit id="2">
                 <source>sulu_form.forms.title</source>
@@ -152,6 +152,10 @@
             <trans-unit id="38">
                 <source>sulu_form.type.recaptcha</source>
                 <target>Captcha</target>
+            </trans-unit>
+            <trans-unit id="39">
+                <source>sulu_form.forms</source>
+                <target>Formulare</target>
             </trans-unit>
 
             <!-- Form -->
@@ -330,6 +334,12 @@
             <trans-unit id="101">
                 <source>sulu_form.overlay.end_date</source>
                 <target>Enddatum</target>
+            </trans-unit>
+
+            <!-- Tabs -->
+            <trans-unit id="105">
+                <source>sulu_form.navigation.data</source>
+                <target>Data</target>
             </trans-unit>
         </body>
     </file>

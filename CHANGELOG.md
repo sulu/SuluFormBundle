@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - FEATURE     #79    Added dynamic list to form itself
  - ENHANCEMENT #74    Added blameableinterface to dynamic entity
  - FEATURE     #71    Added possibility to change the submit button text
  - ENHANCEMENT #73    Deprecate static forms and update documentation

@@ -79,7 +79,18 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         );
 
         // add dynamic lists
-        foreach ($config['dynamic_lists'] as $key => $value) {
+        $dynamicLists = $config['dynamic_lists'];
+        if (!isset($dynamicLists['sulu_form_form'])) {
+            $dynamicLists['sulu_form_form'] = [
+                'form' => [
+                    'property' => 'id',
+                    'position' => 40,
+                    'name' => 'sulu_form.navigation.data',
+                ],
+            ];
+        }
+
+        foreach ($dynamicLists as $key => $value) {
             $parameter = 'sulu_form.dynamic_lists.' . $key . '.config';
             $container->setParameter($parameter, $value ?: []);
 
