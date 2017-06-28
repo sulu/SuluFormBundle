@@ -200,8 +200,8 @@
                 <target>Required field</target>
             </trans-unit>
             <trans-unit id="59">
-                <source>sulu_form.placeholder</source>
-                <target>Placeholder</target>
+                <source>sulu_form.example</source>
+                <target>Example</target>
             </trans-unit>
             <trans-unit id="60">
                 <source>sulu_form.default</source>
