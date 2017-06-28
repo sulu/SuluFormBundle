@@ -261,6 +261,7 @@ define(['suluform/model/form',
                             options: {
                                 el: $form,
                                 data: data,
+                                language: this.options.language,
                                 activeTab: this.options.content
                             }
                         }

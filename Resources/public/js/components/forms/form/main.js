@@ -78,7 +78,7 @@ define(function () {
          */
         renderForm: function (template) {
             var formSelector = this.getActiveFormSelector();
-            this.sandbox.dom.html(this.$el, this.renderTemplate(template));
+            this.sandbox.dom.html(this.$el, this.renderTemplate(template, { options: this.options }));
 
             this.sandbox.form.create(formSelector);
             this.sandbox.form.setData(formSelector, this.options.data).then(function () {
