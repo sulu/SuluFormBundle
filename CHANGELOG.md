@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - ENHANCEMENT #74    Added blameableinterface to dynamic entity
  - FEATURE     #71    Added possibility to change the submit button text
  - ENHANCEMENT #73    Deprecate static forms and update documentation
  - BUGFIX      #72    Fixed add and remove a field of same type at same time
