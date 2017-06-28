@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
@@ -506,6 +515,17 @@ class FormController extends FOSRestController implements ClassResourceInterface
         $translations = [];
 
         if ($translation) {
+            $receivers = [];
+
+            foreach ($translation->getReceivers() as $receiver) {
+                $receivers[] = [
+                    'id' => $receiver->getId(),
+                    'name' => $receiver->getName(),
+                    'email' => $receiver->getEmail(),
+                    'type' => $receiver->getType(),
+                ];
+            }
+
             $translations = [
                 'title' => $translation->getTitle(),
                 'fromEmail' => $translation->getFromEmail(),
@@ -518,7 +538,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
                 'sendAttachments' => $translation->getSendAttachments(),
                 'deactivateNotifyMails' => $translation->getDeactivateNotifyMails(),
                 'deactivateCustomerMails' => $translation->getDeactivateCustomerMails(),
-                'receivers' => $translation->getReceivers(),
+                'receivers' => $receivers,
                 'replyTo' => $translation->getReplyTo(),
             ];
         }
