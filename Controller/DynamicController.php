@@ -13,6 +13,7 @@ namespace Sulu\Bundle\FormBundle\Controller;
 
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Repository\DynamicRepository;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\RestController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,6 +34,7 @@ class DynamicController extends RestController implements ClassResourceInterface
      */
     public function cgetAction(Request $request)
     {
+        /** @var DynamicRepository $repository */
         $repository = $this->get('sulu_form.repository.dynamic');
 
         $filters = $this->getFilters($request);

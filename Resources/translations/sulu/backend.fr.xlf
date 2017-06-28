@@ -152,6 +152,10 @@
                 <source>sulu_form.type.recaptcha</source>
                 <target>Captcha</target>
             </trans-unit>
+            <trans-unit id="39">
+                <source>sulu_form.forms</source>
+                <target>Form de Baguettes</target>
+            </trans-unit>
 
             <!-- Form -->
             <trans-unit id="49">
@@ -329,6 +333,12 @@
             <trans-unit id="101">
                 <source>sulu_form.overlay.end_date</source>
                 <target>Date de fin</target>
+            </trans-unit>
+
+            <!-- Tabs -->
+            <trans-unit id="105">
+                <source>sulu_form.navigation.data</source>
+                <target>Data</target>
             </trans-unit>
         </body>
     </file>

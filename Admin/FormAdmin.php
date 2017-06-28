@@ -39,7 +39,7 @@ class FormAdmin extends Admin
 
         // create section
         if ($securityChecker->hasPermission('sulu.form.forms', 'view')) {
-            $navigationItem = new NavigationItem('sulu_form.form');
+            $navigationItem = new NavigationItem('sulu_form.forms');
             $navigationItem->setIcon('magic');
             $navigationItem->setAction('forms');
             $navigationItem->setPosition(10);
