@@ -26,6 +26,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Templating\EngineInterface;
 
+/**
+ * @deprecated Static form are deprecated and will be removed in the next release.
+ */
 class Handler implements HandlerInterface
 {
     /**
@@ -119,6 +122,7 @@ class Handler implements HandlerInterface
     }
 
     /**
+     *
      * @{@inheritdoc}
      */
     public function get($name, $attributes = [])

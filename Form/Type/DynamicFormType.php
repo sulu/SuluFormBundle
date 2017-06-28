@@ -55,17 +55,12 @@ class DynamicFormType extends AbstractType
     private $typePool;
 
     /**
-     * @var TitleProviderPool
-     */
-    private $titlePool;
-
-    /**
      * @var string
      */
     private $type;
 
     /**
-     * @var stgring
+     * @var string
      */
     private $typeId;
 
@@ -83,10 +78,9 @@ class DynamicFormType extends AbstractType
      * @param string $structureView
      * @param int $systemCollectionId
      * @param FormFieldTypePool $typePool
-     * @param TitleProviderPoolInterface $titlePool
      * @param string $type
      * @param Checksum $checksum
-     * @param stgring $typeId
+     * @param string $typeId
      *
      * @internal param string $secret
      */
@@ -97,7 +91,6 @@ class DynamicFormType extends AbstractType
         $structureView,
         $systemCollectionId,
         FormFieldTypePool $typePool,
-        TitleProviderPoolInterface $titlePool,
         Checksum $checksum,
         $type,
         $typeId
@@ -108,7 +101,6 @@ class DynamicFormType extends AbstractType
         $this->structureView = $structureView;
         $this->systemCollectionId = $systemCollectionId;
         $this->typePool = $typePool;
-        $this->titlePool = $titlePool;
         $this->type = $type;
         $this->typeId = $typeId;
         $this->checksum = $checksum;
