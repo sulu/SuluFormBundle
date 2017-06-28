@@ -11,9 +11,9 @@
 
 namespace Sulu\Bundle\FormBundle\Entity;
 
-use Sulu\Component\Persistence\Model\TimestampableInterface;
+use Sulu\Component\Persistence\Model\AuditableInterface;
 
-class Dynamic implements TimestampableInterface
+class Dynamic implements AuditableInterface
 {
     const TYPE_ATTACHMENT = 'attachment';
 
@@ -191,6 +191,16 @@ class Dynamic implements TimestampableInterface
     private $changed;
 
     /**
+     * @var
+     */
+    private $creator;
+
+    /**
+     * @var
+     */
+    private $changer;
+
+    /**
      * @param string $type
      * @param string $typeId
      * @param string $locale
@@ -262,22 +272,6 @@ class Dynamic implements TimestampableInterface
     public function __get($name)
     {
         return $this->getField($name);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getChanged()
-    {
-        return $this->changed;
     }
 
     /**
@@ -420,5 +414,37 @@ class Dynamic implements TimestampableInterface
     public function setType($type)
     {
         $this->type = $type;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getChanged()
+    {
+        return $this->changed;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getChanger()
+    {
+        return $this->changer;
     }
 }
