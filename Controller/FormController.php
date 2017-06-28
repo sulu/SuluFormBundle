@@ -519,6 +519,17 @@ class FormController extends FOSRestController implements ClassResourceInterface
         $translations = [];
 
         if ($translation) {
+            $receivers = [];
+
+            foreach ($translation->getReceivers() as $receiver) {
+                $receivers[] = [
+                    'id' => $receiver->getId(),
+                    'name' => $receiver->getName(),
+                    'email' => $receiver->getEmail(),
+                    'type' => $receiver->getType(),
+                ];
+            }
+
             $translations = [
                 'title' => $translation->getTitle(),
                 'fromEmail' => $translation->getFromEmail(),
@@ -532,7 +543,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
                 'sendAttachments' => $translation->getSendAttachments(),
                 'deactivateNotifyMails' => $translation->getDeactivateNotifyMails(),
                 'deactivateCustomerMails' => $translation->getDeactivateCustomerMails(),
-                'receivers' => $translation->getReceivers(),
+                'receivers' => $receivers,
                 'replyTo' => $translation->getReplyTo(),
             ];
         }
