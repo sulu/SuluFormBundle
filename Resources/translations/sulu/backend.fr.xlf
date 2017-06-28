@@ -199,8 +199,8 @@
                 <target>Champs requis</target>
             </trans-unit>
             <trans-unit id="59">
-                <source>sulu_form.placeholder</source>
-                <target>Espace réservé</target>
+                <source>sulu_form.example</source>
+                <target>Exemple</target>
             </trans-unit>
             <trans-unit id="60">
                 <source>sulu_form.default</source>
