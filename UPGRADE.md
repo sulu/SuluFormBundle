@@ -1,6 +1,6 @@
 # Upgrade
 
-## dev-develop
+## 0.2.0
 
 ### Upgrade database schema
 
@@ -12,6 +12,7 @@ ALTER TABLE fo_dynamics ADD CONSTRAINT FK_EC8AF030DBF11E1D FOREIGN KEY (idUsersC
 ALTER TABLE fo_dynamics ADD CONSTRAINT FK_EC8AF03030D07CD5 FOREIGN KEY (idUsersChanger) REFERENCES se_users (id) ON DELETE SET NULL;
 CREATE INDEX IDX_EC8AF030DBF11E1D ON fo_dynamics (idUsersCreator);
 CREATE INDEX IDX_EC8AF03030D07CD5 ON fo_dynamics (idUsersChanger);
+ALTER TABLE fo_dynamics ADD typeName VARCHAR(255) DEFAULT NULL;
 ```
 
 or run
@@ -76,3 +77,25 @@ sulu_form:
                 property: form
                 type: page
 ```
+
+### BC Breaks
+
+The bundle is under heavy development so check the changes of the following link
+when you did overwrite or extend the sulu form bundle: 
+https://github.com/sulu/suluformbundle/compare/0.1.0...0.2.0
+
+### Deprecations
+
+Handling static forms this way is deprecated and will be removed in one of the next releases.
+
+ - The `Sulu\Bundle\FormBundle\Provider\DynamicProvider` is deprecated and will be removed in one of the next releases use the config above.  
+ - Handling static forms the current way is deprecated and will be removed in one of the next releases.
+ - The `Sulu\Bundle\FormBundle\Event\DynFormSavedEvent::getFormSelect` function is deprecated us `getData` instead.
+ - The `Sulu\Bundle\FormBundle\Form\Builder::buildForm` is deprecated and will be removed in one of the next releases.
+ - The `Sulu\Bundle\FormBundle\Form\Builder::createForm` is deprecated and will be removed in one of the next releases.
+ - The `Sulu\Bundle\FormBundle\Form\Builder::loadFormEntity` is deprecated and will be removed in one of the next releases.
+ - The `Sulu\Bundle\FormBundle\Form\Builder::createFormType` is deprecated and will be removed in one of the next releases.
+ - The `Sulu\Bundle\FormBundle\Form\Builder::loadFormEntity` is deprecated and will be removed in one of the next releases.
+ - The `Sulu\Bundle\FormBundle\Form\Builder::getDefaults` is deprecated and will be removed in one of the next releases.
+ - The `Sulu\Bundle\FormBundle\Form\Builder::getWebspaceKey` is deprecated and will be removed in one of the next releases.
+ - The `Sulu\Bundle\FormBundle\Form\Handler` is deprecated and will be removed in one of the next releases.

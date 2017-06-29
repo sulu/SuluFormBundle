@@ -13,6 +13,7 @@
         <field name="typeId" column="typeId" type="string" nullable="false"/>
         <field name="locale" column="locale" type="string" nullable="false"/>
         <field name="webspaceKey" column="webspaceKey" type="string" nullable="false"/>
+        <field name="typeName" column="typeName" type="string" nullable="true"/>
 
         <field name="salutation" column="salutation" type="string" nullable="true"/>
         <field name="title" column="title" type="string" nullable="true"/>

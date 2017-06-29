@@ -126,15 +126,14 @@ sulu_form:
 
 **Now a tab should be visible with a list you can export**
 
-### Implement Tab into a custom module:
+### Implement Form into a custom module:
 
  - Implement a Provider for your Module with `TitleProviderInterface`.
  - Create a service for this Provider:
 
 ```xml
-<service id="sulu_form.dynamic.collection_title_<module_name>" class="Sulu\Bundle\FormBundle\TitleProvider\Collections\StructureTitleProvider">
-    <tag name="sulu_form.title_provider" alias="<module_name>"/>
-    <argument type="service" id="request_stack"/>
+<service id="sulu_form.dynamic.collection_title_<type_name>" class="AppBundle\TitleProvider\YourTitleProvider">
+    <tag name="sulu_form.title_provider" alias="<type_name>"/>
 </service>
 ```
 

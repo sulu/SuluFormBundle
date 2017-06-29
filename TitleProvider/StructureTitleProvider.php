@@ -9,9 +9,8 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\TitleProvider\Collections;
+namespace Sulu\Bundle\FormBundle\TitleProvider;
 
-use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -35,7 +34,7 @@ class StructureTitleProvider implements TitleProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function getTitle($type, $typeId)
+    public function getTitle($typeId)
     {
         $request = $this->requestStack->getMasterRequest();
         $structure = $request->attributes->get('structure');

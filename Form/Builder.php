@@ -48,7 +48,7 @@ class Builder implements BuilderInterface
     protected $formFieldTypePool;
 
     /**
-     * @var TitleProviderPool
+     * @var TitleProviderPoolInterface
      */
     protected $titleProviderPool;
 
@@ -249,6 +249,8 @@ class Builder implements BuilderInterface
     }
 
     /**
+     * @deprecated Need to be refractored for symfony 3.0 and will be removed in one of the next released.
+     *
      * Create form.
      *
      * @param string $formType
@@ -263,13 +265,17 @@ class Builder implements BuilderInterface
      */
     protected function createForm($formType, $type, $typeId, $locale, $formEntity, $webspaceKey, $defaults)
     {
+        $typeName = $this->titleProviderPool->get($type)->getTitle($typeId);
+
         return $this->formFactory->create(
             $formType,
-            new Dynamic($type, $typeId, $locale, $formEntity, $webspaceKey, $defaults)
+            new Dynamic($type, $typeId, $locale, $formEntity, $defaults, $webspaceKey, $typeName)
         );
     }
 
     /**
+     * @deprecated Will be removed in one of the next released.
+     *
      * Load Form entity.
      *
      * @param $id
@@ -297,6 +303,8 @@ class Builder implements BuilderInterface
     }
 
     /**
+     * @deprecated Need to be refractored for symfony 3.0 and will be removed in one of the next released.
+     *
      * Create form type.
      *
      * @param Form $formEntity
@@ -336,7 +344,6 @@ class Builder implements BuilderInterface
                 $locale
             ),
             $this->formFieldTypePool,
-            $this->titleProviderPool,
             $this->checksum,
             $type,
             $typeId

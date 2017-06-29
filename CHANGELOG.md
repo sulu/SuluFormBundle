@@ -2,6 +2,7 @@
 
 ## dev-develop
 
+ - FEATURE     #80    Added type name to dynamic entity and cleanup title provider
  - FEATURE     #79    Added dynamic list to form itself
  - BUGFIX      #78    Fixed form serialization with receivers
  - BUGFIX      #77    Fixed ckeditor problem with sulu link

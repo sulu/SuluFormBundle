@@ -48,6 +48,11 @@ class Dynamic implements AuditableInterface
     /**
      * @var string
      */
+    private $typeName;
+
+    /**
+     * @var string
+     */
     private $locale;
 
     /**
@@ -201,20 +206,24 @@ class Dynamic implements AuditableInterface
     private $changer;
 
     /**
+     * Dynamic cosntructor.
+     *
      * @param string $type
      * @param string $typeId
      * @param string $locale
      * @param Form $formId
-     * @param null|string $webspaceKey
      * @param array $data
+     * @param string $webspaceKey
+     * @param string $typeName
      */
-    public function __construct($type, $typeId, $locale, $formId, $webspaceKey = null, $data = [])
+    public function __construct($type, $typeId, $locale, $formId, $data = [], $webspaceKey = null, $typeName = '')
     {
         $this->type = $type;
         $this->typeId = $typeId;
         $this->locale = $locale;
         $this->form = $formId;
         $this->webspaceKey = $webspaceKey;
+        $this->typeName = $typeName;
 
         foreach ($data as $name => $value) {
             $this->__set($name, $value);
@@ -222,6 +231,8 @@ class Dynamic implements AuditableInterface
     }
 
     /**
+     * Get data.
+     *
      * @return array
      */
     public function getData()
@@ -272,36 +283,6 @@ class Dynamic implements AuditableInterface
     public function __get($name)
     {
         return $this->getField($name);
-    }
-
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get form.
-     *
-     * @return Form
-     */
-    public function getForm()
-    {
-        return $this->form;
-    }
-
-    /**
-     * Get locale.
-     *
-     * @return string
-     */
-    public function getLocale()
-    {
-        return $this->locale;
     }
 
     /**
@@ -397,7 +378,37 @@ class Dynamic implements AuditableInterface
     }
 
     /**
-     * Returns the type of current page (e.g. structure, event, blog,…).
+     * Get id.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get form.
+     *
+     * @return Form
+     */
+    public function getForm()
+    {
+        return $this->form;
+    }
+
+    /**
+     * Get locale.
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * Get type.
      *
      * @return string
      */
@@ -407,13 +418,33 @@ class Dynamic implements AuditableInterface
     }
 
     /**
-     * Set page type.
+     * Get typeId.
      *
-     * @param string $type
+     * @return string
      */
-    public function setType($type)
+    public function getTypeId()
     {
-        $this->type = $type;
+        return $this->typeId;
+    }
+
+    /**
+     * Get typeName.
+     *
+     * @return string
+     */
+    public function getTypeName()
+    {
+        return $this->typeName;
+    }
+
+    /**
+     * Get webspaceKey.
+     *
+     * @return string
+     */
+    public function getWebspaceKey()
+    {
+        return $this->webspaceKey;
     }
 
     /**
