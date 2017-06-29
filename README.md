@@ -23,7 +23,7 @@ file.
 # Documentation / Installation
 
 The Documentation is stored in the
-[Documentation](Resources/doc/ "Documentation") folder.
+[Resources/doc/](Resources/doc/index.md "Documentation") folder.
 
 ## License
 
