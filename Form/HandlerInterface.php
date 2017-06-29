@@ -18,6 +18,8 @@ interface HandlerInterface
     const EVENT_FORM_SAVED = 'sulu_form.handler.saved';
 
     /**
+     * @deprecated Static forms are not longer supported in sulu form bundle.
+     *
      * @param string $name
      * @param array $attributes
      *

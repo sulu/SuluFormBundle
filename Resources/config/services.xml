@@ -81,6 +81,7 @@
         <service id="sulu_form.builder" class="Sulu\Bundle\FormBundle\Form\Builder">
             <argument id="request_stack" type="service" />
             <argument id="sulu_form.dynamic.form_field_type_pool" type="service" />
+            <argument id="sulu_form.title_provider.pool" type="service" />
             <argument id="sulu_form.repository.form" type="service" />
             <argument type="service" id="form.factory" />
             <argument type="service" id="sulu_form.checksum" />

@@ -11,10 +11,11 @@
 
 namespace Sulu\Bundle\FormBundle\Entity;
 
+use Sulu\Bundle\FormBundle\Config\FormConfigTranslationInterface;
 use Sulu\Component\Persistence\Model\AuditableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class FormTranslation implements AuditableInterface
+class FormTranslation implements FormConfigTranslationInterface, AuditableInterface
 {
     /**
      * @var string

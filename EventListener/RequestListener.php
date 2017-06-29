@@ -30,7 +30,7 @@ class RequestListener
     /**
      * @var HandlerInterface
      */
-    protected $formHander;
+    protected $formHandler;
 
     /**
      * @var EventDispatcherInterface
@@ -88,8 +88,13 @@ class RequestListener
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var Dynamic $dynamic */
-            $dynamic = $form->getData();
+            dump($form->getConfig()->getOptions());
+            exit;
+
+            $data = $form->getData();
+            $dynamic->getForm();
+
+
             $serializedObject = $dynamic->getForm()->serializeForLocale($dynamic->getLocale(), $dynamic);
 
             // save

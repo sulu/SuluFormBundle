@@ -122,7 +122,6 @@ class Handler implements HandlerInterface
     }
 
     /**
-     *
      * @{@inheritdoc}
      */
     public function get($name, $attributes = [])

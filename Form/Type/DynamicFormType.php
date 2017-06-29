@@ -60,7 +60,7 @@ class DynamicFormType extends AbstractType
         $typeId = $options['typeId'];
         $name = $options['name'];
 
-        if (!$formEntity->getTranslation($locale)) {
+        if (!$translation = $formEntity->getTranslation($locale)) {
             throw new \Exception(
                 sprintf('The form with the ID "%s" does not exist for the locale "%"!', $formEntity->getId(), $locale)
             );
@@ -69,7 +69,7 @@ class DynamicFormType extends AbstractType
         $currentWidthValue = 0;
 
         foreach ($formEntity->getFields() as $field) {
-            $translation = $field->getTranslation($locale);
+            $fieldTranslation = $field->getTranslation($locale);
             $options = ['constraints' => [], 'attr' => [], 'required' => false];
 
             // title
@@ -78,9 +78,9 @@ class DynamicFormType extends AbstractType
             $width = 'full';
 
             // title / placeholder
-            if ($translation) {
-                $title = $translation->getTitle();
-                $placeholder = $translation->getPlaceholder();
+            if ($fieldTranslation) {
+                $title = $fieldTranslation->getTitle();
+                $placeholder = $fieldTranslation->getPlaceholder();
             }
 
             // width
@@ -131,7 +131,7 @@ class DynamicFormType extends AbstractType
         ]);
 
         // Add submit button.
-        $builder->add('submit', SubmitType::class, ['label' => $this->getSubmitLabel()]);
+        $builder->add('submit', SubmitType::class, ['label' => $translation->getSubmitLabel()]);
     }
 
     /**

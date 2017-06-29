@@ -1,5 +1,11 @@
 # Upgrade
 
+## 0.3.0
+
+### BC Breaks
+
+ - The `Sulu\Bundle\FormBundle\Event\DynFormSavedEvent::getFormSelect` deprecated function was removed use `getData` instead.
+
 ## 0.2.0
 
 ### Upgrade database schema

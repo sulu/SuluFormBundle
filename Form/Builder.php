@@ -70,6 +70,7 @@ class Builder implements BuilderInterface
      *
      * @param RequestStack $requestStack
      * @param FormFieldTypePool $formFieldTypePool
+     * @param TitleProviderPoolInterface $titleProviderPool,
      * @param FormRepository $formRepository
      * @param FormFactory $formFactory
      * @param Checksum $checksum
@@ -77,21 +78,21 @@ class Builder implements BuilderInterface
     public function __construct(
         RequestStack $requestStack,
         FormFieldTypePool $formFieldTypePool,
+        TitleProviderPoolInterface $titleProviderPool,
         FormRepository $formRepository,
         FormFactory $formFactory,
         Checksum $checksum
     ) {
         $this->requestStack = $requestStack;
         $this->formFieldTypePool = $formFieldTypePool;
+        $this->titleProviderPool = $titleProviderPool;
         $this->formRepository = $formRepository;
         $this->formFactory = $formFactory;
         $this->checksum = $checksum;
     }
 
     /**
-     * @param Request $request
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function buildByRequest(Request $request)
     {
@@ -138,15 +139,7 @@ class Builder implements BuilderInterface
     }
 
     /**
-     * Returns formType and the builded form.
-     *
-     * @param int $id
-     * @param string $type
-     * @param string $typeId
-     * @param string $locale
-     * @param string $name
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function build($id, $type, $typeId, $locale = null, $name = 'form')
     {
