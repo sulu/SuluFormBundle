@@ -11,6 +11,9 @@
 
 namespace Sulu\Bundle\FormBundle\Entity;
 
+/**
+ * Form field translation entity.
+ */
 class FormFieldTranslation
 {
     /**

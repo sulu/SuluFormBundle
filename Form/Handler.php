@@ -135,11 +135,18 @@ class Handler implements HandlerInterface
         return $this->formFactory->create($name);
     }
 
+    public function handle(FormInterface $form, $attributes = [])
+    {
+        $form->getData();
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function handle(FormInterface $form, $attributes = [])
+    public function handle($form, $configuration)
     {
+
+
         if (!$form->isValid()) {
             return false;
         }

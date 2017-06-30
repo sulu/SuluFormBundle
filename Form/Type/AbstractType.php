@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\Form\Type;
 
+use Sulu\Bundle\FormBundle\Controller\FormController;
 use Symfony\Component\Form\AbstractType as SymfonyAbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -248,5 +249,10 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     public function getCollectionId()
     {
         return;
+    }
+
+    public function getFormConfiguration()
+    {
+        return new FormController()
     }
 }

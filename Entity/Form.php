@@ -12,9 +12,11 @@
 namespace Sulu\Bundle\FormBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Sulu\Bundle\FormBundle\Config\FormConfigInterface;
 
-class Form implements FormConfigInterface
+/**
+ * Form entity.
+ */
+class Form
 {
     /**
      * @var int
@@ -254,18 +256,6 @@ class Form implements FormConfigInterface
         }
 
         return $fields;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFileFields()
-    {
-        $fileFields = [];
-        foreach ($this->getFieldsByType(Dynamic::TYPE_ATTACHMENT) as $field) {
-            $fileFields[] = $field->getKey();
-        }
-        return $fileFields;
     }
 
     /**
