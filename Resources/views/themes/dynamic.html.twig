@@ -82,3 +82,19 @@
 {%- block sulu_form_row_end -%}
     </div>
 {%- endblock sulu_form_row_end -%}
+
+{# Avoid control attributes to be rendered #}
+{% block attributes -%}
+    {%- for attrname, attrvalue in attr -%}
+        {{- " " -}}
+        {%- if attrname in ['width', 'widthNumber', 'lastWidth'] -%}
+            {# Avoid rendering of width and lastWidth attribute #}
+        {%- elseif attrname in ['placeholder', 'title'] -%}
+            {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain) }}"
+        {%- elseif attrvalue is same as(true) -%}
+            {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not same as(false) -%}
+            {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock attributes -%}

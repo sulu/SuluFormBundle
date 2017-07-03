@@ -1,6 +1,10 @@
 # Changelog
 
-## dev-develop
+## 0.3.0 (unreleased)
+
+ - FEATURE     #83    Refractor static and dynamic form handling for symfony 3 compatibility
+
+## 0.2.0
 
  - FEATURE     #80    Added type name to dynamic entity and cleanup title provider
  - FEATURE     #79    Added dynamic list to form itself

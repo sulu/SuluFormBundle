@@ -93,6 +93,7 @@ class DynamicFormType extends AbstractType
             $options['label'] = $title ?: false;
             $options['required'] = $field->getRequired();
             $options['attr']['width'] = $width;
+            $options['attr']['widthNumber'] = $this->getItemWidthNumber($width);
             $options['attr']['lastWidth'] = $lastWidth;
             $options['attr']['placeholder'] = $placeholder;
 
@@ -107,32 +108,32 @@ class DynamicFormType extends AbstractType
         // Add hidden type field. (page, article, event, blog, ...)
         $builder->add('type', HiddenType::class, [
             'data' => $type,
-            'mapped' => false
+            'mapped' => false,
         ]);
 
         // Add hidden typeId field. (UUID, Database id,…)
         $builder->add('typeId', HiddenType::class, [
             'data' => $typeId,
-            'mapped' => false
+            'mapped' => false,
         ]);
 
         // Add hidden formId. (id, uuid,…)
         $builder->add('formId', HiddenType::class, [
             'data' => $formEntity->getId(),
-            'mapped' => false
+            'mapped' => false,
         ]);
 
         // Add hidden formName field. (Name of "form_select"-content-type.)
         $builder->add('formName', HiddenType::class, [
             'data' => $name,
-            'mapped' => false
+            'mapped' => false,
         ]);
 
         // Add hidden formName field. (Name of "form_select"-content-type.)
         $checksum = $this->checksum->get($type, $typeId, $formEntity->getId(), $name);
         $builder->add('checksum', HiddenType::class, [
             'data' => $checksum,
-            'mapped' => false
+            'mapped' => false,
         ]);
 
         // Add submit button.
@@ -168,14 +169,13 @@ class DynamicFormType extends AbstractType
     }
 
     /**
-     * Get last width.
+     * Get item width number.
      *
-     * @param int $currentWidthValue
      * @param string $width
      *
-     * @return bool
+     * @return int
      */
-    private function getLastWidth(&$currentWidthValue, $width)
+    private function getItemWidthNumber($width)
     {
         switch ($width) {
             case 'one-sixth':
@@ -205,6 +205,21 @@ class DynamicFormType extends AbstractType
             default:
                 $itemWidth = 12;
         }
+
+        return $itemWidth;
+    }
+
+    /**
+     * Get last width.
+     *
+     * @param int $currentWidthValue
+     * @param string $width
+     *
+     * @return bool
+     */
+    private function getLastWidth(&$currentWidthValue, $width)
+    {
+        $itemWidth = $this->getItemWidthNumber($width);
 
         $currentWidthValue += $itemWidth;
 
