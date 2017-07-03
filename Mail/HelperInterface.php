@@ -11,7 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\Mail;
 
-use Sulu\Bundle\FormBundle\Config\MailConfigurationInterface;
+use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;
 
 interface HelperInterface
 {

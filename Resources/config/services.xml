@@ -8,10 +8,7 @@
     <services>
         <!-- Form Handler -->
         <service id="sulu_form.handler" class="Sulu\Bundle\FormBundle\Form\Handler">
-            <argument type="service" id="form.factory" />
-            <argument type="service" id="form.extension" />
             <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="security.csrf.token_manager" />
             <argument type="service" id="sulu.mail.helper" />
             <argument type="service" id="templating" />
             <argument type="service" id="event_dispatcher" />
@@ -77,10 +74,19 @@
             <tag name="sulu.content.type" alias="form_select"/>
         </service>
 
+        <!-- Form Configuration Factory -->
+        <service id="sulu_form.configuration.form_configuration_factory"
+                 class="Sulu\Bundle\FormBundle\Configuration\FormConfigurationFactory">
+            <argument type="service" id="sulu_form.media_collection_strategy.default"/>
+            <argument>%sulu_form.mail.template.notify%</argument>
+            <argument>%sulu_form.mail.template.customer%</argument>
+        </service>
+
         <!-- Form Builder -->
         <service id="sulu_form.builder" class="Sulu\Bundle\FormBundle\Form\Builder">
             <argument id="request_stack" type="service" />
             <argument id="sulu_form.dynamic.form_field_type_pool" type="service" />
+            <argument id="sulu_form.title_provider.pool" type="service" />
             <argument id="sulu_form.repository.form" type="service" />
             <argument type="service" id="form.factory" />
             <argument type="service" id="sulu_form.checksum" />
@@ -95,9 +101,10 @@
         </service>
 
         <!-- Request Listener -->
-        <service id="sulu_form.request_listener" class="Sulu\Bundle\FormBundle\EventListener\RequestListener">
+        <service id="sulu_form.request_listener" class="Sulu\Bundle\FormBundle\Event\RequestListener">
             <argument type="service" id="sulu_form.builder" />
             <argument type="service" id="sulu_form.handler" />
+            <argument type="service" id="sulu_form.configuration.form_configuration_factory" />
             <argument type="service" id="event_dispatcher" />
 
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />

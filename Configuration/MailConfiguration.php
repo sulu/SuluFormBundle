@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\Config;
+namespace Sulu\Bundle\FormBundle\Configuration;
 
 /**
  * Mail config object to hold all data to for a email.

@@ -1,12 +1,26 @@
 <?php
 
-namespace Sulu\Bundle\FormBundle\Config;
+/*
+ * This file is part of Sulu.
+ *
+ * (c) MASSIVE ART WebServices GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
+namespace Sulu\Bundle\FormBundle\Configuration;
 
 /**
  * Form config object to hold static and dynamic form configuration.
  */
 class FormConfiguration implements FormConfigurationInterface
 {
+    /**
+     * @var bool
+     */
+    private $save = true;
+
     /**
      * @var string
      */
@@ -107,6 +121,30 @@ class FormConfiguration implements FormConfigurationInterface
     public function setFileFields($fileFields)
     {
         $this->fileFields = $fileFields;
+
+        return $this;
+    }
+
+    /**
+     * Get save.
+     *
+     * @return bool
+     */
+    public function getSave()
+    {
+        return $this->save;
+    }
+
+    /**
+     * Set save.
+     *
+     * @param bool $save
+     *
+     * @return $this
+     */
+    public function setSave($save)
+    {
+        $this->save = $save;
 
         return $this;
     }

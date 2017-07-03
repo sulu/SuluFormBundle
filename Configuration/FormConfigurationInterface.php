@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\Config;
+namespace Sulu\Bundle\FormBundle\Configuration;
 
 /**
  * A form configuration.
@@ -22,6 +22,13 @@ interface FormConfigurationInterface
      * @return string
      */
     public function getLocale();
+
+    /**
+     * Should the form data be saved.
+     *
+     * @return bool
+     */
+    public function getSave();
 
     /**
      * Get file fields.

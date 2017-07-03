@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\Config;
+namespace Sulu\Bundle\FormBundle\Configuration;
 
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Form\Type\AbstractType;
@@ -260,7 +260,7 @@ class FormConfigurationFactory
     }
 
     /**
-     * Get file fields by dynamic
+     * Get file fields by dynamic.
      *
      * @param Dynamic $dynamic
      *

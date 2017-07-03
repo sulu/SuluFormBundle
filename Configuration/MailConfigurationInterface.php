@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\Config;
+namespace Sulu\Bundle\FormBundle\Configuration;
 
 /**
  * Interface MailConfigurationInterface.
@@ -61,7 +61,7 @@ interface MailConfigurationInterface
     public function getBcc();
 
     /**
-     * Get reply to
+     * Get reply to.
      *
      * @return string|array
      */

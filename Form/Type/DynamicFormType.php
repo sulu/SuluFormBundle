@@ -104,30 +104,35 @@ class DynamicFormType extends AbstractType
             $this->typePool->get($field->getType())->build($builder, $field, $locale, $options);
         }
 
-        // Add hidden type field. (structure, event, blog,…)
+        // Add hidden type field. (page, article, event, blog, ...)
         $builder->add('type', HiddenType::class, [
             'data' => $type,
+            'mapped' => false
         ]);
 
         // Add hidden typeId field. (UUID, Database id,…)
         $builder->add('typeId', HiddenType::class, [
             'data' => $typeId,
+            'mapped' => false
         ]);
 
         // Add hidden formId. (id, uuid,…)
         $builder->add('formId', HiddenType::class, [
             'data' => $formEntity->getId(),
+            'mapped' => false
         ]);
 
         // Add hidden formName field. (Name of "form_select"-content-type.)
         $builder->add('formName', HiddenType::class, [
             'data' => $name,
+            'mapped' => false
         ]);
 
         // Add hidden formName field. (Name of "form_select"-content-type.)
         $checksum = $this->checksum->get($type, $typeId, $formEntity->getId(), $name);
         $builder->add('checksum', HiddenType::class, [
             'data' => $checksum,
+            'mapped' => false
         ]);
 
         // Add submit button.

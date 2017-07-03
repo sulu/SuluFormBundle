@@ -12,44 +12,26 @@
 namespace Sulu\Bundle\FormBundle\Form;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
-use Sulu\Bundle\FormBundle\Form\Type\TypeInterface;
+use Sulu\Bundle\FormBundle\Configuration\FormConfigurationInterface;
+use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;
+use Sulu\Bundle\FormBundle\Event\FormEvent;
 use Sulu\Bundle\FormBundle\Mail;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormExtensionInterface;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Templating\EngineInterface;
 
 /**
- * @deprecated Static form are deprecated and will be removed in the next release.
+ * Handling of form based on form configuration.
  */
 class Handler implements HandlerInterface
 {
     /**
-     * @var FormFactoryInterface
-     */
-    protected $formFactory;
-
-    /**
-     * @var FormExtensionInterface
-     */
-    protected $formExtension;
-
-    /**
      * @var ObjectManager
      */
     protected $entityManager;
-
-    /**
-     * @var CsrfTokenManagerInterface
-     */
-    protected $csrfTokenManager;
 
     /**
      * @var EngineInterface
@@ -60,11 +42,6 @@ class Handler implements HandlerInterface
      * @var EventDispatcherInterface
      */
     protected $eventDispatcher;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
 
     /**
      * @var array
@@ -87,239 +64,209 @@ class Handler implements HandlerInterface
     protected $attachments = [];
 
     /**
-     * @param FormFactoryInterface $formFactory
-     * @param FormExtensionInterface $formExtension
      * @param ObjectManager $entityManager
-     * @param CsrfTokenManagerInterface $csrfTokenManager
      * @param Mail\HelperInterface $mailHelper
      * @param EngineInterface $templating
      * @param EventDispatcherInterface $eventDispatcher
      * @param MediaManager $mediaManager
-     * @param null $logger
      */
     public function __construct(
-        FormFactoryInterface $formFactory,
-        FormExtensionInterface $formExtension,
         ObjectManager $entityManager,
-        CsrfTokenManagerInterface $csrfTokenManager,
         Mail\HelperInterface $mailHelper,
         EngineInterface $templating,
         EventDispatcherInterface $eventDispatcher,
-        MediaManager $mediaManager,
-        $logger = null
+        MediaManager $mediaManager
     ) {
-        $this->formFactory = $formFactory;
-        $this->formExtension = $formExtension;
-        $this->mailHelper = $mailHelper;
         $this->entityManager = $entityManager;
-        $this->csrfTokenManager = $csrfTokenManager;
+        $this->mailHelper = $mailHelper;
         $this->templating = $templating;
         $this->eventDispatcher = $eventDispatcher;
         $this->mediaManager = $mediaManager;
-        $this->logger = $logger ? $logger : new NullLogger();
-
         $this->attachments = [];
     }
 
     /**
-     * @{@inheritdoc}
+     * Handle form.
+     *
+     * @param FormInterface $form
+     * @param FormConfigurationInterface $configuration
+     *
+     * @return bool
      */
-    public function get($name, $attributes = [])
+    public function handle(FormInterface $form, FormConfigurationInterface $configuration)
     {
-        $type = $this->formExtension->getType($name);
-
-        if ($type instanceof TypeInterface) {
-            $type->setAttributes($attributes);
-        }
-
-        return $this->formFactory->create($name);
-    }
-
-    public function handle(FormInterface $form, $attributes = [])
-    {
-        $form->getData();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function handle($form, $configuration)
-    {
-
-
         if (!$form->isValid()) {
             return false;
         }
 
-        $mediaIds = [];
-
-        if (isset($attributes['_form_type'])) {
-            $type = $attributes['_form_type'];
-            unset($attributes['_form_type']);
-        } else {
-            $type = $this->formExtension->getType($form->getName());
-        }
-
-        if ($type instanceof TypeInterface) {
-            foreach ($type->getFileFields() as $field) {
-                if (!$form->has($field) || !count($form[$field]->getData())) {
-                    continue;
-                }
-
-                $files = $form[$field]->getData();
-                $collectionId = $type->getCollectionId();
-                $ids = [];
-
-                // convert $files to array
-                if (!is_array($files)) {
-                    $files = [$files];
-                }
-
-                /** @var UploadedFile $file */
-                foreach ($files as $file) {
-                    if (!$file instanceof UploadedFile) {
-                        continue;
-                    }
-
-                    $media = $this->mediaManager->save(
-                        $file,
-                        [
-                            'collection' => $collectionId,
-                            'locale' => $this->getFormLocale($form),
-                            'title' => $file->getClientOriginalName(),
-                        ],
-                        null
-                    );
-
-                    // save attachments data for swift message
-                    $this->attachments[] = $file;
-                    $ids[] = $media->getId();
-                }
-
-                $mediaIds[$field] = $ids;
-            }
-        }
-
-        $attributes['form'] = $form;
-
-        $this->saveForm($form, $attributes, $mediaIds);
-
-        if ($type instanceof TypeInterface) {
-            $this->sendMails($type, $attributes, $form);
-        }
+        $mediaIds = $this->uploadMedia($form, $configuration);
+        $this->mapMediaIds($form->getData(), $mediaIds);
+        $this->save($form, $configuration);
+        $this->sendMails($form, $configuration);
 
         return true;
     }
 
     /**
-     * @param TypeInterface $type
-     * @param array $attributes
-     * @param FormInterface $form
-     */
-    protected function sendMails(
-        TypeInterface $type,
-        $attributes,
-        FormInterface $form
-    ) {
-        $notifyMailTemplatePath = $type->getNotifyMail($form->getData());
-        $customerMailTemplatePath = $type->getCustomerMail($form->getData());
-
-        if (!$type->getNotifyDeactivateMails($form->getData())) {
-            $notifyMail = $this->templating->render($notifyMailTemplatePath, $attributes);
-
-            $this->mailHelper->sendMail(
-                $type->getNotifySubject($form->getData()),
-                $notifyMail,
-                $type->getNotifyToMailAddress($form->getData()),
-                $type->getNotifyFromMailAddress($form->getData()),
-                true,
-                $type->getNotifyReplyToMailAddress($form->getData()),
-                $type->getNotifySendAttachments($form->getData()) ? $this->attachments : []
-            );
-        }
-
-        if (!$type->getCustomerDeactivateMails($form->getData())) {
-            $customerMail = $this->templating->render($customerMailTemplatePath, $attributes);
-
-            $this->mailHelper->sendMail(
-                $type->getCustomerSubject($form->getData()),
-                $customerMail,
-                $type->getCustomerToMailAddress($form->getData()),
-                $type->getCustomerFromMailAddress($form->getData()),
-                true,
-                $type->getCustomerReplyToMailAddress($form->getData())
-            );
-        }
-    }
-
-    /**
-     * @param FormInterface $form
-     * @param array $attributes
-     * @param array $mediaIds
+     * Save form.
      *
-     * @throws \Exception
+     * @param FormInterface $form
+     * @param FormConfigurationInterface $configuration
      */
-    protected function saveForm(FormInterface $form, $attributes = [], $mediaIds = [])
+    private function save(FormInterface $form, FormConfigurationInterface $configuration)
     {
-        $formData = $form->getData();
+        $this->eventDispatcher->dispatch(
+            self::EVENT_FORM_SAVE,
+            new FormEvent(
+                $form,
+                $configuration
+            )
+        );
 
-        if (is_array($formData)) {
-            throw new \Exception('Form Data need to be an object!');
-        } else {
-            $entity = $formData;
-
-            foreach ($mediaIds as $key => $value) {
-                $setterMethod = 'set' . ucfirst($key);
-
-                // Here to avoid a BC break
-                if (method_exists($entity, $setterMethod)) {
-                    $entity->$setterMethod($value);
-                } else {
-                    $entity->$key = $value;
-                }
-            }
+        if (!$configuration->getSave()) {
+            return;
         }
 
-        $this->entityManager->persist($entity);
+        $this->entityManager->persist($form->getData());
         $this->entityManager->flush();
 
         $this->eventDispatcher->dispatch(
             self::EVENT_FORM_SAVED,
             new FormEvent(
                 $form,
-                $attributes
+                $configuration
             )
         );
     }
 
     /**
-     * @description Returns the correct form locale.
-     * TODO What's the correct way to handle both types?
-     *
      * @param FormInterface $form
-     *
-     * @return string
+     * @param FormConfigurationInterface $configuration
      */
-    public function getFormLocale($form)
+    private function sendMails(FormInterface $form, FormConfigurationInterface $configuration)
     {
-        $locale = 'de';
-
-        if ($form->has('locale')) {
-            $locale = $form->get('locale')->getData();
-        } elseif ($form->getData()->locale) {
-            $locale = $form->getData()->locale;
+        if (!$adminMailConfiguration = $configuration->getAdminMailConfiguration()) {
+            $this->sendMail($form, $adminMailConfiguration);
         }
 
-        return $locale;
+        if (!$websiteMailConfiguration = $configuration->getWebsiteMailConfiguration()) {
+            $this->sendMail($form, $websiteMailConfiguration);
+        }
     }
 
     /**
-     * @param $name
+     * Send mail.
      *
-     * @return string
+     * @param FormInterface $form
+     * @param MailConfigurationInterface $configuration
      */
-    public function getToken($name)
+    private function sendMail(FormInterface $form, MailConfigurationInterface $configuration)
     {
-        return $this->csrfTokenManager->getToken($name)->getValue();
+        $body = $this->templating->render(
+            $configuration->getTemplate(),
+            $configuration->getTemplateAttributes()
+        );
+
+        $this->mailHelper->sendMail(
+            $configuration->getSubject(),
+            $body,
+            $configuration->getTo(),
+            $configuration->getFrom(),
+            true,
+            $configuration->getReplyTo(),
+            $configuration->getAddAttachments() ? $this->attributes : [],
+            $configuration->getCc(),
+            $configuration->getBcc()
+        );
+    }
+
+    /**
+     * Upload media.
+     *
+     * @param FormInterface $form
+     * @param FormConfigurationInterface $configuration
+     *
+     * @return array
+     */
+    private function uploadMedia(FormInterface $form, FormConfigurationInterface $configuration)
+    {
+        $this->attachments = [];
+        $mediaIds = [];
+
+        foreach ($configuration->getFileFields() as $field => $collectionId) {
+            if (!$form->has($field) || !count($form[$field]->getData())) {
+                continue;
+            }
+
+            $files = $form[$field]->getData();
+            $ids = [];
+
+            if (!is_array($files)) {
+                $files = [$files];
+            }
+
+            /** @var UploadedFile $file */
+            foreach ($files as $file) {
+                if (!$file instanceof UploadedFile) {
+                    continue;
+                }
+
+                $media = $this->mediaManager->save(
+                    $file,
+                    $this->getMediaData($file, $form, $configuration, $collectionId),
+                    null
+                );
+
+                // save attachments data for swift message
+                $this->attachments[] = $file;
+                $ids[] = $media->getId();
+            }
+
+            $mediaIds[$field] = $ids;
+        }
+
+        return $mediaIds;
+    }
+
+    /**
+     * Map media ids.
+     *
+     * @param mixed $entity
+     * @param int[] $mediaIds
+     *
+     * @return mixed
+     */
+    private function mapMediaIds($entity, $mediaIds)
+    {
+        $accessor = new PropertyAccessor();
+
+        foreach ($mediaIds as $key => $value) {
+            $accessor->setValue($entity, $key, $value);
+        }
+
+        return $entity;
+    }
+
+    /**
+     * Get media data.
+     *
+     * @param UploadedFile $file
+     * @param FormInterface $form
+     * @param FormConfigurationInterface $configuration
+     * @param int $collectionId
+     *
+     * @return array
+     */
+    protected function getMediaData(
+        UploadedFile $file,
+        FormInterface $form,
+        FormConfigurationInterface $configuration,
+        $collectionId
+    ) {
+        return [
+            'collection' => $collectionId,
+            'locale' => $configuration->getLocale(),
+            'title' => $file->getClientOriginalName(),
+        ];
     }
 }

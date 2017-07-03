@@ -11,9 +11,10 @@
 
 namespace Sulu\Bundle\FormBundle\Controller;
 
-use Sulu\Bundle\FormBundle\Form\HandlerInterface;
+use Sulu\Bundle\FormBundle\Form\Type\AbstractType;
 use Sulu\Bundle\WebsiteBundle\Controller\DefaultController;
 use Sulu\Component\Content\Compat\StructureInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +24,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class FormWebsiteController extends DefaultController
 {
     /**
-     * @var \Symfony\Component\Form\Form
+     * @var FormInterface
      */
     protected $form;
 
@@ -38,42 +39,54 @@ class FormWebsiteController extends DefaultController
     public function formAction(StructureInterface $structure, $preview = false, $partial = false)
     {
         /** @var Request $request */
-        $request = $this->container->get('request_stack')->getCurrentRequest();
+        $request = $this->get('request_stack')->getCurrentRequest();
 
         // get attributes
         $attributes = $this->getAttributes([], $structure, $preview);
 
-        $this->form = $this->getFormHandler()->get($structure->getKey(), $attributes);
+        $template = $structure->getKey();
 
-        if ($request->isMethod('post')) {
-            $this->form->handleRequest($request);
-            if ($this->getFormHandler()->handle($this->form, $attributes)) {
+        $typeClass = $this->getTypeClass($template);
+        /** @var AbstractType $type */
+        $type = $this->get('form.registry')->getType($typeClass);
+        $type->setAttributes($attributes);
+
+        $this->form = $this->get('form.factory')->create($typeClass);
+        $this->form->handleRequest($request);
+
+        if ($this->form->isSubmitted() && $this->form->isValid()) {
+            $configuration = $this->get('sulu_form.configuration.form_configuration_factory')->buildByType(
+                $type,
+                $this->form->getData(),
+                $request->getLocale(),
+                $attributes
+            );
+
+            if ($this->get('sulu_form.handler')->handle($this->form, $configuration)) {
                 if ($request->isXmlHttpRequest()) {
                     return new JsonResponse(['send' => true]);
                 }
 
                 return new RedirectResponse('?send=true');
-            } else {
-                if ($request->isXmlHttpRequest()) {
-                    return new JsonResponse(
-                        [
-                            'send' => false,
-                            'errors' => $this->getErrors(),
-                        ],
-                        400
-                    );
-                }
+            }
+
+            if ($request->isXmlHttpRequest()) {
+                return new JsonResponse(
+                    [
+                        'send' => false,
+                        'errors' => $this->getErrors(),
+                    ],
+                    400
+                );
             }
         }
 
-        $this->createFormBuilder();
-
-        $response = parent::indexAction($structure, $preview, $partial);
-
-        return $response;
+        return parent::indexAction($structure, $preview, $partial);
     }
 
     /**
+     * Get errors.
+     *
      * @return array
      */
     protected function getErrors()
@@ -120,11 +133,21 @@ class FormWebsiteController extends DefaultController
             throw new NotFoundHttpException();
         }
 
-        $this->form = $this->getFormHandler()->get($key, $request->query->all());
+        $typeClass = $this->getTypeClass($key);
+        /** @var AbstractType $type */
+        $type = $this->get('form.registry')->getType($typeClass);
+        $this->form = $this->get('form.factory')->create($typeClass);
+        $this->form->handleRequest($request);
 
-        if ($request->isMethod('post')) {
-            $this->form->handleRequest($request);
-            if ($this->getFormHandler()->handle($this->form)) {
+        if ($this->form->isSubmitted() && $this->form->isValid()) {
+            $configuration = $this->get('sulu_form.configuration.form_configuration_factory')->buildByType(
+                $type,
+                $this->form->getData(),
+                $request->getLocale(),
+                []
+            );
+
+            if ($this->get('sulu_form.handler')->handle($this->form, $configuration)) {
                 return new RedirectResponse('?send=true');
             }
         }
@@ -142,9 +165,9 @@ class FormWebsiteController extends DefaultController
     public function tokenAction(Request $request)
     {
         $formName = $request->get('form');
-        $csrfToken = $this->getFormHandler()->getToken(
+        $csrfToken = $this->get('security.csrf.token_manager')->getToken(
             $request->get('form')
-        );
+        )->getValue();
 
         $content = $csrfToken;
 
@@ -189,10 +212,16 @@ class FormWebsiteController extends DefaultController
     }
 
     /**
-     * @return HandlerInterface
+     * Get type class.
+     *
+     * @param string $key
+     *
+     * @return string
      */
-    protected function getFormHandler()
+    private function getTypeClass($key)
     {
-        return $this->get('sulu_form.handler');
+        $staticForms = $this->getParameter('sulu_form.static_forms');
+
+        return $staticForms[$key]['class'];
     }
 }
