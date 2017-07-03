@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\Form;
 
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -38,7 +39,7 @@ interface BuilderInterface
      * @param string $locale
      * @param string $name
      *
-     * @return array
+     * @return FormInterface
      */
     public function build($id, $type, $typeId, $locale = null, $name = 'form');
 }
