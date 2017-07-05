@@ -25,6 +25,18 @@ The lastwidth and column attribute for the grid are not longer written to the do
 If you still want them overwrite the `attributes` block in your theme with the default
 of form_div_layout.html.twig.
 
+### Static form configuration
+
+Handling static forms the current way is deprecated if you still want use them
+you need to configure a mapping between template and the static form:
+
+```yml
+sulu_form:
+    static_forms:
+        page_template_key:
+            class: Client\Bundle\WebsiteBundle\Type\ExampleType
+```
+
 ### BC Breaks
 
  - `Sulu\Bundle\FormBundle\Event\DynFormSavedEvent::getFormSelect` deprecated function was removed use `getData` instead.
