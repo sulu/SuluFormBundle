@@ -278,7 +278,12 @@ class FormConfigurationFactory
 
         $collectionId = $this->getCollectionIdByDynamic($dynamic);
 
-        return array_fill_keys(array_map('getKey', $fields), $collectionId);
+        $fileFields = [];
+        foreach ($fields as $field) {
+            $fileFields[$field->getKey()] = $collectionId;
+        }
+
+        return $fileFields;
     }
 
     /**
