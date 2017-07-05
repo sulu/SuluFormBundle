@@ -34,7 +34,13 @@ class FormWebsiteController extends DefaultController
     protected $attributes;
 
     /**
-     * {@inheritdoc}
+     * Form action.
+     *
+     * @param StructureInterface $structure
+     * @param bool $preview
+     * @param bool $partial
+     *
+     * @return JsonResponse|RedirectResponse|Response
      */
     public function formAction(StructureInterface $structure, $preview = false, $partial = false)
     {
@@ -54,70 +60,21 @@ class FormWebsiteController extends DefaultController
         $this->form = $this->get('form.factory')->create($typeClass);
         $this->form->handleRequest($request);
 
-        if ($this->form->isSubmitted() && $this->form->isValid()) {
-            $configuration = $this->get('sulu_form.configuration.form_configuration_factory')->buildByType(
-                $type,
-                $this->form->getData(),
-                $request->getLocale(),
-                $attributes
-            );
+        if ($this->form->isSubmitted()
+            && !$this->form->isValid()
+            && $response = $this->handleFormSubmit($request, $type, $attributes)
+        ) {
+            // success form submit
 
-            if ($this->get('sulu_form.handler')->handle($this->form, $configuration)) {
-                if ($request->isXmlHttpRequest()) {
-                    return new JsonResponse(['send' => true]);
-                }
-
-                return new RedirectResponse('?send=true');
-            }
-
-            if ($request->isXmlHttpRequest()) {
-                return new JsonResponse(
-                    [
-                        'send' => false,
-                        'errors' => $this->getErrors(),
-                    ],
-                    400
-                );
-            }
+            return $response;
         }
 
         return parent::indexAction($structure, $preview, $partial);
     }
 
     /**
-     * Get errors.
+     * Form only action.
      *
-     * @return array
-     */
-    protected function getErrors()
-    {
-        $errors = [];
-
-        $generalErrors = [];
-        foreach ($this->form->getErrors() as $error) {
-            $generalErrors[] = $error->getMessage();
-        }
-
-        if (!empty($generalErrors)) {
-            $errors['general'] = $generalErrors;
-        }
-
-        foreach ($this->form->all() as $field) {
-            $fieldErrors = [];
-
-            foreach ($field->getErrors() as $error) {
-                $fieldErrors[] = $error->getMessage();
-            }
-
-            if (!empty($fieldErrors)) {
-                $errors[$field->getName()] = $fieldErrors;
-            }
-        }
-
-        return $errors;
-    }
-
-    /**
      * @param Request $request
      * @param string $key
      *
@@ -139,20 +96,79 @@ class FormWebsiteController extends DefaultController
         $this->form = $this->get('form.factory')->create($typeClass);
         $this->form->handleRequest($request);
 
-        if ($this->form->isSubmitted() && $this->form->isValid()) {
-            $configuration = $this->get('sulu_form.configuration.form_configuration_factory')->buildByType(
-                $type,
-                $this->form->getData(),
-                $request->getLocale(),
-                []
-            );
+        if ($this->form->isSubmitted()
+            && $this->form->isValid()
+            && $response = $this->handleFormOnlySubmit($request, $type)
+        ) {
+            // success form submit
 
-            if ($this->get('sulu_form.handler')->handle($this->form, $configuration)) {
-                return new RedirectResponse('?send=true');
-            }
+            return $response;
         }
 
         return $this->render($ajaxTemplates[$key], ['form' => $this->form->createView()]);
+    }
+
+    /**
+     * Handle form submit.
+     *
+     * @param Request $request
+     * @param AbstractType $type
+     * @param array $attributes
+     *
+     * @return JsonResponse|RedirectResponse
+     */
+    private function handleFormSubmit(Request $request, $type, $attributes)
+    {
+        // handle form submit
+        $configuration = $this->get('sulu_form.configuration.form_configuration_factory')->buildByType(
+            $type,
+            $this->form->getData(),
+            $request->getLocale(),
+            $attributes
+        );
+
+        $success = $this->get('sulu_form.handler')->handle($this->form, $configuration);
+
+        if ($success) {
+            if ($request->isXmlHttpRequest()) {
+                return new JsonResponse(['send' => $success]);
+            }
+
+            return new RedirectResponse('?send=true');
+        }
+
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse(
+                [
+                    'send' => false,
+                    'errors' => $this->getErrors(),
+                ],
+                400
+            );
+        }
+    }
+
+    /**
+     * Handle form only submit.
+     *
+     * @param Request $request
+     * @param AbstractType $type
+     *
+     * @return RedirectResponse
+     */
+    private function handleFormOnlySubmit(Request $request, $type)
+    {
+        // handle form submit
+        $configuration = $this->get('sulu_form.configuration.form_configuration_factory')->buildByType(
+            $type,
+            $this->form->getData(),
+            $request->getLocale(),
+            []
+        );
+
+        if ($this->get('sulu_form.handler')->handle($this->form, $configuration)) {
+            return new RedirectResponse('?send=true');
+        }
     }
 
     /**
@@ -193,6 +209,39 @@ class FormWebsiteController extends DefaultController
         $response->headers->addCacheControlDirective('no-store', true);
 
         return $response;
+    }
+
+    /**
+     * Get errors.
+     *
+     * @return array
+     */
+    protected function getErrors()
+    {
+        $errors = [];
+
+        $generalErrors = [];
+        foreach ($this->form->getErrors() as $error) {
+            $generalErrors[] = $error->getMessage();
+        }
+
+        if (!empty($generalErrors)) {
+            $errors['general'] = $generalErrors;
+        }
+
+        foreach ($this->form->all() as $field) {
+            $fieldErrors = [];
+
+            foreach ($field->getErrors() as $error) {
+                $fieldErrors[] = $error->getMessage();
+            }
+
+            if (!empty($fieldErrors)) {
+                $errors[$field->getName()] = $fieldErrors;
+            }
+        }
+
+        return $errors;
     }
 
     /**
