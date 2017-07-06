@@ -145,11 +145,11 @@ class Handler implements HandlerInterface
      */
     private function sendMails(FormInterface $form, FormConfigurationInterface $configuration)
     {
-        if (!$adminMailConfiguration = $configuration->getAdminMailConfiguration()) {
+        if ($adminMailConfiguration = $configuration->getAdminMailConfiguration()) {
             $this->sendMail($form, $adminMailConfiguration);
         }
 
-        if (!$websiteMailConfiguration = $configuration->getWebsiteMailConfiguration()) {
+        if ($websiteMailConfiguration = $configuration->getWebsiteMailConfiguration()) {
             $this->sendMail($form, $websiteMailConfiguration);
         }
     }
