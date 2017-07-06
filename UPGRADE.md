@@ -11,6 +11,7 @@ For the Symfony 3 Compatibility the following classes where refractored:
  - `Sulu\Bundle\FormBundle\Form\HandlerInterface`
  - `Sulu\Bundle\FormBundle\EventListener\RequestListener`
  - `Sulu\Bundle\FormBundle\Form\Builder`
+ - `Sulu\Bundle\FormBundle\Event\MailSubscriber`
 
 If you depend on them or overridden them you need reimplement your logic based
 on the new classes and events.
@@ -53,6 +54,7 @@ sulu_form:
  - `Sulu\Bundle\FormBundle\Form\Builder::createFormType` is not longer available
  - `Sulu\Bundle\FormBundle\Form\Builder::getWebspaceKey` is not longer overrideable
  - `Sulu\Bundle\FormBundle\Form\Builder::build` return a FormInterface instead of an array
+ - `Sulu\Bundle\FormBundle\Event\MailSubscriber` was removed
 
 ## 0.2.0
 

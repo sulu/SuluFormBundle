@@ -34,17 +34,17 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * @var string|array
      */
-    private $to;
+    private $to = [];
 
     /**
      * @var string|array
      */
-    private $cc;
+    private $cc = [];
 
     /**
      * @var string|array
      */
-    private $bcc;
+    private $bcc = [];
 
     /**
      * @var string|array

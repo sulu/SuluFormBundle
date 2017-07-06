@@ -190,7 +190,7 @@ class FormConfigurationFactory
         );
 
         // Set Receivers for the email.
-        $toList = [$this->getEmail($translation->getToEmail(), $translation->getToName())];
+        $toList = $this->getEmail($translation->getToEmail(), $translation->getToName()) ?: [];
         $ccList = [];
         $bccList = [];
 
@@ -198,17 +198,17 @@ class FormConfigurationFactory
             $email = $this->getEmail($receiver->getEmail(), $receiver->getName());
 
             if ($receiver->getType() == MailConfigurationInterface::TYPE_TO) {
-                $toList[] = $email;
+                $toList = array_merge($toList, $email);
             } elseif ($receiver->getType() == MailConfigurationInterface::TYPE_CC) {
-                $ccList[] = $email;
+                $ccList = array_merge($ccList, $email);
             } elseif ($receiver->getType() == MailConfigurationInterface::TYPE_BCC) {
-                $bccList[] = $email;
+                $bccList = array_merge($bccList, $email);
             }
         }
 
-        $adminMailConfiguration->setTo($toList);
-        $adminMailConfiguration->setCc($ccList);
-        $adminMailConfiguration->setBcc($bccList);
+        $adminMailConfiguration->setTo(array_filter($toList));
+        $adminMailConfiguration->setCc(array_filter($ccList));
+        $adminMailConfiguration->setBcc(array_filter($bccList));
 
         if ($translation->getReplyTo()) {
             $adminMailConfiguration->setReplyTo($this->getEmailFromDynamic($dynamic));
@@ -347,6 +347,10 @@ class FormConfigurationFactory
     {
         if (!$email || !$name) {
             return null;
+        }
+
+        if (!$name) {
+            $name = $email;
         }
 
         return [$email => $name];

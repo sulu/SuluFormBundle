@@ -28,16 +28,6 @@
             <argument type="service" id="logger" />
         </service>
 
-        <service id="sulu_form.subscriber.mail_subscriber" class="Sulu\Bundle\FormBundle\Event\MailSubscriber">
-            <argument type="service" id="sulu.mail.helper"/>
-            <argument type="service" id="templating"/>
-            <argument type="service" id="sulu_media.media_manager"/>
-            <argument type="service" id="sulu_media.storage"/>
-            <argument>%sulu_form.mail.template.notify%</argument>
-            <argument>%sulu_form.mail.template.customer%</argument>
-            <tag name="kernel.event_subscriber"/>
-        </service>
-
         <!-- Admin -->
         <service id="sulu_form.admin"
                  class="Sulu\Bundle\FormBundle\Admin\FormAdmin">
