@@ -1,7 +1,5 @@
 # Changelog
 
-## dev-develop
-
 ## 0.2.1
 
   - BUGFIX     #88    Fixed get locale in dynamic controller
