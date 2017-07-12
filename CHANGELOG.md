@@ -1,6 +1,10 @@
 # Changelog
 
-## dev-develop
+## 0.2.1
+
+  - BUGFIX     #88    Fixed get locale in dynamic controller
+
+## 0.2.0
 
  - FEATURE     #80    Added type name to dynamic entity and cleanup title provider
  - FEATURE     #79    Added dynamic list to form itself
