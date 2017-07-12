@@ -2,8 +2,6 @@
 
 ## dev-develop
 
-  - BUGFIX     #88    Fixed get locale in dynamic controller
-
 ## 0.2.1
 
   - BUGFIX     #88    Fixed get locale in dynamic controller
