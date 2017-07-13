@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+ - BUGFIX      #89    Fixed form serialization with receivers
+
 ## 0.1.0
 
  - ENHANCEMENT #59    Added correct composer dependencies
