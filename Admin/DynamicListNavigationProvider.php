@@ -57,6 +57,7 @@ class DynamicListNavigationProvider implements ContentNavigationProviderInterfac
                 'property' => $config['property'],
                 'view' => isset($config['view']) ? $config['view'] : 'default',
                 'type' => isset($config['type']) ? $config['type'] : null,
+                'width' => isset($config['width']) ? $config['width'] : 'fixed',
             ]);
 
             if (isset($config['position'])) {

@@ -29,7 +29,7 @@ define(function () {
 
         layout: {
             content: {
-                width: 'fixed',
+                width: 'max',
                 topSpace: true,
                 leftSpace: false,
                 rightSpace: false
@@ -57,10 +57,6 @@ define(function () {
          * Binds custom related events
          */
         bindCustomEvents: function () {
-            this.sandbox.on('sulu.header.back', function () {
-                this.sandbox.emit(eventPrefix + 'navigate-list');
-            }.bind(this));
-
             this.sandbox.on('sulu.toolbar.save', this.save.bind(this));
             this.sandbox.on('sulu.toolbar.delete', this.delete.bind(this));
         },

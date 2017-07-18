@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.2
+
+ - BUGFIX      #90    Fixed form data tab pagination
+ - BUGFIX      #90    Fixed form data csv export
+ - ENHANCEMENT #90    Use full width in form data tab
+ - BUGFIX      #90    Fixed back to list in form data tab
+ - BUGFIX      #90    Fixed translation for form data tab name
+
 ## 0.2.1
 
   - BUGFIX     #88    Fixed get locale in dynamic controller
