@@ -19,7 +19,7 @@ define(['jquery'], function ($) {
             return {
                 extendExisting: true,
                 content: {
-                    width: 'fixed',
+                    width: this.options.width ? this.options.width : 'fixed',
                     leftSpace: true,
                     rightSpace: true
                 }
@@ -44,6 +44,7 @@ define(['jquery'], function ($) {
         getUrlParameters: function() {
             var formId = null;
             var typeId = null;
+            var parameters = {};
 
             if (typeof this.options.data === 'function') {
                 formId = this.options.data()[this.options.property];
@@ -53,21 +54,22 @@ define(['jquery'], function ($) {
                 formId = this.options[this.options.property];
             }
 
-            if (this.options.type) {
-                // Only set typeId when type is set!
-                typeId = this.options.id;
-            }
-
-            return {
+            parameters = {
                 'form': formId,
                 'webspaceKey': this.options.webspace,
                 'locale': this.options.language,
                 'view': this.options.view,
-                'typeId': typeId,
-                'type': this.options.type,
                 'sortBy': 'created',
                 'sortOrder': 'desc'
             };
+
+            if (this.options.type) {
+                // Only set typeId when type is set!
+                parameters.type = this.options.type;
+                parameters.typeId = this.options.id;
+            }
+
+            return parameters;
         },
 
         /**

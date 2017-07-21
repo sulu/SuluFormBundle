@@ -8,6 +8,11 @@ define(function () {
 
     return {
         header: function () {
+            this.sandbox.on('sulu.header.back', function () {
+                // TODO FIXME remove this hack when change to new JS structure.
+                this.sandbox.emit('sulu.router.navigate', 'forms/' + this.options.language, true, true);
+            }.bind(this));
+
             return {
                 tabs: {
                     url: '/admin/content-navigations?alias=sulu_form_form'

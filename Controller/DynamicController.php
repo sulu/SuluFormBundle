@@ -56,7 +56,7 @@ class DynamicController extends RestController implements ClassResourceInterface
 
         // avoid total request when entries < limit
         if (count($entries) == $limit) {
-            $total = count($repository->countByFilters($filters));
+            $total = $repository->countByFilters($filters);
         } else {
             // calculate total
             $total = count($entries) + $offset;
