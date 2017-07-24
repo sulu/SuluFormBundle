@@ -56,7 +56,7 @@ class DynamicController extends RestController implements ClassResourceInterface
 
         // avoid total request when entries < limit
         if (count($entries) == $limit) {
-            $total = count($repository->countByFilters($filters));
+            $total = $repository->countByFilters($filters);
         } else {
             // calculate total
             $total = count($entries) + $offset;
@@ -86,7 +86,7 @@ class DynamicController extends RestController implements ClassResourceInterface
     public function cgetFieldsAction(Request $request)
     {
         $form = $this->loadForm($request);
-        $locale = $request->getLocale();
+        $locale = $this->getLocale($request);
 
         $fieldDescriptors = $this->get('sulu_form.list_builder.dynamic_list_factory')
             ->getFieldDescriptors($form, $locale);

@@ -87,6 +87,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                     'property' => 'id',
                     'position' => 40,
                     'name' => 'sulu_form.navigation.data',
+                    'width' => 'max',
                 ],
             ];
         }

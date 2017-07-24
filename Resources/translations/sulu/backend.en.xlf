@@ -339,7 +339,7 @@
             <!-- Tabs -->
             <trans-unit id="105">
                 <source>sulu_form.navigation.data</source>
-                <target>Daten</target>
+                <target>Data</target>
             </trans-unit>
         </body>
     </file>
