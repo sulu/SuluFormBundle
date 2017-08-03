@@ -42,20 +42,8 @@ define(['jquery'], function ($) {
          * Get filter parameters for dynamics.
          */
         getUrlParameters: function() {
-            var formId = null;
-            var typeId = null;
-            var parameters = {};
-
-            if (typeof this.options.data === 'function') {
-                formId = this.options.data()[this.options.property];
-            } else if (typeof this.options.data === 'object') {
-                formId = this.options.data[this.options.property];
-            } else if (typeof this.options[this.options.property] !== 'undefined') {
-                formId = this.options[this.options.property];
-            }
-
-            parameters = {
-                'form': formId,
+            var parameters = {
+                'form': this.getFormDataProperty(this.options.property),
                 'webspaceKey': this.options.webspace,
                 'locale': this.options.language,
                 'view': this.options.view,
@@ -66,10 +54,54 @@ define(['jquery'], function ($) {
             if (this.options.type) {
                 // Only set typeId when type is set!
                 parameters.type = this.options.type;
-                parameters.typeId = this.options.id;
+                parameters.typeId = this.getFormDataProperty('id');
             }
 
             return parameters;
+        },
+
+        /**
+         * Get form data property.
+         */
+        getFormDataProperty: function(property) {
+            var formData = this.getFormData();
+
+            if (!formData && typeof formData[property] === 'undefined') {
+                // No property was found
+                return;
+            }
+
+            return formData[property];
+        },
+
+        /**
+         * Get form data.
+         */
+        getFormData: function() {
+            var formData = null;
+
+            if (typeof this.options.data === 'function') {
+                formData = this.options.data();
+            } else if (typeof this.options.data === 'object') {
+                formData = this.options.data;
+            } else if (typeof this.options !== 'undefined') {
+                formData = this.options;
+            }
+
+            if (!formData) {
+                return;
+            }
+
+            if (this.options.page > 1) {
+                if (formData._embedded === 'undefined' || typeof formData._embedded.pages === 'undefined') {
+                    // No page was found.
+                    return;
+                }
+
+                formData = formData._embedded.pages[this.options.page - 2];
+            }
+
+            return formData;
         },
 
         /**

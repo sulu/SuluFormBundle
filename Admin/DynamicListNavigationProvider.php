@@ -42,6 +42,16 @@ class DynamicListNavigationProvider implements ContentNavigationProviderInterfac
     {
         $items = [];
 
+        $page = null;
+        $action = 'form-list';
+        if (array_key_exists('page', $options)) {
+            $page = (int) $options['page'];
+
+            if ($page > 1) {
+                $action = 'page:' . $page . '/' . $action;
+            }
+        }
+
         foreach ($this->config as $config) {
             $name = 'sulu_form.form';
             if (isset($config['name'])) {
@@ -49,11 +59,12 @@ class DynamicListNavigationProvider implements ContentNavigationProviderInterfac
             }
 
             $item = new ContentNavigationItem($name);
-            $item->setAction('form-list');
+            $item->setAction($action);
             $item->setDisplay(['edit']);
             $item->setComponent('dynamics/list@suluform');
 
             $item->setComponentOptions([
+                'page' => $page,
                 'property' => $config['property'],
                 'view' => isset($config['view']) ? $config['view'] : 'default',
                 'type' => isset($config['type']) ? $config['type'] : null,
