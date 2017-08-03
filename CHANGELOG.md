@@ -1,5 +1,9 @@
 # Changelog
 
+## dev-develop
+
+ - FEATURE     #91    Added Dutch translations
+ 
 ## 0.2.2
 
  - BUGFIX      #90    Fixed form data tab pagination
