@@ -20,3 +20,8 @@ sulu_form.csv_overlay:
     defaults:
         _controller: FrameworkBundle:Template:template
         template: SuluFormBundle:CsvExport:form.html.twig
+
+sulu_form.forms.template:
+    path: /form/templates/form.html
+    defaults:
+        _controller: SuluFormBundle:Template:form
