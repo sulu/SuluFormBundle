@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.3
+
+ - HOTFIX      #96    Fixed permission problem for template file
+
 ## 0.2.2
 
  - BUGFIX      #90    Fixed form data tab pagination
