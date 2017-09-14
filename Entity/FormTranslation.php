@@ -14,6 +14,9 @@ namespace Sulu\Bundle\FormBundle\Entity;
 use Sulu\Component\Persistence\Model\AuditableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Form translation entity.
+ */
 class FormTranslation implements AuditableInterface
 {
     /**

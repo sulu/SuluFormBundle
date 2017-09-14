@@ -1,7 +1,8 @@
 # Changelog
 
-## dev-develop
+## 0.3.0 (unreleased)
 
+ - FEATURE     #83    Refractor static and dynamic form handling for symfony 3 compatibility
  - FEATURE     #91    Added Dutch translations
  
 ## 0.2.2
@@ -14,7 +15,7 @@
 
 ## 0.2.1
 
-  - BUGFIX     #88    Fixed get locale in dynamic controller
+ - BUGFIX     #88    Fixed get locale in dynamic controller
 
 ## 0.2.0
 

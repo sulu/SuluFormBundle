@@ -1,5 +1,61 @@
 # Upgrade
 
+## 0.3.0
+
+### Symfony 3 compatibility
+
+For the Symfony 3 Compatibility the following classes where refractored:
+
+ - `Sulu\Bundle\FormBundle\Controller\FormWebsiteController`
+ - `Sulu\Bundle\FormBundle\Form\Handler`
+ - `Sulu\Bundle\FormBundle\Form\HandlerInterface`
+ - `Sulu\Bundle\FormBundle\EventListener\RequestListener`
+ - `Sulu\Bundle\FormBundle\Form\Builder`
+ - `Sulu\Bundle\FormBundle\Event\MailSubscriber`
+
+If you depend on them or overridden them you need reimplement your logic based
+on the new classes and events.
+
+**Your custom forms and dynamic form field types**
+
+To update your custom form and form types have a look at https://github.com/symfony/symfony/blob/2.8/UPGRADE-3.0.md#form
+
+### LastWidth and Column Attribute not longer written in dynamic.html.twig theme
+
+The lastwidth and column attribute for the grid are not longer written to the dom.
+If you still want them overwrite the `attributes` block in your theme with the default
+of form_div_layout.html.twig.
+
+### Static form configuration
+
+Handling static forms the current way is deprecated if you still want use them
+you need to configure a mapping between template and the static form:
+
+```yml
+sulu_form:
+    static_forms:
+        page_template_key:
+            class: Client\Bundle\WebsiteBundle\Type\ExampleType
+```
+
+### BC Breaks
+
+ - `Sulu\Bundle\FormBundle\Event\DynFormSavedEvent::getFormSelect` deprecated function was removed use `getData` instead.
+ - `Sulu\Bundle\FormBundle\EventListener\RequestListener` was moved use `Sulu\Bundle\FormBundle\Event\RequestListener` instead
+ - `Sulu\Bundle\FormBundle\Form\Handler::get` was removed form is now created in FormWebsiteController
+ - `Sulu\Bundle\FormBundle\Form\Handler::getToken` was removed
+ - `Sulu\Bundle\FormBundle\Form\Handler::handle($form, $attributes)` was replaced with `Sulu\Bundle\FormBundle\Form\Handler::handle($form, $configuration)`
+ - `Sulu\Bundle\FormBundle\Form\Handler::sendMails` is not longer overrideable use EventListener to change Email behaviour instead
+ - `Sulu\Bundle\FormBundle\Form\Handler::saveForm` is not longer overrideable use EventLister when you want to avoid save process
+ - `Sulu\Bundle\FormBundle\Form\Handler::getFormLocale` was removed
+ - `Sulu\Bundle\FormBundle\Form\Builder::getKey` is not longer overrideable
+ - `Sulu\Bundle\FormBundle\Form\Builder::createForm` changed is not longer overrideable
+ - `Sulu\Bundle\FormBundle\Form\Builder::loadFormEntity` is not longer overrideable
+ - `Sulu\Bundle\FormBundle\Form\Builder::createFormType` is not longer available
+ - `Sulu\Bundle\FormBundle\Form\Builder::getWebspaceKey` is not longer overrideable
+ - `Sulu\Bundle\FormBundle\Form\Builder::build` return a FormInterface instead of an array
+ - `Sulu\Bundle\FormBundle\Event\MailSubscriber` was removed
+
 ## 0.2.0
 
 ### Upgrade database schema

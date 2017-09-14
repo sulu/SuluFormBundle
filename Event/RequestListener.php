@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\EventListener;
+namespace Sulu\Bundle\FormBundle\Event;
 
+use Sulu\Bundle\FormBundle\Configuration\FormConfigurationFactory;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
-use Sulu\Bundle\FormBundle\Event\DynFormSavedEvent;
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -30,7 +30,12 @@ class RequestListener
     /**
      * @var HandlerInterface
      */
-    protected $formHander;
+    protected $formHandler;
+
+    /**
+     * @var FormConfigurationFactory
+     */
+    protected $formConfigurationFactory;
 
     /**
      * @var EventDispatcherInterface
@@ -47,10 +52,12 @@ class RequestListener
     public function __construct(
         BuilderInterface $formBuilder,
         HandlerInterface $formHandler,
+        FormConfigurationFactory $formConfigurationFactory,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->formBuilder = $formBuilder;
         $this->formHandler = $formHandler;
+        $this->formConfigurationFactory = $formConfigurationFactory;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -62,45 +69,36 @@ class RequestListener
     public function onKernelRequest(GetResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
-            // don't do anything if it's not the master request
+            // do nothing if it's not the master request
             return;
         }
 
         $request = $event->getRequest();
 
         if (!$request->isMethod('post')) {
-            // don't do anything if it's not a post request
+            // do nothing if it's not a post request
             return;
         }
 
         try {
             /** @var FormInterface $form */
-            list($formType, $form) = $this->formBuilder->buildByRequest($request);
+            $form = $this->formBuilder->buildByRequest($request);
 
-            if (!$form || !$formType) {
-                // do nothing when no form was found
+            if (!$form || !$form->isSubmitted() || !$form->isValid()) {
+                // do nothing when no form was found or not valid
                 return;
             }
         } catch (\Exception $e) {
             // Catch all exception on build form by request
-
             return;
         }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var Dynamic $dynamic */
-            $dynamic = $form->getData();
+        /** @var Dynamic $dynamic */
+        $dynamic = $form->getData();
+        $configuration = $this->formConfigurationFactory->buildByDynamic($dynamic);
+
+        if ($this->formHandler->handle($form, $configuration)) {
             $serializedObject = $dynamic->getForm()->serializeForLocale($dynamic->getLocale(), $dynamic);
-
-            // save
-            $this->formHandler->handle(
-                $form,
-                [
-                    '_form_type' => $formType,
-                    'formEntity' => $serializedObject,
-                ]
-            );
-
             $dynFormSavedEvent = new DynFormSavedEvent($serializedObject, $dynamic);
             $this->eventDispatcher->dispatch(DynFormSavedEvent::NAME, $dynFormSavedEvent);
 

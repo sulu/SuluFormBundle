@@ -13,6 +13,9 @@ namespace Sulu\Bundle\FormBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
+/**
+ * Form field entity.
+ */
 class FormField
 {
     /**

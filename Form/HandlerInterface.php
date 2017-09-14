@@ -11,32 +11,19 @@
 
 namespace Sulu\Bundle\FormBundle\Form;
 
+use Sulu\Bundle\FormBundle\Configuration\FormConfigurationInterface;
 use Symfony\Component\Form\FormInterface;
 
 interface HandlerInterface
 {
+    const EVENT_FORM_SAVE = 'sulu_form.handler.save';
     const EVENT_FORM_SAVED = 'sulu_form.handler.saved';
 
     /**
-     * @param string $name
-     * @param array $attributes
-     *
-     * @return FormInterface
-     */
-    public function get($name, $attributes = []);
-
-    /**
      * @param FormInterface $form
-     * @param array $attributes
+     * @param FormConfigurationInterface $configuration
      *
      * @return bool
      */
-    public function handle(FormInterface $form, $attributes = []);
-
-    /**
-     * @param $name
-     *
-     * @return string
-     */
-    public function getToken($name);
+    public function handle(FormInterface $form, FormConfigurationInterface $configuration);
 }

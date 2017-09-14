@@ -14,6 +14,9 @@ namespace Sulu\Bundle\FormBundle\Event;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Symfony\Component\EventDispatcher\Event;
 
+/**
+ * @deprecated
+ */
 class DynFormSavedEvent extends Event
 {
     const NAME = 'sulu.dynform.saved';
@@ -38,18 +41,6 @@ class DynFormSavedEvent extends Event
     {
         $this->data = $data;
         $this->dynamic = $dynamic;
-    }
-
-    /**
-     * Get FormSelect.
-     *
-     * @deprecated use the getData function
-     *
-     * @return array
-     */
-    public function getFormSelect()
-    {
-        return $this->data;
     }
 
     /**

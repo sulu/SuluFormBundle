@@ -11,11 +11,13 @@
 
 namespace Sulu\Bundle\FormBundle\Mail;
 
+use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;
+
 interface HelperInterface
 {
-    const MAIL_RECEIVER_TO = 'to';
-    const MAIL_RECEIVER_CC = 'cc';
-    const MAIL_RECEIVER_BCC = 'bcc';
+    const MAIL_RECEIVER_TO = MailConfigurationInterface::TYPE_TO;
+    const MAIL_RECEIVER_CC = MailConfigurationInterface::TYPE_CC;
+    const MAIL_RECEIVER_BCC = MailConfigurationInterface::TYPE_BCC;
 
     /**
      * @param string $subject

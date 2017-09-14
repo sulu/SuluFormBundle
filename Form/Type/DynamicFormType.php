@@ -15,54 +15,19 @@ use Sulu\Bundle\FormBundle\Dynamic\Checksum;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
-use Sulu\Bundle\FormBundle\Entity\FormTranslation;
-use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class DynamicFormType extends AbstractType
 {
     /**
-     * @var Form
-     */
-    private $formEntity;
-
-    /**
-     * @var string
-     */
-    private $locale;
-
-    /**
-     * @var string
-     */
-    private $structureView;
-
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var int
-     */
-    private $systemCollectionId;
-
-    /**
      * @var FormFieldTypePool
      */
     private $typePool;
-
-    /**
-     * @var string
-     */
-    private $type;
-
-    /**
-     * @var string
-     */
-    private $typeId;
 
     /**
      * @var Checksum
@@ -72,58 +37,39 @@ class DynamicFormType extends AbstractType
     /**
      * DynamicFormType constructor.
      *
-     * @param Form $formEntity
-     * @param string $locale
-     * @param string $name
-     * @param string $structureView
-     * @param int $systemCollectionId
      * @param FormFieldTypePool $typePool
-     * @param string $type
      * @param Checksum $checksum
-     * @param string $typeId
-     *
-     * @internal param string $secret
      */
     public function __construct(
-        Form $formEntity,
-        $locale,
-        $name,
-        $structureView,
-        $systemCollectionId,
         FormFieldTypePool $typePool,
-        Checksum $checksum,
-        $type,
-        $typeId
+        Checksum $checksum
     ) {
-        $this->formEntity = $formEntity;
-        $this->locale = $locale;
-        $this->name = $name;
-        $this->structureView = $structureView;
-        $this->systemCollectionId = $systemCollectionId;
         $this->typePool = $typePool;
-        $this->type = $type;
-        $this->typeId = $typeId;
         $this->checksum = $checksum;
     }
 
     /**
      * {@inheritdoc}
      */
-    protected $dataClass = Dynamic::class;
-
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if (!$this->formEntity->getTranslation($this->locale)) {
-            throw new \Exception('The form with the ID "' . $this->formEntity->getId() . '" does not exist for the locale "' . $this->locale . '"!');
+        /** @var Form $formEntity */
+        $formEntity = $options['formEntity'];
+        $locale = $options['locale'];
+        $type = $options['type'];
+        $typeId = $options['typeId'];
+        $name = $options['name'];
+
+        if (!$translation = $formEntity->getTranslation($locale)) {
+            throw new \Exception(
+                sprintf('The form with the ID "%s" does not exist for the locale "%"!', $formEntity->getId(), $locale)
+            );
         }
 
         $currentWidthValue = 0;
 
-        foreach ($this->formEntity->getFields() as $field) {
-            $translation = $field->getTranslation($this->locale);
+        foreach ($formEntity->getFields() as $field) {
+            $fieldTranslation = $field->getTranslation($locale);
             $options = ['constraints' => [], 'attr' => [], 'required' => false];
 
             // title
@@ -132,9 +78,9 @@ class DynamicFormType extends AbstractType
             $width = 'full';
 
             // title / placeholder
-            if ($translation) {
-                $title = $translation->getTitle();
-                $placeholder = $translation->getPlaceholder();
+            if ($fieldTranslation) {
+                $title = $fieldTranslation->getTitle();
+                $placeholder = $fieldTranslation->getPlaceholder();
             }
 
             // width
@@ -147,6 +93,7 @@ class DynamicFormType extends AbstractType
             $options['label'] = $title ?: false;
             $options['required'] = $field->getRequired();
             $options['attr']['width'] = $width;
+            $options['attr']['widthNumber'] = $this->getItemWidthNumber($width);
             $options['attr']['lastWidth'] = $lastWidth;
             $options['attr']['placeholder'] = $placeholder;
 
@@ -155,276 +102,80 @@ class DynamicFormType extends AbstractType
                 $options['constraints'][] = new NotBlank();
             }
 
-            $this->typePool->get($field->getType())->build($builder, $field, $this->locale, $options);
+            $this->typePool->get($field->getType())->build($builder, $field, $locale, $options);
         }
 
-        // Add hidden type field. (structure, event, blog,…)
+        // Add hidden type field. (page, article, event, blog, ...)
         $builder->add('type', HiddenType::class, [
-            'data' => $this->type,
+            'data' => $type,
+            'mapped' => false,
         ]);
 
         // Add hidden typeId field. (UUID, Database id,…)
         $builder->add('typeId', HiddenType::class, [
-            'data' => $this->typeId,
+            'data' => $typeId,
+            'mapped' => false,
         ]);
 
         // Add hidden formId. (id, uuid,…)
         $builder->add('formId', HiddenType::class, [
-            'data' => $this->formEntity->getId(),
+            'data' => $formEntity->getId(),
+            'mapped' => false,
         ]);
 
         // Add hidden formName field. (Name of "form_select"-content-type.)
         $builder->add('formName', HiddenType::class, [
-            'data' => $this->name,
+            'data' => $name,
+            'mapped' => false,
         ]);
 
         // Add hidden formName field. (Name of "form_select"-content-type.)
-        $checksum = $this->checksum->get($this->type, $this->typeId, $this->formEntity->getId(), $this->name);
+        $checksum = $this->checksum->get($type, $typeId, $formEntity->getId(), $name);
         $builder->add('checksum', HiddenType::class, [
             'data' => $checksum,
+            'mapped' => false,
         ]);
 
         // Add submit button.
-        $builder->add('submit', SubmitType::class, ['label' => $this->getSubmitLabel()]);
+        $builder->add('submit', SubmitType::class, ['label' => $translation->getSubmitLabel()]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function configureOptions(OptionsResolver $resolver)
     {
-        return 'dynamic_' . $this->name;
+        $defaults = [];
+
+        $defaults['csrf_protection'] = true;
+        $defaults['csrf_field_name'] = '_token';
+        $defaults['data_class'] = Dynamic::class;
+
+        $resolver->setDefaults($defaults);
+
+        $resolver->setRequired('locale');
+        $resolver->setRequired('type');
+        $resolver->setRequired('typeId');
+        $resolver->setRequired('name');
+        $resolver->setRequired('formEntity');
     }
 
     /**
      * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return 'dynamic';
+    }
+
+    /**
+     * Get item width number.
      *
-     * @deprecated
-     */
-    public function getCustomerSubject($formData = [])
-    {
-        return $this->getTranslation()->getSubject();
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @deprecated
-     */
-    public function getNotifySubject($formData = [])
-    {
-        return $this->getTranslation()->getSubject();
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @deprecated
-     */
-    public function getCustomerFromMailAddress($formData = [])
-    {
-        $fromMail = $this->getTranslation()->getFromEmail();
-        $fromName = $this->getTranslation()->getFromName();
-
-        if (!$fromMail || !$fromName) {
-            return;
-        }
-
-        return [$fromMail => $fromName];
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @deprecated
-     */
-    public function getNotifyFromMailAddress($formData = [])
-    {
-        $fromMail = $this->getTranslation()->getFromEmail();
-        $fromName = $this->getTranslation()->getFromName();
-
-        if (!$fromMail || !$fromName) {
-            return;
-        }
-
-        return [$fromMail => $fromName];
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @deprecated
-     */
-    public function getNotifyToMailAddress($formData = [])
-    {
-        $toMail = $this->getTranslation()->getToEmail();
-        $toName = $this->getTranslation()->getToName();
-
-        if (!$toMail || !$toName) {
-            return;
-        }
-
-        return [$toMail => $toName];
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @deprecated
-     */
-    public function getNotifyReplyToMailAddress($formData = [])
-    {
-        if ($this->getTranslation()->getReplyTo()) {
-            $email = $this->getCustomerToMailAddress($formData);
-
-            if (!$email) {
-                return $email;
-            }
-        }
-
-        return parent::getNotifyReplyToMailAddress($formData);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @deprecated
-     */
-    public function getCustomerMail($formData = [])
-    {
-        return $this->structureView . '-mail/' . $this->name . '-success.html.twig';
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @deprecated
-     */
-    public function getCustomerToMailAddress($formData = [])
-    {
-        $email = null;
-
-        if ($formData instanceof Dynamic) {
-            $emails = $formData->getFieldsByType('email');
-            $email = reset($emails);
-        }
-
-        if (!$email) {
-            $email = parent::getCustomerToMailAddress($formData);
-        }
-
-        return $email;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @deprecated
-     */
-    public function getNotifyMail($formData = [])
-    {
-        return $this->structureView . '-mail/' . $this->name . '-notify.html.twig';
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @deprecated
-     */
-    public function getNotifySendAttachments($formData = [])
-    {
-        return $this->getTranslation()->getSendAttachments();
-    }
-
-    /**
-     * @param $formData
-     *
-     * @return bool
-     *
-     * @deprecated
-     */
-    public function getNotifyDeactivateMails($formData = [])
-    {
-        // Deactivated because of using MailSubscriber service.
-        return true;
-    }
-
-    /**
-     * @param $formData
-     *
-     * @return bool
-     *
-     * @deprecated
-     */
-    public function getCustomerDeactivateMails($formData = [])
-    {
-        // Deactivated because of using MailSubscriber service.
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @deprecated
-     */
-    public function getMailText($formData = [])
-    {
-        return $this->getTranslation()->getMailText();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getSubmitLabel($formData = [])
-    {
-        return $this->getTranslation()->getSubmitLabel();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getSuccessText($formData = [])
-    {
-        return $this->getTranslation()->getSuccessText();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getCollectionId()
-    {
-        return $this->systemCollectionId;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFileFields()
-    {
-        $fileFields = [];
-
-        foreach ($this->formEntity->getFieldsByType(Dynamic::TYPE_ATTACHMENT) as $field) {
-            $fileFields[] = $field->getKey();
-        }
-
-        return $fileFields;
-    }
-
-    /**
-     * @return FormTranslation|null
-     */
-    public function getTranslation()
-    {
-        return $this->formEntity->getTranslation($this->locale, false, true);
-    }
-
-    /**
-     * @param int $currentWidthValue
      * @param string $width
      *
-     * @return bool
+     * @return int
      */
-    private function getLastWidth(&$currentWidthValue, $width)
+    private function getItemWidthNumber($width)
     {
         switch ($width) {
             case 'one-sixth':
@@ -454,6 +205,21 @@ class DynamicFormType extends AbstractType
             default:
                 $itemWidth = 12;
         }
+
+        return $itemWidth;
+    }
+
+    /**
+     * Get last width.
+     *
+     * @param int $currentWidthValue
+     * @param string $width
+     *
+     * @return bool
+     */
+    private function getLastWidth(&$currentWidthValue, $width)
+    {
+        $itemWidth = $this->getItemWidthNumber($width);
 
         $currentWidthValue += $itemWidth;
 

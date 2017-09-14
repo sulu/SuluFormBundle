@@ -16,6 +16,7 @@ use Sulu\Component\Persistence\Model\AuditableInterface;
 class Dynamic implements AuditableInterface
 {
     const TYPE_ATTACHMENT = 'attachment';
+    const TYPE_EMAIL = 'email';
 
     protected static $ARRAY_TYPES = [
         'checkboxMultiple',

@@ -17,10 +17,8 @@ use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Form\Type\DynamicFormType;
-use Sulu\Bundle\FormBundle\Media\CollectionStrategyInterface;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
-use Sulu\Component\Content\Compat\Structure\PageBridge;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,61 +56,43 @@ class Builder implements BuilderInterface
     protected $formRepository;
 
     /**
-     * @var CollectionStrategyInterface
-     */
-    protected $collectionStrategy;
-
-    /**
      * @var FormFactory
      */
     protected $formFactory;
 
     /**
-     * @var string
-     */
-    protected $defaultStructureView;
-
-    /**
      * @var Checksum
      */
-    private $checksum;
+    protected $checksum;
 
     /**
      * Builder constructor.
      *
      * @param RequestStack $requestStack
      * @param FormFieldTypePool $formFieldTypePool
-     * @param TitleProviderPoolInterface $titleProviderPool
+     * @param TitleProviderPoolInterface $titleProviderPool,
      * @param FormRepository $formRepository
-     * @param CollectionStrategyInterface $collectionStrategy
      * @param FormFactory $formFactory
      * @param Checksum $checksum
-     * @param string $defaultStructureView
      */
     public function __construct(
         RequestStack $requestStack,
         FormFieldTypePool $formFieldTypePool,
         TitleProviderPoolInterface $titleProviderPool,
         FormRepository $formRepository,
-        CollectionStrategyInterface $collectionStrategy,
         FormFactory $formFactory,
-        Checksum $checksum,
-        $defaultStructureView
+        Checksum $checksum
     ) {
         $this->requestStack = $requestStack;
         $this->formFieldTypePool = $formFieldTypePool;
         $this->titleProviderPool = $titleProviderPool;
         $this->formRepository = $formRepository;
-        $this->collectionStrategy = $collectionStrategy;
         $this->formFactory = $formFactory;
-        $this->defaultStructureView = $defaultStructureView;
         $this->checksum = $checksum;
     }
 
     /**
-     * @param Request $request
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function buildByRequest(Request $request)
     {
@@ -145,23 +125,21 @@ class Builder implements BuilderInterface
                     continue;
                 }
 
-                return $this->build($parameters['formId'], $parameters['type'], $parameters['typeId'], $locale, $parameters['formName']);
+                return $this->build(
+                    $parameters['formId'],
+                    $parameters['type'],
+                    $parameters['typeId'],
+                    $locale,
+                    $parameters['formName']
+                );
             }
         }
 
-        return [null, null];
+        return null;
     }
 
     /**
-     * Returns formType and the builded form.
-     *
-     * @param int $id
-     * @param string $type
-     * @param string $typeId
-     * @param string $locale
-     * @param string $name
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function build($id, $type, $typeId, $locale = null, $name = 'form')
     {
@@ -190,7 +168,7 @@ class Builder implements BuilderInterface
      * @param string $locale
      * @param string $name
      *
-     * @return array
+     * @return FormInterface
      */
     protected function buildForm($id, $type, $typeId, $locale, $name)
     {
@@ -200,36 +178,25 @@ class Builder implements BuilderInterface
         $formEntity = $this->loadFormEntity($id, $locale);
 
         if (!$formEntity) {
-            return [null, null];
+            return;
         }
 
         $webspaceKey = $this->getWebspaceKey();
-        $defaults = $this->getDefaults($formEntity, $locale);
-
-        // Create Form Type
-        $formType = $this->createFormType(
-            $formEntity,
-            $locale,
-            $name,
-            $type,
-            $typeId
-        );
 
         // Create Form
         $form = $this->createForm(
-            $formType,
+            $name,
             $type,
             $typeId,
             $locale,
             $formEntity,
-            $webspaceKey,
-            $defaults
+            $webspaceKey
         );
 
         // Handle request
         $form->handleRequest($request);
 
-        return [$formType, $form];
+        return $form;
     }
 
     /**
@@ -243,39 +210,44 @@ class Builder implements BuilderInterface
      *
      * @return string
      */
-    protected function getKey($id, $type, $typeId, $locale, $name)
+    private function getKey($id, $type, $typeId, $locale, $name)
     {
         return implode('__', func_get_args());
     }
 
     /**
-     * @deprecated Need to be refractored for symfony 3.0 and will be removed in one of the next released.
-     *
      * Create form.
      *
-     * @param string $formType
+     * @param string $name
      * @param string $type
      * @param string $typeId
      * @param string $locale
      * @param Form $formEntity
      * @param string $webspaceKey
-     * @param array $defaults
      *
      * @return FormInterface
      */
-    protected function createForm($formType, $type, $typeId, $locale, $formEntity, $webspaceKey, $defaults)
+    private function createForm($name, $type, $typeId, $locale, $formEntity, $webspaceKey)
     {
+        $defaults = $this->getDefaults($formEntity, $locale);
         $typeName = $this->titleProviderPool->get($type)->getTitle($typeId);
 
-        return $this->formFactory->create(
-            $formType,
-            new Dynamic($type, $typeId, $locale, $formEntity, $defaults, $webspaceKey, $typeName)
+        return $this->formFactory->createNamed(
+            'dynamic_' . $name,
+            DynamicFormType::class,
+            new Dynamic($type, $typeId, $locale, $formEntity, $defaults, $webspaceKey, $typeName),
+            [
+                'formEntity' => $formEntity,
+                'locale' => $locale,
+                'type' => $type,
+                'typeId' => $typeId,
+                'name' => $name,
+                'block_name' => 'dynamic_' . $name,
+            ]
         );
     }
 
     /**
-     * @deprecated Will be removed in one of the next released.
-     *
      * Load Form entity.
      *
      * @param $id
@@ -283,7 +255,7 @@ class Builder implements BuilderInterface
      *
      * @return Form
      */
-    protected function loadFormEntity($id, $locale)
+    private function loadFormEntity($id, $locale)
     {
         try {
             // Load Form entity
@@ -303,54 +275,6 @@ class Builder implements BuilderInterface
     }
 
     /**
-     * @deprecated Need to be refractored for symfony 3.0 and will be removed in one of the next released.
-     *
-     * Create form type.
-     *
-     * @param Form $formEntity
-     * @param string $locale
-     * @param string $name
-     * @param string $type
-     * @param string $typeId
-     *
-     * @return DynamicFormType
-     */
-    protected function createFormType(
-        Form $formEntity,
-        $locale,
-        $name,
-        $type,
-        $typeId
-    ) {
-        /** @var PageBridge $structure */
-        $structure = $this->requestStack->getCurrentRequest()->attributes->get('structure');
-
-        $structureView = $this->defaultStructureView;
-
-        if ($structure) {
-            $structureView = $structure->getView();
-        }
-
-        return new DynamicFormType(
-            $formEntity,
-            $locale,
-            $name,
-            $structureView,
-            $this->collectionStrategy->getCollectionId(
-                $formEntity->getId(),
-                $formEntity->getTranslation($locale)->getTitle(),
-                $type,
-                $typeId,
-                $locale
-            ),
-            $this->formFieldTypePool,
-            $this->checksum,
-            $type,
-            $typeId
-        );
-    }
-
-    /**
      * Get defaults.
      *
      * @param Form $formEntity
@@ -358,7 +282,7 @@ class Builder implements BuilderInterface
      *
      * @return array
      */
-    protected function getDefaults(Form $formEntity, $locale)
+    private function getDefaults(Form $formEntity, $locale)
     {
         // set Defaults
         $defaults = [];
@@ -380,7 +304,7 @@ class Builder implements BuilderInterface
      *
      * @return string
      */
-    protected function getWebspaceKey()
+    private function getWebspaceKey()
     {
         $request = $this->requestStack->getCurrentRequest();
         $webspaceKey = null;

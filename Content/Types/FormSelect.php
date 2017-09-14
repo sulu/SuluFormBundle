@@ -77,7 +77,7 @@ class FormSelect extends SimpleContentType
         $type = $property->getParams()['type']->getValue();
 
         /** @var FormInterface $form */
-        list($formType, $form) = $this->formBuilder->build(
+        $form = $this->formBuilder->build(
             $id,
             $type,
             $property->getStructure()->getUuid(),

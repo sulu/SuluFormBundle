@@ -3,7 +3,7 @@
     "description": "Bundle for creating forms in Sulu.",
     "type": "sulu-bundle",
     "require": {
-        "symfony/symfony": "~2.8.7, !=2.8.10",
+        "symfony/symfony": "^2.8.7 || ^3.0",
         "symfony/swiftmailer-bundle": "~2.3",
         "doctrine/orm": "2.5.*",
         "php": "^5.5 || ^7.0",

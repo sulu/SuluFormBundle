@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType as SymfonyAbstractType;
+use Symfony\Component\Form\Util\StringUtil;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -248,5 +249,34 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     public function getCollectionId()
     {
         return;
+    }
+
+    /**
+     * @see https://github.com/symfony/symfony/blob/2.8/src/Symfony/Component/Form/AbstractType.php
+     *
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        // As of Symfony 2.8, the name defaults to the fully-qualified class name
+        return get_class($this);
+    }
+
+    /**
+     * Returns the prefix of the template block name for this type.
+     *
+     * The block prefixes default to the underscored short class name with
+     * the "Type" suffix removed (e.g. "UserProfileType" => "user_profile").
+     *
+     * @see https://github.com/symfony/symfony/blob/2.8/src/Symfony/Component/Form/AbstractType.php
+     *
+     * @return string The prefix of the template block name
+     */
+    public function getBlockPrefix()
+    {
+        $fqcn = get_class($this);
+        $name = $this->getName();
+        // For BC: Use the name as block prefix if one is set
+        return $name !== $fqcn ? $name : StringUtil::fqcnToBlockPrefix($fqcn);
     }
 }

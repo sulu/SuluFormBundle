@@ -174,14 +174,23 @@ class FormExampleType extends AbstractType
 }
 ```
 
-## Register new FormType in services.xml
+## Register new FormType in services.xml and in the config.xml
 
 The form is loaded by the template key so create a form type with the name same as the template key.
 
-``` xml
+```xml
     <service id="form_example" class="Client\Bundle\WebsiteBundle\Type\ExampleType">
-        <tag name="form.type" alias="pages_template_key" />
+        <tag name="form.type" />
     </service>
+```
+
+For the mapping between the class and the template we need to configure it in the app/config/config.xml
+
+```yml
+sulu_form:
+    static_forms:
+        page_template_key:
+            class: Client\Bundle\WebsiteBundle\Type\ExampleType
 ```
 
 ## Add routing for the only Action (needed for Ajax loaded Forms)
