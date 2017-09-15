@@ -2,6 +2,7 @@
 
 ## 0.3.0 (unreleased)
 
+ - BUGFIX      #98    Fixed Dutch translations
  - FEATURE     #83    Refractor static and dynamic form handling for symfony 3 compatibility
  - FEATURE     #91    Added Dutch translations
  
