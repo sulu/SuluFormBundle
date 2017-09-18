@@ -16,7 +16,7 @@ define(function () {
     var tabs = {
         'general': {
             'name': 'general',
-            'url': '/admin/api/forms/template',
+            'url': '/admin/api/form/templates/form.html',
             'formSelector': '#form-form'
         }
     };

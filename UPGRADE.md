@@ -56,6 +56,12 @@ sulu_form:
  - `Sulu\Bundle\FormBundle\Form\Builder::build` return a FormInterface instead of an array
  - `Sulu\Bundle\FormBundle\Event\MailSubscriber` was removed
 
+## 0.2.3
+
+### Form Template file moved
+
+`FormController:cgetTemplateAction` (/admin/api/forms/template) was moved to `TemplateController:formAction` (/admin/api//form/templates/form.html).
+
 ## 0.2.0
 
 ### Upgrade database schema
