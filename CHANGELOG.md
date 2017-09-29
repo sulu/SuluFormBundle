@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.3.0 (unreleased)
+## 0.3.1
+
+ - HOTFIX      #99    Removed unused function "getReceiverTypes"
+
+## 0.3.0
 
  - BUGFIX      #98    Fixed Dutch translations
  - FEATURE     #83    Refractor static and dynamic form handling for symfony 3 compatibility

@@ -24,9 +24,8 @@ class NullHelper implements HelperInterface
     /**
      * @param LoggerInterface $logger
      */
-    public function __construct(
-        $logger = null
-    ) {
+    public function __construct($logger = null)
+    {
         $this->logger = $logger ?: new NullLogger();
     }
 
