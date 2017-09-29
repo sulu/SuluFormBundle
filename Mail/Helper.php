@@ -131,16 +131,4 @@ class Helper implements HelperInterface
 
         return $this->mailer->send($message);
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getReceiverTypes()
-    {
-        return [
-            self::MAIL_RECEIVER_TO => [],
-            self::MAIL_RECEIVER_CC => [],
-            self::MAIL_RECEIVER_BCC => [],
-        ];
-    }
 }

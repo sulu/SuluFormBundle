@@ -1,5 +1,9 @@
 # Upgrade
 
+## 0.3.1
+
+ - `Sulu\Bundle\FormBundle\Mail\HelperInterface::getReceiverTypes` unused function was removed.
+
 ## 0.3.0
 
 ### Symfony 3 compatibility
