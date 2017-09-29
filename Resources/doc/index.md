@@ -34,6 +34,15 @@ framework:
     fragments: ~
 ```
 
+Configure the default sender and receivers email address (optional):
+
+```yml
+sulu_form:
+    mail:
+        from: "%sulu_admin.email%"
+        to:   "%sulu_admin.email%"
+```
+
 ## Create Database
 
 Execute the following command to get the sqls to update your database.

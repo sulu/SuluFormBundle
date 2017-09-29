@@ -1,5 +1,9 @@
 # Changelog
 
+## unreleased
+
+ - HOTFIX     #100    Add mail configuration to documentation
+
 ## 0.3.1
 
  - HOTFIX      #99    Removed unused function "getReceiverTypes"
