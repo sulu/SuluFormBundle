@@ -345,6 +345,10 @@ class FormConfigurationFactory
      */
     private function getEmail($email, $name = null)
     {
+        if (!$email) {
+            return null;
+        }
+
         if (!$name) {
             $name = $email;
         }
