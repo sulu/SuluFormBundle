@@ -50,6 +50,6 @@ class StructureTitleProvider implements TitleProviderInterface
             return;
         }
 
-        return $structure->getProperty('title')->getValue();
+        return $property->getValue();
     }
 }
