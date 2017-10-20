@@ -1,7 +1,8 @@
 # Changelog
 
-## unreleased
+## 0.3.2
 
+ - HOTFIX     #101    Fixed mail receiver for website form
  - HOTFIX     #100    Add mail configuration to documentation
 
 ## 0.3.1
