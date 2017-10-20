@@ -2,6 +2,7 @@
 
 ## 0.3.2
 
+ - HOTFIX     #102    Fixed error when form is loaded without structure in request
  - HOTFIX     #101    Fixed mail receiver for website form
  - HOTFIX     #100    Add mail configuration to documentation
 

@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\TitleProvider;
 
+use Sulu\Component\Content\Compat\StructureInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -39,6 +40,16 @@ class StructureTitleProvider implements TitleProviderInterface
         $request = $this->requestStack->getMasterRequest();
         $structure = $request->attributes->get('structure');
 
-        return $structure->getProperty('title')->getValue();
+        if (!$structure instanceof StructureInterface || $structure->getUuid() !== $typeId) {
+            return;
+        }
+
+        $property = $structure->getProperty('title');
+
+        if (!$property) {
+            return;
+        }
+
+        return $property->getValue();
     }
 }
