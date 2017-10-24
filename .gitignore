@@ -4,6 +4,7 @@
 
 # composer
 /composer.phar
+/composer.lock
 /auth.json
 /vendor
 
