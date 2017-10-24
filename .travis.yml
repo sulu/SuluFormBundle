@@ -1,0 +1,33 @@
+sudo: false
+
+language: php
+
+cache:
+  directories:
+    - "$HOME/.composer/cache"
+
+matrix:
+  include:
+    - php: 5.5
+      # env:
+      #   - COMPOSER_FLAGS="--prefer-lowest --prefer-dist --no-interaction"
+    - php: 7.0
+      env:
+      # - COMPOSER_FLAGS="--prefer-dist --no-interaction"
+        - CODE_COVERAGE=true
+
+before_install:
+  - composer self-update
+
+install:
+  - travis_retry composer update $COMPOSER_FLAGS
+  - composer info -i
+  - ./Tests/app/console doctrine:database:create
+  - ./Tests/app/console doctrine:schema:update --force
+
+script:
+  - ./vendor/bin/phpunit --coverage-clover=coverage.clover
+
+after_script:
+  - if [[ $CODE_COVERAGE == 'true' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
+  - if [[ $CODE_COVERAGE == 'true' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover ; fi

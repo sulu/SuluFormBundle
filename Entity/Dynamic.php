@@ -207,22 +207,22 @@ class Dynamic implements AuditableInterface
     private $changer;
 
     /**
-     * Dynamic cosntructor.
+     * Dynamic constructor.
      *
      * @param string $type
      * @param string $typeId
      * @param string $locale
-     * @param Form $formId
+     * @param Form $form
      * @param array $data
      * @param string $webspaceKey
      * @param string $typeName
      */
-    public function __construct($type, $typeId, $locale, $formId, $data = [], $webspaceKey = null, $typeName = '')
+    public function __construct($type, $typeId, $locale, $form, $data = [], $webspaceKey = null, $typeName = '')
     {
         $this->type = $type;
         $this->typeId = $typeId;
         $this->locale = $locale;
-        $this->form = $formId;
+        $this->form = $form;
         $this->webspaceKey = $webspaceKey;
         $this->typeName = $typeName;
 

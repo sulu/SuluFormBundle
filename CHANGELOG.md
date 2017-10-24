@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0 (unreleased)
+
+ - FEATURE    #103    Add test setup
+
 ## 0.3.2
 
  - HOTFIX     #102    Fixed error when form is loaded without structure in request

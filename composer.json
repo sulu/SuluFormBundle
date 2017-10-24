@@ -5,9 +5,13 @@
     "require": {
         "symfony/symfony": "^2.8.7 || ^3.0",
         "symfony/swiftmailer-bundle": "~2.3",
-        "doctrine/orm": "2.5.*",
+        "doctrine/orm": "^2.5.3",
         "php": "^5.5 || ^7.0",
-        "sulu/sulu": "~1.3 || dev-develop"
+        "sulu/sulu": "~1.3"
+    },
+    "require-dev": {
+        "jackalope/jackalope-doctrine-dbal": "^1.2.5",
+        "phpunit/phpunit": "^4.8.31"
     },
     "keywords": [
         "sulu",
