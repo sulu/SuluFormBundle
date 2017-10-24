@@ -61,9 +61,18 @@ class FormConfigurationFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['customer@example.dev' => 'customer@example.dev'], $adminMailConfiguration->getReplyTo());
         $this->assertEquals(true, $adminMailConfiguration->getAddAttachments());
         $this->assertEquals(['from@example.dev' => 'From'], $adminMailConfiguration->getFrom());
-        $this->assertEquals([], $adminMailConfiguration->getBcc());
-        $this->assertEquals(['to@example.dev' => 'To'], $adminMailConfiguration->getTo());
-        $this->assertEquals([['receiver@example.dev' => 'receiver']], $adminMailConfiguration->getCc());
+        $this->assertEquals(['to@example.dev' => 'To', 'to2@example.dev' => 'To2'], $adminMailConfiguration->getTo());
+        $this->assertEquals(['cc@example.dev' => 'Cc'], $adminMailConfiguration->getCc());
+        $this->assertEquals(['bcc@example.dev' => 'Bcc'], $adminMailConfiguration->getBcc());
+
+        $this->assertEquals('en', $websiteMailConfiguration->getLocale());
+        $this->assertEquals('Subject', $websiteMailConfiguration->getSubject());
+        $this->assertEquals(null, $websiteMailConfiguration->getReplyTo());
+        $this->assertEquals(true, $websiteMailConfiguration->getAddAttachments());
+        $this->assertEquals(['from@example.dev' => 'From'], $websiteMailConfiguration->getFrom());
+        $this->assertEquals(['customer@example.dev' => 'customer@example.dev'], $websiteMailConfiguration->getTo());
+        $this->assertEquals([], $websiteMailConfiguration->getCc());
+        $this->assertEquals([], $websiteMailConfiguration->getBcc());
     }
 
     private function createDynamic()
@@ -90,11 +99,21 @@ class FormConfigurationFactoryTest extends \PHPUnit_Framework_TestCase
         $formTranslation->getToEmail()->willReturn('to@example.dev');
         $formTranslation->getToName()->willReturn('To');
         /** @var FormTranslationReceiver $receiver */
-        $receiver = $this->prophesize(FormTranslationReceiver::class);
-        $receiver->setName('Receiver');
-        $receiver->setEmail('receiver@example.dev');
-        $receiver->setType(MailConfigurationInterface::TYPE_CC);
-        $formTranslation->getReceivers()->willReturn([$receiver]);
+        $toReceiver = $this->prophesize(FormTranslationReceiver::class);
+        $toReceiver->getName()->willReturn('To2');
+        $toReceiver->getEmail()->willReturn('to2@example.dev');
+        $toReceiver->getType()->willReturn(MailConfigurationInterface::TYPE_TO);
+        /** @var FormTranslationReceiver $receiver */
+        $ccReceiver = $this->prophesize(FormTranslationReceiver::class);
+        $ccReceiver->getName()->willReturn('Cc');
+        $ccReceiver->getEmail()->willReturn('cc@example.dev');
+        $ccReceiver->getType()->willReturn(MailConfigurationInterface::TYPE_CC);
+        /** @var FormTranslationReceiver $receiver */
+        $bccReceiver = $this->prophesize(FormTranslationReceiver::class);
+        $bccReceiver->getName()->willReturn('Bcc');
+        $bccReceiver->getEmail()->willReturn('bcc@example.dev');
+        $bccReceiver->getType()->willReturn(MailConfigurationInterface::TYPE_BCC);
+        $formTranslation->getReceivers()->willReturn([$toReceiver->reveal(), $ccReceiver->reveal(), $bccReceiver->reveal()]);
         $form->getTranslation('en', false, true)->willReturn($formTranslation->reveal());
         $form->getTranslation('en')->willReturn($formTranslation->reveal());
         /** @var FormField $formAttachmentField */
