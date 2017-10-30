@@ -81,6 +81,8 @@ class DynamicRepository extends EntityRepository
     {
         $fromDate = null;
         $toDate = null;
+        $search = null;
+        $searchFields = null;
 
         if (isset($filters['fromDate'])) {
             $fromDate = $filters['fromDate'];
@@ -92,6 +94,17 @@ class DynamicRepository extends EntityRepository
             unset($filters['toDate']);
         }
 
+        if (isset($filters['search'])) {
+            $search = $filters['search'];
+            unset($filters['search']);
+        }
+
+        if (isset($filters['searchFields'])) {
+            $searchFields = $filters['searchFields'];
+            unset($filters['searchFields']);
+        }
+
+        $this->addSearchFilter($queryBuilder, $search, $searchFields);
         $this->addDateRangeFilter($queryBuilder, $fromDate, $toDate);
 
         $counter = 0;
@@ -100,6 +113,37 @@ class DynamicRepository extends EntityRepository
             $queryBuilder->setParameter('value' . $counter, $value);
 
             ++$counter;
+        }
+    }
+
+    /**
+     * Depending on the given search term, this function filters the result based on search fields.
+     *
+     * @param QueryBuilder $queryBuilder
+     * @param string $search
+     * @param string[] $searchFields
+     */
+    protected function addSearchFilter($queryBuilder, $search, $searchFields)
+    {
+        if (empty($search) || empty($searchFields)) {
+            return;
+        }
+
+        $terms = explode(' ', $search);
+
+        // Search each term in each search field
+        foreach ($terms as $counter => $term) {
+            $expressions = [];
+
+            foreach ($searchFields as $searchField) {
+                $expressions[] = $queryBuilder->expr()->like(
+                    'dynamic.' . $searchField,
+                    ':searchTerm' . $counter
+                );
+            }
+
+            $queryBuilder->andWhere(call_user_func_array([$queryBuilder->expr(), 'orX'], $expressions));
+            $queryBuilder->setParameter('searchTerm' . $counter, '%' . $term . '%');
         }
     }
 

@@ -176,7 +176,6 @@ define(['jquery'], function ($) {
                             }
                         }
                     }),
-                    hasSearch: false,
                     instanceName: this.instanceName
                 },
                 {
@@ -185,6 +184,7 @@ define(['jquery'], function ($) {
                     instanceName: this.instanceName,
                     url: constants.endPointUrl + queryString,
                     resultKey: 'dynamics',
+                    searchFields: ['email', 'firstName', 'lastName'],
                     viewOptions: {
                         table: {
                             selectItem: false,
