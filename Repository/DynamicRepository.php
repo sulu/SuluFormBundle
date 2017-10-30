@@ -92,6 +92,34 @@ class DynamicRepository extends EntityRepository
             unset($filters['toDate']);
         }
 
+        if (isset($filters['search'])) {
+            if (!empty($filters['searchFields']) && !empty($filters['search'])) {
+                $terms = explode(' ', $filters['search']);
+                $searchFields = $filters['searchFields'];
+
+                // Search each term in seach field
+                foreach ($terms as $counter => $term) {
+                    $expressions = [];
+
+                    foreach ($searchFields as $searchField) {
+                        $expressions[] = $queryBuilder->expr()->like(
+                            'dynamic.' . $searchField,
+                            ':searchTerm' . $counter
+                        );
+                    }
+
+                    $queryBuilder->andWhere(call_user_func_array([$queryBuilder->expr(), 'orX'], $expressions));
+                    $queryBuilder->setParameter('searchTerm' . $counter, '%' . $term . '%');
+                }
+            }
+
+            unset($filters['search']);
+        }
+
+        if (isset($filters['searchFields'])) {
+            unset($filters['searchFields']);
+        }
+
         $this->addDateRangeFilter($queryBuilder, $fromDate, $toDate);
 
         $counter = 0;

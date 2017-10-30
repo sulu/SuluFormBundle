@@ -2,6 +2,7 @@
 
 ## 0.4.0 (unreleased)
 
+ - FEATURE    #104    Add search to dynamic list
  - FEATURE    #103    Add test setup
 
 ## 0.3.2

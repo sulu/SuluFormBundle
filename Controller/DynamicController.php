@@ -110,6 +110,8 @@ class DynamicController extends RestController implements ClassResourceInterface
             'form' => $request->get('form'),
             'fromDate' => $request->get('fromDate'),
             'toDate' => $request->get('toDate'),
+            'search' => $request->get('search'),
+            'searchFields' => array_filter(explode(',', $request->get('searchFields', ''))),
         ];
 
         return array_filter($filters);
