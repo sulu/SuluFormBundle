@@ -1,3 +1,0 @@
-sulu_community:
-    type: portal
-    resource: "@SuluFormBundle/Resources/config/routing_website.xml"
