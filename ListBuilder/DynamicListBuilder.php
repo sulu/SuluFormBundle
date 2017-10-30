@@ -61,7 +61,7 @@ class DynamicListBuilder implements DynamicListBuilderInterface
         ];
 
         foreach ($entry as $key => $value) {
-            if ($dynamic->getFieldType($key) === Dynamic::TYPE_ATTACHMENT) {
+            if (Dynamic::TYPE_ATTACHMENT === $dynamic->getFieldType($key)) {
                 $singleEntry[$key] = $this->getMediaUrls($value);
             } else {
                 $singleEntry[$key] = $this->toString($value);
@@ -150,7 +150,7 @@ class DynamicListBuilder implements DynamicListBuilderInterface
      */
     protected function getDownloadUrl()
     {
-        if ($this->downloadUrl === null) {
+        if (null === $this->downloadUrl) {
             $this->downloadUrl = $this->router->generate(
                 'sulu_media.website.media.download',
                 [

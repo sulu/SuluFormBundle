@@ -1,0 +1,18 @@
+parameters:
+    secret: test
+
+framework:
+    router: { resource: '%kernel.root_dir%/config/routing_website.yml' }
+    profiler: { only_exceptions: false }
+
+sulu_community:
+    webspaces:
+        sulu_io:
+            to: 'admin@sulu.io'
+
+sulu_security:
+    checker:
+        enabled: true
+
+swiftmailer:
+    disable_delivery:  true

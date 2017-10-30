@@ -223,7 +223,7 @@ class DynamicFormType extends AbstractType
 
         $currentWidthValue += $itemWidth;
 
-        if ($currentWidthValue % 12 == 0) {
+        if (0 == $currentWidthValue % 12) {
             return true;
         }
 

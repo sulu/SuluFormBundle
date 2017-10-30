@@ -65,7 +65,7 @@ class DynamicListFactory implements DynamicListFactoryInterface
                 $title,
                 false,
                 true,
-                $field->getType() == 'date' ? 'date' : '',
+                'date' == $field->getType() ? 'date' : '',
                 '',
                 '',
                 false // not sortable
@@ -116,7 +116,7 @@ class DynamicListFactory implements DynamicListFactoryInterface
      */
     protected function getBuilder($alias = null)
     {
-        if (!$alias || $alias === 'default') {
+        if (!$alias || 'default' === $alias) {
             $alias = $this->defaultBuilder;
         }
 

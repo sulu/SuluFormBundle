@@ -249,7 +249,7 @@ class FormWebsiteController extends DefaultController
      */
     protected function getAttributes($attributes, StructureInterface $structure = null, $preview = false)
     {
-        if ($this->attributes === null) { // for performance only called once
+        if (null === $this->attributes) { // for performance only called once
             $this->attributes = parent::getAttributes($attributes, $structure, $preview);
         }
 

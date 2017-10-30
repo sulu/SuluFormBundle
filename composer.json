@@ -5,9 +5,20 @@
     "require": {
         "symfony/symfony": "^2.8.7 || ^3.0",
         "symfony/swiftmailer-bundle": "~2.3",
-        "doctrine/orm": "2.5.*",
+        "doctrine/orm": "^2.5.3",
         "php": "^5.5 || ^7.0",
-        "sulu/sulu": "~1.3 || dev-develop"
+        "sulu/sulu": "~1.3"
+    },
+    "require-dev": {
+        "jackalope/jackalope-doctrine-dbal": "^1.2.5",
+        "symfony/monolog-bundle": "2.4.*",
+        "massive/search-bundle": "@dev",
+        "zendframework/zend-stdlib": "2.3.1 as 2.0.0rc5",
+        "zendframework/zendsearch": "2.*@dev",
+        "doctrine/doctrine-bundle": "1.4.*",
+        "gedmo/doctrine-extensions": "^2.3.1",
+        "friendsofsymfony/rest-bundle": "^1.5",
+        "phpunit/phpunit": ">=4.8, <6.0"
     },
     "keywords": [
         "sulu",
