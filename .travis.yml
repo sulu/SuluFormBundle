@@ -18,6 +18,7 @@ matrix:
 
 before_install:
   - composer self-update
+  - phpenv config-add Tests/travis.php.ini
 
 install:
   - travis_retry composer update $COMPOSER_FLAGS
