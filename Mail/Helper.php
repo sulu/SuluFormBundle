@@ -106,7 +106,7 @@ class Helper implements HelperInterface
             }
         }
 
-        if ($replyTo != null) {
+        if (null != $replyTo) {
             $message->setReplyTo($replyTo);
         }
 

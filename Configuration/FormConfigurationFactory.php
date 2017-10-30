@@ -197,11 +197,11 @@ class FormConfigurationFactory
         foreach ($translation->getReceivers() as $receiver) {
             $email = $this->getEmail($receiver->getEmail(), $receiver->getName());
 
-            if ($receiver->getType() == MailConfigurationInterface::TYPE_TO) {
+            if (MailConfigurationInterface::TYPE_TO == $receiver->getType()) {
                 $toList = array_merge($toList, $email);
-            } elseif ($receiver->getType() == MailConfigurationInterface::TYPE_CC) {
+            } elseif (MailConfigurationInterface::TYPE_CC == $receiver->getType()) {
                 $ccList = array_merge($ccList, $email);
-            } elseif ($receiver->getType() == MailConfigurationInterface::TYPE_BCC) {
+            } elseif (MailConfigurationInterface::TYPE_BCC == $receiver->getType()) {
                 $bccList = array_merge($bccList, $email);
             }
         }
@@ -272,7 +272,7 @@ class FormConfigurationFactory
 
         $fields = $form->getFieldsByType(Dynamic::TYPE_ATTACHMENT);
 
-        if (count($fields) === 0) {
+        if (0 === count($fields)) {
             return [];
         }
 

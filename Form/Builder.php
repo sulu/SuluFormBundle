@@ -97,7 +97,7 @@ class Builder implements BuilderInterface
     public function buildByRequest(Request $request)
     {
         foreach ($request->request->all() as $key => $parameters) {
-            if (strpos($key, 'dynamic_') === 0) {
+            if (0 === strpos($key, 'dynamic_')) {
                 $formNameParts = explode('dynamic_', $key, 2);
                 $checksumCheck = $this->checksum->check(
                     $parameters['checksum'],

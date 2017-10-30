@@ -239,7 +239,7 @@ class FormManager
             $prefix = 'options[';
 
             $keys = array_filter(array_keys($fieldData), function ($key) use ($prefix) {
-                return strpos($key, $prefix) === 0;
+                return 0 === strpos($key, $prefix);
             });
 
             $options = array_intersect_key($fieldData, array_flip($keys));
@@ -283,7 +283,7 @@ class FormManager
     protected static function getValue($data, $value, $default = null, $type = null)
     {
         if (isset($data[$value])) {
-            if ($type === 'date') {
+            if ('date' === $type) {
                 if (!$data[$value]) {
                     return $default;
                 }

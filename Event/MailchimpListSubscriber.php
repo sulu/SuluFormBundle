@@ -62,18 +62,18 @@ class MailchimpListSubscriber implements EventSubscriberInterface
         $listIds = [];
 
         foreach ($form['fields'] as $field) {
-            if ($field['type'] == 'firstName' && !$fname) {
+            if ('firstName' == $field['type'] && !$fname) {
                 $fname = $field['value'];
-            } elseif ($field['type'] == 'lastName' && !$lname) {
+            } elseif ('lastName' == $field['type'] && !$lname) {
                 $lname = $field['value'];
-            } elseif ($field['type'] == 'email' && !$email) {
+            } elseif ('email' == $field['type'] && !$email) {
                 $email = $field['value'];
-            } elseif ($field['type'] == 'mailchimp' && $field['value']) {
+            } elseif ('mailchimp' == $field['type'] && $field['value']) {
                 $listIds[] = $field['options']['listId'];
             }
         }
 
-        if ($email != '' && $this->apiKey != '' && count($listIds) > 0) {
+        if ('' != $email && '' != $this->apiKey && count($listIds) > 0) {
             $MailChimp = new MailChimp($this->apiKey);
             foreach ($listIds as $listId) {
                 if (!$listId) {
@@ -85,7 +85,7 @@ class MailchimpListSubscriber implements EventSubscriberInterface
                     'status' => 'subscribed',
                 ]);
 
-                if ($fname == '' && $lname == '') {
+                if ('' == $fname && '' == $lname) {
                     continue;
                 }
 
