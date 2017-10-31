@@ -14,6 +14,8 @@ namespace Sulu\Bundle\FormBundle\Tests\Functional\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\FormBundle\Configuration\MailConfiguration;
 use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Entity\FormField;
+use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslationReceiver;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
@@ -213,6 +215,22 @@ class FormControllerTest extends SuluTestCase
         $this->assertEquals('From', $response['fromName']);
         $this->assertEquals('To', $response['toName']);
         $this->assertEquals('<p>Mail Text</p>', $response['mailText']);
+        // Fields
+        $expectedFieldTypess = ['email', 'email'];
+        $this->assertCount(count($expectedFieldTypess), $response['fields']);
+        foreach ($expectedFieldTypess as $key => $type) {
+            $this->assertNotNull($response['fields'][$key]['id']);
+            $this->assertEquals($type, $response['fields'][$key]['type']);
+            $this->assertContains($type, $response['fields'][$key]['key']);
+            $this->assertTrue($response['fields'][$key]['required']);
+            $this->assertEquals($key + 1, $response['fields'][$key]['order']);
+            $this->assertEquals('full', $response['fields'][$key]['width']);
+            $this->assertEquals('Title', $response['fields'][$key]['title']);
+            $this->assertEquals('Short Title', $response['fields'][$key]['shortTitle']);
+            $this->assertEquals('Placeholder', $response['fields'][$key]['placeholder']);
+            $this->assertEquals('Default Value', $response['fields'][$key]['defaultValue']);
+            $this->assertCountFields(10, $response['fields'][$key]);
+        }
         // Receivers
         $this->assertCount(3, $response['receivers']);
         foreach (['to', 'cc', 'bcc'] as $key => $receiver) {
@@ -271,6 +289,50 @@ class FormControllerTest extends SuluTestCase
         $formTranslation->setToEmail('to@example.org');
         $formTranslation->setToName('To');
         $formTranslation->setMailText('<p>Mail Text</p>');
+        // Field 1
+        $formField = new FormField();
+        $formField->setDefaultLocale('en');
+        $formField->setKey('email');
+        $formField->setType('email');
+        $formField->setWidth('full');
+        $formField->setRequired(true);
+        $formField->setOrder(1);
+        $formFieldTranslation = new FormFieldTranslation();
+        $formFieldTranslation->setShortTitle('Short Title');
+        $formFieldTranslation->setTitle('Title');
+        $formFieldTranslation->setPlaceholder('Placeholder');
+        $formFieldTranslation->setDefaultValue('Default Value');
+        $formFieldTranslation->setLocale('en');
+        $formFieldTranslation->setOptions([]);
+
+        $formFieldTranslation->setField($formField);
+        $formField->addTranslation($formFieldTranslation);
+
+        $formField->setForm($form);
+        $form->addField($formField);
+
+        // Field 2
+        $formField2 = new FormField();
+        $formField2->setDefaultLocale('en');
+        $formField2->setKey('email1');
+        $formField2->setType('email');
+        $formField2->setWidth('full');
+        $formField2->setRequired(true);
+        $formField2->setOrder(2);
+        $formFieldTranslation2 = new FormFieldTranslation();
+        $formFieldTranslation2->setShortTitle('Short Title');
+        $formFieldTranslation2->setTitle('Title');
+        $formFieldTranslation2->setPlaceholder('Placeholder');
+        $formFieldTranslation2->setDefaultValue('Default Value');
+        $formFieldTranslation2->setLocale('en');
+        $formFieldTranslation2->setOptions([]);
+
+        $formFieldTranslation2->setField($formField2);
+        $formField2->addTranslation($formFieldTranslation2);
+
+        $formField2->setForm($form);
+        $form->addField($formField2);
+
         // Receivers
         $toReceiver = new FormTranslationReceiver();
         $toReceiver->setEmail('to-receiver@example.org');
@@ -295,6 +357,9 @@ class FormControllerTest extends SuluTestCase
         $formTranslation->setForm($form);
         $form->addTranslation($formTranslation);
 
+        $formField->setForm($form);
+        $form->addField($formField);
+
         $this->em->persist($form);
         $this->em->flush();
 
@@ -318,6 +383,26 @@ class FormControllerTest extends SuluTestCase
             'fromName' => 'From',
             'toName' => 'To',
             'mailText' => '<p>Mail Text</p>',
+            'fields' => [
+                [
+                    'type' => 'email',
+                    'title' => 'Title',
+                    'shortTitle' => 'Short Title',
+                    'placeholder' => 'Placeholder',
+                    'defaultValue' => 'Default Value',
+                    'width' => 'full',
+                    'required' => true,
+                ],
+                [
+                    'type' => 'email',
+                    'title' => 'Title',
+                    'shortTitle' => 'Short Title',
+                    'placeholder' => 'Placeholder',
+                    'defaultValue' => 'Default Value',
+                    'width' => 'full',
+                    'required' => true,
+                ],
+            ],
             'receivers' => [
                 [
                     'type' => MailConfiguration::TYPE_TO,
