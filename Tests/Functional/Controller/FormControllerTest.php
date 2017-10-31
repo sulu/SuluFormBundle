@@ -45,7 +45,7 @@ class FormControllerTest extends SuluTestCase
 
     public function testGet()
     {
-        $form = $this->createDummyForm();
+        $form = $this->createFullForm();
 
         $client = $this->createAuthenticatedClient();
         $client->request(
@@ -56,7 +56,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertHttpStatusCode(200, $client->getResponse());
         $response = json_decode($client->getResponse()->getContent(), true);
 
-        $this->assertDummyForm($response);
+        $this->assertFullForm($response);
     }
 
     public function testPostMinimal()
@@ -73,7 +73,104 @@ class FormControllerTest extends SuluTestCase
 
         $this->assertHttpStatusCode(201, $client->getResponse());
         $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertMinimalForm($response);
+    }
 
+    public function testPostFull()
+    {
+        $client = $this->createAuthenticatedClient();
+        $client->request(
+            'POST',
+            '/api/forms',
+            $this->getFullFormData()
+        );
+
+        $this->assertHttpStatusCode(201, $client->getResponse());
+        $response = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertFullForm($response);
+    }
+
+    public function testPutMinimal()
+    {
+        $form = $this->createFullForm();
+        $client = $this->createAuthenticatedClient();
+        $client->request(
+            'PUT',
+            '/api/forms/' . $form->getId(),
+            [
+                'locale' => 'en',
+                'title' => 'Title',
+            ]
+        );
+
+        $this->assertHttpStatusCode(200, $client->getResponse());
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertMinimalForm($response);
+    }
+
+    public function testPutFull()
+    {
+        $form = $this->createMinimalForm();
+        $client = $this->createAuthenticatedClient();
+        $client->request(
+            'PUT',
+            '/api/forms/' . $form->getId(),
+            $this->getFullFormData()
+        );
+
+        $this->assertHttpStatusCode(200, $client->getResponse());
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertFullForm($response);
+    }
+
+    public function testPutNotExist()
+    {
+        $client = $this->createAuthenticatedClient();
+        $client->request(
+            'PUT',
+            '/api/forms/2',
+            $this->getFullFormData()
+        );
+
+        $this->assertHttpStatusCode(404, $client->getResponse());
+    }
+
+    public function testDelete()
+    {
+        $form = $this->createFullForm();
+
+        $client = $this->createAuthenticatedClient();
+        $client->request(
+            'DELETE',
+            '/api/forms/' . $form->getId()
+        );
+
+        $this->assertHttpStatusCode(204, $client->getResponse());
+
+        // Test 404 for removed item
+        $client = $this->createAuthenticatedClient();
+        $client->request(
+            'GET',
+            '/api/forms/1'
+        );
+
+        $this->assertHttpStatusCode(404, $client->getResponse());
+    }
+
+    public function testDeleteNotFound()
+    {
+        $client = $this->createAuthenticatedClient();
+        $client->request(
+            'DELETE',
+            '/api/forms/2'
+        );
+
+        $this->assertHttpStatusCode(404, $client->getResponse());
+    }
+
+    private function assertMinimalForm($response)
+    {
         $this->assertNotNull($response['id']);
         $this->assertEquals('en', $response['locale']);
         $this->assertEquals('Title', $response['title']);
@@ -95,79 +192,10 @@ class FormControllerTest extends SuluTestCase
         // Receivers
         $this->assertCount(0, $response['receivers']);
         // Other fields
-        $this->assertCount(9, $response, 'Missing Test for field');
+        $this->assertCountFields(9, $response);
     }
 
-    public function testPostFull()
-    {
-        $client = $this->createAuthenticatedClient();
-        $client->request(
-            'POST',
-            '/api/forms',
-            [
-                'locale' => 'en',
-                'title' => 'Title',
-                'submitLabel' => 'Submit Label',
-                'successText' => '<p>Success Text</p>',
-                'subject' => 'Subject',
-                'replyTo' => true,
-                'deactivateCustomerMails' => true,
-                'deactivateNotifyMails' => true,
-                'sendAttachments' => true,
-                'fromEmail' => 'from@example.org',
-                'toEmail' => 'to@example.org',
-                'fromName' => 'From',
-                'toName' => 'To',
-                'mailText' => '<p>Mail Text</p>',
-                'receivers' => [
-                    [
-                        'type' => MailConfiguration::TYPE_TO,
-                        'name' => 'To Receiver',
-                        'email' => 'to-receiver@example.org',
-                    ],
-                    [
-                        'type' => MailConfiguration::TYPE_CC,
-                        'name' => 'Cc Receiver',
-                        'email' => 'cc-receiver@example.org',
-                    ],
-                    [
-                        'type' => MailConfiguration::TYPE_BCC,
-                        'name' => 'Bcc Receiver',
-                        'email' => 'bcc-receiver@example.org',
-                    ],
-                ],
-            ]
-        );
-
-        $this->assertHttpStatusCode(201, $client->getResponse());
-        $response = json_decode($client->getResponse()->getContent(), true);
-
-        $this->assertDummyForm($response);
-    }
-
-    public function testDelete()
-    {
-        $form = $this->createDummyForm();
-
-        $client = $this->createAuthenticatedClient();
-        $client->request(
-            'DELETE',
-            '/api/forms/' . $form->getId()
-        );
-
-        $this->assertHttpStatusCode(204, $client->getResponse());
-
-        // Test 404 for removed item
-        $client = $this->createAuthenticatedClient();
-        $client->request(
-            'GET',
-            '/api/forms/1'
-        );
-
-        $this->assertHttpStatusCode(404, $client->getResponse());
-    }
-
-    private function assertDummyForm($response)
+    private function assertFullForm($response)
     {
         $this->assertNotNull($response['id']);
         $this->assertEquals('en', $response['locale']);
@@ -192,13 +220,37 @@ class FormControllerTest extends SuluTestCase
             $this->assertEquals(ucfirst($receiver) . ' Receiver', $response['receivers'][$key]['name']);
             $this->assertEquals($receiver . '-receiver@example.org', $response['receivers'][$key]['email']);
             $this->assertEquals($receiver, $response['receivers'][$key]['type']);
-            $this->assertCount(4, $response['receivers'][$key], 'Missing test for new added field to form receivers.');
+            $this->assertCountFields(4, $response['receivers'][$key]);
         }
         // Other
-        $this->assertCount(17, $response, 'Missing test for new added field to form.');
+        $this->assertCountFields(17, $response);
     }
 
-    private function createDummyForm()
+    private function assertCountFields($expectedCount, $haystack)
+    {
+        $this->assertCount(
+            $expectedCount,
+            $haystack,
+            'Field missing. Did you forget to add a new fields to the test case?'
+        );
+    }
+
+    private function createMinimalForm()
+    {
+        $form = new Form();
+        $form->setDefaultLocale('en');
+
+        $formTranslation = new FormTranslation();
+        $formTranslation->setLocale('en');
+        $formTranslation->setTitle('Title');
+
+        $this->em->persist($form);
+        $this->em->flush();
+
+        return $form;
+    }
+
+    private function createFullForm()
     {
         $form = new Form();
         $form->setDefaultLocale('en');
@@ -247,5 +299,42 @@ class FormControllerTest extends SuluTestCase
         $this->em->flush();
 
         return $form;
+    }
+
+    private function getFullFormData()
+    {
+        return [
+            'locale' => 'en',
+            'title' => 'Title',
+            'submitLabel' => 'Submit Label',
+            'successText' => '<p>Success Text</p>',
+            'subject' => 'Subject',
+            'replyTo' => true,
+            'deactivateCustomerMails' => true,
+            'deactivateNotifyMails' => true,
+            'sendAttachments' => true,
+            'fromEmail' => 'from@example.org',
+            'toEmail' => 'to@example.org',
+            'fromName' => 'From',
+            'toName' => 'To',
+            'mailText' => '<p>Mail Text</p>',
+            'receivers' => [
+                [
+                    'type' => MailConfiguration::TYPE_TO,
+                    'name' => 'To Receiver',
+                    'email' => 'to-receiver@example.org',
+                ],
+                [
+                    'type' => MailConfiguration::TYPE_CC,
+                    'name' => 'Cc Receiver',
+                    'email' => 'cc-receiver@example.org',
+                ],
+                [
+                    'type' => MailConfiguration::TYPE_BCC,
+                    'name' => 'Bcc Receiver',
+                    'email' => 'bcc-receiver@example.org',
+                ],
+            ],
+        ];
     }
 }

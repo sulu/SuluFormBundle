@@ -280,7 +280,11 @@ class FormController extends FOSRestController implements ClassResourceInterface
         $locale = $this->getLocale($request);
 
         // save entity
-        $entity = $this->getManager()->save($this->getData($request), $locale, $id);
+        try {
+            $entity = $this->getManager()->save($this->getData($request), $locale, $id);
+        } catch (NoResultException $e) {
+            throw $this->createNotFoundException(sprintf('No form with id "%s" was found!', $id), $e);
+        }
 
         return $this->handleView($this->view($this->getApiEntity($entity, $locale)));
     }
@@ -295,7 +299,11 @@ class FormController extends FOSRestController implements ClassResourceInterface
     {
         $locale = $this->getLocale($request);
 
-        $this->getManager()->delete($id, $locale);
+        try {
+            $this->getManager()->delete($id, $locale);
+        } catch (NoResultException $e) {
+            throw $this->createNotFoundException(sprintf('No form with id "%s" was found!', $id), $e);
+        }
 
         return new Response('', 204);
     }

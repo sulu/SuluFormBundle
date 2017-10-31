@@ -2,7 +2,7 @@
 
 ## 0.4.0
 
-#### BC Breaks
+### BC Breaks
 
 The internal api changed
 
