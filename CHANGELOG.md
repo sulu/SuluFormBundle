@@ -2,8 +2,9 @@
 
 ## 0.4.0 (unreleased)
 
- - FEATURE    #104    Add search to dynamic list
- - FEATURE    #103    Add test setup
+ - ENHANCEMENT #105    Add functional api tests
+ - FEATURE     #104    Add search to dynamic list
+ - ENHANCEMENT #103    Add test setup 
 
 ## 0.3.2
 

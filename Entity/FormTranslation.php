@@ -67,22 +67,22 @@ class FormTranslation implements AuditableInterface
     /**
      * @var bool
      */
-    private $sendAttachments;
+    private $sendAttachments = false;
 
     /**
      * @var bool
      */
-    private $deactivateNotifyMails;
+    private $deactivateNotifyMails = false;
 
     /**
      * @var bool
      */
-    private $deactivateCustomerMails;
+    private $deactivateCustomerMails = false;
 
     /**
      * @var bool
      */
-    private $replyTo;
+    private $replyTo = false;
 
     /**
      * @var string

@@ -107,10 +107,10 @@ class FormManager
         $translation->setMailText(self::getValue($data, 'mailText'));
         $translation->setSubmitLabel(self::getValue($data, 'submitLabel'));
         $translation->setSuccessText(self::getValue($data, 'successText'));
-        $translation->setSendAttachments(self::getValue($data, 'sendAttachments'));
-        $translation->setDeactivateNotifyMails(self::getValue($data, 'deactivateNotifyMails'));
-        $translation->setDeactivateCustomerMails(self::getValue($data, 'deactivateCustomerMails'));
-        $translation->setReplyTo(self::getValue($data, 'replyTo'));
+        $translation->setSendAttachments(self::getValue($data, 'sendAttachments', false));
+        $translation->setDeactivateNotifyMails(self::getValue($data, 'deactivateNotifyMails', false));
+        $translation->setDeactivateCustomerMails(self::getValue($data, 'deactivateCustomerMails', false));
+        $translation->setReplyTo(self::getValue($data, 'replyTo', false));
         $translation->setChanged(new \DateTime());
 
         // Add Translation to Form.

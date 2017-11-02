@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\Controller;
 
+use Doctrine\ORM\NoResultException;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
@@ -243,8 +244,12 @@ class FormController extends FOSRestController implements ClassResourceInterface
     {
         $locale = $this->getLocale($request);
 
-        // get entity
-        $entity = $this->getManager()->findById($id, $locale);
+        try {
+            // get entity
+            $entity = $this->getManager()->findById($id, $locale);
+        } catch (NoResultException $e) {
+            throw $this->createNotFoundException(sprintf('No form with id "%s" was found!', $id), $e);
+        }
 
         return $this->handleView($this->view($this->getApiEntity($entity, $locale)));
     }
@@ -261,7 +266,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
         // create entity
         $entity = $this->getManager()->save($this->getData($request), $locale);
 
-        return $this->handleView($this->view($this->getApiEntity($entity, $locale)));
+        return $this->handleView($this->view($this->getApiEntity($entity, $locale), 201));
     }
 
     /**
@@ -275,7 +280,11 @@ class FormController extends FOSRestController implements ClassResourceInterface
         $locale = $this->getLocale($request);
 
         // save entity
-        $entity = $this->getManager()->save($this->getData($request), $locale, $id);
+        try {
+            $entity = $this->getManager()->save($this->getData($request), $locale, $id);
+        } catch (NoResultException $e) {
+            throw $this->createNotFoundException(sprintf('No form with id "%s" was found!', $id), $e);
+        }
 
         return $this->handleView($this->view($this->getApiEntity($entity, $locale)));
     }
@@ -290,14 +299,13 @@ class FormController extends FOSRestController implements ClassResourceInterface
     {
         $locale = $this->getLocale($request);
 
-        // delete entity
-        $entity = $this->getManager()->delete($id, $locale);
-
-        if (!$entity) {
-            return new Response('', 204);
+        try {
+            $this->getManager()->delete($id, $locale);
+        } catch (NoResultException $e) {
+            throw $this->createNotFoundException(sprintf('No form with id "%s" was found!', $id), $e);
         }
 
-        return $this->handleView($this->view($this->getApiEntity($entity, $locale)));
+        return new Response('', 204);
     }
 
     /**

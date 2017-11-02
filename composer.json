@@ -37,6 +37,14 @@
     "autoload": {
         "psr-4": {
             "Sulu\\Bundle\\FormBundle\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sulu\\Bundle\\FormBundle\\Tests\\": "Tests"
         }
     }
 }

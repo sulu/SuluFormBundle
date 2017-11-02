@@ -1,5 +1,14 @@
 # Upgrade
 
+## 0.4.0
+
+### BC Breaks
+
+The internal api changed
+
+POST /api/forms/{id} will return 201 instead of 200 status code.
+DELETE /api/forms/{id} will return 204 no content instead of 200 status code.
+
 ## 0.3.1
 
  - `Sulu\Bundle\FormBundle\Mail\HelperInterface::getReceiverTypes` unused function was removed.
