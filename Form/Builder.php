@@ -233,7 +233,7 @@ class Builder implements BuilderInterface
         $typeName = $this->titleProviderPool->get($type)->getTitle($typeId);
 
         return $this->formFactory->createNamed(
-            'dynamic_' . $name,
+            'dynamic_' . $name . $formEntity->getId(),
             DynamicFormType::class,
             new Dynamic($type, $typeId, $locale, $formEntity, $defaults, $webspaceKey, $typeName),
             [

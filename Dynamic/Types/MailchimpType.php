@@ -43,7 +43,8 @@ class MailchimpType implements FormFieldTypeInterface
         return new FormFieldTypeConfiguration(
             'sulu_form.type.mailchimp',
             'SuluFormBundle:forms:fields/types/mailchimp.html.twig',
-            ['mailChimpLists' => $this->getMailChimpLists()]
+            ['mailChimpLists' => $this->getMailChimpLists()],
+            'special'
         );
     }
 

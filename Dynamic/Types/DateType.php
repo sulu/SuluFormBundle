@@ -30,7 +30,9 @@ class DateType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.date',
-            'SuluFormBundle:forms:fields/types/date.html.twig'
+            'SuluFormBundle:forms:fields/types/date.html.twig',
+            [],
+            'basic'
         );
     }
 

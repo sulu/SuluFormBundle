@@ -32,17 +32,24 @@ class FormFieldTypeConfiguration
     private $attributes = [];
 
     /**
+     * @var string
+     */
+    private $group;
+
+    /**
      * FormFieldTypeConfiguration constructor.
      *
      * @param string $titleTranslationKey
      * @param string $template
      * @param array $attributes
+     * @param string $group
      */
-    public function __construct($titleTranslationKey, $template, $attributes = [])
+    public function __construct($titleTranslationKey, $template, $attributes = [], $group = '')
     {
         $this->title = $titleTranslationKey;
         $this->template = $template;
         $this->attributes = $attributes;
+        $this->group = $group;
     }
 
     /**
@@ -113,6 +120,30 @@ class FormFieldTypeConfiguration
     public function setAttributes($attributes)
     {
         $this->attributes = $attributes;
+
+        return $this;
+    }
+
+    /**
+     * Get group.
+     *
+     * @return string
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * Set group.
+     *
+     * @param string $group
+     *
+     * @return $this
+     */
+    public function setGroup($group)
+    {
+        $this->group = $group;
 
         return $this;
     }

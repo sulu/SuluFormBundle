@@ -31,7 +31,9 @@ class SpacerType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.spacer',
-            'SuluFormBundle:forms:fields/types/spacer.html.twig'
+            'SuluFormBundle:forms:fields/types/spacer.html.twig',
+            [],
+            'additional'
         );
     }
 

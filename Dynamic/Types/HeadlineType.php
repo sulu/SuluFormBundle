@@ -31,7 +31,9 @@ class HeadlineType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.headline',
-            'SuluFormBundle:forms:fields/types/headline.html.twig'
+            'SuluFormBundle:forms:fields/types/headline.html.twig',
+            [],
+            'additional'
         );
     }
 

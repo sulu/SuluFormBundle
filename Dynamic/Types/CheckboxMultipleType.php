@@ -31,7 +31,9 @@ class CheckboxMultipleType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.checkboxmultiple',
-            'SuluFormBundle:forms:fields/types/checkboxmultiple.html.twig'
+            'SuluFormBundle:forms:fields/types/checkboxmultiple.html.twig',
+            [],
+            'complex'
         );
     }
 
