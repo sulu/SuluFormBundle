@@ -71,6 +71,18 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('delimiter')->defaultValue(PHP_EOL)->end()
                 ->end()
             ->end()
+            ->arrayNode('dynamic_widths')
+                ->prototype('scalar')->end()->defaultValue([
+                    'full' => 'sulu_form.width.full',
+                    'half' => 'sulu_form.width.half',
+                    'one-third' => 'sulu_form.width.one-third',
+                    'two-thirds' => 'sulu_form.width.two-thirds',
+                    'one-quarter' => 'sulu_form.width.one-quarter',
+                    'three-quarters' => 'sulu_form.width.three-quarters',
+                    'one-sixth' => 'sulu_form.width.one-sixth',
+                    'five-sixths' => 'sulu_form.width.five-sixths',
+                ])
+            ->end()
             ->scalarNode('dynamic_default_view')->defaultValue('AppBundle:templates:dynamic')->end()
             ->variableNode('dynamic_lists')->defaultValue([])->end()
             ->arrayNode('ajax_templates')
