@@ -3,6 +3,7 @@
 ## 0.4.0 (unreleased)
 
  - FEATURE     #108    Add widths to bundle configuration
+ - FEATURE     #107    Add title automatically to new added block
  - FEATURE     #106    Add grouped types to admin blocks
  - ENHANCEMENT #105    Add functional api tests
  - FEATURE     #104    Add search to dynamic list
