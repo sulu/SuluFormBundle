@@ -91,7 +91,7 @@ class TemplateController extends Controller
      *
      * @return FormFieldTypeInterface[]
      */
-    public function getSortedTypes($types = [])
+    private function getSortedTypes($types = [])
     {
         /** @var Translator $translator */
         $translator = $this->get('translator');
@@ -103,7 +103,11 @@ class TemplateController extends Controller
         $i = 0;
         foreach ($types as $alias => $type) {
             $translation = $translator->trans($type->getConfiguration()->getTitle(), [], 'backend', $locale);
-            $sortedTypes[$translation . $i] = ['alias' => $alias, 'type' => $type];
+            $group = $type->getConfiguration()->getGroup();
+            $sortedTypes[$group . '_' . $translation . '_' . $i] = [
+                'alias' => $alias,
+                'type' => $type,
+            ];
             ++$i;
         }
 

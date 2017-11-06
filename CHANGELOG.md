@@ -2,6 +2,7 @@
 
 ## 0.4.0 (unreleased)
 
+ - FEATURE     #106    Add grouped types to admin blocks
  - ENHANCEMENT #105    Add functional api tests
  - FEATURE     #104    Add search to dynamic list
  - ENHANCEMENT #103    Add test setup 

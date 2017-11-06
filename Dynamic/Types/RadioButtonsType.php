@@ -32,7 +32,9 @@ class RadioButtonsType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.radiobuttons',
-            'SuluFormBundle:forms:fields/types/radiobuttons.html.twig'
+            'SuluFormBundle:forms:fields/types/radiobuttons.html.twig',
+            [],
+            'complex'
         );
     }
 

@@ -6,6 +6,7 @@
 
 The internal api changed
 
+`Sulu\Bundle\FormBundle\Controller\TemplateController::getSortedTypes` is not longer public available
 POST /api/forms/{id} will return 201 instead of 200 status code.
 DELETE /api/forms/{id} will return 204 no content instead of 200 status code.
 

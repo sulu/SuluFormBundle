@@ -31,7 +31,9 @@ class TextType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.text',
-            'SuluFormBundle:forms:fields/types/text.html.twig'
+            'SuluFormBundle:forms:fields/types/text.html.twig',
+            [],
+            'basic'
         );
     }
 

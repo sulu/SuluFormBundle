@@ -31,7 +31,9 @@ class DropdownMultiple implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.dropdownmultiple',
-            'SuluFormBundle:forms:fields/types/dropdownmultiple.html.twig'
+            'SuluFormBundle:forms:fields/types/dropdownmultiple.html.twig',
+            [],
+            'complex'
         );
     }
 

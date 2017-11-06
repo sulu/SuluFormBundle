@@ -66,13 +66,19 @@
                                  data-type="block"
                                  data-type-config='
                                     [
+                                        {% set groupBefore = null %}
                                         {% for alias, type in types %}
+                                            {% if type.configuration.group != groupBefore and not loop.first %}
+                                            {
+                                                "divider": true
+                                            },{% endif %}
                                             {
                                                 "data": "{{ alias }}",
                                                 "title": "<%= translate('{{ type.configuration.title }}') %>",
                                                 "tpl": "{{ alias }}-{{ blockId }}-tpl"
                                             }
                                             {% if not loop.last %},{% endif %}
+                                            {% set groupBefore = type.configuration.group %}
                                         {% endfor %}
                                     ]'
                                  data-type-min="0"

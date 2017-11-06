@@ -31,7 +31,9 @@ class TextareaType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.textarea',
-            'SuluFormBundle:forms:fields/types/textarea.html.twig'
+            'SuluFormBundle:forms:fields/types/textarea.html.twig',
+            [],
+            'basic'
         );
     }
 
