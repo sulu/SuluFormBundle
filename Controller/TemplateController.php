@@ -51,6 +51,7 @@ class TemplateController extends Controller
                 'types' => $this->getSortedTypes($types),
                 'widths' => $widths,
                 'receiverTypes' => $receiverTypes,
+                'locale' => $request->get('locale', $request->getLocale()),
                 'fallbackEmails' => [
                     'from' => $this->getParameter('sulu_form.mail.from'),
                     'to' => $this->getParameter('sulu_form.mail.to'),

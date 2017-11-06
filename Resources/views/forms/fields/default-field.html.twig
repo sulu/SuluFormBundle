@@ -94,7 +94,7 @@
                                               data-aura-webspace=""
                                               data-aura-locale="<%= options.language %>"
                                               data-validation-required="true"
-                                              data-aura-enter-mode="br"><%= translate('{{ type.configuration.title }}') %></textarea>
+                                              data-aura-enter-mode="br">{{ type.configuration.title|trans({}, 'backend', locale) }}</textarea>
 
                                     <div class="block-content" data-sort-mode-id="{{ blockId }}title<~=index~>"></div>
 
