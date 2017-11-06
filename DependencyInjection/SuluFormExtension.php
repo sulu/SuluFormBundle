@@ -67,6 +67,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sulu_form.mail.template.notify', $config['mail']['templates']['notify']);
         $container->setParameter('sulu_form.mail.template.customer', $config['mail']['templates']['customer']);
         $container->setParameter('sulu_form.ajax_templates', $config['ajax_templates']);
+        $container->setParameter('sulu_form.dynamic_widths', $config['dynamic_widths']);
         $container->setParameter('sulu_form.mailchimp_api_key', $config['mailchimp_api_key']);
         $container->setParameter('sulu_form.dynamic_default_view', $config['dynamic_default_view']);
         $container->setParameter('sulu_form.dynamic_lists.config', $config['dynamic_lists']);

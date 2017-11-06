@@ -30,40 +30,13 @@ class TemplateController extends Controller
      */
     public function formAction(Request $request)
     {
-        $widths = [
-            [
-                'id' => 'full',
-                'name' => 'sulu_form.width.full',
-            ],
-            [
-                'id' => 'half',
-                'name' => 'sulu_form.width.half',
-            ],
-            [
-                'id' => 'one-third',
-                'name' => 'sulu_form.width.one-third',
-            ],
-            [
-                'id' => 'two-thirds',
-                'name' => 'sulu_form.width.two-thirds',
-            ],
-            [
-                'id' => 'one-quarter',
-                'name' => 'sulu_form.width.one-quarter',
-            ],
-            [
-                'id' => 'three-quarters',
-                'name' => 'sulu_form.width.three-quarters',
-            ],
-            [
-                'id' => 'one-sixth',
-                'name' => 'sulu_form.width.one-sixth',
-            ],
-            [
-                'id' => 'five-sixths',
-                'name' => 'sulu_form.width.five-sixths',
-            ],
-        ];
+        $widths = [];
+        foreach ($this->getParameter('sulu_form.dynamic_widths') as $id => $name) {
+            $widths[] = [
+                'id' => $id,
+                'name' => $name,
+            ];
+        }
 
         $types = $this->get('sulu_form.dynamic.form_field_type_pool')->all();
         $receiverTypes = [
