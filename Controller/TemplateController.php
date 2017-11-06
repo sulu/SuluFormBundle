@@ -52,6 +52,7 @@ class TemplateController extends Controller
                 'widths' => $widths,
                 'receiverTypes' => $receiverTypes,
                 'locale' => $request->get('locale', $request->getLocale()),
+                'autoTitle' => $this->getParameter('sulu_form.dynamic_auto_title'),
                 'fallbackEmails' => [
                     'from' => $this->getParameter('sulu_form.mail.from'),
                     'to' => $this->getParameter('sulu_form.mail.to'),

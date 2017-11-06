@@ -71,6 +71,7 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('delimiter')->defaultValue(PHP_EOL)->end()
                 ->end()
             ->end()
+            ->booleanNode('dynamic_auto_title')->defaultValue(true)->end()
             ->arrayNode('dynamic_widths')
                 ->prototype('scalar')->end()->defaultValue([
                     'full' => 'sulu_form.width.full',
