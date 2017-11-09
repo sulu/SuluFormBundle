@@ -11,13 +11,11 @@
     },
     "require-dev": {
         "jackalope/jackalope-doctrine-dbal": "^1.2.5",
-        "symfony/monolog-bundle": "2.4.*",
+        "symfony/monolog-bundle": "^2.8.7 || ^3.0",
         "massive/search-bundle": "@dev",
-        "zendframework/zend-stdlib": "2.3.1 as 2.0.0rc5",
-        "zendframework/zendsearch": "2.*@dev",
-        "doctrine/doctrine-bundle": "1.4.*",
-        "gedmo/doctrine-extensions": "^2.3.1",
-        "friendsofsymfony/rest-bundle": "^1.5",
+        "zendframework/zend-stdlib": "~2.3",
+        "zendframework/zendsearch": "@dev",
+        "doctrine/doctrine-bundle": "^1.4",
         "phpunit/phpunit": ">=4.8, <6.0"
     },
     "keywords": [
