@@ -2,6 +2,7 @@
 
 ## 0.4.0 (unreleased)
 
+ - FEATURE     #109    Add symfony 3 to test runs
  - FEATURE     #108    Add widths to bundle configuration
  - FEATURE     #107    Add title automatically to new added block
  - FEATURE     #106    Add grouped types to admin blocks
