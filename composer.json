@@ -17,7 +17,6 @@
         "zendframework/zendsearch": "@dev",
         "doctrine/doctrine-bundle": "^1.4",
         "phpunit/phpunit": ">=4.8, <6.0",
-        "phpstan/phpstan": "^0.8.5",
         "excelwebzone/recaptcha-bundle": "^1.4.2",
         "drewm/mailchimp-api": "^2.2"
     },
