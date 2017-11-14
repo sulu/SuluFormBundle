@@ -47,6 +47,8 @@ class Checksum
      * @param string $typeId
      * @param string $formId
      * @param string $formName
+     *
+     * @return bool
      */
     public function check($checksum, $type, $typeId, $formId, $formName)
     {

@@ -62,7 +62,7 @@ class DynamicFormType extends AbstractType
 
         if (!$translation = $formEntity->getTranslation($locale)) {
             throw new \Exception(
-                sprintf('The form with the ID "%s" does not exist for the locale "%"!', $formEntity->getId(), $locale)
+                sprintf('The form with the ID "%s" does not exist for the locale "%s"!', $formEntity->getId(), $locale)
             );
         }
 

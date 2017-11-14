@@ -16,7 +16,13 @@
         "zendframework/zend-stdlib": "~2.3",
         "zendframework/zendsearch": "@dev",
         "doctrine/doctrine-bundle": "^1.4",
-        "phpunit/phpunit": ">=4.8, <6.0"
+        "phpunit/phpunit": ">=4.8, <6.0",
+        "excelwebzone/recaptcha-bundle": "^1.4.2",
+        "drewm/mailchimp-api": "^2.2"
+    },
+    "suggest": {
+        "excelwebzone/recaptcha-bundle": "Allows to add recaptcha to any dynamic form",
+        "drewm/mailchimp-api": "Allows to add a newsletter subscription over mailchimp to any dynamic form"
     },
     "keywords": [
         "sulu",

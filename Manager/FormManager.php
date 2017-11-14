@@ -31,7 +31,7 @@ class FormManager
     /**
      * @var FormRepository
      */
-    protected $repository;
+    protected $formRepository;
 
     /**
      * EventManager constructor.

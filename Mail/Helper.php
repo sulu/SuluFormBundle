@@ -93,8 +93,8 @@ class Helper implements HelperInterface
         if (count($attachments) > 0) {
             foreach ($attachments as $file) {
                 if ($file instanceof \SplFileInfo) {
-                    $path = $file->getPathName();
-                    $name = $file->getFileName();
+                    $path = $file->getPathname();
+                    $name = $file->getFilename();
 
                     // if uploadedfile get original name
                     if ($file instanceof UploadedFile) {

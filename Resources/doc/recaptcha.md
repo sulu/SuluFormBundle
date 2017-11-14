@@ -17,7 +17,7 @@ First of all you need to install ewz's RecaptchaBundle, if this bundle is missin
 or
 
 ```bash
-composer require excelwebzone/recaptcha-bundle:^1.4
+composer require excelwebzone/recaptcha-bundle:^1.4.2
 ```
 
 **Register Bundle in `app/AbstractKernel.php`**
