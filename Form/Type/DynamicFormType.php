@@ -90,7 +90,7 @@ class DynamicFormType extends AbstractType
             }
 
             $nextField = null;
-            $nextWidth = 0;
+            $nextWidth = 'full';
             if (isset($fields[$key + 1])) {
                 $nextWidth = $fields[$key + 1]->getWidth();
             }
@@ -144,7 +144,19 @@ class DynamicFormType extends AbstractType
         ]);
 
         // Add submit button.
-        $builder->add('submit', SubmitType::class, ['label' => $translation->getSubmitLabel()]);
+        $builder->add(
+            'submit',
+            SubmitType::class,
+            [
+                'label' => $translation->getSubmitLabel(),
+                'attr' => [
+                    'width' => 'full',
+                    'widthNumber' => $this->getItemWidthNumber('full'),
+                    'lastWidth' => true,
+                    'placeholder' => '',
+                ],
+            ]
+        );
     }
 
     /**
@@ -236,7 +248,7 @@ class DynamicFormType extends AbstractType
             return true;
         }
 
-        // if next has no place in current row current is last width
+        // if next item has no space in current row the current item is last
         if (($currentWidthValue % 12) + $nextWidthNumber > 12) {
             $currentWidthValue += 12 - $currentWidthValue % 12;
 
