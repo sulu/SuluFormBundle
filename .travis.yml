@@ -22,8 +22,7 @@ before_install:
   - phpenv config-add Tests/travis.php.ini
 
 install:
-  - if [[ $PHPSTAN == 'true' ]]; then composer require --dev phpstan/phpstan $COMPOSER_FLAGS ; fi
-  - travis_retry composer update $COMPOSER_FLAGS
+  - if [[ $PHPSTAN == 'true' ]]; then travis_retry composer require --dev phpstan/phpstan $COMPOSER_FLAGS ; else travis_retry composer update $COMPOSER_FLAGS ; fi
   - composer info -i
   - ./Tests/app/console doctrine:database:create
   - ./Tests/app/console doctrine:schema:update --force
