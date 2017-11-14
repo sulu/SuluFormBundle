@@ -9,6 +9,12 @@
     {{ block('sulu_form_row_end') }}
 {%- endblock -%}
 
+{%- block button_row -%}
+    {{ block('sulu_form_row_start') }}
+    {{- form_widget(form) -}}
+    {{ block('sulu_form_row_end') }}
+{%- endblock button_row -%}
+
 {# Output label as HTML #}
 {%- block form_label -%}
     {%- if label is not same as(false) -%}
