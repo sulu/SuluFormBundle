@@ -90,7 +90,7 @@ class DynamicFormType extends AbstractType
             }
 
             $nextField = null;
-            $nextWidth = 0;
+            $nextWidth = 'full';
             if (isset($fields[$key + 1])) {
                 $nextWidth = $fields[$key + 1]->getWidth();
             }
