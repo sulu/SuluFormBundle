@@ -4,16 +4,16 @@ language: php
 
 cache:
   directories:
-    - "$HOME/.composer/cache"
+    - "$HOME/.composer/cache/files"
 
 matrix:
   include:
     - php: 5.5
-      # env:
-      #   - COMPOSER_FLAGS="--prefer-lowest --prefer-dist --no-interaction"
+      env:
+        - COMPOSER_FLAGS="--prefer-dist --no-interaction" # --prefer-lowest TODO FIXME sulu 1.3 issue
     - php: 7.0
       env:
-      # - COMPOSER_FLAGS="--prefer-dist --no-interaction"
+        - COMPOSER_FLAGS="--prefer-dist --no-interaction"
         - CODE_COVERAGE=true
         - PHPSTAN=true
 
@@ -22,7 +22,7 @@ before_install:
   - phpenv config-add Tests/travis.php.ini
 
 install:
-  - if [[ $PHPSTAN == 'true' ]]; then composer require --dev phpstan/phpstan ; fi
+  - if [[ $PHPSTAN == 'true' ]]; then composer require --dev phpstan/phpstan $COMPOSER_FLAGS ; fi
   - travis_retry composer update $COMPOSER_FLAGS
   - composer info -i
   - ./Tests/app/console doctrine:database:create
