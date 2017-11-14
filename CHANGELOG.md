@@ -2,6 +2,7 @@
 
 ## 0.4.0 (unreleased)
 
+ - FEATURE     #117    Add phpstan analyzer with level 2
  - FEATURE     #116    Fixed unkown parameter secret by using kernel.secret parameter
  - FEATURE     #115    Fixed grid width around submit button
  - FEATURE     #114    Fixed grid row around submit button
