@@ -114,7 +114,7 @@ class FormConfiguration implements FormConfigurationInterface
     /**
      * Set fileFields.
      *
-     * @param \int[] $fileFields
+     * @param int[] $fileFields
      *
      * @return $this
      */

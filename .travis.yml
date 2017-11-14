@@ -28,6 +28,7 @@ install:
 
 script:
   - ./vendor/bin/phpunit --coverage-clover=coverage.clover
+  - ./vendor/bin/phpstan analyse ./ --level 2 -c phpstan.neon
 
 after_script:
   - if [[ $CODE_COVERAGE == 'true' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi

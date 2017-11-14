@@ -42,21 +42,21 @@ interface MailConfigurationInterface
     /**
      * Get to addresses.
      *
-     * @return array
+     * @return string|array
      */
     public function getTo();
 
     /**
      * Get cc addresses.
      *
-     * @return array
+     * @return string|array
      */
     public function getCc();
 
     /**
      * Get bcc addresses.
      *
-     * @return array
+     * @return string|array
      */
     public function getBcc();
 

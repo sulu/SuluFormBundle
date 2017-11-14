@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Tests\Unit\Configuration;
+namespace Sulu\Bundle\FormBundle\Tests\Unit\Configuration;
 
 use Sulu\Bundle\FormBundle\Configuration\FormConfigurationFactory;
 use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;

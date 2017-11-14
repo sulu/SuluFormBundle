@@ -21,7 +21,7 @@ use Sulu\Bundle\AdminBundle\Navigation\DisplayCondition;
 class DynamicListNavigationProvider implements ContentNavigationProviderInterface
 {
     /**
-     * @var string
+     * @var array
      */
     private $config;
 

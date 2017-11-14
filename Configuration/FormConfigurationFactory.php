@@ -115,7 +115,7 @@ class FormConfigurationFactory
      * @param string $locale
      * @param array $attributes
      *
-     * @return MailConfiguration
+     * @return MailConfiguration|null
      */
     private function buildAdminMailConfigurationByTypeAndData(AbstractType $type, $formData, $locale, $attributes)
     {
@@ -144,7 +144,7 @@ class FormConfigurationFactory
      * @param string $locale
      * @param array $attributes
      *
-     * @return MailConfiguration
+     * @return MailConfiguration|null
      */
     private function buildWebsiteMailConfigurationByTypeAndData(AbstractType $type, $formData, $locale, $attributes)
     {
