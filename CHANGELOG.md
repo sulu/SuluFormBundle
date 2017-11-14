@@ -2,6 +2,7 @@
 
 ## 0.4.0 (unreleased)
 
+ - FEATURE     #116    Fixed unkown parameter secret by using kernel.secret parameter
  - FEATURE     #115    Fixed grid width around submit button
  - FEATURE     #114    Fixed grid row around submit button
  - FEATURE     #113    Fixed last width when next has no place

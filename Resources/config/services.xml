@@ -152,7 +152,7 @@
 
         <!-- Checksum -->
         <service id="sulu_form.checksum" class="Sulu\Bundle\FormBundle\Dynamic\Checksum">
-            <argument>%secret%</argument>
+            <argument>%kernel.secret%</argument>
         </service>
     </services>
 </container>
