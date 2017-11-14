@@ -2,6 +2,7 @@
 
 ## 0.4.0 (unreleased)
 
+ - FEATURE     #114    Fixed grid around submit button
  - FEATURE     #113    Fixed last width when next has no place
  - FEATURE     #109    Add symfony 3 to test runs
  - FEATURE     #108    Add widths to bundle configuration
