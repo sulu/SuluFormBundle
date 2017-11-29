@@ -4,7 +4,7 @@
     "type": "sulu-bundle",
     "require": {
         "symfony/symfony": "^2.8.7 || ^3.0",
-        "symfony/swiftmailer-bundle": "~2.3",
+        "symfony/swiftmailer-bundle": "^2.3 || ^3.0",
         "doctrine/orm": "^2.5.3",
         "php": "^5.5 || ^7.0",
         "sulu/sulu": "~1.3"
