@@ -1,5 +1,7 @@
 # Changelog
 
+ - HOTFIX     #120    Fix database update for 0.2 version in UPGRADE.md
+
 ## 0.3.2
 
  - HOTFIX     #102    Fixed error when form is loaded without structure in request
