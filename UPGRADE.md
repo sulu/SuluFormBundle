@@ -89,6 +89,7 @@ ALTER TABLE fo_dynamics ADD CONSTRAINT FK_EC8AF03030D07CD5 FOREIGN KEY (idUsersC
 CREATE INDEX IDX_EC8AF030DBF11E1D ON fo_dynamics (idUsersCreator);
 CREATE INDEX IDX_EC8AF03030D07CD5 ON fo_dynamics (idUsersChanger);
 ALTER TABLE fo_dynamics ADD typeName VARCHAR(255) DEFAULT NULL;
+UPDATE `fo_dynamics` SET `type` = 'page' WHERE `type` = '';
 ```
 
 or run

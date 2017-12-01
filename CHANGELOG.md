@@ -14,6 +14,7 @@
  - ENHANCEMENT #105    Add functional api tests
  - FEATURE     #104    Add search to dynamic list
  - ENHANCEMENT #103    Add test setup 
+ - HOTFIX      #120    Fix database update for 0.2 version in UPGRADE.md
 
 ## 0.3.2
 
