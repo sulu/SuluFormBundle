@@ -110,7 +110,7 @@
             </trans-unit>
             <trans-unit id="28">
                 <source>sulu_form.type.headline</source>
-                <target>-Manchette-</target>
+                <target>Manchette</target>
             </trans-unit>
             <trans-unit id="29">
                 <source>sulu_form.type.attachment</source>
@@ -138,11 +138,11 @@
             </trans-unit>
             <trans-unit id="35">
                 <source>sulu_form.type.freetext</source>
-                <target>-Texte libre-</target>
+                <target>Texte libre</target>
             </trans-unit>
             <trans-unit id="36">
                 <source>sulu_form.type.spacer</source>
-                <target>-Espace-</target>
+                <target>Espace</target>
             </trans-unit>
             <trans-unit id="37">
                 <source>sulu_form.type.mailchimp</source>
