@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.4.0 (unreleased)
+## 1.0.0 (unreleased)
+
+ - FEATURE     #120    Fixed date field in list view
+
+## 0.4.0
 
  - FEATURE     #118    Add phpstan analyzer with level 2
  - FEATURE     #116    Fixed unkown parameter secret by using kernel.secret parameter
