@@ -2,6 +2,8 @@
 
 ## 1.0.0-RC1 (unreleased)
 
+ - BUGFIX      #126    Fixed handle of medias in email template
+ - BUGFIX      #125    Fixed attachment for medias in email
  - FEATURE     #124    Fixed date field in list view
  - ENHANCEMENT #122    Update french translations
 

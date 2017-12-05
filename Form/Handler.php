@@ -14,6 +14,7 @@ namespace Sulu\Bundle\FormBundle\Form;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sulu\Bundle\FormBundle\Configuration\FormConfigurationInterface;
 use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;
+use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Event\FormEvent;
 use Sulu\Bundle\FormBundle\Mail;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
@@ -157,9 +158,21 @@ class Handler implements HandlerInterface
      */
     private function sendMail(FormInterface $form, MailConfigurationInterface $configuration)
     {
+        // TODO FIXME this is currently the only way to get the medias to the email view.
+        $additionalData = [];
+        $formData = $form->getData();
+        if ($formData instanceof Dynamic) {
+            $additionalData = [
+                'formEntity' => $formData->getForm()->serializeForLocale($formData->getLocale(), $formData),
+            ];
+        }
+
         $body = $this->templating->render(
             $configuration->getTemplate(),
-            $configuration->getTemplateAttributes()
+            array_merge(
+                $configuration->getTemplateAttributes(),
+                $additionalData
+            )
         );
 
         $this->mailHelper->sendMail(
