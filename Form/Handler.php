@@ -44,11 +44,6 @@ class Handler implements HandlerInterface
     protected $eventDispatcher;
 
     /**
-     * @var array
-     */
-    protected $attributes;
-
-    /**
      * @var MediaManager
      */
     protected $mediaManager;
@@ -174,7 +169,7 @@ class Handler implements HandlerInterface
             $configuration->getFrom(),
             true,
             $configuration->getReplyTo(),
-            $configuration->getAddAttachments() ? $this->attributes : [],
+            $configuration->getAddAttachments() ? $this->attachments : [],
             $configuration->getCc(),
             $configuration->getBcc()
         );
