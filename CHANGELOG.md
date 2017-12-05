@@ -1,8 +1,9 @@
 # Changelog
 
-## 1.0.0 (unreleased)
+## 1.0.0-RC1 (unreleased)
 
- - FEATURE     #120    Fixed date field in list view
+ - FEATURE     #124    Fixed date field in list view
+ - ENHANCEMENT #122    Update french translations
 
 ## 0.4.0
 
