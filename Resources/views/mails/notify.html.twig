@@ -7,7 +7,7 @@
             {% set mediaUrls = [] %}
             {% for mediaId in field.value %}
                 {% set media = sulu_resolve_media(mediaId, app.request.locale) %}
-                {% set mediaUrls = mediaUrls|merge(['<a href="' ~ media.url ~ '">' ~ media.title ~ '</a>']) %}
+                {% set mediaUrls = mediaUrls|merge(['<a href="' ~ absolute_url(media.url) ~ '">' ~ media.title ~ '</a>']) %}
             {% endfor %}
             {% set value %}
                 {{ mediaUrls|join(', ')|raw  }}
