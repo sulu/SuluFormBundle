@@ -4,15 +4,15 @@
         <body>
             <trans-unit id="1">
                 <source>sulu_form.form</source>
-                <target>Form de Baguette</target>
+                <target>Formulaire</target>
             </trans-unit>
             <trans-unit id="2">
                 <source>sulu_form.forms.title</source>
-                <target>Form de Baguette</target>
+                <target>Formulaire</target>
             </trans-unit>
             <trans-unit id="3">
                 <source>sulu_form.forms.new_form</source>
-                <target>Nouveau Baguette de Form</target>
+                <target>Nouveau formulaire</target>
             </trans-unit>
             <trans-unit id="4">
                 <source>sulu_form.please_choose</source>
@@ -20,7 +20,7 @@
             </trans-unit>
             <trans-unit id="5">
                 <source>sulu_form.send_attachments</source>
-                <target>Send attachments?</target>
+                <target>Envoi des pièces jointes ?</target>
             </trans-unit>
             <trans-unit id="6">
                 <source>sulu_form.created</source>
@@ -28,11 +28,11 @@
             </trans-unit>
             <trans-unit id="7">
                 <source>sulu_form.deactivate_notify</source>
-                <target>déactiver les mails d'information</target>
+                <target>Désactiver les mails d'information</target>
             </trans-unit>
             <trans-unit id="8">
                 <source>sulu_form.deactivate_customer</source>
-                <target>déactiver les mails de confirmation</target>
+                <target>Désactiver les mails de confirmation</target>
             </trans-unit>
             <trans-unit id="9">
                 <source>sulu_form.user_as_reply_to</source>
@@ -98,11 +98,11 @@
             </trans-unit>
             <trans-unit id="25">
                 <source>sulu_form.type.text</source>
-                <target>Simple Textfield</target>
+                <target>Texte simple</target>
             </trans-unit>
             <trans-unit id="26">
                 <source>sulu_form.type.textarea</source>
-                <target>Multiline Textfield</target>
+                <target>Texte multiligne</target>
             </trans-unit>
             <trans-unit id="27">
                 <source>sulu_form.type.date</source>
@@ -110,39 +110,39 @@
             </trans-unit>
             <trans-unit id="28">
                 <source>sulu_form.type.headline</source>
-                <target>Gros titre</target>
+                <target>Manchette</target>
             </trans-unit>
             <trans-unit id="29">
                 <source>sulu_form.type.attachment</source>
-                <target>Attachement</target>
+                <target>Pièce jointe</target>
             </trans-unit>
             <trans-unit id="30">
                 <source>sulu_form.type.checkbox</source>
-                <target>Checkbox</target>
+                <target>Case à cocher</target>
             </trans-unit>
             <trans-unit id="31">
                 <source>sulu_form.type.checkboxmultiple</source>
-                <target>Checkboxes</target>
+                <target>Cases à cocher</target>
             </trans-unit>
             <trans-unit id="32">
                 <source>sulu_form.type.dropdown</source>
-                <target>Select</target>
+                <target>Choix unique</target>
             </trans-unit>
             <trans-unit id="33">
                 <source>sulu_form.type.dropdownmultiple</source>
-                <target>Select (multiple)</target>
+                <target>Choix multiples</target>
             </trans-unit>
             <trans-unit id="34">
                 <source>sulu_form.type.radiobuttons</source>
-                <target>Radio Buttons</target>
+                <target>Boutons radio</target>
             </trans-unit>
             <trans-unit id="35">
                 <source>sulu_form.type.freetext</source>
-                <target>Free Text</target>
+                <target>Texte libre</target>
             </trans-unit>
             <trans-unit id="36">
                 <source>sulu_form.type.spacer</source>
-                <target>Spacer</target>
+                <target>Espace</target>
             </trans-unit>
             <trans-unit id="37">
                 <source>sulu_form.type.mailchimp</source>
@@ -154,21 +154,21 @@
             </trans-unit>
             <trans-unit id="39">
                 <source>sulu_form.forms</source>
-                <target>Form de Baguettes</target>
+                <target>Formulaires</target>
             </trans-unit>
 
             <!-- Form -->
             <trans-unit id="49">
                 <source>sulu_form.forms.save.error</source>
-                <target>Formular was not saved</target>
+                <target>Le formulaire n'a pas été sauvegardé</target>
             </trans-unit>
             <trans-unit id="50">
                 <source>sulu_form.title</source>
-                <target>Title</target>
+                <target>Titre</target>
             </trans-unit>
             <trans-unit id="51">
                 <source>sulu_form.email_configuration</source>
-                <target>E-Mail Configuration</target>
+                <target>Configuration de l'email</target>
             </trans-unit>
             <trans-unit id="52">
                 <source>sulu_form.subject</source>
@@ -176,7 +176,7 @@
             </trans-unit>
             <trans-unit id="53">
                 <source>sulu_form.from_email</source>
-                <target>Expéditeur E-Mail</target>
+                <target>Expéditeur de l'email</target>
             </trans-unit>
             <trans-unit id="54">
                 <source>sulu_form.from_name</source>
@@ -184,15 +184,15 @@
             </trans-unit>
             <trans-unit id="55">
                 <source>sulu_form.to_email</source>
-                <target>Récepteur E-Mail</target>
+                <target>Destinataire de l'email</target>
             </trans-unit>
             <trans-unit id="56">
                 <source>sulu_form.to_name</source>
-                <target>Nom du récepteur</target>
+                <target>Nom du destinataire</target>
             </trans-unit>
             <trans-unit id="57">
                 <source>sulu_form.form_fields</source>
-                <target>Les champs de formulaire</target>
+                <target>Les champs du formulaire</target>
             </trans-unit>
             <trans-unit id="58">
                 <source>sulu_form.required</source>
@@ -204,11 +204,11 @@
             </trans-unit>
             <trans-unit id="60">
                 <source>sulu_form.default</source>
-                <target>Défaut</target>
+                <target>par défaut</target>
             </trans-unit>
             <trans-unit id="61">
                 <source>sulu_form.values</source>
-                <target>Values</target>
+                <target>Valeur</target>
             </trans-unit>
             <trans-unit id="62">
                 <source>sulu_form.width</source>
@@ -220,15 +220,15 @@
             </trans-unit>
             <trans-unit id="102">
                 <source>sulu_form.submit_label</source>
-                <target>Bouton Légende Envoyer</target>
+                <target>Légende du bouton "envoyer"</target>
             </trans-unit>
             <trans-unit id="64">
                 <source>sulu_form.success_text</source>
-                <target>Confirmation</target>
+                <target>Texte de confirmation d'envoi du mail</target>
             </trans-unit>
             <trans-unit id="65">
                 <source>sulu_form.website_configuration</source>
-                <target>Website Configuration</target>
+                <target>Website configuration</target>
             </trans-unit>
             <trans-unit id="66">
                 <source>sulu_form.mailchimp_list</source>
@@ -236,7 +236,7 @@
             </trans-unit>
             <trans-unit id="67">
                 <source>sulu_form.birthday</source>
-                <target>Birthday</target>
+                <target>Anniversaire</target>
             </trans-unit>
             <trans-unit id="68">
                 <source>sulu_form.short_title</source>
@@ -254,45 +254,45 @@
             </trans-unit>
             <trans-unit id="71">
                 <source>sulu_form.width.half</source>
-                <target>Moitié</target>
+                <target>1/2</target>
             </trans-unit>
             <trans-unit id="72">
                 <source>sulu_form.width.one-quarter</source>
-                <target>Un quart</target>
+                <target>1/4</target>
             </trans-unit>
             <trans-unit id="73">
                 <source>sulu_form.width.three-quarters</source>
-                <target>Trois quarts</target>
+                <target>3/4</target>
             </trans-unit>
             <trans-unit id="74">
                 <source>sulu_form.width.one-third</source>
-                <target>un tiers</target>
+                <target>1/3</target>
             </trans-unit>
             <trans-unit id="75">
                 <source>sulu_form.width.two-thirds</source>
-                <target>Deux tiers</target>
+                <target>2/3</target>
             </trans-unit>
             <trans-unit id="76">
                 <source>sulu_form.width.one-sixth</source>
-                <target>un sixième</target>
+                <target>1/6</target>
             </trans-unit>
             <trans-unit id="77">
                 <source>sulu_form.width.five-sixths</source>
-                <target>cinq sixièmes</target>
+                <target>5/6</target>
             </trans-unit>
 
             <!-- Attachment Types -->
             <trans-unit id="80">
                 <source>sulu_form.attachment_restrict</source>
-                <target>Restrict file types</target>
+                <target>Type de fichiers</target>
             </trans-unit>
             <trans-unit id="81">
                 <source>sulu_form.attachment_restrict.hint</source>
-                <target>No choice will allow all file types.</target>
+                <target>Aucun choix permet de charger tout type de fichiers.</target>
             </trans-unit>
             <trans-unit id="82">
                 <source>sulu_form.attachment.image</source>
-                <target>Images</target>
+                <target>Image</target>
             </trans-unit>
             <trans-unit id="83">
                 <source>sulu_form.attachment.audio</source>
@@ -300,17 +300,17 @@
             </trans-unit>
             <trans-unit id="84">
                 <source>sulu_form.attachment.video</source>
-                <target>Videos</target>
+                <target>Vidéo</target>
             </trans-unit>
             <trans-unit id="86">
                 <source>sulu_form.attachment_max</source>
-                <target>Maximale amount</target>
+                <target>Poids maximal autorisé</target>
             </trans-unit>
 
             <!-- Receivers -->
             <trans-unit id="90">
                 <source>sulu_form.receivers</source>
-                <target>Récepteur</target>
+                <target>Destinataire</target>
             </trans-unit>
             <trans-unit id="91">
                 <source>sulu_form.receiver.to</source>
@@ -322,7 +322,7 @@
             </trans-unit>
             <trans-unit id="93">
                 <source>sulu_form.receiver.bcc</source>
-                <target>BCC</target>
+                <target>CCI</target>
             </trans-unit>
 
             <!-- CSV Export -->
@@ -338,7 +338,7 @@
             <!-- Tabs -->
             <trans-unit id="105">
                 <source>sulu_form.navigation.data</source>
-                <target>Data</target>
+                <target>Données</target>
             </trans-unit>
         </body>
     </file>
