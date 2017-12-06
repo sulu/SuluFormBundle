@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0-RC2
+
+ - BUGFIX      #130    Fixed csv export for big results
+
 ## 1.0.0-RC1
 
  - BUGFIX      #126    Fixed handle of medias in email template
