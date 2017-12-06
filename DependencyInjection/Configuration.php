@@ -89,6 +89,9 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('ajax_templates')
                 ->prototype('scalar')->end()->defaultValue([])
             ->end()
+            ->arrayNode('dynamic_disabled_types')
+                ->prototype('scalar')->end()->defaultValue([])
+            ->end()
         ;
 
         return $treeBuilder;
