@@ -4,16 +4,9 @@ namespace Sulu\Bundle\FormBundle\DependencyInjection\CompilerPass;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
 
 class RemoveTaggedServiceCollectorCompilerPass implements CompilerPassInterface
 {
-    
-    /**
-     * @var string
-     */
-    private $serviceId;
-
     /**
      * @var string
      */
@@ -60,7 +53,6 @@ class RemoveTaggedServiceCollectorCompilerPass implements CompilerPassInterface
                     $container->removeDefinition($id);
                 }                
             }
-        };
-
+        }
     }
 }
