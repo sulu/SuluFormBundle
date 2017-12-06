@@ -15,7 +15,7 @@ class RemoveTaggedServiceCollectorCompilerPass implements CompilerPassInterface
      * @var string
      */
     private $aliasAttribute;
-    
+
     /**
      * @var string
      */
@@ -42,8 +42,8 @@ class RemoveTaggedServiceCollectorCompilerPass implements CompilerPassInterface
         $disabledSerivcesAliases = $container->getParameter($this->disableParam);
         $taggedServices = $container->findTaggedServiceIds($this->tagName);
 
-        foreach ($taggedServices as $id => $attributes) {
-            
+        foreach($taggedServices as $id => $attributes) {
+
             if(isset($attributes[0][$this->aliasAttribute]) 
                     && in_array($attributes[0][$this->aliasAttribute], $disabledSerivcesAliases)) {
                 if ($container->hasDefinition($id)) {
