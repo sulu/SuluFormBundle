@@ -140,10 +140,10 @@ sulu_form:
         - street
         - zip
 ```
-Aliases can be found by checking the services definitions:
-- [types.xml](https://github.com/sulu/SuluFormBundle/tree/master/Resources/config/types.xml).
-- [type_mailchimp.xml](https://github.com/sulu/SuluFormBundle/tree/master/Resources/config/type_mailchimp.xml).
-- [type_recaptcha.xml](https://github.com/sulu/SuluFormBundle/tree/master/Resources/config/type_recaptcha.xml).
+Aliases can be found by executing the following command:
+```bash
+php bin/adminconsole debug:container --tag=sulu_form.dynamic.type
+```
 
 ### Implement Form into a custom module:
 
