@@ -140,7 +140,7 @@ sulu_form:
         - street
         - zip
 ```
-Aliases can be found by executing the following command:
+Aliases can be found by running the following command:
 ```bash
 php bin/adminconsole debug:container --tag=sulu_form.dynamic.type
 ```
