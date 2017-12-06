@@ -65,7 +65,7 @@ class DynamicListFactory implements DynamicListFactoryInterface
                 $title,
                 false,
                 true,
-                'date' == $field->getType() ? 'date' : '',
+                '',
                 '',
                 '',
                 false // not sortable

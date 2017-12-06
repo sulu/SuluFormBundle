@@ -316,6 +316,7 @@ class FormConfigurationFactory
     private function getTemplateAttributesFromDynamic(Dynamic $dynamic)
     {
         return [
+            // TODO FIXME this is currently overwritten in RequestListener to get the medias correctly for emails.
             'formEntity' => $dynamic->getForm()->serializeForLocale($dynamic->getLocale(), $dynamic),
         ];
     }

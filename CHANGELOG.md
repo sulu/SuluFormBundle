@@ -1,6 +1,13 @@
 # Changelog
 
-## 0.4.0 (unreleased)
+## 1.0.0-RC1
+
+ - BUGFIX      #126    Fixed handle of medias in email template
+ - BUGFIX      #125    Fixed attachment for medias in email
+ - FEATURE     #124    Fixed date field in list view
+ - ENHANCEMENT #122    Update french translations
+
+## 0.4.0
 
  - FEATURE     #118    Add phpstan analyzer with level 2
  - FEATURE     #116    Fixed unkown parameter secret by using kernel.secret parameter
