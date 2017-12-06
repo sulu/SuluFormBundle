@@ -56,7 +56,6 @@ class RemoveTaggedServiceCollectorCompilerPass implements CompilerPassInterface
             if (isset($attributes[0][$this->aliasAttribute])
                     && in_array($attributes[0][$this->aliasAttribute], $disabledSerivcesAliases)) {
                 if ($container->hasDefinition($id)) {
-                    $container->getDefinition($id)->setTags([]);
                     $container->removeDefinition($id);
                 }
             }

@@ -126,6 +126,25 @@ sulu_form:
 
 **Now a tab should be visible with a list you can export**
 
+## Disable field type
+
+To disable fields type available in the form, adding the following lines to the configuration.
+Add the tag aliases of the fields type you want to disable.
+Pay attention to not disable field type already in use in your forms otherwise it will break
+
+```yml
+sulu_form:
+    dynamic_disable_types:
+        - firstName
+        - lastName
+        - street
+        - zip
+```
+Aliases can be found by checking the services definitions:
+- [types.xml](https://github.com/sulu/SuluFormBundle/tree/master/Resources/config/types.xml).
+- [type_mailchimp.xml](https://github.com/sulu/SuluFormBundle/tree/master/Resources/config/type_mailchimp.xml).
+- [type_recaptcha.xml](https://github.com/sulu/SuluFormBundle/tree/master/Resources/config/type_recaptcha.xml).
+
 ### Implement Form into a custom module:
 
  - Implement a Provider for your Module with `TitleProviderInterface`.
