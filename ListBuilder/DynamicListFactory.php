@@ -91,7 +91,9 @@ class DynamicListFactory implements DynamicListFactoryInterface
         $entries = [];
 
         foreach ($dynamics as $dynamic) {
-            $entries = array_merge($entries, $this->getBuilder($builder)->build($dynamic, $locale));
+            foreach ($this->getBuilder($builder)->build($dynamic, $locale) as $entry) {
+                $entries[] = $entry;
+            }
         }
 
         return $entries;
