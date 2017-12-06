@@ -1,5 +1,4 @@
 <?php
- 
 namespace Sulu\Bundle\FormBundle\DependencyInjection\CompilerPass;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -21,8 +20,7 @@ class RemoveTaggedServiceCollectorCompilerPass implements CompilerPassInterface
      * @var string
      */
     private $disableParam;
-    
-    
+
     /**
      * @param string $serviceId
      * @param string $tagName
@@ -47,11 +45,11 @@ class RemoveTaggedServiceCollectorCompilerPass implements CompilerPassInterface
         foreach ($taggedServices as $id => $attributes) {
             
             if(isset($attributes[0][$this->aliasAttribute]) 
-                    && in_array($attributes[0][$this->aliasAttribute],$disabledSerivcesAliases)) {
+                    && in_array($attributes[0][$this->aliasAttribute], $disabledSerivcesAliases)) {
                 if ($container->hasDefinition($id)) {
                     $container->getDefinition($id)->setTags([]);
                     $container->removeDefinition($id);
-                }                
+                }
             }
         }
     }
