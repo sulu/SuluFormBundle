@@ -184,7 +184,7 @@ define(['jquery'], function ($) {
                     instanceName: this.instanceName,
                     url: constants.endPointUrl + queryString,
                     resultKey: 'dynamics',
-                    searchFields: ['email', 'firstName', 'lastName'],
+                    searchFields: ['id', 'email', 'firstName', 'lastName'],
                     viewOptions: {
                         table: {
                             selectItem: false,

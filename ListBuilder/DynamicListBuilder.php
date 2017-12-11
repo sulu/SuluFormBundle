@@ -84,10 +84,6 @@ class DynamicListBuilder implements DynamicListBuilderInterface
      */
     protected function toString($value)
     {
-        if (!$value) {
-            return '';
-        }
-
         if (is_string($value) || is_numeric($value)) {
             return $value;
         }
@@ -98,6 +94,10 @@ class DynamicListBuilder implements DynamicListBuilderInterface
 
         if ($value instanceof \DateTime) {
             return $value->format('c');
+        }
+
+        if (!$value) {
+            return '';
         }
 
         if (!is_array($value)) {

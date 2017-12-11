@@ -53,11 +53,10 @@ class DynamicListFactory implements DynamicListFactoryInterface
             }
 
             $title = '';
-
             $translation = $field->getTranslation($locale);
 
             if ($translation) {
-                $title = $translation->getTitle();
+                $title = $translation->getShortTitle() ?: $translation->getTitle();
             }
 
             $fieldDescriptors[$field->getKey()] = new FieldDescriptor(
