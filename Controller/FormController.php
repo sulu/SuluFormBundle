@@ -126,6 +126,35 @@ class FormController extends FOSRestController implements ClassResourceInterface
             false
         );
 
+        $fieldDescriptors['created'] = new DoctrineCaseFieldDescriptor(
+            'created',
+            new DoctrineDescriptor(
+                'translation',
+                'created',
+                [
+                    'translation' => new DoctrineJoinDescriptor(
+                        'translation',
+                        Form::class . '.translations',
+                        sprintf('translation.locale = \'%s\'', $locale)
+                    ),
+                ]
+            ),
+            new DoctrineDescriptor(
+                'defaultTranslation',
+                'created',
+                [
+                    'defaultTranslation' => new DoctrineJoinDescriptor(
+                        'defaultTranslation',
+                        Form::class . '.translations',
+                        sprintf('defaultTranslation.locale = %s.defaultLocale', Form::class)
+                    ),
+                ]
+            ),
+            'public.created',
+            false,
+            false
+        );
+
         return $fieldDescriptors;
     }
 
