@@ -4,6 +4,7 @@
 
  - BUGFIX      #132    Fix boolean values in list
  - FEATURE     #132    Add id to search fields in form and dynamic list
+ - ENHANCEMENT #131    Add created date to list view
  - BUGFIX      #130    Fixed csv export for big results
  - FEATURE     #129    Add disabled field type configuration
 

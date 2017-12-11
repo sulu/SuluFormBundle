@@ -14,4 +14,4 @@ disabled:
     - blankline_after_open_tag
     - function_declaration
     - single_line_class_definition
-
+    - const_separation
