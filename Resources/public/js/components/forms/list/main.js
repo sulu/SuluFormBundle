@@ -14,7 +14,7 @@ define(['suluform/collections/forms'], function (Collection) {
         lastClickedEventSettingsKey: 'suluformformLastClicked',
         endPointUrl: collection.url(),
         toolbarKey: 'forms',
-        toolbarSearchFields: ['title'],
+        toolbarSearchFields: ['id', 'title'],
         fieldsAction: collection.fieldsUrl(),
         eventPrefix: 'sulu.form.forms.',
         translatePrefix: 'sulu_form.forms.'
