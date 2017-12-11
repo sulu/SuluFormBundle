@@ -2,6 +2,8 @@
 
 ## 1.0.0-RC2
 
+ - BUGFIX      #132    Fix boolean values in list
+ - FEATURE     #132    Add id to search fields in form and dynamic list
  - BUGFIX      #130    Fixed csv export for big results
  - FEATURE     #129    Add disabled field type configuration
 
