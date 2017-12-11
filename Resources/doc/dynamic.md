@@ -126,6 +126,28 @@ sulu_form:
 
 **Now a tab should be visible with a list you can export**
 
+## Disable specific field types
+
+To disable specific field types in dynamic forms, add the following lines to the configuration.
+Use the field type alias to disable it.
+Pay attention to not disable field types already in use in your forms otherwise they will break
+
+```yml
+sulu_form:
+    dynamic_disabled_types:
+        - firstName
+        - lastName
+        - street
+        - zip
+
+```
+
+Aliases can be found by running the following command:
+
+```bash
+php bin/adminconsole debug:container --tag=sulu_form.dynamic.type
+```
+
 ### Implement Form into a custom module:
 
  - Implement a Provider for your Module with `TitleProviderInterface`.
