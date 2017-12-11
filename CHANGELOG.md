@@ -3,10 +3,10 @@
 ## 1.0.0-RC2
 
  - BUGFIX      #130    Fixed csv export for big results
+ - FEATURE     #129    Add disabled field type configuration
 
 ## 1.0.0-RC1
 
- - FEATURE     #129    Add disabled field type configuration
  - BUGFIX      #126    Fixed handle of medias in email template
  - BUGFIX      #125    Fixed attachment for medias in email
  - FEATURE     #124    Fixed date field in list view
