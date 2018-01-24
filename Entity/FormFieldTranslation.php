@@ -129,7 +129,7 @@ class FormFieldTranslation
      */
     public function getPlaceholder()
     {
-        return $this->placeholder;
+        return $this->placeholder ?: false;
     }
 
     /**

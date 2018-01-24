@@ -1,5 +1,9 @@
 # Changelog
 
+## dev-master
+
+ - HOTFIX      #136    Fix default value for choice form types and placeholder
+
 ## 1.0.0-RC2
 
  - BUGFIX      #132    Fix boolean values in list

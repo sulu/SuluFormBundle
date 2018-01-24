@@ -1,5 +1,12 @@
 # Upgrade
 
+## dev-master
+
+### BC Breaks
+
+The `MultiChoiceTrait::getChoiceOptions` was changed its second parameter is now `$required` and need to be added.
+Also the Traits function are all private and can not longer be called outside.
+
 ## 0.4.0
 
 ### BC Breaks
