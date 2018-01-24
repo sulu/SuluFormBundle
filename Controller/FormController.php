@@ -273,10 +273,9 @@ class FormController extends FOSRestController implements ClassResourceInterface
     {
         $locale = $this->getLocale($request);
 
-        try {
-            // get entity
-            $entity = $this->getManager()->findById($id, $locale);
-        } catch (NoResultException $e) {
+        $entity = $this->getManager()->findById($id, $locale);
+
+        if (!$entity) {
             throw $this->createNotFoundException(sprintf('No form with id "%s" was found!', $id), $e);
         }
 

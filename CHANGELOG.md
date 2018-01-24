@@ -1,5 +1,9 @@
 # Changelog
 
+## dev-master
+
+ - HOTFIX      #135    Fix exception on page when form was deleted
+
 ## 1.0.0-RC2
 
  - BUGFIX      #132    Fix boolean values in list
