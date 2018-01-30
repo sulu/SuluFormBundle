@@ -18,8 +18,8 @@ matrix:
         - PHPSTAN=true
 
 before_install:
-  - composer self-update
   - phpenv config-add Tests/travis.php.ini
+  - composer self-update
 
 install:
   - if [[ $PHPSTAN == 'true' ]]; then travis_retry composer require --dev phpstan/phpstan $COMPOSER_FLAGS ; else travis_retry composer update $COMPOSER_FLAGS ; fi

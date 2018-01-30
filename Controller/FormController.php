@@ -11,7 +11,6 @@
 
 namespace Sulu\Bundle\FormBundle\Controller;
 
-use Doctrine\ORM\NoResultException;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
@@ -276,7 +275,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
         $entity = $this->getManager()->findById($id, $locale);
 
         if (!$entity) {
-            throw $this->createNotFoundException(sprintf('No form with id "%s" was found!', $id), $e);
+            throw $this->createNotFoundException(sprintf('No form with id "%s" was found!', $id));
         }
 
         return $this->handleView($this->view($this->getApiEntity($entity, $locale)));
@@ -308,10 +307,10 @@ class FormController extends FOSRestController implements ClassResourceInterface
         $locale = $this->getLocale($request);
 
         // save entity
-        try {
-            $entity = $this->getManager()->save($this->getData($request), $locale, $id);
-        } catch (NoResultException $e) {
-            throw $this->createNotFoundException(sprintf('No form with id "%s" was found!', $id), $e);
+        $entity = $this->getManager()->save($this->getData($request), $locale, $id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException(sprintf('No form with id "%s" was found!', $id));
         }
 
         return $this->handleView($this->view($this->getApiEntity($entity, $locale)));
@@ -327,10 +326,10 @@ class FormController extends FOSRestController implements ClassResourceInterface
     {
         $locale = $this->getLocale($request);
 
-        try {
-            $this->getManager()->delete($id, $locale);
-        } catch (NoResultException $e) {
-            throw $this->createNotFoundException(sprintf('No form with id "%s" was found!', $id), $e);
+        $entity = $this->getManager()->delete($id, $locale);
+
+        if (!$entity) {
+            throw $this->createNotFoundException(sprintf('No form with id "%s" was found!', $id));
         }
 
         return new Response('', 204);
