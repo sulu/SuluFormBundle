@@ -125,7 +125,7 @@ class FormFieldTranslation
     }
 
     /**
-     * @return string
+     * @return string|bool
      */
     public function getPlaceholder()
     {
