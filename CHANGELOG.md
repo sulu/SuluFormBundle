@@ -1,5 +1,9 @@
 # Changelog
 
+## dev-master
+
+ - BUGFIX      #137    Add minimum requirement for twig
+
 ## 1.0.0-RC2
 
  - BUGFIX      #132    Fix boolean values in list
