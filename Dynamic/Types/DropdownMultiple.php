@@ -43,7 +43,7 @@ class DropdownMultiple implements FormFieldTypeInterface
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
         $translation = $field->getTranslation($locale);
-        $options = array_merge($options, $this->getChoiceOptions($translation, false, true));
+        $options = array_merge($options, $this->getChoiceOptions($translation, $options['required'], false, true));
         $type = ChoiceType::class;
         $builder->add($field->getKey(), $type, $options);
     }
