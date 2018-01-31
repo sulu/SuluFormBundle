@@ -125,11 +125,11 @@ class FormFieldTranslation
     }
 
     /**
-     * @return string
+     * @return string|bool
      */
     public function getPlaceholder()
     {
-        return $this->placeholder;
+        return $this->placeholder ?: false;
     }
 
     /**
