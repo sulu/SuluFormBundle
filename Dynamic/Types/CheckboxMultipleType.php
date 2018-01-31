@@ -43,7 +43,7 @@ class CheckboxMultipleType implements FormFieldTypeInterface
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
         $translation = $field->getTranslation($locale);
-        $options = array_merge($options, $this->getChoiceOptions($translation, true, true));
+        $options = array_merge($options, $this->getChoiceOptions($translation, $options['required'], true, true));
         $type = ChoiceType::class;
         $builder->add($field->getKey(), $type, $options);
     }

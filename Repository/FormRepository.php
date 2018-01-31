@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\Repository;
 
+use Doctrine\ORM\NoResultException;
 use Sulu\Bundle\FormBundle\Entity\Form;
 
 class FormRepository extends \Doctrine\ORM\EntityRepository
@@ -19,7 +20,7 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
      * @param int $id
      * @param string $locale
      *
-     * @return Form
+     * @return Form|null
      */
     public function findById($id, $locale = null)
     {
@@ -34,7 +35,11 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
         $queryBuilder->orderBy('field.order');
         $query = $queryBuilder->getQuery();
 
-        return $query->getSingleResult();
+        try {
+            return $query->getSingleResult();
+        } catch (NoResultException $e) {
+            return null;
+        }
     }
 
     /**

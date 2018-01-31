@@ -85,7 +85,7 @@ class FormManager
      * @param string $locale
      * @param int $id
      *
-     * @return Form
+     * @return Form|null
      */
     public function save($data, $locale = null, $id = null)
     {
@@ -94,6 +94,10 @@ class FormManager
         // Find exist or create new entity.
         if ($id) {
             $form = $this->findById($id, $locale);
+
+            if (!$form) {
+                return null;
+            }
         }
 
         // Translation

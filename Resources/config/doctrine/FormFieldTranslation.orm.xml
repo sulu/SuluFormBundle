@@ -10,7 +10,7 @@
 
         <field name="title" column="title" type="text" nullable="true"/>
         <field name="placeholder" column="placeholder" type="string" length="255" nullable="true"/>
-        <field name="defaultValue" column="defaultValue" type="string" length="255" nullable="true"/>
+        <field name="defaultValue" column="defaultValue" type="text" nullable="true"/>
         <field name="shortTitle" column="shortTitle" type="string" length="255" nullable="true"/>
         <field name="locale" column="locale" type="string" length="5"/>
         <field name="options" column="options" type="text" nullable="true"/>
