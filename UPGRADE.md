@@ -12,8 +12,9 @@ ALTER TABLE fo_form_field_translations CHANGE defaultValue defaultValue LONGTEXT
 
 ### BC Breaks
 
-The `MultiChoiceTrait::getChoiceOptions` was changed its second parameter is now `$required` and need to be added.
-Also the Traits function are all private and can not longer be called outside.
+The `MultiChoiceTrait` was renamed to `ChoiceTrait`.
+Also its `getChoiceOptions` function changed not longer care about expanded or multiple.
+Also the traits function are all private and can not longer be called outside.
 
 ## 0.4.0
 

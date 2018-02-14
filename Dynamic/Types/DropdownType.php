@@ -22,7 +22,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class DropdownType implements FormFieldTypeInterface
 {
-    use MultiChoiceTrait;
+    use ChoiceTrait;
     use SimpleTypeTrait;
 
     /**

@@ -22,7 +22,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class RadioButtonsType implements FormFieldTypeInterface
 {
-    use MultiChoiceTrait;
+    use ChoiceTrait;
     use SimpleTypeTrait;
 
     /**

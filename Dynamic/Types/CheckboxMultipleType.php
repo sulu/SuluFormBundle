@@ -22,7 +22,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class CheckboxMultipleType implements FormFieldTypeInterface
 {
-    use MultiChoiceTrait;
+    use ChoiceTrait;
 
     /**
      * {@inheritdoc}

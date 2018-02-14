@@ -16,7 +16,7 @@ use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 /**
  * Trait for handling multi choice form types.
  */
-trait MultiChoiceTrait
+trait ChoiceTrait
 {
     /**
      * Returns options for multichoice form type like select, multiple select, radio or checkboxes.
