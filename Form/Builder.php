@@ -232,6 +232,13 @@ class Builder implements BuilderInterface
         $defaults = $this->getDefaults($formEntity, $locale);
         $typeName = $this->titleProviderPool->get($type)->getTitle($typeId);
 
+        $recaptchaFields = $formEntity->getFieldsByType('recaptcha');
+        $csrfTokenProtection = true;
+
+        if (count($recaptchaFields)) {
+            $csrfTokenProtection = false;
+        }
+
         return $this->formFactory->createNamed(
             'dynamic_' . $name . $formEntity->getId(),
             DynamicFormType::class,
@@ -241,6 +248,7 @@ class Builder implements BuilderInterface
                 'locale' => $locale,
                 'type' => $type,
                 'typeId' => $typeId,
+                'csrf_protection' => $csrfTokenProtection,
                 'name' => $name,
                 'block_name' => 'dynamic_' . $name,
             ]

@@ -1,5 +1,9 @@
 # Changelog
 
+## dev-develop
+
+ - ENHANCEMENT #140    Disable csrf token protection when recaptcha field is used
+
 ## 1.0.0-RC2
 
  - BUGFIX      #132    Fix boolean values in list
