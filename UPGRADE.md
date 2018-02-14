@@ -1,6 +1,6 @@
 # Upgrade
 
-## dev-master
+## 1.0.0-RC3
 
 ### Longer default values
 
