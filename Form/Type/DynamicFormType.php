@@ -102,7 +102,10 @@ class DynamicFormType extends AbstractType
             $options['attr']['width'] = $width;
             $options['attr']['widthNumber'] = $this->getItemWidthNumber($width);
             $options['attr']['lastWidth'] = $lastWidth;
-            $options['attr']['placeholder'] = $placeholder;
+
+            if ($placeholder) {
+                $options['attr']['placeholder'] = $placeholder;
+            }
 
             // required
             if ($field->getRequired()) {
