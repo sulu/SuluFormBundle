@@ -1,5 +1,20 @@
 # Upgrade
 
+## dev-master
+
+### Longer default values
+
+Upgrade the database schema that the defaultValue can contain a longer text:
+
+```sql
+ALTER TABLE fo_form_field_translations CHANGE defaultValue defaultValue LONGTEXT DEFAULT NULL;
+```
+
+### BC Breaks
+
+The `MultiChoiceTrait::getChoiceOptions` was changed its second parameter is now `$required` and need to be added.
+Also the Traits function are all private and can not longer be called outside.
+
 ## 0.4.0
 
 ### BC Breaks

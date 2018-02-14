@@ -4,6 +4,12 @@
 
  - ENHANCEMENT #140    Disable csrf token protection when recaptcha field is used
 
+## dev-master
+
+ - BUGFIX      #137    Add minimum requirement for twig
+ - HOTFIX      #135    Fix exception on page when form was deleted
+ - HOTFIX      #136    Fix default value for choice form types and placeholder
+
 ## 1.0.0-RC2
 
  - BUGFIX      #132    Fix boolean values in list

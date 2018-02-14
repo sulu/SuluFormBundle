@@ -11,7 +11,6 @@
 
 namespace Sulu\Bundle\FormBundle\Form;
 
-use Doctrine\ORM\NoResultException;
 use Sulu\Bundle\FormBundle\Dynamic\Checksum;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
@@ -261,22 +260,21 @@ class Builder implements BuilderInterface
      * @param $id
      * @param $locale
      *
-     * @return Form
+     * @return Form|null
      */
     private function loadFormEntity($id, $locale)
     {
-        try {
-            // Load Form entity
-            $formEntity = $this->formRepository->findById($id, $locale);
-        } catch (NoResultException $e) {
-            return;
+        $formEntity = $this->formRepository->findById($id, $locale);
+
+        if (!$formEntity) {
+            return null;
         }
 
         $translation = $formEntity->getTranslation($locale);
 
         if (!$translation) {
             // No translation for this locale exists
-            return;
+            return null;
         }
 
         return $formEntity;

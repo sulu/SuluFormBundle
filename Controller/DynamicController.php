@@ -86,10 +86,13 @@ class DynamicController extends RestController implements ClassResourceInterface
     public function cgetFieldsAction(Request $request)
     {
         $form = $this->loadForm($request);
-        $locale = $this->getLocale($request);
+        $fieldDescriptors = [];
 
-        $fieldDescriptors = $this->get('sulu_form.list_builder.dynamic_list_factory')
-            ->getFieldDescriptors($form, $locale);
+        if ($form) {
+            $locale = $this->getLocale($request);
+            $fieldDescriptors = $this->get('sulu_form.list_builder.dynamic_list_factory')
+                ->getFieldDescriptors($form, $locale);
+        }
 
         return $this->handleView($this->view(array_values($fieldDescriptors)));
     }
