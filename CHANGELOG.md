@@ -2,6 +2,7 @@
 
 ## 1.0.0-RC3
 
+ - BUGFIX      #141    Activate save button on block add
  - ENHANCEMENT #140    Disable csrf token protection when recaptcha field is used
  - BUGFIX      #137    Add minimum requirement for twig
  - HOTFIX      #135    Fix exception on page when form was deleted
