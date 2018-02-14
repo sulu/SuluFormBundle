@@ -18,7 +18,6 @@
 {# Output label as HTML #}
 {%- block form_label -%}
     {%- if label is not same as(false) -%}
-        {%- set translation_domain = false -%}
         {%- set label %}{{ label|raw }}{% endset -%}
         {{ parent() }}
     {%- endif -%}

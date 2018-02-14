@@ -22,36 +22,23 @@ trait MultiChoiceTrait
      * Returns options for multichoice form type like select, multiple select, radio or checkboxes.
      *
      * @param FormFieldTranslation $translation
-     * @param bool $required
-     * @param bool $expanded
-     * @param bool $multiple
+     * @param array $options
      *
      * @return array
      */
     private function getChoiceOptions(
         FormFieldTranslation $translation,
-        $required = false,
-        $expanded = false,
-        $multiple = false
+        $options
     ) {
-        $options = [];
-
-        // Placeholder.
-        $options['placeholder'] = $translation->getPlaceholder();
-
-        if (!$options['placeholder'] && !$multiple && !$required) {
-            $options['placeholder'] = 'sulu_form.no_choice';
-            $options['translation_domain'] = 'messages';
+        if (isset($options['attr']['placeholder'])) {
+            $options['placeholder'] = $options['attr']['placeholder'];
+            unset($options['attr']['placeholder']);
         }
 
         // Choices.
         $choices = preg_split('/\r\n|\r|\n/', $translation->getOption('choices'), -1, PREG_SPLIT_NO_EMPTY);
         $options['choices_as_values'] = true;
         $options['choices'] = array_combine($choices, $choices);
-
-        // Type.
-        $options['expanded'] = $expanded;
-        $options['multiple'] = $multiple;
 
         return $options;
     }
