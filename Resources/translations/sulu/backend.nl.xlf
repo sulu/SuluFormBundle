@@ -219,125 +219,129 @@
                 <source>sulu_form.choice</source>
                 <target>Keuzes</target>
             </trans-unit>
-            <trans-unit id="102">
+            <trans-unit id="64">
                 <source>sulu_form.submit_label</source>
                 <target>Label submit knop</target>
             </trans-unit>
-            <trans-unit id="64">
+            <trans-unit id="65">
                 <source>sulu_form.success_text</source>
                 <target>Succes bericht</target>
             </trans-unit>
-            <trans-unit id="65">
+            <trans-unit id="66">
                 <source>sulu_form.website_configuration</source>
                 <target>Website configuratie</target>
             </trans-unit>
-            <trans-unit id="66">
+            <trans-unit id="67">
                 <source>sulu_form.mailchimp_list</source>
                 <target>Mailchimp lijst</target>
             </trans-unit>
-            <trans-unit id="67">
+            <trans-unit id="68">
                 <source>sulu_form.birthday</source>
                 <target>Geboortedatum</target>
             </trans-unit>
-            <trans-unit id="68">
+            <trans-unit id="69">
                 <source>sulu_form.short_title</source>
                 <target>Korte titel</target>
             </trans-unit>
-            <trans-unit id="69">
+            <trans-unit id="70">
                 <source>sulu_form.short_title_description</source>
                 <target>Optionele titel zoals in de notificatie mail</target>
             </trans-unit>
+            <trans-unit id="71">
+                <source>sulu_form.choice_text</source>
+                <target>Selectie tekst</target>
+            </trans-unit>
 
             <!-- Width -->
-            <trans-unit id="70">
+            <trans-unit id="80">
                 <source>sulu_form.width.full</source>
                 <target>Volledig</target>
             </trans-unit>
-            <trans-unit id="71">
+            <trans-unit id="81">
                 <source>sulu_form.width.half</source>
                 <target>Helft</target>
             </trans-unit>
-            <trans-unit id="72">
+            <trans-unit id="82">
                 <source>sulu_form.width.one-quarter</source>
                 <target>Een kwart</target>
             </trans-unit>
-            <trans-unit id="73">
+            <trans-unit id="83">
                 <source>sulu_form.width.three-quarters</source>
                 <target>Drie kwart</target>
             </trans-unit>
-            <trans-unit id="74">
+            <trans-unit id="84">
                 <source>sulu_form.width.one-third</source>
                 <target>Een derde</target>
             </trans-unit>
-            <trans-unit id="75">
+            <trans-unit id="85">
                 <source>sulu_form.width.two-thirds</source>
                 <target>Twee derde</target>
             </trans-unit>
-            <trans-unit id="76">
+            <trans-unit id="86">
                 <source>sulu_form.width.one-sixth</source>
                 <target>Een zesde</target>
             </trans-unit>
-            <trans-unit id="77">
+            <trans-unit id="87">
                 <source>sulu_form.width.five-sixths</source>
                 <target>Vijf zesden</target>
             </trans-unit>
 
             <!-- File Types -->
-            <trans-unit id="80">
+            <trans-unit id="90">
                 <source>sulu_form.attachment_restrict</source>
                 <target>Beperk bestand types</target>
             </trans-unit>
-            <trans-unit id="81">
+            <trans-unit id="91">
                 <source>sulu_form.attachment_restrict.hint</source>
                 <target>Geen keuze zal alle bestanden toestaan</target>
             </trans-unit>
-            <trans-unit id="82">
+            <trans-unit id="92">
                 <source>sulu_form.attachment.image</source>
                 <target>Afbeelden</target>
             </trans-unit>
-            <trans-unit id="83">
+            <trans-unit id="93">
                 <source>sulu_form.attachment.audio</source>
                 <target>Audio</target>
             </trans-unit>
-            <trans-unit id="84">
+            <trans-unit id="94">
                 <source>sulu_form.attachment.video</source>
                 <target>Videos</target>
             </trans-unit>
-            <trans-unit id="86">
+            <trans-unit id="96">
                 <source>sulu_form.attachment_max</source>
                 <target>Maximaal aantal</target>
             </trans-unit>
 
             <!-- Receivers -->
-            <trans-unit id="90">
+            <trans-unit id="100">
                 <source>sulu_form.receivers</source>
                 <target>Ontvangers</target>
             </trans-unit>
-            <trans-unit id="91">
+            <trans-unit id="101">
                 <source>sulu_form.receiver.to</source>
                 <target>Aan</target>
             </trans-unit>
-            <trans-unit id="92">
+            <trans-unit id="102">
                 <source>sulu_form.receiver.cc</source>
                 <target>CC</target>
             </trans-unit>
-            <trans-unit id="93">
+            <trans-unit id="103">
                 <source>sulu_form.receiver.bcc</source>
                 <target>BCC</target>
             </trans-unit>
 
             <!-- CSV Export -->
-            <trans-unit id="100">
+            <trans-unit id="110">
                 <source>sulu_form.overlay.start_date</source>
                 <target>Start datum</target>
             </trans-unit>
-            <trans-unit id="101">
+            <trans-unit id="111">
                 <source>sulu_form.overlay.end_date</source>
                 <target>Eind datum</target>
             </trans-unit>
 
             <!-- Tabs -->
-            <trans-unit id="105">
+            <trans-unit id="120">
                 <source>sulu_form.navigation.data</source>
                 <target>Data</target>
             </trans-unit>

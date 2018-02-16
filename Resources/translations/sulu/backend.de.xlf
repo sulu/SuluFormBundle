@@ -219,125 +219,129 @@
                 <source>sulu_form.choice</source>
                 <target>Auswahl</target>
             </trans-unit>
-            <trans-unit id="102">
+            <trans-unit id="64">
                 <source>sulu_form.submit_label</source>
                 <target>Beschriftung Button Absenden</target>
             </trans-unit>
-            <trans-unit id="64">
+            <trans-unit id="65">
                 <source>sulu_form.success_text</source>
                 <target>Bestätigungstext</target>
             </trans-unit>
-            <trans-unit id="65">
+            <trans-unit id="66">
                 <source>sulu_form.website_configuration</source>
                 <target>Website Konfiguration</target>
             </trans-unit>
-            <trans-unit id="66">
+            <trans-unit id="67">
                 <source>sulu_form.mailchimp_list</source>
                 <target>Mailchimp Liste</target>
             </trans-unit>
-            <trans-unit id="67">
+            <trans-unit id="68">
                 <source>sulu_form.birthday</source>
                 <target>Geburtstag</target>
             </trans-unit>
-            <trans-unit id="68">
+            <trans-unit id="69">
                 <source>sulu_form.short_title</source>
                 <target>Kurztitel</target>
             </trans-unit>
-            <trans-unit id="69">
+            <trans-unit id="70">
                 <source>sulu_form.short_title_description</source>
                 <target>Optionaler Titel des Feldes, z.B. in der Benachrichtigungs-Email.</target>
             </trans-unit>
+            <trans-unit id="71">
+                <source>sulu_form.choice_text</source>
+                <target>Auswahl text</target>
+            </trans-unit>
 
             <!-- Width -->
-            <trans-unit id="70">
+            <trans-unit id="80">
                 <source>sulu_form.width.full</source>
                 <target>Voll</target>
             </trans-unit>
-            <trans-unit id="71">
+            <trans-unit id="81">
                 <source>sulu_form.width.half</source>
                 <target>Halb</target>
             </trans-unit>
-            <trans-unit id="72">
+            <trans-unit id="82">
                 <source>sulu_form.width.one-quarter</source>
                 <target>Ein Viertel</target>
             </trans-unit>
-            <trans-unit id="73">
+            <trans-unit id="83">
                 <source>sulu_form.width.three-quarters</source>
                 <target>Drei Viertel</target>
             </trans-unit>
-            <trans-unit id="74">
+            <trans-unit id="84">
                 <source>sulu_form.width.one-third</source>
                 <target>Ein Drittel</target>
             </trans-unit>
-            <trans-unit id="75">
+            <trans-unit id="85">
                 <source>sulu_form.width.two-thirds</source>
                 <target>Zwei Drittel</target>
             </trans-unit>
-            <trans-unit id="76">
+            <trans-unit id="86">
                 <source>sulu_form.width.one-sixth</source>
                 <target>Ein Sechstel</target>
             </trans-unit>
-            <trans-unit id="77">
+            <trans-unit id="87">
                 <source>sulu_form.width.five-sixths</source>
                 <target>Fünf Sechstel</target>
             </trans-unit>
 
-            <!-- Attachment -->
-            <trans-unit id="80">
+            <!-- File Types -->
+            <trans-unit id="90">
                 <source>sulu_form.attachment_restrict</source>
                 <target>Dateitypen beschränken</target>
             </trans-unit>
-            <trans-unit id="81">
+            <trans-unit id="91">
                 <source>sulu_form.attachment_restrict.hint</source>
                 <target>Bei keiner Auswahl sind alle Dateitypen möglich.</target>
             </trans-unit>
-            <trans-unit id="82">
+            <trans-unit id="92">
                 <source>sulu_form.attachment.image</source>
                 <target>Bilder</target>
             </trans-unit>
-            <trans-unit id="83">
+            <trans-unit id="93">
                 <source>sulu_form.attachment.audio</source>
                 <target>Audios</target>
             </trans-unit>
-            <trans-unit id="84">
+            <trans-unit id="94">
                 <source>sulu_form.attachment.video</source>
                 <target>Videos</target>
             </trans-unit>
-            <trans-unit id="86">
+            <trans-unit id="95">
                 <source>sulu_form.attachment_max</source>
                 <target>Maximale Anzahl</target>
             </trans-unit>
 
             <!-- Receivers -->
-            <trans-unit id="90">
+            <trans-unit id="100">
                 <source>sulu_form.receivers</source>
                 <target>Empfänger</target>
             </trans-unit>
-            <trans-unit id="91">
+            <trans-unit id="101">
                 <source>sulu_form.receiver.to</source>
                 <target>An</target>
             </trans-unit>
-            <trans-unit id="92">
+            <trans-unit id="102">
                 <source>sulu_form.receiver.cc</source>
                 <target>CC</target>
             </trans-unit>
-            <trans-unit id="93">
+            <trans-unit id="103">
                 <source>sulu_form.receiver.bcc</source>
                 <target>BCC</target>
             </trans-unit>
 
             <!-- CSV Export -->
-            <trans-unit id="100">
+            <trans-unit id="110">
                 <source>sulu_form.overlay.start_date</source>
                 <target>Startdatum</target>
             </trans-unit>
-            <trans-unit id="101">
+            <trans-unit id="111">
                 <source>sulu_form.overlay.end_date</source>
                 <target>Enddatum</target>
             </trans-unit>
 
             <!-- Tabs -->
-            <trans-unit id="105">
+            <trans-unit id="120">
                 <source>sulu_form.navigation.data</source>
                 <target>Daten</target>
             </trans-unit>
