@@ -113,6 +113,14 @@ define(['jquery', 'underscore'], function ($, _) {
 
                 // reinit sorting
                 this.initSortableBlock();
+
+                // activate save button
+                this.activateSaveButton();
+            }.bind(this));
+
+            this.sandbox.dom.on(formSelector, 'form-remove', function() {
+                // activate save button
+                this.activateSaveButton();
             }.bind(this));
 
             this.sandbox.dom.on(formSelector, 'init-sortable', function(e) {
