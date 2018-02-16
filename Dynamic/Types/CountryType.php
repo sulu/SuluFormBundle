@@ -40,6 +40,11 @@ class CountryType implements FormFieldTypeInterface
      */
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options = [])
     {
+        if (isset($options['attr']['placeholder'])) {
+            $options['placeholder'] = $options['attr']['placeholder'];
+            unset($options['attr']['placeholder']);
+        }
+
         $type = TypeCountryType::class;
         $builder->add($field->getKey(), $type, $options);
     }

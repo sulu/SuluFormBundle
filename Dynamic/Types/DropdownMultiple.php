@@ -22,7 +22,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class DropdownMultiple implements FormFieldTypeInterface
 {
-    use MultiChoiceTrait;
+    use ChoiceTrait;
 
     /**
      * {@inheritdoc}
@@ -43,7 +43,9 @@ class DropdownMultiple implements FormFieldTypeInterface
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
         $translation = $field->getTranslation($locale);
-        $options = array_merge($options, $this->getChoiceOptions($translation, $options['required'], false, true));
+        $options['expanded'] = false;
+        $options['multiple'] = true;
+        $options = $this->getChoiceOptions($translation, $options);
         $type = ChoiceType::class;
         $builder->add($field->getKey(), $type, $options);
     }

@@ -1,1 +1,43 @@
 {% extends "SuluFormBundle:forms:fields/choice-field.html.twig" %}
+
+{% block placeholder_default %}
+    <div class="grid">
+        <div class="grid-row m-bottom-20">
+            {% block placeholder %}
+                <div class="grid-col-6 floating form-group">
+                    <label for="placeholder<~=index~>" class="pointer" title="Placeholder">
+                        <%= translate('sulu_form.choice_text') %>
+                    </label>
+
+                    <input id="placeholder<~=index~>"
+                           data-property='placeholder'
+                           type="text"
+                           class="form-element preview-update trigger-save-button"
+                           data-mapper-property="placeholder"/>
+
+                    <div class="block-content" data-sort-mode-id="{{ blockId }}placeholder<~=index~>"></div>
+
+                    <div class="input-description"></div>
+                </div>
+            {% endblock %}
+
+            {% block default %}
+                <div class="grid-col-6 floating form-group">
+                    <label for="default-value<~=index~>" class="pointer" title="Default Value">
+                        <%= translate('sulu_form.default') %>
+                    </label>
+
+                    <input id="default-value<~=index~>"
+                           data-property="defaultValue"
+                           type="text"
+                           class="form-element preview-update trigger-save-button"
+                           data-mapper-property="defaultValue"/>
+
+                    <div class="block-content" data-sort-mode-id="{{ blockId }}defaultValue<~=index~>"></div>
+
+                    <div class="input-description"></div>
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

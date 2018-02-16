@@ -14,16 +14,14 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * The Salutation form field type.
  */
-class SalutationType implements FormFieldTypeInterface
+class SalutationType extends DropdownType implements FormFieldTypeInterface
 {
-    use SimpleTypeTrait;
-
     /**
      * {@inheritdoc}
      */
@@ -35,18 +33,21 @@ class SalutationType implements FormFieldTypeInterface
         );
     }
 
+    public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
+    {
+        $options['translation_domain'] = 'messages';
+
+        parent::build($builder, $field, $locale, $options);
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
+    protected function getChoices(FormFieldTranslation $translation)
     {
-        $type = ChoiceType::class;
-        $options['placeholder'] = $field->getTranslation($locale)->getTitle();
-        $options['choices_as_values'] = true;
-        $options['choices'] = [
+        return [
             'sulu_form.salutation_mr' => 'mr',
             'sulu_form.salutation_ms' => 'ms',
         ];
-        $builder->add($field->getKey(), $type, $options);
     }
 }
