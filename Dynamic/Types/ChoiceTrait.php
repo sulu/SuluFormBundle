@@ -19,6 +19,20 @@ use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 trait ChoiceTrait
 {
     /**
+     * Get choices.
+     *
+     * @param FormFieldTranslation $translation
+     *
+     * @return array
+     */
+    protected function getChoices(FormFieldTranslation $translation)
+    {
+        $choices = preg_split('/\r\n|\r|\n/', $translation->getOption('choices'), -1, PREG_SPLIT_NO_EMPTY);
+
+        return array_combine($choices, $choices);
+    }
+
+    /**
      * Returns options for multichoice form type like select, multiple select, radio or checkboxes.
      *
      * @param FormFieldTranslation $translation
@@ -36,9 +50,9 @@ trait ChoiceTrait
         }
 
         // Choices.
-        $choices = preg_split('/\r\n|\r|\n/', $translation->getOption('choices'), -1, PREG_SPLIT_NO_EMPTY);
+        $choices = $this->getChoices($translation);
         $options['choices_as_values'] = true;
-        $options['choices'] = array_combine($choices, $choices);
+        $options['choices'] = $choices;
 
         return $options;
     }
