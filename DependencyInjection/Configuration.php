@@ -85,7 +85,6 @@ class Configuration implements ConfigurationInterface
                     'five-sixths' => 'sulu_form.width.five-sixths',
                 ])
             ->end()
-            ->scalarNode('dynamic_default_view')->defaultValue('AppBundle:templates:dynamic')->end()
             ->variableNode('dynamic_lists')->defaultValue([])->end()
             ->arrayNode('ajax_templates')
                 ->normalizeKeys(false)

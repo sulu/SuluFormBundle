@@ -3,6 +3,7 @@
 ## 1.0.0-RC3
 
  - BUGFIX      #144    Avoid normalize keys for dynamic width and ajax templates configuration
+ - ENHANCEMENT #143    Remove unused parameter dynamic default view
  - BUGFIX      #142    Render placeholder only with value and upate ChoiceTrait
  - BUGFIX      #141    Activate save button on block add
  - ENHANCEMENT #140    Disable csrf token protection when recaptcha field is used

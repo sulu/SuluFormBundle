@@ -2,6 +2,11 @@
 
 ## 1.0.0-RC3
 
+### Removed `dynamic_default_view` parameter
+
+The `dynamic_default_view` parameter was removed as it is not longer used.
+If you did overwrite it remove it from your configuration.
+
 ### Longer default values
 
 Upgrade the database schema that the defaultValue can contain a longer text:
