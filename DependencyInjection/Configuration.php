@@ -73,6 +73,7 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->booleanNode('dynamic_auto_title')->defaultValue(true)->end()
             ->arrayNode('dynamic_widths')
+                ->normalizeKeys(false)
                 ->prototype('scalar')->end()->defaultValue([
                     'full' => 'sulu_form.width.full',
                     'half' => 'sulu_form.width.half',
@@ -86,6 +87,7 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->variableNode('dynamic_lists')->defaultValue([])->end()
             ->arrayNode('ajax_templates')
+                ->normalizeKeys(false)
                 ->prototype('scalar')->end()->defaultValue([])
             ->end()
             ->arrayNode('dynamic_disabled_types')
