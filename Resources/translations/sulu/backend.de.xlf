@@ -221,7 +221,7 @@
             </trans-unit>
             <trans-unit id="64">
                 <source>sulu_form.submit_label</source>
-                <target>Beschriftung Button Absenden</target>
+                <target>Beschriftung Absende Button</target>
             </trans-unit>
             <trans-unit id="65">
                 <source>sulu_form.success_text</source>

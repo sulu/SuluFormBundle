@@ -221,7 +221,7 @@
             </trans-unit>
             <trans-unit id="64">
                 <source>sulu_form.submit_label</source>
-                <target>Caption Button Submit</target>
+                <target>Caption Submit Button</target>
             </trans-unit>
             <trans-unit id="65">
                 <source>sulu_form.success_text</source>
