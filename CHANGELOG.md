@@ -2,6 +2,7 @@
 
 ## 1.0.0-RC3
 
+ - BUGFIX      #145    Fix form template structure and move submit label
  - BUGFIX      #144    Avoid normalize keys for dynamic width and ajax templates configuration
  - ENHANCEMENT #143    Remove unused parameter dynamic default view
  - BUGFIX      #142    Render placeholder only with value and upate ChoiceTrait
