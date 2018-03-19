@@ -2,7 +2,7 @@
 
 ## unreleased
 
- - BUGFIX      #146    Fix for sulu_form_get_by_id twig extension.
+ - BUGFIX      #146    Fix sulu_form_get_by_id twig extension
 
 ## 1.0.0-RC3
 
