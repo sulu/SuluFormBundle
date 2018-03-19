@@ -113,12 +113,6 @@ ALTER TABLE fo_dynamics ADD typeName VARCHAR(255) DEFAULT NULL;
 UPDATE `fo_dynamics` SET `type` = 'page' WHERE `type` = '';
 ```
 
-or run
-
-```bash
-php bin/adminconsole doctrine:schema:update --dump-sql # run with --force to actually update the database
-```
-
 ### Set type for content type definition
 
 With the compatibility to use the form bundle in articles it is needed to define
