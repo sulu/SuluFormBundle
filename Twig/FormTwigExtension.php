@@ -64,7 +64,7 @@ class FormTwigExtension extends \Twig_Extension
         if (!$form) {
             return;
         }
-        
+
         return $form->createView();
     }
 }
