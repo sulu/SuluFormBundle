@@ -59,8 +59,12 @@ class FormTwigExtension extends \Twig_Extension
      */
     public function getFormById($id, $type, $typeId, $locale = null, $name = 'form')
     {
-        list($formType, $form) = $this->formBuilder->build((int) $id, $type, $typeId, $locale, $name);
+        $form = $this->formBuilder->build((int) $id, $type, $typeId, $locale, $name);
 
+        if (!$form) {
+            return;
+        }
+        
         return $form->createView();
     }
 }

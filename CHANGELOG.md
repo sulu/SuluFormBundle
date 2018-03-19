@@ -1,5 +1,9 @@
 # Changelog
 
+## unreleased
+
+ - BUGFIX      #146    Fix for sulu_form_get_by_id twig extension.
+
 ## 1.0.0-RC3
 
  - BUGFIX      #145    Fix form template structure and move submit label
