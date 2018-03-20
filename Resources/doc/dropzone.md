@@ -63,7 +63,7 @@ var component = function() {
             event.preventDefault();
 
             // do submit for first dropzone with files
-            this.submitViaDropzone().bind(this);
+            this.submitDropzones();
 
             // avoid default behaviour
             return false;
@@ -275,6 +275,6 @@ submit: function(form) {
     }
 
     // do submit for first dropzone with files
-    this.submitViaDropzone().bind(this);
+    this.submitDropzones();
 },
 ```
