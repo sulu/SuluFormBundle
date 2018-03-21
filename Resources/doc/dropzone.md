@@ -225,7 +225,7 @@ var component = function() {
         },
 
         /**
-         * Called after all dropzones has been sent successfully.
+         * Called after all dropzones have been sent successfully.
          *
          * @param {Object} file
          * @param {Object} response
@@ -240,7 +240,7 @@ var component = function() {
                 return;
             }
 
-            // On error destroy dropzones.
+            // Destroy dropzones on form error to keep files.
             this.destroyDropzones();
 
             // Replace form with.
