@@ -37,13 +37,13 @@ var Dropzone = require('dropzone');
 
 var component = function() {
     return {
-        $el: $('#dynamic-form'),
         dropzones: [],
 
         /**
          * Initialize component.
          */
-        initialize: function() {
+        initialize: function($el) {
+            this.$el = $el;
             this.initializeDropzones();
             this.$el.submit(this.submit.bind(this));
 
@@ -262,7 +262,8 @@ var component = function() {
     };
 }();
 
-component.initialize();
+// Initialize Form.
+component.initialize($('#dynamic-form'));
 ```
 
 ## jQuery Validation
