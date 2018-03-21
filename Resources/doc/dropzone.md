@@ -37,6 +37,7 @@ var Dropzone = require('dropzone');
 
 var component = function() {
     return {
+        $el: null,
         dropzones: [],
 
         /**
