@@ -19,7 +19,7 @@ Sulu template is not needed when using a ajax loaded form.
     <key>pages_template_key</key>
 
     <view>ClientWebsiteBundle:templates:pages_template_key</view>
-    <controller>SuluFormBundle:Form:form</controller>
+    <controller>SuluFormBundle:FormWebsite:form</controller>
     <cacheLifetime>2400</cacheLifetime>
 
     <meta>
