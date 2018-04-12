@@ -88,6 +88,10 @@ class FormConfigurationFactory
         $config = $this->create($locale);
         $config->setFileFields(array_fill_keys($type->getFileFields(), $type->getCollectionId()));
 
+        $attributes['form'] = [
+            'data' => $formData,
+        ];
+
         $adminMailConfiguration = $this->buildAdminMailConfigurationByTypeAndData(
             $type,
             $formData,

@@ -2,6 +2,7 @@
 
 ## unreleased
 
+ - BUGFIX      #156    Fix static form handling after refractoring
  - BUGFIX      #150    Fix implement dropzone documentation
  - ENHANCEMENT #147    Improve upgrade errors for 0.2.0 version
  - BUGFIX      #146    Fix sulu_form_get_by_id twig extension
