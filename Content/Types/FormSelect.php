@@ -13,6 +13,7 @@ namespace Sulu\Bundle\FormBundle\Content\Types;
 
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
+use Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStoreInterface;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\Compat\Structure\PageBridge;
 use Sulu\Component\Content\Compat\Structure\StructureBridge;
@@ -41,6 +42,11 @@ class FormSelect extends SimpleContentType
     private $formBuilder;
 
     /**
+     * @var ReferenceStoreInterface
+     */
+    private $referenceStore;
+
+    /**
      * FormSelect constructor.
      *
      * @param string $template
@@ -50,12 +56,14 @@ class FormSelect extends SimpleContentType
     public function __construct(
         $template,
         FormRepository $formRepository,
-        BuilderInterface $formBuilder
+        BuilderInterface $formBuilder,
+        ReferenceStoreInterface $referenceStore
     ) {
         parent::__construct('FormSelect', '');
         $this->template = $template;
         $this->formRepository = $formRepository;
         $this->formBuilder = $formBuilder;
+        $this->referenceStore = $referenceStore;
     }
 
     /**
@@ -97,6 +105,8 @@ class FormSelect extends SimpleContentType
                 return;
             }
         }
+
+        $this->referenceStore->add($id);
 
         return $form->createView();
     }

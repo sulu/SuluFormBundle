@@ -58,16 +58,18 @@
         <!-- Manager -->
         <service id="sulu_form.manager.form"
                  class="Sulu\Bundle\FormBundle\Manager\FormManager">
-            <argument id="doctrine.orm.entity_manager" type="service" />
-            <argument id="sulu_form.repository.form" type="service" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="sulu_form.repository.form" />
+            <argument type="service" id="`" on-invalid="null" />
         </service>
 
         <!-- Content Types -->
         <service id="sulu_form.content_type.form_select"
                  class="Sulu\Bundle\FormBundle\Content\Types\FormSelect">
             <argument>SuluFormBundle:Template:content-types/form_select_simple.html.twig</argument>
-            <argument id="sulu_form.repository.form" type="service" />
-            <argument id="sulu_form.builder" type="service" />
+            <argument type="service" id="sulu_form.repository.form" />
+            <argument type="service" id="sulu_form.builder" />
+            <argument type="service" id="sulu_form.reference_store.form"/>
 
             <tag name="sulu.content.type" alias="form_select"/>
         </service>
@@ -84,17 +86,17 @@
 
         <!-- Form Builder -->
         <service id="sulu_form.builder" class="Sulu\Bundle\FormBundle\Form\Builder">
-            <argument id="request_stack" type="service" />
-            <argument id="sulu_form.dynamic.form_field_type_pool" type="service" />
-            <argument id="sulu_form.title_provider.pool" type="service" />
-            <argument id="sulu_form.repository.form" type="service" />
+            <argument type="service" id="request_stack" />
+            <argument type="service" id="sulu_form.dynamic.form_field_type_pool" />
+            <argument type="service" id="sulu_form.title_provider.pool" />
+            <argument type="service" id="sulu_form.repository.form" />
             <argument type="service" id="form.factory" />
             <argument type="service" id="sulu_form.checksum" />
         </service>
 
         <!-- Dynamic Form Type -->
         <service id="sulu_form.form_type" class="Sulu\Bundle\FormBundle\Form\Type\DynamicFormType">
-            <argument id="sulu_form.dynamic.form_field_type_pool" type="service" />
+            <argument type="service" id="sulu_form.dynamic.form_field_type_pool" />
             <argument type="service" id="sulu_form.checksum" />
 
             <tag name="form.type"/>
@@ -134,7 +136,7 @@
         <service id="sulu_form.repository.dynamic" class="Sulu\Bundle\FormBundle\Repository\DynamicRepository">
             <factory service="doctrine.orm.entity_manager" method="getRepository"/>
             <argument>SuluFormBundle:Dynamic</argument>
-        </service>
+        </service>ReferenceStore
 
         <!-- Collection Strategy -->
         <service id="sulu_form.media_collection_strategy.tree"
@@ -163,6 +165,12 @@
         <!-- Checksum -->
         <service id="sulu_form.checksum" class="Sulu\Bundle\FormBundle\Dynamic\Checksum">
             <argument>%kernel.secret%</argument>
+        </service>
+
+        <!-- Resource Store -->
+        <service id="sulu_form.reference_store.form"
+                 class="Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStore">
+            <tag name="sulu_website.reference_store" alias="form"/>
         </service>
     </services>
 </container>
