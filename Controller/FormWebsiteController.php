@@ -54,14 +54,14 @@ class FormWebsiteController extends DefaultController
 
         $typeClass = $this->getTypeClass($template);
         /** @var AbstractType $type */
-        $type = $this->get('form.registry')->getType($typeClass);
+        $type = $this->get('form.registry')->getType($typeClass)->getInnerType();
         $type->setAttributes($attributes);
 
         $this->form = $this->get('form.factory')->create($typeClass);
         $this->form->handleRequest($request);
 
         if ($this->form->isSubmitted()
-            && !$this->form->isValid()
+            && $this->form->isValid()
             && $response = $this->handleFormSubmit($request, $type, $attributes)
         ) {
             // success form submit
@@ -92,7 +92,7 @@ class FormWebsiteController extends DefaultController
 
         $typeClass = $this->getTypeClass($key);
         /** @var AbstractType $type */
-        $type = $this->get('form.registry')->getType($typeClass);
+        $type = $this->get('form.registry')->getType($typeClass)->getInnerType();
         $this->form = $this->get('form.factory')->create($typeClass);
         $this->form->handleRequest($request);
 
