@@ -8,7 +8,7 @@
         "doctrine/orm": "~2.5.3",
         "php": "^7.1",
         "twig/twig": "^1.26 || ^2.0",
-        "sulu/sulu": "@dev"
+        "sulu/sulu": "dev-develop"
     },
     "require-dev": {
         "jackalope/jackalope-doctrine-dbal": "^1.2.5",
