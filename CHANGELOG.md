@@ -2,6 +2,7 @@
 
 ## unreleased
 
+ - FEATURE     #158    Add deletion for dynamic entries
  - BUGFIX      #156    Fix static form handling after refractoring
  - BUGFIX      #150    Fix implement dropzone documentation
  - ENHANCEMENT #147    Improve upgrade errors for 0.2.0 version

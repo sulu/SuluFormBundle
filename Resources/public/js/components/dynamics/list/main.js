@@ -10,7 +10,8 @@ define(['jquery'], function ($) {
         toolbarKey: 'dynamics',
         listId: 'dynamic-list',
         endPointUrl: '/admin/api/form/dynamics',
-        fieldsAction: '/admin/api/form/dynamics/fields'
+        fieldsAction: '/admin/api/form/dynamics/fields',
+        translatePrefix: 'sulu_form.forms.'
     };
 
     return {
@@ -28,6 +29,7 @@ define(['jquery'], function ($) {
 
         initialize: function() {
             this.render();
+            this.bindCustomEvents();
             this.initPreview();
         },
 
@@ -36,6 +38,37 @@ define(['jquery'], function ($) {
          */
         initPreview: function() {
             this.sandbox.emit('sulu.preview.initialize', null, true);
+        },
+
+        /**
+         * Bind custom events.
+         */
+        bindCustomEvents: function() {
+            this.sandbox.on('sulu.toolbar.delete', this.deleteSelected.bind(this));
+        },
+
+        /**
+         * Deletes all selected events
+         */
+        deleteSelected: function () {
+            this.sandbox.emit('husky.datagrid.items.get-selected', function (collections) {
+                var counter = 0;
+
+                $.each(collections, function(key, id) {
+                    this.sandbox.emit('husky.datagrid.record.remove', id);
+
+                    $.ajax({
+                        url: constants.endPointUrl + '/' + id,
+                        type: 'DELETE',
+                        success: function(result) {
+                            ++counter;
+                            if (counter === collections.length) {
+                                this.sandbox.emit('sulu.labels.success.show', constants.translatePrefix + 'delete.success', 'labels.success');
+                            }
+                        }.bind(this)
+                    });
+                }.bind(this));
+            }.bind(this));
         },
 
         /**
@@ -133,6 +166,7 @@ define(['jquery'], function ($) {
                     // options for the header (list-toolbar)
                     el: this.$find('#' + constants.toolbarId),
                     template:  this.sandbox.sulu.buttons.get({
+                        deleteSelected: {},
                         settings: {
                             options: {
                                 id: 'settings',
@@ -187,7 +221,6 @@ define(['jquery'], function ($) {
                     searchFields: ['id', 'email', 'firstName', 'lastName'],
                     viewOptions: {
                         table: {
-                            selectItem: false,
                             fullWidth: true
                         }
                     }

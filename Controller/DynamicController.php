@@ -11,7 +11,9 @@
 
 namespace Sulu\Bundle\FormBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Repository\DynamicRepository;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
@@ -95,6 +97,26 @@ class DynamicController extends RestController implements ClassResourceInterface
         }
 
         return $this->handleView($this->view(array_values($fieldDescriptors)));
+    }
+
+    /**
+     * Delete dynamic form entry.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        /** @var EntityManagerInterface $entityManager */
+        $entityManager = $this->get('doctrine.orm.entity_manager');
+
+        $dynamic = $entityManager->getReference(Dynamic::class, $id);
+        $entityManager->remove($dynamic);
+
+        $entityManager->flush();
+
+        return new Response('', 204);
     }
 
     /**
