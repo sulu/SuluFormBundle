@@ -1,0 +1,236 @@
+<?xml version="1.0" ?>
+<properties xmlns="http://schemas.sulu.io/template/template"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/properties-1.0.xsd">
+    <section name="highlight">
+        <properties>
+            <property name="title" type="text_line">
+                <meta>
+                    <title lang="en">Title</title>
+                    <title lang="de">Title</title>
+                </meta>
+            </property>
+        </properties>
+    </section>
+
+    <!-- TODO blocks -->
+
+    <property name="submitLabel" type="text_line">
+        <meta>
+            <title lang="en">Caption Submit Button</title>
+            <title lang="de">Beschriftung Absende Button</title>
+            <title lang="fr">Légende du bouton "envoyer"</title>
+            <title lang="nl">Label submit knop</title>
+        </meta>
+    </property>
+    
+    <section name="website">
+        <meta>
+            <title lang="en">Website</title>
+            <title lang="de">Website</title>
+            <title lang="fr">Website</title>
+            <title lang="nl">Website</title>
+        </meta>
+
+        <properties>
+            <property name="successText" type="text_editor">
+                <meta>
+                    <title lang="en">Success message</title>
+                    <title lang="de">Bestätigungstext</title>
+                    <title lang="fr">Text de confirmation</title>
+                    <title lang="nl">Succes bericht</title>
+                </meta>
+            </property>
+        </properties>
+    </section>
+
+    <section name="email">
+        <meta>
+            <title lang="en">Email</title>
+            <title lang="de">Email</title>
+            <title lang="fr">Email</title>
+            <title lang="nl">Email</title>
+        </meta>
+
+        <properties>
+            <property name="subject" type="text_line">
+                <meta>
+                    <title lang="en">Subject</title>
+                    <title lang="de">Betreff</title>
+                    <title lang="fr">Sujet</title>
+                    <title lang="nl">Onderwerp</title>
+                </meta>
+            </property>
+
+            <!-- From -->
+            <property name="fromEmail" type="email" size="6">
+                <meta>
+                    <title lang="en">Sender: E-Mail</title>
+                    <title lang="de">Betreff</title>
+                    <title lang="fr">Expéditeur de l'email</title>
+                    <title lang="nl">Verstuurder: e-mailadres</title>
+                </meta>
+            </property>
+
+            <property name="fromName" type="text_line" size="6">
+                <meta>
+                    <title lang="en">Sender: Name</title>
+                    <title lang="de">Betreff</title>
+                    <title lang="fr">Nom de l'expéditeur</title>
+                    <title lang="nl">Verstuurder: naam</title>
+                </meta>
+            </property>
+
+            <!-- To -->
+            <property name="toEmail" type="email" size="6">
+                <meta>
+                    <title lang="en">Receiver: E-Mail</title>
+                    <title lang="de">Betreff</title>
+                    <title lang="fr">Destinataire de l'email</title>
+                    <title lang="nl">Ontvanger: e-mailadres</title>
+                </meta>
+            </property>
+
+            <property name="toName" type="text_line" size="6">
+                <meta>
+                    <title lang="en">Receiver: Name</title>
+                    <title lang="de">Betreff</title>
+                    <title lang="fr">Nom du destinataire</title>
+                    <title lang="nl">Ontvanger: naam</title>
+                </meta>
+            </property>
+
+            <!-- Mail Text -->
+            <property name="mailText" type="text_editor">
+                <meta>
+                    <title lang="en">Success message</title>
+                    <title lang="de">Bestätigungstext</title>
+                    <title lang="fr">Text de confirmation</title>
+                    <title lang="nl">Succes bericht</title>
+                </meta>
+            </property>
+
+            <!-- Toggler -->
+            <property name="replyTo" type="checkbox" size="6">
+                <meta>
+                    <title lang="en">Autofill "reply-to" address</title>
+                    <title lang="de">"Reply-to" Adresse automatisch ausfüllen</title>
+                    <title lang="fr">"répondre" compléter l'adresse automatiquement</title>
+                    <title lang="nl">Automatisch invullen van het "reply-to" adres</title>
+                </meta>
+
+                <params>
+                    <param name="type" value="toggler"/>
+                </params>
+            </property>
+
+            <property name="sendAttachments" type="checkbox" size="6">
+                <meta>
+                    <title lang="en">Send attachments?</title>
+                    <title lang="de">Anhang versenden?</title>
+                    <title lang="fr">Envoi des pièces jointes?</title>
+                    <title lang="nl">Verstuur bijlages?</title>
+                </meta>
+
+                <params>
+                    <param name="type" value="toggler"/>
+                </params>
+            </property>
+
+            <property name="deactivateNotifyMails" type="checkbox" size="6">
+                <meta>
+                    <title lang="en">deactivate Notifymails</title>
+                    <title lang="de">Benachrichtigsemails deaktivieren</title>
+                    <title lang="fr">Désactiver les mails d'information</title>
+                    <title lang="nl">Notificatie e-mail deactiveren</title>
+                </meta>
+
+                <params>
+                    <param name="type" value="toggler"/>
+                </params>
+            </property>
+
+            <property name="deactivateCustomerMails" type="checkbox" size="6">
+                <meta>
+                    <title lang="en">deactivate Successmails</title>
+                    <title lang="de">Bestätigungsemails deaktivieren</title>
+                    <title lang="fr">Désactiver les mails de confirmation</title>
+                    <title lang="nl">Success e-mail deactiveren</title>
+                </meta>
+
+                <params>
+                    <param name="type" value="toggler"/>
+                </params>
+            </property>
+
+            <!-- Receivers -->
+            <block name="receivers" default-type="receiver">
+                <types>
+                    <type name="default">
+                        <properties>
+                            <property name="type" type="single_select" size="2">
+                                <meta>
+                                    <title lang="en">Type</title>
+                                    <title lang="de">Type</title>
+                                    <title lang="fr">Type</title>
+                                    <title lang="nl">Type</title>
+                                </meta>
+
+                                <params>
+                                    <param name="default_value" value="to"/>
+
+                                    <param name="values" type="collection">
+                                        <param name="to">
+                                            <meta>
+                                                <title lang="de">TO</title>
+                                                <title lang="en">TO</title>
+                                                <title lang="fr">TO</title>
+                                                <title lang="nl">TO</title>
+                                            </meta>
+                                        </param>
+
+                                        <param name="cc">
+                                            <meta>
+                                                <title lang="de">CC</title>
+                                                <title lang="en">CC</title>
+                                                <title lang="fr">CC</title>
+                                                <title lang="nl">CC</title>
+                                            </meta>
+                                        </param>
+
+                                        <param name="bcc">
+                                            <meta>
+                                                <title lang="de">BCC</title>
+                                                <title lang="en">BCC</title>
+                                                <title lang="fr">BCC</title>
+                                                <title lang="nl">BCC</title>
+                                            </meta>
+                                        </param>
+                                    </param>
+                                </params>
+                            </property>
+
+                            <property name="email" type="email" size="5">
+                                <meta>
+                                    <title lang="en">E-Mail</title>
+                                    <title lang="de">E-Mail</title>
+                                    <title lang="nl">E-Mail</title>
+                                    <title lang="fr">E-Mail</title>
+                                </meta>
+                            </property>
+
+                            <property name="name" type="text_line" size="5">
+                                <meta>
+                                    <title lang="en">Name</title>
+                                    <title lang="de">Name</title>
+                                    <title lang="nl">Name</title>
+                                    <title lang="fr">Name</title>
+                                </meta>
+                            </property>
+                        </properties>
+                    </type>
+                </types>
+            </block>
+        </properties>
+    </section>
+</properties>

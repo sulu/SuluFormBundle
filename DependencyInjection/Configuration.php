@@ -11,6 +11,9 @@
 
 namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
+use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Repository\FormRepository;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -95,6 +98,32 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
 
+        $this->addObjectsSection($rootNode);
+
         return $treeBuilder;
+    }
+
+    /**
+     * Adds `objects` section.
+     *
+     * @param ArrayNodeDefinition $node
+     */
+    private function addObjectsSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('objects')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('form')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('model')->defaultValue(Form::class)->end()
+                                ->scalarNode('repository')->defaultValue(FormRepository::class)->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
     }
 }

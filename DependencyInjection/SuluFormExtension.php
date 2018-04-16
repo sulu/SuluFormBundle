@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Sulu\Bundle\FormBundle\Admin\DynamicListNavigationProvider;
+use Sulu\Bundle\PersistenceBundle\DependencyInjection\PersistenceExtensionTrait;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -26,6 +27,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class SuluFormExtension extends Extension implements PrependExtensionInterface
 {
+    use PersistenceExtensionTrait;
+
     const SYSTEM_COLLECTION_ROOT = 'sulu_form';
     const MEDIA_COLLECTION_STRATEGY_SINGLE = 'single';
     const MEDIA_COLLECTION_STRATEGY_TREE = 'tree';
@@ -47,6 +50,21 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                                     'meta_title' => ['en' => 'Attachments', 'de' => 'Anhänge'],
                                 ],
                             ],
+                        ],
+                    ],
+                ]
+            );
+        }
+
+        if ($container->hasExtension('sulu_admin')) {
+            $container->prependExtensionConfig(
+                'sulu_admin',
+                [
+                    'resources' => [
+                        'forms' => [
+                            'form' => ['@SuluFormBundle/Resources/config/forms/Form.xml'],
+                            'datagrid' => '%sulu.model.form.class%',
+                            'endpoint' => 'sulu_form.get_forms',
                         ],
                     ],
                 ]
@@ -80,6 +98,8 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
             'sulu_form.media_collection_strategy.default',
             'sulu_form.media_collection_strategy.' . $config['media_collection_strategy']
         );
+
+        $this->configurePersistence($config['objects'], $container);
 
         // add dynamic lists
         $dynamicLists = $config['dynamic_lists'];
