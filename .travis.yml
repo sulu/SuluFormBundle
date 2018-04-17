@@ -8,10 +8,10 @@ cache:
 
 matrix:
   include:
-    - php: 5.5
+    - php: 7.1
       env:
-        - COMPOSER_FLAGS="--prefer-dist --no-interaction" # --prefer-lowest TODO FIXME sulu 1.3 issue
-    - php: 7.0
+        - COMPOSER_FLAGS="--prefer-dist --no-interaction --prefer-lowest"
+    - php: 7.2
       env:
         - COMPOSER_FLAGS="--prefer-dist --no-interaction"
         - CODE_COVERAGE=true
