@@ -71,6 +71,11 @@ class DynamicFormType extends AbstractType
 
         foreach ($fields as $key => $field) {
             $fieldTranslation = $field->getTranslation($locale);
+
+            if (!$fieldTranslation) {
+                continue;
+            }
+
             $options = [
                 'constraints' => [],
                 'attr' => [],
@@ -78,20 +83,9 @@ class DynamicFormType extends AbstractType
             ];
 
             // title
-            $title = '';
-            $placeholder = '';
-            $width = 'full';
-
-            // title / placeholder
-            if ($fieldTranslation) {
-                $title = $fieldTranslation->getTitle();
-                $placeholder = $fieldTranslation->getPlaceholder();
-            }
-
-            // width
-            if ($field->getWidth()) {
-                $width = $field->getWidth();
-            }
+            $title = $fieldTranslation->getTitle();
+            $placeholder = $fieldTranslation->getPlaceholder();
+            $width = $field->getWidth() ?: 'full';
 
             $nextField = null;
             $nextWidth = 'full';
