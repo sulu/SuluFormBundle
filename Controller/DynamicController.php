@@ -11,9 +11,12 @@
 
 namespace Sulu\Bundle\FormBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Repository\DynamicRepository;
+use Sulu\Bundle\MediaBundle\Media\Exception\MediaNotFoundException;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\RestController;
 use Symfony\Component\HttpFoundation\Request;
@@ -95,6 +98,45 @@ class DynamicController extends RestController implements ClassResourceInterface
         }
 
         return $this->handleView($this->view(array_values($fieldDescriptors)));
+    }
+
+    /**
+     * Delete dynamic form entry.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        $mediaManager = $this->get('sulu_media.media_manager');
+
+        /** @var EntityManagerInterface $entityManager */
+        $entityManager = $this->get('doctrine.orm.entity_manager');
+
+        /** @var DynamicRepository $repository */
+        $repository = $this->get('sulu_form.repository.dynamic');
+
+        /** @var Dynamic $dynamic */
+        $dynamic = $repository->find($id);
+
+        $attachments = array_values($dynamic->getFieldsByType(Dynamic::TYPE_ATTACHMENT));
+
+        foreach ($attachments as $mediaIds) {
+            foreach ($mediaIds as $mediaId) {
+                if ($mediaId) {
+                    try {
+                        $mediaManager->delete($mediaId);
+                    } catch (MediaNotFoundException $e) {
+                        // Do nothing when meida was removed before.
+                    }
+                }
+            }
+        }
+        $entityManager->remove($dynamic);
+        $entityManager->flush();
+
+        return new Response('', 204);
     }
 
     /**
