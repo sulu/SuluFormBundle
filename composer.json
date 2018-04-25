@@ -8,7 +8,7 @@
         "doctrine/orm": "~2.5.3",
         "php": "^7.1",
         "twig/twig": "^1.26 || ^2.0",
-        "sulu/sulu": "dev-develop"
+        "sulu/sulu": "^2.0"
     },
     "require-dev": {
         "jackalope/jackalope-doctrine-dbal": "^1.2.5",
@@ -50,6 +50,12 @@
     "autoload-dev": {
         "psr-4": {
             "Sulu\\Bundle\\FormBundle\\Tests\\": "Tests"
+        }
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "2.0-dev"
         }
     }
 }
