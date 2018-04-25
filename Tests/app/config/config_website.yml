@@ -1,0 +1,16 @@
+parameters:
+    secret: test
+
+framework:
+    esi: ~
+    router: { resource: '%kernel.root_dir%/config/routing_website.yml' }
+    profiler: { only_exceptions: false }
+    fragments: ~
+
+sulu_form:
+    mail:
+        from: "from@example.org"
+        to:   "to@example.org"
+
+swiftmailer:
+    disable_delivery:  true

@@ -12,7 +12,7 @@
             <generator strategy="AUTO"/>
         </id>
 
-        <field name="key" column="keyName" type="string" length="128"/>
+        <field name="key" column="keyName" type="string" length="255"/>
         <field name="order" column="orderNumber" type="integer"/>
         <field name="type" column="type" type="string" length="255"/>
         <field name="width" column="width" type="string" length="16"/><!-- full / half / one-third / two-third / quarter -->

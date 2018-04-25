@@ -14,7 +14,6 @@ namespace Sulu\Bundle\FormBundle\ListBuilder;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptor;
-use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 
 /**
  * Create FieldDescription from a form entity.
@@ -63,7 +62,8 @@ class DynamicListFactory implements DynamicListFactoryInterface
             $fieldDescriptors[$field->getKey()] = new FieldDescriptor(
                 $field->getKey(),
                 $title,
-                FieldDescriptorInterface::VISIBILITY_YES,
+                false,
+                true,
                 '',
                 '',
                 '',
@@ -74,7 +74,8 @@ class DynamicListFactory implements DynamicListFactoryInterface
         $fieldDescriptors['created'] = new FieldDescriptor(
             'created',
             'sulu_form.created',
-            FieldDescriptorInterface::VISIBILITY_YES,
+            false,
+            true,
             'datetime'
         );
 
