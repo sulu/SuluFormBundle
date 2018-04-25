@@ -20,6 +20,7 @@ use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineCaseFieldDe
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineDescriptor;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineJoinDescriptor;
+use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\SecuredControllerInterface;
@@ -63,8 +64,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
             Form::class,
             'public.id',
             [],
-            true,
-            false
+            FieldDescriptorInterface::VISIBILITY_NO
         );
 
         $fieldDescriptors['title'] = new DoctrineCaseFieldDescriptor(
@@ -92,8 +92,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
                 ]
             ),
             'public.title',
-            false,
-            true
+            FieldDescriptorInterface::VISIBILITY_ALWAYS
         );
 
         $fieldDescriptors['changed'] = new DoctrineCaseFieldDescriptor(
@@ -121,8 +120,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
                 ]
             ),
             'public.changed',
-            false,
-            false
+            FieldDescriptorInterface::VISIBILITY_NO
         );
 
         $fieldDescriptors['created'] = new DoctrineCaseFieldDescriptor(
@@ -150,8 +148,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
                 ]
             ),
             'public.created',
-            false,
-            false
+            FieldDescriptorInterface::VISIBILITY_NO
         );
 
         return $fieldDescriptors;

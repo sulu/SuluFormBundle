@@ -13,6 +13,7 @@ namespace Sulu\Bundle\FormBundle\Provider;
 
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
+use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 
 class DynamicProvider implements ListProviderInterface
 {
@@ -27,9 +28,9 @@ class DynamicProvider implements ListProviderInterface
         );
 
         $fieldDescriptors = [
-            'id' => $this->createFieldDescriptor('id', '', 'public.id'),
-            'uuid' => $this->createFieldDescriptor('uuid', '', 'uuid', true),
-            'webspaceKey' => $this->createFieldDescriptor('webspaceKey', '', 'webspaceKey', true),
+            'id' => $this->createFieldDescriptor('id', '', 'public.id', FieldDescriptorInterface::VISIBILITY_NO),
+            'uuid' => $this->createFieldDescriptor('uuid', '', 'uuid', FieldDescriptorInterface::VISIBILITY_NO),
+            'webspaceKey' => $this->createFieldDescriptor('webspaceKey', '', 'webspaceKey', FieldDescriptorInterface::VISIBILITY_NO),
             'locale' => $this->createFieldDescriptor('locale', '', 'locale'),
             'firstName' => $this->createFieldDescriptor('firstName'),
             'lastName' => $this->createFieldDescriptor('lastName'),
@@ -52,11 +53,11 @@ class DynamicProvider implements ListProviderInterface
      * @param string $name
      * @param string $type
      * @param string $translationKey
-     * @param bool $disabled
+     * @param string $visibility
      *
      * @return DoctrineFieldDescriptor
      */
-    protected function createFieldDescriptor($name, $type = '', $translationKey = '', $disabled = false)
+    protected function createFieldDescriptor($name, $type = '', $translationKey = '', $visibility = FieldDescriptorInterface::VISIBILITY_YES)
     {
         if (!$translationKey) {
             $translationKey = 'sulu_form.type.' . strtolower($name);
@@ -68,8 +69,7 @@ class DynamicProvider implements ListProviderInterface
             Dynamic::class,
             $translationKey,
             [],
-            $disabled,
-            false,
+            $visibility,
             $type
         );
     }
