@@ -9,7 +9,7 @@ First of all you need to install drewn's Mailchimp API, if this bundle is missin
 ```json
 {
     "require": {
-        "drewm/mailchimp-api": "^2.5"
+        "drewm/mailchimp-api": "^2.2"
     }
 }
 ```
@@ -17,7 +17,7 @@ First of all you need to install drewn's Mailchimp API, if this bundle is missin
 or
 
 ```bash
-composer require drewm/mailchimp-api:^2.5
+composer require drewm/mailchimp-api:^2.2
 ```
 
 ## Config
