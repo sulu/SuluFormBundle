@@ -32,7 +32,17 @@ sulu_form:
 
 ## Subscribe Status
 
-Short explanation ... pending, subscribed.
+- subscribed
+    - ```This address is on the list and ready to receive email. You can only send campaigns to ‘subscribed’ addresses.```
+    
+- unsibscribed
+    - ```This address used to be on the list but isn’t anymore.```
+
+- pending 
+    - ```This address requested to be added with double-opt-in but hasn’t confirmed their subscription yet.```
+    
+- cleaned
+    - ```This address bounced and has been removed from the list.```
 
 ## Where is my Mailchimp API Key?
 Account -> Extras -> Api Keys (create new / use existing)
