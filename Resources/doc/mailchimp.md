@@ -9,7 +9,7 @@ First of all you need to install drewn's Mailchimp API, if this bundle is missin
 ```json
 {
     "require": {
-        "drewm/mailchimp-api": "^2.2"
+        "drewm/mailchimp-api": "^2.5"
     }
 }
 ```
@@ -17,7 +17,7 @@ First of all you need to install drewn's Mailchimp API, if this bundle is missin
 or
 
 ```bash
-composer require drewm/mailchimp-api:^2.2
+composer require drewm/mailchimp-api:^2.5
 ```
 
 ## Config
@@ -27,7 +27,12 @@ add the following config to `app/config/config.yml`
 ```yml
 sulu_form:
     mailchimp_api_key: %parameter_recommended_for_mailchimp_api_key%
+    mailchimp_subscribe_status: %parameter_recommended_for_mailchimp_subscribe_status%
 ```
+
+## Subscribe Status
+
+Short explanation ... pending, subscribed.
 
 ## Where is my Mailchimp API Key?
 Account -> Extras -> Api Keys (create new / use existing)
