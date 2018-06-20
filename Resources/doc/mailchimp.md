@@ -27,22 +27,17 @@ add the following config to `app/config/config.yml`
 ```yml
 sulu_form:
     mailchimp_api_key: %parameter_recommended_for_mailchimp_api_key%
-    mailchimp_subscribe_status: %parameter_recommended_for_mailchimp_subscribe_status%
 ```
 
 ## Subscribe Status
 
-- subscribed
-    - ```This address is on the list and ready to receive email. You can only send campaigns to ‘subscribed’ addresses.```
-    
-- unsibscribed
-    - ```This address used to be on the list but isn’t anymore.```
+To change the subscribe status from `subscribed` to `pending` you need to configure the following:
 
-- pending 
-    - ```This address requested to be added with double-opt-in but hasn’t confirmed their subscription yet.```
-    
-- cleaned
-    - ```This address bounced and has been removed from the list.```
+```yml
+sulu_form:
+    mailchimp_subscribe_status: "pending"
+```
+https://developer.mailchimp.com/documentation/mailchimp/guides/manage-subscribers-with-the-mailchimp-api/#check-subscription-status
 
 ## Where is my Mailchimp API Key?
 Account -> Extras -> Api Keys (create new / use existing)
