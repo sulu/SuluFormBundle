@@ -29,6 +29,16 @@ sulu_form:
     mailchimp_api_key: %parameter_recommended_for_mailchimp_api_key%
 ```
 
+## Subscribe Status
+
+To change the subscribe status from `subscribed` to `pending` you need to configure the following:
+
+```yml
+sulu_form:
+    mailchimp_subscribe_status: "pending"
+```
+https://developer.mailchimp.com/documentation/mailchimp/guides/manage-subscribers-with-the-mailchimp-api/#check-subscription-status
+
 ## Where is my Mailchimp API Key?
 Account -> Extras -> Api Keys (create new / use existing)
 
