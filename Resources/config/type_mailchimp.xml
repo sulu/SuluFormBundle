@@ -6,6 +6,7 @@
     <services>
         <service id="sulu_form.subscriber.mailchimp_list_subscriber" class="Sulu\Bundle\FormBundle\Event\MailchimpListSubscriber">
             <argument>%sulu_form.mailchimp_api_key%</argument>
+            <argument>%sulu_form.mailchimp_subscribe_status%</argument>
             <tag name="kernel.event_subscriber" />
         </service>
 
