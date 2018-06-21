@@ -24,13 +24,20 @@ class MailchimpListSubscriber implements EventSubscriberInterface
     protected $apiKey;
 
     /**
+     * @var string
+     */
+    protected $subscribeStatus;
+
+    /**
      * MailchimpListSubscriber constructor.
      *
      * @param string $apiKey
+     * @param string $subscribeStatus
      */
-    public function __construct($apiKey = '')
+    public function __construct($apiKey = '', $subscribeStatus = 'subscribed')
     {
         $this->apiKey = $apiKey;
+        $this->subscribeStatus = $subscribeStatus;
     }
 
     /**
@@ -82,7 +89,7 @@ class MailchimpListSubscriber implements EventSubscriberInterface
 
                 $MailChimp->post('lists/' . $listId . '/members', [
                     'email_address' => $email,
-                    'status' => 'subscribed',
+                    'status' => $this->subscribeStatus,
                 ]);
 
                 if ('' == $fname && '' == $lname) {

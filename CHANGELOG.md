@@ -2,6 +2,7 @@
 
 ## unreleased
 
+ - FEATURE:    #167    Added possibility to change mailchimp subscribe status.
  - FEATURE     #158    Add deletion for dynamic entries
  - BUGFIX      #156    Fix static form handling after refractoring
  - BUGFIX      #150    Fix implement dropzone documentation
