@@ -22,23 +22,37 @@ use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
 class FormAdmin extends Admin
 {
     /**
+     * @var SecurityCheckerInterface
+     */
+    protected $securityChecker;
+
+    /**
+     * @var string
+     */
+    protected $title;
+
+    /**
      * FormAdmin constructor.
      *
      * @param SecurityCheckerInterface $securityChecker
      * @param string $title
      */
-    public function __construct(
-        SecurityCheckerInterface $securityChecker,
-        $title
-    ) {
+    public function __construct(SecurityCheckerInterface $securityChecker, string $title)
+    {
+        $this->securityChecker = $securityChecker;
+        $this->title = $title;
+    }
+
+    public function getNavigation(): Navigation
+    {
         // set root navigation
-        $rootNavigationItem = new NavigationItem($title);
+        $rootNavigationItem = new NavigationItem($this->title);
 
         // parent navigation
         $section = new NavigationItem('navigation.modules');
 
         // create section
-        if ($securityChecker->hasPermission('sulu.form.forms', 'view')) {
+        if ($this->securityChecker->hasPermission('sulu.form.forms', 'view')) {
             $navigationItem = new NavigationItem('sulu_form.forms');
             $navigationItem->setIcon('magic');
             $navigationItem->setAction('forms');
@@ -47,8 +61,7 @@ class FormAdmin extends Admin
             $rootNavigationItem->addChild($section);
         }
 
-        // set navigation
-        $this->setNavigation(new Navigation($rootNavigationItem));
+        return new Navigation($rootNavigationItem);
     }
 
     /**
