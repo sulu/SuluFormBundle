@@ -103,3 +103,29 @@
         {%- endif -%}
     {%- endfor -%}
 {%- endblock attributes -%}
+
+{# Make sure links also work in labels #}
+{% block checkbox_radio_label -%}
+    {%- if widget is defined -%}
+        {%- if required -%}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) -%}
+        {%- endif -%}
+        {%- if parent_label_class is defined -%}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|trim}) -%}
+        {%- endif -%}
+        {%- if label is not same as(false) and label is empty -%}
+            {%- if label_format is not empty -%}
+                {%- set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) -%}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {%- endif -%}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+        {% set label = label is not same as(false) ? (translation_domain is same as(false) ? label : label|trans({}, translation_domain)) %}
+        {{- widget|raw }} {{ label|raw -}}
+        </label>
+    {%- endif -%}
+{%- endblock checkbox_radio_label %}
