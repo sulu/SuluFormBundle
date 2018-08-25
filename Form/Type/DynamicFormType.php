@@ -119,13 +119,19 @@ class DynamicFormType extends AbstractType
             $this->typePool->get($field->getType())->build($builder, $field, $locale, $options);
         }
 
+        // Add hidden locale. (de, en, ...)
+        $builder->add('locale', HiddenType::class, [
+            'data' => $locale,
+            'mapped' => false,
+        ]);
+
         // Add hidden type field. (page, article, event, blog, ...)
         $builder->add('type', HiddenType::class, [
             'data' => $type,
             'mapped' => false,
         ]);
 
-        // Add hidden typeId field. (UUID, Database id,…)
+        // Add hidden typeId field. (UUID, Database id, ...)
         $builder->add('typeId', HiddenType::class, [
             'data' => $typeId,
             'mapped' => false,

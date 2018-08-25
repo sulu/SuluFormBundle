@@ -114,14 +114,17 @@ class Builder implements BuilderInterface
                     throw new HttpException(400, 'SuluFormBundle: Checksum not valid!');
                 }
 
-                $locale = $request->getLocale();
-
                 if (!isset($parameters['type'])
                     || !isset($parameters['formId'])
                     || !isset($parameters['formName'])
                     || !isset($parameters['typeId'])
                 ) {
                     continue;
+                }
+
+                $locale = $request->getLocale();
+                if (isset($parameters['locale'])) {
+                    $locale = $parameters['locale'];
                 }
 
                 return $this->build(
