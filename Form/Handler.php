@@ -163,7 +163,7 @@ class Handler implements HandlerInterface
         $formData = $form->getData();
         if ($formData instanceof Dynamic) {
             $additionalData = [
-                'formEntity' => $formData->getForm()->serializeForLocale($formData->getLocale(), $formData),
+                'formEntity' => $formData->getForm()->serializeForLocale($configuration->getLocale(), $formData),
             ];
         }
 

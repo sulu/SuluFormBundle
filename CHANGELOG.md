@@ -2,6 +2,7 @@
 
 ## unreleased
 
+ - BUGFIX      #175    Fixed form on a shadow pages
  - BUGFIX      #173    Fixed missing `sulu_form.navigation_provider.template` service
  - FEATURE     #172    Added formdata parameter to getNotifySubject function in FormConfigurationFactory
  - FEATURE     #167    Added possibility to change mailchimp subscribe status

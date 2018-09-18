@@ -96,6 +96,7 @@ class RequestListener
         /** @var Dynamic $dynamic */
         $dynamic = $form->getData();
         $configuration = $this->formConfigurationFactory->buildByDynamic($dynamic);
+        $dynamic->setLocale($request->getLocale()); // Need to be set to request locale for shadow pages, configuraiton will hold the original locale
 
         if ($this->formHandler->handle($form, $configuration)) {
             $serializedObject = $dynamic->getForm()->serializeForLocale($dynamic->getLocale(), $dynamic);
