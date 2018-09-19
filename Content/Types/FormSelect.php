@@ -15,6 +15,7 @@ use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\Compat\Structure\PageBridge;
+use Sulu\Component\Content\Compat\Structure\StructureBridge;
 use Sulu\Component\Content\SimpleContentType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
@@ -90,18 +91,7 @@ class FormSelect extends SimpleContentType
         );
 
         if (!$form) {
-            if (!$structure->getIsShadow()) {
-                return;
-            }
-
-            /** @var FormInterface $form */
-            $form = $this->formBuilder->build(
-                $id,
-                $type,
-                $structure->getUuid(),
-                $structure->getShadowBaseLanguage(),
-                $property->getName()
-            );
+            $form = $this->loadShadowForm($property, $id, $type);
 
             if (!$form) {
                 return;
@@ -109,6 +99,27 @@ class FormSelect extends SimpleContentType
         }
 
         return $form->createView();
+    }
+
+    private function loadShadowForm(PropertyInterface $property, $id, $type)
+    {
+        $structure = $property->getStructure();
+
+        if (!$structure instanceof StructureBridge) {
+            return;
+        }
+
+        if (!$structure->getIsShadow()) {
+            return;
+        }
+
+        return $this->formBuilder->build(
+            $id,
+            $type,
+            $structure->getUuid(),
+            $structure->getShadowBaseLanguage(),
+            $property->getName()
+        );
     }
 
     /**
