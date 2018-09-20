@@ -2,6 +2,7 @@
 
 ## 1.0.0-RC5
 
+ - ENHANCEMENT #177    Added grunt-cli to package.json
  - BUGFIX      #175    Fixed form on a shadow pages
  - BUGFIX      #173    Fixed missing `sulu_form.navigation_provider.template` service
  - FEATURE     #172    Added formdata parameter to getNotifySubject function in FormConfigurationFactory
