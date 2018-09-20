@@ -409,6 +409,20 @@ class Dynamic implements AuditableInterface
     }
 
     /**
+     * Set locale.
+     *
+     * @param string $locale
+     *
+     * @return $this
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
      * Get type.
      *
      * @return string
