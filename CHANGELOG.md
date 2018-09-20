@@ -1,6 +1,6 @@
 # Changelog
 
-## unreleased
+## 1.0.0-RC5
 
  - BUGFIX      #175    Fixed form on a shadow pages
  - BUGFIX      #173    Fixed missing `sulu_form.navigation_provider.template` service
