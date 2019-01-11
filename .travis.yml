@@ -6,6 +6,10 @@ cache:
   directories:
     - "$HOME/.composer/cache/files"
 
+env:
+  global:
+    - SYMFONY__DATABASE__VERSION=5.5.39
+
 matrix:
   include:
     - php: 5.5
