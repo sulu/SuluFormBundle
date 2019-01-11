@@ -5,7 +5,7 @@
     "require": {
         "symfony/symfony": "^2.8.7 || ^3.0",
         "symfony/swiftmailer-bundle": "^2.3 || ^3.0",
-        "doctrine/orm": "~2.5.3",
+        "doctrine/orm": "^2.5.3",
         "php": "^5.5 || ^7.0",
         "twig/twig": "^1.26 || ^2.0",
         "sulu/sulu": "~1.3"
@@ -19,7 +19,8 @@
         "doctrine/doctrine-bundle": "^1.4",
         "phpunit/phpunit": ">=4.8, <6.0",
         "excelwebzone/recaptcha-bundle": "^1.4.2",
-        "drewm/mailchimp-api": "^2.2"
+        "drewm/mailchimp-api": "^2.2",
+        "doctrine/data-fixtures": "^1.0"
     },
     "suggest": {
         "excelwebzone/recaptcha-bundle": "Allows to add recaptcha to any dynamic form",
