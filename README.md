@@ -1,5 +1,11 @@
 # Sulu Form Bundle
 
+[![GitHub license](https://img.shields.io/github/license/sulu/SuluFormBundle.svg)](https://github.com/sulu/SuluFormBundle/blob/develop/LICENSE)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/sulu/SuluFormBundle.svg)](https://github.com/sulu/SuluFormBundle/releases)
+[![GitHub tag (latest by date)](https://img.shields.io/github/tag-date/sulu/SuluFormBundle.svg)](https://github.com/sulu/SuluFormBundle/releases)
+[![Travis](https://travis-ci.org/sulu/SuluFormBundle.png?branch=master)](https://travis-ci.org/sulu/SuluFormBundle)
+[![Packagist](https://img.shields.io/packagist/dt/sulu/sulu-form-bundle.svg)](https://packagist.org/packages/sulu/sulu-form-bundle)
+
 The SuluFormBundle adds support for creating dynamic forms in Sulu. It can
 be used for contact, sweepstake or other forms.
 
