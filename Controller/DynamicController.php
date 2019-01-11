@@ -177,6 +177,6 @@ class DynamicController extends RestController implements ClassResourceInterface
             throw new BadRequestHttpException('"form" is required parameter');
         }
 
-        return $this->get('sulu_form.repository.form')->findById($formId);
+        return $this->get('sulu_form.repository.form')->loadById($formId);
     }
 }

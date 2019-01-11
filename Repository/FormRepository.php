@@ -22,7 +22,7 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return Form|null
      */
-    public function findById($id, $locale = null)
+    public function loadById($id, $locale = null)
     {
         $queryBuilder = $this->createQueryBuilder('form')
             ->leftJoin('form.translations', 'translation')->addSelect('translation')
@@ -48,7 +48,7 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return Form[]
      */
-    public function findAll($locale = null, $filters = [])
+    public function loadAll($locale = null, $filters = [])
     {
         $queryBuilder = $this->createQueryBuilder('form')
             ->leftJoin('form.translations', 'translation')->addSelect('translation')
@@ -71,7 +71,7 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return int
      */
-    public function count($locale = null, $filters = [])
+    public function countByFilters($locale = null, $filters = [])
     {
         $queryBuilder = $this->createQueryBuilder('form');
         $queryBuilder->select($queryBuilder->expr()->count('form.id'));
