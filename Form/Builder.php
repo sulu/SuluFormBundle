@@ -267,7 +267,7 @@ class Builder implements BuilderInterface
      */
     private function loadFormEntity($id, $locale)
     {
-        $formEntity = $this->formRepository->findById($id, $locale);
+        $formEntity = $this->formRepository->loadById($id, $locale);
 
         if (!$formEntity) {
             return null;

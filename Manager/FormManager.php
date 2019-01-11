@@ -55,7 +55,7 @@ class FormManager
      */
     public function findById($id, $locale = null)
     {
-        return $this->formRepository->findById($id, $locale);
+        return $this->formRepository->loadById($id, $locale);
     }
 
     /**
@@ -66,7 +66,7 @@ class FormManager
      */
     public function findAll($locale = null, $filters = [])
     {
-        return $this->formRepository->findAll($locale, $filters);
+        return $this->formRepository->loadAll($locale, $filters);
     }
 
     /**
@@ -77,7 +77,7 @@ class FormManager
      */
     public function count($locale = null, $filters = [])
     {
-        return $this->formRepository->count($locale, $filters);
+        return $this->formRepository->countByFilters($locale, $filters);
     }
 
     /**
