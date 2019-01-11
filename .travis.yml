@@ -22,7 +22,8 @@ before_install:
   - composer self-update
 
 install:
-  - if [[ $PHPSTAN == 'true' ]]; then travis_retry composer require --dev phpstan/phpstan $COMPOSER_FLAGS ; else travis_retry composer update $COMPOSER_FLAGS ; fi
+  - if [[ $PHPSTAN == 'true' ]]; then travis_retry composer require --dev phpstan/phpstan --no-update ; fi
+  - travis_retry composer update $COMPOSER_FLAGS
   - composer info -i
   - ./Tests/app/console doctrine:database:create
   - ./Tests/app/console doctrine:schema:update --force
