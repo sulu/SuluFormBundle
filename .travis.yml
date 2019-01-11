@@ -15,6 +15,7 @@ matrix:
     - php: 5.5
       env:
         - COMPOSER_FLAGS="--prefer-dist --no-interaction" # --prefer-lowest TODO FIXME sulu 1.3 issue
+        - ENABLE_SWAP=true
     - php: 7.3
       env:
         - COMPOSER_FLAGS="--prefer-dist --no-interaction"
@@ -23,6 +24,14 @@ matrix:
 
 before_install:
   - phpenv config-add Tests/travis.php.ini
+  - | # enable swap
+    if [[ $ENABLE_SWAP == 'true' ]]; then
+        sudo fallocate -l 4G /swapfile
+        sudo chmod 600 /swapfile
+        sudo mkswap /swapfile
+        sudo swapon /swapfile
+        sudo sysctl vm.swappiness=10
+    fi
   - composer self-update
 
 install:
