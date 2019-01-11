@@ -1,7 +1,9 @@
 # Upgrade
 
 ## 1.0.0-RC6
-For the compatibility with `doctrine/orm ^2.6` the function names of the FromRepository are edited to avoid inheritance issues.
+
+For the compatibility with `doctrine/orm ^2.6` the function names of the FormRepository are edited to avoid inheritance issues.
+
  - `findById` changed to `loadById`
  - `findAll` changed to `loadAll`
  - `count` changed to `countByFilters`
