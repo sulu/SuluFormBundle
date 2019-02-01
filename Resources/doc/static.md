@@ -127,8 +127,8 @@ In your Bundle under `Resources/config/doctrine/` create your `*.orm.xml` file:
 </doctrine-mapping>
 ```
 
-Create the entity with `app/console doctrine:generate:entities ClientWebsiteBundle`  
-Sulu have sometimes problem with this command and you maybe need first create the empty class in your `Entity` Folder. (Issue: https://github.com/sulu-io/sulu/issues/1343) 
+Create the entity with `app/console doctrine:generate:entities ClientWebsiteBundle`.
+Sometimes Sulu has problems with this command, in this case you will need to create an empty class in your `Entity` Folder. (Issue: https://github.com/sulu-io/sulu/issues/1343) 
 
 ## Create Form Type
 
