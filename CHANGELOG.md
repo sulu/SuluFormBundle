@@ -2,6 +2,7 @@
 
 ## 1.0.0-RC6
 
+ - BUGFIX      #184    Add fixes for Grammar of static form documentation
  - FEATURE     #183    Add tests running on php 7.3
  - BUGFIX      #182    Fix compatibility with doctrine/orm ^2.6
 
