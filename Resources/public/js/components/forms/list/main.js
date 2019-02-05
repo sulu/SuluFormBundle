@@ -91,7 +91,7 @@ define(['suluform/collections/forms'], function (Collection) {
                     // options for the content (datagrid)
                     el: this.$find('#' + constants.listId),
                     instanceName: this.instanceName,
-                    url: constants.endPointUrl + '?locale=' + this.options.language + '&flat=true&sortBy=title&sortOrder=asc',
+                    url: constants.endPointUrl + '?locale=' + this.options.language + '&flat=true&ghost=true&sortBy=title&sortOrder=asc',
                     resultKey: constants.toolbarKey,
                     searchFields: constants.toolbarSearchFields,
                     viewOptions: {

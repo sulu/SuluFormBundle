@@ -154,6 +154,35 @@ class FormController extends FOSRestController implements ClassResourceInterface
             false
         );
 
+        $fieldDescriptors['locale'] = new DoctrineCaseFieldDescriptor(
+            'locale',
+            new DoctrineDescriptor(
+                'translation',
+                'locale',
+                [
+                    'translation' => new DoctrineJoinDescriptor(
+                        'translation',
+                        Form::class . '.translations',
+                        sprintf('translation.locale = \'%s\'', $locale)
+                    ),
+                ]
+            ),
+            new DoctrineDescriptor(
+                'defaultTranslation',
+                'locale',
+                [
+                    'defaultTranslation' => new DoctrineJoinDescriptor(
+                        'defaultTranslation',
+                        Form::class . '.translations',
+                        sprintf('defaultTranslation.locale = %s.defaultLocale', Form::class)
+                    ),
+                ]
+            ),
+            'public.created',
+            true,
+            false
+        );
+
         return $fieldDescriptors;
     }
 
@@ -220,6 +249,10 @@ class FormController extends FOSRestController implements ClassResourceInterface
             // get fieldDescriptors
             $fieldDescriptors = $this->getFieldDescriptors($locale, $filters);
             $restHelper->initializeListBuilder($listBuilder, $fieldDescriptors);
+
+            if ('true' !== $request->get('ghost')) {
+                $listBuilder->where($fieldDescriptors['locale'], $locale);
+            }
 
             // load entities
             $list = $listBuilder->execute();
