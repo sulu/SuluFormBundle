@@ -136,7 +136,7 @@
         <service id="sulu_form.repository.dynamic" class="Sulu\Bundle\FormBundle\Repository\DynamicRepository">
             <factory service="doctrine.orm.entity_manager" method="getRepository"/>
             <argument>SuluFormBundle:Dynamic</argument>
-        </service>ReferenceStore
+        </service>
 
         <!-- Collection Strategy -->
         <service id="sulu_form.media_collection_strategy.tree"
