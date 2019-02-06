@@ -178,7 +178,7 @@ class FormController extends FOSRestController implements ClassResourceInterface
                     ),
                 ]
             ),
-            'public.created',
+            'security.permission.role.language',
             true,
             false
         );
@@ -249,6 +249,8 @@ class FormController extends FOSRestController implements ClassResourceInterface
             // get fieldDescriptors
             $fieldDescriptors = $this->getFieldDescriptors($locale, $filters);
             $restHelper->initializeListBuilder($listBuilder, $fieldDescriptors);
+
+            $listBuilder->addSelectField($fieldDescriptors['locale']);
 
             if ('true' !== $request->get('ghost')) {
                 $listBuilder->where($fieldDescriptors['locale'], $locale);

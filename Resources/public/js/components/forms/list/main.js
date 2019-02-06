@@ -106,9 +106,23 @@ define(['suluform/collections/forms'], function (Collection) {
                             ],
                             rowClickSelect: true,
                             highlightSelected: true,
-                            fullWidth: true
+                            fullWidth: true,
+                            badges: [
+                                {
+                                    column: 'title',
+                                    callback: function(item, badge) {
+                                        if (item.locale !== this.options.language) {
+                                            badge.title = item.locale;
+
+                                            return badge;
+                                        }
+
+                                        return false;
+                                    }.bind(this)
+                                }
+                            ]
                         }
-                    }
+                    },
                 }
             );
         },
