@@ -91,7 +91,7 @@ define(['suluform/collections/forms'], function (Collection) {
                     // options for the content (datagrid)
                     el: this.$find('#' + constants.listId),
                     instanceName: this.instanceName,
-                    url: constants.endPointUrl + '?locale=' + this.options.language + '&flat=true&sortBy=title&sortOrder=asc',
+                    url: constants.endPointUrl + '?locale=' + this.options.language + '&flat=true&ghost=true&sortBy=title&sortOrder=asc',
                     resultKey: constants.toolbarKey,
                     searchFields: constants.toolbarSearchFields,
                     viewOptions: {
@@ -106,9 +106,23 @@ define(['suluform/collections/forms'], function (Collection) {
                             ],
                             rowClickSelect: true,
                             highlightSelected: true,
-                            fullWidth: true
+                            fullWidth: true,
+                            badges: [
+                                {
+                                    column: 'title',
+                                    callback: function(item, badge) {
+                                        if (item.locale !== this.options.language) {
+                                            badge.title = item.locale;
+
+                                            return badge;
+                                        }
+
+                                        return false;
+                                    }.bind(this)
+                                }
+                            ]
                         }
-                    }
+                    },
                 }
             );
         },

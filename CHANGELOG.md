@@ -8,6 +8,7 @@
 
 ## 1.0.0-RC5
 
+ - BUGFIX      #185    Fix hidding of untranslated forms and form fields
  - ENHANCEMENT #177    Added grunt-cli to package.json
  - BUGFIX      #175    Fixed form on a shadow pages
  - BUGFIX      #173    Fixed missing `sulu_form.navigation_provider.template` service
