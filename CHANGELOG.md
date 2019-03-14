@@ -2,6 +2,8 @@
 
 ## 1.0.0-RC6
 
+ - ENHANCEMENT #186    Increase mailchimp list limit from 10 to 100
+ - BUGFIX      #185    Fix hidding of untranslated forms and form fields
  - BUGFIX      #184    Add fixes for Grammar of static form documentation
  - FEATURE     #183    Add tests running on php 7.3
  - BUGFIX      #182    Fix compatibility with doctrine/orm ^2.6
