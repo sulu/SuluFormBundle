@@ -14,6 +14,10 @@
                 <source>sulu_form.no_choice</source>
                 <target>Geen selectie</target>
             </trans-unit>
+            <trans-unit id="4">
+                <source>sulu_form.mail.plain_text</source>
+                <target>Deze mail is alleen in HTML te bekijken</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
