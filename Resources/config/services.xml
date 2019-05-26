@@ -43,6 +43,14 @@
             <tag name="sulu.context" context="admin" />
         </service>
 
+        <!-- Static -->
+        <service id="sulu_form.navigation_provider.template"
+                 class="Sulu\Bundle\FormBundle\Admin\TemplateNavigationProvider">
+            <argument type="service" id="sulu.list.provider.registry"/>
+
+            <tag name="sulu_admin.content_navigation" alias="content" />
+        </service>
+
         <!-- List Provider Registry -->
         <service id="sulu.list.provider.registry"
                  class="Sulu\Bundle\FormBundle\Provider\ListProviderRegistry" />
@@ -144,7 +152,7 @@
             <argument type="collection"/>
         </service>
 
-        <!-- TWIG extension -->
+        <!-- Twig extension -->
         <service id="sulu_form.twig_extension" class="Sulu\Bundle\FormBundle\Twig\FormTwigExtension">
             <tag name="twig.extension"/>
             <argument type="service" id="sulu_form.builder"/>

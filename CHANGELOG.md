@@ -1,6 +1,27 @@
 # Changelog
 
-## unreleased
+## dev-master
+
+ - BUGFIX      #189    Fix travis mysql service
+
+## 1.0.0-RC6
+
+ - ENHANCEMENT #186    Increase mailchimp list limit from 10 to 100
+ - BUGFIX      #185    Fix hidding of untranslated forms and form fields
+ - BUGFIX      #184    Add fixes for Grammar of static form documentation
+ - FEATURE     #183    Add tests running on php 7.3
+ - BUGFIX      #182    Fix compatibility with doctrine/orm ^2.6
+
+## 1.0.0-RC5
+
+ - BUGFIX      #185    Fix hidding of untranslated forms and form fields
+ - ENHANCEMENT #177    Added grunt-cli to package.json
+ - BUGFIX      #175    Fixed form on a shadow pages
+ - BUGFIX      #173    Fixed missing `sulu_form.navigation_provider.template` service
+ - FEATURE     #172    Added formdata parameter to getNotifySubject function in FormConfigurationFactory
+ - FEATURE     #167    Added possibility to change mailchimp subscribe status
+
+## 1.0.0-RC4
 
  - FEATURE:    #167    Added possibility to change mailchimp subscribe status.
  - FEATURE     #158    Add deletion for dynamic entries

@@ -10,6 +10,14 @@ The field `keyName` need to be short to 128 length for UTF8MB4 compatibility:
 ALTER TABLE fo_form_fields CHANGE keyName keyName VARCHAR(128) NOT NULL;
 ``` 
 
+## 1.0.0-RC6
+
+For the compatibility with `doctrine/orm ^2.6` the function names of the FormRepository are renamed to avoid inheritance issues.
+
+ - `findById` changed to `loadById`
+ - `findAll` changed to `loadAll`
+ - `count` changed to `countByFilters`
+
 ## 1.0.0-RC3
 
 ### Removed `dynamic_default_view` parameter

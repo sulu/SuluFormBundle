@@ -80,7 +80,7 @@ class MailchimpType implements FormFieldTypeInterface
         }
 
         $mailChimp = new \DrewM\MailChimp\MailChimp($this->apiKey);
-        $response = $mailChimp->get('lists');
+        $response = $mailChimp->get('lists', ['count' => 100]);
 
         if (!isset($response['lists'])) {
             return $lists;

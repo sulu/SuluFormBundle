@@ -14,6 +14,8 @@ namespace Sulu\Bundle\FormBundle\Content\Types;
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Component\Content\Compat\PropertyInterface;
+use Sulu\Component\Content\Compat\Structure\PageBridge;
+use Sulu\Component\Content\Compat\Structure\StructureBridge;
 use Sulu\Component\Content\SimpleContentType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
@@ -76,20 +78,48 @@ class FormSelect extends SimpleContentType
 
         $type = $property->getParams()['type']->getValue();
 
+        /** @var PageBridge $structure */
+        $structure = $property->getStructure();
+
         /** @var FormInterface $form */
         $form = $this->formBuilder->build(
             $id,
             $type,
-            $property->getStructure()->getUuid(),
-            $property->getStructure()->getLanguageCode(),
+            $structure->getUuid(),
+            $structure->getLanguageCode(),
             $property->getName()
         );
 
         if (!$form) {
-            return;
+            $form = $this->loadShadowForm($property, $id, $type);
+
+            if (!$form) {
+                return;
+            }
         }
 
         return $form->createView();
+    }
+
+    private function loadShadowForm(PropertyInterface $property, $id, $type)
+    {
+        $structure = $property->getStructure();
+
+        if (!$structure instanceof StructureBridge) {
+            return;
+        }
+
+        if (!$structure->getIsShadow()) {
+            return;
+        }
+
+        return $this->formBuilder->build(
+            $id,
+            $type,
+            $structure->getUuid(),
+            $structure->getShadowBaseLanguage(),
+            $property->getName()
+        );
     }
 
     /**
@@ -105,7 +135,7 @@ class FormSelect extends SimpleContentType
 
         $locale = $property->getStructure()->getLanguageCode();
 
-        $formEntity = $this->formRepository->findById($id, $locale);
+        $formEntity = $this->formRepository->loadById($id, $locale);
 
         if (!$formEntity) {
             return [];

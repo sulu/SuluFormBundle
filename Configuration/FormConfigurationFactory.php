@@ -129,7 +129,7 @@ class FormConfigurationFactory
 
         $adminMailConfiguration = $this->createMailConfiguration($locale);
 
-        $adminMailConfiguration->setSubject($type->getNotifySubject());
+        $adminMailConfiguration->setSubject($type->getNotifySubject($formData));
         $adminMailConfiguration->setFrom($type->getNotifyFromMailAddress($formData));
         $adminMailConfiguration->setTo($type->getNotifyToMailAddress($formData));
         $adminMailConfiguration->setReplyTo($type->getNotifyReplyToMailAddress($formData));
