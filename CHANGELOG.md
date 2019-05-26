@@ -1,5 +1,9 @@
 # Changelog
 
+## dev-master
+
+ - BUGFIX      #189    Fix travis mysql service
+
 ## 1.0.0-RC6
 
  - ENHANCEMENT #186    Increase mailchimp list limit from 10 to 100
