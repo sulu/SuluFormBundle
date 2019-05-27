@@ -3,6 +3,7 @@
 ## dev-master
 
  - BUGFIX      #189    Fix travis mysql service
+ - FEATURE     #187    Added support of plain text messages
 
 ## 1.0.0-RC6
 
