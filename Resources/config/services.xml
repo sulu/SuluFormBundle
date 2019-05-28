@@ -78,6 +78,8 @@
             <argument type="service" id="sulu_form.media_collection_strategy.default"/>
             <argument>%sulu_form.mail.template.notify%</argument>
             <argument>%sulu_form.mail.template.customer%</argument>
+            <argument>%sulu_form.mail.template.notify_plain_text%</argument>
+            <argument>%sulu_form.mail.template.customer_plain_text%</argument>
         </service>
 
         <!-- Form Builder -->

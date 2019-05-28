@@ -41,7 +41,9 @@ class FormConfigurationFactoryTest extends \PHPUnit_Framework_TestCase
         $formConfigurationFactory = new FormConfigurationFactory(
             $collectionStrategy->reveal(),
             'SuluFormBundle:mails:notify.html.twig',
-            'SuluFormBundle:mails:customer.html.twig'
+            'SuluFormBundle:mails:customer.html.twig',
+            'SuluFormBundle:mails:notify_plain_text.html.twig',
+            'SuluFormBundle:mails:customer_plain_text.html.twig'
         );
 
         $formConfiguration = $formConfigurationFactory->buildByDynamic($dynamic);

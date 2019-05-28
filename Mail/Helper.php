@@ -67,7 +67,8 @@ class Helper implements HelperInterface
         $replyTo = null,
         $attachments = [],
         $ccMail = [],
-        $bccMail = []
+        $bccMail = [],
+        $plainText = null
     ) {
         $message = new \Swift_Message(
             $subject,
@@ -112,6 +113,9 @@ class Helper implements HelperInterface
 
         $message->setCc($ccMail);
         $message->setBcc($bccMail);
+        if ($plainText != null) {
+            $message->addPart($plainText, 'text/plain');
+        }
 
         $this->logger->info(sprintf(
             'Try register mail from SuluFormBundle: ' . PHP_EOL .
@@ -120,13 +124,15 @@ class Helper implements HelperInterface
             '   Reply to: %s' . PHP_EOL .
             '   Subject: %s' . PHP_EOL .
             '   CC: %s' . PHP_EOL .
-            '   BCC: %s' . PHP_EOL,
+            '   BCC: %s' . PHP_EOL .
+            '   Plain text: %s' . PHP_EOL,
             is_string($fromMail) ? $fromMail : serialize($fromMail),
             is_string($toMail) ? $toMail : serialize($toMail),
             is_string($replyTo) ? $replyTo : serialize($toMail),
             is_string($subject) ? $subject : serialize($subject),
             is_string($ccMail) ? $ccMail : serialize($ccMail),
-            is_string($bccMail) ? $bccMail : serialize($bccMail)
+            is_string($bccMail) ? $bccMail : serialize($bccMail),
+            is_string($plainText) ? $plainText : serialize($plainText)
         ));
 
         return $this->mailer->send($message);
