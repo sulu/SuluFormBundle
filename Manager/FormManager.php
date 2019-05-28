@@ -35,25 +35,17 @@ class FormManager
     protected $formRepository;
 
     /**
-     * @var HandlerInvalidateReferenceInterface
-     */
-    protected $invalidateHandler;
-
-    /**
      * EventManager constructor.
      *
      * @param EntityManagerInterface $entityManager
      * @param FormRepository $formRepository
-     * @param HandlerInvalidateReferenceInterface $invalidateHandler
      */
     public function __construct(
         EntityManagerInterface $entityManager,
-        FormRepository $formRepository,
-        HandlerInvalidateReferenceInterface $invalidateHandler = null
+        FormRepository $formRepository
     ) {
         $this->entityManager = $entityManager;
         $this->formRepository = $formRepository;
-        $this->invalidateHandler = $invalidateHandler;
     }
 
     /**
@@ -148,8 +140,6 @@ class FormManager
             // To avoid lazy load of sub entities in the serializer reload whole object with sub entities from db
             // remove this when you don`t join anything in `findById`.
             $form = $this->findById($form->getId(), $locale);
-        } elseif ($this->invalidateHandler) {
-            $this->invalidateHandler->invalidateReference('form', $id);
         }
 
         return $form;
