@@ -280,7 +280,7 @@ class MailConfiguration implements MailConfigurationInterface
      *
      * @return $this
      */
-    public function setPlainTextTemplate(string $plainTextTemplate)
+    public function setPlainTextTemplate($plainTextTemplate)
     {
         $this->plainTextTemplate = $plainTextTemplate;
 
