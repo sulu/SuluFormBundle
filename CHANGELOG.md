@@ -4,6 +4,7 @@
 
  - BUGFIX      #189    Fix travis mysql service
  - FEATURE     #187    Added support of plain text messages
+ - FEATURE     #157    Add reference store and tag cache invalidation
 
 ## 1.0.0-RC6
 
