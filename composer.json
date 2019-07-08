@@ -4,10 +4,11 @@
     "type": "sulu-bundle",
     "require": {
         "php": "^7.1",
+        "symfony/symfony": "^2.8.7 || ^3.0 || ^4.0",
         "doctrine/orm": "^2.5.3",
+        "php": "^5.5 || ^7.0",
         "twig/twig": "^1.26 || ^2.0",
         "sulu/sulu": "^2.0 || dev-develop",
-        "symfony/symfony": "^3.4",
         "symfony/swiftmailer-bundle": "^2.3 || ^3.0"
     },
     "require-dev": {
