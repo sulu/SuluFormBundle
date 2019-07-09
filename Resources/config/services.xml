@@ -16,7 +16,8 @@
             <argument type="service" id="logger" />
         </service>
 
-        <!-- Mail -->
+
+        <!-- Mail-->
         <service id="sulu.mail.helper" class="Sulu\Bundle\FormBundle\Mail\Helper">
             <argument type="service" id="mailer" />
             <argument>%sulu_form.mail.from%</argument>
@@ -28,7 +29,9 @@
             <argument type="service" id="logger" />
         </service>
 
-        <!-- Cache -->
+
+        <!-- Cache
+        Removed HTTP Cache Paths-Handler
         <service id="sulu_bundle_form.event.cache_invalidation_listener"
                  class="Sulu\Bundle\FormBundle\Event\CacheInvalidationListener">
             <argument type="service" id="sulu_http_cache.handler.aggregate"/>
@@ -36,14 +39,15 @@
             <tag name="doctrine.event_listener" event="postUpdate"/>
             <tag name="doctrine.event_listener" event="preRemove"/>
         </service>
+        -->
 
         <!-- Admin -->
         <service id="sulu_form.admin"
                  class="Sulu\Bundle\FormBundle\Admin\FormAdmin">
-            <tag name="sulu.admin"/>
-            <tag name="sulu.context" context="admin"/>
             <argument type="service" id="sulu_security.security_checker"/>
             <argument>%sulu_admin.name%</argument>
+            <tag name="sulu.admin"/>
+            <tag name="sulu.context" context="admin"/>
         </service>
 
         <service id="sulu_form.navigation_provider.form"
