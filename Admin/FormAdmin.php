@@ -14,6 +14,7 @@ namespace Sulu\Bundle\FormBundle\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Navigation\Navigation;
 use Sulu\Bundle\AdminBundle\Navigation\NavigationItem;
+use Sulu\Bundle\AdminBundle\Admin\Routing\RouteBuilderFactoryInterface;
 use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
 
@@ -29,6 +30,7 @@ class FormAdmin extends Admin
     const EDIT_FORM_ROUTE = 'sulu_form.edit_form';
 
     private $securityChecker;
+    private $routeBuilderFactory;
     private $title;
 
     /**
@@ -39,9 +41,11 @@ class FormAdmin extends Admin
      */
     public function __construct(
         SecurityCheckerInterface $securityChecker,
+        RouteBuilderFactoryInterface $routeBuilderFactory,
         $title
     ) {
         $this->securityChecker = $securityChecker;
+        $this->routeBuilderFactory = $routeBuilderFactory;
         $this->title = $title;
     }
 
@@ -54,7 +58,7 @@ class FormAdmin extends Admin
             $navigationItem = new NavigationItem('sulu_form.forms', $settings);
             $navigationItem->setIcon('su-magic');
             $navigationItem->setPosition(10);
-            //$navigationItem->setMainRoute(static::LIST_ROUTE);
+            $navigationItem->setMainRoute(static::LIST_ROUTE);
             $rootNavigationItem->addChild($navigationItem);
         }
 
@@ -77,6 +81,31 @@ class FormAdmin extends Admin
         return 'suluform';
     }
 
+
+    public function getRoutes(): array
+    {
+        $formToolbarActions = [
+            'sulu_admin.save',
+            'sulu_admin.delete',
+        ];
+        $listToolbarActions = [
+            'sulu_admin.add',
+            'sulu_admin.delete'
+        ];
+        return [
+            $this->routeBuilderFactory->createListRouteBuilder(static::LIST_ROUTE, '/forms')
+                ->setResourceKey('form')
+                ->setListKey('forms')
+                ->setTitle('sulu_form.forms')
+                ->addListAdapters(['table'])
+                ->setAddRoute(static::ADD_FORM_ROUTE)
+                ->setEditRoute(static::EDIT_FORM_ROUTE)
+                ->enableSearching()
+                ->addToolbarActions($listToolbarActions)
+                ->getRoute(),
+
+        ];
+    }
 
 
     /**
