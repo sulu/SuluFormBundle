@@ -29,18 +29,6 @@
             <argument type="service" id="logger" />
         </service>
 
-
-        <!-- Cache
-        Removed HTTP Cache Paths-Handler
-        <service id="sulu_bundle_form.event.cache_invalidation_listener"
-                 class="Sulu\Bundle\FormBundle\Event\CacheInvalidationListener">
-            <argument type="service" id="sulu_http_cache.handler.aggregate"/>
-
-            <tag name="doctrine.event_listener" event="postUpdate"/>
-            <tag name="doctrine.event_listener" event="preRemove"/>
-        </service>
-        -->
-
         <!-- Admin -->
         <service id="sulu_form.admin"
                  class="Sulu\Bundle\FormBundle\Admin\FormAdmin">
@@ -71,7 +59,7 @@
 
         <!-- Manager -->
         <service id="sulu_form.manager.form"
-                 class="Sulu\Bundle\FormBundle\Manager\FormManager">
+                 class="Sulu\Bundle\FormBundle\Manager\FormManager" public="true">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="sulu_form.repository.form" />
             <argument type="service" id="`" on-invalid="null" />
