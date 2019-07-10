@@ -27,7 +27,9 @@ class FormAdmin extends Admin
     const LIST_ROUTE = 'sulu_form.list';
     const FORM_ROUTE = 'sulu_form.forms';
     const ADD_FORM_ROUTE = 'sulu_form.add_form';
+    const ADD_FORM_DETAILS_ROUTE = 'sulu_form.add_form.details';
     const EDIT_FORM_ROUTE = 'sulu_form.edit_form';
+    const EDIT_FORM_DETAILS_ROUTE = 'sulu_form.edit_form.details';
 
     private $securityChecker;
     private $routeBuilderFactory;
@@ -92,6 +94,16 @@ class FormAdmin extends Admin
             'sulu_admin.add',
             'sulu_admin.delete'
         ];
+    /*
+        $formLocales = array_values(
+            array_map(
+                function(Localization $localization) {
+                    return $localization->getLocale();
+                },
+                $this->localizationManager->getLocalizations()
+            )
+        );
+    */
         return [
             $this->routeBuilderFactory->createListRouteBuilder(static::LIST_ROUTE, '/forms')
                 ->setResourceKey('forms')
@@ -106,6 +118,26 @@ class FormAdmin extends Admin
             $this->routeBuilderFactory->createResourceTabRouteBuilder(static::ADD_FORM_ROUTE, '/forms/add')
                 ->setResourceKey('forms')
                 ->setBackRoute(static::LIST_ROUTE)
+                ->getRoute(),
+            $this->routeBuilderFactory->createFormRouteBuilder(static::ADD_FORM_DETAILS_ROUTE, '/details')
+                ->setResourceKey('forms')
+                ->setFormKey('form_details')
+                ->setTabTitle('sulu_form.general')
+                ->setEditRoute(static::EDIT_FORM_ROUTE)
+                ->addToolbarActions($formToolbarActions)
+                ->setParent(static::ADD_FORM_ROUTE)
+                ->getRoute(),
+            $this->routeBuilderFactory->createResourceTabRouteBuilder(static::EDIT_FORM_ROUTE, 'forms/:id')
+                ->setResourceKey('forms')
+                ->setBackRoute(static::LIST_ROUTE)
+                /*->setTitleProperty('name')*/
+                ->getRoute(),
+            $this->routeBuilderFactory->createFormRouteBuilder(static::EDIT_FORM_DETAILS_ROUTE, '/details')
+                ->setResourceKey('forms')
+                ->setFormKey('form_details')
+                ->setTabTitle('sulu_form.general')
+                ->addToolbarActions($formToolbarActions)
+                ->setParent(static::EDIT_FORM_ROUTE)
                 ->getRoute(),
             ];
     }

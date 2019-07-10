@@ -1,0 +1,179 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
+>
+    <key>form_details</key>
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title>sulu_form.title</title>
+            </meta>
+        </property>
+        <section name="formFields">
+            <meta>
+                <title>sulu_form.form_fields</title>
+            </meta>
+            <properties>
+                <property name="test" type="text_line"></property>
+            </properties>
+        </section>
+        <section name="websiteConfiguration">
+            <meta>
+                <title>sulu_form.website_configuration</title>
+            </meta>
+            <properties>
+                <property name="submitLabel" type="text_line">
+                    <meta>
+                        <title>sulu_form.submit_label</title>
+                    </meta>
+                </property>
+                <property name="successText" type="text_editor">
+                    <meta>
+                        <title>sulu_form.success_text</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+        <section name="emailConfiguration">
+            <meta>
+                <title>sulu_form.email_configuration</title>
+            </meta>
+            <properties>
+                <property name="subject" type="text_line">
+                    <meta>
+                        <title>sulu_form.subject</title>
+                    </meta>
+                </property>
+                <property name="fromEmail" type="email" colspan="6">
+                    <meta>
+                        <title>sulu_form.from_email</title>
+                    </meta>
+                </property>
+                <property name="fromName" type="text_line" colspan="6">
+                    <meta>
+                        <title>sulu_form.from_name</title>
+                    </meta>
+                </property>
+                <property name="toEmail" type="email" colspan="6">
+                    <meta>
+                        <title>sulu_form.to_email</title>
+                    </meta>
+                </property>
+                <property name="toName" type="text_line" colspan="6">
+                    <meta>
+                        <title>sulu_form.to_name</title>
+                    </meta>
+                </property>
+                <property name="mailText" type="text_editor">
+                    <meta>
+                        <title>sulu_form.success_text</title>
+                    </meta>
+                </property>
+                <property name="replyTo" type="checkbox" colspan="6">
+                    <params>
+                        <param name="label">
+                            <meta>
+                                <title>sulu_form.user_as_reply_to</title>
+                            </meta>
+                        </param>
+                        <param name="type" value="toggler"/>
+                    </params>
+                </property>
+                <property name="sendAttachments" type="checkbox" colspan="6">
+                    <params>
+                        <param name="label">
+                            <meta>
+                                <title>sulu_form.send_attachments</title>
+                            </meta>
+                        </param>
+                        <param name="type" value="toggler"/>
+                    </params>
+                </property>
+                <property name="deactivateNotifyMails" type="checkbox" colspan="6">
+                    <params>
+                        <param name="label">
+                            <meta>
+                                <title>sulu_form.deactivate_notify</title>
+                            </meta>
+                        </param>
+                        <param name="type" value="toggler"/>
+                    </params>
+                </property>
+                <property name="deactivateCustomerMails" type="checkbox" colspan="6">
+                    <params>
+                        <param name="label">
+                            <meta>
+                                <title>sulu_form.deactivate_success</title>
+                            </meta>
+                        </param>
+                        <param name="type" value="toggler"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
+        <section name="receivers">
+            <meta>
+                <title>sulu_form.receivers</title>
+            </meta>
+            <properties>
+                <block name="receivers" default-type="to">
+                    <types>
+                        <type name="to">
+                            <meta>
+                                <title>sulu_form.receiver.to</title>
+                            </meta>
+                            <properties>
+                                <property name="email" type="email" colspan="6" mandatory="true">
+                                    <meta>
+                                        <title>sulu_form.receiver.email</title>
+                                    </meta>
+                                </property>
+                                <property name="name" type="text_line" colspan="6">
+                                    <meta>
+                                        <title>sulu_form.receiver.name</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                        <type name="cc">
+                            <meta>
+                                <title>sulu_form.receiver.cc</title>
+                            </meta>
+                            <properties>
+                                <property name="email" type="email" colspan="6" mandatory="true">
+                                    <meta>
+                                        <title>sulu_form.receiver.email</title>
+                                    </meta>
+                                </property>
+                                <property name="name" type="text_line" colspan="6">
+                                    <meta>
+                                        <title>sulu_form.receiver.name</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                        <type name="bcc">
+                            <meta>
+                                <title>sulu_form.receiver.bcc</title>
+                            </meta>
+                            <properties>
+                                <property name="email" type="email" colspan="6" mandatory="true">
+                                    <meta>
+                                        <title>sulu_form.receiver.email</title>
+                                    </meta>
+                                </property>
+                                <property name="name" type="text_line" colspan="6">
+                                    <meta>
+                                        <title>sulu_form.receiver.name</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </block>
+            </properties>
+        </section>
+    </properties>
+
+</form>
