@@ -212,21 +212,6 @@ class FormController extends FOSRestController implements ClassResourceInterface
      *
      * @return Response
      */
-    public function cgetFieldsAction(Request $request)
-    {
-        $fieldDescriptors = $this->getFieldDescriptors(
-            $this->getLocale($request),
-            $this->getFilters($request)
-        );
-
-        return $this->handleView($this->view($fieldDescriptors));
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function cgetAction(Request $request)
     {
         $locale = $this->getLocale($request);
@@ -244,14 +229,12 @@ class FormController extends FOSRestController implements ClassResourceInterface
             $listBuilder = $factory->create($this->getModelClass());
 
             // get fieldDescriptors
-            $fieldDescriptors = $this->getFieldDescriptors($locale, $filters);
+            $fieldDescriptors =  $this->get('sulu_core.list_builder.field_descriptor_factory')
+                ->getFieldDescriptors('forms');
+
             $restHelper->initializeListBuilder($listBuilder, $fieldDescriptors);
 
-            $listBuilder->addSelectField($fieldDescriptors['locale']);
-
-            if ('true' !== $request->get('ghost')) {
-                $listBuilder->where($fieldDescriptors['locale'], $locale);
-            }
+            $listBuilder->setParameter('locale', $locale);
 
             // load entities
             $list = $listBuilder->execute();

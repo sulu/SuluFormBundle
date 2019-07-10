@@ -94,7 +94,7 @@ class FormAdmin extends Admin
         ];
         return [
             $this->routeBuilderFactory->createListRouteBuilder(static::LIST_ROUTE, '/forms')
-                ->setResourceKey('form')
+                ->setResourceKey('forms')
                 ->setListKey('forms')
                 ->setTitle('sulu_form.forms')
                 ->addListAdapters(['table'])
@@ -103,8 +103,11 @@ class FormAdmin extends Admin
                 ->enableSearching()
                 ->addToolbarActions($listToolbarActions)
                 ->getRoute(),
-
-        ];
+            $this->routeBuilderFactory->createResourceTabRouteBuilder(static::ADD_FORM_ROUTE, '/forms/add')
+                ->setResourceKey('forms')
+                ->setBackRoute(static::LIST_ROUTE)
+                ->getRoute(),
+            ];
     }
 
 

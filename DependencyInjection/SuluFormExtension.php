@@ -68,7 +68,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                         ],
                     ],
                     'resources' => [
-                        'form' => [
+                        'forms' => [
                             'routes' => [
                                 'list' => 'sulu_form.get_forms',
                                 'detail' => 'sulu_form.get_form',
