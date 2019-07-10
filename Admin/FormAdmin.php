@@ -15,8 +15,10 @@ use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Navigation\Navigation;
 use Sulu\Bundle\AdminBundle\Navigation\NavigationItem;
 use Sulu\Bundle\AdminBundle\Admin\Routing\RouteBuilderFactoryInterface;
+use Sulu\Component\Localization\Localization;
 use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
+use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
 
 /**
@@ -33,22 +35,22 @@ class FormAdmin extends Admin
 
     private $securityChecker;
     private $routeBuilderFactory;
-    private $title;
+    private $webspaceManager;
 
     /**
      * FormAdmin constructor.
-     *
      * @param SecurityCheckerInterface $securityChecker
-     * @param string $title
+     * @param RouteBuilderFactoryInterface $routeBuilderFactory
+     * @param WebspaceManagerInterface $webspaceManager
      */
     public function __construct(
         SecurityCheckerInterface $securityChecker,
         RouteBuilderFactoryInterface $routeBuilderFactory,
-        $title
+        WebspaceManagerInterface $webspaceManager
     ) {
         $this->securityChecker = $securityChecker;
         $this->routeBuilderFactory = $routeBuilderFactory;
-        $this->title = $title;
+        $this->webspaceManager = $webspaceManager;
     }
 
     public function getNavigation(): Navigation
@@ -86,6 +88,14 @@ class FormAdmin extends Admin
 
     public function getRoutes(): array
     {
+        $formLocales = array_values(
+            array_map(
+                function(Localization $localization) {
+                    return $localization->getLocale();
+                },
+                $this->webspaceManager->getAllLocalizations()
+            )
+        );
         $formToolbarActions = [
             'sulu_admin.save',
             'sulu_admin.delete',
@@ -94,29 +104,23 @@ class FormAdmin extends Admin
             'sulu_admin.add',
             'sulu_admin.delete'
         ];
-    /*
-        $formLocales = array_values(
-            array_map(
-                function(Localization $localization) {
-                    return $localization->getLocale();
-                },
-                $this->localizationManager->getLocalizations()
-            )
-        );
-    */
+
         return [
-            $this->routeBuilderFactory->createListRouteBuilder(static::LIST_ROUTE, '/forms')
+            $this->routeBuilderFactory->createListRouteBuilder(static::LIST_ROUTE, '/forms/:locale')
                 ->setResourceKey('forms')
                 ->setListKey('forms')
                 ->setTitle('sulu_form.forms')
                 ->addListAdapters(['table'])
+                ->addLocales($formLocales)
+                ->setDefaultLocale($formLocales[0])
                 ->setAddRoute(static::ADD_FORM_ROUTE)
                 ->setEditRoute(static::EDIT_FORM_ROUTE)
                 ->enableSearching()
                 ->addToolbarActions($listToolbarActions)
                 ->getRoute(),
-            $this->routeBuilderFactory->createResourceTabRouteBuilder(static::ADD_FORM_ROUTE, '/forms/add')
+            $this->routeBuilderFactory->createResourceTabRouteBuilder(static::ADD_FORM_ROUTE, '/forms/:locale/add')
                 ->setResourceKey('forms')
+                ->addLocales($formLocales)
                 ->setBackRoute(static::LIST_ROUTE)
                 ->getRoute(),
             $this->routeBuilderFactory->createFormRouteBuilder(static::ADD_FORM_DETAILS_ROUTE, '/details')
@@ -127,8 +131,9 @@ class FormAdmin extends Admin
                 ->addToolbarActions($formToolbarActions)
                 ->setParent(static::ADD_FORM_ROUTE)
                 ->getRoute(),
-            $this->routeBuilderFactory->createResourceTabRouteBuilder(static::EDIT_FORM_ROUTE, 'forms/:id')
+            $this->routeBuilderFactory->createResourceTabRouteBuilder(static::EDIT_FORM_ROUTE, 'forms/:locale/:id')
                 ->setResourceKey('forms')
+                ->addLocales($formLocales)
                 ->setBackRoute(static::LIST_ROUTE)
                 /*->setTitleProperty('name')*/
                 ->getRoute(),
