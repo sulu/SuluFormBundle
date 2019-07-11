@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <form xmlns="http://schemas.sulu.io/template/template"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
       xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
 >
     <key>form_details</key>
@@ -18,7 +19,160 @@
                 <title>sulu_form.form_fields</title>
             </meta>
             <properties>
-                <property name="test" type="text_line"></property>
+                <block name="fields" default-type="attachment">
+                    <types>
+                        <type name="attachment">
+                            <meta>
+                                <title>sulu_form.field.attachment</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_attachment.xml"/>
+                        </type>
+                        <type name="checkbox">
+                            <meta>
+                                <title>sulu_form.field.checkbox</title>
+                            </meta>
+                            <xi:include href="../form-fields/default_field.xml"/>
+                        </type>
+                        <type name="checkboxes">
+                            <meta>
+                                <title>sulu_form.field.checkboxes</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_choices.xml"/>
+                        </type>
+                        <type name="city">
+                            <meta>
+                                <title>sulu_form.field.city</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="company">
+                            <meta>
+                                <title>sulu_form.field.company</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="country">
+                            <meta>
+                                <title>sulu_form.field.country</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="date">
+                            <meta>
+                                <title>sulu_form.field.date</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_date.xml"/>
+                        </type>
+                        <type name="email">
+                            <meta>
+                                <title>sulu_form.field.email</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="fax">
+                            <meta>
+                                <title>sulu_form.field.fax</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="firstName">
+                            <meta>
+                                <title>sulu_form.field.firstname</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="freeText">
+                            <meta>
+                                <title>sulu_form.field.free_text</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_free_text.xml"/>
+                        </type>
+                        <type name="function">
+                            <meta>
+                                <title>sulu_form.field.function</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="lastName">
+                            <meta>
+                                <title>sulu_form.field.lastname</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="multilineTextfield">
+                            <meta>
+                                <title>sulu_form.field.multiline_textfield</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="phone">
+                            <meta>
+                                <title>sulu_form.field.phone</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="radioButtons">
+                            <meta>
+                                <title>sulu_form.field.radio_buttons</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_choices.xml"/>
+                        </type>
+                        <type name="salutation">
+                            <meta>
+                                <title>sulu_form.field.salutation</title>
+                            </meta>
+                            <xi:include href="../form-fields/default_field.xml"/>
+                        </type>
+                        <type name="selectMultiple">
+                            <meta>
+                                <title>sulu_form.field.select_multiple</title>
+                            </meta>
+                            <xi:include href="../form-fields/default_field_extended.xml"/>
+                        </type>
+                        <type name="select">
+                            <meta>
+                                <title>sulu_form.field.select</title>
+                            </meta>
+                            <xi:include href="../form-fields/default_field_extended.xml"/>
+                        </type>
+                        <type name="simpleTextfield">
+                            <meta>
+                                <title>sulu_form.field.simple_textfield</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="spacer">
+                            <meta>
+                                <title>sulu_form.field.spacer</title>
+                            </meta>
+                            <xi:include href="../form-fields/header_without_required.xml"/>
+                        </type>
+                        <type name="state">
+                            <meta>
+                                <title>sulu_form.field.state</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="street">
+                            <meta>
+                                <title>sulu_form.field.street</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="title">
+                            <meta>
+                                <title>sulu_form.field.title</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="zip">
+                            <meta>
+                                <title>sulu_form.field.zip</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                    </types>
+                </block>
             </properties>
         </section>
         <section name="websiteConfiguration">

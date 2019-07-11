@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<properties xmlns="http://schemas.sulu.io/template/template"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+    <property name="width" type="single_select" mandatory="true" colspan="6">
+        <meta>
+            <title>sulu_form.width</title>
+        </meta>
+        <params>
+            <param name="label">
+                <meta>
+                    <title>sulu_form.width</title>
+                </meta>
+            </param>
+            <param name="default_value" value="0"/>
+            <param name="values" type="collection">
+                <param name="0">
+                    <meta>
+                        <title>sulu_form.full</title>
+                    </meta>
+                </param>
+                <param name="1">
+                    <meta>
+                        <title>sulu_form.half</title>
+                    </meta>
+                </param>
+                <param name="2">
+                    <meta>
+                        <title>sulu_form.one_third</title>
+                    </meta>
+                </param>
+            </param>
+        </params>
+    </property>
+</properties>
