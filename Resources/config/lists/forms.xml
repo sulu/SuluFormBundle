@@ -8,37 +8,55 @@
             <condition>Sulu\Bundle\FormBundle\Entity\FormTranslation.locale = :locale</condition>
         </join>
     </joins>
+    <joins name="defaultTranslation">
+        <join>
+            <entity-name>Sulu\Bundle\FormBundle\Entity\FormTranslationDefault</entity-name>
+            <field-name>Sulu\Bundle\FormBundle\Entity\Form.translations</field-name>
+            <condition>Sulu\Bundle\FormBundle\Entity\FormTranslationDefault.locale = Sulu\Bundle\FormBundle\Entity\Form.defaultLocale</condition>
+        </join>
+    </joins>
     <properties>
         <property
                 name="id"
                 visibility="no"
-                translation="sulu_form.id"
-
-        >
+                translation="sulu_form.id">
             <field-name>id</field-name>
             <entity-name>Sulu\Bundle\FormBundle\Entity\Form</entity-name>
         </property>
-
         <property
                 name="defaultLocale"
-                visibility="never"
-        >
+                visibility="no">
             <field-name>defaultLocale</field-name>
             <entity-name>Sulu\Bundle\FormBundle\Entity\Form</entity-name>
         </property>
-
-        <property
+        <case-property
                 name="title"
                 visibility="always"
                 searchability="yes"
                 filter-type="string"
-                translation="sulu_form.title"
-        >
-            <field-name>title</field-name>
-            <entity-name>Sulu\Bundle\FormBundle\Entity\FormTranslation</entity-name>
-            <joins ref="translation"/>
-        </property>
-
+                translation="sulu_form.title">
+            <field>
+                <field-name>title</field-name>
+                <entity-name>Sulu\Bundle\FormBundle\Entity\FormTranslation</entity-name>
+                <joins ref="translation"/>
+            </field>
+            <field>
+                <field-name>title</field-name>
+                <entity-name>Sulu\Bundle\FormBundle\Entity\FormTranslationDefault</entity-name>
+                <joins ref="defaultTranslation"/>
+            </field>
+        </case-property>
+        <case-property name="locale">
+            <field>
+                <field-name>locale</field-name>
+                <entity-name>Sulu\Bundle\FormBundle\Entity\FormTranslation</entity-name>
+                <joins ref="translation"/>
+            </field>
+            <field>
+                <field-name>defaultLocale</field-name>
+                <entity-name>Sulu\Bundle\FormBundle\Entity\Form</entity-name>
+            </field>
+        </case-property>
         <property
                 name="changed"
                 translation="sulu_admin.changed"
@@ -48,7 +66,6 @@
             <entity-name>Sulu\Bundle\FormBundle\Entity\FormTranslation</entity-name>
             <joins ref="translation"/>
         </property>
-
         <property
                 name="created"
                 translation="sulu_admin.created"

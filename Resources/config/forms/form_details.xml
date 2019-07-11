@@ -9,6 +9,9 @@
             <meta>
                 <title>sulu_form.title</title>
             </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
         </property>
         <section name="formFields">
             <meta>
