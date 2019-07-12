@@ -6,7 +6,7 @@
                       xpointer(//sulu:property)"/>
     <property name="choices" type="text_area">
         <meta>
-            <title>sulu_form.field.choices</title>
+            <title>sulu_form.choice</title>
         </meta>
     </property>
 </properties>

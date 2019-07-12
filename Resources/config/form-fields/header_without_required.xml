@@ -16,17 +16,42 @@
             <param name="values" type="collection">
                 <param name="0">
                     <meta>
-                        <title>sulu_form.full</title>
+                        <title>sulu_form.width.full</title>
                     </meta>
                 </param>
                 <param name="1">
                     <meta>
-                        <title>sulu_form.half</title>
+                        <title>sulu_form.width.half</title>
                     </meta>
                 </param>
                 <param name="2">
                     <meta>
-                        <title>sulu_form.one_third</title>
+                        <title>sulu_form.width.one_quarter</title>
+                    </meta>
+                </param>
+                <param name="3">
+                    <meta>
+                        <title>sulu_form.width.three_quarters</title>
+                    </meta>
+                </param>
+                <param name="4">
+                    <meta>
+                        <title>sulu_form.width.one_third</title>
+                    </meta>
+                </param>
+                <param name="5">
+                    <meta>
+                        <title>sulu_form.width.two_thirds</title>
+                    </meta>
+                </param>
+                <param name="6">
+                    <meta>
+                        <title>sulu_form.width.one_sixth</title>
+                    </meta>
+                </param>
+                <param name="7">
+                    <meta>
+                        <title>sulu_form.width.five_sixths</title>
                     </meta>
                 </param>
             </param>

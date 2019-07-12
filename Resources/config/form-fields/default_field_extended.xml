@@ -6,17 +6,17 @@
                       xpointer(//sulu:property)"/>
     <property name="example" type="text_line" colspan="6">
         <meta>
-            <title>sulu_form.field.example</title>
+            <title>sulu_form.example</title>
         </meta>
     </property>
     <property name="default" type="text_line" colspan="6">
         <meta>
-            <title>sulu_form.field.default</title>
+            <title>sulu_form.default</title>
         </meta>
     </property>
     <property name="choices" type="text_area">
         <meta>
-            <title>sulu_form.field.choices</title>
+            <title>sulu_form.choice</title>
         </meta>
     </property>
 </properties>

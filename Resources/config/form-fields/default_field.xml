@@ -12,7 +12,7 @@
     </property>
     <property name="shortTitle" type="text_line">
         <meta>
-            <title>sulu_form.shortTitle</title>
+            <title>sulu_form.short_title</title>
         </meta>
     </property>
 </properties>

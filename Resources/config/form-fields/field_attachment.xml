@@ -4,28 +4,28 @@
             xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
     <xi:include href="default_field.xml"  xpointer="xmlns(sulu=http://schemas.sulu.io/template/template)
                       xpointer(//sulu:property)"/>
-    <property name="images" type="checkbox" colspan="3">
+    <property name="images" type="checkbox" colspan="6">
         <meta>
-            <title>sulu_form.field.choices</title>
+            <title>sulu_form.attachment_restrict</title>
         </meta>
         <params>
             <param name="label">
                 <meta>
-                    <title>sulu_form.field.images</title>
+                    <title>sulu_form.attachment.image</title>
                 </meta>
             </param>
         </params>
     </property>
-    <property name="maximumAmount" type="text_line" colspan="3">
+    <property name="maximumAmount" type="text_line" colspan="6">
         <meta>
-            <title>sulu_form.field.maximum_amount</title>
+            <title>sulu_form.attachment_max</title>
         </meta>
     </property>
     <property name="audio" type="checkbox">
         <params>
             <param name="label">
                 <meta>
-                    <title>sulu_form.field.audio</title>
+                    <title>sulu_form.attachment.audio</title>
                 </meta>
             </param>
         </params>
@@ -34,7 +34,7 @@
         <params>
             <param name="label">
                 <meta>
-                    <title>sulu_form.field.videos</title>
+                    <title>sulu_form.attachment.video</title>
                 </meta>
             </param>
         </params>
