@@ -208,7 +208,7 @@
                         <title>sulu_form.subject</title>
                     </meta>
                 </property>
-                <property name="fromEmail" type="email" colspan="6" mandatory="true">
+                <property name="fromEmail" type="email" colspan="6">
                     <meta>
                         <title>sulu_form.from_email</title>
                     </meta>
