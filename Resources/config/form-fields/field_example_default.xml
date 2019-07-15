@@ -4,12 +4,12 @@
             xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
     <xi:include href="default_field.xml"  xpointer="xmlns(sulu=http://schemas.sulu.io/template/template)
                       xpointer(//sulu:property)"/>
-    <property name="example" type="text_line" colspan="6">
+    <property name="placeholder" type="text_line" colspan="6">
         <meta>
             <title>sulu_form.example</title>
         </meta>
     </property>
-    <property name="default" type="text_line" colspan="6">
+    <property name="defaultValue" type="text_line" colspan="6">
         <meta>
             <title>sulu_form.default</title>
         </meta>

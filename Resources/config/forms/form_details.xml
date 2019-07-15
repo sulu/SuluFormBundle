@@ -85,13 +85,19 @@
                             <meta>
                                 <title>sulu_form.type.freetext</title>
                             </meta>
-                            <xi:include href="../form-fields/field_free_text.xml"/>
+                            <xi:include href="../form-fields/field_title.xml"/>
                         </type>
                         <type name="function">
                             <meta>
                                 <title>sulu_form.type.function</title>
                             </meta>
                             <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="headline">
+                            <meta>
+                                <title>sulu_form.type.headline</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_title.xml"/>
                         </type>
                         <type name="lastName">
                             <meta>
@@ -202,7 +208,7 @@
                         <title>sulu_form.subject</title>
                     </meta>
                 </property>
-                <property name="fromEmail" type="email" colspan="6">
+                <property name="fromEmail" type="email" colspan="6" mandatory="true">
                     <meta>
                         <title>sulu_form.from_email</title>
                     </meta>
@@ -317,7 +323,7 @@
                             <properties>
                                 <property name="email" type="email" colspan="6" mandatory="true">
                                     <meta>
-                                        <title>sulu_form.receiver.email</title>
+                                        <title>sulu_form.email</title>
                                     </meta>
                                 </property>
                                 <property name="name" type="text_line" colspan="6">

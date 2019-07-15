@@ -13,6 +13,7 @@
     <property name="shortTitle" type="text_line">
         <meta>
             <title>sulu_form.short_title</title>
+            <info_text>sulu_form.short_title_description</info_text>
         </meta>
     </property>
 </properties>
