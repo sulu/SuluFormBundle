@@ -14,6 +14,10 @@
                 <source>sulu_form.no_choice</source>
                 <target>Pas de sélection</target>
             </trans-unit>
+            <trans-unit id="4">
+                <source>sulu_form.mail.plain_text</source>
+                <target>Ce courrier ne peut être visualisé qu'en HTML</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

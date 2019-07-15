@@ -62,6 +62,11 @@ class MailConfiguration implements MailConfigurationInterface
     private $template;
 
     /**
+     * @var string
+     */
+    private $plainTextTemplate;
+
+    /**
      * @var array
      */
     private $templateAttributes;
@@ -256,6 +261,28 @@ class MailConfiguration implements MailConfigurationInterface
     public function setTemplate($template)
     {
         $this->template = $template;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPlainTextTemplate()
+    {
+        return $this->plainTextTemplate;
+    }
+
+    /**
+     * Set plain text template.
+     *
+     * @param string $plainTextTemplate
+     *
+     * @return $this
+     */
+    public function setPlainTextTemplate($plainTextTemplate)
+    {
+        $this->plainTextTemplate = $plainTextTemplate;
 
         return $this;
     }

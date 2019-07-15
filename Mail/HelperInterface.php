@@ -29,6 +29,7 @@ interface HelperInterface
      * @param \SplFileInfo[] $attachments
      * @param string|array $ccMail
      * @param string|array $bccMail
+     * @param string $plainText
      *
      * @return int
      */
@@ -41,6 +42,7 @@ interface HelperInterface
         $replyTo = null,
         $attachments = [],
         $ccMail = [],
-        $bccMail = []
+        $bccMail = [],
+        $plainText = null
     );
 }

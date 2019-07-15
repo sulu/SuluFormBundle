@@ -105,7 +105,9 @@ sulu_form:
     mail:
         templates:
             notify: 'AppBundle:mails:dynamic-notify.html.twig'
+            notify_plain_text: 'AppBundle:mails:dynamic-notify-plain-text.html.twig'
             customer: 'AppBundle:mails:dynamic-customer.html.twig'
+            customer_plain_text: 'AppBundle:mails:dynamic-customer-plain-text.html.twig'
 ```
 
 Examples for the notification and costumer mail you can find [here](https://github.com/sulu/SuluFormBundle/tree/master/Resources/views/mails/).

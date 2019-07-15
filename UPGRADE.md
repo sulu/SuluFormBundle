@@ -10,6 +10,19 @@ The field `keyName` need to be short to 128 length for UTF8MB4 compatibility:
 ALTER TABLE fo_form_fields CHANGE keyName keyName VARCHAR(128) NOT NULL;
 ``` 
 
+## 1.0.0-RC7
+
+### BC Breaks
+
+Constructor of `FormSelect` (`sulu_form.content_type.form_select`) changed.
+An additional Service `sulu_form.reference_store.form` (`ReferenceStoreInterface`) is needed.
+
+Constructor of `FormConfigurationFactory` changed.
+Additional configuration for `$mailAdminPlainTextTemplate` are `$mailWebsitePlainTextTemplate` are needed.
+
+Interface of `MailConfigurationInterface` changed.
+Additional `getPlainTextTemplate` is needed.
+
 ## 1.0.0-RC6
 
 For the compatibility with `doctrine/orm ^2.6` the function names of the FormRepository are renamed to avoid inheritance issues.

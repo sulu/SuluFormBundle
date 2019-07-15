@@ -33,7 +33,17 @@ class FormConfigurationFactory
     /**
      * @var string
      */
+    private $mailAdminPlainTextTemplate;
+
+    /**
+     * @var string
+     */
     private $mailWebsiteTemplate;
+
+    /**
+     * @var string
+     */
+    private $mailWebsitePlainTextTemplate;
 
     /**
      * FormConfigurationFactory constructor.
@@ -41,15 +51,21 @@ class FormConfigurationFactory
      * @param CollectionStrategyInterface $collectionStrategy
      * @param string $mailAdminTemplate
      * @param string $mailWebsiteTemplate
+     * @param string $mailAdminPlainTextTemplate;
+     * @param string $mailWebsitePlainTextTemplate
      */
     public function __construct(
         CollectionStrategyInterface $collectionStrategy,
         $mailAdminTemplate,
-        $mailWebsiteTemplate
+        $mailWebsiteTemplate,
+        $mailAdminPlainTextTemplate,
+        $mailWebsitePlainTextTemplate
     ) {
         $this->collectionStrategy = $collectionStrategy;
         $this->mailAdminTemplate = $mailAdminTemplate;
         $this->mailWebsiteTemplate = $mailWebsiteTemplate;
+        $this->mailAdminPlainTextTemplate = $mailAdminPlainTextTemplate;
+        $this->mailWebsitePlainTextTemplate = $mailWebsitePlainTextTemplate;
     }
 
     /**
@@ -223,6 +239,7 @@ class FormConfigurationFactory
 
         // Set template.
         $adminMailConfiguration->setTemplate($this->mailAdminTemplate);
+        $adminMailConfiguration->setPlainTextTemplate($this->mailAdminPlainTextTemplate);
         $adminMailConfiguration->setTemplateAttributes($this->getTemplateAttributesFromDynamic($dynamic));
 
         return $adminMailConfiguration;
@@ -258,6 +275,7 @@ class FormConfigurationFactory
 
         // Set template.
         $websiteMailConfiguration->setTemplate($this->mailWebsiteTemplate);
+        $websiteMailConfiguration->setPlainTextTemplate($this->mailWebsitePlainTextTemplate);
         $websiteMailConfiguration->setTemplateAttributes($this->getTemplateAttributesFromDynamic($dynamic));
 
         return $websiteMailConfiguration;
