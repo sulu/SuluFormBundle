@@ -3,13 +3,16 @@
     "description": "Bundle for creating forms in Sulu.",
     "type": "sulu-bundle",
     "require": {
+        "symfony/config": "^3.4 || ^4.0",
+        "symfony/dependency-injection": "^3.4 || ^4.0",
+        "symfony/event-dispatcher": "^3.4 || ^4.0",
+        "symfony/form": "^3.4 || ^4.0",
+        "symfony/validator": "^3.4 || ^4.0",
+        "symfony/swiftmailer-bundle": "^2.3 || ^3.0",
         "php": "^7.1",
-        "symfony/symfony": "^2.8.7 || ^3.0 || ^4.0",
         "doctrine/orm": "^2.5.3",
-        "php": "^5.5 || ^7.0",
         "twig/twig": "^1.26 || ^2.0",
-        "sulu/sulu": "^2.0 || dev-develop",
-        "symfony/swiftmailer-bundle": "^2.3 || ^3.0"
+        "sulu/sulu": "^2.0 || dev-develop"
     },
     "require-dev": {
         "jackalope/jackalope-doctrine-dbal": "^1.2.5",
