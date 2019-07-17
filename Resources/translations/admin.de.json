@@ -63,6 +63,8 @@
   "sulu_form.type.freetext": "Freier Text",
   "sulu_form.type.spacer": "Leerraum",
   "sulu_form.type.radiobuttons": "Radio Buttons",
+  "sulu_form.type.recaptcha": "Captcha",
+  "sulu_form.type.mailchimp": "Mailchimp",
   "sulu_form.width.full": "Voll",
   "sulu_form.width.half": "Halb",
   "sulu_form.width.one_quarter": "Ein Viertel",
@@ -70,5 +72,6 @@
   "sulu_form.width.one_third": "Ein Drittel",
   "sulu_form.width.two_thirds": "Zwei Drittel",
   "sulu_form.width.one_sixth": "Ein Sechstel",
-  "sulu_form.width.five_sixths": "Fünf Sechstel"
+  "sulu_form.width.five_sixths": "Fünf Sechstel",
+  "sulu_form.mailchimp_list": "Mailchimp Liste"
 }

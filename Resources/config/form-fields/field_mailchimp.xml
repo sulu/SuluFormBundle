@@ -1,0 +1,31 @@
+<properties xmlns="http://schemas.sulu.io/template/template"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xi="http://www.w3.org/2001/XInclude"
+            xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+    <xi:include href="default_field.xml"  xpointer="xmlns(sulu=http://schemas.sulu.io/template/template)
+                      xpointer(//sulu:property)"/>
+    <property name="options[listId]" type="single_select">
+        <meta>
+            <title>sulu_form.mailchimp_list</title>
+        </meta>
+        <params>
+            <param name="values" type="collection">
+                <param name="id1">
+                    <meta>
+                        <title>sulu_form.mailchimp.list</title>
+                    </meta>
+                </param>
+                <param name="id2">
+                    <meta>
+                        <title>sulu_form.mailchimp.list</title>
+                    </meta>
+                </param>
+                <param name="id3">
+                    <meta>
+                        <title>sulu_form.mailchimp.list</title>
+                    </meta>
+                </param>
+            </param>
+        </params>
+    </property>
+</properties>

@@ -104,6 +104,14 @@
                             </meta>
                             <xi:include href="../form-fields/field_example_default.xml"/>
                         </type>
+                        <!--
+                        <type name="mailchimp">
+                            <meta>
+                                <title>sulu_form.type.mailchimp</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_mailchimp.xml"/>
+                        </type>
+                        -->
                         <type name="multilineTextfield">
                             <meta>
                                 <title>sulu_form.type.textarea</title>
@@ -122,6 +130,14 @@
                             </meta>
                             <xi:include href="../form-fields/field_choices.xml"/>
                         </type>
+                        <!--
+                        <type name="recaptcha">
+                            <meta>
+                                <title>sulu_form.type.recaptcha</title>
+                            </meta>
+                            <xi:include href="../form-fields/default_field.xml"/>
+                        </type>
+                        -->
                         <type name="salutation">
                             <meta>
                                 <title>sulu_form.type.salutation</title>

@@ -23,7 +23,7 @@ use Sulu\Bundle\FormBundle\Media\CollectionStrategyInterface;
 /**
  * Test for the form configuration factory.
  */
-class FormConfigurationFactoryTest extends \PHPUnit_Framework_TestCase
+class FormConfigurationFactoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testBuildByDynamic()
     {
