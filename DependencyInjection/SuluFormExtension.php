@@ -74,7 +74,22 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                                 'detail' => 'sulu_form.get_form',
                             ],
                         ],
-                    ]
+                    ],
+                    'field_type_options' => [
+                        'single_selection' => [
+                            'single_form_selection' => [
+                                'default_type' => 'single_select',
+                                'resource_key' => 'forms',
+                                'types' => [
+                                    'single_select' => [
+                                        'id_property' => 'id',
+                                        'display_property' => 'title',
+                                        'overlay_title' => '',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
                 ]
             );
         }
@@ -151,6 +166,8 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $loader->load('services.xml');
         $loader->load('types.xml');
         $loader->load('title-providers.xml');
+      //  $loader->load('forms/');
+        //$loader->load('form-fields/');
 
         if ($config['mailchimp_api_key']) {
             $loader->load('type_mailchimp.xml');

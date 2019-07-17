@@ -24,7 +24,7 @@ class FormFieldTypeConfiguration
     /**
      * @var string
      */
-    private $template;
+    private $xmlPath;
 
     /**
      * @var array
@@ -40,14 +40,14 @@ class FormFieldTypeConfiguration
      * FormFieldTypeConfiguration constructor.
      *
      * @param string $titleTranslationKey
-     * @param string $template
+     * @param string $xmlPath
      * @param array $attributes
      * @param string $group
      */
-    public function __construct($titleTranslationKey, $template, $attributes = [], $group = '')
+    public function __construct($titleTranslationKey, $xmlPath, $attributes = [], $group = '')
     {
         $this->title = $titleTranslationKey;
-        $this->template = $template;
+        $this->xmlPath = $xmlPath;
         $this->attributes = $attributes;
         $this->group = $group;
     }
@@ -81,21 +81,21 @@ class FormFieldTypeConfiguration
      *
      * @return string
      */
-    public function getTemplate()
+    public function getXmlPath()
     {
-        return $this->template;
+        return $this->xmlPath;
     }
 
     /**
      * Sets template.
      *
-     * @param string $template
+     * @param string $xmlPath
      *
      * @return FormFieldTypeConfiguration
      */
-    public function setTemplate($template)
+    public function setXmlPath($xmlPath)
     {
-        $this->template = $template;
+        $this->xmlPath = $xmlPath;
 
         return $this;
     }

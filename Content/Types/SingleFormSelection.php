@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Exception\MissingOptionsException;
 /**
  * ContentType for selecting a form.
  */
-class FormSelect extends SimpleContentType
+class SingleFormSelection extends SimpleContentType
 {
     /**
      * @var string
@@ -47,7 +47,7 @@ class FormSelect extends SimpleContentType
     private $referenceStore;
 
     /**
-     * FormSelect constructor.
+     * SingleFormSelection constructor.
      *
      * @param string $template
      * @param FormRepository $formRepository
@@ -59,7 +59,7 @@ class FormSelect extends SimpleContentType
         BuilderInterface $formBuilder,
         ReferenceStoreInterface $referenceStore
     ) {
-        parent::__construct('FormSelect', '');
+        parent::__construct('SingleFormSelection', '');
         $this->template = $template;
         $this->formRepository = $formRepository;
         $this->formBuilder = $formBuilder;
@@ -77,14 +77,14 @@ class FormSelect extends SimpleContentType
             return;
         }
 
-        if (!isset($property->getParams()['type'])) {
+        if (!isset($property->getParams()['resourceKey'])) {
             throw new MissingOptionsException(
-                'SuluFormBundle: The parameter "type" is missing on "form_select" content-type.',
+                'SuluFormBundle: The parameter "resourceKey" is missing on "single_form_selection" content-type.',
                 []
             );
         }
 
-        $type = $property->getParams()['type']->getValue();
+        $resourceKey = $property->getParams()['resourceKey']->getValue();
 
         /** @var PageBridge $structure */
         $structure = $property->getStructure();
@@ -92,14 +92,14 @@ class FormSelect extends SimpleContentType
         /** @var FormInterface $form */
         $form = $this->formBuilder->build(
             $id,
-            $type,
+            $resourceKey,
             $structure->getUuid(),
             $structure->getLanguageCode(),
             $property->getName()
         );
 
         if (!$form) {
-            $form = $this->loadShadowForm($property, $id, $type);
+            $form = $this->loadShadowForm($property, $id, $resourceKey);
 
             if (!$form) {
                 return;

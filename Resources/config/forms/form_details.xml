@@ -2,8 +2,7 @@
 <form xmlns="http://schemas.sulu.io/template/template"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:xi="http://www.w3.org/2001/XInclude"
-      xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
->
+      xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd">
     <key>form_details</key>
     <properties>
         <property name="title" type="text_line" mandatory="true">
@@ -33,7 +32,7 @@
                             </meta>
                             <xi:include href="../form-fields/default_field.xml"/>
                         </type>
-                        <type name="checkboxes">
+                        <type name="checkboxMultiple">
                             <meta>
                                 <title>sulu_form.type.checkboxmultiple</title>
                             </meta>
@@ -129,13 +128,13 @@
                             </meta>
                             <xi:include href="../form-fields/default_field.xml"/>
                         </type>
-                        <type name="selectMultiple">
+                        <type name="dropdownMultiple">
                             <meta>
                                 <title>sulu_form.type.dropdownmultiple</title>
                             </meta>
                             <xi:include href="../form-fields/default_field_extended.xml"/>
                         </type>
-                        <type name="select">
+                        <type name="dropdown">
                             <meta>
                                 <title>sulu_form.type.dropdown</title>
                             </meta>
@@ -208,7 +207,7 @@
                         <title>sulu_form.subject</title>
                     </meta>
                 </property>
-                <property name="fromEmail" type="email" colspan="6">
+                <property name="fromEmail" type="email" colspan="6" mandatory="true">
                     <meta>
                         <title>sulu_form.from_email</title>
                     </meta>
@@ -218,7 +217,7 @@
                         <title>sulu_form.from_name</title>
                     </meta>
                 </property>
-                <property name="toEmail" type="email" colspan="6">
+                <property name="toEmail" type="email" colspan="6" mandatory="true">
                     <meta>
                         <title>sulu_form.to_email</title>
                     </meta>
@@ -338,5 +337,4 @@
             </properties>
         </section>
     </properties>
-
 </form>
