@@ -70,6 +70,8 @@ class FormControllerTest extends SuluTestCase
             [
                 'locale' => 'en',
                 'title' => 'Title',
+                'toEmail' => 'testing@example.com',
+                'fromEmail' => 'testing@example.com'
             ]
         );
 
@@ -103,6 +105,8 @@ class FormControllerTest extends SuluTestCase
             [
                 'locale' => 'en',
                 'title' => 'Title',
+                'toEmail' => 'testing@example.com',
+                'fromEmail' => 'testing@example.com'
             ]
         );
 
@@ -176,25 +180,25 @@ class FormControllerTest extends SuluTestCase
         $this->assertNotNull($response['id']);
         $this->assertEquals('en', $response['locale']);
         $this->assertEquals('Title', $response['title']);
-        $this->assertArrayNotHasKey('submitLabel', $response);
-        $this->assertArrayNotHasKey('successText', $response);
+        $this->assertNull($response['submitLabel']);
+        $this->assertNull($response['successText']);
         // Email Settings
-        $this->assertArrayNotHasKey('subject', $response);
+        $this->assertNull($response['subject']);
         $this->assertFalse($response['replyTo']);
         $this->assertFalse($response['deactivateCustomerMails']);
         $this->assertFalse($response['deactivateNotifyMails']);
         $this->assertFalse($response['sendAttachments']);
-        $this->assertArrayNotHasKey('fromEmail', $response);
-        $this->assertArrayNotHasKey('toEmail', $response);
-        $this->assertArrayNotHasKey('fromName', $response);
-        $this->assertArrayNotHasKey('toName', $response);
-        $this->assertArrayNotHasKey('mailText', $response);
+        $this->assertEquals('testing@example.com', $response['fromEmail']);
+        $this->assertEquals('testing@example.com', $response['toEmail']);
+        $this->assertNull($response['fromName']);
+        $this->assertNull($response['toName']);
+        $this->assertNull($response['submitLabel']);
         // Fields
         $this->assertCount(0, $response['fields']);
         // Receivers
         $this->assertCount(0, $response['receivers']);
         // Other fields
-        $this->assertCountFields(9, $response);
+        $this->assertCountFields(17, $response);
     }
 
     private function assertFullForm($response)
