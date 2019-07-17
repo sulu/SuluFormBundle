@@ -31,7 +31,7 @@ class PhoneType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.phone',
-            'SuluFormBundle:forms:fields/types/phone.html.twig'
+            'SuluFormBundle/Resources/config/form-fields/field_example_default.xml'
         );
     }
 

@@ -29,7 +29,7 @@ class CityType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.city',
-            'SuluFormBundle:forms:fields/types/city.html.twig'
+            'SuluFormBundle/Resources/config/form-fields/field_example_default.xml'
         );
     }
 

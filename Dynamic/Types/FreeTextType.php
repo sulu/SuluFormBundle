@@ -31,7 +31,7 @@ class FreeTextType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.freetext',
-            'SuluFormBundle:forms:fields/types/freetext.html.twig',
+            'SuluFormBundle/Resources/config/form-fields/field_title.xml',
             [],
             'additional'
         );

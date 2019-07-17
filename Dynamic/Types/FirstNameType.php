@@ -31,7 +31,7 @@ class FirstNameType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.firstname',
-            'SuluFormBundle:forms:fields/types/firstname.html.twig'
+            'SuluFormBundle/Resources/config/form-fields/field_example_default.xml'
         );
     }
 

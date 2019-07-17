@@ -31,7 +31,7 @@ class TitleType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.title',
-            'SuluFormBundle:forms:fields/types/title.html.twig'
+            'SuluFormBundle/Resources/config/form-fields/field_example_default.xml'
         );
     }
 

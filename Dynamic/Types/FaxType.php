@@ -31,7 +31,7 @@ class FaxType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.fax',
-            'SuluFormBundle:forms:fields/types/fax.html.twig'
+            'SuluFormBundle/Resources/config/form-fields/field_example_default.xml'
         );
     }
 

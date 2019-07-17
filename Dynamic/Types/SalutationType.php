@@ -29,7 +29,7 @@ class SalutationType extends DropdownType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.salutation',
-            'SuluFormBundle:forms:fields/types/salutation.html.twig'
+            'SuluFormBundle/Resources/config/form-fields/default_field.xml'
         );
     }
 
