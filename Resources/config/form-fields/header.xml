@@ -1,8 +1,7 @@
 <?xml version="1.0" ?>
 <properties xmlns="http://schemas.sulu.io/template/template"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd"
->
+            xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
     <property name="required" type="checkbox" colspan="6">
         <meta>
             <title>sulu_form.required</title>
@@ -23,42 +22,42 @@
             </param>
             <param name="default_value" value="0"/>
             <param name="values" type="collection">
-                <param name="0">
+                <param name="full">
                     <meta>
                         <title>sulu_form.width.full</title>
                     </meta>
                 </param>
-                <param name="1">
+                <param name="half">
                     <meta>
                         <title>sulu_form.width.half</title>
                     </meta>
                 </param>
-                <param name="2">
+                <param name="one-quarter">
                     <meta>
                         <title>sulu_form.width.one_quarter</title>
                     </meta>
                 </param>
-                <param name="3">
+                <param name="three-quarters">
                     <meta>
                         <title>sulu_form.width.three_quarters</title>
                     </meta>
                 </param>
-                <param name="4">
+                <param name="one-third">
                     <meta>
                         <title>sulu_form.width.one_third</title>
                     </meta>
                 </param>
-                <param name="5">
+                <param name="two-thirds">
                     <meta>
                         <title>sulu_form.width.two_thirds</title>
                     </meta>
                 </param>
-                <param name="6">
+                <param name="one-sixth">
                     <meta>
                         <title>sulu_form.width.one_sixth</title>
                     </meta>
                 </param>
-                <param name="7">
+                <param name="five-sixths">
                     <meta>
                         <title>sulu_form.width.five_sixths</title>
                     </meta>
