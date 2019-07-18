@@ -1,0 +1,37 @@
+<properties xmlns="http://schemas.sulu.io/template/template"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xi="http://www.w3.org/2001/XInclude"
+            xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+    <xi:include href="default_field.xml"  xpointer="xmlns(sulu=http://schemas.sulu.io/template/template)
+                      xpointer(//sulu:property)"/>
+    <property name="options[type]" type="select" colspan="6">
+        <meta>
+            <title>sulu_form.attachment_restrict</title>
+            <info_text>sulu_form.attachment_restrict.hint</info_text>
+        </meta>
+        <params>
+            <param name="values" type="collection">
+                <param name="image">
+                    <meta>
+                        <title>sulu_form.attachment.image</title>
+                    </meta>
+                </param>
+                <param name="audio">
+                    <meta>
+                        <title>sulu_form.attachment.audio</title>
+                    </meta>
+                </param>
+                <param name="video">
+                    <meta>
+                        <title>sulu_form.attachment.video</title>
+                    </meta>
+                </param>
+            </param>
+        </params>
+    </property>
+    <property name="options[max]" type="number" colspan="6">
+        <meta>
+            <title>sulu_form.attachment_max</title>
+        </meta>
+    </property>
+</properties>

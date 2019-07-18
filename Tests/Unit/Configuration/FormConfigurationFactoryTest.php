@@ -19,11 +19,12 @@ use Sulu\Bundle\FormBundle\Entity\FormField;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslationReceiver;
 use Sulu\Bundle\FormBundle\Media\CollectionStrategyInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test for the form configuration factory.
  */
-class FormConfigurationFactoryTest extends \PHPUnit_Framework_TestCase
+class FormConfigurationFactoryTest extends TestCase
 {
     public function testBuildByDynamic()
     {

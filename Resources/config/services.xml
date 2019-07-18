@@ -10,13 +10,13 @@
         <service id="sulu_form.handler" class="Sulu\Bundle\FormBundle\Form\Handler">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="sulu.mail.helper" />
-            <argument type="service" id="templating" />
+            <argument type="service" id="twig" />
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="sulu_media.media_manager" />
             <argument type="service" id="logger" />
         </service>
 
-        <!-- Mail -->
+        <!-- Mail-->
         <service id="sulu.mail.helper" class="Sulu\Bundle\FormBundle\Mail\Helper">
             <argument type="service" id="mailer" />
             <argument>%sulu_form.mail.from%</argument>
@@ -28,22 +28,14 @@
             <argument type="service" id="logger" />
         </service>
 
-        <!-- Cache -->
-        <service id="sulu_bundle_form.event.cache_invalidation_listener"
-                 class="Sulu\Bundle\FormBundle\Event\CacheInvalidationListener">
-            <argument type="service" id="sulu_http_cache.handler.aggregate"/>
-
-            <tag name="doctrine.event_listener" event="postUpdate"/>
-            <tag name="doctrine.event_listener" event="preRemove"/>
-        </service>
-
         <!-- Admin -->
         <service id="sulu_form.admin"
                  class="Sulu\Bundle\FormBundle\Admin\FormAdmin">
+            <argument type="service" id="sulu_security.security_checker"/>
+            <argument type="service" id="sulu_admin.route_factory"/>
+            <argument type="service" id="sulu_core.webspace.webspace_manager"/>
             <tag name="sulu.admin"/>
             <tag name="sulu.context" context="admin"/>
-            <argument type="service" id="sulu_security.security_checker"/>
-            <argument>%sulu_admin.name%</argument>
         </service>
 
         <service id="sulu_form.navigation_provider.form"
@@ -66,21 +58,21 @@
 
         <!-- Manager -->
         <service id="sulu_form.manager.form"
-                 class="Sulu\Bundle\FormBundle\Manager\FormManager">
+                 class="Sulu\Bundle\FormBundle\Manager\FormManager" public="true">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="sulu_form.repository.form" />
             <argument type="service" id="`" on-invalid="null" />
         </service>
 
         <!-- Content Types -->
-        <service id="sulu_form.content_type.form_select"
-                 class="Sulu\Bundle\FormBundle\Content\Types\FormSelect">
+        <service id="sulu_form.content_type.single_form_selection"
+                 class="Sulu\Bundle\FormBundle\Content\Types\SingleFormSelection">
             <argument>SuluFormBundle:Template:content-types/form_select_simple.html.twig</argument>
             <argument type="service" id="sulu_form.repository.form" />
             <argument type="service" id="sulu_form.builder" />
             <argument type="service" id="sulu_form.reference_store.form"/>
 
-            <tag name="sulu.content.type" alias="form_select"/>
+            <tag name="sulu.content.type" alias="single_form_selection"/>
         </service>
 
         <!-- Form Configuration Factory -->

@@ -1,0 +1,356 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd">
+    <key>form_details</key>
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title>sulu_form.title</title>
+            </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
+        </property>
+        <section name="formFields">
+            <meta>
+                <title>sulu_form.form_fields</title>
+            </meta>
+            <properties>
+                <block name="fields" default-type="attachment">
+                    <types>
+                        <type name="attachment">
+                            <meta>
+                                <title>sulu_form.type.attachment</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_attachment.xml"/>
+                        </type>
+                        <type name="checkbox">
+                            <meta>
+                                <title>sulu_form.type.checkbox</title>
+                            </meta>
+                            <xi:include href="../form-fields/default_field.xml"/>
+                        </type>
+                        <type name="checkboxMultiple">
+                            <meta>
+                                <title>sulu_form.type.checkboxmultiple</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_choices.xml"/>
+                        </type>
+                        <type name="city">
+                            <meta>
+                                <title>sulu_form.type.city</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="company">
+                            <meta>
+                                <title>sulu_form.type.company</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="country">
+                            <meta>
+                                <title>sulu_form.type.country</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="date">
+                            <meta>
+                                <title>sulu_form.type.date</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_date.xml"/>
+                        </type>
+                        <type name="email">
+                            <meta>
+                                <title>sulu_form.email</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="fax">
+                            <meta>
+                                <title>sulu_form.type.fax</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="firstName">
+                            <meta>
+                                <title>sulu_form.type.firstname</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="freeText">
+                            <meta>
+                                <title>sulu_form.type.freetext</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_title.xml"/>
+                        </type>
+                        <type name="function">
+                            <meta>
+                                <title>sulu_form.type.function</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="headline">
+                            <meta>
+                                <title>sulu_form.type.headline</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_title.xml"/>
+                        </type>
+                        <type name="lastName">
+                            <meta>
+                                <title>sulu_form.type.lastname</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <!--
+                        <type name="mailchimp">
+                            <meta>
+                                <title>sulu_form.type.mailchimp</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_mailchimp.xml"/>
+                        </type>
+                        -->
+                        <type name="textarea">
+                            <meta>
+                                <title>sulu_form.type.textarea</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="phone">
+                            <meta>
+                                <title>sulu_form.type.phone</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="radioButtons">
+                            <meta>
+                                <title>sulu_form.type.radiobuttons</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_choices.xml"/>
+                        </type>
+                        <!--
+                        <type name="recaptcha">
+                            <meta>
+                                <title>sulu_form.type.recaptcha</title>
+                            </meta>
+                            <xi:include href="../form-fields/default_field.xml"/>
+                        </type>
+                        -->
+                        <type name="salutation">
+                            <meta>
+                                <title>sulu_form.type.salutation</title>
+                            </meta>
+                            <xi:include href="../form-fields/default_field.xml"/>
+                        </type>
+                        <type name="dropdownMultiple">
+                            <meta>
+                                <title>sulu_form.type.dropdownmultiple</title>
+                            </meta>
+                            <xi:include href="../form-fields/default_field_extended.xml"/>
+                        </type>
+                        <type name="dropdown">
+                            <meta>
+                                <title>sulu_form.type.dropdown</title>
+                            </meta>
+                            <xi:include href="../form-fields/default_field_extended.xml"/>
+                        </type>
+                        <type name="text">
+                            <meta>
+                                <title>sulu_form.type.text</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="spacer">
+                            <meta>
+                                <title>sulu_form.type.spacer</title>
+                            </meta>
+                            <xi:include href="../form-fields/header_without_required.xml"/>
+                        </type>
+                        <type name="state">
+                            <meta>
+                                <title>sulu_form.type.state</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="street">
+                            <meta>
+                                <title>sulu_form.type.street</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="title">
+                            <meta>
+                                <title>sulu_form.type.title</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                        <type name="zip">
+                            <meta>
+                                <title>sulu_form.type.zip</title>
+                            </meta>
+                            <xi:include href="../form-fields/field_example_default.xml"/>
+                        </type>
+                    </types>
+                </block>
+            </properties>
+        </section>
+        <section name="websiteConfiguration">
+            <meta>
+                <title>sulu_form.website_configuration</title>
+            </meta>
+            <properties>
+                <property name="submitLabel" type="text_line">
+                    <meta>
+                        <title>sulu_form.submit_label</title>
+                    </meta>
+                </property>
+                <property name="successText" type="text_editor">
+                    <meta>
+                        <title>sulu_form.success_text</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+        <section name="emailConfiguration">
+            <meta>
+                <title>sulu_form.email_configuration</title>
+            </meta>
+            <properties>
+                <property name="subject" type="text_line">
+                    <meta>
+                        <title>sulu_form.subject</title>
+                    </meta>
+                </property>
+                <property name="fromEmail" type="email" colspan="6" mandatory="true">
+                    <meta>
+                        <title>sulu_form.from_email</title>
+                    </meta>
+                </property>
+                <property name="fromName" type="text_line" colspan="6">
+                    <meta>
+                        <title>sulu_form.from_name</title>
+                    </meta>
+                </property>
+                <property name="toEmail" type="email" colspan="6" mandatory="true">
+                    <meta>
+                        <title>sulu_form.to_email</title>
+                    </meta>
+                </property>
+                <property name="toName" type="text_line" colspan="6">
+                    <meta>
+                        <title>sulu_form.to_name</title>
+                    </meta>
+                </property>
+                <property name="mailText" type="text_editor">
+                    <meta>
+                        <title>sulu_form.success_text</title>
+                    </meta>
+                </property>
+                <property name="replyTo" type="checkbox" colspan="6">
+                    <params>
+                        <param name="label">
+                            <meta>
+                                <title>sulu_form.user_as_reply_to</title>
+                            </meta>
+                        </param>
+                        <param name="type" value="toggler"/>
+                    </params>
+                </property>
+                <property name="sendAttachments" type="checkbox" colspan="6">
+                    <params>
+                        <param name="label">
+                            <meta>
+                                <title>sulu_form.send_attachments</title>
+                            </meta>
+                        </param>
+                        <param name="type" value="toggler"/>
+                    </params>
+                </property>
+                <property name="deactivateNotifyMails" type="checkbox" colspan="6">
+                    <params>
+                        <param name="label">
+                            <meta>
+                                <title>sulu_form.deactivate_notify</title>
+                            </meta>
+                        </param>
+                        <param name="type" value="toggler"/>
+                    </params>
+                </property>
+                <property name="deactivateCustomerMails" type="checkbox" colspan="6">
+                    <params>
+                        <param name="label">
+                            <meta>
+                                <title>sulu_form.deactivate_success</title>
+                            </meta>
+                        </param>
+                        <param name="type" value="toggler"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
+        <section name="receivers">
+            <meta>
+                <title>sulu_form.receivers</title>
+            </meta>
+            <properties>
+                <block name="receivers" default-type="to">
+                    <types>
+                        <type name="to">
+                            <meta>
+                                <title>sulu_form.receiver.to</title>
+                            </meta>
+                            <properties>
+                                <property name="email" type="email" colspan="6" mandatory="true">
+                                    <meta>
+                                        <title>sulu_form.email</title>
+                                    </meta>
+                                </property>
+                                <property name="name" type="text_line" colspan="6">
+                                    <meta>
+                                        <title>sulu_form.receiver.name</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                        <type name="cc">
+                            <meta>
+                                <title>sulu_form.receiver.cc</title>
+                            </meta>
+                            <properties>
+                                <property name="email" type="email" colspan="6" mandatory="true">
+                                    <meta>
+                                        <title>sulu_form.email</title>
+                                    </meta>
+                                </property>
+                                <property name="name" type="text_line" colspan="6">
+                                    <meta>
+                                        <title>sulu_form.receiver.name</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                        <type name="bcc">
+                            <meta>
+                                <title>sulu_form.receiver.bcc</title>
+                            </meta>
+                            <properties>
+                                <property name="email" type="email" colspan="6" mandatory="true">
+                                    <meta>
+                                        <title>sulu_form.email</title>
+                                    </meta>
+                                </property>
+                                <property name="name" type="text_line" colspan="6">
+                                    <meta>
+                                        <title>sulu_form.receiver.name</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </block>
+            </properties>
+        </section>
+    </properties>
+</form>

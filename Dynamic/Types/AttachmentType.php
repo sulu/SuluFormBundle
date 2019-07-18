@@ -36,7 +36,7 @@ class AttachmentType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.attachment',
-            'SuluFormBundle:forms:fields/types/attachment.html.twig',
+            'SuluFormBundle/Resources/config/form-fields/field_attachment.xml',
             [],
             'special'
         );

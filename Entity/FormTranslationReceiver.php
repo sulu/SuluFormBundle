@@ -129,6 +129,7 @@ class FormTranslationReceiver
      */
     public function setName($name)
     {
+        $name = $name ?: '';
         $this->name = $name;
 
         return $this;

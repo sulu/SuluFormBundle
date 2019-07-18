@@ -13,14 +13,16 @@ The `mail` dispatching is handled by the bundle.
 
 ## Installation
 
+Run the following command to install:
+
 ```bash
 composer require sulu/sulu-form-bundle
 ```
 
-Add to AbstractKernel (app/AbstractKernel.php)
+Enable the required bundles in the `config/bundles.php` of your project:
 
 ```php
-new Sulu\Bundle\FormBundle\SuluFormBundle(),
+Sulu\Bundle\FormBundle\SuluFormBundle::class => ['all' => true],
 ```
 
 ## Config
@@ -58,12 +60,6 @@ sql statements are executed.
 
 ```bash
 php bin/adminconsole assets:install --symlink --relative
-```
-
-## Generate translations
-
-```bash
-php bin/adminconsole sulu:translate:export
 ```
 
 ## Routing

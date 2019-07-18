@@ -186,6 +186,9 @@ class FormManager
             $receiver = new FormTranslationReceiver();
             $receiver->setType($receiverData['type']);
             $receiver->setEmail($receiverData['email']);
+            if (!array_key_exists('name', $receiverData)) {
+                $receiverData['name'] = null;
+            };
             $receiver->setName($receiverData['name']);
             $receiver->setFormTranslation($translation);
 

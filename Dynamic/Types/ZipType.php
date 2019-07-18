@@ -31,7 +31,7 @@ class ZipType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.zip',
-            'SuluFormBundle:forms:fields/types/zip.html.twig'
+            'SuluFormBundle/Resources/config/form-fields/field_example_default.xml'
         );
     }
 

@@ -52,6 +52,47 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                 ]
             );
         }
+
+        if ($container->hasExtension('sulu_admin')) {
+            $container->prependExtensionConfig(
+                'sulu_admin',
+                [
+                    'lists' => [
+                        'directories' => [
+                            __DIR__ . '/../Resources/config/lists',
+                        ],
+                    ],
+                    'forms' => [
+                        'directories' => [
+                            __DIR__ . '/../Resources/config/forms',
+                        ],
+                    ],
+                    'resources' => [
+                        'forms' => [
+                            'routes' => [
+                                'list' => 'sulu_form.get_forms',
+                                'detail' => 'sulu_form.get_form',
+                            ],
+                        ],
+                    ],
+                    'field_type_options' => [
+                        'single_selection' => [
+                            'single_form_selection' => [
+                                'default_type' => 'single_select',
+                                'resource_key' => 'forms',
+                                'types' => [
+                                    'single_select' => [
+                                        'id_property' => 'id',
+                                        'display_property' => 'title',
+                                        'overlay_title' => '',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ]
+            );
+        }
     }
 
     /**

@@ -30,7 +30,7 @@ class RecaptchaType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.recaptcha',
-            'SuluFormBundle:forms:fields/types/recaptcha.html.twig',
+            'SuluFormBundle/Resources/config/form-fields/default_field.xml',
             [],
             'special'
         );

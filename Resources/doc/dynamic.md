@@ -50,21 +50,20 @@ one of the dynamic templates which can be created in the Sulu backend.
             </properties>
         </section>
 
-        <property name="form" type="form_select">
+        <property name="form" type="single_form_selection">
             <meta>
                 <title lang="de">Formular</title>
                 <title lang="en">Form</title>
             </meta>
-        
             <params>
-                <param name="type" value="page" />
+                <param name="resourceKey" value="page"/>
             </params>
         </property>
     </properties>
 </template>
 ```
 
-Use `article` as `type` when you use the form_select inside article template.
+Use `article` as `resourceKey` when you use the form_select inside article template.
 
 ## Output Form and customize
 
@@ -78,12 +77,14 @@ has been submitted successfully!
     <title>Basic Form</title>
 </head>
 <body>
-    {% if app.request.get('send') != 'true' %}
-        {# FORM THEME #}
-        {% form_theme content.form 'SuluFormBundle:themes:dynamic.html.twig' %}
-        {{ form(content.form) }}
-    {% else %}
-        {{ view.form.entity.successText|raw }}
+    {% if content.form %}
+        {% if app.request.get('send') != 'true' %}
+            {# FORM THEME #}
+            {% form_theme content.form 'SuluFormBundle:themes:dynamic.html.twig' %}
+            {{ form(content.form) }}
+        {% else %}
+            {{ view.form.entity.successText|raw }}
+        {% endif %}
     {% endif %}
 </body>
 </html>

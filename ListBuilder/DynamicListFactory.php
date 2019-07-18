@@ -66,8 +66,7 @@ class DynamicListFactory implements DynamicListFactoryInterface
                 FieldDescriptorInterface::VISIBILITY_YES,
                 '',
                 '',
-                '',
-                false // not sortable
+                'false'
             );
         }
 

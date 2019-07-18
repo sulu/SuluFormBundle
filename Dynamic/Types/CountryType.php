@@ -31,7 +31,7 @@ class CountryType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.country',
-            'SuluFormBundle:forms:fields/types/country.html.twig'
+            'SuluFormBundle/Resources/config/form-fields/field_example_default.xml'
         );
     }
 

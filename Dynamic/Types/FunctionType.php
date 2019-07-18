@@ -31,7 +31,7 @@ class FunctionType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.function',
-            'SuluFormBundle:forms:fields/types/function.html.twig'
+            'SuluFormBundle/Resources/config/form-fields/field_example_default.xml'
         );
     }
 

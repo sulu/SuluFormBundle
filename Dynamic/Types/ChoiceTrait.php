@@ -51,7 +51,6 @@ trait ChoiceTrait
 
         // Choices.
         $choices = $this->getChoices($translation);
-        $options['choices_as_values'] = true;
         $options['choices'] = $choices;
 
         return $options;

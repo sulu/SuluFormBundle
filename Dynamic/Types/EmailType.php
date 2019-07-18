@@ -32,7 +32,7 @@ class EmailType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.email',
-            'SuluFormBundle:forms:fields/types/email.html.twig'
+            'SuluFormBundle/Resources/config/form-fields/field_example_default.xml'
         );
     }
 

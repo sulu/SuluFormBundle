@@ -31,7 +31,7 @@ class LastNameType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.lastname',
-            'SuluFormBundle:forms:fields/types/lastname.html.twig'
+            'SuluFormBundle/Resources/config/form-fields/field_example_default.xml'
         );
     }
 

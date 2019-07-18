@@ -8,6 +8,8 @@ sulu_form.forms:
     type: rest
     resource: Sulu\Bundle\FormBundle\Controller\FormController
     name_prefix: sulu_form.
+    options:
+        expose: true
 
 sulu_form.dynamic:
     type: rest

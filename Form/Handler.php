@@ -22,7 +22,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
-use Symfony\Component\Templating\EngineInterface;
+use Twig\Environment;
 
 /**
  * Handling of form based on form configuration.
@@ -35,9 +35,9 @@ class Handler implements HandlerInterface
     protected $entityManager;
 
     /**
-     * @var EngineInterface
+     * @var Environment
      */
-    protected $templating;
+    protected $twig;
 
     /**
      * @var EventDispatcherInterface
@@ -62,20 +62,20 @@ class Handler implements HandlerInterface
     /**
      * @param ObjectManager $entityManager
      * @param Mail\HelperInterface $mailHelper
-     * @param EngineInterface $templating
+     * @param Environment $twig
      * @param EventDispatcherInterface $eventDispatcher
      * @param MediaManager $mediaManager
      */
     public function __construct(
         ObjectManager $entityManager,
         Mail\HelperInterface $mailHelper,
-        EngineInterface $templating,
+        Environment $twig,
         EventDispatcherInterface $eventDispatcher,
         MediaManager $mediaManager
     ) {
         $this->entityManager = $entityManager;
         $this->mailHelper = $mailHelper;
-        $this->templating = $templating;
+        $this->twig = $twig;
         $this->eventDispatcher = $eventDispatcher;
         $this->mediaManager = $mediaManager;
         $this->attachments = [];
@@ -167,7 +167,7 @@ class Handler implements HandlerInterface
             ];
         }
 
-        $body = $this->templating->render(
+        $body = $this->twig->render(
             $configuration->getTemplate(),
             array_merge(
                 $configuration->getTemplateAttributes(),
@@ -288,7 +288,7 @@ class Handler implements HandlerInterface
      */
     protected function getPlainText(FormInterface $form, MailConfigurationInterface $configuration, array $additionalData)
     {
-        return $this->templating->render(
+        return $this->twig->render(
             $configuration->getPlainTextTemplate(),
             array_merge(
                 $configuration->getTemplateAttributes(),

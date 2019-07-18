@@ -2,3 +2,11 @@ parameters:
     excludes_analyse:
         - %currentWorkingDirectory%/vendor/*
         - %currentWorkingDirectory%/Tests/*
+        - %currentWorkingDirectory%/Admin/DynamicListNavigationProvider.php
+        - %currentWorkingDirectory%/Admin/FormNavigationProvider.php
+        - %currentWorkingDirectory%/Admin/TemplateNavigationProvider.php
+        - %currentWorkingDirectory%/Dynamic/Types/RecaptchaType.php
+        - %currentWorkingDirectory%/Event/CacheInvalidationListener.php
+        - %currentWorkingDirectory%/DependencyInjection/SuluFormExtension.php
+
+

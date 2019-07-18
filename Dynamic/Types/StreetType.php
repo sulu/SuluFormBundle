@@ -31,7 +31,7 @@ class StreetType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.street',
-            'SuluFormBundle:forms:fields/types/street.html.twig'
+            'SuluFormBundle/Resources/config/form-fields/field_example_default.xml'
         );
     }
 

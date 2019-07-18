@@ -10,6 +10,30 @@ The field `keyName` need to be short to 128 length for UTF8MB4 compatibility:
 ALTER TABLE fo_form_fields CHANGE keyName keyName VARCHAR(128) NOT NULL;
 ``` 
 
+### Content type changed
+
+The content type for form selection has been changed from `form_select` to `single_form_selection` also the param `type` has changed to `resourceKey`:
+
+**Before**
+
+```xml
+<property name="form" type="form_select">
+    <params>
+        <param name="type" value="page" />
+    </params>
+</property>
+```
+
+**Before**
+
+```xml
+<property name="form" type="single_form_selection">
+    <params>
+        <param name="resourceKey" value="page" />
+    </params>
+</property>
+```
+
 ## 1.0.0-RC7
 
 ### BC Breaks
