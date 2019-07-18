@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="en" target-language="nl" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>sulu_form.salutation_mr</source>
+                <target>De heer</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>sulu_form.salutation_ms</source>
+                <target>Mevrouw</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>sulu_form.no_choice</source>
+                <target>Geen selectie</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>sulu_form.mail.plain_text</source>
+                <target>Deze mail is alleen in HTML te bekijken</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

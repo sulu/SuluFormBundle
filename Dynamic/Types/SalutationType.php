@@ -16,7 +16,6 @@ use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * The Salutation form field type.
@@ -24,12 +23,6 @@ use Symfony\Component\Translation\TranslatorInterface;
 class SalutationType implements FormFieldTypeInterface
 {
     use SimpleTypeTrait;
-
-    private $translator;
-
-    public function __construct(TranslatorInterface $translator){
-        $this->translator = $translator;
-    }
     /**
      * {@inheritdoc}
      */
@@ -41,11 +34,15 @@ class SalutationType implements FormFieldTypeInterface
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
     {
+        $options['choice_translation_domain'] = 'messages';
         $options['expanded'] = false;
         $options['multiple'] = false;
-        $options['choices'] = $this->getChoices($locale);
+        $options['choices'] = $this->getChoices();
         $type = ChoiceType::class;
         $builder->add($field->getKey(), $type, $options);
     }
@@ -53,11 +50,11 @@ class SalutationType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    protected function getChoices($locale)
+    protected function getChoices()
     {
         return [
-            $this->translator->trans('sulu_form.salutation_mr', [], 'admin', $locale) => 'mr',
-            $this->translator->trans('sulu_form.salutation_ms', [], 'admin', $locale) => 'ms',
+            'sulu_form.salutation_mr' => 'mr',
+            'sulu_form.salutation_ms' => 'ms',
         ];
     }
 }

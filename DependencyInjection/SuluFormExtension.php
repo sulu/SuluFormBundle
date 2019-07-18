@@ -166,8 +166,6 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $loader->load('services.xml');
         $loader->load('types.xml');
         $loader->load('title-providers.xml');
-      //  $loader->load('forms/');
-        //$loader->load('form-fields/');
 
         if ($config['mailchimp_api_key']) {
             $loader->load('type_mailchimp.xml');

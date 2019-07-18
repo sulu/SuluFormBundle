@@ -106,7 +106,6 @@
 
         <service id="sulu_form.dynamic.type_salutation" class="Sulu\Bundle\FormBundle\Dynamic\Types\SalutationType">
             <tag name="sulu_form.dynamic.type" alias="salutation"/>
-            <argument type="service" id="translator" />
         </service>
 
         <service id="sulu_form.dynamic.type_attachment" class="Sulu\Bundle\FormBundle\Dynamic\Types\AttachmentType">

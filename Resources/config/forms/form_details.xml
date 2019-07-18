@@ -112,7 +112,7 @@
                             <xi:include href="../form-fields/field_mailchimp.xml"/>
                         </type>
                         -->
-                        <type name="multilineTextfield">
+                        <type name="textarea">
                             <meta>
                                 <title>sulu_form.type.textarea</title>
                             </meta>
@@ -156,7 +156,7 @@
                             </meta>
                             <xi:include href="../form-fields/default_field_extended.xml"/>
                         </type>
-                        <type name="simpleTextfield">
+                        <type name="text">
                             <meta>
                                 <title>sulu_form.type.text</title>
                             </meta>
