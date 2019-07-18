@@ -73,5 +73,7 @@
   "sulu_form.width.two_thirds": "Zwei Drittel",
   "sulu_form.width.one_sixth": "Ein Sechstel",
   "sulu_form.width.five_sixths": "Fünf Sechstel",
-  "sulu_form.mailchimp_list": "Mailchimp Liste"
+  "sulu_form.mailchimp_list": "Mailchimp Liste",
+  "sulu_form.salutation_mr": "Herr",
+  "sulu_form.salutation_ms": "Frau"
 }

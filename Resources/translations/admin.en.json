@@ -73,5 +73,7 @@
   "sulu_form.width.two_thirds": "Two thirds",
   "sulu_form.width.one_sixth": "One sixth",
   "sulu_form.width.five_sixths": "Five sixths",
-  "sulu_form.mailchimp_list": "Mailchimp List"
+  "sulu_form.mailchimp_list": "Mailchimp List",
+  "sulu_form.salutation_mr": "Mr.",
+  "sulu_form.salutation_ms": "Ms."
 }
