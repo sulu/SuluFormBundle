@@ -31,7 +31,7 @@ class HeadlineType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.headline',
-            'SuluFormBundle/Resources/config/form-fields/field_title.xml',
+            __DIR__ . '/../../Resources/config/form-fields/field_title.xml',
             [],
             'additional'
         );

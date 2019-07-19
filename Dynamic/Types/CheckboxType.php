@@ -31,7 +31,7 @@ class CheckboxType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.checkbox',
-            'SuluFormBundle/Resources/config/form-fields/default_field.xml',
+            __DIR__ . '/../../Resources/config/form-fields/default_field.xml',
             [],
             'complex'
         );

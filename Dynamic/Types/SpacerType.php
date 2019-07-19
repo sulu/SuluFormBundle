@@ -31,7 +31,7 @@ class SpacerType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.spacer',
-            'SuluFormBundle/Resources/config/form-fields/header_without_required.xml',
+            __DIR__ . '/../../Resources/config/form-fields/header_without_required.xml',
             [],
             'additional'
         );
