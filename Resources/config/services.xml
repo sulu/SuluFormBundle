@@ -173,5 +173,14 @@
                  class="Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStore">
             <tag name="sulu_website.reference_store" alias="form"/>
         </service>
+
+        <service id="sulu_form.metadata.properties_xml_loader" class="Sulu\Bundle\FormBundle\Metadata\PropertiesXmlLoader">
+            <argument type="service" id="sulu_page.structure.properties_xml_parser"/>
+        </service>
+
+        <service id="sulu_form.metadata.form_field_type_provider" class="Sulu\Bundle\FormBundle\Metadata\FormFieldTypeProvider" public="true">
+            <argument type="service" id="sulu_form.dynamic.form_field_type_pool"/>
+            <argument type="service" id="sulu_form.metadata.properties_xml_loader"/>
+        </service>
     </services>
 </container>
