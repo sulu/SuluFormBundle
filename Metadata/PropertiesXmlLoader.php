@@ -3,10 +3,7 @@
 
 namespace Sulu\Bundle\FormBundle\Metadata;
 
-
-use Sulu\Bundle\AdminBundle\FormMetadata\FormMetadata;
 use Sulu\Component\Content\Metadata\Parser\PropertiesXmlParser;
-use Sulu\Component\Content\Metadata\Parser\SchemaXmlParser;
 use Sulu\Component\Content\Metadata\Loader\AbstractLoader;
 
 class PropertiesXmlLoader extends AbstractLoader
