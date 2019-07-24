@@ -66,5 +66,7 @@ class FormFieldTypeProviderTest extends SuluTestCase
         self::assertArrayHasKey('shortTitle', $attachmentChildren);
         self::assertArrayHasKey('options/type', $attachmentChildren);
         self::assertArrayHasKey('options/max', $attachmentChildren);
+
+        print_r($attachment);
     }
 }

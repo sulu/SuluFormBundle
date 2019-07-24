@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Metadata;
 
 use Sulu\Bundle\AdminBundle\FormMetadata\FormMetadata;
+use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadataLoaderInterface;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Component\Content\Metadata\BlockMetadata;
 use Sulu\Component\Content\Metadata\SectionMetadata;
@@ -19,7 +20,7 @@ use Sulu\Component\Content\Metadata\ComponentMetadata;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 
 
-class FormFieldTypeProvider
+class FormFieldTypeProvider implements FormMetadataLoaderInterface
 {
     private $formFieldTypePool;
     private $propertiesXmlLoader;
@@ -45,19 +46,30 @@ class FormFieldTypeProvider
        return $propertiesMetadata;
     }
 
+    public function load()
+    {
+        $formMetadata = $this->getMetadata();
+        $formKey = $formMetadata->getKey();
+        $formsMetadata = [];
+        $formsMetadata[$formKey][] = $this->getMetadata();
+        return $formsMetadata;
+    }
+
     public function getMetadata() : FormMetadata
     {
         $form = new FormMetadata();
-        $form->setKey('form_details');
+        $key = 'form_details';
+        $form->setKey($key);
+        $form->setResource('');
 
         $section = new SectionMetadata('formFields');
 
         $block = new BlockMetadata('fields');
 
         $types = $this->formFieldTypePool->all();
-        foreach ($types as $key => $type) {
+        foreach ($types as $typeKey => $type) {
             $component = new ComponentMetadata();
-            $component->setName($key);
+            $component->setName($typeKey);
 
             $fieldTypeProperties = $this->loadFieldTypeMetadata($type);
             foreach ($fieldTypeProperties->getChildren() as $children) {
@@ -69,12 +81,13 @@ class FormFieldTypeProvider
         // set first component as default
         $defaultComponent = current($block->getComponents());
         $block->defaultComponentName = $defaultComponent->getName();
-
+        $block->setType('block');
         $section->addChild($block);
         $form->addChild($section);
         $form->burnProperties();
         return $form;
     }
+
 
     public function loadFieldTypeMetadata(FormFieldTypeInterface $type) : PropertiesMetadata
     {
