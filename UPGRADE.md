@@ -1,6 +1,10 @@
 # Upgrade
 
-## unreleased
+## 1.0.0
+
+No breaking changes since RC7.
+
+## 1.0.0-RC7
 
 ### BC Breaks
 
