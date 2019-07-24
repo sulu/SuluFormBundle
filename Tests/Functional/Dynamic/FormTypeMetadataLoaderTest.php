@@ -4,40 +4,21 @@ namespace Sulu\Bundle\FormBundle\Tests\Functional\Dynamic;
 
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 
-
-
-class FormFieldTypeProviderTest extends SuluTestCase
+class FormTypeMetadataLoaderTest extends SuluTestCase
 {
-
     private $formFieldTypeProvider;
 
-    
     protected function setUp()
     {
         $this->formFieldTypeProvider = $this->getContainer()->get('sulu_form.metadata.form_field_type_provider');
     }
-    
-    public function testLoadAllFieldTypes() {
-        $fieldTypeMetadata = $this->formFieldTypeProvider->loadAllFieldTypes();
 
-        self::assertEquals(26, count($fieldTypeMetadata));
-        $first = $fieldTypeMetadata[0];
-        self::assertObjectHasAttribute('resource', $first);
-        self::assertObjectHasAttribute('properties', $first);
-        self::assertObjectHasAttribute('name', $first);
-        self::assertObjectHasAttribute('titles', $first);
-        self::assertObjectHasAttribute('descriptions', $first);
-        self::assertObjectHasAttribute('tags', $first);
-        self::assertObjectHasAttribute('parameters', $first);
-        self::assertObjectHasAttribute('children', $first);
-        self::assertObjectHasAttribute('disabledCondition', $first);
-        self::assertObjectHasAttribute('visibleCondition', $first);
+    public function testGetMetadata()
+    {
+        $formsMetadata = $this->formFieldTypeProvider->load();
+        self::assertArrayHasKey('form_details', $formsMetadata);
 
-        $this->assertNotNull($fieldTypeMetadata);
-    }
-
-    public function testGetMetadata(){
-        $metadata = $this->formFieldTypeProvider->getMetadata();
+        $metadata = $formsMetadata['form_details'][0];
         $this->assertNotNull($metadata);
         self::assertEquals('form_details', $metadata->getKey());
 
@@ -54,11 +35,20 @@ class FormFieldTypeProviderTest extends SuluTestCase
         self::assertNotNull($components);
         self::assertEquals(26, count($components));
 
+
         $attachment = $fields->getComponentByName('attachment');
+        var_dump($attachment);
         self::assertNotNull($attachment);
         self::assertEquals('attachment', $attachment->getName());
-        self::assertEquals(6, count($attachment->getChildren()));
+        self::assertObjectHasAttribute('titles', $attachment);
+        self::assertObjectHasAttribute('descriptions', $attachment);
+        self::assertObjectHasAttribute('tags', $attachment);
+        self::assertObjectHasAttribute('parameters', $attachment);
+        self::assertObjectHasAttribute('children', $attachment);
+        self::assertObjectHasAttribute('disabledCondition', $attachment);
+        self::assertObjectHasAttribute('visibleCondition', $attachment);
 
+        self::assertEquals(6, count($attachment->getChildren()));
         $attachmentChildren = $attachment->getChildren();
         self::assertArrayHasKey('required', $attachmentChildren);
         self::assertArrayHasKey('width', $attachmentChildren);
@@ -66,7 +56,5 @@ class FormFieldTypeProviderTest extends SuluTestCase
         self::assertArrayHasKey('shortTitle', $attachmentChildren);
         self::assertArrayHasKey('options/type', $attachmentChildren);
         self::assertArrayHasKey('options/max', $attachmentChildren);
-
-        print_r($attachment);
     }
 }
