@@ -14,7 +14,7 @@
             <title>sulu_form.default</title>
         </meta>
     </property>
-    <property name="options[choices]" type="text_area">
+    <property name="options/choices" type="text_area">
         <meta>
             <title>sulu_form.choice</title>
         </meta>
