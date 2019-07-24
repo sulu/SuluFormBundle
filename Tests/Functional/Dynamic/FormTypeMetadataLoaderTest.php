@@ -37,7 +37,6 @@ class FormTypeMetadataLoaderTest extends SuluTestCase
 
 
         $attachment = $fields->getComponentByName('attachment');
-        var_dump($attachment);
         self::assertNotNull($attachment);
         self::assertEquals('attachment', $attachment->getName());
         self::assertObjectHasAttribute('titles', $attachment);
@@ -54,7 +53,7 @@ class FormTypeMetadataLoaderTest extends SuluTestCase
         self::assertArrayHasKey('width', $attachmentChildren);
         self::assertArrayHasKey('title', $attachmentChildren);
         self::assertArrayHasKey('shortTitle', $attachmentChildren);
-        self::assertArrayHasKey('options/type', $attachmentChildren);
-        self::assertArrayHasKey('options/max', $attachmentChildren);
+        self::assertArrayHasKey('options[type]', $attachmentChildren);
+        self::assertArrayHasKey('options[max]', $attachmentChildren);
     }
 }

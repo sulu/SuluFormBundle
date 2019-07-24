@@ -65,6 +65,7 @@ class FormTypeMetadataLoader implements FormMetadataLoaderInterface
         $block = new BlockMetadata('fields');
 
         $types = $this->formFieldTypePool->all();
+        ksort($types);
         foreach ($types as $typeKey => $type) {
             $component = new ComponentMetadata();
             $component->setName($typeKey);
