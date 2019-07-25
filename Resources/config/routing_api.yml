@@ -16,6 +16,8 @@ sulu_form.dynamic:
     resource: Sulu\Bundle\FormBundle\Controller\DynamicController
     prefix: form
     name_prefix: sulu_form.
+    options:
+        expose: true
 
 sulu_form.csv_overlay:
     path: /form/templates/csv-export.html

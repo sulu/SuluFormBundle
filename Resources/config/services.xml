@@ -115,7 +115,7 @@
 
         <!-- List Builder -->
         <service id="sulu_form.list_builder.dynamic_list_factory"
-                 class="Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory">
+                 class="Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory" public="true">
             <argument>%sulu_form.dynamic_list_builder.default%</argument>
         </service>
 
@@ -134,7 +134,7 @@
         </service>
 
         <!-- Dynamic -->
-        <service id="sulu_form.repository.dynamic" class="Sulu\Bundle\FormBundle\Repository\DynamicRepository">
+        <service id="sulu_form.repository.dynamic" class="Sulu\Bundle\FormBundle\Repository\DynamicRepository" public="true">
             <factory service="doctrine.orm.entity_manager" method="getRepository"/>
             <argument>SuluFormBundle:Dynamic</argument>
         </service>
