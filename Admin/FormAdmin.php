@@ -26,6 +26,7 @@ use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 class FormAdmin extends Admin
 {
     const LIST_ROUTE = 'sulu_form.list';
+    const LIST_ROUTE_DATA = 'sulu_form.list.data';
     const FORM_ROUTE = 'sulu_form.forms';
     const ADD_FORM_ROUTE = 'sulu_form.add_form';
     const ADD_FORM_DETAILS_ROUTE = 'sulu_form.add_form.details';
@@ -55,10 +56,9 @@ class FormAdmin extends Admin
     public function getNavigation(): Navigation
     {
         $rootNavigationItem = $this->getNavigationItemRoot();
-        $settings = Admin::getNavigationItemSettings();
 
         if ($this->securityChecker->hasPermission('sulu.form.forms', PermissionTypes::VIEW)) {
-            $navigationItem = new NavigationItem('sulu_form.forms', $settings);
+            $navigationItem = new NavigationItem('sulu_form.forms');
             $navigationItem->setIcon('su-magic');
             $navigationItem->setPosition(10);
             $navigationItem->setMainRoute(static::LIST_ROUTE);
@@ -140,6 +140,14 @@ class FormAdmin extends Admin
                 ->setFormKey('form_details')
                 ->setTabTitle('sulu_form.general')
                 ->addToolbarActions($formToolbarActions)
+                ->setParent(static::EDIT_FORM_ROUTE)
+                ->getRoute(),
+            $this->routeBuilderFactory->createListRouteBuilder(static::LIST_ROUTE_DATA, '/form_data')
+                ->setResourceKey('dynamics')
+                ->setListKey('form_data')
+                ->setTabTitle('sulu_form.data')
+                ->addListAdapters(['table'])
+                ->addRouterAttributesToListStore(['id' => 'form'])
                 ->setParent(static::EDIT_FORM_ROUTE)
                 ->getRoute(),
             ];
