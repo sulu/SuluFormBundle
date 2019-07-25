@@ -196,5 +196,14 @@
             <tag name="sulu_admin.form_metadata_loader"/>
         </service>
 
+        <!-- Dynamic Controller -->
+        <service id="sulu_form.dynamic_controller" class="Sulu\Bundle\FormBundle\Controller\DynamicController" public="true">
+            <argument type="service" id="sulu_form.repository.dynamic"/>
+            <argument type="service" id="sulu_form.list_builder.dynamic_list_factory"/>
+            <argument type="service" id="sulu_media.media_manager"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="sulu_form.repository.form"/>
+            <argument type="service" id="fos_rest.view_handler"/>
+        </service>
     </services>
 </container>
