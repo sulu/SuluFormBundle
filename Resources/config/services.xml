@@ -115,7 +115,7 @@
 
         <!-- List Builder -->
         <service id="sulu_form.list_builder.dynamic_list_factory"
-                 class="Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory" public="true">
+                 class="Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory">
             <argument>%sulu_form.dynamic_list_builder.default%</argument>
         </service>
 
@@ -134,7 +134,7 @@
         </service>
 
         <!-- Dynamic -->
-        <service id="sulu_form.repository.dynamic" class="Sulu\Bundle\FormBundle\Repository\DynamicRepository" public="true">
+        <service id="sulu_form.repository.dynamic" class="Sulu\Bundle\FormBundle\Repository\DynamicRepository">
             <factory service="doctrine.orm.entity_manager" method="getRepository"/>
             <argument>SuluFormBundle:Dynamic</argument>
         </service>
@@ -172,6 +172,16 @@
         <service id="sulu_form.reference_store.form"
                  class="Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStore">
             <tag name="sulu_website.reference_store" alias="form"/>
+        </service>
+
+        <!-- Dynamic Controller -->
+        <service id="sulu_form.dynamic_controller" class="Sulu\Bundle\FormBundle\Controller\DynamicController" public="true">
+            <argument type="service" id="sulu_form.repository.dynamic"/>
+            <argument type="service" id="sulu_form.list_builder.dynamic_list_factory"/>
+            <argument type="service" id="sulu_media.media_manager"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="sulu_form.repository.form"/>
+            <argument type="service" id="fos_rest.view_handler"/>
         </service>
     </services>
 </container>
