@@ -12,7 +12,6 @@
 namespace Sulu\Bundle\FormBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\ControllerTrait;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\ViewHandler;
@@ -171,19 +170,22 @@ class DynamicController implements ClassResourceInterface
     {
         $dynamic = $this->dynamicRepository->find($id);
 
-        $attachments = array_values($dynamic->getFieldsByType(Dynamic::TYPE_ATTACHMENT));
+        $attachments = array_filter(array_values($dynamic->getFieldsByType(Dynamic::TYPE_ATTACHMENT)));
 
         foreach ($attachments as $mediaIds) {
             foreach ($mediaIds as $mediaId) {
                 if ($mediaId) {
                     try {
+                        // TODO remove clearing of entity manager here and change delete method in MediaManager
                         $this->mediaManager->delete($mediaId);
+                        $this->entityManager->clear();
                     } catch (MediaNotFoundException $e) {
-                        // Do nothing when meida was removed before.
+                        // Do nothing when media was removed before.
                     }
                 }
             }
         }
+        $dynamic = $this->entityManager->merge($dynamic);
         $this->entityManager->remove($dynamic);
         $this->entityManager->flush();
 
@@ -228,6 +230,6 @@ class DynamicController implements ClassResourceInterface
             throw new BadRequestHttpException('"form" is required parameter');
         }
 
-        return $this->get('sulu_form.repository.form')->loadById($formId);
+        return $this->formRepository->loadById($formId);
     }
 }

@@ -103,6 +103,10 @@ class FormAdmin extends Admin
             'sulu_admin.add',
             'sulu_admin.delete'
         ];
+        $dataListToolbarActions = [
+            'sulu_admin.delete',
+            'sulu_admin.export'
+        ];
 
         return [
             $this->routeBuilderFactory->createListRouteBuilder(static::LIST_ROUTE, '/forms/:locale')
@@ -148,6 +152,7 @@ class FormAdmin extends Admin
                 ->setTabTitle('sulu_form.data')
                 ->addListAdapters(['table'])
                 ->addRouterAttributesToListStore(['id' => 'form'])
+                ->addToolbarActions($dataListToolbarActions)
                 ->setParent(static::EDIT_FORM_ROUTE)
                 ->getRoute(),
             ];
