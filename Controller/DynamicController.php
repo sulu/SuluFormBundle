@@ -232,4 +232,15 @@ class DynamicController implements ClassResourceInterface
 
         return $this->formRepository->loadById($formId);
     }
+
+    /**
+     * Get locale.
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function getLocale(Request $request)
+    {
+        return $request->get('locale', $request->getLocale());
+    }
 }
