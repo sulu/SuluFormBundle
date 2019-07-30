@@ -176,16 +176,13 @@ class DynamicController implements ClassResourceInterface
             foreach ($mediaIds as $mediaId) {
                 if ($mediaId) {
                     try {
-                        // TODO remove clearing of entity manager here and change delete method in MediaManager
                         $this->mediaManager->delete($mediaId);
-                        $this->entityManager->clear();
                     } catch (MediaNotFoundException $e) {
                         // Do nothing when media was removed before.
                     }
                 }
             }
         }
-        $dynamic = $this->entityManager->merge($dynamic);
         $this->entityManager->remove($dynamic);
         $this->entityManager->flush();
 
