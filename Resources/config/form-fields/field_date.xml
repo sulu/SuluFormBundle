@@ -14,7 +14,7 @@
             <title>sulu_form.default</title>
         </meta>
     </property>
-    <property name="options[birthday]" type="checkbox" colspan="1">
+    <property name="options/birthday" type="checkbox" colspan="1">
         <meta>
             <title>sulu_form.birthday</title>
         </meta>
@@ -22,5 +22,4 @@
             <param name="type" value="toggler"/>
         </params>
     </property>
-
 </properties>

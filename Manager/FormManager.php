@@ -242,22 +242,7 @@ class FormManager
             $fieldTranslation->setPlaceholder(self::getValue($fieldData, 'placeholder'));
             $fieldTranslation->setDefaultValue(self::getValue($fieldData, 'defaultValue'));
             $fieldTranslation->setShortTitle(self::getValue($fieldData, 'shortTitle'));
-
-            // Field Options
-            $prefix = 'options[';
-
-            $keys = array_filter(array_keys($fieldData), function ($key) use ($prefix) {
-                return 0 === strpos($key, $prefix);
-            });
-
-            $options = array_intersect_key($fieldData, array_flip($keys));
-
-            foreach ($options as $key => $value) {
-                unset($options[$key]);
-                $options[trim(substr($key, strlen($prefix)), ']')] = $value;
-            }
-
-            $fieldTranslation->setOptions($options);
+            $fieldTranslation->setOptions(self::getValue($fieldData, 'options'));
 
             // Add Translation to Field
             if (!$fieldTranslation->getId()) {

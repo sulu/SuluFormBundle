@@ -233,7 +233,8 @@ class FormControllerTest extends SuluTestCase
             $this->assertEquals('Short Title', $response['fields'][$key]['shortTitle']);
             $this->assertEquals('Placeholder', $response['fields'][$key]['placeholder']);
             $this->assertEquals('Default Value', $response['fields'][$key]['defaultValue']);
-            $this->assertCountFields(10, $response['fields'][$key]);
+            $this->assertNotNull($response['fields'][$key]['options']);
+            $this->assertCountFields(11, $response['fields'][$key]);
         }
         // Receivers
         $this->assertCount(3, $response['receivers']);
