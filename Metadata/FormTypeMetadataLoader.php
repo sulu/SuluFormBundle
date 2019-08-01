@@ -11,16 +11,16 @@
 
 namespace Sulu\Bundle\FormBundle\Metadata;
 
-use Sulu\Bundle\AdminBundle\FormMetadata\FormMetadata;
+use Sulu\Bundle\AdminBundle\FormMetadata\FormMetadataMapper;
 use Sulu\Bundle\AdminBundle\FormMetadata\FormXmlLoader;
-use Sulu\Bundle\AdminBundle\Metadata\PropertiesMetadata\PropertiesXmlLoader;
+use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
+use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadataLoaderInterface;
+use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\SectionMetadata;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
-use Sulu\Component\Content\Metadata\BlockMetadata;
-use Sulu\Component\Content\Metadata\ComponentMetadata;
-use Sulu\Component\Content\Metadata\PropertiesMetadata;
-use Sulu\Component\Content\Metadata\SectionMetadata;
+use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class FormTypeMetadataLoader implements FormMetadataLoaderInterface
 {
@@ -39,14 +39,35 @@ class FormTypeMetadataLoader implements FormMetadataLoaderInterface
      */
     private $formXmlLoader;
 
+    /**
+     * @var FormMetadataMapper
+     */
+    private $formMetadataMapper;
+
+    /**
+     * @var string[]
+     */
+    private $locales;
+
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
     public function __construct(
         FormFieldTypePool $formFieldTypePool,
         PropertiesXmlLoader $propertiesXmlLoader,
-        FormXmlLoader $formXmlLoader
+        FormXmlLoader $formXmlLoader,
+        FormMetadataMapper $formMetadataMapper,
+        array $locales,
+        TranslatorInterface $translator
     ) {
         $this->formFieldTypePool = $formFieldTypePool;
         $this->propertiesXmlLoader = $propertiesXmlLoader;
         $this->formXmlLoader = $formXmlLoader;
+        $this->formMetadataMapper = $formMetadataMapper;
+        $this->locales = $locales;
+        $this->translator = $translator;
     }
 
     public function load() : array
@@ -54,53 +75,59 @@ class FormTypeMetadataLoader implements FormMetadataLoaderInterface
         $formMetadata = $this->getMetadata();
         $formKey = $formMetadata->getKey();
         $formsMetadata = [];
-        $formsMetadata[$formKey][] = $this->getMetadata();
+        $formsMetadata[$formKey][] = $formMetadata;
         return $formsMetadata;
     }
 
     private function getMetadata() : FormMetadata
     {
-        $form = $this->formXmlLoader->load(__DIR__ . '/../Resources/config/forms/form_details.xml');
+        $resource = __DIR__ . '/../Resources/config/forms/form_details.xml';
+        $form = $this->formXmlLoader->load($resource);
         $section = new SectionMetadata('formFields');
-        $block = new BlockMetadata('fields');
+        $section->setLabel($this->translator->trans('sulu_form.form_fields', [], 'admin'));
+        $fields = new FieldMetadata('fields');
+        $fields->setType('block');
 
         $types = $this->formFieldTypePool->all();
         ksort($types);
         foreach ($types as $typeKey => $type) {
-            $component = new ComponentMetadata();
-            $component->setName($typeKey);
-
-            $fieldTypeProperties = $this->loadFieldTypeMetadata($type);
-            foreach ($fieldTypeProperties->getChildren() as $children) {
-                $component->addChild($children);
-            }
-
-            $block->addComponent($component);
+            $fields->addType($this->loadFieldTypeMetadata($typeKey, $type));
         }
 
-        $defaultComponent = current($block->getComponents());
-        $block->defaultComponentName = $defaultComponent->getName();
-        $block->setType('block');
-        $section->addChild($block);
-        $form = $this->addFormFieldsSection($form, $section);
-        $form->burnProperties();
+        $fields->setDefaultType(current($fields->getTypes())->getName());
+        $section->addItem($fields);
+        $formItems = $form->getItems();
+        $this->arrayInsertAtPosition($formItems, 1, array($section->getName() => $section));
+        $form->setItems($formItems);
+
+        foreach ($this->locales as $locale) {
+            $configCache = $this->formMetadataMapper->getConfigCache($form->getKey(), $locale);
+            $configCache->write(
+                serialize($form),
+                [new FileResource($resource)]
+            );
+        }
 
         return $form;
     }
 
-    private function addFormFieldsSection(FormMetadata $form, SectionMetadata $section) : FormMetadata
+    private function arrayInsertAtPosition(&$array, $pos, $insert)
     {
-        $children = $form->getChildren();
-        array_splice($children, 1, 0, array($section));
-        $form->setChildren($children);
-
-        return $form;
+        $array = array_merge(array_slice($array, 0, $pos), $insert, array_slice($array, $pos));
     }
 
-    private function loadFieldTypeMetadata(FormFieldTypeInterface $type) : PropertiesMetadata
+    private function loadFieldTypeMetadata(string $typeKey, FormFieldTypeInterface $type) : FormMetadata
     {
+        $form = new FormMetadata();
         $configuration = $type->getConfiguration();
+        $properties = $this->propertiesXmlLoader->load($configuration->getXmlPath());
+        foreach ($this->locales as $locale) {
+            $this->formMetadataMapper->mapChildren($properties->getProperties(), $form, $locale);
+        }
 
-        return $this->propertiesXmlLoader->load($configuration->getXmlPath());
+        $form->setName($typeKey);
+        $form->setTitle($this->translator->trans($configuration->getTitle(), [], 'admin'));
+
+        return $form;
     }
 }

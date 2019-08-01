@@ -31,7 +31,7 @@ class EmailType implements FormFieldTypeInterface
     public function getConfiguration()
     {
         return new FormFieldTypeConfiguration(
-            'sulu_form.type.email',
+            'sulu_form.email',
             __DIR__ . '/../../Resources/config/form-fields/field_example_default.xml'
         );
     }
