@@ -130,11 +130,10 @@ class FormAdmin extends Admin
                 ->addToolbarActions($formToolbarActions)
                 ->setParent(static::ADD_FORM_ROUTE)
                 ->getRoute(),
-            $this->routeBuilderFactory->createResourceTabRouteBuilder(static::EDIT_FORM_ROUTE, 'forms/:locale/:id')
+            $this->routeBuilderFactory->createResourceTabRouteBuilder(static::EDIT_FORM_ROUTE, '/forms/:locale/:id')
                 ->setResourceKey('forms')
                 ->addLocales($formLocales)
                 ->setBackRoute(static::LIST_ROUTE)
-                /*->setTitleProperty('name')*/
                 ->getRoute(),
             $this->routeBuilderFactory->createFormRouteBuilder(static::EDIT_FORM_DETAILS_ROUTE, '/details')
                 ->setResourceKey('forms')

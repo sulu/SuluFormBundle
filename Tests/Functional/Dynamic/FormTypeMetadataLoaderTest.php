@@ -148,8 +148,10 @@ class FormTypeMetadataLoaderTest extends SuluTestCase
         $this->assertEquals('Short title', $attachment->getItems()['shortTitle']->getLabel());
         $this->assertEquals('text_line', $attachment->getItems()['shortTitle']->getType());
         $this->assertEquals(12, $attachment->getItems()['shortTitle']->getColspan());
-        $this->assertEquals('Optional title of field, for example in notification mail.',
-            $attachment->getItems()['shortTitle']->getDescription());
+        $this->assertEquals(
+            'Optional title of field, for example in notification mail.',
+            $attachment->getItems()['shortTitle']->getDescription()
+        );
 
         $this->arrayHasKey('options[type]', $attachment->getItems());
         $this->assertEquals('Restrict file types', $attachment->getItems()['options[type]']->getLabel());
@@ -205,8 +207,10 @@ class FormTypeMetadataLoaderTest extends SuluTestCase
         $this->arrayHasKey('shortTitle', $attachment->getItems());
         $this->assertEquals('Kurztitel', $attachment->getItems()['shortTitle']->getLabel());
         $this->assertEquals('text_line', $attachment->getItems()['shortTitle']->getType());
-        $this->assertEquals('Optionaler Titel des Feldes, z.B. in der Benachrichtigungs-Email.',
-            $attachment->getItems()['shortTitle']->getDescription());
+        $this->assertEquals(
+            'Optionaler Titel des Feldes, z.B. in der Benachrichtigungs-Email.',
+            $attachment->getItems()['shortTitle']->getDescription()
+        );
 
         $this->arrayHasKey('options[type]', $attachment->getItems());
         $this->assertEquals('Dateitypen beschränken', $attachment->getItems()['options[type]']->getLabel());
