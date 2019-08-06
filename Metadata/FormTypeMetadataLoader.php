@@ -19,7 +19,7 @@ use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadataLoaderInterface;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\SectionMetadata;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
-use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class FormTypeMetadataLoader implements FormMetadataLoaderInterface
@@ -45,68 +45,82 @@ class FormTypeMetadataLoader implements FormMetadataLoaderInterface
     private $formMetadataMapper;
 
     /**
-     * @var string[]
-     */
-    private $locales;
-
-    /**
      * @var TranslatorInterface
      */
     private $translator;
+
+    /**
+     * @var string
+     */
+    private $cacheDir;
+
+    /**
+     * @var bool
+     */
+    private $debug;
 
     public function __construct(
         FormFieldTypePool $formFieldTypePool,
         PropertiesXmlLoader $propertiesXmlLoader,
         FormXmlLoader $formXmlLoader,
         FormMetadataMapper $formMetadataMapper,
-        array $locales,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        string $cacheDir,
+        bool $debug
     ) {
         $this->formFieldTypePool = $formFieldTypePool;
         $this->propertiesXmlLoader = $propertiesXmlLoader;
         $this->formXmlLoader = $formXmlLoader;
         $this->formMetadataMapper = $formMetadataMapper;
-        $this->locales = $locales;
         $this->translator = $translator;
+        $this->cacheDir = $cacheDir;
+        $this->debug = $debug;
     }
 
-    public function load() : array
-    {
-        $formMetadata = $this->getMetadata();
-        $formKey = $formMetadata->getKey();
-        $formsMetadata = [];
-        $formsMetadata[$formKey][] = $formMetadata;
-        return $formsMetadata;
-    }
-
-    private function getMetadata() : FormMetadata
+    public function warmUp($cacheDir)
     {
         $resource = __DIR__ . '/../Resources/config/forms/form_details.xml';
-        $form = $this->formXmlLoader->load($resource);
-        $section = new SectionMetadata('formFields');
-        $section->setLabel($this->translator->trans('sulu_form.form_fields', [], 'admin'));
-        $fields = new FieldMetadata('fields');
-        $fields->setType('block');
+        $formMetadataCollection = $this->formXmlLoader->load($resource);
+        foreach ($formMetadataCollection->getItems() as $locale => $formMetadata) {
+            $section = new SectionMetadata('formFields');
+            $section->setLabel($this->translator->trans('sulu_form.form_fields', [], 'admin', $locale));
+            $fields = new FieldMetadata('fields');
+            $fields->setType('block');
 
-        $types = $this->formFieldTypePool->all();
-        ksort($types);
-        foreach ($types as $typeKey => $type) {
-            $fields->addType($this->loadFieldTypeMetadata($typeKey, $type));
+            $types = $this->formFieldTypePool->all();
+            ksort($types);
+            foreach ($types as $typeKey => $type) {
+                $fields->addType($this->loadFieldTypeMetadata($typeKey, $type, $locale));
+            }
+
+            $fields->setDefaultType(current($fields->getTypes())->getName());
+            $section->addItem($fields);
+            $formItems = $formMetadata->getItems();
+            $this->arrayInsertAtPosition($formItems, 1, array($section->getName() => $section));
+            $formMetadata->setItems($formItems);
+            $configCache = $this->getConfigCache($formMetadata->getKey(), $locale);
+            $configCache->write(serialize($formMetadata));
+        }
+    }
+
+    /**
+     * @param string $key
+     * @param string $locale
+     * @return FormMetadata|null
+     */
+    public function getMetadata(string $key, string $locale)
+    {
+        $configCache = $this->getConfigCache($key, $locale);
+
+        if (!$configCache->isFresh()) {
+            $this->warmUp($this->cacheDir);
         }
 
-        $fields->setDefaultType(current($fields->getTypes())->getName());
-        $section->addItem($fields);
-        $formItems = $form->getItems();
-        $this->arrayInsertAtPosition($formItems, 1, array($section->getName() => $section));
-        $form->setItems($formItems);
-
-        foreach ($this->locales as $locale) {
-            $configCache = $this->formMetadataMapper->getConfigCache($form->getKey(), $locale);
-            $configCache->write(
-                serialize($form),
-                [new FileResource($resource)]
-            );
+        if (!file_exists($configCache->getPath())) {
+            return null;
         }
+
+        $form = unserialize(file_get_contents($configCache->getPath()));
 
         return $form;
     }
@@ -116,18 +130,26 @@ class FormTypeMetadataLoader implements FormMetadataLoaderInterface
         $array = array_merge(array_slice($array, 0, $pos), $insert, array_slice($array, $pos));
     }
 
-    private function loadFieldTypeMetadata(string $typeKey, FormFieldTypeInterface $type) : FormMetadata
+    private function loadFieldTypeMetadata(string $typeKey, FormFieldTypeInterface $type, string $locale) : FormMetadata
     {
         $form = new FormMetadata();
         $configuration = $type->getConfiguration();
         $properties = $this->propertiesXmlLoader->load($configuration->getXmlPath());
-        foreach ($this->locales as $locale) {
-            $this->formMetadataMapper->mapChildren($properties->getProperties(), $form, $locale);
-        }
+        $this->formMetadataMapper->mapChildren($properties->getProperties(), $form, $locale);
 
         $form->setName($typeKey);
         $form->setTitle($this->translator->trans($configuration->getTitle(), [], 'admin'));
 
         return $form;
+    }
+
+    public function isOptional()
+    {
+        return false;
+    }
+
+    private function getConfigCache(string $key, string $locale): ConfigCache
+    {
+        return new ConfigCache(sprintf('%s%s%s.%s', $this->cacheDir, DIRECTORY_SEPARATOR, $key, $locale), $this->debug);
     }
 }

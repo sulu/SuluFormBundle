@@ -188,9 +188,11 @@
             <argument type="service" id="sulu_form.metadata.properties_xml_loader"/>
             <argument type="service" id="sulu_admin.form_metadata.form_xml_loader"/>
             <argument type="service" id="sulu_admin.form_metadata.form_metadata_mapper"/>
-            <argument>%sulu_core.locales%</argument>
             <argument type="service" id="translator"/>
+            <argument>%sulu.cache_dir%/forms</argument>
+            <argument>%kernel.debug%</argument>
             <tag name="sulu.context" context="admin"/>
+            <tag name="kernel.cache_warmer" />
             <tag name="sulu_admin.form_metadata_loader"/>
         </service>
 
