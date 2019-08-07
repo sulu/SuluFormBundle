@@ -135,8 +135,8 @@ class FormTypeMetadataLoader implements FormMetadataLoaderInterface
         $form = new FormMetadata();
         $configuration = $type->getConfiguration();
         $properties = $this->propertiesXmlLoader->load($configuration->getXmlPath());
-        $this->formMetadataMapper->mapChildren($properties->getProperties(), $form, $locale);
 
+        $form->setItems($this->formMetadataMapper->mapChildren($properties->getProperties(), $locale));
         $form->setName($typeKey);
         $form->setTitle($this->translator->trans($configuration->getTitle(), [], 'admin'));
 
