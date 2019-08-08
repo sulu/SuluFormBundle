@@ -190,7 +190,7 @@ class FormTypeMetadataLoaderTest extends SuluTestCase
         $attachment = $fields->getTypes()['attachment'];
         $this->assertInstanceOf(FormMetadata::class, $attachment);
         $this->assertEquals('attachment', $attachment->getName());
-        $this->assertEquals('Attachment', $attachment->getTitle());
+        $this->assertEquals('Anhang', $attachment->getTitle());
 
         $this->arrayHasKey('required', $attachment->getItems());
         $this->assertEquals('Pflichtfeld', $attachment->getItems()['required']->getLabel());

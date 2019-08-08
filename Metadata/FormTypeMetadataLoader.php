@@ -20,6 +20,7 @@ use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\SectionMetadata;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Symfony\Component\Config\ConfigCache;
+use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class FormTypeMetadataLoader implements FormMetadataLoaderInterface
@@ -99,7 +100,7 @@ class FormTypeMetadataLoader implements FormMetadataLoaderInterface
             $this->arrayInsertAtPosition($formItems, 1, array($section->getName() => $section));
             $formMetadata->setItems($formItems);
             $configCache = $this->getConfigCache($formMetadata->getKey(), $locale);
-            $configCache->write(serialize($formMetadata));
+            $configCache->write(serialize($formMetadata), [new FileResource($resource)]);
         }
     }
 
@@ -112,12 +113,12 @@ class FormTypeMetadataLoader implements FormMetadataLoaderInterface
     {
         $configCache = $this->getConfigCache($key, $locale);
 
-        if (!$configCache->isFresh()) {
-            $this->warmUp($this->cacheDir);
-        }
-
         if (!file_exists($configCache->getPath())) {
             return null;
+        }
+
+        if (!$configCache->isFresh()) {
+            $this->warmUp($this->cacheDir);
         }
 
         $form = unserialize(file_get_contents($configCache->getPath()));
@@ -138,7 +139,7 @@ class FormTypeMetadataLoader implements FormMetadataLoaderInterface
 
         $form->setItems($this->formMetadataMapper->mapChildren($properties->getProperties(), $locale));
         $form->setName($typeKey);
-        $form->setTitle($this->translator->trans($configuration->getTitle(), [], 'admin'));
+        $form->setTitle($this->translator->trans($configuration->getTitle(), [], 'admin', $locale));
 
         return $form;
     }

@@ -189,7 +189,7 @@
             <argument type="service" id="sulu_admin.form_metadata.form_xml_loader"/>
             <argument type="service" id="sulu_admin.form_metadata.form_metadata_mapper"/>
             <argument type="service" id="translator"/>
-            <argument>%sulu.cache_dir%/forms</argument>
+            <argument>%kernel.cache_dir%/sulu-form-bundle/forms</argument>
             <argument>%kernel.debug%</argument>
             <tag name="sulu.context" context="admin"/>
             <tag name="kernel.cache_warmer" />
