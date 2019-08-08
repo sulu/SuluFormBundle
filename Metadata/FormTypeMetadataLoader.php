@@ -104,12 +104,7 @@ class FormTypeMetadataLoader implements FormMetadataLoaderInterface
         }
     }
 
-    /**
-     * @param string $key
-     * @param string $locale
-     * @return FormMetadata|null
-     */
-    public function getMetadata(string $key, string $locale)
+    public function getMetadata(string $key, string $locale): ?FormMetadata
     {
         $configCache = $this->getConfigCache($key, $locale);
 
@@ -126,7 +121,11 @@ class FormTypeMetadataLoader implements FormMetadataLoaderInterface
         return $form;
     }
 
-    private function arrayInsertAtPosition(&$array, $pos, $insert)
+    /**
+     * @param ItemMetadata[] $array
+     * @param ItemMetadata[] $insert
+     */
+    private function arrayInsertAtPosition(array &$array, int $pos, array $insert): void
     {
         $array = array_merge(array_slice($array, 0, $pos), $insert, array_slice($array, $pos));
     }
