@@ -152,6 +152,7 @@ class FormAdmin extends Admin
                 ->setTabTitle('sulu_form.data')
                 ->addListAdapters(['table'])
                 ->addRouterAttributesToListStore(['id' => 'form'])
+                ->addRouterAttributesToListMetadata(['id' => 'id'])
                 ->addToolbarActions($dataListToolbarActions)
                 ->setParent(static::EDIT_FORM_ROUTE)
                 ->getRoute(),
