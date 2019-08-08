@@ -21,9 +21,10 @@ use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class FormTypeMetadataLoader implements FormMetadataLoaderInterface
+class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWarmerInterface
 {
     /**
      * @var FormFieldTypePool

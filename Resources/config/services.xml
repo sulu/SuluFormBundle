@@ -182,8 +182,8 @@
             <argument type="service" id="sulu_page.structure.properties_xml_parser"/>
         </service>
 
-        <!-- Form Field Type Loader -->
-        <service id="sulu_form.metadata.form_field_type_provider" class="Sulu\Bundle\FormBundle\Metadata\FormTypeMetadataLoader" public="true">
+        <!-- Dynamic Form Metadata Loader -->
+        <service id="sulu_form.metadata.dynamic_form_metadata_loader" class="Sulu\Bundle\FormBundle\Metadata\DynamicFormMetadataLoader" public="true">
             <argument type="service" id="sulu_form.dynamic.form_field_type_pool"/>
             <argument type="service" id="sulu_form.metadata.properties_xml_loader"/>
             <argument type="service" id="sulu_admin.form_metadata.form_xml_loader"/>

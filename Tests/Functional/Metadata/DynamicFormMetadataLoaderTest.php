@@ -1,24 +1,24 @@
 <?php
 
-namespace Sulu\Bundle\FormBundle\Tests\Functional\Dynamic;
+namespace Sulu\Bundle\FormBundle\Tests\Functional\Metadata;
 
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\SectionMetadata;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 
-class FormTypeMetadataLoaderTest extends SuluTestCase
+class DynamicFormMetadataLoaderTest extends SuluTestCase
 {
-    private $formFieldTypeProvider;
+    private $dynamicFormMetadataLoader;
 
     protected function setUp()
     {
-        $this->formFieldTypeProvider = $this->getContainer()->get('sulu_form.metadata.form_field_type_provider');
+        $this->dynamicFormMetadataLoader = $this->getContainer()->get('sulu_form.metadata.dynamic_form_metadata_loader');
     }
 
     public function testGetMetadata()
     {
-        $formMetadata = $this->formFieldTypeProvider->getMetadata('form_details', 'en');
+        $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'en');
 
         $this->assertInstanceOf(FormMetadata::class, $formMetadata);
         $this->assertEquals('form_details', $formMetadata->getKey());
@@ -75,7 +75,7 @@ class FormTypeMetadataLoaderTest extends SuluTestCase
 
     public function testGetMetadataLabelsEnglish()
     {
-        $formMetadata = $this->formFieldTypeProvider->getMetadata('form_details', 'en');
+        $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'en');
 
         $this->assertInstanceOf(FormMetadata::class, $formMetadata);
         $this->assertEquals('form_details', $formMetadata->getKey());
@@ -90,7 +90,7 @@ class FormTypeMetadataLoaderTest extends SuluTestCase
 
     public function testGetMetadataLabelsGerman()
     {
-        $formMetadata = $this->formFieldTypeProvider->getMetadata('form_details', 'de');
+        $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'de');
 
         $this->assertInstanceOf(FormMetadata::class, $formMetadata);
         $this->assertEquals('form_details', $formMetadata->getKey());
@@ -105,7 +105,7 @@ class FormTypeMetadataLoaderTest extends SuluTestCase
 
     public function testGetMetadataAttachmentEnglish()
     {
-        $formMetadata = $this->formFieldTypeProvider->getMetadata('form_details', 'en');
+        $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'en');
 
         $this->assertInstanceOf(FormMetadata::class, $formMetadata);
         $this->assertCount(5, $formMetadata->getItems());
@@ -174,7 +174,7 @@ class FormTypeMetadataLoaderTest extends SuluTestCase
 
     public function testGetMetadataAttachmentGerman()
     {
-        $formMetadata = $this->formFieldTypeProvider->getMetadata('form_details', 'de');
+        $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'de');
 
         $this->assertInstanceOf(FormMetadata::class, $formMetadata);
         $this->assertCount(5, $formMetadata->getItems());
