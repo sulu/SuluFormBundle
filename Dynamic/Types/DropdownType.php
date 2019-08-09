@@ -32,7 +32,7 @@ class DropdownType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.dropdown',
-            'SuluFormBundle/Resources/config/form-fields/default_field_extended.xml',
+            __DIR__ . '/../../Resources/config/form-fields/default_field_extended.xml',
             [],
             'complex'
         );

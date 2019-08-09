@@ -62,11 +62,6 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                             __DIR__ . '/../Resources/config/lists',
                         ],
                     ],
-                    'forms' => [
-                        'directories' => [
-                            __DIR__ . '/../Resources/config/forms',
-                        ],
-                    ],
                     'resources' => [
                         'forms' => [
                             'routes' => [

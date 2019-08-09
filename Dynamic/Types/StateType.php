@@ -31,7 +31,7 @@ class StateType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.state',
-            'SuluFormBundle/Resources/config/form-fields/field_example_default.xml'
+            __DIR__ . '/../../Resources/config/form-fields/field_example_default.xml'
         );
     }
 
