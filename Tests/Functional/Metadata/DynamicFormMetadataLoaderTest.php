@@ -153,20 +153,20 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
             $attachment->getItems()['shortTitle']->getDescription()
         );
 
-        $this->arrayHasKey('options[type]', $attachment->getItems());
-        $this->assertEquals('Restrict file types', $attachment->getItems()['options[type]']->getLabel());
-        $this->assertEquals('select', $attachment->getItems()['options[type]']->getType());
-        $this->assertEquals('No choice will allow all file types.', $attachment->getItems()['options[type]']
+        $this->arrayHasKey('options/type', $attachment->getItems());
+        $this->assertEquals('Restrict file types', $attachment->getItems()['options/type']->getLabel());
+        $this->assertEquals('select', $attachment->getItems()['options/type']->getType());
+        $this->assertEquals('No choice will allow all file types.', $attachment->getItems()['options/type']
             ->getDescription());
-        $this->assertEquals(6, $attachment->getItems()['options[type]']->getColspan());
-        $this->assertCount(1, $attachment->getItems()['options[type]']->getOptions());
-        $this->arrayHasKey('values', $attachment->getItems()['options[type]']->getOptions());
-        $this->assertCount(3, $attachment->getItems()['options[type]']->getOptions()['values']->getValue());
+        $this->assertEquals(6, $attachment->getItems()['options/type']->getColspan());
+        $this->assertCount(1, $attachment->getItems()['options/type']->getOptions());
+        $this->arrayHasKey('values', $attachment->getItems()['options/type']->getOptions());
+        $this->assertCount(3, $attachment->getItems()['options/type']->getOptions()['values']->getValue());
 
-        $this->arrayHasKey('options[max]', $attachment->getItems());
-        $this->assertEquals('Maximum amount', $attachment->getItems()['options[max]']->getLabel());
-        $this->assertEquals('number', $attachment->getItems()['options[max]']->getType());
-        $this->assertEquals(6, $attachment->getItems()['options[max]']->getColspan());
+        $this->arrayHasKey('options/max', $attachment->getItems());
+        $this->assertEquals('Maximum amount', $attachment->getItems()['options/max']->getLabel());
+        $this->assertEquals('number', $attachment->getItems()['options/max']->getType());
+        $this->assertEquals(6, $attachment->getItems()['options/max']->getColspan());
 
         $this->assertObjectHasAttribute('schema', $attachment);
         $this->assertObjectHasAttribute('key', $attachment);
@@ -212,14 +212,14 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
             $attachment->getItems()['shortTitle']->getDescription()
         );
 
-        $this->arrayHasKey('options[type]', $attachment->getItems());
-        $this->assertEquals('Dateitypen beschränken', $attachment->getItems()['options[type]']->getLabel());
-        $this->assertEquals('select', $attachment->getItems()['options[type]']->getType());
+        $this->arrayHasKey('options/type', $attachment->getItems());
+        $this->assertEquals('Dateitypen beschränken', $attachment->getItems()['options/type']->getLabel());
+        $this->assertEquals('select', $attachment->getItems()['options/type']->getType());
         $this->assertEquals('Bei keiner Auswahl sind alle Dateitypen möglich.', $attachment->
-        getItems()['options[type]']
+        getItems()['options/type']
             ->getDescription());
 
-        $this->arrayHasKey('options[max]', $attachment->getItems());
-        $this->assertEquals('Maximale Anzahl', $attachment->getItems()['options[max]']->getLabel());
+        $this->arrayHasKey('options/max', $attachment->getItems());
+        $this->assertEquals('Maximale Anzahl', $attachment->getItems()['options/max']->getLabel());
     }
 }
