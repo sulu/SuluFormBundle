@@ -98,7 +98,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
             $fields->setDefaultType(current($fields->getTypes())->getName());
             $section->addItem($fields);
             $formItems = $formMetadata->getItems();
-            $this->arrayInsertAtPosition($formItems, 1, array($section->getName() => $section));
+            $this->arrayInsertAtPosition($formItems, 1, [$section->getName() => $section]);
             $formMetadata->setItems($formItems);
             $configCache = $this->getConfigCache($formMetadata->getKey(), $locale);
             $configCache->write(serialize($formMetadata), [new FileResource($resource)]);
