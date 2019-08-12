@@ -3,15 +3,12 @@
 
 namespace Sulu\Bundle\FormBundle\Metadata;
 
-
 use Sulu\Bundle\AdminBundle\Metadata\ListMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\ListMetadata\ListMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\ListMetadata\ListMetadataLoaderInterface;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
-use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Manager\FormManager;
-use Sulu\Bundle\FormBundle\Repository\DynamicRepository;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class DynamicListMetadataLoader implements ListMetadataLoaderInterface
@@ -35,8 +32,7 @@ class DynamicListMetadataLoader implements ListMetadataLoaderInterface
         FormFieldTypePool $formFieldTypePool,
         TranslatorInterface $translator,
         FormManager $formManager
-    )
-    {
+    ) {
         $this->formFieldTypePool = $formFieldTypePool;
         $this->translator = $translator;
         $this->formManager = $formManager;
@@ -50,15 +46,18 @@ class DynamicListMetadataLoader implements ListMetadataLoaderInterface
         if (!$form) {
             return null;
         }
-        $fields = $form->getFields();
+        $list = $this->addId($list, $locale);
 
+        $fields = $form->getFields();
         foreach ($fields as $field) {
             $key = $field->getKey();
             $fieldType = $this->formFieldTypePool->get($key);
             $title = $fieldType->getConfiguration()->getTitle();
-            $fieldMetadata = $this->createFieldMetadata($key, $title, $locale);
+            $fieldMetadata = $this->createDynamicFieldMetadata($key, $title, $locale);
             $list->addField($fieldMetadata);
         }
+
+        $list = $this->addCreatedAndChanged($list, $locale);
         $list->setCacheable(false);
         return $list;
     }
@@ -76,7 +75,7 @@ class DynamicListMetadataLoader implements ListMetadataLoaderInterface
         return $entity;
     }
 
-    private function createFieldMetadata(string $name, string $title, string $locale) : FieldMetadata
+    private function createDynamicFieldMetadata(string $name, string $title, string $locale) : FieldMetadata
     {
         $field = new FieldMetadata($name);
         $field->setLabel($this->translator->trans($title, [], 'admin', $locale));
@@ -87,5 +86,34 @@ class DynamicListMetadataLoader implements ListMetadataLoaderInterface
         return $field;
     }
 
+    private function addId(ListMetadata $list, string $locale) : ListMetadata
+    {
+        $id = new FieldMetadata('id');
+        $id->setLabel($this->translator->trans('sulu_form.id', [], 'admin', $locale));
+        $id->setType('number');
+        $id->setVisibility('yes');
+        $id->setSortable(true);
+        $list->addField($id);
 
+        return $list;
+    }
+
+    private function addCreatedAndChanged(ListMetadata $list, string $locale): ListMetadata
+    {
+        $created = new FieldMetadata('created');
+        $created->setLabel($this->translator->trans('sulu_admin.created', [], 'admin', $locale));
+        $created->setType('datetime');
+        $created->setVisibility('yes');
+        $created->setSortable(true);
+        $list->addField($created);
+
+        $changed = new FieldMetadata('changed');
+        $changed->setLabel($this->translator->trans('sulu_admin.changed', [], 'admin', $locale));
+        $changed->setType('datetime');
+        $changed->setVisibility('no');
+        $changed->setSortable(true);
+        $list->addField($changed);
+
+        return $list;
+    }
 }
