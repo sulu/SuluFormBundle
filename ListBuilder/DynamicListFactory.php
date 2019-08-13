@@ -48,6 +48,14 @@ class DynamicListFactory implements DynamicListFactoryInterface
     {
         $fieldDescriptors = [];
 
+        $fieldDescriptors['id'] = new FieldDescriptor(
+            'id',
+            'sulu_form.id',
+            FieldDescriptorInterface::VISIBILITY_NO,
+            '',
+            'string'
+        );
+
         foreach ($form->getFields() as $field) {
             if (in_array($field->getType(), Dynamic::$HIDDEN_TYPES)) {
                 continue;
@@ -57,7 +65,7 @@ class DynamicListFactory implements DynamicListFactoryInterface
             $translation = $field->getTranslation($locale);
 
             if ($translation) {
-                $title = $translation->getShortTitle() ?: $translation->getTitle();
+                $title = $translation->getShortTitle() ?: strip_tags($translation->getTitle());
             }
 
             $fieldDescriptors[$field->getKey()] = new FieldDescriptor(
@@ -65,15 +73,16 @@ class DynamicListFactory implements DynamicListFactoryInterface
                 $title,
                 FieldDescriptorInterface::VISIBILITY_YES,
                 '',
-                '',
+                'string',
                 'false'
             );
         }
 
         $fieldDescriptors['created'] = new FieldDescriptor(
             'created',
-            'sulu_form.created',
+            'sulu_admin.created',
             FieldDescriptorInterface::VISIBILITY_YES,
+            '',
             'datetime'
         );
 

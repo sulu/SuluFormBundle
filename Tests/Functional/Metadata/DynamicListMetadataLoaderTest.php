@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\AdminBundle\Metadata\ListMetadata\ListMetadata;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormField;
+use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Metadata\DynamicListMetadataLoader;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
@@ -39,18 +40,18 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
 
         $this->assertInstanceOf(ListMetadata::class, $metadata);
         $this->assertFalse($metadata->isCacheable());
-        $this->assertCount(5, $metadata->getFields());
+        $this->assertCount(4, $metadata->getFields());
 
         $this->arrayHasKey('id', $metadata);
         $this->assertEquals('id', $metadata->getFields()['id']->getName());
         $this->assertEquals('ID', $metadata->getFields()['id']->getLabel());
         $this->assertEquals('string', $metadata->getFields()['id']->getType());
-        $this->assertEquals('yes', $metadata->getFields()['id']->getVisibility());
+        $this->assertEquals('no', $metadata->getFields()['id']->getVisibility());
         $this->assertTrue($metadata->getFields()['id']->isSortable());
 
         $this->arrayHasKey('email', $metadata);
         $this->assertEquals('email', $metadata->getFields()['email']->getName());
-        $this->assertEquals('E-Mail', $metadata->getFields()['email']->getLabel());
+        $this->assertEquals('E-Mail En', $metadata->getFields()['email']->getLabel());
         $this->assertEquals('string', $metadata->getFields()['email']->getType());
         $this->assertEquals('yes', $metadata->getFields()['email']->getVisibility());
         $this->assertTrue($metadata->getFields()['email']->isSortable());
@@ -68,13 +69,6 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $this->assertEquals('datetime', $metadata->getFields()['created']->getType());
         $this->assertEquals('yes', $metadata->getFields()['created']->getVisibility());
         $this->assertTrue($metadata->getFields()['created']->isSortable());
-
-        $this->arrayHasKey('changed', $metadata);
-        $this->assertEquals('changed', $metadata->getFields()['changed']->getName());
-        $this->assertEquals('Changed on', $metadata->getFields()['changed']->getLabel());
-        $this->assertEquals('datetime', $metadata->getFields()['changed']->getType());
-        $this->assertEquals('no', $metadata->getFields()['changed']->getVisibility());
-        $this->assertTrue($metadata->getFields()['changed']->isSortable());
     }
 
     public function testGetMetadataGerman()
@@ -86,18 +80,18 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
 
         $this->assertInstanceOf(ListMetadata::class, $metadata);
         $this->assertFalse($metadata->isCacheable());
-        $this->assertCount(5, $metadata->getFields());
+        $this->assertCount(4, $metadata->getFields());
 
         $this->arrayHasKey('id', $metadata);
         $this->assertEquals('id', $metadata->getFields()['id']->getName());
         $this->assertEquals('ID', $metadata->getFields()['id']->getLabel());
         $this->assertEquals('string', $metadata->getFields()['id']->getType());
-        $this->assertEquals('yes', $metadata->getFields()['id']->getVisibility());
+        $this->assertEquals('no', $metadata->getFields()['id']->getVisibility());
         $this->assertTrue($metadata->getFields()['id']->isSortable());
 
         $this->arrayHasKey('email', $metadata);
         $this->assertEquals('email', $metadata->getFields()['email']->getName());
-        $this->assertEquals('E-Mail', $metadata->getFields()['email']->getLabel());
+        $this->assertEquals('E-Mail De', $metadata->getFields()['email']->getLabel());
         $this->assertEquals('string', $metadata->getFields()['email']->getType());
         $this->assertEquals('yes', $metadata->getFields()['email']->getVisibility());
         $this->assertTrue($metadata->getFields()['email']->isSortable());
@@ -115,13 +109,6 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $this->assertEquals('datetime', $metadata->getFields()['created']->getType());
         $this->assertEquals('yes', $metadata->getFields()['created']->getVisibility());
         $this->assertTrue($metadata->getFields()['created']->isSortable());
-
-        $this->arrayHasKey('changed', $metadata);
-        $this->assertEquals('changed', $metadata->getFields()['changed']->getName());
-        $this->assertEquals('Geändert am', $metadata->getFields()['changed']->getLabel());
-        $this->assertEquals('datetime', $metadata->getFields()['changed']->getType());
-        $this->assertEquals('no', $metadata->getFields()['changed']->getVisibility());
-        $this->assertTrue($metadata->getFields()['changed']->isSortable());
     }
 
     public function testGetMetadataLabelsEnglish()
@@ -132,7 +119,7 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $metadata = $this->dynamicListMetadataLoader->getMetadata('form_data', 'en', $metadataOptions);
 
         $this->assertInstanceOf(ListMetadata::class, $metadata);
-        $this->assertCount(29, $metadata->getFields());
+        $this->assertCount(25, $metadata->getFields());
 
         $this->assertEquals('id', $metadata->getFields()['id']->getName());
         $this->assertEquals('ID', $metadata->getFields()['id']->getLabel());
@@ -170,14 +157,8 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $this->assertEquals('firstName', $metadata->getFields()['firstName']->getName());
         $this->assertEquals('Firstname', $metadata->getFields()['firstName']->getLabel());
 
-        $this->assertEquals('freeText', $metadata->getFields()['freeText']->getName());
-        $this->assertEquals('Free Text', $metadata->getFields()['freeText']->getLabel());
-
         $this->assertEquals('function', $metadata->getFields()['function']->getName());
         $this->assertEquals('Function', $metadata->getFields()['function']->getLabel());
-
-        $this->assertEquals('headline', $metadata->getFields()['headline']->getName());
-        $this->assertEquals('Headline', $metadata->getFields()['headline']->getLabel());
 
         $this->assertEquals('lastName', $metadata->getFields()['lastName']->getName());
         $this->assertEquals('Lastname', $metadata->getFields()['lastName']->getLabel());
@@ -190,9 +171,6 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
 
         $this->assertEquals('salutation', $metadata->getFields()['salutation']->getName());
         $this->assertEquals('Salutation', $metadata->getFields()['salutation']->getLabel());
-
-        $this->assertEquals('spacer', $metadata->getFields()['spacer']->getName());
-        $this->assertEquals('Spacer', $metadata->getFields()['spacer']->getLabel());
 
         $this->assertEquals('state', $metadata->getFields()['state']->getName());
         $this->assertEquals('State', $metadata->getFields()['state']->getLabel());
@@ -214,9 +192,6 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
 
         $this->assertEquals('created', $metadata->getFields()['created']->getName());
         $this->assertEquals('Created on', $metadata->getFields()['created']->getLabel());
-
-        $this->assertEquals('changed', $metadata->getFields()['changed']->getName());
-        $this->assertEquals('Changed on', $metadata->getFields()['changed']->getLabel());
     }
 
     public function testGetMetadataLabelsGerman()
@@ -227,7 +202,7 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $metadata = $this->dynamicListMetadataLoader->getMetadata('form_data', 'de', $metadataOptions);
 
         $this->assertInstanceOf(ListMetadata::class, $metadata);
-        $this->assertCount(29, $metadata->getFields());
+        $this->assertCount(25, $metadata->getFields());
 
         $this->assertEquals('id', $metadata->getFields()['id']->getName());
         $this->assertEquals('ID', $metadata->getFields()['id']->getLabel());
@@ -265,14 +240,8 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $this->assertEquals('firstName', $metadata->getFields()['firstName']->getName());
         $this->assertEquals('Vorname', $metadata->getFields()['firstName']->getLabel());
 
-        $this->assertEquals('freeText', $metadata->getFields()['freeText']->getName());
-        $this->assertEquals('Freier Text', $metadata->getFields()['freeText']->getLabel());
-
         $this->assertEquals('function', $metadata->getFields()['function']->getName());
         $this->assertEquals('Funktion', $metadata->getFields()['function']->getLabel());
-
-        $this->assertEquals('headline', $metadata->getFields()['headline']->getName());
-        $this->assertEquals('Überschrift', $metadata->getFields()['headline']->getLabel());
 
         $this->assertEquals('lastName', $metadata->getFields()['lastName']->getName());
         $this->assertEquals('Nachname', $metadata->getFields()['lastName']->getLabel());
@@ -285,9 +254,6 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
 
         $this->assertEquals('salutation', $metadata->getFields()['salutation']->getName());
         $this->assertEquals('Anrede', $metadata->getFields()['salutation']->getLabel());
-
-        $this->assertEquals('spacer', $metadata->getFields()['spacer']->getName());
-        $this->assertEquals('Leerraum', $metadata->getFields()['spacer']->getLabel());
 
         $this->assertEquals('state', $metadata->getFields()['state']->getName());
         $this->assertEquals('Bundesland', $metadata->getFields()['state']->getLabel());
@@ -309,9 +275,6 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
 
         $this->assertEquals('created', $metadata->getFields()['created']->getName());
         $this->assertEquals('Erstellt am', $metadata->getFields()['created']->getLabel());
-
-        $this->assertEquals('changed', $metadata->getFields()['changed']->getName());
-        $this->assertEquals('Geändert am', $metadata->getFields()['changed']->getLabel());
     }
 
     private function createFormWithFields(): Form
@@ -332,6 +295,18 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $formField->setRequired(true);
         $formField->setOrder(1);
 
+        $formFieldTranslation = new FormFieldTranslation();
+        $formFieldTranslation->setShortTitle('E-Mail En');
+        $formFieldTranslation->setLocale('en');
+        $formFieldTranslation->setField($formField);
+        $formField->addTranslation($formFieldTranslation);
+
+        $formFieldTranslation2 = new FormFieldTranslation();
+        $formFieldTranslation2->setShortTitle('E-Mail De');
+        $formFieldTranslation2->setLocale('de');
+        $formFieldTranslation2->setField($formField);
+        $formField->addTranslation($formFieldTranslation2);
+
         $formField->setForm($form);
         $form->addField($formField);
 
@@ -343,6 +318,18 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $formField2->setWidth('full');
         $formField2->setRequired(true);
         $formField2->setOrder(2);
+
+        $formFieldTranslation3 = new FormFieldTranslation();
+        $formFieldTranslation3->setShortTitle('Attachment');
+        $formFieldTranslation3->setLocale('en');
+        $formFieldTranslation3->setField($formField2);
+        $formField2->addTranslation($formFieldTranslation3);
+
+        $formFieldTranslation4 = new FormFieldTranslation();
+        $formFieldTranslation4->setShortTitle('Anhang');
+        $formFieldTranslation4->setLocale('de');
+        $formFieldTranslation4->setField($formField2);
+        $formField2->addTranslation($formFieldTranslation4);
 
         $formField2->setForm($form);
         $form->addField($formField2);
@@ -361,32 +348,32 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $formTranslation->setLocale('en');
         $formTranslation->setTitle('Title');
 
-        $this->addField($form, 'attachment');
-        $this->addField($form, 'checkboxMultiple');
-        $this->addField($form, 'checkbox');
-        $this->addField($form, 'city');
-        $this->addField($form, 'company');
-        $this->addField($form, 'country');
-        $this->addField($form, 'date');
-        $this->addField($form, 'dropdownMultiple');
-        $this->addField($form, 'dropdown');
-        $this->addField($form, 'email');
-        $this->addField($form, 'fax');
-        $this->addField($form, 'firstName');
-        $this->addField($form, 'freeText');
-        $this->addField($form, 'function');
-        $this->addField($form, 'headline');
-        $this->addField($form, 'lastName');
-        $this->addField($form, 'phone');
-        $this->addField($form, 'radioButtons');
-        $this->addField($form, 'salutation');
-        $this->addField($form, 'spacer');
-        $this->addField($form, 'state');
-        $this->addField($form, 'street');
-        $this->addField($form, 'textarea');
-        $this->addField($form, 'text');
-        $this->addField($form, 'title');
-        $this->addField($form, 'zip');
+        $this->addField($form, 'attachment', 'Attachment', 'Anhang');
+        $this->addField($form, 'checkboxMultiple', 'Checkboxes', 'Checkboxes');
+        $this->addField($form, 'checkbox', 'Checkbox', 'Checkbox');
+        $this->addField($form, 'city', 'City', 'Stadt');
+        $this->addField($form, 'company', 'Company', 'Firma');
+        $this->addField($form, 'country', 'Country', 'Land');
+        $this->addField($form, 'date', 'Date', 'Datum');
+        $this->addField($form, 'dropdownMultiple', 'Select (multiple)', 'Dropdown (Mehrfachauswahl)');
+        $this->addField($form, 'dropdown', 'Select', 'Dropdown');
+        $this->addField($form, 'email', 'E-Mail', 'E-Mail');
+        $this->addField($form, 'fax', 'Fax', 'Fax');
+        $this->addField($form, 'firstName', 'Firstname', 'Vorname');
+        $this->addField($form, 'freeText', '', '');
+        $this->addField($form, 'function', 'Function', 'Funktion');
+        $this->addField($form, 'headline', '', '');
+        $this->addField($form, 'lastName', 'Lastname', 'Nachname');
+        $this->addField($form, 'phone', 'Phone', 'Telefon');
+        $this->addField($form, 'radioButtons', 'Radio Buttons', 'Radio Buttons');
+        $this->addField($form, 'salutation', 'Salutation', 'Anrede');
+        $this->addField($form, 'spacer', '', '');
+        $this->addField($form, 'state', 'State', 'Bundesland');
+        $this->addField($form, 'street', 'Street', 'Straße');
+        $this->addField($form, 'textarea', 'Multiline Textfield', 'Mehrzeiliges Textfeld');
+        $this->addField($form, 'text', 'Simple Textfield', 'Einzeiliges Textfeld');
+        $this->addField($form, 'title', 'Title', 'Titel');
+        $this->addField($form, 'zip', 'Zip', 'PLZ');
 
         $this->em->persist($form);
         $this->em->flush();
@@ -394,7 +381,7 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         return $form;
     }
 
-    private function addField(Form $form, string $type)
+    private function addField(Form $form, string $type, string $translationEn, string $translationDe)
     {
         $formField = new FormField();
         $formField->setDefaultLocale('en');
@@ -403,6 +390,18 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $formField->setWidth('full');
         $formField->setRequired(true);
         $formField->setOrder(count($form->getFields()) +1);
+
+        $formFieldTranslation1 = new FormFieldTranslation();
+        $formFieldTranslation1->setShortTitle($translationEn);
+        $formFieldTranslation1->setLocale('en');
+        $formFieldTranslation1->setField($formField);
+        $formField->addTranslation($formFieldTranslation1);
+
+        $formFieldTranslation2 = new FormFieldTranslation();
+        $formFieldTranslation2->setShortTitle($translationDe);
+        $formFieldTranslation2->setLocale('de');
+        $formFieldTranslation2->setField($formField);
+        $formField->addTranslation($formFieldTranslation2);
 
         $formField->setForm($form);
         $form->addField($formField);
