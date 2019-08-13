@@ -106,7 +106,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         }
     }
 
-    public function getMetadata(string $key, string $locale): ?FormMetadata
+    public function getMetadata(string $key, string $locale, array $metadataOptions = []): ?FormMetadata
     {
         $configCache = $this->getConfigCache($key, $locale);
 
