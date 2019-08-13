@@ -41,11 +41,17 @@ class DynamicListMetadataLoader implements ListMetadataLoaderInterface
 
     public function getMetadata(string $key, string $locale, array $metadataOptions): ?ListMetadata
     {
+        if (strcmp('form_data', $key) !== 0) {
+            return null;
+        }
+
         $list = new ListMetadata();
+
         $form = $this->getForm($metadataOptions, $locale);
         if (!$form) {
             return null;
         }
+
         $list = $this->addId($list, $locale);
 
         $fields = $form->getFields();
@@ -90,7 +96,7 @@ class DynamicListMetadataLoader implements ListMetadataLoaderInterface
     {
         $id = new FieldMetadata('id');
         $id->setLabel($this->translator->trans('sulu_form.id', [], 'admin', $locale));
-        $id->setType('number');
+        $id->setType('string');
         $id->setVisibility('yes');
         $id->setSortable(true);
         $list->addField($id);
