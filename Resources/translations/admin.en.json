@@ -18,6 +18,7 @@
   "sulu_form.deactivate_notify": "Deactivate Notifymails",
   "sulu_form.deactivate_success": "Deactivate Successmails",
   "sulu_form.receivers": "Receivers",
+  "sulu_form.data": "Data",
   "sulu_form.general": "General",
   "sulu_form.email": "E-Mail",
   "sulu_form.required": "Required field",

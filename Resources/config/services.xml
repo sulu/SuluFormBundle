@@ -183,7 +183,7 @@
         </service>
 
         <!-- Dynamic Form Metadata Loader -->
-        <service id="sulu_form.metadata.dynamic_form_metadata_loader" class="Sulu\Bundle\FormBundle\Metadata\DynamicFormMetadataLoader" public="true">
+        <service id="sulu_form.metadata.dynamic_form_metadata_loader" class="Sulu\Bundle\FormBundle\Metadata\DynamicFormMetadataLoader">
             <argument type="service" id="sulu_form.dynamic.form_field_type_pool"/>
             <argument type="service" id="sulu_form.metadata.properties_xml_loader"/>
             <argument type="service" id="sulu_admin.form_metadata.form_xml_loader"/>
@@ -196,5 +196,22 @@
             <tag name="sulu_admin.form_metadata_loader"/>
         </service>
 
+        <!-- Dynamic Controller -->
+        <service id="sulu_form.dynamic_controller" class="Sulu\Bundle\FormBundle\Controller\DynamicController" public="true">
+            <argument type="service" id="sulu_form.repository.dynamic"/>
+            <argument type="service" id="sulu_form.list_builder.dynamic_list_factory"/>
+            <argument type="service" id="sulu_media.media_manager"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="sulu_form.repository.form"/>
+            <argument type="service" id="fos_rest.view_handler"/>
+        </service>
+
+        <!-- Dynamic List Metadata Loader -->
+        <service id="sulu_form.metadata.dynamic_list_metadata_loader" class="Sulu\Bundle\FormBundle\Metadata\DynamicListMetadataLoader">
+            <argument type="service" id="translator"/>
+            <argument type="service" id="sulu_form.manager.form"/>
+            <argument type="service" id="sulu_form.list_builder.dynamic_list_factory"/>
+            <tag name="sulu_admin.list_metadata_loader"/>
+        </service>
     </services>
 </container>

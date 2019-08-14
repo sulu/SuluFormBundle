@@ -11,14 +11,18 @@
 
 namespace Sulu\Bundle\FormBundle\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
+use FOS\RestBundle\Controller\ControllerTrait;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use FOS\RestBundle\View\ViewHandler;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory;
 use Sulu\Bundle\FormBundle\Repository\DynamicRepository;
+use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Bundle\MediaBundle\Media\Exception\MediaNotFoundException;
+use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
-use Sulu\Component\Rest\RestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -26,8 +30,57 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 /**
  * Controller to create dynamic form entries list.
  */
-class DynamicController extends RestController implements ClassResourceInterface
+class DynamicController implements ClassResourceInterface
 {
+    use ControllerTrait;
+
+    /**
+     * @var DynamicRepository
+     */
+    private $dynamicRepository;
+
+    /**
+     * @var DynamicListFactory
+     */
+    private $dynamicListFactory;
+
+    /**
+     * @var MediaManager
+     */
+    private $mediaManager;
+
+    /**
+     * @var EntityManager
+     */
+    private $entityManager;
+
+    /**
+     * @var FormRepository
+     */
+    private $formRepository;
+
+    /**
+     * @var ViewHandler
+     */
+    private $viewHandler;
+
+    public function __construct(
+        DynamicRepository $dynamicRepository,
+        DynamicListFactory $dynamicListFactory,
+        MediaManager $mediaManager,
+        EntityManager $entityManager,
+        FormRepository $formRepository,
+        ViewHandler $viewHandler
+    ) {
+        $this->dynamicRepository = $dynamicRepository;
+        $this->dynamicListFactory = $dynamicListFactory;
+        $this->mediaManager = $mediaManager;
+        $this->entityManager = $entityManager;
+        $this->formRepository = $formRepository;
+        $this->viewHandler = $viewHandler;
+    }
+
+
     /**
      * Return dynamic form entries.
      *
@@ -37,9 +90,6 @@ class DynamicController extends RestController implements ClassResourceInterface
      */
     public function cgetAction(Request $request)
     {
-        /** @var DynamicRepository $repository */
-        $repository = $this->get('sulu_form.repository.dynamic');
-
         $filters = $this->getFilters($request);
         $page = $request->get('page', 1);
         $limit = $request->get('limit');
@@ -48,18 +98,18 @@ class DynamicController extends RestController implements ClassResourceInterface
         $sortOrder = $request->get('sortOrder', 'asc');
         $sortBy = $request->get('sortBy', 'created');
 
-        $entries = $repository->findByFilters(
+        $entries = $this->dynamicRepository->findByFilters(
             $filters,
             [$sortBy => $sortOrder],
             $limit,
             $offset
         );
 
-        $entries = $this->get('sulu_form.list_builder.dynamic_list_factory')->build($entries, $view);
+        $entries = $this->dynamicListFactory->build($entries, $view);
 
         // avoid total request when entries < limit
         if (count($entries) == $limit) {
-            $total = $repository->countByFilters($filters);
+            $total = $this->dynamicRepository->countByFilters($filters);
         } else {
             // calculate total
             $total = count($entries) + $offset;
@@ -68,7 +118,7 @@ class DynamicController extends RestController implements ClassResourceInterface
         // create list representation
         $representation = new ListRepresentation(
             $entries,
-            'dynamics',
+            'dynamic_forms',
             $request->get('_route'),
             $request->query->all(),
             $page,
@@ -76,28 +126,7 @@ class DynamicController extends RestController implements ClassResourceInterface
             $total
         );
 
-        return $this->handleView($this->view($representation));
-    }
-
-    /**
-     * Returns the fields for a dynamic form.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function cgetFieldsAction(Request $request)
-    {
-        $form = $this->loadForm($request);
-        $fieldDescriptors = [];
-
-        if ($form) {
-            $locale = $this->getLocale($request);
-            $fieldDescriptors = $this->get('sulu_form.list_builder.dynamic_list_factory')
-                ->getFieldDescriptors($form, $locale);
-        }
-
-        return $this->handleView($this->view(array_values($fieldDescriptors)));
+        return $this->viewHandler->handle($this->view($representation));
     }
 
     /**
@@ -109,32 +138,23 @@ class DynamicController extends RestController implements ClassResourceInterface
      */
     public function deleteAction(Request $request, $id)
     {
-        $mediaManager = $this->get('sulu_media.media_manager');
+        $dynamic = $this->dynamicRepository->find($id);
 
-        /** @var EntityManagerInterface $entityManager */
-        $entityManager = $this->get('doctrine.orm.entity_manager');
-
-        /** @var DynamicRepository $repository */
-        $repository = $this->get('sulu_form.repository.dynamic');
-
-        /** @var Dynamic $dynamic */
-        $dynamic = $repository->find($id);
-
-        $attachments = array_values($dynamic->getFieldsByType(Dynamic::TYPE_ATTACHMENT));
+        $attachments = array_filter(array_values($dynamic->getFieldsByType(Dynamic::TYPE_ATTACHMENT)));
 
         foreach ($attachments as $mediaIds) {
             foreach ($mediaIds as $mediaId) {
                 if ($mediaId) {
                     try {
-                        $mediaManager->delete($mediaId);
+                        $this->mediaManager->delete($mediaId);
                     } catch (MediaNotFoundException $e) {
-                        // Do nothing when meida was removed before.
+                        // Do nothing when media was removed before.
                     }
                 }
             }
         }
-        $entityManager->remove($dynamic);
-        $entityManager->flush();
+        $this->entityManager->remove($dynamic);
+        $this->entityManager->flush();
 
         return new Response('', 204);
     }
@@ -177,6 +197,17 @@ class DynamicController extends RestController implements ClassResourceInterface
             throw new BadRequestHttpException('"form" is required parameter');
         }
 
-        return $this->get('sulu_form.repository.form')->loadById($formId);
+        return $this->formRepository->loadById($formId);
+    }
+
+    /**
+     * Get locale.
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function getLocale(Request $request)
+    {
+        return $request->get('locale', $request->getLocale());
     }
 }

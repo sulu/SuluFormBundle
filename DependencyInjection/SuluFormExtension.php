@@ -35,6 +35,20 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
      */
     public function prepend(ContainerBuilder $container)
     {
+        if ($container->hasExtension('fos_js_routing')) {
+            $container->prependExtensionConfig(
+                'fos_js_routing',
+                [
+                    'routes_to_expose' => [
+                        'sulu_form.get_forms',
+                        'sulu_form.get_form',
+                        'sulu_form.get_dynamics',
+                        'sulu_form.delete_dynamic',
+                    ],
+                ]
+            );
+        }
+
         if ($container->hasExtension('sulu_media')) {
             $container->prependExtensionConfig(
                 'sulu_media',
@@ -69,6 +83,12 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                                 'detail' => 'sulu_form.get_form',
                             ],
                         ],
+                        'dynamic_forms' => [
+                            'routes' => [
+                                'list' =>'sulu_form.get_dynamics',
+                                'detail' => 'sulu_form.delete_dynamic',
+                            ],
+                        ]
                     ],
                     'field_type_options' => [
                         'single_selection' => [

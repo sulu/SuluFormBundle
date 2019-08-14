@@ -13,7 +13,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
 
     protected function setUp()
     {
-        $this->dynamicFormMetadataLoader = $this->getContainer()->get('sulu_form.metadata.dynamic_form_metadata_loader');
+        $this->dynamicFormMetadataLoader = $this->getContainer()->get('sulu_form_test.dynamic_form_metadata_loader');
     }
 
     public function testGetMetadata()
