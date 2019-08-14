@@ -13,6 +13,7 @@ namespace Sulu\Bundle\FormBundle\Metadata;
 
 use Sulu\Bundle\AdminBundle\FormMetadata\FormMetadataMapper;
 use Sulu\Bundle\AdminBundle\FormMetadata\FormXmlLoader;
+use Sulu\Bundle\AdminBundle\Metadata\MetadataInterface;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadataLoaderInterface;
@@ -106,7 +107,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         }
     }
 
-    public function getMetadata(string $key, string $locale, array $metadataOptions = []): ?FormMetadata
+    public function getMetadata(string $key, string $locale, array $metadataOptions = []): ?MetadataInterface
     {
         $configCache = $this->getConfigCache($key, $locale);
 

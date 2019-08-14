@@ -6,7 +6,7 @@ namespace Sulu\Bundle\FormBundle\Metadata;
 use Sulu\Bundle\AdminBundle\Metadata\ListMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\ListMetadata\ListMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\ListMetadata\ListMetadataLoaderInterface;
-use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
+use Sulu\Bundle\AdminBundle\Metadata\MetadataInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory;
 use Sulu\Bundle\FormBundle\Manager\FormManager;
@@ -40,7 +40,7 @@ class DynamicListMetadataLoader implements ListMetadataLoaderInterface
     }
 
 
-    public function getMetadata(string $key, string $locale, array $metadataOptions): ?ListMetadata
+    public function getMetadata(string $key, string $locale, array $metadataOptions): ?MetadataInterface
     {
         if (strcmp('form_data', $key) !== 0) {
             return null;
@@ -75,9 +75,6 @@ class DynamicListMetadataLoader implements ListMetadataLoaderInterface
         }
         $entity = $this->formManager->findById($metadataOptions['id'], $locale);
 
-        if (!$entity) {
-            return null;
-        }
         return $entity;
     }
 }

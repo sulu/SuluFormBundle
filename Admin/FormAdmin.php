@@ -26,8 +26,7 @@ use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 class FormAdmin extends Admin
 {
     const LIST_ROUTE = 'sulu_form.list';
-    const LIST_ROUTE_DATA = 'sulu_form.list.data';
-    const FORM_ROUTE = 'sulu_form.forms';
+    const LIST_ROUTE_DATA = 'sulu_form.edit_form.data';
     const ADD_FORM_ROUTE = 'sulu_form.add_form';
     const ADD_FORM_DETAILS_ROUTE = 'sulu_form.add_form.details';
     const EDIT_FORM_ROUTE = 'sulu_form.edit_form';
@@ -146,8 +145,8 @@ class FormAdmin extends Admin
                 ->addToolbarActions($formToolbarActions)
                 ->setParent(static::EDIT_FORM_ROUTE)
                 ->getRoute(),
-            $this->routeBuilderFactory->createListRouteBuilder(static::LIST_ROUTE_DATA, '/form_data')
-                ->setResourceKey('dynamics')
+            $this->routeBuilderFactory->createListRouteBuilder(static::LIST_ROUTE_DATA, '/data')
+                ->setResourceKey('dynamic_forms')
                 ->setListKey('form_data')
                 ->setTabTitle('sulu_form.data')
                 ->addListAdapters(['table'])

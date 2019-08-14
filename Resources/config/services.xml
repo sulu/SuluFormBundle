@@ -115,7 +115,7 @@
 
         <!-- List Builder -->
         <service id="sulu_form.list_builder.dynamic_list_factory"
-                 class="Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory" public="true">
+                 class="Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory">
             <argument>%sulu_form.dynamic_list_builder.default%</argument>
         </service>
 
@@ -134,7 +134,7 @@
         </service>
 
         <!-- Dynamic -->
-        <service id="sulu_form.repository.dynamic" class="Sulu\Bundle\FormBundle\Repository\DynamicRepository" public="true">
+        <service id="sulu_form.repository.dynamic" class="Sulu\Bundle\FormBundle\Repository\DynamicRepository">
             <factory service="doctrine.orm.entity_manager" method="getRepository"/>
             <argument>SuluFormBundle:Dynamic</argument>
         </service>
@@ -183,7 +183,7 @@
         </service>
 
         <!-- Dynamic Form Metadata Loader -->
-        <service id="sulu_form.metadata.dynamic_form_metadata_loader" class="Sulu\Bundle\FormBundle\Metadata\DynamicFormMetadataLoader" public="true">
+        <service id="sulu_form.metadata.dynamic_form_metadata_loader" class="Sulu\Bundle\FormBundle\Metadata\DynamicFormMetadataLoader">
             <argument type="service" id="sulu_form.dynamic.form_field_type_pool"/>
             <argument type="service" id="sulu_form.metadata.properties_xml_loader"/>
             <argument type="service" id="sulu_admin.form_metadata.form_xml_loader"/>
@@ -207,7 +207,7 @@
         </service>
 
         <!-- Dynamic List Metadata Loader -->
-        <service id="sulu_form.metadata.dynamic_list_metadata_loader" class="Sulu\Bundle\FormBundle\Metadata\DynamicListMetadataLoader" public="true">
+        <service id="sulu_form.metadata.dynamic_list_metadata_loader" class="Sulu\Bundle\FormBundle\Metadata\DynamicListMetadataLoader">
             <argument type="service" id="translator"/>
             <argument type="service" id="sulu_form.manager.form"/>
             <argument type="service" id="sulu_form.list_builder.dynamic_list_factory"/>

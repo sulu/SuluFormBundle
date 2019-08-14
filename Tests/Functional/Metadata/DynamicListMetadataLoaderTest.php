@@ -25,7 +25,7 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
 
     protected function setUp()
     {
-        $this->dynamicListMetadataLoader = $this->getContainer()->get('sulu_form.metadata.dynamic_list_metadata_loader');
+        $this->dynamicListMetadataLoader = $this->getContainer()->get('sulu_form_test.dynamic_list_metadata_loader');
         parent::setUp();
         $this->purgeDatabase();
         $this->em = $this->getEntityManager();

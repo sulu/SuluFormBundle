@@ -64,15 +64,6 @@ class DynamicController implements ClassResourceInterface
      */
     private $viewHandler;
 
-    /**
-     * DynamicController constructor.
-     * @param DynamicRepository $dynamicRepository
-     * @param DynamicListFactory $dynamicListFactory
-     * @param MediaManager $mediaManager
-     * @param EntityManager $entityManager
-     * @param FormRepository $formRepository
-     * @param ViewHandler $viewHandler
-     */
     public function __construct(
         DynamicRepository $dynamicRepository,
         DynamicListFactory $dynamicListFactory,
@@ -127,7 +118,7 @@ class DynamicController implements ClassResourceInterface
         // create list representation
         $representation = new ListRepresentation(
             $entries,
-            'dynamics',
+            'dynamic_forms',
             $request->get('_route'),
             $request->query->all(),
             $page,
@@ -136,27 +127,6 @@ class DynamicController implements ClassResourceInterface
         );
 
         return $this->viewHandler->handle($this->view($representation));
-    }
-
-    /**
-     * Returns the fields for a dynamic form.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function cgetFieldsAction(Request $request)
-    {
-        $form = $this->loadForm($request);
-        $fieldDescriptors = [];
-
-        if ($form) {
-            $locale = $this->getLocale($request);
-            $fieldDescriptors = $this->dynamicListFactory
-                ->getFieldDescriptors($form, $locale);
-        }
-
-        return $this->viewHandler->handle($this->view(array_values($fieldDescriptors)));
     }
 
     /**

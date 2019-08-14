@@ -69,7 +69,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                                 'detail' => 'sulu_form.get_form',
                             ],
                         ],
-                        'dynamics' => [
+                        'dynamic_forms' => [
                             'routes' => [
                                 'list' =>'sulu_form.get_dynamics',
                                 'detail' => 'sulu_form.delete_dynamic',
