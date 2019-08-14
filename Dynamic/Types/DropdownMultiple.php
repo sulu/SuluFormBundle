@@ -32,7 +32,6 @@ class DropdownMultiple implements FormFieldTypeInterface
         return new FormFieldTypeConfiguration(
             'sulu_form.type.dropdownmultiple',
             __DIR__ . '/../../Resources/config/form-fields/default_field_extended.xml',
-            [],
             'complex'
         );
     }

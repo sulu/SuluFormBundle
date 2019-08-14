@@ -31,7 +31,6 @@ class DateType implements FormFieldTypeInterface
         return new FormFieldTypeConfiguration(
             'sulu_form.type.date',
             __DIR__ . '/../../Resources/config/form-fields/field_date.xml',
-            [],
             'basic'
         );
     }

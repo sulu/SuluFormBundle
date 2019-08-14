@@ -33,7 +33,6 @@ class RadioButtonsType implements FormFieldTypeInterface
         return new FormFieldTypeConfiguration(
             'sulu_form.type.radiobuttons',
             __DIR__ . '/../../Resources/config/form-fields/field_choices.xml',
-            [],
             'complex'
         );
     }

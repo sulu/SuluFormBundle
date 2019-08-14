@@ -37,7 +37,6 @@ class AttachmentType implements FormFieldTypeInterface
         return new FormFieldTypeConfiguration(
             'sulu_form.type.attachment',
             __DIR__ . '/../../Resources/config/form-fields/field_attachment.xml',
-            [],
             'special'
         );
     }

@@ -44,11 +44,10 @@ class FormFieldTypeConfiguration
      * @param array $attributes
      * @param string $group
      */
-    public function __construct($titleTranslationKey, $xmlPath, $attributes = [], $group = '')
+    public function __construct($titleTranslationKey, $xmlPath, $group = '')
     {
         $this->title = $titleTranslationKey;
         $this->xmlPath = $xmlPath;
-        $this->attributes = $attributes;
         $this->group = $group;
     }
 
@@ -96,30 +95,6 @@ class FormFieldTypeConfiguration
     public function setXmlPath($xmlPath)
     {
         $this->xmlPath = $xmlPath;
-
-        return $this;
-    }
-
-    /**
-     * Returns attributes.
-     *
-     * @return array
-     */
-    public function getAttributes()
-    {
-        return $this->attributes;
-    }
-
-    /**
-     * Sets attributes.
-     *
-     * @param array $attributes
-     *
-     * @return FormFieldTypeConfiguration
-     */
-    public function setAttributes($attributes)
-    {
-        $this->attributes = $attributes;
 
         return $this;
     }
