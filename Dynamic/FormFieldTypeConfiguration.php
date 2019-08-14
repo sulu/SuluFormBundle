@@ -27,11 +27,6 @@ class FormFieldTypeConfiguration
     private $xmlPath;
 
     /**
-     * @var array
-     */
-    private $attributes = [];
-
-    /**
      * @var string
      */
     private $group;
@@ -41,7 +36,6 @@ class FormFieldTypeConfiguration
      *
      * @param string $titleTranslationKey
      * @param string $xmlPath
-     * @param array $attributes
      * @param string $group
      */
     public function __construct($titleTranslationKey, $xmlPath, $group = '')
