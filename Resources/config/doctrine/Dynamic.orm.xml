@@ -27,7 +27,7 @@
         <field name="city" column="city" type="string" nullable="true"/>
         <field name="state" column="state" type="string" nullable="true"/>
         <field name="country" column="country" type="string" length="2" nullable="true"/>
-        <field name="function" column="function" type="string" nullable="true"/>
+        <field name="function" column="`function`" type="string" nullable="true"/>
         <field name="company" column="company" type="text" nullable="true"/>
         <field name="text" column="text" type="string" nullable="true"/>
         <field name="textarea" column="textarea" type="text" nullable="true"/>
