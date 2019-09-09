@@ -64,7 +64,7 @@ class FormAdmin extends Admin
             $navigationItem->setPosition(10);
             $navigationItem->setMainRoute(static::LIST_ROUTE);
 
-            $navigationItemCollection->get(Admin::SETTINGS_NAVIGATION_ITEM)->addChild($navigationItem);
+            $navigationItemCollection->add($navigationItem);
         }
     }
 
