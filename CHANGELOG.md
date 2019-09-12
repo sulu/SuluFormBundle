@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+ - BUGFIX      #201    Fix configuration of plain text emails   
+
 ## 1.0.0
 
  - No changes
