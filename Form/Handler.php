@@ -289,12 +289,14 @@ class Handler implements HandlerInterface
      */
     protected function getPlainText(FormInterface $form, MailConfigurationInterface $configuration, array $additionalData)
     {
-        if (!$configuration->getPlainTextTemplate()) {
+        $template = $configuration->getPlainTextTemplate();
+
+        if (!$template) {
             return null;
         }
 
         return $this->templating->render(
-            $configuration->getPlainTextTemplate(),
+            $template,
             array_merge(
                 $configuration->getTemplateAttributes(),
                 $additionalData
