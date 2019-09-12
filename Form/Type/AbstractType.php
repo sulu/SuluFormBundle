@@ -130,6 +130,22 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     /**
      * {@inheritdoc}
      */
+    public function getCustomerPlainMail($formData = [])
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotifyPlainMail($formData = [])
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getCustomerFromMailAddress($formData = [])
     {
         return $this->getAttribute('mail_customer_from_address');

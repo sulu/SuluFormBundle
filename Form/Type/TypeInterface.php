@@ -47,6 +47,16 @@ interface TypeInterface
     public function getNotifyMail($formData = []);
 
     /**
+     * {@inheritdoc}
+     */
+    public function getCustomerPlainMail($formData = []);
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotifyPlainMail($formData = []);
+
+    /**
      * @param $formData
      *
      * @return string
