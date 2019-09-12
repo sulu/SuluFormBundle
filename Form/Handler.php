@@ -281,6 +281,7 @@ class Handler implements HandlerInterface
 
     /**
      * Get plain text variant for email, overridable and customizable per form.
+     *
      * @param FormInterface $form
      * @param MailConfigurationInterface $configuration
      * @param array $additionalData
@@ -288,6 +289,10 @@ class Handler implements HandlerInterface
      */
     protected function getPlainText(FormInterface $form, MailConfigurationInterface $configuration, array $additionalData)
     {
+        if (!$configuration->getPlainTextTemplate()) {
+            return null;
+        }
+
         return $this->templating->render(
             $configuration->getPlainTextTemplate(),
             array_merge(
