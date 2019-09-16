@@ -40,8 +40,8 @@ install:
   - if [[ $PHPSTAN == 'true' ]]; then travis_retry composer require --dev phpstan/phpstan --no-update ; fi
   - travis_retry composer update $COMPOSER_FLAGS
   - composer info -i
-  - ./Tests/Application/bin/adminconsole doctrine:database:create
-  - ./Tests/Application/bin/adminconsole doctrine:schema:update --force
+  - ./Tests/Application/bin/console doctrine:database:create
+  - ./Tests/Application/bin/console doctrine:schema:update --force
 
 script:
   - ./vendor/bin/phpunit --coverage-clover=coverage.clover
