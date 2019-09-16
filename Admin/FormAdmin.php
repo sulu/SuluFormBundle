@@ -12,9 +12,10 @@
 namespace Sulu\Bundle\FormBundle\Admin;
 
 use Sulu\Bundle\AdminBundle\Admin\Admin;
-use Sulu\Bundle\AdminBundle\Navigation\Navigation;
-use Sulu\Bundle\AdminBundle\Navigation\NavigationItem;
+use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
+use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;
 use Sulu\Bundle\AdminBundle\Admin\Routing\RouteBuilderFactoryInterface;
+use Sulu\Bundle\AdminBundle\Admin\Routing\RouteCollection;
 use Sulu\Component\Localization\Localization;
 use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
@@ -52,19 +53,19 @@ class FormAdmin extends Admin
         $this->webspaceManager = $webspaceManager;
     }
 
-    public function getNavigation(): Navigation
+    /**
+     * {@inheritdoc}
+     */
+    public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void
     {
-        $rootNavigationItem = $this->getNavigationItemRoot();
-
         if ($this->securityChecker->hasPermission('sulu.form.forms', PermissionTypes::VIEW)) {
             $navigationItem = new NavigationItem('sulu_form.forms');
             $navigationItem->setIcon('su-magic');
             $navigationItem->setPosition(10);
             $navigationItem->setMainRoute(static::LIST_ROUTE);
-            $rootNavigationItem->addChild($navigationItem);
-        }
 
-        return new Navigation($rootNavigationItem);
+            $navigationItemCollection->add($navigationItem);
+        }
     }
 
     /**
@@ -83,8 +84,10 @@ class FormAdmin extends Admin
         return 'suluform';
     }
 
-
-    public function getRoutes(): array
+    /**
+     * {@inheritdoc}
+     */
+    public function configureRoutes(RouteCollection $routeCollection): void
     {
         $formLocales = array_values(
             array_map(
@@ -107,7 +110,7 @@ class FormAdmin extends Admin
             'sulu_admin.export'
         ];
 
-        return [
+        $routeCollection->add(
             $this->routeBuilderFactory->createListRouteBuilder(static::LIST_ROUTE, '/forms/:locale')
                 ->setResourceKey('forms')
                 ->setListKey('forms')
@@ -119,12 +122,14 @@ class FormAdmin extends Admin
                 ->setEditRoute(static::EDIT_FORM_ROUTE)
                 ->enableSearching()
                 ->addToolbarActions($listToolbarActions)
-                ->getRoute(),
+        );
+        $routeCollection->add(
             $this->routeBuilderFactory->createResourceTabRouteBuilder(static::ADD_FORM_ROUTE, '/forms/:locale/add')
                 ->setResourceKey('forms')
                 ->addLocales($formLocales)
                 ->setBackRoute(static::LIST_ROUTE)
-                ->getRoute(),
+        );
+        $routeCollection->add(
             $this->routeBuilderFactory->createFormRouteBuilder(static::ADD_FORM_DETAILS_ROUTE, '/details')
                 ->setResourceKey('forms')
                 ->setFormKey('form_details')
@@ -132,19 +137,22 @@ class FormAdmin extends Admin
                 ->setEditRoute(static::EDIT_FORM_ROUTE)
                 ->addToolbarActions($formToolbarActions)
                 ->setParent(static::ADD_FORM_ROUTE)
-                ->getRoute(),
+        );
+        $routeCollection->add(
             $this->routeBuilderFactory->createResourceTabRouteBuilder(static::EDIT_FORM_ROUTE, '/forms/:locale/:id')
                 ->setResourceKey('forms')
                 ->addLocales($formLocales)
                 ->setBackRoute(static::LIST_ROUTE)
-                ->getRoute(),
+        );
+        $routeCollection->add(
             $this->routeBuilderFactory->createFormRouteBuilder(static::EDIT_FORM_DETAILS_ROUTE, '/details')
                 ->setResourceKey('forms')
                 ->setFormKey('form_details')
                 ->setTabTitle('sulu_form.general')
                 ->addToolbarActions($formToolbarActions)
                 ->setParent(static::EDIT_FORM_ROUTE)
-                ->getRoute(),
+        );
+        $routeCollection->add(
             $this->routeBuilderFactory->createListRouteBuilder(static::LIST_ROUTE_DATA, '/data')
                 ->setResourceKey('dynamic_forms')
                 ->setListKey('form_data')
@@ -154,11 +162,8 @@ class FormAdmin extends Admin
                 ->addRouterAttributesToListMetadata(['id' => 'id'])
                 ->addToolbarActions($dataListToolbarActions)
                 ->setParent(static::EDIT_FORM_ROUTE)
-                ->getRoute(),
-            ];
+        );
     }
-
-
     /**
      * {@inheritdoc}
      */

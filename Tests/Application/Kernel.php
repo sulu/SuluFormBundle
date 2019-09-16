@@ -9,12 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
+namespace Sulu\Bundle\FormBundle\Tests\Application;
+
 use Sulu\Bundle\FormBundle\SuluFormBundle;
 use Sulu\Bundle\TestBundle\Kernel\SuluTestKernel;
 use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
-class AppKernel extends SuluTestKernel
+class Kernel extends SuluTestKernel
 {
     /**
      * {@inheritdoc}
