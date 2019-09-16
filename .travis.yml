@@ -15,7 +15,7 @@ services:
 
 matrix:
   include:
-    - php: 7.1
+    - php: 7.2
       env:
         - COMPOSER_FLAGS="--prefer-dist --no-interaction --prefer-lowest --prefer-stable"
     - php: 7.3
@@ -40,8 +40,8 @@ install:
   - if [[ $PHPSTAN == 'true' ]]; then travis_retry composer require --dev phpstan/phpstan --no-update ; fi
   - travis_retry composer update $COMPOSER_FLAGS
   - composer info -i
-  - ./Tests/app/console doctrine:database:create
-  - ./Tests/app/console doctrine:schema:update --force
+  - ./Tests/Application/bin/adminconsole doctrine:database:create
+  - ./Tests/Application/bin/adminconsole doctrine:schema:update --force
 
 script:
   - ./vendor/bin/phpunit --coverage-clover=coverage.clover

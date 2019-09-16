@@ -18,6 +18,6 @@
     </filter>
 
     <php>
-        <server name="KERNEL_DIR" value="Tests/app"/>
+        <server name="KERNEL_CLASS" value="Sulu\Bundle\FormBundle\Tests\Application\Kernel"/>
     </php>
 </phpunit>
