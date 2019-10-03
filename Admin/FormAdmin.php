@@ -16,6 +16,7 @@ use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;
 use Sulu\Bundle\AdminBundle\Admin\Routing\RouteBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\Routing\RouteCollection;
+use Sulu\Bundle\AdminBundle\Admin\Routing\ToolbarAction;
 use Sulu\Component\Localization\Localization;
 use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
@@ -98,16 +99,16 @@ class FormAdmin extends Admin
             )
         );
         $formToolbarActions = [
-            'sulu_admin.save',
-            'sulu_admin.delete',
+            new ToolbarAction('sulu_admin.save'),
+            new ToolbarAction('sulu_admin.delete'),
         ];
         $listToolbarActions = [
-            'sulu_admin.add',
-            'sulu_admin.delete'
+            new ToolbarAction('sulu_admin.add'),
+            new ToolbarAction('sulu_admin.delete'),
         ];
         $dataListToolbarActions = [
-            'sulu_admin.delete',
-            'sulu_admin.export'
+            new ToolbarAction('sulu_admin.delete'),
+            new ToolbarAction('sulu_admin.export'),
         ];
 
         $routeCollection->add(
@@ -164,6 +165,7 @@ class FormAdmin extends Admin
                 ->setParent(static::EDIT_FORM_ROUTE)
         );
     }
+
     /**
      * {@inheritdoc}
      */
