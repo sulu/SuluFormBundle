@@ -15,7 +15,6 @@
         "symfony/translation": "^3.4 || ^4.0",
         "twig/twig": "^1.26 || ^2.0"
     },
-    "excelwebzone/recaptcha-bundle": "^1.4.2",
     "require-dev": {
         "doctrine/data-fixtures": "^1.0",
         "doctrine/doctrine-bundle": "^1.4",
