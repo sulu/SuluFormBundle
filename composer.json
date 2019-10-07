@@ -19,7 +19,7 @@
         "doctrine/data-fixtures": "^1.0",
         "doctrine/doctrine-bundle": "^1.4",
         "drewm/mailchimp-api": "^2.2",
-        "excelwebzone/recaptcha-bundle": "^1.4.2"
+        "excelwebzone/recaptcha-bundle": "^1.4.2",
         "jackalope/jackalope-doctrine-dbal": "^1.2.5",
         "massive/search-bundle": "@dev",
         "phpunit/phpunit": "^6.5",
