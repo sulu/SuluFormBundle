@@ -34,12 +34,34 @@ class FormControllerTest extends SuluTestCase
         $this->em = $this->getEntityManager();
     }
 
+    public function testListMetadata(): void
+    {
+        $client = $this->createAuthenticatedClient();
+        $client->request(
+            'GET',
+            '/admin/metadata/list/forms'
+        );
+
+        $this->assertHttpStatusCode(200, $client->getResponse());
+    }
+
+    public function testFormMetadata(): void
+    {
+        $client = $this->createAuthenticatedClient();
+        $client->request(
+            'GET',
+            '/admin/metadata/form/form_details'
+        );
+
+        $this->assertHttpStatusCode(200, $client->getResponse());
+    }
+
     public function testGetNotFound()
     {
         $client = $this->createAuthenticatedClient();
         $client->request(
             'GET',
-            '/api/forms/1'
+            '/admin/api/forms/1'
         );
 
         $this->assertHttpStatusCode(404, $client->getResponse());
@@ -52,7 +74,7 @@ class FormControllerTest extends SuluTestCase
         $client = $this->createAuthenticatedClient();
         $client->request(
             'GET',
-            '/api/forms/' . $form->getId()
+            '/admin/api/forms/' . $form->getId()
         );
 
         $this->assertHttpStatusCode(200, $client->getResponse());
@@ -66,7 +88,7 @@ class FormControllerTest extends SuluTestCase
         $client = $this->createAuthenticatedClient();
         $client->request(
             'POST',
-            '/api/forms',
+            '/admin/api/forms',
             [
                 'locale' => 'en',
                 'title' => 'Title',
@@ -85,7 +107,7 @@ class FormControllerTest extends SuluTestCase
         $client = $this->createAuthenticatedClient();
         $client->request(
             'POST',
-            '/api/forms',
+            '/admin/api/forms',
             $this->getFullFormData()
         );
 
@@ -101,7 +123,7 @@ class FormControllerTest extends SuluTestCase
         $client = $this->createAuthenticatedClient();
         $client->request(
             'PUT',
-            '/api/forms/' . $form->getId(),
+            '/admin/api/forms/' . $form->getId(),
             [
                 'locale' => 'en',
                 'title' => 'Title',
@@ -121,7 +143,7 @@ class FormControllerTest extends SuluTestCase
         $client = $this->createAuthenticatedClient();
         $client->request(
             'PUT',
-            '/api/forms/' . $form->getId(),
+            '/admin/api/forms/' . $form->getId(),
             $this->getFullFormData()
         );
 
@@ -135,7 +157,7 @@ class FormControllerTest extends SuluTestCase
         $client = $this->createAuthenticatedClient();
         $client->request(
             'PUT',
-            '/api/forms/2',
+            '/admin/api/forms/2',
             $this->getFullFormData()
         );
 
@@ -149,7 +171,7 @@ class FormControllerTest extends SuluTestCase
         $client = $this->createAuthenticatedClient();
         $client->request(
             'DELETE',
-            '/api/forms/' . $form->getId()
+            '/admin/api/forms/' . $form->getId()
         );
 
         $this->assertHttpStatusCode(204, $client->getResponse());
@@ -158,7 +180,7 @@ class FormControllerTest extends SuluTestCase
         $client = $this->createAuthenticatedClient();
         $client->request(
             'GET',
-            '/api/forms/1'
+            '/admin/api/forms/1'
         );
 
         $this->assertHttpStatusCode(404, $client->getResponse());
@@ -169,7 +191,7 @@ class FormControllerTest extends SuluTestCase
         $client = $this->createAuthenticatedClient();
         $client->request(
             'DELETE',
-            '/api/forms/2'
+            '/admin/api/forms/2'
         );
 
         $this->assertHttpStatusCode(404, $client->getResponse());

@@ -1,0 +1,2 @@
+sulu_form:
+    resource: "@SuluFormBundle/Resources/config/routing.yml"

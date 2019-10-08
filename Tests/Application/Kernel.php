@@ -22,8 +22,6 @@ class Kernel extends SuluTestKernel
      */
     public function __construct($environment, $debug, $suluContext = self::CONTEXT_ADMIN)
     {
-        $this->name = $suluContext;
-
         parent::__construct($environment, $debug, $suluContext);
     }
 
@@ -47,6 +45,6 @@ class Kernel extends SuluTestKernel
     {
         parent::registerContainerConfiguration($loader);
 
-        $loader->load(__DIR__ . '/config/config.yml');
+        $loader->load(__DIR__ . '/config/config_' . $this->getContext() . '.yml');
     }
 }
