@@ -11,12 +11,12 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
 {
     private $dynamicFormMetadataLoader;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->dynamicFormMetadataLoader = $this->getContainer()->get('sulu_form_test.dynamic_form_metadata_loader');
     }
 
-    public function testGetMetadata()
+    public function testGetMetadata(): void
     {
         $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'en');
 
@@ -39,7 +39,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
 
         $fields = $formFields->getItems()['fields'];
         $this->assertInstanceOf(FieldMetadata::class, $fields);
-        $this->assertCount(26, $fields->getTypes());
+        $this->assertCount(27, $fields->getTypes());
         $this->assertEquals('fields', $fields->getName());
         $this->assertEquals('block', $fields->getType());
         $this->assertEquals('attachment', $fields->getDefaultType());
@@ -62,6 +62,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
             'lastName',
             'phone',
             'radioButtons',
+            'recaptcha',
             'salutation',
             'spacer',
             'state',
@@ -73,7 +74,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         ], array_keys($fields->getTypes()));
     }
 
-    public function testGetMetadataLabelsEnglish()
+    public function testGetMetadataLabelsEnglish(): void
     {
         $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'en');
 
@@ -88,7 +89,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->assertEquals('Receivers', $formMetadata->getItems()['receivers']->getLabel());
     }
 
-    public function testGetMetadataLabelsGerman()
+    public function testGetMetadataLabelsGerman(): void
     {
         $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'de');
 
@@ -103,7 +104,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->assertEquals('Empfänger', $formMetadata->getItems()['receivers']->getLabel());
     }
 
-    public function testGetMetadataAttachmentEnglish()
+    public function testGetMetadataAttachmentEnglish(): void
     {
         $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'en');
 
@@ -116,7 +117,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
 
         $fields = $formFields->getItems()['fields'];
         $this->assertInstanceOf(FieldMetadata::class, $fields);
-        $this->assertCount(26, $fields->getTypes());
+        $this->assertCount(27, $fields->getTypes());
 
         $attachment = $fields->getTypes()['attachment'];
         $this->assertInstanceOf(FormMetadata::class, $attachment);
@@ -172,7 +173,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->assertObjectHasAttribute('key', $attachment);
     }
 
-    public function testGetMetadataAttachmentGerman()
+    public function testGetMetadataAttachmentGerman(): void
     {
         $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'de');
 
@@ -185,7 +186,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
 
         $fields = $formFields->getItems()['fields'];
         $this->assertInstanceOf(FieldMetadata::class, $fields);
-        $this->assertCount(26, $fields->getTypes());
+        $this->assertCount(27, $fields->getTypes());
 
         $attachment = $fields->getTypes()['attachment'];
         $this->assertInstanceOf(FormMetadata::class, $attachment);

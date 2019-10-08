@@ -1,6 +1,6 @@
 # PHPUnit
-/app/phpunit.xml
 /phpunit.xml
+.phpunit.result.cache
 
 # composer
 /composer.phar
@@ -36,7 +36,7 @@ node_modules/
 npm-debug.log
 
 # tests
-/Tests/Application/config/parameters.yml
+/Tests/Application/.env.local
 /Tests/Application/var
 
 /nbproject/*

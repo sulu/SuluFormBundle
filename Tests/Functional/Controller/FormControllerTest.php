@@ -27,7 +27,7 @@ class FormControllerTest extends SuluTestCase
      */
     private $em;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->purgeDatabase();
@@ -45,7 +45,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertHttpStatusCode(404, $client->getResponse());
     }
 
-    public function testGet()
+    public function testGet(): void
     {
         $form = $this->createFullForm();
 
@@ -61,7 +61,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertFullForm($response);
     }
 
-    public function testPostMinimal()
+    public function testPostMinimal(): void
     {
         $client = $this->createAuthenticatedClient();
         $client->request(
@@ -80,7 +80,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertMinimalForm($response);
     }
 
-    public function testPostFull()
+    public function testPostFull(): void
     {
         $client = $this->createAuthenticatedClient();
         $client->request(
@@ -95,7 +95,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertFullForm($response);
     }
 
-    public function testPutMinimal()
+    public function testPutMinimal(): void
     {
         $form = $this->createFullForm();
         $client = $this->createAuthenticatedClient();
@@ -115,7 +115,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertMinimalForm($response);
     }
 
-    public function testPutFull()
+    public function testPutFull(): void
     {
         $form = $this->createMinimalForm();
         $client = $this->createAuthenticatedClient();
@@ -130,7 +130,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertFullForm($response);
     }
 
-    public function testPutNotExist()
+    public function testPutNotExist(): void
     {
         $client = $this->createAuthenticatedClient();
         $client->request(
@@ -142,7 +142,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertHttpStatusCode(404, $client->getResponse());
     }
 
-    public function testDelete()
+    public function testDelete(): void
     {
         $form = $this->createFullForm();
 
@@ -164,7 +164,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertHttpStatusCode(404, $client->getResponse());
     }
 
-    public function testDeleteNotFound()
+    public function testDeleteNotFound(): void
     {
         $client = $this->createAuthenticatedClient();
         $client->request(
@@ -225,7 +225,7 @@ class FormControllerTest extends SuluTestCase
         foreach ($expectedFieldTypess as $key => $type) {
             $this->assertNotNull($response['fields'][$key]['id']);
             $this->assertEquals($type, $response['fields'][$key]['type']);
-            $this->assertContains($type, $response['fields'][$key]['key']);
+            $this->assertStringContainsString($type, $response['fields'][$key]['key']);
             $this->assertTrue($response['fields'][$key]['required']);
             $this->assertEquals($key + 1, $response['fields'][$key]['order']);
             $this->assertEquals('full', $response['fields'][$key]['width']);
@@ -258,7 +258,7 @@ class FormControllerTest extends SuluTestCase
         );
     }
 
-    private function createMinimalForm()
+    private function createMinimalForm(): Form
     {
         $form = new Form();
         $form->setDefaultLocale('en');
@@ -273,7 +273,7 @@ class FormControllerTest extends SuluTestCase
         return $form;
     }
 
-    private function createFullForm()
+    private function createFullForm(): Form
     {
         $form = new Form();
         $form->setDefaultLocale('en');
@@ -371,7 +371,7 @@ class FormControllerTest extends SuluTestCase
         return $form;
     }
 
-    private function getFullFormData()
+    private function getFullFormData(): array
     {
         return [
             'locale' => 'en',

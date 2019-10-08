@@ -26,7 +26,7 @@ use PHPUnit\Framework\TestCase;
  */
 class FormConfigurationFactoryTest extends TestCase
 {
-    public function testBuildByDynamic()
+    public function testBuildByDynamic(): void
     {
         $dynamic = $this->createDynamic();
 
@@ -78,7 +78,7 @@ class FormConfigurationFactoryTest extends TestCase
         $this->assertEquals([], $websiteMailConfiguration->getBcc());
     }
 
-    private function createDynamic()
+    private function createDynamic(): Dynamic
     {
         /** @var Dynamic $dynamic */
         $dynamic = $this->prophesize(Dynamic::class);
