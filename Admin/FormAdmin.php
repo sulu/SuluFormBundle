@@ -63,7 +63,7 @@ class FormAdmin extends Admin
             $navigationItem = new NavigationItem('sulu_form.forms');
             $navigationItem->setIcon('su-magic');
             $navigationItem->setPosition(10);
-            $navigationItem->setMainRoute(static::LIST_VIEW);
+            $navigationItem->setView(static::LIST_VIEW);
 
             $navigationItemCollection->add($navigationItem);
         }
@@ -88,7 +88,7 @@ class FormAdmin extends Admin
     /**
      * {@inheritdoc}
      */
-    public function configureRoutes(ViewCollection $viewCollection): void
+    public function configureViews(ViewCollection $viewCollection): void
     {
         $formLocales = array_values(
             array_map(
