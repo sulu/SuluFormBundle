@@ -13,7 +13,6 @@ namespace Sulu\Bundle\FormBundle\Tests\Application;
 
 use Sulu\Bundle\FormBundle\SuluFormBundle;
 use Sulu\Bundle\TestBundle\Kernel\SuluTestKernel;
-use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
 class Kernel extends SuluTestKernel
@@ -34,11 +33,10 @@ class Kernel extends SuluTestKernel
     public function registerBundles()
     {
         return array_merge(
+            parent::registerBundles(),
             [
                 new SuluFormBundle(),
-                new SwiftmailerBundle(),
-            ],
-            parent::registerBundles()
+            ]
         );
     }
 
