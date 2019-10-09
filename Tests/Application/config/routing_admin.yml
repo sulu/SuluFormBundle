@@ -1,0 +1,8 @@
+sulu_admin:
+    resource: "@SuluAdminBundle/Resources/config/routing.yml"
+    prefix: /admin
+
+sulu_form_api:
+    type: rest
+    resource: "@SuluFormBundle/Resources/config/routing_api.yml"
+    prefix: /admin/api

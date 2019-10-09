@@ -13,7 +13,6 @@ namespace Sulu\Bundle\FormBundle\Tests\Application;
 
 use Sulu\Bundle\FormBundle\SuluFormBundle;
 use Sulu\Bundle\TestBundle\Kernel\SuluTestKernel;
-use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
 class Kernel extends SuluTestKernel
@@ -23,8 +22,6 @@ class Kernel extends SuluTestKernel
      */
     public function __construct($environment, $debug, $suluContext = self::CONTEXT_ADMIN)
     {
-        $this->name = $suluContext;
-
         parent::__construct($environment, $debug, $suluContext);
     }
 
@@ -34,11 +31,10 @@ class Kernel extends SuluTestKernel
     public function registerBundles()
     {
         return array_merge(
+            parent::registerBundles(),
             [
                 new SuluFormBundle(),
-                new SwiftmailerBundle(),
-            ],
-            parent::registerBundles()
+            ]
         );
     }
 
@@ -49,6 +45,6 @@ class Kernel extends SuluTestKernel
     {
         parent::registerContainerConfiguration($loader);
 
-        $loader->load(__DIR__ . '/config/config.yml');
+        $loader->load(__DIR__ . '/config/config_' . $this->getContext() . '.yml');
     }
 }

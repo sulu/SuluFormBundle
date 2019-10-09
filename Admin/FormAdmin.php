@@ -14,9 +14,9 @@ namespace Sulu\Bundle\FormBundle\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;
-use Sulu\Bundle\AdminBundle\Admin\Routing\RouteBuilderFactoryInterface;
-use Sulu\Bundle\AdminBundle\Admin\Routing\RouteCollection;
-use Sulu\Bundle\AdminBundle\Admin\Routing\ToolbarAction;
+use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactoryInterface;
+use Sulu\Bundle\AdminBundle\Admin\View\ViewCollection;
+use Sulu\Bundle\AdminBundle\Admin\View\ToolbarAction;
 use Sulu\Component\Localization\Localization;
 use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
@@ -27,30 +27,30 @@ use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
  */
 class FormAdmin extends Admin
 {
-    const LIST_ROUTE = 'sulu_form.list';
-    const LIST_ROUTE_DATA = 'sulu_form.edit_form.data';
-    const ADD_FORM_ROUTE = 'sulu_form.add_form';
-    const ADD_FORM_DETAILS_ROUTE = 'sulu_form.add_form.details';
-    const EDIT_FORM_ROUTE = 'sulu_form.edit_form';
-    const EDIT_FORM_DETAILS_ROUTE = 'sulu_form.edit_form.details';
+    const LIST_VIEW = 'sulu_form.list';
+    const LIST_VIEW_DATA = 'sulu_form.edit_form.data';
+    const ADD_FORM_VIEW = 'sulu_form.add_form';
+    const ADD_FORM_DETAILS_VIEW = 'sulu_form.add_form.details';
+    const EDIT_FORM_VIEW = 'sulu_form.edit_form';
+    const EDIT_FORM_DETAILS_VIEW = 'sulu_form.edit_form.details';
 
     private $securityChecker;
-    private $routeBuilderFactory;
+    private $viewBuilderFactory;
     private $webspaceManager;
 
     /**
      * FormAdmin constructor.
      * @param SecurityCheckerInterface $securityChecker
-     * @param RouteBuilderFactoryInterface $routeBuilderFactory
+     * @param ViewBuilderFactoryInterface $viewBuilderFactory
      * @param WebspaceManagerInterface $webspaceManager
      */
     public function __construct(
         SecurityCheckerInterface $securityChecker,
-        RouteBuilderFactoryInterface $routeBuilderFactory,
+        ViewBuilderFactoryInterface $viewBuilderFactory,
         WebspaceManagerInterface $webspaceManager
     ) {
         $this->securityChecker = $securityChecker;
-        $this->routeBuilderFactory = $routeBuilderFactory;
+        $this->viewBuilderFactory = $viewBuilderFactory;
         $this->webspaceManager = $webspaceManager;
     }
 
@@ -63,7 +63,7 @@ class FormAdmin extends Admin
             $navigationItem = new NavigationItem('sulu_form.forms');
             $navigationItem->setIcon('su-magic');
             $navigationItem->setPosition(10);
-            $navigationItem->setMainRoute(static::LIST_ROUTE);
+            $navigationItem->setView(static::LIST_VIEW);
 
             $navigationItemCollection->add($navigationItem);
         }
@@ -88,7 +88,7 @@ class FormAdmin extends Admin
     /**
      * {@inheritdoc}
      */
-    public function configureRoutes(RouteCollection $routeCollection): void
+    public function configureViews(ViewCollection $viewCollection): void
     {
         $formLocales = array_values(
             array_map(
@@ -111,58 +111,58 @@ class FormAdmin extends Admin
             new ToolbarAction('sulu_admin.export'),
         ];
 
-        $routeCollection->add(
-            $this->routeBuilderFactory->createListRouteBuilder(static::LIST_ROUTE, '/forms/:locale')
+        $viewCollection->add(
+            $this->viewBuilderFactory->createListViewBuilder(static::LIST_VIEW, '/forms/:locale')
                 ->setResourceKey('forms')
                 ->setListKey('forms')
                 ->setTitle('sulu_form.forms')
                 ->addListAdapters(['table'])
                 ->addLocales($formLocales)
                 ->setDefaultLocale($formLocales[0])
-                ->setAddRoute(static::ADD_FORM_ROUTE)
-                ->setEditRoute(static::EDIT_FORM_ROUTE)
+                ->setAddView(static::ADD_FORM_VIEW)
+                ->setEditView(static::EDIT_FORM_VIEW)
                 ->enableSearching()
                 ->addToolbarActions($listToolbarActions)
         );
-        $routeCollection->add(
-            $this->routeBuilderFactory->createResourceTabRouteBuilder(static::ADD_FORM_ROUTE, '/forms/:locale/add')
+        $viewCollection->add(
+            $this->viewBuilderFactory->createResourceTabViewBuilder(static::ADD_FORM_VIEW, '/forms/:locale/add')
                 ->setResourceKey('forms')
                 ->addLocales($formLocales)
-                ->setBackRoute(static::LIST_ROUTE)
+                ->setBackView(static::LIST_VIEW)
         );
-        $routeCollection->add(
-            $this->routeBuilderFactory->createFormRouteBuilder(static::ADD_FORM_DETAILS_ROUTE, '/details')
+        $viewCollection->add(
+            $this->viewBuilderFactory->createFormViewBuilder(static::ADD_FORM_DETAILS_VIEW, '/details')
                 ->setResourceKey('forms')
                 ->setFormKey('form_details')
                 ->setTabTitle('sulu_form.general')
-                ->setEditRoute(static::EDIT_FORM_ROUTE)
+                ->setEditView(static::EDIT_FORM_VIEW)
                 ->addToolbarActions($formToolbarActions)
-                ->setParent(static::ADD_FORM_ROUTE)
+                ->setParent(static::ADD_FORM_VIEW)
         );
-        $routeCollection->add(
-            $this->routeBuilderFactory->createResourceTabRouteBuilder(static::EDIT_FORM_ROUTE, '/forms/:locale/:id')
+        $viewCollection->add(
+            $this->viewBuilderFactory->createResourceTabViewBuilder(static::EDIT_FORM_VIEW, '/forms/:locale/:id')
                 ->setResourceKey('forms')
                 ->addLocales($formLocales)
-                ->setBackRoute(static::LIST_ROUTE)
+                ->setBackView(static::LIST_VIEW)
         );
-        $routeCollection->add(
-            $this->routeBuilderFactory->createFormRouteBuilder(static::EDIT_FORM_DETAILS_ROUTE, '/details')
+        $viewCollection->add(
+            $this->viewBuilderFactory->createFormViewBuilder(static::EDIT_FORM_DETAILS_VIEW, '/details')
                 ->setResourceKey('forms')
                 ->setFormKey('form_details')
                 ->setTabTitle('sulu_form.general')
                 ->addToolbarActions($formToolbarActions)
-                ->setParent(static::EDIT_FORM_ROUTE)
+                ->setParent(static::EDIT_FORM_VIEW)
         );
-        $routeCollection->add(
-            $this->routeBuilderFactory->createListRouteBuilder(static::LIST_ROUTE_DATA, '/data')
+        $viewCollection->add(
+            $this->viewBuilderFactory->createListViewBuilder(static::LIST_VIEW_DATA, '/data')
                 ->setResourceKey('dynamic_forms')
                 ->setListKey('form_data')
                 ->setTabTitle('sulu_form.data')
                 ->addListAdapters(['table'])
-                ->addRouterAttributesToListStore(['id' => 'form'])
+                ->addRouterAttributesToListRequest(['id' => 'form'])
                 ->addRouterAttributesToListMetadata(['id' => 'id'])
                 ->addToolbarActions($dataListToolbarActions)
-                ->setParent(static::EDIT_FORM_ROUTE)
+                ->setParent(static::EDIT_FORM_VIEW)
         );
     }
 

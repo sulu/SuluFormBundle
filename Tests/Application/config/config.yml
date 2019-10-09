@@ -3,7 +3,6 @@ parameters:
 
 framework:
     esi: ~
-    router: { resource: "%kernel.root_dir%/config/routing.yml" }
     profiler: { only_exceptions: false }
     fragments: ~
 

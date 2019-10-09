@@ -23,7 +23,7 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
      */
     private $em;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->dynamicListMetadataLoader = $this->getContainer()->get('sulu_form_test.dynamic_list_metadata_loader');
         parent::setUp();
@@ -31,7 +31,7 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $this->em = $this->getEntityManager();
     }
 
-    public function testGetMetadataEnglish()
+    public function testGetMetadataEnglish(): void
     {
         $form = $this->createFormWithFields();
 
@@ -111,7 +111,7 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $this->assertTrue($metadata->getFields()['created']->isSortable());
     }
 
-    public function testGetMetadataLabelsEnglish()
+    public function testGetMetadataLabelsEnglish(): void
     {
         $form = $this->createFormWithAllFields();
 
@@ -194,7 +194,7 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $this->assertEquals('Created on', $metadata->getFields()['created']->getLabel());
     }
 
-    public function testGetMetadataLabelsGerman()
+    public function testGetMetadataLabelsGerman(): void
     {
         $form = $this->createFormWithAllFields();
 
