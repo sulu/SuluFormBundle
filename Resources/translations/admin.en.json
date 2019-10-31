@@ -76,5 +76,7 @@
   "sulu_form.width.five_sixths": "Five sixths",
   "sulu_form.mailchimp_list": "Mailchimp List",
   "sulu_form.salutation_mr": "Mr.",
-  "sulu_form.salutation_ms": "Ms."
+  "sulu_form.salutation_ms": "Ms.",
+  "sulu_form.single_form_selection.no_form_selected": "No form selected",
+  "sulu_form.single_form_selection.overlay_title": "Select a form"
 }

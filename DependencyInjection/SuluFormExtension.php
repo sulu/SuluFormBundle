@@ -93,13 +93,16 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                     'field_type_options' => [
                         'single_selection' => [
                             'single_form_selection' => [
-                                'default_type' => 'single_select',
+                                'default_type' => 'list_overlay',
                                 'resource_key' => 'forms',
                                 'types' => [
-                                    'single_select' => [
-                                        'id_property' => 'id',
-                                        'display_property' => 'title',
-                                        'overlay_title' => '',
+                                    'list_overlay' => [
+                                        'adapter' => 'table',
+                                        'list_key' => 'forms',
+                                        'display_properties' => ['title'],
+                                        'empty_text' => 'sulu_form.single_form_selection.no_form_selected',
+                                        'icon' => 'su-th-list',
+                                        'overlay_title' => 'sulu_form.single_form_selection.overlay_title',
                                     ],
                                 ],
                             ],
