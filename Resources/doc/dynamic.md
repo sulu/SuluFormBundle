@@ -80,7 +80,7 @@ has been submitted successfully!
     {% if content.form %}
         {% if app.request.get('send') != 'true' %}
             {# FORM THEME #}
-            {% form_theme content.form 'SuluFormBundle:themes:dynamic.html.twig' %}
+            {% form_theme content.form '@SuluForm/themes/dynamic.html.twig' %}
             {{ form(content.form) }}
         {% else %}
             {{ view.form.entity.successText|raw }}

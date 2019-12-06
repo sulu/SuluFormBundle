@@ -32,11 +32,11 @@ Block is called `sulu_form__token_widget` when using the default dynamic theme.
 
 Add the following to your form theme to overwrite the default
 behaviour of token generation or use the
-`SuluFormBundle:themes:dynamic.html.twig` theme.
+`@SuluForm/themes/dynamic.html.twig` theme.
 
 ```twig
 {%- block _dynamic_form__token_widget -%}
-    {{ render_esi(controller('SuluFormBundle:FormWebsite:token', {
+    {{ render_esi(controller('@SuluForm/FormWebsite/token', {
         'form': form.parent.vars.name,
         'html': true,
          _requestAnalyzer: false

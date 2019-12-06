@@ -3,7 +3,7 @@
 Mostly you want a custom theme here a basic example for common customization
 
 ```twig
-{% extends 'SuluFormBundle:themes:dynamic.html.twig' %}
+{% extends '@SuluForm/themes/dynamic.html.twig' %}
 
 {# Custom title #}
 {%- block sulu_form_text_headline_widget -%}
