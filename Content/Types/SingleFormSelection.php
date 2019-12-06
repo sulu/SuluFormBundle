@@ -27,11 +27,6 @@ use Symfony\Component\Validator\Exception\MissingOptionsException;
 class SingleFormSelection extends SimpleContentType
 {
     /**
-     * @var string
-     */
-    private $template;
-
-    /**
      * @var FormRepository
      */
     private $formRepository;
@@ -46,21 +41,12 @@ class SingleFormSelection extends SimpleContentType
      */
     private $referenceStore;
 
-    /**
-     * SingleFormSelection constructor.
-     *
-     * @param string $template
-     * @param FormRepository $formRepository
-     * @param BuilderInterface $formBuilder
-     */
     public function __construct(
-        $template,
         FormRepository $formRepository,
         BuilderInterface $formBuilder,
         ReferenceStoreInterface $referenceStore
     ) {
         parent::__construct('SingleFormSelection', '');
-        $this->template = $template;
         $this->formRepository = $formRepository;
         $this->formBuilder = $formBuilder;
         $this->referenceStore = $referenceStore;
@@ -154,13 +140,5 @@ class SingleFormSelection extends SimpleContentType
         return [
             'entity' => $formEntity->serializeForLocale($locale),
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getTemplate()
-    {
-        return $this->template;
     }
 }

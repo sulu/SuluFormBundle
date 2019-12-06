@@ -2,6 +2,11 @@
 
 ## 2.0.0 (unreleased)
 
+### TitleProvider interface
+
+The argument `$locale = null` was added to the method `TitleProvider::getTitle`.
+It contains the locale which was used to create the form. 
+
 ### UTF8MB4 compatibility
 
 The field `keyName` need to be short to 128 length for UTF8MB4 compatibility:

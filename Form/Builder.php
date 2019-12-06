@@ -232,7 +232,7 @@ class Builder implements BuilderInterface
     private function createForm($name, $type, $typeId, $locale, $formEntity, $webspaceKey)
     {
         $defaults = $this->getDefaults($formEntity, $locale);
-        $typeName = $this->titleProviderPool->get($type)->getTitle($typeId);
+        $typeName = $this->titleProviderPool->get($type)->getTitle($typeId, $locale);
 
         $recaptchaFields = $formEntity->getFieldsByType('recaptcha');
         $csrfTokenProtection = true;

@@ -67,7 +67,6 @@
         <!-- Content Types -->
         <service id="sulu_form.content_type.single_form_selection"
                  class="Sulu\Bundle\FormBundle\Content\Types\SingleFormSelection">
-            <argument>SuluFormBundle:Template:content-types/form_select_simple.html.twig</argument>
             <argument type="service" id="sulu_form.repository.form" />
             <argument type="service" id="sulu_form.builder" />
             <argument type="service" id="sulu_form.reference_store.form"/>

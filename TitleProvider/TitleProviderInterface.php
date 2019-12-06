@@ -20,6 +20,7 @@ interface TitleProviderInterface
      * Returns the title with registered service from given type (e.g. content, event, blog,…).
      *
      * @param string $typeId
+     * @param string|null $locale
      */
-    public function getTitle($typeId);
+    public function getTitle($typeId, $locale = null);
 }
