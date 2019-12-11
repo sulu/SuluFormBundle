@@ -80,7 +80,6 @@ class DynamicController implements ClassResourceInterface
         $this->viewHandler = $viewHandler;
     }
 
-
     /**
      * Return dynamic form entries.
      *

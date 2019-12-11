@@ -2,6 +2,34 @@
 
 ## 2.0.0 (unreleased)
 
+### Form List Tab
+
+The list tab configuration need the parent route key (can be found in the related admin classes).
+
+**Before**
+
+```yaml
+sulu_form:
+    dynamic_lists:
+        content:
+            form:
+                template: form
+                property: form
+                type: page
+```
+
+**Before**
+
+```yaml
+sulu_form:
+    dynamic_lists:
+        sulu_page.page_edit_form:
+            form:
+                template: form
+                property: form
+                type: page
+```
+
 ### TitleProvider interface
 
 The argument `$locale = null` was added to the method `TitleProvider::getTitle`.

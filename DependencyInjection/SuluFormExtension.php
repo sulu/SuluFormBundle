@@ -143,31 +143,6 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
             'sulu_form.media_collection_strategy.' . $config['media_collection_strategy']
         );
 
-        // add dynamic lists
-        $dynamicLists = $config['dynamic_lists'];
-        if (!isset($dynamicLists['sulu_form_form'])) {
-            $dynamicLists['sulu_form_form'] = [
-                'form' => [
-                    'property' => 'id',
-                    'position' => 40,
-                    'name' => 'sulu_form.navigation.data',
-                    'width' => 'max',
-                ],
-            ];
-        }
-
-        foreach ($dynamicLists as $key => $value) {
-            $parameter = 'sulu_form.dynamic_lists.' . $key . '.config';
-            $container->setParameter($parameter, $value ?: []);
-
-            $definition = new Definition(DynamicListNavigationProvider::class);
-            $definition->addArgument('%' . $parameter . '%');
-            $definition->setClass(DynamicListNavigationProvider::class);
-            $definition->addTag('sulu_admin.content_navigation', ['alias' => $key]);
-            $definition->addTag('sulu.context', ['context' => 'admin']);
-            $container->setDefinition('sulu_form.navigation_provider.' . $key . '.dynamic_list', $definition);
-        }
-
         // Dynamic List Builder
         $container->setParameter(
             'sulu_form.dynamic_list_builder.default',
