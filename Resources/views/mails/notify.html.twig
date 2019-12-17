@@ -17,9 +17,13 @@
         {% endif %}
     {% elseif value.timestamp is defined %}
         {% set value = value|date('d.m.Y') %}
+    {% else %}
+        {% set value %}
+            {{- value|nl2br -}}
+        {% endset %}
     {% endif %}
 
     {% if value is not empty %}
-        <strong>{{ field.shortTitle|default(field.title)|raw }}</strong>: {{ value|nl2br }}<br>
+        <strong>{{ field.shortTitle|default(field.title)|raw }}</strong>: {{ value }}<br>
     {% endif %}
 {% endfor %}
