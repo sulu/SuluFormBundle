@@ -20,6 +20,6 @@
     {% endif %}
 
     {% if value is not empty %}
-        <strong>{{ field.shortTitle|default(field.title)|raw }}</strong>: {{ value }}<br>
+        <strong>{{ field.shortTitle|default(field.title)|raw }}</strong>: {{ value|nl2br }}<br>
     {% endif %}
 {% endfor %}
