@@ -41,10 +41,10 @@ class Helper implements HelperInterface
     protected $logger;
 
     /**
-     * @param \Swift_Mailer   $mailer
-     * @param string          $fromMail
-     * @param string          $toMail
-     * @param null|string     $sender
+     * @param \Swift_Mailer $mailer
+     * @param string $fromMail
+     * @param string $toMail
+     * @param string|null $sender
      * @param LoggerInterface $logger
      */
     public function __construct(
