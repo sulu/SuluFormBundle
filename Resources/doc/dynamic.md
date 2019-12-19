@@ -172,6 +172,30 @@ php bin/adminconsole debug:container --tag=sulu_form.dynamic.type
 
 **Provider for type "structure" already exists**
 
+## Add Honeypot field for spam protection
+
+If you want to add a honeypot field for spam protection you can activate it the following way:
+
+```yaml
+sulu_form:
+    dynamic_honeypot_field: "Honey Pot Field Name"
+    dynamic_honeypot_strategy: spam # no_save, no_email, spam
+```
+
+There are 3 honeypot strategies:
+
+**spam**
+
+Spam is the default behaviour and it will just mark the email subject with a prefix `(SPAM) `.
+
+**no_email**
+
+This option will save the form if enabled but will not send any emails.
+
+**no_save**
+
+Will not save and will not send any emails.
+
 ## Media Collections
 
 To create for every form and page an own collection you need to configure the following in your `config/packages/sulu_form.yaml`:

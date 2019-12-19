@@ -19,5 +19,16 @@ interface HandlerInterface
     const EVENT_FORM_SAVE = 'sulu_form.handler.save';
     const EVENT_FORM_SAVED = 'sulu_form.handler.saved';
 
+    const HONEY_POT_STRATEGY_NO_SAVE = 'no_save';
+    const HONEY_POT_STRATEGY_NO_EMAIL = 'no_email';
+    const HONEY_POT_STRATEGY_SPAM = 'spam';
+
+    /**
+     * @param FormInterface $form
+     * @param FormConfigurationInterface $configuration
+     *
+     * @return bool
+     */
+
     public function handle(FormInterface $form, FormConfigurationInterface $configuration): bool;
 }

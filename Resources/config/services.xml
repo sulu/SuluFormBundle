@@ -13,7 +13,8 @@
             <argument type="service" id="twig" />
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="sulu_media.media_manager" />
-            <argument type="service" id="logger" />
+            <argument>%sulu_form.dynamic_honeypot_strategy%%</argument>
+            <argument>%sulu_form.dynamic_honeypot_field%</argument>
         </service>
         <service id="Sulu\Bundle\FormBundle\Form\HandlerInterface" alias="sulu_form.handler"/>
 
@@ -95,6 +96,7 @@
         <service id="sulu_form.form_type" class="Sulu\Bundle\FormBundle\Form\Type\DynamicFormType">
             <argument type="service" id="sulu_form.dynamic.form_field_type_pool" />
             <argument type="service" id="sulu_form.checksum" />
+            <argument>%sulu_form.dynamic_honeypot_field%</argument>
 
             <tag name="form.type"/>
         </service>
