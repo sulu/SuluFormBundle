@@ -96,7 +96,7 @@ class Helper implements HelperInterface
         $message->setFrom($fromMail);
         $message->setTo($toMail);
 
-        if (null !== $this->sender) {
+        if ($this->sender) {
             $message->setSender($this->sender);
         }
 
