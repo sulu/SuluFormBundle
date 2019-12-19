@@ -32,7 +32,7 @@ class Helper implements HelperInterface
      */
     protected $fromMail;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $sender;
 
     /**
