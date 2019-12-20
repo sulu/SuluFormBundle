@@ -163,6 +163,7 @@ class DynamicFormType extends AbstractType
                 [
                     'label' => $this->honeyPotField,
                     'mapped' => false,
+                    'block_prefix' => 'honeypot',
                 ]
             );
         }
