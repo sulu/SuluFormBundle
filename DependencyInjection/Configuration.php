@@ -52,7 +52,7 @@ class Configuration implements ConfigurationInterface
                 ->children()
                     ->scalarNode('from')->defaultValue('%sulu_admin.email%')->end()
                     ->scalarNode('to')->defaultValue('%sulu_admin.email%')->end()
-                    ->scalarNode('sender')->defaultValue('%sulu_admin.email%')->end()
+                    ->scalarNode('sender')->defaultValue(null)->end()
                     ->arrayNode('templates')
                         ->addDefaultsIfNotSet()
                         ->children()
