@@ -19,7 +19,8 @@ class DynamicListAdmin extends Admin
      */
     private $config;
 
-    public function __construct(ViewBuilderFactoryInterface $viewBuilderFactory, array $config) {
+    public function __construct(ViewBuilderFactoryInterface $viewBuilderFactory, array $config)
+    {
         $this->viewBuilderFactory = $viewBuilderFactory;
         $this->config = $config;
     }
