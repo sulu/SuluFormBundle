@@ -38,18 +38,12 @@
             <tag name="sulu.context" context="admin"/>
         </service>
 
-        <service id="sulu_form.navigation_provider.form"
-                 class="Sulu\Bundle\FormBundle\Admin\FormNavigationProvider">
-            <tag name="sulu_admin.content_navigation" alias="sulu_form_form" />
-            <tag name="sulu.context" context="admin" />
-        </service>
-
-        <!-- Static -->
-        <service id="sulu_form.navigation_provider.template"
-                 class="Sulu\Bundle\FormBundle\Admin\TemplateNavigationProvider">
-            <argument type="service" id="sulu.list.provider.registry"/>
-
-            <tag name="sulu_admin.content_navigation" alias="content" />
+        <service id="sulu_form.dynamic_list_admin"
+                 class="Sulu\Bundle\FormBundle\Admin\DynamicListAdmin">
+            <argument type="service" id="sulu_admin.view_builder_factory"/>
+            <argument>%sulu_form.dynamic_lists.config%</argument>
+            <tag name="sulu.admin"/>
+            <tag name="sulu.context" context="admin"/>
         </service>
 
         <!-- List Provider Registry -->

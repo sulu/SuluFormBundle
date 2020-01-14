@@ -120,7 +120,7 @@ To visualise a tab in the Sulu template, simply configured the following in your
 ```yml
 sulu_form:
     dynamic_lists:
-        content: # tab navigation key e.g. "content" for sulu pages or "article" for sulu articles.
+        sulu_page.page_edit_form: # view key e.g. "sulu_page.page_edit_form" for sulu pages or "sulu_article.edit_form" for sulu articles.
             form: # unique key mostly the same as the template key or a combination between template and property key.
                 template: form # template key
                 property: form # form property name
