@@ -28,7 +28,7 @@ Sulu\Bundle\FormBundle\SuluFormBundle::class => ['all' => true],
 ## Config
 
 Activate esi for csrf token reload on cache pages
-by change the following lines in `app/config/config.yml`.
+by change the following lines in `config/packages/framework.yaml`.
 
 ```yml
 framework:
@@ -64,7 +64,7 @@ php bin/adminconsole assets:install --symlink --relative
 
 ## Routing
 
-Add the following lines to `app/config/admin/routing.yml`
+Add the following lines to `config/routes/sulu_admin.yaml`
 
 ```yml
 sulu_form_api:
@@ -91,4 +91,3 @@ Make sure you've set the correct permissions in the Sulu backend for this bundle
 ## Varnish
 
 Using varnish have a look at the [CSRF](csrf.md "CSRF Token") documentation.
-
