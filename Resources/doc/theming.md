@@ -24,14 +24,14 @@ Mostly you want a custom theme here a basic example for common customization
 To use the new theme you must change the following line in your form rendering:
 
 ```twig
-{% form_theme content.form 'AppBundle:themes:custom-dynamic.html.twig' %}
+{% form_theme content.form 'themes/custom-dynamic.html.twig' %}
 ```
 
 **Other theme customization**
 
 For other block you can overwrites have a look at the 
 
-https://github.com/symfony/symfony/blob/2.8/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
+https://github.com/symfony/symfony/blob/4.4/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
 
 and
 

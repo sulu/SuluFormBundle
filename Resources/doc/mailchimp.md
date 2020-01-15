@@ -22,7 +22,7 @@ composer require drewm/mailchimp-api:^2.2
 
 ## Config
 
-add the following config to `app/config/config.yml`
+Add the following config to `config/packages/sulu_form.yaml`:
 
 ```yml
 sulu_form:
@@ -37,9 +37,11 @@ To change the subscribe status from `subscribed` to `pending` you need to config
 sulu_form:
     mailchimp_subscribe_status: "pending"
 ```
+
 https://developer.mailchimp.com/documentation/mailchimp/guides/manage-subscribers-with-the-mailchimp-api/#check-subscription-status
 
 ## Where is my Mailchimp API Key?
+
 Account -> Extras -> Api Keys (create new / use existing)
 
 or
