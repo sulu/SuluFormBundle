@@ -101,7 +101,7 @@ class RequestListener
         if ($this->formHandler->handle($form, $configuration)) {
             $serializedObject = $dynamic->getForm()->serializeForLocale($dynamic->getLocale(), $dynamic);
             $dynFormSavedEvent = new DynFormSavedEvent($serializedObject, $dynamic);
-            $this->eventDispatcher->dispatch(DynFormSavedEvent::NAME, $dynFormSavedEvent);
+            $this->eventDispatcher->dispatch($dynFormSavedEvent, DynFormSavedEvent::NAME);
 
             $response = new RedirectResponse('?send=true');
             $event->setResponse($response);

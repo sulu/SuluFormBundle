@@ -11,15 +11,21 @@
 
 namespace Sulu\Bundle\FormBundle\Controller;
 
+use Sulu\Bundle\FormBundle\Configuration\FormConfigurationFactory;
+use Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Sulu\Bundle\FormBundle\Form\Type\AbstractType;
 use Sulu\Bundle\WebsiteBundle\Controller\DefaultController;
 use Sulu\Component\Content\Compat\StructureInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormRegistryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class FormWebsiteController extends DefaultController
 {
@@ -34,18 +40,76 @@ class FormWebsiteController extends DefaultController
     protected $attributes;
 
     /**
+     * @var RequestStack
+     */
+    private $requestStack;
+
+    /**
+     * @var FormRegistryInterface
+     */
+    private $formRegistry;
+
+    /**
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
+
+    /**
+     * @var FormConfigurationFactory
+     */
+    private $formConfigurationFactory;
+
+    /**
+     * @var HandlerInterface
+     */
+    private $formHandler;
+
+    /**
+     * @var CsrfTokenManagerInterface
+     */
+    private $csrfTokenManager;
+
+    /**
+     * @var array
+     */
+    private $ajaxTemplates;
+
+    /**
+     * @var array
+     */
+    private $staticForms;
+
+    public function __construct(
+        RequestStack $requestStack,
+        FormRegistryInterface $formRegistry,
+        FormFactoryInterface $formFactory,
+        FormConfigurationFactory $formConfigurationFactory,
+        HandlerInterface $formHandler,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        array $ajaxTemplates,
+        array $staticForms
+    )
+    {
+        $this->requestStack = $requestStack;
+        $this->formRegistry = $formRegistry;
+        $this->formFactory = $formFactory;
+        $this->formConfigurationFactory = $formConfigurationFactory;
+        $this->formHandler = $formHandler;
+        $this->csrfTokenManager = $csrfTokenManager;
+        $this->ajaxTemplates = $ajaxTemplates;
+        $this->staticForms = $staticForms;
+    }
+
+
+    /**
      * Form action.
-     *
-     * @param StructureInterface $structure
-     * @param bool $preview
-     * @param bool $partial
      *
      * @return JsonResponse|RedirectResponse|Response
      */
-    public function formAction(StructureInterface $structure, $preview = false, $partial = false)
+    public function formAction(StructureInterface $structure, bool $preview = false, bool $partial = false)
     {
         /** @var Request $request */
-        $request = $this->get('request_stack')->getCurrentRequest();
+        $request = $this->requestStack->getCurrentRequest();
 
         // get attributes
         $attributes = $this->getAttributes([], $structure, $preview);
@@ -54,10 +118,10 @@ class FormWebsiteController extends DefaultController
 
         $typeClass = $this->getTypeClass($template);
         /** @var AbstractType $type */
-        $type = $this->get('form.registry')->getType($typeClass)->getInnerType();
+        $type = $this->formRegistry->getType($typeClass)->getInnerType();
         $type->setAttributes($attributes);
 
-        $this->form = $this->get('form.factory')->create($typeClass);
+        $this->form = $this->formFactory->create($typeClass);
         $this->form->handleRequest($request);
 
         if ($this->form->isSubmitted()
@@ -75,25 +139,18 @@ class FormWebsiteController extends DefaultController
     /**
      * Form only action.
      *
-     * @param Request $request
-     * @param string $key
-     *
      * @return RedirectResponse|Response
-     *
-     * @throws NotFoundHttpException
      */
-    public function onlyAction(Request $request, $key)
+    public function onlyAction(Request $request, string $key)
     {
-        $ajaxTemplates = $this->container->getParameter('sulu_form.ajax_templates');
-
-        if (!$ajaxTemplates[$key]) {
+        if (!$this->ajaxTemplates[$key]) {
             throw new NotFoundHttpException();
         }
 
         $typeClass = $this->getTypeClass($key);
         /** @var AbstractType $type */
-        $type = $this->get('form.registry')->getType($typeClass)->getInnerType();
-        $this->form = $this->get('form.factory')->create($typeClass);
+        $type = $this->formRegistry->getType($typeClass)->getInnerType();
+        $this->form = $this->formFactory->create($typeClass);
         $this->form->handleRequest($request);
 
         if ($this->form->isSubmitted()
@@ -105,29 +162,27 @@ class FormWebsiteController extends DefaultController
             return $response;
         }
 
-        return $this->render($ajaxTemplates[$key], ['form' => $this->form->createView()]);
+        return $this->render($this->ajaxTemplates[$key], ['form' => $this->form->createView()]);
     }
 
     /**
      * Handle form submit.
      *
-     * @param Request $request
-     * @param AbstractType $type
-     * @param array $attributes
+     * @param mixed[] $attributes
      *
-     * @return JsonResponse|RedirectResponse
+     * @return JsonResponse|RedirectResponse|Null
      */
-    private function handleFormSubmit(Request $request, $type, $attributes)
+    private function handleFormSubmit(Request $request, AbstractType $type, array $attributes)
     {
         // handle form submit
-        $configuration = $this->get('sulu_form.configuration.form_configuration_factory')->buildByType(
+        $configuration = $this->formConfigurationFactory->buildByType(
             $type,
             $this->form->getData(),
             $request->getLocale(),
             $attributes
         );
 
-        $success = $this->get('sulu_form.handler')->handle($this->form, $configuration);
+        $success = $this->formHandler->handle($this->form, $configuration);
 
         if ($success) {
             if ($request->isXmlHttpRequest()) {
@@ -146,42 +201,31 @@ class FormWebsiteController extends DefaultController
                 400
             );
         }
+
+        return null;
     }
 
-    /**
-     * Handle form only submit.
-     *
-     * @param Request $request
-     * @param AbstractType $type
-     *
-     * @return RedirectResponse
-     */
-    private function handleFormOnlySubmit(Request $request, $type)
+    private function handleFormOnlySubmit(Request $request, AbstractType $type): ?RedirectResponse
     {
         // handle form submit
-        $configuration = $this->get('sulu_form.configuration.form_configuration_factory')->buildByType(
+        $configuration = $this->formConfigurationFactory->buildByType(
             $type,
             $this->form->getData(),
             $request->getLocale(),
             []
         );
 
-        if ($this->get('sulu_form.handler')->handle($this->form, $configuration)) {
+        if ($this->formHandler->handle($this->form, $configuration)) {
             return new RedirectResponse('?send=true');
         }
+
+        return null;
     }
 
-    /**
-     * Generates a token for the form.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function tokenAction(Request $request)
+    public function tokenAction(Request $request): Response
     {
         $formName = $request->get('form');
-        $csrfToken = $this->get('security.csrf.token_manager')->getToken(
+        $csrfToken = $this->csrfTokenManager->getToken(
             $request->get('form')
         )->getValue();
 
@@ -214,9 +258,9 @@ class FormWebsiteController extends DefaultController
     /**
      * Get errors.
      *
-     * @return array
+     * @return array[]
      */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         $errors = [];
 
@@ -260,17 +304,8 @@ class FormWebsiteController extends DefaultController
         return $this->attributes;
     }
 
-    /**
-     * Get type class.
-     *
-     * @param string $key
-     *
-     * @return string
-     */
-    private function getTypeClass($key)
+    private function getTypeClass(string $key): string
     {
-        $staticForms = $this->getParameter('sulu_form.static_forms');
-
-        return $staticForms[$key]['class'];
+        return $this->staticForms[$key]['class'];
     }
 }
