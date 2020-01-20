@@ -34,7 +34,7 @@ class TitleProviderPool implements TitleProviderPoolInterface
     /**
      * {@inheritdoc}
      */
-    public function get($alias)
+    public function get(string $alias): TitleProviderInterface
     {
         return $this->providers[$alias];
     }
@@ -42,7 +42,7 @@ class TitleProviderPool implements TitleProviderPoolInterface
     /**
      * {@inheritdoc}
      */
-    public function all()
+    public function all(): array
     {
         return $this->providers;
     }

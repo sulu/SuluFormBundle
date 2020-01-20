@@ -13,56 +13,40 @@ namespace Sulu\Bundle\FormBundle\Twig;
 
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Symfony\Component\Form\FormView;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * Extension for content form generation.
  */
-class FormTwigExtension extends \Twig_Extension
+class FormTwigExtension extends AbstractExtension
 {
     /**
      * @var BuilderInterface
      */
     private $formBuilder;
 
-    /**
-     * FormTwigExtension constructor.
-     *
-     * @param BuilderInterface $formBuilder
-     */
     public function __construct(BuilderInterface $formBuilder)
     {
         $this->formBuilder = $formBuilder;
     }
 
     /**
-     * Returns an array of possible function in this extension.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('sulu_form_get_by_id', [$this, 'getFormById']),
+            new TwigFunction('sulu_form_get_by_id', [$this, 'getFormById']),
         ];
     }
 
-    /**
-     * Returns FormView by given params.
-     *
-     * @param int $id
-     * @param string $type
-     * @param string $typeId
-     * @param mixed $locale
-     * @param string $name
-     *
-     * @return FormView
-     */
-    public function getFormById($id, $type, $typeId, $locale = null, $name = 'form')
+    public function getFormById(int $id, string $type, string $typeId, string $locale = null, string $name = 'form'): ?FormView
     {
         $form = $this->formBuilder->build((int) $id, $type, $typeId, $locale, $name);
 
         if (!$form) {
-            return;
+            return null;
         }
 
         return $form->createView();

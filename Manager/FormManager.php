@@ -43,52 +43,39 @@ class FormManager
     public function __construct(
         EntityManagerInterface $entityManager,
         FormRepository $formRepository
-    ) {
+    )
+    {
         $this->entityManager = $entityManager;
         $this->formRepository = $formRepository;
     }
 
-    /**
-     * @param int $id
-     * @param string $locale
-     *
-     * @return Form
-     */
-    public function findById($id, $locale = null)
+    public function findById(int $id, ?string $locale = null): Form
     {
         return $this->formRepository->loadById($id, $locale);
     }
 
     /**
-     * @param string $locale
-     * @param array $filters
+     * @param mixed[] $filters
      *
      * @return Form[]
      */
-    public function findAll($locale = null, $filters = [])
+    public function findAll(?string $locale = null, array $filters = []): array
     {
         return $this->formRepository->loadAll($locale, $filters);
     }
 
     /**
-     * @param string $locale
-     * @param array $filters
-     *
-     * @return int
+     * @param mixed[] $filters
      */
-    public function count($locale = null, $filters = [])
+    public function count(?string $locale = null, array $filters = []): int
     {
         return $this->formRepository->countByFilters($locale, $filters);
     }
 
     /**
-     * @param array $data
-     * @param string $locale
-     * @param int $id
-     *
-     * @return Form|null
+     * @param mixed[] $data
      */
-    public function save($data, $locale = null, $id = null)
+    public function save(array $data, ?string $locale = null, ?int $id = null): ?Form
     {
         $form = new Form();
 
@@ -145,18 +132,12 @@ class FormManager
         return $form;
     }
 
-    /**
-     * @param int $id
-     * @param string $locale
-     *
-     * @return Form|null
-     */
-    public function delete($id, $locale = null)
+    public function delete(int $id, ?string $locale = null): ?Form
     {
         $object = $this->findById($id, $locale);
 
         if (!$object) {
-            return;
+            return null;
         }
 
         $this->entityManager->remove($object);
@@ -166,10 +147,9 @@ class FormManager
     }
 
     /**
-     * @param array $data
-     * @param FormTranslation $translation
+     * @param mixed[] $data
      */
-    public function updateReceivers($data, $translation)
+    public function updateReceivers(array $data, FormTranslation $translation): void
     {
         $translation->setReceivers([]);
         $receiversRepository = $this->entityManager->getRepository('SuluFormBundle:FormTranslationReceiver');
@@ -201,11 +181,9 @@ class FormManager
     /**
      * Updates the contained fields in the form.
      *
-     * @param array $data
-     * @param Form $form
-     * @param string $locale
+     * @param mixed[] $data
      */
-    protected function updateFields($data, $form, $locale)
+    protected function updateFields(array $data, Form $form, string $locale): void
     {
         $reservedKeys = array_column(self::getValue($data, 'fields', []), 'key');
 
@@ -266,14 +244,12 @@ class FormManager
     }
 
     /**
-     * @param array $data
-     * @param string $value
-     * @param mixed $default
-     * @param string $type
+     * @param mixed[] $data
+     * @param null|mixed $default
      *
      * @return mixed
      */
-    protected static function getValue($data, $value, $default = null, $type = null)
+    protected static function getValue(array $data, string $value, $default = null, ?string $type = null)
     {
         if (isset($data[$value])) {
             if ('date' === $type) {
@@ -291,13 +267,9 @@ class FormManager
     }
 
     /**
-     * @param string $type
-     * @param array $keys
-     * @param int $counter
-     *
-     * @return string
+     * @param string[] $keys
      */
-    protected function getUniqueKey($type, $keys, $counter = 0)
+    protected function getUniqueKey(string $type, array $keys, int $counter = 0): string
     {
         $name = $type;
 

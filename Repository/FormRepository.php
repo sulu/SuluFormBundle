@@ -16,13 +16,7 @@ use Sulu\Bundle\FormBundle\Entity\Form;
 
 class FormRepository extends \Doctrine\ORM\EntityRepository
 {
-    /**
-     * @param int $id
-     * @param string $locale
-     *
-     * @return Form|null
-     */
-    public function loadById($id, $locale = null)
+    public function loadById(int $id, ?string $locale = null): ?Form
     {
         $queryBuilder = $this->createQueryBuilder('form')
             ->leftJoin('form.translations', 'translation')->addSelect('translation')
@@ -43,12 +37,11 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * @param string $locale
-     * @param array $filters
+     * @param mixed[] $filters
      *
      * @return Form[]
      */
-    public function loadAll($locale = null, $filters = [])
+    public function loadAll(?string $locale = null, array $filters = []): array
     {
         $queryBuilder = $this->createQueryBuilder('form')
             ->leftJoin('form.translations', 'translation')->addSelect('translation')
@@ -65,28 +58,20 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
-    /**
-     * @param string $locale
-     * @param array $filters
-     *
-     * @return int
-     */
-    public function countByFilters($locale = null, $filters = [])
+    public function countByFilters(string $locale = null, array $filters = []): int
     {
         $queryBuilder = $this->createQueryBuilder('form');
         $queryBuilder->select($queryBuilder->expr()->count('form.id'));
 
-        return (int) $queryBuilder->getQuery()->getSingleScalarResult();
+        return (int)$queryBuilder->getQuery()->getSingleScalarResult();
     }
 
     /**
-     * @param array $data
+     * @param mixed[] $data
      * @param string $key
      * @param mixed $default
-     *
-     * @return int|null
      */
-    protected static function getValue($data, $key, $default = null)
+    protected static function getValue(array $data, string $key, $default = null): ?int
     {
         if (isset($data[$key])) {
             return $data[$key];

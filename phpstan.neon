@@ -1,4 +1,18 @@
+includes:
+    - vendor/jangregor/phpstan-prophecy/src/extension.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-doctrine/rules.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
+
 parameters:
+    paths:
+        - .
+    level: 0
+    symfony:
+            container_xml_path: %rootDir%/../../../Tests/Application/var/cache/admin/dev/adminAdminDevDebugProjectContainer.xml
     excludes_analyse:
         - %currentWorkingDirectory%/vendor/*
         - %currentWorkingDirectory%/Tests/*

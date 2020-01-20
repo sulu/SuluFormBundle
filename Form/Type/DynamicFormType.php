@@ -15,6 +15,7 @@ use Sulu\Bundle\FormBundle\Dynamic\Checksum;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Exception\FormNotFoundException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -34,16 +35,11 @@ class DynamicFormType extends AbstractType
      */
     private $checksum;
 
-    /**
-     * DynamicFormType constructor.
-     *
-     * @param FormFieldTypePool $typePool
-     * @param Checksum $checksum
-     */
     public function __construct(
         FormFieldTypePool $typePool,
         Checksum $checksum
-    ) {
+    )
+    {
         $this->typePool = $typePool;
         $this->checksum = $checksum;
     }
@@ -61,9 +57,7 @@ class DynamicFormType extends AbstractType
         $name = $options['name'];
 
         if (!$translation = $formEntity->getTranslation($locale)) {
-            throw new \Exception(
-                sprintf('The form with the ID "%s" does not exist for the locale "%s"!', $formEntity->getId(), $locale)
-            );
+            throw new FormNotFoundException($formEntity->getId(), $locale);
         }
 
         $currentWidthValue = 0;
@@ -193,14 +187,7 @@ class DynamicFormType extends AbstractType
         return 'dynamic';
     }
 
-    /**
-     * Get item width number.
-     *
-     * @param string $width
-     *
-     * @return int
-     */
-    private function getItemWidthNumber($width)
+    private function getItemWidthNumber(string $width): int
     {
         switch ($width) {
             case 'one-sixth':
@@ -234,16 +221,7 @@ class DynamicFormType extends AbstractType
         return $itemWidth;
     }
 
-    /**
-     * Get last width.
-     *
-     * @param int $currentWidthValue
-     * @param string $width
-     * @param string $nextWidth
-     *
-     * @return bool
-     */
-    private function getLastWidth(&$currentWidthValue, $width, $nextWidth)
+    private function getLastWidth(int &$currentWidthValue, string $width, string $nextWidth): bool
     {
         $widthNumber = $this->getItemWidthNumber($width);
         $nextWidthNumber = $this->getItemWidthNumber($nextWidth);

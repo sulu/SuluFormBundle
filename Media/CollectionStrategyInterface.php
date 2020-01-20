@@ -19,19 +19,13 @@ interface CollectionStrategyInterface
     /**
      * Get collection id.
      *
-     * @param int $formId
-     * @param string $formTitle
-     * @param string $type
-     * @param string $typeId
-     * @param string $locale
-     *
      * @return array|int
      */
     public function getCollectionId(
-        $formId,
-        $formTitle,
-        $type,
-        $typeId,
-        $locale
+        int $formId,
+        string $formTitle,
+        string $type,
+        string $typeId,
+        string $locale
     );
 }

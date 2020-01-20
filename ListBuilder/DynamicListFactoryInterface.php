@@ -13,6 +13,7 @@ namespace Sulu\Bundle\FormBundle\ListBuilder;
 
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Component\Rest\ListBuilder\FieldDescriptor;
 
 /**
  * Create FieldDescription from a form entity.
@@ -22,29 +23,18 @@ interface DynamicListFactoryInterface
     /**
      * Get field descriptors.
      *
-     * @param Form $form
-     * @param $locale
-     *
-     * @return mixed
+     * @return FieldDescriptor[]
      */
-    public function getFieldDescriptors(Form $form, $locale);
+    public function getFieldDescriptors(Form $form, string $locale): array;
 
     /**
      * Build list.
      *
      * @param Dynamic[] $dynamics
-     * @param string $locale
-     * @param string $builder
      *
-     * @return array
+     * @return string[]
      */
-    public function build($dynamics, $locale, $builder = 'default');
+    public function build(array $dynamics, string $locale, string $builder = 'default'): array;
 
-    /**
-     * Add a dynamic list builder.
-     *
-     * @param DynamicListBuilderInterface $builder
-     * @param string $alias
-     */
-    public function add(DynamicListBuilderInterface $builder, $alias);
+    public function add(DynamicListBuilderInterface $builder, string $alias): void;
 }

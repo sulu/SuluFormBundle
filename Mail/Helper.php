@@ -37,17 +37,11 @@ class Helper implements HelperInterface
      */
     protected $logger;
 
-    /**
-     * @param \Swift_Mailer $mailer
-     * @param string $fromMail
-     * @param string $toMail
-     * @param LoggerInterface $logger
-     */
     public function __construct(
         \Swift_Mailer $mailer,
-        $fromMail,
-        $toMail,
-        $logger = null
+        string $fromMail,
+        string $toMail,
+        LoggerInterface $logger = null
     ) {
         $this->mailer = $mailer;
         $this->toMail = $toMail;
@@ -59,17 +53,17 @@ class Helper implements HelperInterface
      * {@inheritdoc}
      */
     public function sendMail(
-        $subject,
-        $body,
+        string $subject,
+        string $body,
         $toMail = null,
-        $fromMail = null,
-        $html = true,
-        $replyTo = null,
-        $attachments = [],
+        string $fromMail = null,
+        bool $html = true,
+        string $replyTo = null,
+        array $attachments = [],
         $ccMail = [],
         $bccMail = [],
-        $plainText = null
-    ) {
+        string $plainText = null
+    ): int {
         $message = new \Swift_Message(
             $subject,
             $body

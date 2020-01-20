@@ -14,129 +14,96 @@ namespace Sulu\Bundle\FormBundle\Form\Type;
 interface TypeInterface
 {
     /**
-     * @param array
+     * @param mixed[] $attributes
      */
-    public function setAttributes($attributes);
+    public function setAttributes(array $attributes): void;
 
     /**
-     * @param $formData
-     *
+     * @param mixed[] $formData
+     */
+    public function getCustomerSubject(array $formData = []): ?string;
+
+    /**
+     * @param mixed[] $formData
+     */
+    public function getNotifySubject(array $formData = []): ?string;
+
+    /**
+     * @param mixed[] $formData
+     */
+    public function getCustomerMail(array $formData = []): string;
+
+    /**
+     * @param mixed[] $formData
+     */
+    public function getNotifyMail(array $formData = []): string;
+
+    /**
+     * @param mixed[] $formData
+     */
+    public function getCustomerFromMailAddress(array $formData = []): string;
+
+    /**
+     * @param mixed[] $formData
+     */
+    public function getCustomerToMailAddress(array $formData = []): string;
+
+    /**
+     * @param mixed[] $formData
+     */
+    public function getCustomerReplyToMailAddress(array $formData = []): string;
+
+    /**
+     * @param mixed[] $formData
+     */
+    public function getNotifyFromMailAddress(array $formData = []): string;
+
+    /**
+     * @param mixed[] $formData
+     */
+    public function getNotifyToMailAddress(array $formData = []): string;
+
+    /**
+     * @param mixed[] $formData
+     */
+    public function getNotifyReplyToMailAddress(array $formData = []): string;
+
+    /**
+     * @param mixed[] $formData
+     */
+    public function getNotifySendAttachments(array $formData = []): bool;
+
+    /**
+     * @param mixed[] $formData
+     */
+    public function getNotifyDeactivateMails(array $formData = []): bool;
+
+    /**
+     * @param mixed[] $formData
+     */
+    public function getCustomerDeactivateMails(array $formData = []): bool;
+
+    /**
+     * @param mixed[] $formData
+     */
+    public function getMailText(array $formData = []): string;
+
+    /**
+     * @param mixed[] $formData
+     */
+    public function getSuccessText(array $formData = []): string;
+
+    /**
      * @return string
-     */
-    public function getCustomerSubject($formData = []);
-
-    /**
-     * @param $formData
-     *
-     * @return string
-     */
-    public function getNotifySubject($formData = []);
-
-    /**
-     * @param $formData
-     *
-     * @return string
-     */
-    public function getCustomerMail($formData = []);
-
-    /**
-     * @param $formData
-     *
-     * @return string
-     */
-    public function getNotifyMail($formData = []);
-
-    /**
-     * @param $formData
-     *
-     * @return string
-     */
-    public function getCustomerFromMailAddress($formData = []);
-
-    /**
-     * @param $formData
-     *
-     * @return string
-     */
-    public function getCustomerToMailAddress($formData = []);
-
-    /**
-     * @param $formData
-     *
-     * @return string
-     */
-    public function getCustomerReplyToMailAddress($formData = []);
-
-    /**
-     * @param $formData
-     *
-     * @return string
-     */
-    public function getNotifyFromMailAddress($formData = []);
-
-    /**
-     * @param $formData
-     *
-     * @return string
-     */
-    public function getNotifyToMailAddress($formData = []);
-
-    /**
-     * @param $formData
-     *
-     * @return string
-     */
-    public function getNotifyReplyToMailAddress($formData = []);
-
-    /**
-     * @param $formData
-     *
-     * @return bool
-     */
-    public function getNotifySendAttachments($formData = []);
-
-    /**
-     * @param $formData
-     *
-     * @return bool
-     */
-    public function getNotifyDeactivateMails($formData = []);
-
-    /**
-     * @param $formData
-     *
-     * @return bool
-     */
-    public function getCustomerDeactivateMails($formData = []);
-
-    /**
-     * @param $formData
-     *
-     * @return string
-     */
-    public function getMailText($formData = []);
-
-    /**
-     * @param $formData
-     *
-     * @return string
-     */
-    public function getSuccessText($formData = []);
-
-    /**
      * @deprecated
      *
-     * @return string
      */
-    public function getDefaultIntention();
+    public function getDefaultIntention(): string;
 
     /**
      * @return string[]
      */
-    public function getFileFields();
+    public function getFileFields(): array;
 
-    /**
-     * @return int
-     */
-    public function getCollectionId();
+    public function getCollectionId(): ?int;
 }

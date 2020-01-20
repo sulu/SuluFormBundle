@@ -16,20 +16,9 @@ use Sulu\Component\Rest\ListBuilder\FieldDescriptor;
 interface ListProviderInterface
 {
     /**
-     * @param string $webspace
-     * @param string $locale
-     * @param string $uuid
-     *
      * @return FieldDescriptor[]
      */
-    public function getFieldDescriptors($webspace, $locale, $uuid);
+    public function getFieldDescriptors(string $webspace, string $locale, string $uuid): array;
 
-    /**
-     * @param string $webspace
-     * @param string $locale
-     * @param string $uuid
-     *
-     * @return string
-     */
-    public function getEntityName($webspace, $locale, $uuid);
+    public function getEntityName(string $webspace, string $locale, string $uuid): string;
 }

@@ -19,16 +19,14 @@ interface TitleProviderPoolInterface
     /**
      * Returns collection-type specified by alias.
      *
-     * @param string $alias
-     *
      * @return TitleProviderInterface
      */
-    public function get($alias);
+    public function get(string $alias): TitleProviderInterface;
 
     /**
      * Returns all collection-types.
      *
      * @return TitleProviderInterface[]
      */
-    public function all();
+    public function all(): array;
 }

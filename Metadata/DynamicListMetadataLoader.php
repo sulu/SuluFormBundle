@@ -68,6 +68,9 @@ class DynamicListMetadataLoader implements ListMetadataLoaderInterface
         return $list;
     }
 
+    /**
+     * @param mixed[] $metadataOptions
+     */
     private function getForm(array $metadataOptions, string $locale): ?Form
     {
         if (!array_key_exists('id', $metadataOptions)) {

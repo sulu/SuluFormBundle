@@ -21,10 +21,7 @@ class NullHelper implements HelperInterface
      */
     protected $logger;
 
-    /**
-     * @param LoggerInterface $logger
-     */
-    public function __construct($logger = null)
+    public function __construct(LoggerInterface $logger = null)
     {
         $this->logger = $logger ?: new NullLogger();
     }
@@ -33,17 +30,17 @@ class NullHelper implements HelperInterface
      * {@inheritdoc}
      */
     public function sendMail(
-        $subject,
-        $body,
+        string $subject,
+        string $body,
         $toMail = null,
-        $fromMail = null,
-        $html = true,
-        $replyTo = null,
-        $attachments = [],
+        string $fromMail = null,
+        bool $html = true,
+        string $replyTo = null,
+        array $attachments = [],
         $ccMail = [],
         $bccMail = [],
-        $plainText = null
-    ) {
+        string $plainText = null
+    ): int {
         $this->logger->info(sprintf(
             'SuluFormBundle NullMailHelper: ' . PHP_EOL .
             '   From: %s' . PHP_EOL .

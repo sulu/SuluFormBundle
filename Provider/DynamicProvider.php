@@ -20,7 +20,7 @@ class DynamicProvider implements ListProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function getFieldDescriptors($webspace, $locale, $uuid)
+    public function getFieldDescriptors(string $webspace, string $locale, string $uuid): array
     {
         @trigger_error(
             __METHOD__ . '() use the new dynamic list provider.',
@@ -49,15 +49,7 @@ class DynamicProvider implements ListProviderInterface
         return $fieldDescriptors;
     }
 
-    /**
-     * @param string $name
-     * @param string $type
-     * @param string $translationKey
-     * @param string $visibility
-     *
-     * @return DoctrineFieldDescriptor
-     */
-    protected function createFieldDescriptor($name, $type = '', $translationKey = '', $visibility = FieldDescriptorInterface::VISIBILITY_YES)
+    protected function createFieldDescriptor(string $name, string $type = '', string $translationKey = '', string $visibility = FieldDescriptorInterface::VISIBILITY_YES): DoctrineFieldDescriptor
     {
         if (!$translationKey) {
             $translationKey = 'sulu_form.type.' . strtolower($name);
@@ -77,7 +69,7 @@ class DynamicProvider implements ListProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function getEntityName($webspace, $locale, $uuid)
+    public function getEntityName(string $webspace, string $locale, string $uuid): string
     {
         return Dynamic::class;
     }

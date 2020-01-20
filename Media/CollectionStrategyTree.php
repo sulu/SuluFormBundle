@@ -47,7 +47,8 @@ class CollectionStrategyTree implements CollectionStrategyInterface
         CollectionManagerInterface $collectionManager,
         SystemCollectionManagerInterface $systemCollectionManager,
         TitleProviderPoolInterface $titleProviderPool
-    ) {
+    )
+    {
         $this->collectionManager = $collectionManager;
         $this->systemCollectionManager = $systemCollectionManager;
         $this->titleProviderPool = $titleProviderPool;
@@ -62,7 +63,8 @@ class CollectionStrategyTree implements CollectionStrategyInterface
         $type,
         $typeId,
         $locale
-    ) {
+    )
+    {
         $title = $this->titleProviderPool->get($type)->getTitle($typeId, $locale);
         $rootCollectionKey = SuluFormExtension::SYSTEM_COLLECTION_ROOT;
         $parentCollectionKey = $rootCollectionKey . '.' . $formId;
@@ -97,17 +99,7 @@ class CollectionStrategyTree implements CollectionStrategyInterface
         );
     }
 
-    /**
-     * Create collection.
-     *
-     * @param string $title
-     * @param int $parentId
-     * @param string $collectionKey
-     * @param string $locale
-     *
-     * @return int
-     */
-    private function createCollection($title, $parentId, $collectionKey, $locale)
+    private function createCollection(string $title, int $parentId, string $collectionKey, string $locale): int
     {
         $parentCollection = $this->collectionManager->save([
             'title' => $title,
@@ -120,28 +112,14 @@ class CollectionStrategyTree implements CollectionStrategyInterface
         return $parentCollection->getId();
     }
 
-    /**
-     * Load collection id.
-     *
-     * @param string $collectionKey
-     * @param string $locale
-     *
-     * @return int
-     */
-    private function loadCollectionId(
-        $collectionKey,
-        $locale
-    ) {
-        try {
-            $collection = $this->collectionManager->getByKey($collectionKey, $locale);
+    private function loadCollectionId(string $collectionKey, string $locale): ?int
+    {
+        $collection = $this->collectionManager->getByKey($collectionKey, $locale);
 
-            if (!$collection) {
-                return;
-            }
-
+        if ($collection) {
             return $collection->getId();
-        } catch (\Exception $e) {
-            // Catch all exception
         }
+
+        return null;
     }
 }

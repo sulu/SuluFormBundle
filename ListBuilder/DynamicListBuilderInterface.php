@@ -21,10 +21,7 @@ interface DynamicListBuilderInterface
     /**
      * Build the list and return per line an array entry.
      *
-     * @param Dynamic $dynamic
-     * @param $locale
-     *
-     * @return array
+     * @return string[]
      */
-    public function build(Dynamic $dynamic, $locale);
+    public function build(Dynamic $dynamic, string $locale): array;
 }

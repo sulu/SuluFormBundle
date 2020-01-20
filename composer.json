@@ -30,7 +30,13 @@
         "zendframework/zend-stdlib": "^2.3",
         "zendframework/zendsearch": "^2.0.0rc6",
         "php-ffmpeg/php-ffmpeg": "^0.13 || ^0.14",
-        "symfony/dotenv": "^4.3"
+        "symfony/dotenv": "^4.3",
+        "phpstan/phpstan": "^0.11.12",
+        "phpstan/phpstan-doctrine": "^0.11.5",
+        "phpstan/phpstan-phpunit": "^0.11.2",
+        "phpstan/phpstan-symfony": "^0.11.6",
+        "thecodingmachine/phpstan-strict-rules": "^0.11.2",
+        "jangregor/phpstan-prophecy": "^0.4.1"
     },
     "suggest": {
         "excelwebzone/recaptcha-bundle": "Allows to add recaptcha to any dynamic form",
