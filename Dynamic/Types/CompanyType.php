@@ -25,7 +25,7 @@ class CompanyType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfiguration()
+    public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.company',
@@ -36,7 +36,7 @@ class CompanyType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
+    public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $type = TypeTextType::class;
         $builder->add($field->getKey(), $type, $options);
@@ -45,7 +45,7 @@ class CompanyType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getDefaultValue(FormField $field, $locale)
+    public function getDefaultValue(FormField $field, string $locale)
     {
         return $field->getTranslation($locale)->getDefaultValue();
     }

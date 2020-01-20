@@ -27,7 +27,7 @@ class DropdownMultiple implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfiguration()
+    public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.dropdownmultiple',
@@ -39,7 +39,7 @@ class DropdownMultiple implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
+    public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $translation = $field->getTranslation($locale);
         $options['expanded'] = false;
@@ -52,7 +52,7 @@ class DropdownMultiple implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getDefaultValue(FormField $field, $locale)
+    public function getDefaultValue(FormField $field, string $locale)
     {
         $value = $field->getTranslation($locale)->getDefaultValue();
 

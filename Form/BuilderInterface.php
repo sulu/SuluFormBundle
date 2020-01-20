@@ -22,24 +22,12 @@ interface BuilderInterface
     /**
      * Build by request.
      *
-     * @param Request $request
-     *
-     * @return array
-     *
-     * @throws \Exception
+     * @return null|FormInterface
      */
-    public function buildByRequest(Request $request);
+    public function buildByRequest(Request $request): ?FormInterface;
 
     /**
      * Build dynamic form.
-     *
-     * @param int $id
-     * @param string $type
-     * @param string $typeId
-     * @param string $locale
-     * @param string $name
-     *
-     * @return FormInterface
      */
-    public function build($id, $type, $typeId, $locale = null, $name = 'form');
+    public function build(int $id, string $type, string $typeId, ?string $locale = null, string $name = 'form'): FormInterface;
 }

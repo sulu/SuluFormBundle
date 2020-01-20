@@ -21,12 +21,9 @@ trait SimpleTypeTrait
     /**
      * Return the default value.
      *
-     * @param FormField $field
-     * @param string $locale
-     *
      * @return mixed
      */
-    public function getDefaultValue(FormField $field, $locale)
+    public function getDefaultValue(FormField $field, string $locale)
     {
         return $field->getTranslation($locale)->getDefaultValue();
     }

@@ -36,7 +36,7 @@ node_modules/
 npm-debug.log
 
 # tests
-/Tests/Application/.env.local
+/Tests/Application/*.local
 /Tests/Application/var
 
 /nbproject/*

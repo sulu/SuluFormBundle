@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Form entity.
@@ -29,80 +30,46 @@ class Form
     private $defaultLocale;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection|FormTranslation[]
+     * @var Collection|FormTranslation[]
      */
     private $translations;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection|FormField[]
+     * @var Collection|FormField[]
      */
     private $fields;
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $this->translations = new ArrayCollection();
         $this->fields = new ArrayCollection();
     }
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Get default locale.
-     *
-     * @return string
-     */
-    public function getDefaultLocale()
+    public function getDefaultLocale(): string
     {
         return $this->defaultLocale;
     }
 
-    /**
-     * Set default locale.
-     *
-     * @param $defaultLocale
-     *
-     * @return $this
-     */
-    public function setDefaultLocale($defaultLocale)
+    public function setDefaultLocale(string $defaultLocale): self
     {
         $this->defaultLocale = $defaultLocale;
 
         return $this;
     }
 
-    /**
-     * Add translation.
-     *
-     * @param FormTranslation $translation
-     *
-     * @return $this
-     */
-    public function addTranslation(FormTranslation $translation)
+    public function addTranslation(FormTranslation $translation): self
     {
         $this->translations[] = $translation;
 
         return $this;
     }
 
-    /**
-     * Remove translation.
-     *
-     * @param FormTranslation $translation
-     *
-     * @return $this
-     */
-    public function removeTranslation(FormTranslation $translation)
+    public function removeTranslation(FormTranslation $translation): self
     {
         $this->translations->removeElement($translation);
 
@@ -112,23 +79,14 @@ class Form
     /**
      * Get translations.
      *
-     * @return \Doctrine\Common\Collections\Collection|FormTranslation[]
+     * @return Collection|FormTranslation[]
      */
     public function getTranslations()
     {
         return $this->translations;
     }
 
-    /**
-     * Get translation.
-     *
-     * @param string $locale
-     * @param bool $create
-     * @param bool $fallback
-     *
-     * @return FormTranslation|null
-     */
-    public function getTranslation($locale, $create = false, $fallback = false)
+    public function getTranslation(string $locale, bool $create = false, bool $fallback = false): ?FormTranslation
     {
         foreach ($this->translations as $translation) {
             if ($translation->getLocale() == $locale) {
@@ -147,31 +105,17 @@ class Form
             return $this->getTranslation($this->getDefaultLocale());
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * Add field.
-     *
-     * @param FormField $field
-     *
-     * @return Form
-     */
-    public function addField(FormField $field)
+    public function addField(FormField $field): self
     {
         $this->fields[] = $field;
 
         return $this;
     }
 
-    /**
-     * Remove field.
-     *
-     * @param FormField $field
-     *
-     * @return $this
-     */
-    public function removeField(FormField $field)
+    public function removeField(FormField $field): self
     {
         $this->fields->removeElement($field);
 
@@ -179,7 +123,7 @@ class Form
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection|FormField[]
+     * @return Collection|FormField[]
      */
     public function getFields()
     {
@@ -187,11 +131,9 @@ class Form
     }
 
     /**
-     * Get fields by type.
-     *
-     * @return \Doctrine\Common\Collections\Collection|FormField[]
+     * @return Collection|FormField[]
      */
-    public function getFieldsByType($type)
+    public function getFieldsByType(string $type)
     {
         $fields = [];
 
@@ -204,35 +146,23 @@ class Form
         return $fields;
     }
 
-    /**
-     * Get field by key.
-     *
-     * @param string $key
-     *
-     * @return FormField|null
-     */
-    public function getField($key)
+    public function getField(string $key): ?FormField
     {
         foreach ($this->fields as $field) {
             if ($field->getKey() == $key) {
                 return $field;
             }
         }
+
+        return null;
     }
 
-    /**
-     * Get field type by key.
-     *
-     * @param string $key
-     *
-     * @return string|void
-     */
-    public function getFieldType($key)
+    public function getFieldType(string $key): ?string
     {
         $field = $this->getField($key);
 
         if (!$field) {
-            return;
+            return null;
         }
 
         return $field->getType();
@@ -241,11 +171,11 @@ class Form
     /**
      * Get fields not in array.
      *
-     * @param $keys
+     * @param string[] $keys
      *
      * @return FormField[]
      */
-    public function getFieldsNotInArray($keys)
+    public function getFieldsNotInArray(array $keys): array
     {
         $fields = [];
 
@@ -261,12 +191,9 @@ class Form
     /**
      * Return a localized array of the object.
      *
-     * @param $locale
-     * @param Dynamic $dynamic
-     *
-     * @return array
+     * @return mixed[]
      */
-    public function serializeForLocale($locale, Dynamic $dynamic = null)
+    public function serializeForLocale(string $locale, ?Dynamic $dynamic = null): array
     {
         $fields = [];
 

@@ -28,7 +28,7 @@ class EmailType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfiguration()
+    public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.email',
@@ -39,7 +39,7 @@ class EmailType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
+    public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $options['constraints'][] = new EmailConstraint();
         $type = TypeEmailType::class;

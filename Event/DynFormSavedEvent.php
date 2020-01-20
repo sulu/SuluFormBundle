@@ -32,33 +32,23 @@ class DynFormSavedEvent extends Event
     protected $dynamic;
 
     /**
-     * DynFormSavedEvent constructor.
-     *
-     * @param array $data
-     * @param Dynamic $dynamic
+     * @param mixed[] $data
      */
-    public function __construct($data, $dynamic = null)
+    public function __construct(array $data, Dynamic $dynamic = null)
     {
         $this->data = $data;
         $this->dynamic = $dynamic;
     }
 
     /**
-     * Returns data.
-     *
-     * @return array
+     * @return mixed[]
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
 
-    /**
-     * Returns dynamic.
-     *
-     * @return Dynamic|null
-     */
-    public function getDynamic()
+    public function getDynamic(): ?Dynamic
     {
         return $this->dynamic;
     }

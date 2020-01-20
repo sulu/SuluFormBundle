@@ -32,7 +32,7 @@ class AttachmentType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfiguration()
+    public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.attachment',
@@ -44,7 +44,7 @@ class AttachmentType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
+    public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $type = FileType::class;
         $options['mapped'] = false;

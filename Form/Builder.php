@@ -64,16 +64,6 @@ class Builder implements BuilderInterface
      */
     protected $checksum;
 
-    /**
-     * Builder constructor.
-     *
-     * @param RequestStack $requestStack
-     * @param FormFieldTypePool $formFieldTypePool
-     * @param TitleProviderPoolInterface $titleProviderPool,
-     * @param FormRepository $formRepository
-     * @param FormFactory $formFactory
-     * @param Checksum $checksum
-     */
     public function __construct(
         RequestStack $requestStack,
         FormFieldTypePool $formFieldTypePool,
@@ -81,7 +71,8 @@ class Builder implements BuilderInterface
         FormRepository $formRepository,
         FormFactory $formFactory,
         Checksum $checksum
-    ) {
+    )
+    {
         $this->requestStack = $requestStack;
         $this->formFieldTypePool = $formFieldTypePool;
         $this->titleProviderPool = $titleProviderPool;
@@ -93,7 +84,7 @@ class Builder implements BuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function buildByRequest(Request $request)
+    public function buildByRequest(Request $request): ?FormInterface
     {
         foreach ($request->request->all() as $key => $parameters) {
             if (0 === strpos($key, 'dynamic_')) {
@@ -143,7 +134,7 @@ class Builder implements BuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function build($id, $type, $typeId, $locale = null, $name = 'form')
+    public function build(int $id, string $type, string $typeId, ?string $locale = null, string $name = 'form'): FormInterface
     {
         $request = $this->requestStack->getCurrentRequest();
 
@@ -163,16 +154,8 @@ class Builder implements BuilderInterface
 
     /**
      * Returns formType and the built form.
-     *
-     * @param int $id
-     * @param string $type
-     * @param string $typeId
-     * @param string $locale
-     * @param string $name
-     *
-     * @return FormInterface
      */
-    protected function buildForm($id, $type, $typeId, $locale, $name)
+    protected function buildForm(int $id, string $type, string $typeId, string $locale, string $name): ?FormInterface
     {
         $request = $this->requestStack->getCurrentRequest();
 
@@ -180,7 +163,7 @@ class Builder implements BuilderInterface
         $formEntity = $this->loadFormEntity($id, $locale);
 
         if (!$formEntity) {
-            return;
+            return null;
         }
 
         $webspaceKey = $this->getWebspaceKey();
@@ -201,35 +184,12 @@ class Builder implements BuilderInterface
         return $form;
     }
 
-    /**
-     * Get key.
-     *
-     * @param int $id
-     * @param string $type
-     * @param string $typeId
-     * @param string $locale
-     * @param string $name
-     *
-     * @return string
-     */
-    private function getKey($id, $type, $typeId, $locale, $name)
+    private function getKey(int $id, string $type, string $typeId, string $locale, string $name): string
     {
         return implode('__', func_get_args());
     }
 
-    /**
-     * Create form.
-     *
-     * @param string $name
-     * @param string $type
-     * @param string $typeId
-     * @param string $locale
-     * @param Form $formEntity
-     * @param string $webspaceKey
-     *
-     * @return FormInterface
-     */
-    private function createForm($name, $type, $typeId, $locale, $formEntity, $webspaceKey)
+    private function createForm(string $name, string $type, string $typeId, string $locale, Form $formEntity, string $webspaceKey): FormInterface
     {
         $defaults = $this->getDefaults($formEntity, $locale);
         $typeName = $this->titleProviderPool->get($type)->getTitle($typeId, $locale);
@@ -260,12 +220,9 @@ class Builder implements BuilderInterface
     /**
      * Load Form entity.
      *
-     * @param $id
-     * @param $locale
-     *
      * @return Form|null
      */
-    private function loadFormEntity($id, $locale)
+    private function loadFormEntity(int $id, string $locale): ?Form
     {
         $formEntity = $this->formRepository->loadById($id, $locale);
 
@@ -286,12 +243,9 @@ class Builder implements BuilderInterface
     /**
      * Get defaults.
      *
-     * @param Form $formEntity
-     * @param string $locale
-     *
-     * @return array
+     * @return mixed[]
      */
-    private function getDefaults(Form $formEntity, $locale)
+    private function getDefaults(Form $formEntity, string $locale): array
     {
         // set Defaults
         $defaults = [];
@@ -308,12 +262,7 @@ class Builder implements BuilderInterface
         return $defaults;
     }
 
-    /**
-     * Get webspace key.
-     *
-     * @return string
-     */
-    private function getWebspaceKey()
+    private function getWebspaceKey(): ?string
     {
         $request = $this->requestStack->getCurrentRequest();
         $webspaceKey = null;

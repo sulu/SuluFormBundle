@@ -19,6 +19,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class RequestListener
 {
@@ -61,12 +62,7 @@ class RequestListener
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    /**
-     * On Kernel request.
-     *
-     * @param GetResponseEvent $event
-     */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             // do nothing if it's not the master request
@@ -88,7 +84,7 @@ class RequestListener
                 // do nothing when no form was found or not valid
                 return;
             }
-        } catch (\Exception $e) {
+        } catch (HttpException $e) {
             // Catch all exception on build form by request
             return;
         }

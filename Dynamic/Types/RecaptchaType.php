@@ -26,7 +26,7 @@ class RecaptchaType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfiguration()
+    public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.recaptcha',
@@ -38,7 +38,7 @@ class RecaptchaType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
+    public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         // Use in this way the recaptcha bundle could maybe not exists.
         $options['mapped'] = false;

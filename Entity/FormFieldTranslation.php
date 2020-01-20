@@ -56,70 +56,43 @@ class FormFieldTranslation
      */
     private $options;
 
-    /**
-     * @param string $title
-     *
-     * @return FormFieldTranslation
-     */
-    public function setTitle($title)
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $locale
-     *
-     * @return FormFieldTranslation
-     */
-    public function setLocale($locale)
+    public function setLocale(string $locale): self
     {
         $this->locale = $locale;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getLocale()
+    public function getLocale(): string
     {
         return $this->locale;
     }
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param FormField $field
-     *
-     * @return FormFieldTranslation
-     */
-    public function setField(FormField $field)
+    public function setField(FormField $field): FormFieldTranslation
     {
         $this->field = $field;
 
         return $this;
     }
 
-    /**
-     * @return FormField
-     */
-    public function getField()
+    public function getField(): FormField
     {
         return $this->field;
     }
@@ -132,52 +105,31 @@ class FormFieldTranslation
         return $this->placeholder;
     }
 
-    /**
-     * @param string $placeholder
-     *
-     * @return $this
-     */
-    public function setPlaceholder($placeholder)
+    public function setPlaceholder(string $placeholder): self
     {
         $this->placeholder = $placeholder;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getDefaultValue()
+    public function getDefaultValue(): string
     {
         return $this->defaultValue;
     }
 
-    /**
-     * @param string $defaultValue
-     *
-     * @return $this
-     */
-    public function setDefaultValue($defaultValue)
+    public function setDefaultValue(string $defaultValue): self
     {
         $this->defaultValue = $defaultValue;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getShortTitle()
+    public function getShortTitle(): string
     {
         return $this->shortTitle;
     }
 
-    /**
-     * @param string $shortTitle
-     *
-     * @return FormFieldTranslation
-     */
-    public function setShortTitle($shortTitle)
+    public function setShortTitle(string $shortTitle): self
     {
         $this->shortTitle = $shortTitle;
 
@@ -185,9 +137,9 @@ class FormFieldTranslation
     }
 
     /**
-     * @return array
+     * @return mixed[]
      */
-    public function getOptions()
+    public function getOptions(): array
     {
         if (!$this->options) {
             return [];
@@ -197,11 +149,9 @@ class FormFieldTranslation
     }
 
     /**
-     * @param array $options
-     *
-     * @return $this
+     * @param mixed[] $options
      */
-    public function setOptions($options)
+    public function setOptions(array $options): self
     {
         if (is_array($options)) {
             $options = json_encode($options);
@@ -212,12 +162,7 @@ class FormFieldTranslation
         return $this;
     }
 
-    /**
-     * @param string $key
-     *
-     * @return string
-     */
-    public function getOption($key)
+    public function getOption(string $key): ?string
     {
         if (isset($this->getOptions()[$key])) {
             return $this->getOptions()[$key];

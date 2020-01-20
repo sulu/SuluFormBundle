@@ -25,12 +25,6 @@ class FormEvent extends SymfonyFormEvent
      */
     private $configuration;
 
-    /**
-     * FormEvent constructor.
-     *
-     * @param FormInterface $form
-     * @param FormConfigurationInterface $configuration
-     */
     public function __construct(FormInterface $form, FormConfigurationInterface $configuration)
     {
         $this->configuration = $configuration;
@@ -38,12 +32,7 @@ class FormEvent extends SymfonyFormEvent
         parent::__construct($form, $form->getData());
     }
 
-    /**
-     * Get configuration.
-     *
-     * @return FormConfigurationInterface
-     */
-    public function getConfiguration()
+    public function getConfiguration(): FormConfigurationInterface
     {
         return $this->configuration;
     }

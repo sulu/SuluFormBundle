@@ -23,9 +23,19 @@ use Symfony\Component\Form\FormBuilderInterface;
 class MailchimpType implements FormFieldTypeInterface
 {
     /**
+     * @var string
+     */
+    private $apiKey;
+
+    public function __construct(string $apiKey)
+    {
+        $this->apiKey = $apiKey;
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function getConfiguration()
+    public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.mailchimp',
@@ -37,7 +47,7 @@ class MailchimpType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
+    public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $type = TypeCheckboxType::class;
         $builder->add($field->getKey(), $type, $options);
@@ -46,7 +56,7 @@ class MailchimpType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getDefaultValue(FormField $field, $locale)
+    public function getDefaultValue(FormField $field, string $locale)
     {
         return $field->getTranslation($locale)->getDefaultValue();
     }

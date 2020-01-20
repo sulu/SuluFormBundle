@@ -49,7 +49,7 @@ class FormManager
         $this->formRepository = $formRepository;
     }
 
-    public function findById(int $id, ?string $locale = null): Form
+    public function findById(int $id, ?string $locale = null): ?Form
     {
         return $this->formRepository->loadById($id, $locale);
     }
@@ -57,9 +57,9 @@ class FormManager
     /**
      * @param mixed[] $filters
      *
-     * @return Form[]
+     * @return null|Form[]
      */
-    public function findAll(?string $locale = null, array $filters = []): array
+    public function findAll(?string $locale = null, array $filters = []): ?array
     {
         return $this->formRepository->loadAll($locale, $filters);
     }
