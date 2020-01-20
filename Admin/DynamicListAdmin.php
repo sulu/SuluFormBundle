@@ -3,6 +3,7 @@
 namespace Sulu\Bundle\FormBundle\Admin;
 
 use Sulu\Bundle\AdminBundle\Admin\Admin;
+use Sulu\Bundle\AdminBundle\Admin\View\ListViewBuilderInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\ToolbarAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewCollection;
@@ -44,6 +45,7 @@ class DynamicListAdmin extends Admin
                     'type' => $config['type'],
                 ];
 
+                /** @var ListViewBuilderInterface $view */
                 $view = $this->viewBuilderFactory->createListViewBuilder($name, '/' . $action)
                     ->setResourceKey('dynamic_forms')
                     ->setListKey('form_data')

@@ -16,6 +16,7 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Manager\FormManager;
 use Sulu\Component\Rest\AbstractRestController;
+use Sulu\Component\Rest\ListBuilder\AbstractListBuilder;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\ListRestHelperInterface;
@@ -102,6 +103,7 @@ class FormController extends AbstractRestController implements ClassResourceInte
         // flatted entities
         if ('true' === $request->get('flat')) {
             // get model class
+            /** @var AbstractListBuilder $listBuilder */
             $listBuilder = $this->factory->create($this->getModelClass());
 
             // get fieldDescriptors
