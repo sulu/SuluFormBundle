@@ -2,9 +2,7 @@
 
 /*
  * This file is part of Sulu.
- *
- * (c) MASSIVE ART WebServices GmbH
- *
+ * (c) Sulu GmbH
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -38,17 +36,12 @@ class CollectionStrategyTree implements CollectionStrategyInterface
 
     /**
      * CollectionTreeStrategy constructor.
-     *
-     * @param CollectionManagerInterface $collectionManager
-     * @param SystemCollectionManagerInterface $systemCollectionManager
-     * @param TitleProviderPoolInterface $titleProviderPool
      */
     public function __construct(
         CollectionManagerInterface $collectionManager,
         SystemCollectionManagerInterface $systemCollectionManager,
         TitleProviderPoolInterface $titleProviderPool
-    )
-    {
+    ) {
         $this->collectionManager = $collectionManager;
         $this->systemCollectionManager = $systemCollectionManager;
         $this->titleProviderPool = $titleProviderPool;
@@ -63,8 +56,7 @@ class CollectionStrategyTree implements CollectionStrategyInterface
         $type,
         $typeId,
         $locale
-    )
-    {
+    ) {
         $title = $this->titleProviderPool->get($type)->getTitle($typeId, $locale);
         $rootCollectionKey = SuluFormExtension::SYSTEM_COLLECTION_ROOT;
         $parentCollectionKey = $rootCollectionKey . '.' . $formId;

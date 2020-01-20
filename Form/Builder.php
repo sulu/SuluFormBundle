@@ -2,9 +2,7 @@
 
 /*
  * This file is part of Sulu.
- *
- * (c) MASSIVE ART WebServices GmbH
- *
+ * (c) Sulu GmbH
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -71,8 +69,7 @@ class Builder implements BuilderInterface
         FormRepository $formRepository,
         FormFactory $formFactory,
         Checksum $checksum
-    )
-    {
+    ) {
         $this->requestStack = $requestStack;
         $this->formFieldTypePool = $formFieldTypePool;
         $this->titleProviderPool = $titleProviderPool;
@@ -219,8 +216,6 @@ class Builder implements BuilderInterface
 
     /**
      * Load Form entity.
-     *
-     * @return Form|null
      */
     private function loadFormEntity(int $id, string $locale): ?Form
     {

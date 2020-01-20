@@ -2,9 +2,7 @@
 
 /*
  * This file is part of Sulu.
- *
- * (c) MASSIVE ART WebServices GmbH
- *
+ * (c) Sulu GmbH
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -59,13 +57,6 @@ class Handler implements HandlerInterface
      */
     protected $attachments = [];
 
-    /**
-     * @param ObjectManager $entityManager
-     * @param Mail\HelperInterface $mailHelper
-     * @param Environment $twig
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param MediaManager $mediaManager
-     */
     public function __construct(
         ObjectManager $entityManager,
         Mail\HelperInterface $mailHelper,
@@ -83,11 +74,6 @@ class Handler implements HandlerInterface
 
     /**
      * Handle form.
-     *
-     * @param FormInterface $form
-     * @param FormConfigurationInterface $configuration
-     *
-     * @return bool
      */
     public function handle(FormInterface $form, FormConfigurationInterface $configuration): bool
     {
@@ -260,9 +246,8 @@ class Handler implements HandlerInterface
 
     /**
      * Get plain text variant for email, overridable and customizable per form.
-     * @param mixed[] $additionalData
      *
-     * @return string
+     * @param mixed[] $additionalData
      */
     protected function getPlainText(FormInterface $form, MailConfigurationInterface $configuration, array $additionalData): string
     {

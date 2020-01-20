@@ -2,9 +2,7 @@
 
 /*
  * This file is part of Sulu.
- *
- * (c) MASSIVE ART WebServices GmbH
- *
+ * (c) Sulu GmbH
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -61,22 +59,16 @@ interface MailConfigurationInterface
 
     /**
      * Add attachments.
-     *
-     * @return bool
      */
     public function getAddAttachments(): bool;
 
     /**
      * Get mail template.
-     *
-     * @return string
      */
     public function getTemplate(): string;
 
     /**
      * Get plain text mail template.
-     *
-     * @return string
      */
     public function getPlainTextTemplate(): string;
 

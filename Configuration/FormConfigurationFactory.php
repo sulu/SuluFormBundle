@@ -2,9 +2,7 @@
 
 /*
  * This file is part of Sulu.
- *
- * (c) MASSIVE ART WebServices GmbH
- *
+ * (c) Sulu GmbH
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -51,8 +49,7 @@ class FormConfigurationFactory
         string $mailWebsiteTemplate,
         string $mailAdminPlainTextTemplate,
         string $mailWebsitePlainTextTemplate
-    )
-    {
+    ) {
         $this->collectionStrategy = $collectionStrategy;
         $this->mailAdminTemplate = $mailAdminTemplate;
         $this->mailWebsiteTemplate = $mailWebsiteTemplate;
@@ -277,8 +274,6 @@ class FormConfigurationFactory
     /**
      * Get collection id by dynamic.
      *
-     * @param Dynamic $dynamic
-     *
      * @return int|int[]
      */
     private function getCollectionIdByDynamic(Dynamic $dynamic)
@@ -309,8 +304,6 @@ class FormConfigurationFactory
 
     /**
      * Get email from dynamic.
-     *
-     * @param Dynamic $dynamic
      *
      * @return string[]|null
      */

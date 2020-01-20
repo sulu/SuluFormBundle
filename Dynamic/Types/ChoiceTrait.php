@@ -2,9 +2,7 @@
 
 /*
  * This file is part of Sulu.
- *
- * (c) MASSIVE ART WebServices GmbH
- *
+ * (c) Sulu GmbH
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -38,7 +36,7 @@ trait ChoiceTrait
     private function getChoiceOptions(
         FormFieldTranslation $translation,
         array $options
-    ):array {
+    ): array {
         if (isset($options['attr']['placeholder'])) {
             $options['placeholder'] = $options['attr']['placeholder'];
             unset($options['attr']['placeholder']);
@@ -54,11 +52,9 @@ trait ChoiceTrait
     /**
      * Returns default options for multichoice form type.
      *
-     * @param string $value
-     *
      * @return string[]
      */
-    private function getDefaultOptions(string $value):array
+    private function getDefaultOptions(string $value): array
     {
         return preg_split('/\r\n|\r|\n/', $value, -1, PREG_SPLIT_NO_EMPTY);
     }

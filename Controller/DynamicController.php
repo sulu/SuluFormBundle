@@ -2,9 +2,7 @@
 
 /*
  * This file is part of Sulu.
- *
- * (c) MASSIVE ART WebServices GmbH
- *
+ * (c) Sulu GmbH
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -15,7 +13,6 @@ use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\ControllerTrait;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\ViewHandler;
-use phpDocumentor\Reflection\Types\Mixed_;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory;
@@ -72,8 +69,7 @@ class DynamicController implements ClassResourceInterface
         EntityManager $entityManager,
         FormRepository $formRepository,
         ViewHandler $viewHandler
-    )
-    {
+    ) {
         $this->dynamicRepository = $dynamicRepository;
         $this->dynamicListFactory = $dynamicListFactory;
         $this->mediaManager = $mediaManager;
@@ -172,12 +168,9 @@ class DynamicController implements ClassResourceInterface
         return array_filter($filters);
     }
 
-    /**
-     * @return Form
-     */
     protected function loadForm(Request $request): Form
     {
-        $formId = (int)$request->get('form');
+        $formId = (int) $request->get('form');
 
         if (!$formId) {
             throw new BadRequestHttpException('"form" is required parameter');

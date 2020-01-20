@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ * (c) Sulu GmbH
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Tests\Functional\Metadata;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -125,7 +132,7 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $this->assertEquals('ID', $metadata->getFields()['id']->getLabel());
 
         $this->assertEquals('attachment', $metadata->getFields()['attachment']->getName());
-        $this->assertEquals('Attachment', $metadata->getFields()['attachment']->getLabel());#
+        $this->assertEquals('Attachment', $metadata->getFields()['attachment']->getLabel());
 
         $this->assertEquals('checkboxMultiple', $metadata->getFields()['checkboxMultiple']->getName());
         $this->assertEquals('Checkboxes', $metadata->getFields()['checkboxMultiple']->getLabel());
@@ -208,7 +215,7 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $this->assertEquals('ID', $metadata->getFields()['id']->getLabel());
 
         $this->assertEquals('attachment', $metadata->getFields()['attachment']->getName());
-        $this->assertEquals('Anhang', $metadata->getFields()['attachment']->getLabel());#
+        $this->assertEquals('Anhang', $metadata->getFields()['attachment']->getLabel());
 
         $this->assertEquals('checkboxMultiple', $metadata->getFields()['checkboxMultiple']->getName());
         $this->assertEquals('Checkboxes', $metadata->getFields()['checkboxMultiple']->getLabel());
@@ -339,6 +346,7 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
 
         return $form;
     }
+
     private function createFormWithAllFields(): Form
     {
         $form = new Form();
@@ -389,7 +397,7 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $formField->setType($type);
         $formField->setWidth('full');
         $formField->setRequired(true);
-        $formField->setOrder(count($form->getFields()) +1);
+        $formField->setOrder(count($form->getFields()) + 1);
 
         $formFieldTranslation1 = new FormFieldTranslation();
         $formFieldTranslation1->setShortTitle($translationEn);

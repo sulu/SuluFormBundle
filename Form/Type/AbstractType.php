@@ -2,9 +2,7 @@
 
 /*
  * This file is part of Sulu.
- *
- * (c) MASSIVE ART WebServices GmbH
- *
+ * (c) Sulu GmbH
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -247,8 +245,6 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
 
     /**
      * @see https://github.com/symfony/symfony/blob/2.8/src/Symfony/Component/Form/AbstractType.php
-     *
-     * @return string
      */
     public function getName(): string
     {

@@ -2,9 +2,7 @@
 
 /*
  * This file is part of Sulu.
- *
- * (c) MASSIVE ART WebServices GmbH
- *
+ * (c) Sulu GmbH
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -63,12 +61,11 @@ class FormRepository extends \Doctrine\ORM\EntityRepository
         $queryBuilder = $this->createQueryBuilder('form');
         $queryBuilder->select($queryBuilder->expr()->count('form.id'));
 
-        return (int)$queryBuilder->getQuery()->getSingleScalarResult();
+        return (int) $queryBuilder->getQuery()->getSingleScalarResult();
     }
 
     /**
      * @param mixed[] $data
-     * @param string $key
      * @param mixed $default
      */
     protected static function getValue(array $data, string $key, $default = null): ?int

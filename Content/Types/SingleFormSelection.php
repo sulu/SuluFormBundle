@@ -2,9 +2,7 @@
 
 /*
  * This file is part of Sulu.
- *
- * (c) MASSIVE ART WebServices GmbH
- *
+ * (c) Sulu GmbH
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -45,8 +43,7 @@ class SingleFormSelection extends SimpleContentType
         FormRepository $formRepository,
         BuilderInterface $formBuilder,
         ReferenceStoreInterface $referenceStore
-    )
-    {
+    ) {
         parent::__construct('SingleFormSelection', '');
         $this->formRepository = $formRepository;
         $this->formBuilder = $formBuilder;
@@ -58,17 +55,14 @@ class SingleFormSelection extends SimpleContentType
      */
     public function getContentData(PropertyInterface $property)
     {
-        $id = (int)$property->getValue();
+        $id = (int) $property->getValue();
 
         if (!$id) {
             return;
         }
 
         if (!isset($property->getParams()['resourceKey'])) {
-            throw new MissingOptionsException(
-                'SuluFormBundle: The parameter "resourceKey" is missing on "single_form_selection" content-type.',
-                []
-            );
+            throw new MissingOptionsException('SuluFormBundle: The parameter "resourceKey" is missing on "single_form_selection" content-type.', []);
         }
 
         $resourceKey = $property->getParams()['resourceKey']->getValue();
@@ -124,7 +118,7 @@ class SingleFormSelection extends SimpleContentType
      */
     public function getViewData(PropertyInterface $property)
     {
-        $id = (int)$property->getValue();
+        $id = (int) $property->getValue();
 
         if (!$id) {
             return [];
