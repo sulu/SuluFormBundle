@@ -18,11 +18,11 @@ class BuilderNotFoundException extends \Exception
      */
     private $builder;
 
-    public function __construct(string $formEntityId)
+    public function __construct(string $builder)
     {
-        parent::__construct(sprintf('Builder with the name "%s" not found.', $formEntityId));
+        parent::__construct(sprintf('Builder with the name "%s" not found.', $builder));
 
-        $this->builder = $formEntityId;
+        $this->builder = $builder;
     }
 
     public function getBuilder(): string
