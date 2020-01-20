@@ -40,3 +40,7 @@ npm-debug.log
 /Tests/Application/var
 
 /nbproject/*
+
+# php-cs-fixer
+.php_cs.cache
+php-cs-fixer
