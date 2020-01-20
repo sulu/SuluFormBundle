@@ -40,7 +40,7 @@ class FormField
     private $required;
 
     /**
-     * @var int
+     * @var null|int
      */
     private $id;
 
@@ -144,7 +144,7 @@ class FormField
         return $this->required;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

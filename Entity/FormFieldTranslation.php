@@ -27,7 +27,7 @@ class FormFieldTranslation
     private $locale;
 
     /**
-     * @var int
+     * @var null|int
      */
     private $id;
 
@@ -80,7 +80,7 @@ class FormFieldTranslation
         return $this->locale;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -151,7 +151,7 @@ class FormFieldTranslation
     /**
      * @param mixed[] $options
      */
-    public function setOptions(array $options): self
+    public function setOptions(?array $options): self
     {
         if (is_array($options)) {
             $options = json_encode($options);

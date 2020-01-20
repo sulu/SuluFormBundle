@@ -19,9 +19,9 @@ use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 trait ChoiceTrait
 {
     /**
-     * @return mixed[]
+     * @return mixed
      */
-    protected function getChoices(FormFieldTranslation $translation): array
+    protected function getChoices(FormFieldTranslation $translation)
     {
         $choices = preg_split('/\r\n|\r|\n/', $translation->getOption('choices'), -1, PREG_SPLIT_NO_EMPTY);
 

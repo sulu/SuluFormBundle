@@ -16,16 +16,13 @@ use Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Sulu\Bundle\FormBundle\Form\Type\AbstractType;
 use Sulu\Bundle\WebsiteBundle\Controller\DefaultController;
 use Sulu\Component\Content\Compat\StructureInterface;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormRegistryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class FormWebsiteController extends DefaultController
 {
@@ -86,7 +83,7 @@ class FormWebsiteController extends DefaultController
      *
      * @return RedirectResponse|Response
      */
-    public function onlyAction(Request $request, string $key)
+    public function onlyAction(Request $request, string $key): Response
     {
         $ajaxTemplates = $this->getParameter('sulu_form.ajax_templates');
 
@@ -119,7 +116,7 @@ class FormWebsiteController extends DefaultController
      *
      * @return JsonResponse|RedirectResponse|Null
      */
-    private function handleFormSubmit(Request $request, AbstractType $type, array $attributes)
+    private function handleFormSubmit(Request $request, AbstractType $type, array $attributes): Response
     {
         // handle form submit
         $configuration = $this->get('sulu_form.configuration.form_configuration_factory')->buildByType(

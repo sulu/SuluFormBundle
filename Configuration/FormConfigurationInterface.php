@@ -18,36 +18,28 @@ interface FormConfigurationInterface
 {
     /**
      * Get locale.
-     *
-     * @return string
      */
-    public function getLocale();
+    public function getLocale(): string;
 
     /**
      * Should the form data be saved.
-     *
-     * @return bool
      */
-    public function getSave();
+    public function getSave(): bool;
 
     /**
      * Get file fields.
      *
-     * @return int[]
+     * @return mixed[]
      */
-    public function getFileFields();
+    public function getFileFields(): array;
 
     /**
      * Get admin mail configuration.
-     *
-     * @return MailConfigurationInterface|null
      */
-    public function getAdminMailConfiguration();
+    public function getAdminMailConfiguration(): ?MailConfigurationInterface;
 
     /**
      * Get website mail configuration.
-     *
-     * @return MailConfigurationInterface|null
      */
-    public function getWebsiteMailConfiguration();
+    public function getWebsiteMailConfiguration(): ?MailConfigurationInterface;
 }

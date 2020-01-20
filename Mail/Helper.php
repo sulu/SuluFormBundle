@@ -23,12 +23,12 @@ class Helper implements HelperInterface
     private $mailer;
 
     /**
-     * @var string
+     * @var null|string
      */
     protected $toMail;
 
     /**
-     * @var string
+     * @var null|string
      */
     protected $fromMail;
 
@@ -39,8 +39,8 @@ class Helper implements HelperInterface
 
     public function __construct(
         \Swift_Mailer $mailer,
-        string $fromMail,
-        string $toMail,
+        ?string $fromMail,
+        ?string $toMail,
         LoggerInterface $logger = null
     ) {
         $this->mailer = $mailer;

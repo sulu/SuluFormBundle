@@ -72,22 +72,6 @@ class FormAdmin extends Admin
     /**
      * {@inheritdoc}
      */
-    public function getCommands()
-    {
-        return [];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getJsBundleName()
-    {
-        return 'suluform';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function configureViews(ViewCollection $viewCollection): void
     {
         $formLocales = array_values(

@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 
@@ -25,7 +26,7 @@ class FormTranslation implements AuditableInterface
     private $title;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $subject;
 
@@ -35,7 +36,7 @@ class FormTranslation implements AuditableInterface
     private $fromEmail;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $fromName;
 
@@ -45,22 +46,22 @@ class FormTranslation implements AuditableInterface
     private $toEmail;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $toName;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $mailText;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $submitLabel;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $successText;
 
@@ -90,7 +91,7 @@ class FormTranslation implements AuditableInterface
     private $locale;
 
     /**
-     * @var int
+     * @var null|int
      */
     private $id;
 
@@ -136,14 +137,14 @@ class FormTranslation implements AuditableInterface
         return $this->title;
     }
 
-    public function setSubject(string $subject): self
+    public function setSubject(?string $subject): self
     {
         $this->subject = $subject;
 
         return $this;
     }
 
-    public function getSubject(): string
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -160,14 +161,14 @@ class FormTranslation implements AuditableInterface
         return $this->fromEmail;
     }
 
-    public function setFromName(string $fromName): self
+    public function setFromName(?string $fromName): self
     {
         $this->fromName = $fromName;
 
         return $this;
     }
 
-    public function getFromName(): string
+    public function getFromName(): ?string
     {
         return $this->fromName;
     }
@@ -184,55 +185,55 @@ class FormTranslation implements AuditableInterface
         return $this->toEmail;
     }
 
-    public function setToName(string $toName): self
+    public function setToName(?string $toName): self
     {
         $this->toName = $toName;
 
         return $this;
     }
 
-    public function getToName(): string
+    public function getToName(): ?string
     {
         return $this->toName;
     }
 
-    public function setMailText(string $mailText): self
+    public function setMailText(?string $mailText): self
     {
         $this->mailText = $mailText;
 
         return $this;
     }
 
-    public function getMailText(): string
+    public function getMailText(): ?string
     {
         return $this->mailText;
     }
 
-    public function setSubmitLabel(string $submitLabel): self
+    public function setSubmitLabel(?string $submitLabel): self
     {
         $this->submitLabel = $submitLabel;
 
         return $this;
     }
 
-    public function getSubmitLabel(): string
+    public function getSubmitLabel(): ?string
     {
         return $this->submitLabel;
     }
 
-    public function setSuccessText(string $successText): self
+    public function setSuccessText(?string $successText): self
     {
         $this->successText = $successText;
 
         return $this;
     }
 
-    public function getSuccessText(): string
+    public function getSuccessText(): ?string
     {
         return $this->successText;
     }
 
-    public function setSendAttachments(string $sendAttachments): self
+    public function setSendAttachments(bool $sendAttachments): self
     {
         $this->sendAttachments = $sendAttachments;
 
@@ -292,7 +293,7 @@ class FormTranslation implements AuditableInterface
         return $this->locale;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -358,9 +359,9 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * @return FormTranslationReceiver[]
+     * @return Collection|FormTranslationReceiver[]
      */
-    public function getReceivers(): array
+    public function getReceivers()
     {
         return $this->receivers;
     }

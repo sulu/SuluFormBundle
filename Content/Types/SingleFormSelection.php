@@ -45,7 +45,8 @@ class SingleFormSelection extends SimpleContentType
         FormRepository $formRepository,
         BuilderInterface $formBuilder,
         ReferenceStoreInterface $referenceStore
-    ) {
+    )
+    {
         parent::__construct('SingleFormSelection', '');
         $this->formRepository = $formRepository;
         $this->formBuilder = $formBuilder;
@@ -57,7 +58,7 @@ class SingleFormSelection extends SimpleContentType
      */
     public function getContentData(PropertyInterface $property)
     {
-        $id = (int) $property->getValue();
+        $id = (int)$property->getValue();
 
         if (!$id) {
             return;
@@ -97,16 +98,16 @@ class SingleFormSelection extends SimpleContentType
         return $form->createView();
     }
 
-    private function loadShadowForm(PropertyInterface $property, $id, $type)
+    private function loadShadowForm(PropertyInterface $property, int $id, string $type): ?FormInterface
     {
         $structure = $property->getStructure();
 
         if (!$structure instanceof StructureBridge) {
-            return;
+            return null;
         }
 
         if (!$structure->getIsShadow()) {
-            return;
+            return null;
         }
 
         return $this->formBuilder->build(
@@ -123,7 +124,7 @@ class SingleFormSelection extends SimpleContentType
      */
     public function getViewData(PropertyInterface $property)
     {
-        $id = (int) $property->getValue();
+        $id = (int)$property->getValue();
 
         if (!$id) {
             return [];

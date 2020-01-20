@@ -84,28 +84,17 @@ class FormController extends AbstractRestController implements ClassResourceInte
         return 'sulu.form.forms';
     }
 
-    /**
-     * @return string
-     */
-    public function getModelClass()
+    public function getModelClass(): string
     {
         return Form::class;
     }
 
-    /**
-     * @return string
-     */
-    public function getListName()
+    public function getListName(): string
     {
         return 'forms';
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function cgetAction(Request $request)
+    public function cgetAction(Request $request): Response
     {
         $locale = $this->getLocale($request);
         $filters = $this->getFilters($request);
@@ -216,11 +205,14 @@ class FormController extends AbstractRestController implements ClassResourceInte
     /**
      * {@inheritdoc}
      */
-    public function getLocale(Request $request)
+    public function getLocale(Request $request): string
     {
         return $request->get('locale', $request->getLocale());
     }
 
+    /**
+     * @return mixed[]
+     */
     protected function getFilters(Request $request): array
     {
         $filters = $request->query->all();
@@ -253,11 +245,11 @@ class FormController extends AbstractRestController implements ClassResourceInte
     }
 
     /**
-     * @param array $filters
+     * @param mixed[] $filters
      *
      * @return mixed[]
      */
-    protected function getCountFilters($filters): array
+    protected function getCountFilters(array $filters): array
     {
         unset($filters['page']);
         unset($filters['offset']);

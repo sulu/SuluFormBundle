@@ -20,7 +20,7 @@ use Doctrine\Common\Collections\Collection;
 class Form
 {
     /**
-     * @var int
+     * @var null|int
      */
     private $id;
 
@@ -45,7 +45,7 @@ class Form
         $this->fields = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -146,7 +146,7 @@ class Form
         return $fields;
     }
 
-    public function getField(string $key): ?FormField
+    public function getField(?string $key): ?FormField
     {
         foreach ($this->fields as $field) {
             if ($field->getKey() == $key) {

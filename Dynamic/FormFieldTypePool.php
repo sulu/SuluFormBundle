@@ -22,23 +22,17 @@ class FormFieldTypePool
     private $types;
 
     /**
-     * FormFieldTypePool constructor.
-     *
      * @param FormFieldTypeInterface[] $types
      */
-    public function __construct($types)
+    public function __construct(array $types)
     {
         $this->types = $types;
     }
 
     /**
      * Returns type specified by alias.
-     *
-     * @param string $alias
-     *
-     * @return FormFieldTypeInterface
      */
-    public function get($alias)
+    public function get(string $alias): FormFieldTypeInterface
     {
         return $this->types[$alias];
     }
@@ -48,7 +42,7 @@ class FormFieldTypePool
      *
      * @return FormFieldTypeInterface[]
      */
-    public function all()
+    public function all(): array
     {
         return $this->types;
     }

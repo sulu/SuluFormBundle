@@ -41,12 +41,7 @@ class FormConfiguration implements FormConfigurationInterface
      */
     private $websiteMailConfiguration;
 
-    /**
-     * FormConfigurationTranslation constructor.
-     *
-     * @param string $locale
-     */
-    public function __construct($locale)
+    public function __construct(string $locale)
     {
         $this->locale = $locale;
     }
@@ -54,7 +49,7 @@ class FormConfiguration implements FormConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getLocale()
+    public function getLocale(): string
     {
         return $this->locale;
     }
@@ -62,7 +57,7 @@ class FormConfiguration implements FormConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getAdminMailConfiguration()
+    public function getAdminMailConfiguration(): ?MailConfigurationInterface
     {
         return $this->adminMailConfiguration;
     }
@@ -70,7 +65,7 @@ class FormConfiguration implements FormConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getWebsiteMailConfiguration()
+    public function getWebsiteMailConfiguration(): ?MailConfigurationInterface
     {
         return $this->websiteMailConfiguration;
     }
@@ -106,7 +101,7 @@ class FormConfiguration implements FormConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getFileFields()
+    public function getFileFields(): array
     {
         return $this->fileFields;
     }
@@ -118,31 +113,19 @@ class FormConfiguration implements FormConfigurationInterface
      *
      * @return $this
      */
-    public function setFileFields($fileFields)
+    public function setFileFields(array $fileFields)
     {
         $this->fileFields = $fileFields;
 
         return $this;
     }
 
-    /**
-     * Get save.
-     *
-     * @return bool
-     */
-    public function getSave()
+    public function getSave(): bool
     {
         return $this->save;
     }
 
-    /**
-     * Set save.
-     *
-     * @param bool $save
-     *
-     * @return $this
-     */
-    public function setSave($save)
+    public function setSave(bool $save): self
     {
         $this->save = $save;
 

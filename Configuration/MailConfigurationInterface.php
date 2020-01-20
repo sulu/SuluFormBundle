@@ -20,17 +20,9 @@ interface MailConfigurationInterface
     const TYPE_CC = 'cc';
     const TYPE_BCC = 'bcc';
 
-    /**
-     * @return string
-     */
-    public function getLocale();
+    public function getLocale(): string;
 
-    /**
-     * Get subject.
-     *
-     * @return string
-     */
-    public function getSubject();
+    public function getSubject(): string;
 
     /**
      * Get from address.
@@ -72,26 +64,26 @@ interface MailConfigurationInterface
      *
      * @return bool
      */
-    public function getAddAttachments();
+    public function getAddAttachments(): bool;
 
     /**
      * Get mail template.
      *
      * @return string
      */
-    public function getTemplate();
+    public function getTemplate(): string;
 
     /**
      * Get plain text mail template.
      *
      * @return string
      */
-    public function getPlainTextTemplate();
+    public function getPlainTextTemplate(): string;
 
     /**
      * Get template attributes.
      *
-     * @return array
+     * @return mixed[]
      */
-    public function getTemplateAttributes();
+    public function getTemplateAttributes(): array;
 }

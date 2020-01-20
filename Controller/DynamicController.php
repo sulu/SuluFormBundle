@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\ControllerTrait;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\ViewHandler;
+use phpDocumentor\Reflection\Types\Mixed_;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory;
@@ -71,7 +72,8 @@ class DynamicController implements ClassResourceInterface
         EntityManager $entityManager,
         FormRepository $formRepository,
         ViewHandler $viewHandler
-    ) {
+    )
+    {
         $this->dynamicRepository = $dynamicRepository;
         $this->dynamicListFactory = $dynamicListFactory;
         $this->mediaManager = $mediaManager;
@@ -82,10 +84,8 @@ class DynamicController implements ClassResourceInterface
 
     /**
      * Return dynamic form entries.
-     *
-     * @return Response
      */
-    public function cgetAction(Request $request)
+    public function cgetAction(Request $request): Response
     {
         $filters = $this->getFilters($request);
         $page = $request->get('page', 1);
@@ -128,12 +128,8 @@ class DynamicController implements ClassResourceInterface
 
     /**
      * Delete dynamic form entry.
-     *
-     * @param $id
-     *
-     * @return Response
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, int $id): Response
     {
         $dynamic = $this->dynamicRepository->find($id);
 
@@ -146,6 +142,7 @@ class DynamicController implements ClassResourceInterface
                         $this->mediaManager->delete($mediaId);
                     } catch (MediaNotFoundException $e) {
                         // Do nothing when media was removed before.
+                        // @ignoreException
                     }
                 }
             }
@@ -157,13 +154,9 @@ class DynamicController implements ClassResourceInterface
     }
 
     /**
-     * Get filters.
-     *
-     * @param Request $request
-     *
-     * @return array
+     * @return mixed[]
      */
-    protected function getFilters(Request $request)
+    protected function getFilters(Request $request): array
     {
         $filters = [
             'type' => $request->get('type'),
@@ -180,13 +173,11 @@ class DynamicController implements ClassResourceInterface
     }
 
     /**
-     * Get form.
-     *
      * @return Form
      */
-    protected function loadForm(Request $request)
+    protected function loadForm(Request $request): Form
     {
-        $formId = (int) $request->get('form');
+        $formId = (int)$request->get('form');
 
         if (!$formId) {
             throw new BadRequestHttpException('"form" is required parameter');
@@ -195,12 +186,7 @@ class DynamicController implements ClassResourceInterface
         return $this->formRepository->loadById($formId);
     }
 
-    /**
-     * Get locale.
-     *
-     * @return mixed
-     */
-    public function getLocale(Request $request)
+    public function getLocale(Request $request): ?string
     {
         return $request->get('locale', $request->getLocale());
     }

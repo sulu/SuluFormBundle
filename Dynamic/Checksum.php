@@ -28,12 +28,7 @@ class Checksum
      */
     private $encoder;
 
-    /**
-     * Checksum constructor.
-     *
-     * @param string $secret
-     */
-    public function __construct($secret)
+    public function __construct(string $secret)
     {
         $this->secret = $secret;
         $this->encoder = new MessageDigestPasswordEncoder();
@@ -41,16 +36,8 @@ class Checksum
 
     /**
      * Check checksum with given parameters.
-     *
-     * @param string $checksum
-     * @param string $type
-     * @param string $typeId
-     * @param string $formId
-     * @param string $formName
-     *
-     * @return bool
      */
-    public function check($checksum, $type, $typeId, $formId, $formName)
+    public function check(string $checksum, string $type, string $typeId, string $formId, string $formName): bool
     {
         $checksumRaw = $this->createKey($type, $typeId, $formId, $formName);
 
@@ -59,30 +46,16 @@ class Checksum
 
     /**
      * Create a key with given parameteres.
-     *
-     * @param string $type
-     * @param string $typeId
-     * @param string $formId
-     * @param string $formName
-     *
-     * @return string
      */
-    private function createKey($type, $typeId, $formId, $formName)
+    private function createKey(string $type, string $typeId, string $formId, string $formName): string
     {
         return $type . $typeId . $formId . $formName;
     }
 
     /**
      * Create a checksum and encode with secret and given parameters.
-     *
-     * @param string $type
-     * @param string $typeId
-     * @param string $formId
-     * @param string $formName
-     *
-     * @return string
      */
-    public function get($type, $typeId, $formId, $formName)
+    public function get(string $type, string $typeId, string $formId, string $formName): string
     {
         $checksumRaw = $this->createKey($type, $typeId, $formId, $formName);
 
