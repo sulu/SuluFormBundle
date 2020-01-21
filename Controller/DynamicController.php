@@ -83,8 +83,6 @@ class DynamicController implements ClassResourceInterface
     /**
      * Return dynamic form entries.
      *
-     * @param Request $request
-     *
      * @return Response
      */
     public function cgetAction(Request $request)
@@ -131,7 +129,7 @@ class DynamicController implements ClassResourceInterface
     /**
      * Delete dynamic form entry.
      *
-     * @param Request $request
+     * @param $id
      *
      * @return Response
      */
@@ -184,8 +182,6 @@ class DynamicController implements ClassResourceInterface
     /**
      * Get form.
      *
-     * @param Request $request
-     *
      * @return Form
      */
     protected function loadForm(Request $request)
@@ -202,7 +198,6 @@ class DynamicController implements ClassResourceInterface
     /**
      * Get locale.
      *
-     * @param Request $request
      * @return mixed
      */
     public function getLocale(Request $request)

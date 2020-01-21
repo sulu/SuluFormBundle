@@ -112,11 +112,11 @@ class Handler implements HandlerInterface
     private function save(FormInterface $form, FormConfigurationInterface $configuration)
     {
         $this->eventDispatcher->dispatch(
-            self::EVENT_FORM_SAVE,
             new FormEvent(
                 $form,
                 $configuration
-            )
+            ),
+            self::EVENT_FORM_SAVE
         );
 
         if (!$configuration->getSave()) {
@@ -127,11 +127,11 @@ class Handler implements HandlerInterface
         $this->entityManager->flush();
 
         $this->eventDispatcher->dispatch(
-            self::EVENT_FORM_SAVED,
             new FormEvent(
                 $form,
                 $configuration
-            )
+            ),
+            self::EVENT_FORM_SAVED
         );
     }
 

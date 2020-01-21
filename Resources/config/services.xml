@@ -199,6 +199,30 @@
             <argument type="service" id="fos_rest.view_handler"/>
         </service>
 
+        <!-- Form Controller -->
+        <service id="sulu_form.form_controller" class="Sulu\Bundle\FormBundle\Controller\FormController" public="true">
+            <argument type="service" id="fos_rest.view_handler.default"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="sulu_form.manager.form"/>
+            <argument type="service" id="sulu_core.doctrine_rest_helper"/>
+            <argument type="service" id="sulu_core.doctrine_list_builder_factory"/>
+            <argument type="service" id="sulu_core.list_builder.field_descriptor_factory"/>
+            <argument type="service" id="sulu_core.list_rest_helper"/>
+
+            <tag name="sulu.context" context="admin"/>
+        </service>
+
+        <!-- List Controller -->
+        <service id="sulu_form.list_controller" class="Sulu\Bundle\FormBundle\Controller\ListController" public="true">
+            <argument type="service" id="fos_rest.view_handler.default"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="sulu_core.doctrine_rest_helper"/>
+            <argument type="service" id="sulu_core.doctrine_list_builder_factory"/>
+            <argument type="service" id="sulu.list.provider.registry"/>
+
+            <tag name="sulu.context" context="admin"/>
+        </service>
+
         <!-- Dynamic List Metadata Loader -->
         <service id="sulu_form.metadata.dynamic_list_metadata_loader" class="Sulu\Bundle\FormBundle\Metadata\DynamicListMetadataLoader">
             <argument type="service" id="translator"/>
