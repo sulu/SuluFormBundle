@@ -23,19 +23,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 class MailchimpType implements FormFieldTypeInterface
 {
     /**
-     * @var string
-     */
-    private $apiKey;
-
-    /**
-     * @param string $apiKey
-     */
-    public function __construct($apiKey)
-    {
-        $this->apiKey = $apiKey;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getConfiguration()
@@ -43,7 +30,6 @@ class MailchimpType implements FormFieldTypeInterface
         return new FormFieldTypeConfiguration(
             'sulu_form.type.mailchimp',
             __DIR__ . '/../../Resources/config/form-fields/field_mailchimp.xml',
-            ['mailChimpLists' => $this->getMailChimpLists()],
             'special'
         );
     }
@@ -63,36 +49,5 @@ class MailchimpType implements FormFieldTypeInterface
     public function getDefaultValue(FormField $field, $locale)
     {
         return $field->getTranslation($locale)->getDefaultValue();
-    }
-
-    /**
-     * Returns array of Mailchimp lists of given account defined by the API key.
-     *
-     * @return array
-     */
-    private function getMailChimpLists()
-    {
-        $lists = [];
-
-        // If Milchimp class doesn't exist or no key is set return empty list.
-        if (!class_exists(\DrewM\MailChimp\MailChimp::class) || !$this->apiKey) {
-            return $lists;
-        }
-
-        $mailChimp = new \DrewM\MailChimp\MailChimp($this->apiKey);
-        $response = $mailChimp->get('lists', ['count' => 100]);
-
-        if (!isset($response['lists'])) {
-            return $lists;
-        }
-
-        foreach ($response['lists'] as $list) {
-            $lists[] = [
-                'id' => $list['id'],
-                'name' => $list['name'],
-            ];
-        }
-
-        return $lists;
     }
 }

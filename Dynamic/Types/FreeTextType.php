@@ -32,7 +32,6 @@ class FreeTextType implements FormFieldTypeInterface
         return new FormFieldTypeConfiguration(
             'sulu_form.type.freetext',
             __DIR__ . '/../../Resources/config/form-fields/field_title.xml',
-            [],
             'additional'
         );
     }

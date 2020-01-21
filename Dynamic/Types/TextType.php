@@ -32,7 +32,6 @@ class TextType implements FormFieldTypeInterface
         return new FormFieldTypeConfiguration(
             'sulu_form.type.text',
             __DIR__ . '/../../Resources/config/form-fields/field_example_default.xml',
-            [],
             'basic'
         );
     }

@@ -161,6 +161,12 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $loader->load('title-providers.xml');
 
         if ($config['mailchimp_api_key']) {
+            if (!class_exists(\DrewM\MailChimp\MailChimp::class) ) {
+                throw new \LogicException(
+                    'You need to install the "drewm/mailchimp-api" package to use the mailchimp type.'
+                );
+            }
+
             $loader->load('type_mailchimp.xml');
         }
 
