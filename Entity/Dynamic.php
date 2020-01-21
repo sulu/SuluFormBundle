@@ -31,7 +31,7 @@ class Dynamic implements AuditableInterface
     ];
 
     /**
-     * @var int
+     * @var null|int
      */
     private $id;
 
@@ -56,7 +56,7 @@ class Dynamic implements AuditableInterface
     private $locale;
 
     /**
-     * @var Form
+     * @var null|Form
      */
     private $form;
 
@@ -186,7 +186,7 @@ class Dynamic implements AuditableInterface
     private $data = '[]';
 
     /**
-     * @var \DateTime
+     * @var null|\DateTime
      */
     private $created;
 
@@ -210,7 +210,7 @@ class Dynamic implements AuditableInterface
      *
      * @param mixed[] $data
      */
-    public function __construct(string $type, string $typeId, string $locale, Form $form, array $data = [], string $webspaceKey = null, string $typeName = '')
+    public function __construct(string $type, string $typeId, string $locale, ?Form $form, array $data = [], string $webspaceKey = null, string $typeName = '')
     {
         $this->type = $type;
         $this->typeId = $typeId;
@@ -352,7 +352,7 @@ class Dynamic implements AuditableInterface
         return $this->form->getFieldType($key);
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -397,7 +397,7 @@ class Dynamic implements AuditableInterface
     /**
      * {@inheritdoc}
      */
-    public function getCreated(): \DateTime
+    public function getCreated(): ?\DateTime
     {
         return $this->created;
     }

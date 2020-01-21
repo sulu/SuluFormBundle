@@ -112,9 +112,9 @@ class FormWebsiteController extends DefaultController
      *
      * @param mixed[] $attributes
      *
-     * @return JsonResponse|RedirectResponse|Null
+     * @return JsonResponse|RedirectResponse|null
      */
-    private function handleFormSubmit(Request $request, AbstractType $type, array $attributes): Response
+    private function handleFormSubmit(Request $request, AbstractType $type, array $attributes): ?Response
     {
         // handle form submit
         $configuration = $this->get('sulu_form.configuration.form_configuration_factory')->buildByType(

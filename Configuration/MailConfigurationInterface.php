@@ -20,7 +20,7 @@ interface MailConfigurationInterface
 
     public function getLocale(): string;
 
-    public function getSubject(): string;
+    public function getSubject(): ?string;
 
     /**
      * Get from address.

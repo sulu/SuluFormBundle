@@ -17,79 +17,79 @@ interface TypeInterface
     public function setAttributes(array $attributes): void;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
-    public function getCustomerSubject(array $formData = []): ?string;
+    public function getCustomerSubject($formData = []): ?string;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
-    public function getNotifySubject(array $formData = []): ?string;
+    public function getNotifySubject($formData = []): ?string;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
-    public function getCustomerMail(array $formData = []): string;
+    public function getCustomerMail($formData = []): string;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
-    public function getNotifyMail(array $formData = []): string;
+    public function getNotifyMail($formData = []): string;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
-    public function getCustomerFromMailAddress(array $formData = []): string;
+    public function getCustomerFromMailAddress($formData = []): string;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
-    public function getCustomerToMailAddress(array $formData = []): string;
+    public function getCustomerToMailAddress($formData = []): string;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
-    public function getCustomerReplyToMailAddress(array $formData = []): string;
+    public function getCustomerReplyToMailAddress($formData = []): string;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
-    public function getNotifyFromMailAddress(array $formData = []): string;
+    public function getNotifyFromMailAddress($formData = []): string;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
-    public function getNotifyToMailAddress(array $formData = []): string;
+    public function getNotifyToMailAddress($formData = []): string;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
-    public function getNotifyReplyToMailAddress(array $formData = []): string;
+    public function getNotifyReplyToMailAddress($formData = []): string;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
-    public function getNotifySendAttachments(array $formData = []): bool;
+    public function getNotifySendAttachments($formData = []): bool;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
-    public function getNotifyDeactivateMails(array $formData = []): bool;
+    public function getNotifyDeactivateMails($formData = []): bool;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
-    public function getCustomerDeactivateMails(array $formData = []): bool;
+    public function getCustomerDeactivateMails($formData = []): bool;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
-    public function getMailText(array $formData = []): string;
+    public function getMailText($formData = []): string;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
-    public function getSuccessText(array $formData = []): string;
+    public function getSuccessText($formData = []): string;
 
     /**
      * @deprecated

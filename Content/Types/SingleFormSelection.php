@@ -70,7 +70,6 @@ class SingleFormSelection extends SimpleContentType
         /** @var PageBridge $structure */
         $structure = $property->getStructure();
 
-        /** @var FormInterface $form */
         $form = $this->formBuilder->build(
             $id,
             $resourceKey,

@@ -14,7 +14,6 @@ use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -71,7 +70,6 @@ class RequestListener
         }
 
         try {
-            /** @var FormInterface $form */
             $form = $this->formBuilder->buildByRequest($request);
 
             if (!$form || !$form->isSubmitted() || !$form->isValid()) {

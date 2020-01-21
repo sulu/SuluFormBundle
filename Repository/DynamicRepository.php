@@ -114,7 +114,7 @@ class DynamicRepository extends EntityRepository
      *
      * @param string[] $searchFields
      */
-    protected function addSearchFilter(QueryBuilder $queryBuilder, string $search, array $searchFields): void
+    protected function addSearchFilter(QueryBuilder $queryBuilder, ?string $search, ?array $searchFields): void
     {
         if (empty($search) || empty($searchFields)) {
             return;
@@ -141,7 +141,7 @@ class DynamicRepository extends EntityRepository
     /**
      * Depending on the given dates, this function filters the result based on the created date.
      */
-    protected function addDateRangeFilter(QueryBuilder $queryBuilder, string $fromDate, string $toDate): void
+    protected function addDateRangeFilter(QueryBuilder $queryBuilder, ?string $fromDate, ?string $toDate): void
     {
         if ($fromDate && $toDate) {
             $queryBuilder->andWhere($queryBuilder->expr()->between('dynamic.created', ':fromDate', ':toDate'));

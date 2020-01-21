@@ -20,7 +20,7 @@ class MailConfiguration implements MailConfigurationInterface
     private $locale;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $subject;
 
@@ -85,12 +85,12 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getSubject(): string
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
 
-    public function setSubject(string $subject): self
+    public function setSubject(?string $subject): self
     {
         $this->subject = $subject;
 

@@ -25,5 +25,5 @@ interface BuilderInterface
     /**
      * Build dynamic form.
      */
-    public function build(int $id, string $type, string $typeId, ?string $locale = null, string $name = 'form'): FormInterface;
+    public function build(int $id, string $type, string $typeId, ?string $locale = null, string $name = 'form'): ?FormInterface;
 }

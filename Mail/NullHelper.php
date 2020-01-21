@@ -28,16 +28,16 @@ class NullHelper implements HelperInterface
      * {@inheritdoc}
      */
     public function sendMail(
-        string $subject,
-        string $body,
+        $subject,
+        $body,
         $toMail = null,
-        string $fromMail = null,
-        bool $html = true,
-        string $replyTo = null,
-        array $attachments = [],
+        $fromMail = null,
+        $html = true,
+        $replyTo = null,
+        $attachments = [],
         $ccMail = [],
         $bccMail = [],
-        string $plainText = null
+        $plainText = null
     ): int {
         $this->logger->info(sprintf(
             'SuluFormBundle NullMailHelper: ' . PHP_EOL .

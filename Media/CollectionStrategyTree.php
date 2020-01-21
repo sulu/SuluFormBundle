@@ -11,6 +11,7 @@ namespace Sulu\Bundle\FormBundle\Media;
 
 use Sulu\Bundle\FormBundle\DependencyInjection\SuluFormExtension;
 use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
+use Sulu\Bundle\MediaBundle\Api\Collection;
 use Sulu\Bundle\MediaBundle\Collection\Manager\CollectionManagerInterface;
 use Sulu\Component\Media\SystemCollections\SystemCollectionManagerInterface;
 
@@ -106,12 +107,12 @@ class CollectionStrategyTree implements CollectionStrategyInterface
 
     private function loadCollectionId(string $collectionKey, string $locale): ?int
     {
+        /** @var null|Collection $collection */
         $collection = $this->collectionManager->getByKey($collectionKey, $locale);
-
-        if ($collection) {
-            return $collection->getId();
+        if (!$collection) {
+            return null;
         }
 
-        return null;
+        return $collection->getId();
     }
 }

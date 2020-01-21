@@ -131,7 +131,7 @@ class Builder implements BuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function build(int $id, string $type, string $typeId, ?string $locale = null, string $name = 'form'): FormInterface
+    public function build(int $id, string $type, string $typeId, ?string $locale = null, string $name = 'form'): ?FormInterface
     {
         $request = $this->requestStack->getCurrentRequest();
 

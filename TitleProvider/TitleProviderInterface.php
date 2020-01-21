@@ -16,8 +16,6 @@ interface TitleProviderInterface
 {
     /**
      * Returns the title with registered service from given type (e.g. content, event, blog,…).
-     *
-     * @return mixed
      */
-    public function getTitle(string $typeId, ?string $locale = null);
+    public function getTitle(string $typeId, ?string $locale = null): ?string;
 }

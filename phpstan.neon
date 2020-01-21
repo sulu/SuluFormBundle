@@ -10,7 +10,7 @@ includes:
 parameters:
     paths:
         - .
-    level: 3
+    level: 4
     symfony:
             container_xml_path: %rootDir%/../../../Tests/Application/var/cache/admin/dev/adminAdminDevDebugProjectContainer.xml
     excludes_analyse:

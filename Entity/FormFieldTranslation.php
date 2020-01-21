@@ -35,17 +35,17 @@ class FormFieldTranslation
     private $field;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $placeholder;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $defaultValue;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $shortTitle;
 
@@ -95,39 +95,36 @@ class FormFieldTranslation
         return $this->field;
     }
 
-    /**
-     * @return string|bool
-     */
-    public function getPlaceholder()
+    public function getPlaceholder(): ?string
     {
         return $this->placeholder;
     }
 
-    public function setPlaceholder(string $placeholder): self
+    public function setPlaceholder(?string $placeholder): self
     {
         $this->placeholder = $placeholder;
 
         return $this;
     }
 
-    public function getDefaultValue(): string
+    public function getDefaultValue(): ?string
     {
         return $this->defaultValue;
     }
 
-    public function setDefaultValue(string $defaultValue): self
+    public function setDefaultValue(?string $defaultValue): self
     {
         $this->defaultValue = $defaultValue;
 
         return $this;
     }
 
-    public function getShortTitle(): string
+    public function getShortTitle(): ?string
     {
         return $this->shortTitle;
     }
 
-    public function setShortTitle(string $shortTitle): self
+    public function setShortTitle(?string $shortTitle): self
     {
         $this->shortTitle = $shortTitle;
 
@@ -160,7 +157,10 @@ class FormFieldTranslation
         return $this;
     }
 
-    public function getOption(string $key): ?string
+    /**
+     * @return mixed
+     */
+    public function getOption(string $key)
     {
         if (isset($this->getOptions()[$key])) {
             return $this->getOptions()[$key];
