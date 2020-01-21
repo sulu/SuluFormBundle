@@ -208,18 +208,16 @@
             <argument type="service" id="sulu_core.doctrine_list_builder_factory"/>
             <argument type="service" id="sulu_core.list_builder.field_descriptor_factory"/>
             <argument type="service" id="sulu_core.list_rest_helper"/>
+
+            <tag name="sulu.context" context="admin"/>
         </service>
 
         <!-- Form Website Controller -->
         <service id="sulu_form.form_website_controller" class="Sulu\Bundle\FormBundle\Controller\FormWebsiteController" public="true">
-            <argument type="service" id="request_stack"/>
-            <argument type="service" id="form.registry"/>
-            <argument type="service" id="form.factory"/>
-            <argument type="service" id="sulu_form.configuration.form_configuration_factory"/>
-            <argument type="service" id="sulu_form.handler"/>
-            <argument type="service" id="security.csrf.token_manager"/>
             <argument>%sulu_form.ajax_templates%</argument>
             <argument>%sulu_form.static_forms%</argument>
+
+            <tag name="sulu.context" context="website"/>
         </service>
 
         <!-- List Controller -->
@@ -229,6 +227,8 @@
             <argument type="service" id="sulu_core.doctrine_rest_helper"/>
             <argument type="service" id="sulu_core.doctrine_list_builder_factory"/>
             <argument type="service" id="sulu.list.provider.registry"/>
+
+            <tag name="sulu.context" context="admin"/>
         </service>
 
         <!-- Dynamic List Metadata Loader -->
