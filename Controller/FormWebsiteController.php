@@ -70,11 +70,8 @@ class FormWebsiteController extends DefaultController
      *
      * @return JsonResponse|RedirectResponse|Response
      */
-    public function formAction(StructureInterface $structure, bool $preview = false, bool $partial = false)
+    public function formAction(Request $request, StructureInterface $structure, bool $preview = false, bool $partial = false)
     {
-        /** @var Request $request */
-        $request = $this->getRequestStack()->getCurrentRequest();
-
         // get attributes
         $attributes = $this->getAttributes([], $structure, $preview);
 
@@ -82,10 +79,10 @@ class FormWebsiteController extends DefaultController
 
         $typeClass = $this->getTypeClass($template);
         /** @var AbstractType $type */
-        $type = $this->getFormRegistry()->getType($typeClass)->getInnerType();
+        $type = $this->get('form.registry')->getType($typeClass)->getInnerType();
         $type->setAttributes($attributes);
 
-        $this->form = $this->getFormFactory()->create($typeClass);
+        $this->form = $this->get('form.factory')->create($typeClass);
         $this->form->handleRequest($request);
 
         if ($this->form->isSubmitted()
@@ -113,8 +110,8 @@ class FormWebsiteController extends DefaultController
 
         $typeClass = $this->getTypeClass($key);
         /** @var AbstractType $type */
-        $type = $this->getFormRegistry()->getType($typeClass)->getInnerType();
-        $this->form = $this->getFormFactory()->create($typeClass);
+        $type = $this->get('form.registry')->getType($typeClass)->getInnerType();
+        $this->form = $this->get('form.factory')->create($typeClass);
         $this->form->handleRequest($request);
 
         if ($this->form->isSubmitted()
@@ -139,14 +136,14 @@ class FormWebsiteController extends DefaultController
     private function handleFormSubmit(Request $request, AbstractType $type, array $attributes)
     {
         // handle form submit
-        $configuration = $this->getFormConfigurationFactory()->buildByType(
+        $configuration = $this->get('sulu_form.configuration.form_configuration_factory')->buildByType(
             $type,
             $this->form->getData(),
             $request->getLocale(),
             $attributes
         );
 
-        $success = $this->getFormHandler()->handle($this->form, $configuration);
+        $success = $this->get('sulu_form.handler')->handle($this->form, $configuration);
 
         if ($success) {
             if ($request->isXmlHttpRequest()) {
@@ -172,14 +169,14 @@ class FormWebsiteController extends DefaultController
     private function handleFormOnlySubmit(Request $request, AbstractType $type): ?RedirectResponse
     {
         // handle form submit
-        $configuration = $this->getFormConfigurationFactory()->buildByType(
+        $configuration = $this->get('sulu_form.configuration.form_configuration_factory')->buildByType(
             $type,
             $this->form->getData(),
             $request->getLocale(),
             []
         );
 
-        if ($this->getFormHandler()->handle($this->form, $configuration)) {
+        if ($this->get('sulu_form.handler')->handle($this->form, $configuration)) {
             return new RedirectResponse('?send=true');
         }
 
@@ -189,7 +186,7 @@ class FormWebsiteController extends DefaultController
     public function tokenAction(Request $request): Response
     {
         $formName = $request->get('form');
-        $csrfToken = $this->getCsrfTokenmanager()->getToken(
+        $csrfToken = $this->get('security.csrf.token_manager')->getToken(
             $request->get('form')
         )->getValue();
 
@@ -271,34 +268,5 @@ class FormWebsiteController extends DefaultController
     private function getTypeClass(string $key): string
     {
         return $this->staticForms[$key]['class'];
-    }
-
-    protected function getRequestStack(): ?RequestStack
-    {
-        return $this->get('request_stack');
-    }
-
-    protected function getFormRegistry(): ?FormRegistryInterface
-    {
-        return $this->get('form.registry');
-    }
-
-    protected function getFormFactory(): ?FormFactoryInterface
-    {
-        return $this->get('form.factory');
-    }
-
-    protected function getFormConfigurationFactory(): ?FormConfigurationFactory
-    {
-        return $this->get('sulu_form.configuration.form_configuration_factory');
-    }
-
-    protected function getFormHandler(): ?HandlerInterface
-    {
-        return $this->get('sulu_form.handler');
-    }
-
-    protected function getCsrfTokenmanager(): ?CsrfTokenManagerInterface{
-        return $this->get('security.csrf.token_manager');
     }
 }
