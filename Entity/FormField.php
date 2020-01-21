@@ -147,7 +147,10 @@ class FormField
         return $this->id;
     }
 
-    public function getTranslation(string $locale, bool $create = false, bool $fallback = false): ?FormFieldTranslation
+    /**
+     * @return FormFieldTranslation|FormTranslation|null
+     */
+    public function getTranslation(string $locale, bool $create = false, bool $fallback = false)
     {
         foreach ($this->translations as $translation) {
             if ($translation->getLocale() == $locale) {
@@ -182,7 +185,7 @@ class FormField
     }
 
     /**
-     * @return Collection|FormFieldTranslation[]
+     * @return ArrayCollection|Collection|FormTranslation[]
      */
     public function getTranslations()
     {

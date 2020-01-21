@@ -75,7 +75,7 @@ class DynamicListBuilder implements DynamicListBuilderInterface
         }
 
         if (is_bool($value)) {
-            return $value ? 1 : 0;
+            return $value ? '1' : '0';
         }
 
         if ($value instanceof \DateTime) {

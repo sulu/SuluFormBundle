@@ -287,7 +287,7 @@ class FormController extends AbstractRestController implements ClassResourceInte
     {
         if (!isset($filters['page'])) {
             if (isset($filters['limit']) && isset($filters['offset'])) {
-                return floor($filters['offset'] / $filters['limit']) + 1;
+                return intval(floor($filters['offset'] / $filters['limit']) + 1);
             }
 
             return 1;

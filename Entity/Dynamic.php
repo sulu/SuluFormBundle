@@ -196,12 +196,12 @@ class Dynamic implements AuditableInterface
     private $changed;
 
     /**
-     * @var
+     * @var UserInterface
      */
     private $creator;
 
     /**
-     * @var
+     * @var UserInterface
      */
     private $changer;
 

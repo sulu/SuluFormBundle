@@ -9,7 +9,6 @@
 
 namespace Sulu\Bundle\FormBundle\Entity;
 
-use Doctrine\Common\Collections\Collection;
 use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 
@@ -357,7 +356,7 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * @return Collection|FormTranslationReceiver[]
+     * @return object|FormTranslationReceiver[]
      */
     public function getReceivers()
     {

@@ -129,9 +129,9 @@ class Form
     }
 
     /**
-     * @return Collection|FormField[]
+     * @return FormField[]
      */
-    public function getFieldsByType(string $type)
+    public function getFieldsByType(string $type): array
     {
         $fields = [];
 

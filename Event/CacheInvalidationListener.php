@@ -29,17 +29,20 @@ class CacheInvalidationListener
         $this->invalidationHandler = $invalidationHandler;
     }
 
-    public function postUpdate(LifecycleEventArgs $eventArgs)
+    public function postUpdate(LifecycleEventArgs $eventArgs): void
     {
         $this->invalidateEntity($eventArgs->getObject());
     }
 
-    public function preRemove(LifecycleEventArgs $eventArgs)
+    public function preRemove(LifecycleEventArgs $eventArgs): void
     {
         $this->invalidateEntity($eventArgs->getObject());
     }
 
-    private function invalidateEntity($object)
+    /**
+     * @param Form|FormTranslation $object
+     */
+    private function invalidateEntity($object): void
     {
         if ($object instanceof Form) {
             $this->invalidationHandler->invalidateReference('form', $object->getId());

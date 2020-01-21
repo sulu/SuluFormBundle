@@ -29,7 +29,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     protected $csrfProtection = true;
 
     /**
-     * @var bool
+     * @var string
      */
     protected $csrfFieldName = '_token';
 

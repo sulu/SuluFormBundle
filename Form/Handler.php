@@ -165,7 +165,7 @@ class Handler implements HandlerInterface
     /**
      * Upload media.
      *
-     * @return int[]
+     * @return mixed[]
      */
     private function uploadMedia(FormInterface $form, FormConfigurationInterface $configuration): array
     {
@@ -229,7 +229,7 @@ class Handler implements HandlerInterface
     /**
      * Get media data.
      *
-     * @return string[]
+     * @return mixed[]
      */
     protected function getMediaData(
         UploadedFile $file,

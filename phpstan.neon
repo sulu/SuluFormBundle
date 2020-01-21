@@ -10,17 +10,14 @@ includes:
 parameters:
     paths:
         - .
-    level: 1
+    level: 3
     symfony:
             container_xml_path: %rootDir%/../../../Tests/Application/var/cache/admin/dev/adminAdminDevDebugProjectContainer.xml
     excludes_analyse:
         - %currentWorkingDirectory%/vendor/*
         - %currentWorkingDirectory%/Tests/*
-        - %currentWorkingDirectory%/Admin/DynamicListNavigationProvider.php
-        - %currentWorkingDirectory%/Admin/FormNavigationProvider.php
-        - %currentWorkingDirectory%/Admin/TemplateNavigationProvider.php
-        - %currentWorkingDirectory%/Dynamic/Types/RecaptchaType.php
+        - %currentWorkingDirectory%/DependencyInjection/Configuration.php
         - %currentWorkingDirectory%/Event/CacheInvalidationListener.php
-        - %currentWorkingDirectory%/DependencyInjection/SuluFormExtension.php
-
-
+    ignoreErrors:
+            - '#Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch()#'
+            - '#Cannot assign offset \x27[a-zA-Z0-9\\_]+\x27 to string.#' #\x27 represents the single quote character '
