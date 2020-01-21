@@ -26,8 +26,10 @@ Add the following config to `config/packages/sulu_form.yaml`:
 
 ```yml
 sulu_form:
-    mailchimp_api_key: %parameter_recommended_for_mailchimp_api_key%
+    mailchimp_api_key: "<YOUR_API_KEY>"
 ```
+
+It is recommended to store the api key as environment variable see [Symfony Docs](https://symfony.com/doc/4.4/configuration.html#configuration-environments).
 
 ## Subscribe Status
 

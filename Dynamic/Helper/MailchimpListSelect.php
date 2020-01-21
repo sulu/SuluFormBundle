@@ -33,8 +33,7 @@ class MailchimpListSelect
     {
         $lists = [];
 
-        // If Milchimp class doesn't exist or no key is set return empty list.
-        if (!class_exists(\DrewM\MailChimp\MailChimp::class) || !$this->apiKey) {
+        if (!$this->apiKey) {
             return $lists;
         }
 
