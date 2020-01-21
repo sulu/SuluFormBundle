@@ -212,14 +212,6 @@
             <tag name="sulu.context" context="admin"/>
         </service>
 
-        <!-- Form Website Controller -->
-        <service id="sulu_form.form_website_controller" class="Sulu\Bundle\FormBundle\Controller\FormWebsiteController" public="true">
-            <argument>%sulu_form.ajax_templates%</argument>
-            <argument>%sulu_form.static_forms%</argument>
-
-            <tag name="sulu.context" context="website"/>
-        </service>
-
         <!-- List Controller -->
         <service id="sulu_form.list_controller" class="Sulu\Bundle\FormBundle\Controller\ListController" public="true">
             <argument type="service" id="fos_rest.view_handler.default"/>

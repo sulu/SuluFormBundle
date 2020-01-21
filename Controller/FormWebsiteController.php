@@ -39,22 +39,6 @@ class FormWebsiteController extends DefaultController
      */
     protected $attributes;
 
-    /**
-     * @var array
-     */
-    private $ajaxTemplates;
-
-    /**
-     * @var array
-     */
-    private $staticForms;
-
-    public function __construct(array $ajaxTemplates, array $staticForms)
-    {
-        $this->ajaxTemplates = $ajaxTemplates;
-        $this->staticForms = $staticForms;
-    }
-
     public static function getSubscribedServices()
     {
         $subscribesServices = parent::getSubscribedServices();
@@ -104,7 +88,9 @@ class FormWebsiteController extends DefaultController
      */
     public function onlyAction(Request $request, string $key)
     {
-        if (!$this->ajaxTemplates[$key]) {
+        $ajaxTemplates = $this->getParameter('sulu_form.ajax_templates');
+
+        if (!$ajaxTemplates[$key]) {
             throw new NotFoundHttpException();
         }
 
@@ -123,7 +109,7 @@ class FormWebsiteController extends DefaultController
             return $response;
         }
 
-        return $this->render($this->ajaxTemplates[$key], ['form' => $this->form->createView()]);
+        return $this->render($ajaxTemplates[$key], ['form' => $this->form->createView()]);
     }
 
     /**
@@ -267,6 +253,6 @@ class FormWebsiteController extends DefaultController
 
     private function getTypeClass(string $key): string
     {
-        return $this->staticForms[$key]['class'];
+        return $this->getParameter('sulu_form.static_forms')[$key]['class'];
     }
 }
