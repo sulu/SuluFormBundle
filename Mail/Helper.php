@@ -39,7 +39,7 @@ class Helper implements HelperInterface
         \Swift_Mailer $mailer,
         ?string $fromMail,
         ?string $toMail,
-        LoggerInterface $logger = null
+        ?LoggerInterface $logger = null
     ) {
         $this->mailer = $mailer;
         $this->toMail = $toMail;
