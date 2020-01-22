@@ -18,9 +18,6 @@ class MailchimpListSelect
      */
     private $apiKey;
 
-    /**
-     * @param string|null $apiKey
-     */
     public function __construct(?string $apiKey)
     {
         $this->apiKey = $apiKey;

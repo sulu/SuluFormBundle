@@ -2,7 +2,9 @@
 
 /*
  * This file is part of Sulu.
+ *
  * (c) Sulu GmbH
+ *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -157,10 +159,8 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $loader->load('title-providers.xml');
 
         if ($config['mailchimp_api_key']) {
-            if (!class_exists(\DrewM\MailChimp\MailChimp::class) ) {
-                throw new \LogicException(
-                    'You need to install the "drewm/mailchimp-api" package to use the mailchimp type.'
-                );
+            if (!class_exists(\DrewM\MailChimp\MailChimp::class)) {
+                throw new \LogicException('You need to install the "drewm/mailchimp-api" package to use the mailchimp type.');
             }
 
             $loader->load('type_mailchimp.xml');
