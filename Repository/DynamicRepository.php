@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -22,14 +22,12 @@ class DynamicRepository extends EntityRepository
     /**
      * Finds dynamic entries by the given parameters.
      *
-     * @param array $filters
-     * @param array $sort
-     * @param int|null $limit
-     * @param int|null $offset
+     * @param mixed[] $filters
+     * @param string[] $sort
      *
-     * @return array
+     * @return mixed[]
      */
-    public function findByFilters($filters, $sort = [], $limit = null, $offset = null)
+    public function findByFilters(array $filters, array $sort = [], ?int $limit = null, ?int $offset = null)
     {
         $queryBuilder = $this->createQueryBuilder('dynamic');
 
@@ -58,11 +56,9 @@ class DynamicRepository extends EntityRepository
     /**
      * Returns the number of found entities.
      *
-     * @param array $filters
-     *
-     * @return int
+     * @param mixed[] $filters
      */
-    public function countByFilters($filters)
+    public function countByFilters(array $filters): int
     {
         $queryBuilder = $this->createQueryBuilder('dynamic');
         $queryBuilder->select($queryBuilder->expr()->count('dynamic.id'));
@@ -74,10 +70,9 @@ class DynamicRepository extends EntityRepository
     /**
      * Adds the filters from the given array to the QueryBuilder.
      *
-     * @param QueryBuilder $queryBuilder
-     * @param array $filters
+     * @param mixed[] $filters
      */
-    protected function addFilter($queryBuilder, $filters)
+    protected function addFilter(QueryBuilder $queryBuilder, array $filters): void
     {
         $fromDate = null;
         $toDate = null;
@@ -119,11 +114,9 @@ class DynamicRepository extends EntityRepository
     /**
      * Depending on the given search term, this function filters the result based on search fields.
      *
-     * @param QueryBuilder $queryBuilder
-     * @param string $search
      * @param string[] $searchFields
      */
-    protected function addSearchFilter($queryBuilder, $search, $searchFields)
+    protected function addSearchFilter(QueryBuilder $queryBuilder, ?string $search, ?array $searchFields): void
     {
         if (empty($search) || empty($searchFields)) {
             return;
@@ -149,12 +142,8 @@ class DynamicRepository extends EntityRepository
 
     /**
      * Depending on the given dates, this function filters the result based on the created date.
-     *
-     * @param QueryBuilder $queryBuilder
-     * @param string $fromDate
-     * @param string $toDate
      */
-    protected function addDateRangeFilter($queryBuilder, $fromDate, $toDate)
+    protected function addDateRangeFilter(QueryBuilder $queryBuilder, ?string $fromDate, ?string $toDate): void
     {
         if ($fromDate && $toDate) {
             $queryBuilder->andWhere($queryBuilder->expr()->between('dynamic.created', ':fromDate', ':toDate'));

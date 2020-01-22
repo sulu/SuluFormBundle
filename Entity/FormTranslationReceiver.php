@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -38,96 +38,48 @@ class FormTranslationReceiver
      */
     private $formTranslation;
 
-    /**
-     * Returns id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Sets id.
-     *
-     * @param int $id
-     *
-     * @return FormTranslationReceiver
-     */
-    public function setId($id)
+    public function setId(int $id): self
     {
         $this->id = $id;
 
         return $this;
     }
 
-    /**
-     * Returns type.
-     *
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * Sets type.
-     *
-     * @param string $type
-     *
-     * @return FormTranslationReceiver
-     */
-    public function setType($type)
+    public function setType(string $type): self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    /**
-     * Returns email.
-     *
-     * @return string
-     */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * Sets email.
-     *
-     * @param string $email
-     *
-     * @return FormTranslationReceiver
-     */
-    public function setEmail($email)
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
 
-    /**
-     * Returns name.
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Sets name.
-     *
-     * @param string $name
-     *
-     * @return FormTranslationReceiver
-     */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $name = $name ?: '';
         $this->name = $name;
@@ -135,24 +87,12 @@ class FormTranslationReceiver
         return $this;
     }
 
-    /**
-     * Returns formTranslation.
-     *
-     * @return FormTranslation
-     */
-    public function getFormTranslation()
+    public function getFormTranslation(): FormTranslation
     {
         return $this->formTranslation;
     }
 
-    /**
-     * Sets formTranslation.
-     *
-     * @param FormTranslation $formTranslation
-     *
-     * @return FormTranslationReceiver
-     */
-    public function setFormTranslation($formTranslation)
+    public function setFormTranslation(FormTranslation $formTranslation): self
     {
         $this->formTranslation = $formTranslation;
 

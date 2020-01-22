@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -13,12 +13,12 @@ namespace Sulu\Bundle\FormBundle\Metadata;
 
 use Sulu\Bundle\AdminBundle\FormMetadata\FormMetadataMapper;
 use Sulu\Bundle\AdminBundle\FormMetadata\FormXmlLoader;
-use Sulu\Bundle\AdminBundle\Metadata\MetadataInterface;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadataLoaderInterface;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\ItemMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\SectionMetadata;
+use Sulu\Bundle\AdminBundle\Metadata\MetadataInterface;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Symfony\Component\Config\ConfigCache;
@@ -133,7 +133,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         $array = array_merge(array_slice($array, 0, $pos), $insert, array_slice($array, $pos));
     }
 
-    private function loadFieldTypeMetadata(string $typeKey, FormFieldTypeInterface $type, string $locale) : FormMetadata
+    private function loadFieldTypeMetadata(string $typeKey, FormFieldTypeInterface $type, string $locale): FormMetadata
     {
         $form = new FormMetadata();
         $configuration = $type->getConfiguration();

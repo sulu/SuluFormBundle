@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -11,10 +11,8 @@
 
 namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
-use Sulu\Bundle\FormBundle\Admin\DynamicListNavigationProvider;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -85,10 +83,10 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                         ],
                         'dynamic_forms' => [
                             'routes' => [
-                                'list' =>'sulu_form.get_dynamics',
+                                'list' => 'sulu_form.get_dynamics',
                                 'detail' => 'sulu_form.delete_dynamic',
                             ],
-                        ]
+                        ],
                     ],
                     'field_type_options' => [
                         'single_selection' => [
@@ -161,10 +159,8 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $loader->load('title-providers.xml');
 
         if ($config['mailchimp_api_key']) {
-            if (!class_exists(\DrewM\MailChimp\MailChimp::class) ) {
-                throw new \LogicException(
-                    'You need to install the "drewm/mailchimp-api" package to use the mailchimp type.'
-                );
+            if (!class_exists(\DrewM\MailChimp\MailChimp::class)) {
+                throw new \LogicException('You need to install the "drewm/mailchimp-api" package to use the mailchimp type.');
             }
 
             $loader->load('type_mailchimp.xml');

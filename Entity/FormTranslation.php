@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -12,7 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Entity;
 
 use Sulu\Component\Persistence\Model\AuditableInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Sulu\Component\Security\Authentication\UserInterface;
 
 /**
  * Form translation entity.
@@ -25,7 +25,7 @@ class FormTranslation implements AuditableInterface
     private $title;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $subject;
 
@@ -35,7 +35,7 @@ class FormTranslation implements AuditableInterface
     private $fromEmail;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $fromName;
 
@@ -45,22 +45,22 @@ class FormTranslation implements AuditableInterface
     private $toEmail;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $toName;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $mailText;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $submitLabel;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $successText;
 
@@ -90,7 +90,7 @@ class FormTranslation implements AuditableInterface
     private $locale;
 
     /**
-     * @var int
+     * @var null|int
      */
     private $id;
 
@@ -124,400 +124,233 @@ class FormTranslation implements AuditableInterface
      */
     private $receivers;
 
-    /**
-     * @param string $title
-     *
-     * @return FormTranslation
-     */
-    public function setTitle($title)
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $subject
-     *
-     * @return FormTranslation
-     */
-    public function setSubject($subject)
+    public function setSubject(?string $subject): self
     {
         $this->subject = $subject;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
 
-    /**
-     * @param string $fromEmail
-     *
-     * @return FormTranslation
-     */
-    public function setFromEmail($fromEmail)
+    public function setFromEmail(string $fromEmail): self
     {
         $this->fromEmail = $fromEmail;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getFromEmail()
+    public function getFromEmail(): string
     {
         return $this->fromEmail;
     }
 
-    /**
-     * @param string $fromName
-     *
-     * @return FormTranslation
-     */
-    public function setFromName($fromName)
+    public function setFromName(?string $fromName): self
     {
         $this->fromName = $fromName;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getFromName()
+    public function getFromName(): ?string
     {
         return $this->fromName;
     }
 
-    /**
-     * @param string $toEmail
-     *
-     * @return FormTranslation
-     */
-    public function setToEmail($toEmail)
+    public function setToEmail(string $toEmail): self
     {
         $this->toEmail = $toEmail;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getToEmail()
+    public function getToEmail(): string
     {
         return $this->toEmail;
     }
 
-    /**
-     * @param string $toName
-     *
-     * @return FormTranslation
-     */
-    public function setToName($toName)
+    public function setToName(?string $toName): self
     {
         $this->toName = $toName;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getToName()
+    public function getToName(): ?string
     {
         return $this->toName;
     }
 
-    /**
-     * @param string $mailText
-     *
-     * @return FormTranslation
-     */
-    public function setMailText($mailText)
+    public function setMailText(?string $mailText): self
     {
         $this->mailText = $mailText;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getMailText()
+    public function getMailText(): ?string
     {
         return $this->mailText;
     }
 
-    /**
-     * @param string $submitLabel
-     *
-     * @return FormTranslation
-     */
-    public function setSubmitLabel($submitLabel)
+    public function setSubmitLabel(?string $submitLabel): self
     {
         $this->submitLabel = $submitLabel;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSubmitLabel()
+    public function getSubmitLabel(): ?string
     {
         return $this->submitLabel;
     }
 
-    /**
-     * @param string $successText
-     *
-     * @return FormTranslation
-     */
-    public function setSuccessText($successText)
+    public function setSuccessText(?string $successText): self
     {
         $this->successText = $successText;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSuccessText()
+    public function getSuccessText(): ?string
     {
         return $this->successText;
     }
 
-    /**
-     * @param bool $sendAttachments
-     *
-     * @return $this
-     */
-    public function setSendAttachments($sendAttachments)
+    public function setSendAttachments(bool $sendAttachments): self
     {
         $this->sendAttachments = $sendAttachments;
 
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function getSendAttachments()
+    public function getSendAttachments(): bool
     {
         return $this->sendAttachments;
     }
 
-    /**
-     * Set deactivateNotifyMails.
-     *
-     * @param bool $deactivateNotifyMails
-     *
-     * @return FormTranslation
-     */
-    public function setDeactivateNotifyMails($deactivateNotifyMails)
+    public function setDeactivateNotifyMails(bool $deactivateNotifyMails): self
     {
         $this->deactivateNotifyMails = $deactivateNotifyMails;
 
         return $this;
     }
 
-    /**
-     * Get deactivateNotifyMails.
-     *
-     * @return bool
-     */
-    public function getDeactivateNotifyMails()
+    public function getDeactivateNotifyMails(): bool
     {
         return $this->deactivateNotifyMails;
     }
 
-    /**
-     * Set deactivateCustomerMails.
-     *
-     * @param bool $deactivateCustomerMails
-     *
-     * @return FormTranslation
-     */
-    public function setDeactivateCustomerMails($deactivateCustomerMails)
+    public function setDeactivateCustomerMails(bool $deactivateCustomerMails): self
     {
         $this->deactivateCustomerMails = $deactivateCustomerMails;
 
         return $this;
     }
 
-    /**
-     * Get deactivateCustomerMails.
-     *
-     * @return bool
-     */
-    public function getDeactivateCustomerMails()
+    public function getDeactivateCustomerMails(): bool
     {
         return $this->deactivateCustomerMails;
     }
 
-    /**
-     * Set replyTo.
-     *
-     * @param bool $replyTo
-     *
-     * @return FormTranslation
-     */
-    public function setReplyTo($replyTo)
+    public function setReplyTo(bool $replyTo): self
     {
         $this->replyTo = $replyTo;
 
         return $this;
     }
 
-    /**
-     * Get replyTo.
-     *
-     * @return bool
-     */
-    public function getReplyTo()
+    public function getReplyTo(): bool
     {
         return $this->replyTo;
     }
 
-    /**
-     * @param string $locale
-     *
-     * @return FormTranslation
-     */
-    public function setLocale($locale)
+    public function setLocale(string $locale): self
     {
         $this->locale = $locale;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getLocale()
+    public function getLocale(): string
     {
         return $this->locale;
     }
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param Form $form
-     *
-     * @return FormTranslation
-     */
-    public function setForm(Form $form)
+    public function setForm(Form $form): self
     {
         $this->form = $form;
 
         return $this;
     }
 
-    /**
-     * @return Form
-     */
-    public function getForm()
+    public function getForm(): Form
     {
         return $this->form;
     }
 
-    /**
-     * @return UserInterface
-     */
-    public function getCreator()
+    public function getCreator(): ?UserInterface
     {
         return $this->creator;
     }
 
-    /**
-     * @param UserInterface $creator
-     *
-     * @return FormTranslation
-     */
-    public function setCreator($creator)
+    public function setCreator(UserInterface $creator): self
     {
         $this->creator = $creator;
 
         return $this;
     }
 
-    /**
-     * @return UserInterface
-     */
-    public function getChanger()
+    public function getChanger(): UserInterface
     {
         return $this->changer;
     }
 
-    /**
-     * @param UserInterface $changer
-     *
-     * @return FormTranslation
-     */
-    public function setChanger($changer)
+    public function setChanger(UserInterface $changer): self
     {
         $this->changer = $changer;
 
         return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreated()
+    public function getCreated(): \DateTime
     {
         return $this->created;
     }
 
-    /**
-     * @param \DateTime $created
-     *
-     * @return FormTranslation
-     */
-    public function setCreated($created)
+    public function setCreated(\DateTime $created): self
     {
         $this->created = $created;
 
         return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getChanged()
+    public function getChanged(): \DateTime
     {
         return $this->changed;
     }
 
-    /**
-     * @param \DateTime $changed
-     *
-     * @return FormTranslation
-     */
-    public function setChanged($changed)
+    public function setChanged(\DateTime $changed): self
     {
         $this->changed = $changed;
 
@@ -525,9 +358,7 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Returns receivers.
-     *
-     * @return FormTranslationReceiver[]
+     * @return object|FormTranslationReceiver[]
      */
     public function getReceivers()
     {
@@ -535,11 +366,9 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * Sets receivers.
-     *
      * @param FormTranslationReceiver[] $receivers
      */
-    public function setReceivers($receivers)
+    public function setReceivers(array $receivers): void
     {
         $this->receivers = $receivers;
     }

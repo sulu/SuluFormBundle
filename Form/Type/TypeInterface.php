@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -14,129 +14,94 @@ namespace Sulu\Bundle\FormBundle\Form\Type;
 interface TypeInterface
 {
     /**
-     * @param array
+     * @param mixed[] $attributes
      */
-    public function setAttributes($attributes);
+    public function setAttributes(array $attributes): void;
 
     /**
-     * @param $formData
-     *
-     * @return string
+     * @param mixed $formData
      */
-    public function getCustomerSubject($formData = []);
+    public function getCustomerSubject($formData = []): ?string;
 
     /**
-     * @param $formData
-     *
-     * @return string
+     * @param mixed $formData
      */
-    public function getNotifySubject($formData = []);
+    public function getNotifySubject($formData = []): ?string;
 
     /**
-     * @param $formData
-     *
-     * @return string
+     * @param mixed $formData
      */
-    public function getCustomerMail($formData = []);
+    public function getCustomerMail($formData = []): string;
 
     /**
-     * @param $formData
-     *
-     * @return string
+     * @param mixed $formData
      */
-    public function getNotifyMail($formData = []);
+    public function getNotifyMail($formData = []): string;
 
     /**
-     * @param $formData
-     *
-     * @return string
+     * @param mixed $formData
      */
-    public function getCustomerFromMailAddress($formData = []);
+    public function getCustomerFromMailAddress($formData = []): string;
 
     /**
-     * @param $formData
-     *
-     * @return string
+     * @param mixed $formData
      */
-    public function getCustomerToMailAddress($formData = []);
+    public function getCustomerToMailAddress($formData = []): string;
 
     /**
-     * @param $formData
-     *
-     * @return string
+     * @param mixed $formData
      */
-    public function getCustomerReplyToMailAddress($formData = []);
+    public function getCustomerReplyToMailAddress($formData = []): string;
 
     /**
-     * @param $formData
-     *
-     * @return string
+     * @param mixed $formData
      */
-    public function getNotifyFromMailAddress($formData = []);
+    public function getNotifyFromMailAddress($formData = []): string;
 
     /**
-     * @param $formData
-     *
-     * @return string
+     * @param mixed $formData
      */
-    public function getNotifyToMailAddress($formData = []);
+    public function getNotifyToMailAddress($formData = []): string;
 
     /**
-     * @param $formData
-     *
-     * @return string
+     * @param mixed $formData
      */
-    public function getNotifyReplyToMailAddress($formData = []);
+    public function getNotifyReplyToMailAddress($formData = []): string;
 
     /**
-     * @param $formData
-     *
-     * @return bool
+     * @param mixed $formData
      */
-    public function getNotifySendAttachments($formData = []);
+    public function getNotifySendAttachments($formData = []): bool;
 
     /**
-     * @param $formData
-     *
-     * @return bool
+     * @param mixed $formData
      */
-    public function getNotifyDeactivateMails($formData = []);
+    public function getNotifyDeactivateMails($formData = []): bool;
 
     /**
-     * @param $formData
-     *
-     * @return bool
+     * @param mixed $formData
      */
-    public function getCustomerDeactivateMails($formData = []);
+    public function getCustomerDeactivateMails($formData = []): bool;
 
     /**
-     * @param $formData
-     *
-     * @return string
+     * @param mixed $formData
      */
-    public function getMailText($formData = []);
+    public function getMailText($formData = []): string;
 
     /**
-     * @param $formData
-     *
-     * @return string
+     * @param mixed $formData
      */
-    public function getSuccessText($formData = []);
+    public function getSuccessText($formData = []): string;
 
     /**
      * @deprecated
-     *
-     * @return string
      */
-    public function getDefaultIntention();
+    public function getDefaultIntention(): string;
 
     /**
      * @return string[]
      */
-    public function getFileFields();
+    public function getFileFields(): array;
 
-    /**
-     * @return int
-     */
-    public function getCollectionId();
+    public function getCollectionId(): ?int;
 }

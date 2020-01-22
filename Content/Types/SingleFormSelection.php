@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -64,10 +64,7 @@ class SingleFormSelection extends SimpleContentType
         }
 
         if (!isset($property->getParams()['resourceKey'])) {
-            throw new MissingOptionsException(
-                'SuluFormBundle: The parameter "resourceKey" is missing on "single_form_selection" content-type.',
-                []
-            );
+            throw new MissingOptionsException('SuluFormBundle: The parameter "resourceKey" is missing on "single_form_selection" content-type.', []);
         }
 
         $resourceKey = $property->getParams()['resourceKey']->getValue();
@@ -75,7 +72,6 @@ class SingleFormSelection extends SimpleContentType
         /** @var PageBridge $structure */
         $structure = $property->getStructure();
 
-        /** @var FormInterface $form */
         $form = $this->formBuilder->build(
             $id,
             $resourceKey,
@@ -97,16 +93,16 @@ class SingleFormSelection extends SimpleContentType
         return $form->createView();
     }
 
-    private function loadShadowForm(PropertyInterface $property, $id, $type)
+    private function loadShadowForm(PropertyInterface $property, int $id, string $type): ?FormInterface
     {
         $structure = $property->getStructure();
 
         if (!$structure instanceof StructureBridge) {
-            return;
+            return null;
         }
 
         if (!$structure->getIsShadow()) {
-            return;
+            return null;
         }
 
         return $this->formBuilder->build(

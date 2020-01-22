@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -31,13 +31,7 @@ class RemoveTaggedServiceCollectorCompilerPass implements CompilerPassInterface
      */
     private $disableParam;
 
-    /**
-     * @param string $serviceId
-     * @param string $tagName
-     * @param int $argumentNumber
-     * @param string $aliasAttribute
-     */
-    public function __construct($tagName, $aliasAttribute, $disableParam)
+    public function __construct(string $tagName, string $aliasAttribute, string $disableParam)
     {
         $this->tagName = $tagName;
         $this->aliasAttribute = $aliasAttribute;
@@ -47,7 +41,7 @@ class RemoveTaggedServiceCollectorCompilerPass implements CompilerPassInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $disabledSerivcesAliases = $container->getParameter($this->disableParam);
         $taggedServices = $container->findTaggedServiceIds($this->tagName);

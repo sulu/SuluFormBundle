@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -28,13 +28,7 @@ class MailchimpListSubscriber implements EventSubscriberInterface
      */
     protected $subscribeStatus;
 
-    /**
-     * MailchimpListSubscriber constructor.
-     *
-     * @param string $apiKey
-     * @param string $subscribeStatus
-     */
-    public function __construct($apiKey = '', $subscribeStatus = 'subscribed')
+    public function __construct(string $apiKey = '', string $subscribeStatus = 'subscribed')
     {
         $this->apiKey = $apiKey;
         $this->subscribeStatus = $subscribeStatus;
@@ -50,10 +44,7 @@ class MailchimpListSubscriber implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param FormEvent $event
-     */
-    public function listSubscribe(FormEvent $event)
+    public function listSubscribe(FormEvent $event): void
     {
         $dynamic = $event->getData();
 

@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -45,21 +45,12 @@ class FormConfigurationFactory
      */
     private $mailWebsitePlainTextTemplate;
 
-    /**
-     * FormConfigurationFactory constructor.
-     *
-     * @param CollectionStrategyInterface $collectionStrategy
-     * @param string $mailAdminTemplate
-     * @param string $mailWebsiteTemplate
-     * @param string $mailAdminPlainTextTemplate;
-     * @param string $mailWebsitePlainTextTemplate
-     */
     public function __construct(
         CollectionStrategyInterface $collectionStrategy,
-        $mailAdminTemplate,
-        $mailWebsiteTemplate,
-        $mailAdminPlainTextTemplate,
-        $mailWebsitePlainTextTemplate
+        string $mailAdminTemplate,
+        string $mailWebsiteTemplate,
+        string $mailAdminPlainTextTemplate,
+        string $mailWebsitePlainTextTemplate
     ) {
         $this->collectionStrategy = $collectionStrategy;
         $this->mailAdminTemplate = $mailAdminTemplate;
@@ -70,12 +61,8 @@ class FormConfigurationFactory
 
     /**
      * Build by dynamic entity.
-     *
-     * @param Dynamic $dynamic
-     *
-     * @return FormConfigurationInterface
      */
-    public function buildByDynamic(Dynamic $dynamic)
+    public function buildByDynamic(Dynamic $dynamic): FormConfigurationInterface
     {
         $config = $this->create($dynamic->getLocale());
         $config->setFileFields($this->getFileFieldsByDynamic($dynamic));
@@ -92,14 +79,10 @@ class FormConfigurationFactory
     /**
      * Build by type.
      *
-     * @param AbstractType $type
      * @param mixed $formData
-     * @param string $locale
-     * @param array $attributes
-     *
-     * @return FormConfigurationInterface
+     * @param mixed[] $attributes
      */
-    public function buildByType(AbstractType $type, $formData, $locale, $attributes)
+    public function buildByType(AbstractType $type, $formData, string $locale, array $attributes): FormConfigurationInterface
     {
         $config = $this->create($locale);
         $config->setFileFields(array_fill_keys($type->getFileFields(), $type->getCollectionId()));
@@ -130,14 +113,10 @@ class FormConfigurationFactory
     /**
      * Build admin mail configuration by type.
      *
-     * @param AbstractType $type
      * @param mixed $formData
-     * @param string $locale
-     * @param array $attributes
-     *
-     * @return MailConfiguration|null
+     * @param mixed[] $attributes
      */
-    private function buildAdminMailConfigurationByTypeAndData(AbstractType $type, $formData, $locale, $attributes)
+    private function buildAdminMailConfigurationByTypeAndData(AbstractType $type, $formData, string $locale, array $attributes): ?MailConfiguration
     {
         if ($type->getNotifyDeactivateMails($formData)) {
             return null;
@@ -159,14 +138,10 @@ class FormConfigurationFactory
     /**
      * Build admin mail configuration by type.
      *
-     * @param AbstractType $type
      * @param mixed $formData
-     * @param string $locale
-     * @param array $attributes
-     *
-     * @return MailConfiguration|null
+     * @param mixed[] $attributes
      */
-    private function buildWebsiteMailConfigurationByTypeAndData(AbstractType $type, $formData, $locale, $attributes)
+    private function buildWebsiteMailConfigurationByTypeAndData(AbstractType $type, $formData, string $locale, array $attributes): ?MailConfiguration
     {
         if ($type->getCustomerDeactivateMails($formData)) {
             return null;
@@ -187,12 +162,8 @@ class FormConfigurationFactory
 
     /**
      * Build admin mail configuration by dynamic entity.
-     *
-     * @param Dynamic $dynamic
-     *
-     * @return MailConfiguration|null
      */
-    private function buildAdminMailConfigurationByDynamic(Dynamic $dynamic)
+    private function buildAdminMailConfigurationByDynamic(Dynamic $dynamic): ?MailConfiguration
     {
         $form = $dynamic->getForm();
         $locale = $dynamic->getLocale();
@@ -247,12 +218,8 @@ class FormConfigurationFactory
 
     /**
      * Build website mail configuration by form translation.
-     *
-     * @param Dynamic $dynamic
-     *
-     * @return MailConfiguration|null
      */
-    private function buildWebsiteMailConfigurationByDynamic(Dynamic $dynamic)
+    private function buildWebsiteMailConfigurationByDynamic(Dynamic $dynamic): ?MailConfiguration
     {
         $form = $dynamic->getForm();
         $locale = $dynamic->getLocale();
@@ -284,9 +251,7 @@ class FormConfigurationFactory
     /**
      * Get file fields by dynamic.
      *
-     * @param Dynamic $dynamic
-     *
-     * @return int[]
+     * @return int|int[]
      */
     private function getFileFieldsByDynamic(Dynamic $dynamic)
     {
@@ -311,9 +276,7 @@ class FormConfigurationFactory
     /**
      * Get collection id by dynamic.
      *
-     * @param Dynamic $dynamic
-     *
-     * @return array|int
+     * @return int|int[]
      */
     private function getCollectionIdByDynamic(Dynamic $dynamic)
     {
@@ -331,11 +294,9 @@ class FormConfigurationFactory
     /**
      * Get template attributes from dynamic.
      *
-     * @param Dynamic $dynamic
-     *
-     * @return array
+     * @return mixed[]
      */
-    private function getTemplateAttributesFromDynamic(Dynamic $dynamic)
+    private function getTemplateAttributesFromDynamic(Dynamic $dynamic): array
     {
         return [
             // TODO FIXME this is currently overwritten in RequestListener to get the medias correctly for emails.
@@ -346,11 +307,9 @@ class FormConfigurationFactory
     /**
      * Get email from dynamic.
      *
-     * @param Dynamic $dynamic
-     *
-     * @return array|null
+     * @return string[]|null
      */
-    private function getEmailFromDynamic(Dynamic $dynamic)
+    private function getEmailFromDynamic(Dynamic $dynamic): ?array
     {
         $emails = $dynamic->getFieldsByType(Dynamic::TYPE_EMAIL);
         $email = reset($emails);
@@ -361,12 +320,9 @@ class FormConfigurationFactory
     /**
      * Get email.
      *
-     * @param string $email
-     * @param string $name
-     *
-     * @return array|null
+     * @return string[]|null
      */
-    private function getEmail($email, $name = null)
+    private function getEmail(string $email, ?string $name = null): ?array
     {
         if (!$email) {
             return null;
@@ -381,20 +337,13 @@ class FormConfigurationFactory
 
     /**
      * Create form configuration.
-     *
-     * @param string $locale
-     *
-     * @return FormConfiguration
      */
-    private function create($locale)
+    private function create(string $locale): FormConfiguration
     {
         return new FormConfiguration($locale);
     }
 
-    /**
-     * @return MailConfiguration
-     */
-    private function createMailConfiguration($locale)
+    private function createMailConfiguration(string $locale): MailConfiguration
     {
         return new MailConfiguration($locale);
     }

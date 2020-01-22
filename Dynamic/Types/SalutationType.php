@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -23,10 +23,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 class SalutationType implements FormFieldTypeInterface
 {
     use SimpleTypeTrait;
+
     /**
      * {@inheritdoc}
      */
-    public function getConfiguration()
+    public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.salutation',
@@ -37,7 +38,7 @@ class SalutationType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
+    public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $options['choice_translation_domain'] = 'messages';
         $options['expanded'] = false;
@@ -48,9 +49,9 @@ class SalutationType implements FormFieldTypeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string[]
      */
-    protected function getChoices()
+    protected function getChoices(): array
     {
         return [
             'sulu_form.salutation_mr' => 'mr',

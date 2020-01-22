@@ -18,16 +18,15 @@ class MailchimpListSelect
      */
     private $apiKey;
 
-    /**
-     * @param string $apiKey
-     */
-    public function __construct($apiKey)
+    public function __construct(?string $apiKey)
     {
         $this->apiKey = $apiKey;
     }
 
     /**
      * Returns array of Mailchimp lists of given account defined by the API key.
+     *
+     * @return mixed[]
      */
     public function getValues(): array
     {

@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -16,6 +16,7 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Manager\FormManager;
 use Sulu\Component\Rest\AbstractRestController;
+use Sulu\Component\Rest\ListBuilder\AbstractListBuilder;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\ListRestHelperInterface;
@@ -32,7 +33,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class FormController extends AbstractRestController implements ClassResourceInterface, SecuredControllerInterface
 {
-
     /**
      * @var FormManager
      */
@@ -66,8 +66,7 @@ class FormController extends AbstractRestController implements ClassResourceInte
         DoctrineListBuilderFactoryInterface $factory,
         FieldDescriptorFactoryInterface $fieldDescriptorFactory,
         ListRestHelperInterface $listRestHelper
-    )
-    {
+    ) {
         parent::__construct($viewHandler, $tokenStorage);
         $this->formManager = $formManager;
         $this->restHelper = $restHelper;
@@ -84,28 +83,17 @@ class FormController extends AbstractRestController implements ClassResourceInte
         return 'sulu.form.forms';
     }
 
-    /**
-     * @return string
-     */
-    public function getModelClass()
+    public function getModelClass(): string
     {
         return Form::class;
     }
 
-    /**
-     * @return string
-     */
-    public function getListName()
+    public function getListName(): string
     {
         return 'forms';
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function cgetAction(Request $request)
+    public function cgetAction(Request $request): Response
     {
         $locale = $this->getLocale($request);
         $filters = $this->getFilters($request);
@@ -113,6 +101,7 @@ class FormController extends AbstractRestController implements ClassResourceInte
         // flatted entities
         if ('true' === $request->get('flat')) {
             // get model class
+            /** @var AbstractListBuilder $listBuilder */
             $listBuilder = $this->factory->create($this->getModelClass());
 
             // get fieldDescriptors
@@ -216,11 +205,14 @@ class FormController extends AbstractRestController implements ClassResourceInte
     /**
      * {@inheritdoc}
      */
-    public function getLocale(Request $request)
+    public function getLocale(Request $request): string
     {
         return $request->get('locale', $request->getLocale());
     }
 
+    /**
+     * @return mixed[]
+     */
     protected function getFilters(Request $request): array
     {
         $filters = $request->query->all();
@@ -234,8 +226,8 @@ class FormController extends AbstractRestController implements ClassResourceInte
         unset($filters['flat']);
 
         $filters['fields'] = $this->listRestHelper->getFields();
-        $filters['limit'] = (int)$this->listRestHelper->getLimit();
-        $filters['offset'] = (int)$this->listRestHelper->getOffset();
+        $filters['limit'] = (int) $this->listRestHelper->getLimit();
+        $filters['offset'] = (int) $this->listRestHelper->getOffset();
         $filters['sortColumn'] = $this->listRestHelper->getSortColumn();
         $filters['sortOrder'] = $this->listRestHelper->getSortOrder();
         $filters['searchFields'] = $this->listRestHelper->getSearchFields();
@@ -253,11 +245,11 @@ class FormController extends AbstractRestController implements ClassResourceInte
     }
 
     /**
-     * @param array $filters
+     * @param mixed[] $filters
      *
      * @return mixed[]
      */
-    protected function getCountFilters($filters): array
+    protected function getCountFilters(array $filters): array
     {
         unset($filters['page']);
         unset($filters['offset']);
@@ -297,7 +289,7 @@ class FormController extends AbstractRestController implements ClassResourceInte
     {
         if (!isset($filters['page'])) {
             if (isset($filters['limit']) && isset($filters['offset'])) {
-                return floor($filters['offset'] / $filters['limit']) + 1;
+                return intval(floor($filters['offset'] / $filters['limit']) + 1);
             }
 
             return 1;

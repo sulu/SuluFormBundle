@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -31,38 +31,19 @@ class FormFieldTypeConfiguration
      */
     private $group;
 
-    /**
-     * FormFieldTypeConfiguration constructor.
-     *
-     * @param string $titleTranslationKey
-     * @param string $xmlPath
-     * @param string $group
-     */
-    public function __construct($titleTranslationKey, $xmlPath, $group = '')
+    public function __construct(string $titleTranslationKey, string $xmlPath, string $group = '')
     {
         $this->title = $titleTranslationKey;
         $this->xmlPath = $xmlPath;
         $this->group = $group;
     }
 
-    /**
-     * Returns title.
-     *
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * Sets title.
-     *
-     * @param string $title
-     *
-     * @return FormFieldTypeConfiguration
-     */
-    public function setTitle($title)
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
@@ -71,10 +52,8 @@ class FormFieldTypeConfiguration
 
     /**
      * Returns template.
-     *
-     * @return string
      */
-    public function getXmlPath()
+    public function getXmlPath(): string
     {
         return $this->xmlPath;
     }
@@ -82,35 +61,21 @@ class FormFieldTypeConfiguration
     /**
      * Sets template.
      *
-     * @param string $xmlPath
-     *
      * @return FormFieldTypeConfiguration
      */
-    public function setXmlPath($xmlPath)
+    public function setXmlPath(string $xmlPath): self
     {
         $this->xmlPath = $xmlPath;
 
         return $this;
     }
 
-    /**
-     * Get group.
-     *
-     * @return string
-     */
-    public function getGroup()
+    public function getGroup(): string
     {
         return $this->group;
     }
 
-    /**
-     * Set group.
-     *
-     * @param string $group
-     *
-     * @return $this
-     */
-    public function setGroup($group)
+    public function setGroup(string $group): self
     {
         $this->group = $group;
 

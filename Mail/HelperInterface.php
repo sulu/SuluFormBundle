@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -20,29 +20,26 @@ interface HelperInterface
     const MAIL_RECEIVER_BCC = MailConfigurationInterface::TYPE_BCC;
 
     /**
-     * @param string $subject
-     * @param string $body
-     * @param string|array $toMail
-     * @param string $fromMail
-     * @param bool $html
-     * @param string $replyTo
+     * @param string|string[] $subject
+     * @param string|string[] $body
+     * @param string|string[] $toMail
+     * @param string|string[] $fromMail
+     * @param string|string[] $replyTo
      * @param \SplFileInfo[] $attachments
-     * @param string|array $ccMail
-     * @param string|array $bccMail
-     * @param string $plainText
-     *
-     * @return int
+     * @param string|string[] $ccMail
+     * @param string|string[] $bccMail
+     * @param string|string[] $plainText
      */
     public function sendMail(
         $subject,
         $body,
         $toMail = null,
         $fromMail = null,
-        $html = true,
+        bool $html = true,
         $replyTo = null,
-        $attachments = [],
+        array $attachments = [],
         $ccMail = [],
         $bccMail = [],
         $plainText = null
-    );
+    ): int;
 }

@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -22,7 +22,7 @@ class MailConfiguration implements MailConfigurationInterface
     private $locale;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $subject;
 
@@ -71,12 +71,7 @@ class MailConfiguration implements MailConfigurationInterface
      */
     private $templateAttributes;
 
-    /**
-     * MailConfiguration constructor.
-     *
-     * @param string $locale
-     */
-    public function __construct($locale)
+    public function __construct(string $locale)
     {
         $this->locale = $locale;
     }
@@ -84,7 +79,7 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getLocale()
+    public function getLocale(): string
     {
         return $this->locale;
     }
@@ -92,19 +87,12 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
 
-    /**
-     * Set subject.
-     *
-     * @param string $subject
-     *
-     * @return $this
-     */
-    public function setSubject($subject)
+    public function setSubject(?string $subject): self
     {
         $this->subject = $subject;
 
@@ -123,10 +111,8 @@ class MailConfiguration implements MailConfigurationInterface
      * Set from address.
      *
      * @param string|array $from
-     *
-     * @return $this
      */
-    public function setFrom($from)
+    public function setFrom($from): self
     {
         $this->from = $from;
 
@@ -145,10 +131,8 @@ class MailConfiguration implements MailConfigurationInterface
      * Set to addresses.
      *
      * @param string|array $to
-     *
-     * @return $this
      */
-    public function setTo($to)
+    public function setTo($to): self
     {
         $this->to = $to;
 
@@ -167,10 +151,8 @@ class MailConfiguration implements MailConfigurationInterface
      * Set cc addresses.
      *
      * @param string|array $cc
-     *
-     * @return $this
      */
-    public function setCc($cc)
+    public function setCc($cc): self
     {
         $this->cc = $cc;
 
@@ -189,10 +171,8 @@ class MailConfiguration implements MailConfigurationInterface
      * Set bcc addresses.
      *
      * @param string|array $bcc
-     *
-     * @return $this
      */
-    public function setBcc($bcc)
+    public function setBcc($bcc): self
     {
         $this->bcc = $bcc;
 
@@ -211,10 +191,8 @@ class MailConfiguration implements MailConfigurationInterface
      * Set reply to.
      *
      * @param string|array $replyTo
-     *
-     * @return $this
      */
-    public function setReplyTo($replyTo)
+    public function setReplyTo($replyTo): self
     {
         $this->replyTo = $replyTo;
 
@@ -224,19 +202,15 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getAddAttachments()
+    public function getAddAttachments(): bool
     {
         return $this->addAttachments;
     }
 
     /**
      * Set addAttachments.
-     *
-     * @param bool $addAttachments
-     *
-     * @return $this
      */
-    public function setAddAttachments($addAttachments)
+    public function setAddAttachments(bool $addAttachments): self
     {
         $this->addAttachments = $addAttachments;
 
@@ -246,19 +220,12 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getTemplate()
+    public function getTemplate(): string
     {
         return $this->template;
     }
 
-    /**
-     * Set template.
-     *
-     * @param string $template
-     *
-     * @return $this
-     */
-    public function setTemplate($template)
+    public function setTemplate(string $template): self
     {
         $this->template = $template;
 
@@ -268,19 +235,15 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getPlainTextTemplate()
+    public function getPlainTextTemplate(): string
     {
         return $this->plainTextTemplate;
     }
 
     /**
      * Set plain text template.
-     *
-     * @param string $plainTextTemplate
-     *
-     * @return $this
      */
-    public function setPlainTextTemplate($plainTextTemplate)
+    public function setPlainTextTemplate(string $plainTextTemplate): self
     {
         $this->plainTextTemplate = $plainTextTemplate;
 
@@ -290,7 +253,7 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getTemplateAttributes()
+    public function getTemplateAttributes(): array
     {
         return $this->templateAttributes;
     }
@@ -298,11 +261,9 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * Set template attributes.
      *
-     * @param array $templateAttributes
-     *
-     * @return $this
+     * @param mixed[] $templateAttributes
      */
-    public function setTemplateAttributes($templateAttributes)
+    public function setTemplateAttributes(array $templateAttributes): self
     {
         $this->templateAttributes = $templateAttributes;
 

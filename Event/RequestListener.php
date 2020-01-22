@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -16,7 +16,6 @@ use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
@@ -44,10 +43,6 @@ class RequestListener
 
     /**
      * RequestListener constructor.
-     *
-     * @param BuilderInterface $formBuilder
-     * @param HandlerInterface $formHandler
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         BuilderInterface $formBuilder,
@@ -61,12 +56,7 @@ class RequestListener
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    /**
-     * On Kernel request.
-     *
-     * @param GetResponseEvent $event
-     */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             // do nothing if it's not the master request
@@ -81,7 +71,6 @@ class RequestListener
         }
 
         try {
-            /** @var FormInterface $form */
             $form = $this->formBuilder->buildByRequest($request);
 
             if (!$form || !$form->isSubmitted() || !$form->isValid()) {

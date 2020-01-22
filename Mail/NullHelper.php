@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -21,10 +21,7 @@ class NullHelper implements HelperInterface
      */
     protected $logger;
 
-    /**
-     * @param LoggerInterface $logger
-     */
-    public function __construct($logger = null)
+    public function __construct(LoggerInterface $logger = null)
     {
         $this->logger = $logger ?: new NullLogger();
     }
@@ -43,7 +40,7 @@ class NullHelper implements HelperInterface
         $ccMail = [],
         $bccMail = [],
         $plainText = null
-    ) {
+    ): int {
         $this->logger->info(sprintf(
             'SuluFormBundle NullMailHelper: ' . PHP_EOL .
             '   From: %s' . PHP_EOL .
