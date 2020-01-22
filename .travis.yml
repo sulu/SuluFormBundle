@@ -6,10 +6,6 @@ cache:
   directories:
     - "$HOME/.composer/cache/files"
 
-env:
-  global:
-    - SYMFONY__DATABASE__VERSION=5.5.39
-
 services:
     - mysql
 
@@ -18,11 +14,11 @@ matrix:
     - php: 7.2
       env:
         - COMPOSER_FLAGS="--prefer-dist --no-interaction --prefer-lowest --prefer-stable"
-    - php: 7.3
+    - php: 7.4
       env:
         - COMPOSER_FLAGS="--prefer-dist --no-interaction"
         - CODE_COVERAGE=true
-        - PHPSTAN=true
+        - LINT=true
 
 before_install:
   - phpenv config-add Tests/travis.php.ini
@@ -43,8 +39,8 @@ install:
   - ./Tests/Application/bin/adminconsole doctrine:schema:update --force
 
 script:
+  - if [[ LINT == 'true' ]]; then composer lint; fi
   - ./vendor/bin/phpunit --coverage-clover=coverage.clover
-  - if [[ $PHPSTAN == 'true' ]]; then ./vendor/bin/phpstan analyse ; fi
 
 after_script:
   - if [[ $CODE_COVERAGE == 'true' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
