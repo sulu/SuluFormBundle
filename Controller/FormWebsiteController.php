@@ -49,7 +49,7 @@ class FormWebsiteController extends DefaultController
      *
      * @return JsonResponse|RedirectResponse|Response
      */
-    public function formAction(Request $request, StructureInterface $structure, bool $preview = false, bool $partial = false)
+    public function formAction(Request $request, StructureInterface $structure, bool $preview = false, bool $partial = false): Response
     {
         // get attributes
         $attributes = $this->getAttributes([], $structure, $preview);

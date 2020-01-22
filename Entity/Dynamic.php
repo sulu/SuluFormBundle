@@ -233,9 +233,9 @@ class Dynamic implements AuditableInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $value
      */
-    public function __set(string $name, string $value): void
+    public function __set(string $name, $value): void
     {
         if (property_exists($this, $name)) {
             if (in_array($name, self::$ARRAY_TYPES)) {

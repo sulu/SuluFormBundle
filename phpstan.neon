@@ -19,5 +19,8 @@ parameters:
         - %currentWorkingDirectory%/DependencyInjection/Configuration.php
         - %currentWorkingDirectory%/Event/CacheInvalidationListener.php
     ignoreErrors:
-            - '#Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch()#'
-            - '#Cannot assign offset \x27[a-zA-Z0-9\\_]+\x27 to string.#' #\x27 represents the single quote character '
+        - '#Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch()#'
+        - '#Cannot assign offset \x27[a-zA-Z0-9\\_]+\x27 to string.#' #\x27 represents the single quote character '
+        -
+            message: '#caught "Exception" must be rethrown#'
+            path: Event/RequestListener.php

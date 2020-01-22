@@ -21,16 +21,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 class MailchimpType implements FormFieldTypeInterface
 {
     /**
-     * @var string
-     */
-    private $apiKey;
-
-    public function __construct(string $apiKey)
-    {
-        $this->apiKey = $apiKey;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getConfiguration(): FormFieldTypeConfiguration

@@ -42,12 +42,12 @@ class MailchimpListSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function listSubscribe(FormEvent $event): ?FormEvent
+    public function listSubscribe(FormEvent $event): void
     {
         $dynamic = $event->getData();
 
         if (!$dynamic instanceof Dynamic) {
-            return null;
+            return;
         }
 
         $form = $dynamic->getForm()->serializeForLocale($dynamic->getLocale(), $dynamic);

@@ -76,7 +76,7 @@ class RequestListener
                 // do nothing when no form was found or not valid
                 return;
             }
-        } catch (HttpException $e) {
+        } catch (\Exception $e) {
             // Catch all exception on build form by request
             return;
         }
