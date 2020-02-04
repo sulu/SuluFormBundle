@@ -19,6 +19,11 @@ use Sulu\Bundle\AdminBundle\Admin\View\ViewCollection;
 
 class DynamicListAdmin extends Admin
 {
+    public static function getPriority(): int
+    {
+        return -1024;
+    }
+
     /**
      * @var ViewBuilderFactoryInterface
      */
@@ -45,6 +50,10 @@ class DynamicListAdmin extends Admin
 
         foreach ($this->config as $parent => $sections) {
             foreach ($sections as $key => $config) {
+                if (!$viewCollection->has($parent)) {
+                    continue;
+                }
+
                 $name = $parent . '.' . $action . '-key';
                 if (isset($config['name'])) {
                     $name = $config['name'];
