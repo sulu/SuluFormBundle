@@ -146,13 +146,14 @@ class FormManager
      */
     public function updateReceivers(array $data, FormTranslation $translation): void
     {
-        $translation->setReceivers([]);
         $receiversRepository = $this->entityManager->getRepository('SuluFormBundle:FormTranslationReceiver');
         $receiverDatas = self::getValue($data, 'receivers', []);
 
         // Remove old receivers.
         $oldReceivers = $receiversRepository->findBy(['formTranslation' => $translation]);
+        /** @var FormTranslationReceiver $oldReceiver */
         foreach ($oldReceivers as $oldReceiver) {
+            $translation->removeReceiver($oldReceiver);
             $this->entityManager->remove($oldReceiver);
         }
 
@@ -169,8 +170,8 @@ class FormManager
 
             $receivers[] = $receiver;
             $this->entityManager->persist($receiver);
+            $translation->addReceiver($receiver);
         }
-        $translation->setReceivers($receivers);
     }
 
     /**

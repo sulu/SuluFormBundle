@@ -68,9 +68,9 @@ class DynamicListFactory implements DynamicListFactoryInterface
                 $field->getKey(),
                 $title,
                 FieldDescriptorInterface::VISIBILITY_YES,
-                '',
+                FieldDescriptorInterface::SEARCHABILITY_NEVER,
                 'string',
-                'false'
+                false
             );
         }
 
@@ -78,7 +78,7 @@ class DynamicListFactory implements DynamicListFactoryInterface
             'created',
             'sulu_admin.created',
             FieldDescriptorInterface::VISIBILITY_YES,
-            '',
+            FieldDescriptorInterface::SEARCHABILITY_NEVER,
             'datetime'
         );
 

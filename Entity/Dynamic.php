@@ -212,7 +212,7 @@ class Dynamic implements AuditableInterface
      *
      * @param mixed[] $data
      */
-    public function __construct(string $type, string $typeId, string $locale, ?Form $form, array $data = [], string $webspaceKey = null, string $typeName = '')
+    public function __construct(string $type, string $typeId, string $locale, ?Form $form, array $data = [], ?string $webspaceKey = null, ?string $typeName = null)
     {
         $this->type = $type;
         $this->typeId = $typeId;
@@ -386,12 +386,12 @@ class Dynamic implements AuditableInterface
         return $this->typeId;
     }
 
-    public function getTypeName(): string
+    public function getTypeName(): ?string
     {
         return $this->typeName;
     }
 
-    public function getWebspaceKey(): string
+    public function getWebspaceKey(): ?string
     {
         return $this->webspaceKey;
     }

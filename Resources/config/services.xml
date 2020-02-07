@@ -230,5 +230,13 @@
             <argument type="service" id="sulu_form.list_builder.dynamic_list_factory"/>
             <tag name="sulu_admin.list_metadata_loader"/>
         </service>
+
+        <!-- CacheInvalidationListener -->
+        <service id="sulu_form.cache_invalidation_listener" class="Sulu\Bundle\FormBundle\Event\CacheInvalidationListener">
+            <argument type="service" id="sulu_http_cache.cache_manager" on-invalid="null" />
+
+            <tag name="doctrine.event_listener" event="postUpdate"/>
+            <tag name="doctrine.event_listener" event="preRemove"/>
+        </service>
     </services>
 </container>

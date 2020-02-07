@@ -37,7 +37,7 @@ class Checksum
     /**
      * Check checksum with given parameters.
      */
-    public function check(string $checksum, string $type, string $typeId, string $formId, string $formName): bool
+    public function check(string $checksum, string $type, string $typeId, int $formId, string $formName): bool
     {
         $checksumRaw = $this->createKey($type, $typeId, $formId, $formName);
 
@@ -47,7 +47,7 @@ class Checksum
     /**
      * Create a key with given parameteres.
      */
-    private function createKey(string $type, string $typeId, string $formId, string $formName): string
+    private function createKey(string $type, string $typeId, int $formId, string $formName): string
     {
         return $type . $typeId . $formId . $formName;
     }
@@ -55,7 +55,7 @@ class Checksum
     /**
      * Create a checksum and encode with secret and given parameters.
      */
-    public function get(string $type, string $typeId, string $formId, string $formName): string
+    public function get(string $type, string $typeId, int $formId, string $formName): string
     {
         $checksumRaw = $this->createKey($type, $typeId, $formId, $formName);
 

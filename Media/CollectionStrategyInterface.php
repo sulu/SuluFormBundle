@@ -19,7 +19,7 @@ interface CollectionStrategyInterface
     /**
      * Get collection id.
      *
-     * @return array|int
+     * @return int
      */
     public function getCollectionId(
         int $formId,
@@ -27,5 +27,5 @@ interface CollectionStrategyInterface
         string $type,
         string $typeId,
         string $locale
-    );
+    ): int;
 }

@@ -88,7 +88,7 @@ class DynamicController implements ClassResourceInterface
         $filters = $this->getFilters($request);
         $page = $request->get('page', 1);
         $limit = $request->get('limit');
-        $offset = (($page - 1) * $limit);
+        $offset = (int) (($page - 1) * $limit);
         $view = $request->get('view', 'default');
         $sortOrder = $request->get('sortOrder', 'asc');
         $sortBy = $request->get('sortBy', 'created');

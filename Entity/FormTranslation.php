@@ -11,6 +11,8 @@
 
 namespace Sulu\Bundle\FormBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 
@@ -120,9 +122,14 @@ class FormTranslation implements AuditableInterface
     private $changed;
 
     /**
-     * @var FormTranslationReceiver[]
+     * @var Collection|FormTranslationReceiver[]
      */
     private $receivers;
+
+    public function __construct()
+    {
+        $this->receivers = new ArrayCollection();
+    }
 
     public function setTitle(string $title): self
     {
@@ -358,18 +365,24 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * @return object|FormTranslationReceiver[]
+     * @return FormTranslationReceiver[]|Collection
      */
     public function getReceivers()
     {
         return $this->receivers;
     }
 
-    /**
-     * @param FormTranslationReceiver[] $receivers
-     */
-    public function setReceivers(array $receivers): void
+    public function addReceiver(FormTranslationReceiver $receiver): self
     {
-        $this->receivers = $receivers;
+        $this->receivers[] = $receiver;
+
+        return $this;
+    }
+
+    public function removeReceiver(FormTranslationReceiver $receiver): self
+    {
+        $this->receivers->removeElement($receiver);
+
+        return $this;
     }
 }

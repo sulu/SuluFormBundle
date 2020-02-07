@@ -63,14 +63,14 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $this->assertEquals('E-Mail En', $metadata->getFields()['email']->getLabel());
         $this->assertEquals('string', $metadata->getFields()['email']->getType());
         $this->assertEquals('yes', $metadata->getFields()['email']->getVisibility());
-        $this->assertTrue($metadata->getFields()['email']->isSortable());
+        $this->assertFalse($metadata->getFields()['email']->isSortable());
 
         $this->arrayHasKey('attachment', $metadata);
         $this->assertEquals('attachment', $metadata->getFields()['attachment']->getName());
         $this->assertEquals('Attachment', $metadata->getFields()['attachment']->getLabel());
         $this->assertEquals('string', $metadata->getFields()['attachment']->getType());
         $this->assertEquals('yes', $metadata->getFields()['attachment']->getVisibility());
-        $this->assertTrue($metadata->getFields()['attachment']->isSortable());
+        $this->assertFalse($metadata->getFields()['attachment']->isSortable());
 
         $this->arrayHasKey('created', $metadata);
         $this->assertEquals('created', $metadata->getFields()['created']->getName());
@@ -103,14 +103,14 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $this->assertEquals('E-Mail De', $metadata->getFields()['email']->getLabel());
         $this->assertEquals('string', $metadata->getFields()['email']->getType());
         $this->assertEquals('yes', $metadata->getFields()['email']->getVisibility());
-        $this->assertTrue($metadata->getFields()['email']->isSortable());
+        $this->assertFalse($metadata->getFields()['email']->isSortable());
 
         $this->arrayHasKey('attachment', $metadata);
         $this->assertEquals('attachment', $metadata->getFields()['attachment']->getName());
         $this->assertEquals('Anhang', $metadata->getFields()['attachment']->getLabel());
         $this->assertEquals('string', $metadata->getFields()['attachment']->getType());
         $this->assertEquals('yes', $metadata->getFields()['attachment']->getVisibility());
-        $this->assertTrue($metadata->getFields()['attachment']->isSortable());
+        $this->assertFalse($metadata->getFields()['attachment']->isSortable());
 
         $this->arrayHasKey('created', $metadata);
         $this->assertEquals('created', $metadata->getFields()['created']->getName());

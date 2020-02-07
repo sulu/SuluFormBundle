@@ -14,18 +14,18 @@ namespace Sulu\Bundle\FormBundle\Exception;
 class FormNotFoundException extends \Exception
 {
     /**
-     * @var string
+     * @var int
      */
     private $formEntityId;
 
-    public function __construct(string $formEntityId, $locale)
+    public function __construct(int $formEntityId, $locale)
     {
         parent::__construct(sprintf('The form with the ID "%s" does not exist for the locale "%s"!', $formEntityId, $locale));
 
         $this->formEntityId = $formEntityId;
     }
 
-    public function getFormEntityId(): string
+    public function getFormEntityId(): int
     {
         return $this->formEntityId;
     }
