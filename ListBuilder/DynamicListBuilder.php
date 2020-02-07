@@ -129,7 +129,7 @@ class DynamicListBuilder implements DynamicListBuilderInterface
                     'slug' => 'file',
                     'id' => '{id}',
                 ],
-                true
+                RouterInterface::ABSOLUTE_URL
             );
         }
 

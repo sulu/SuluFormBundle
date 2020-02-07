@@ -67,6 +67,7 @@ class SingleFormSelection extends SimpleContentType
             throw new MissingOptionsException('SuluFormBundle: The parameter "resourceKey" is missing on "single_form_selection" content-type.', []);
         }
 
+        /** @var string $resourceKey */
         $resourceKey = $property->getParams()['resourceKey']->getValue();
 
         /** @var PageBridge $structure */
@@ -75,7 +76,7 @@ class SingleFormSelection extends SimpleContentType
         $form = $this->formBuilder->build(
             $id,
             $resourceKey,
-            $structure->getUuid(),
+            (string) $structure->getUuid(),
             $structure->getLanguageCode(),
             $property->getName()
         );
@@ -108,7 +109,7 @@ class SingleFormSelection extends SimpleContentType
         return $this->formBuilder->build(
             $id,
             $type,
-            $structure->getUuid(),
+            (string) $structure->getUuid(),
             $structure->getShadowBaseLanguage(),
             $property->getName()
         );

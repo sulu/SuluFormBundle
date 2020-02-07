@@ -10,17 +10,23 @@ includes:
 parameters:
     paths:
         - .
-    level: 4
+    level: 5
     symfony:
             container_xml_path: %rootDir%/../../../Tests/Application/var/cache/admin/dev/adminAdminDevDebugProjectContainer.xml
     excludes_analyse:
         - %currentWorkingDirectory%/vendor/*
         - %currentWorkingDirectory%/Tests/*
         - %currentWorkingDirectory%/DependencyInjection/Configuration.php
-        - %currentWorkingDirectory%/Event/CacheInvalidationListener.php
     ignoreErrors:
         - '#Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch()#'
         - '#Cannot assign offset \x27[a-zA-Z0-9\\_]+\x27 to string.#' #\x27 represents the single quote character '
         -
             message: '#caught "Exception" must be rethrown#'
             path: Event/RequestListener.php
+        -
+            message: '#Sulu\\Bundle\\MediaBundle\\Collection\\Manager\\CollectionManagerInterface\:\:save\(\) expects int\, null given\.#'
+            path: Media/CollectionStrategyTree.php
+
+        -
+            message: '#Result of || is always true.#'
+            path: TitleProvider/StructureTitleProvider.php

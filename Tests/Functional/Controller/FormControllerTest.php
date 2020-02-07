@@ -379,7 +379,9 @@ class FormControllerTest extends SuluTestCase
         $bccReceiver->setType(MailConfiguration::TYPE_BCC);
         $bccReceiver->setFormTranslation($formTranslation);
 
-        $formTranslation->setReceivers([$toReceiver, $ccReceiver, $bccReceiver]);
+        $formTranslation->addReceiver($toReceiver);
+        $formTranslation->addReceiver($ccReceiver);
+        $formTranslation->addReceiver($bccReceiver);
 
         $formTranslation->setForm($form);
         $form->addTranslation($formTranslation);

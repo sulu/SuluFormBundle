@@ -251,9 +251,9 @@ class FormConfigurationFactory
     /**
      * Get file fields by dynamic.
      *
-     * @return int|int[]
+     * @return int[]
      */
-    private function getFileFieldsByDynamic(Dynamic $dynamic)
+    private function getFileFieldsByDynamic(Dynamic $dynamic): array
     {
         $form = $dynamic->getForm();
 
@@ -275,10 +275,8 @@ class FormConfigurationFactory
 
     /**
      * Get collection id by dynamic.
-     *
-     * @return int|int[]
      */
-    private function getCollectionIdByDynamic(Dynamic $dynamic)
+    private function getCollectionIdByDynamic(Dynamic $dynamic): int
     {
         $form = $dynamic->getForm();
 

@@ -42,7 +42,7 @@ class CollectionStrategySingle implements CollectionStrategyInterface
         $type,
         $typeId,
         $locale
-    ) {
+    ): int {
         return $this->systemCollectionManager->getSystemCollection(
             SuluFormExtension::SYSTEM_COLLECTION_ROOT . '.attachments'
         );
