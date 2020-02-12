@@ -41,6 +41,7 @@ sulu_form:
     mail:
         from: "%sulu_admin.email%"
         to:   "%sulu_admin.email%"
+        sender: "%sulu_admin.email%"
 ```
 
 ## Create Database

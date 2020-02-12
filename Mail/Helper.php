@@ -33,6 +33,11 @@ class Helper implements HelperInterface
     protected $fromMail;
 
     /**
+     * @var string|null
+     */
+    protected $sender;
+
+    /**
      * @var LoggerInterface
      */
     protected $logger;
@@ -41,17 +46,20 @@ class Helper implements HelperInterface
      * @param \Swift_Mailer $mailer
      * @param string $fromMail
      * @param string $toMail
+     * @param string|null $sender
      * @param LoggerInterface $logger
      */
     public function __construct(
         \Swift_Mailer $mailer,
         $fromMail,
         $toMail,
+        $sender = null,
         $logger = null
     ) {
         $this->mailer = $mailer;
         $this->toMail = $toMail;
         $this->fromMail = $fromMail;
+        $this->sender = $sender;
         $this->logger = $logger ?: new NullLogger();
     }
 
@@ -89,6 +97,10 @@ class Helper implements HelperInterface
 
         $message->setFrom($fromMail);
         $message->setTo($toMail);
+
+        if ($this->sender) {
+            $message->setSender($this->sender);
+        }
 
         // Add attachments to the Swift Message
         if (count($attachments) > 0) {
