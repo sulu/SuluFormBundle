@@ -30,7 +30,7 @@ class RecaptchaType implements FormFieldTypeInterface
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.recaptcha',
-            __DIR__ . '/../../Resources/config/form-fields/default_field.xml',
+            __DIR__ . '/../../Resources/config/form-fields/field_recaptcha.xml',
             [],
             'special'
         );
