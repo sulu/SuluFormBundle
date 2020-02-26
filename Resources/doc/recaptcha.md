@@ -20,19 +20,15 @@ or
 composer require excelwebzone/recaptcha-bundle:^1.4.2
 ```
 
-**Register Bundle in `app/AbstractKernel.php`**
-
-Add the bundle the the AbstractKernel.
+**Register Bundle in `config/bundles.php`**
 
 ```php
-$bundles = [
-    new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
-];
+EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle::class ['all' => true],
 ```
 
 ## Config
 
-add the following config to `app/config/config.yml`
+add the following config to `config/packages/ewz_recaptcha.yaml`
 
 ```yml
 ewz_recaptcha:

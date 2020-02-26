@@ -76,5 +76,7 @@
   "sulu_form.width.five_sixths": "Fünf Sechstel",
   "sulu_form.mailchimp_list": "Mailchimp Liste",
   "sulu_form.salutation_mr": "Herr",
-  "sulu_form.salutation_ms": "Frau"
+  "sulu_form.salutation_ms": "Frau",
+  "sulu_form.single_form_selection.no_form_selected": "Kein Formular ausgewählt",
+  "sulu_form.single_form_selection.overlay_title": "Wählen Sie ein Formular aus"
 }

@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -12,21 +12,48 @@
 namespace Sulu\Bundle\FormBundle\Controller;
 
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactory;
+use FOS\RestBundle\View\ViewHandlerInterface;
+use Sulu\Bundle\FormBundle\Provider\ListProviderRegistry;
+use Sulu\Component\Rest\AbstractRestController;
+use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
-use Sulu\Component\Rest\RestController;
 use Sulu\Component\Rest\RestHelperInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class ListController extends RestController implements ClassResourceInterface
+class ListController extends AbstractRestController implements ClassResourceInterface
 {
     /**
-     * @param Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @var RestHelperInterface
      */
-    public function cgetFieldsAction(Request $request)
+    private $restHelper;
+
+    /**
+     * @var DoctrineListBuilderFactoryInterface
+     */
+    private $listBuilderFactory;
+
+    /**
+     * @var ListProviderRegistry
+     */
+    private $providerRegistry;
+
+    public function __construct(
+        ViewHandlerInterface $viewHandler,
+        TokenStorageInterface $tokenStorage,
+        RestHelperInterface $restHelper,
+        DoctrineListBuilderFactoryInterface $listBuilderFactory,
+        ListProviderRegistry $providerRegistry
+    ) {
+        parent::__construct($viewHandler, $tokenStorage);
+        $this->restHelper = $restHelper;
+        $this->listBuilderFactory = $listBuilderFactory;
+        $this->providerRegistry = $providerRegistry;
+    }
+
+    public function cgetFieldsAction(Request $request): Response
     {
         $template = $request->get('template');
         $locale = $request->get('locale');
@@ -37,17 +64,12 @@ class ListController extends RestController implements ClassResourceInterface
             throw new NotFoundHttpException('"template" is required parameter!');
         }
 
-        $fieldDescriptors = $this->getProviderRegistry()->getFieldDescriptors($template, $webspace, $locale, $uuid);
+        $fieldDescriptors = $this->providerRegistry->getFieldDescriptors($template, $webspace, $locale, $uuid);
 
         return $this->handleView($this->view(array_values($fieldDescriptors)));
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function cgetAction(Request $request)
+    public function cgetAction(Request $request): Response
     {
         $template = $request->get('template');
         $webspace = $request->get('webspace');
@@ -58,17 +80,11 @@ class ListController extends RestController implements ClassResourceInterface
             throw new NotFoundHttpException('"template" is required parameter');
         }
 
-        $fieldDescriptors = $this->getProviderRegistry()->getFieldDescriptors($template, $webspace, $locale, $uuid);
-        $entityName = $this->getProviderRegistry()->getEntityName($template, $webspace, $locale, $uuid);
-
-        /** @var RestHelperInterface $restHelper */
-        $restHelper = $this->get('sulu_core.doctrine_rest_helper');
-
-        /** @var DoctrineListBuilderFactory $factory */
-        $factory = $this->get('sulu_core.doctrine_list_builder_factory');
+        $fieldDescriptors = $this->providerRegistry->getFieldDescriptors($template, $webspace, $locale, $uuid);
+        $entityName = $this->providerRegistry->getEntityName($template, $webspace, $locale, $uuid);
 
         // get model class
-        $listBuilder = $factory->create($entityName);
+        $listBuilder = $this->listBuilderFactory->create($entityName);
 
         // add filters
         if (isset($fieldDescriptors['uuid'])) {
@@ -82,7 +98,7 @@ class ListController extends RestController implements ClassResourceInterface
         }
 
         // Init List Builder
-        $restHelper->initializeListBuilder($listBuilder, $fieldDescriptors);
+        $this->restHelper->initializeListBuilder($listBuilder, $fieldDescriptors);
 
         // load entities
         $list = $listBuilder->execute();
@@ -104,13 +120,5 @@ class ListController extends RestController implements ClassResourceInterface
         );
 
         return $this->handleView($this->view($representation));
-    }
-
-    /**
-     * @return \Sulu\Bundle\FormBundle\Provider\ListProviderRegistry
-     */
-    protected function getProviderRegistry()
-    {
-        return $this->get('sulu.list.provider.registry');
     }
 }

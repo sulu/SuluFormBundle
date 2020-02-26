@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) Sulu GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 namespace Sulu\Bundle\FormBundle\Metadata;
 
@@ -39,10 +47,9 @@ class DynamicListMetadataLoader implements ListMetadataLoaderInterface
         $this->dynamicListFactory = $dynamicListFactory;
     }
 
-
     public function getMetadata(string $key, string $locale, array $metadataOptions): ?MetadataInterface
     {
-        if (strcmp('form_data', $key) !== 0) {
+        if (0 !== strcmp('form_data', $key)) {
             return null;
         }
 
@@ -65,9 +72,13 @@ class DynamicListMetadataLoader implements ListMetadataLoaderInterface
         }
 
         $list->setCacheable(false);
+
         return $list;
     }
 
+    /**
+     * @param mixed[] $metadataOptions
+     */
     private function getForm(array $metadataOptions, string $locale): ?Form
     {
         if (!array_key_exists('id', $metadataOptions)) {

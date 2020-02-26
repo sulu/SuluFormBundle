@@ -11,8 +11,11 @@
         </service>
 
         <service id="sulu_form.dynamic.type_mailchimp" class="Sulu\Bundle\FormBundle\Dynamic\Types\MailchimpType">
-            <argument>%sulu_form.mailchimp_api_key%</argument>
             <tag name="sulu_form.dynamic.type" alias="mailchimp"/>
+        </service>
+
+        <service id="sulu_form.dynamic.mailchimp_list_select" class="Sulu\Bundle\FormBundle\Dynamic\Helper\MailchimpListSelect" public="true">
+            <argument>%sulu_form.mailchimp_api_key%</argument>
         </service>
     </services>
 </container>

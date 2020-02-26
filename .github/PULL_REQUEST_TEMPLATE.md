@@ -34,6 +34,4 @@ Describe BC breaks/deprecations here. (remove this section if not needed)
 
 #### To Do
 
-- [ ] Update CHANGELOG.md
 - [ ] Create documentation
-

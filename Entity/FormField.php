@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Form field entity.
@@ -39,7 +40,7 @@ class FormField
     private $required;
 
     /**
-     * @var int
+     * @var null|int
      */
     private $id;
 
@@ -54,7 +55,7 @@ class FormField
     private $defaultLocale;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection|FormTranslation[]
+     * @var Collection|FormTranslation[]
      */
     private $translations;
 
@@ -71,142 +72,87 @@ class FormField
         $this->translations = new ArrayCollection();
     }
 
-    /**
-     * @return string
-     */
-    public function getDefaultLocale()
+    public function getDefaultLocale(): string
     {
         return $this->defaultLocale;
     }
 
-    /**
-     * @param string $defaultLocale
-     *
-     * @return FormField
-     */
-    public function setDefaultLocale($defaultLocale)
+    public function setDefaultLocale(string $defaultLocale): self
     {
         $this->defaultLocale = $defaultLocale;
 
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getOrder()
+    public function getOrder(): int
     {
         return $this->order;
     }
 
-    /**
-     * @param int $order
-     *
-     * @return FormField
-     */
-    public function setOrder($order)
+    public function setOrder(int $order): self
     {
         $this->order = $order;
 
         return $this;
     }
 
-    /**
-     * @param string $key
-     *
-     * @return FormField
-     */
-    public function setKey($key)
+    public function setKey(string $key): self
     {
         $this->key = $key;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return FormField
-     */
-    public function setType($type)
+    public function setType(string $type): self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $width
-     *
-     * @return FormField
-     */
-    public function setWidth($width)
+    public function setWidth(string $width): self
     {
         $this->width = $width;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getWidth()
+    public function getWidth(): string
     {
         return $this->width;
     }
 
-    /**
-     * @param bool $required
-     *
-     * @return FormField
-     */
-    public function setRequired($required)
+    public function setRequired(bool $required): self
     {
         $this->required = $required;
 
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function getRequired()
+    public function getRequired(): bool
     {
         return $this->required;
     }
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @param string $locale
-     * @param bool $create
-     * @param bool $fallback
-     *
-     * @return FormFieldTranslation|null
+     * @return FormFieldTranslation|FormTranslation|null
      */
-    public function getTranslation($locale, $create = false, $fallback = false)
+    public function getTranslation(string $locale, bool $create = false, bool $fallback = false)
     {
         foreach ($this->translations as $translation) {
             if ($translation->getLocale() == $locale) {
@@ -225,53 +171,37 @@ class FormField
             return $this->getTranslation($this->getDefaultLocale());
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param FormFieldTranslation $translation
-     *
-     * @return FormField
-     */
-    public function addTranslation(FormFieldTranslation $translation)
+    public function addTranslation(FormFieldTranslation $translation): self
     {
         $this->translations[] = $translation;
 
         return $this;
     }
 
-    /**
-     * @param FormFieldTranslation $translation
-     */
-    public function removeTranslation(FormFieldTranslation $translation)
+    public function removeTranslation(FormFieldTranslation $translation): void
     {
         $this->translations->removeElement($translation);
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection|FormFieldTranslation[]
+     * @return ArrayCollection|Collection|FormTranslation[]
      */
     public function getTranslations()
     {
         return $this->translations;
     }
 
-    /**
-     * @param Form $form
-     *
-     * @return FormField
-     */
-    public function setForm(Form $form)
+    public function setForm(Form $form): self
     {
         $this->form = $form;
 
         return $this;
     }
 
-    /**
-     * @return Form
-     */
-    public function getForm()
+    public function getForm(): Form
     {
         return $this->form;
     }

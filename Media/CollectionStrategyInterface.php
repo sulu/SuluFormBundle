@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -19,19 +19,13 @@ interface CollectionStrategyInterface
     /**
      * Get collection id.
      *
-     * @param int $formId
-     * @param string $formTitle
-     * @param string $type
-     * @param string $typeId
-     * @param string $locale
-     *
-     * @return array|int
+     * @return int
      */
     public function getCollectionId(
-        $formId,
-        $formTitle,
-        $type,
-        $typeId,
-        $locale
-    );
+        int $formId,
+        string $formTitle,
+        string $type,
+        string $typeId,
+        string $locale
+    ): int;
 }

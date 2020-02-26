@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -13,6 +13,7 @@ namespace Sulu\Bundle\FormBundle\ListBuilder;
 
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Exception\BuilderNotFoundException;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 
@@ -31,12 +32,7 @@ class DynamicListFactory implements DynamicListFactoryInterface
      */
     protected $builders;
 
-    /**
-     * DynamicListFactory constructor.
-     *
-     * @param string $defaultBuilder
-     */
-    public function __construct($defaultBuilder)
+    public function __construct(string $defaultBuilder)
     {
         $this->defaultBuilder = $defaultBuilder;
     }
@@ -44,7 +40,7 @@ class DynamicListFactory implements DynamicListFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getFieldDescriptors(Form $form, $locale)
+    public function getFieldDescriptors(Form $form, string $locale): array
     {
         $fieldDescriptors = [];
 
@@ -72,9 +68,9 @@ class DynamicListFactory implements DynamicListFactoryInterface
                 $field->getKey(),
                 $title,
                 FieldDescriptorInterface::VISIBILITY_YES,
-                '',
+                FieldDescriptorInterface::SEARCHABILITY_NEVER,
                 'string',
-                'false'
+                false
             );
         }
 
@@ -82,7 +78,7 @@ class DynamicListFactory implements DynamicListFactoryInterface
             'created',
             'sulu_admin.created',
             FieldDescriptorInterface::VISIBILITY_YES,
-            '',
+            FieldDescriptorInterface::SEARCHABILITY_NEVER,
             'datetime'
         );
 
@@ -92,7 +88,7 @@ class DynamicListFactory implements DynamicListFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function build($dynamics, $locale, $builder = 'default')
+    public function build(array $dynamics, string $locale, string $builder = 'default'): array
     {
         $entries = [];
 
@@ -108,28 +104,19 @@ class DynamicListFactory implements DynamicListFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function add(DynamicListBuilderInterface $builder, $alias)
+    public function add(DynamicListBuilderInterface $builder, string $alias): void
     {
         $this->builders[$alias] = $builder;
     }
 
-    /**
-     * Get builder.
-     *
-     * @param string $alias
-     *
-     * @return DynamicListBuilderInterface
-     *
-     * @throws \Exception
-     */
-    protected function getBuilder($alias = null)
+    protected function getBuilder(?string $alias = null): DynamicListBuilderInterface
     {
         if (!$alias || 'default' === $alias) {
             $alias = $this->defaultBuilder;
         }
 
         if (!$this->builders[$alias]) {
-            throw new \Exception(sprintf('Bilder with the name "%s" not found.', $alias));
+            throw new BuilderNotFoundException($alias);
         }
 
         return $this->builders[$alias];

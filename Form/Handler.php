@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -59,13 +59,6 @@ class Handler implements HandlerInterface
      */
     protected $attachments = [];
 
-    /**
-     * @param ObjectManager $entityManager
-     * @param Mail\HelperInterface $mailHelper
-     * @param Environment $twig
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param MediaManager $mediaManager
-     */
     public function __construct(
         ObjectManager $entityManager,
         Mail\HelperInterface $mailHelper,
@@ -83,13 +76,8 @@ class Handler implements HandlerInterface
 
     /**
      * Handle form.
-     *
-     * @param FormInterface $form
-     * @param FormConfigurationInterface $configuration
-     *
-     * @return bool
      */
-    public function handle(FormInterface $form, FormConfigurationInterface $configuration)
+    public function handle(FormInterface $form, FormConfigurationInterface $configuration): bool
     {
         if (!$form->isValid()) {
             return false;
@@ -105,18 +93,15 @@ class Handler implements HandlerInterface
 
     /**
      * Save form.
-     *
-     * @param FormInterface $form
-     * @param FormConfigurationInterface $configuration
      */
-    private function save(FormInterface $form, FormConfigurationInterface $configuration)
+    private function save(FormInterface $form, FormConfigurationInterface $configuration): void
     {
         $this->eventDispatcher->dispatch(
-            self::EVENT_FORM_SAVE,
             new FormEvent(
                 $form,
                 $configuration
-            )
+            ),
+            self::EVENT_FORM_SAVE
         );
 
         if (!$configuration->getSave()) {
@@ -127,19 +112,15 @@ class Handler implements HandlerInterface
         $this->entityManager->flush();
 
         $this->eventDispatcher->dispatch(
-            self::EVENT_FORM_SAVED,
             new FormEvent(
                 $form,
                 $configuration
-            )
+            ),
+            self::EVENT_FORM_SAVED
         );
     }
 
-    /**
-     * @param FormInterface $form
-     * @param FormConfigurationInterface $configuration
-     */
-    private function sendMails(FormInterface $form, FormConfigurationInterface $configuration)
+    private function sendMails(FormInterface $form, FormConfigurationInterface $configuration): void
     {
         if ($adminMailConfiguration = $configuration->getAdminMailConfiguration()) {
             $this->sendMail($form, $adminMailConfiguration);
@@ -150,13 +131,7 @@ class Handler implements HandlerInterface
         }
     }
 
-    /**
-     * Send mail.
-     *
-     * @param FormInterface $form
-     * @param MailConfigurationInterface $configuration
-     */
-    private function sendMail(FormInterface $form, MailConfigurationInterface $configuration)
+    private function sendMail(FormInterface $form, MailConfigurationInterface $configuration): void
     {
         // TODO FIXME this is currently the only way to get the medias to the email view.
         $additionalData = [];
@@ -192,12 +167,9 @@ class Handler implements HandlerInterface
     /**
      * Upload media.
      *
-     * @param FormInterface $form
-     * @param FormConfigurationInterface $configuration
-     *
-     * @return array
+     * @return mixed[]
      */
-    private function uploadMedia(FormInterface $form, FormConfigurationInterface $configuration)
+    private function uploadMedia(FormInterface $form, FormConfigurationInterface $configuration): array
     {
         $this->attachments = [];
         $mediaIds = [];
@@ -245,7 +217,7 @@ class Handler implements HandlerInterface
      *
      * @return mixed
      */
-    private function mapMediaIds($entity, $mediaIds)
+    private function mapMediaIds($entity, array $mediaIds)
     {
         $accessor = new PropertyAccessor();
 
@@ -259,19 +231,14 @@ class Handler implements HandlerInterface
     /**
      * Get media data.
      *
-     * @param UploadedFile $file
-     * @param FormInterface $form
-     * @param FormConfigurationInterface $configuration
-     * @param int $collectionId
-     *
-     * @return array
+     * @return mixed[]
      */
     protected function getMediaData(
         UploadedFile $file,
         FormInterface $form,
         FormConfigurationInterface $configuration,
-        $collectionId
-    ) {
+        int $collectionId
+    ): array {
         return [
             'collection' => $collectionId,
             'locale' => $configuration->getLocale(),
@@ -281,12 +248,10 @@ class Handler implements HandlerInterface
 
     /**
      * Get plain text variant for email, overridable and customizable per form.
-     * @param FormInterface $form
-     * @param MailConfigurationInterface $configuration
-     * @param array $additionalData
-     * @return string
+     *
+     * @param mixed[] $additionalData
      */
-    protected function getPlainText(FormInterface $form, MailConfigurationInterface $configuration, array $additionalData)
+    protected function getPlainText(FormInterface $form, MailConfigurationInterface $configuration, array $additionalData): string
     {
         return $this->twig->render(
             $configuration->getPlainTextTemplate(),

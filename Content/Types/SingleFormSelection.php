@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -27,11 +27,6 @@ use Symfony\Component\Validator\Exception\MissingOptionsException;
 class SingleFormSelection extends SimpleContentType
 {
     /**
-     * @var string
-     */
-    private $template;
-
-    /**
      * @var FormRepository
      */
     private $formRepository;
@@ -46,21 +41,12 @@ class SingleFormSelection extends SimpleContentType
      */
     private $referenceStore;
 
-    /**
-     * SingleFormSelection constructor.
-     *
-     * @param string $template
-     * @param FormRepository $formRepository
-     * @param BuilderInterface $formBuilder
-     */
     public function __construct(
-        $template,
         FormRepository $formRepository,
         BuilderInterface $formBuilder,
         ReferenceStoreInterface $referenceStore
     ) {
         parent::__construct('SingleFormSelection', '');
-        $this->template = $template;
         $this->formRepository = $formRepository;
         $this->formBuilder = $formBuilder;
         $this->referenceStore = $referenceStore;
@@ -78,22 +64,19 @@ class SingleFormSelection extends SimpleContentType
         }
 
         if (!isset($property->getParams()['resourceKey'])) {
-            throw new MissingOptionsException(
-                'SuluFormBundle: The parameter "resourceKey" is missing on "single_form_selection" content-type.',
-                []
-            );
+            throw new MissingOptionsException('SuluFormBundle: The parameter "resourceKey" is missing on "single_form_selection" content-type.', []);
         }
 
+        /** @var string $resourceKey */
         $resourceKey = $property->getParams()['resourceKey']->getValue();
 
         /** @var PageBridge $structure */
         $structure = $property->getStructure();
 
-        /** @var FormInterface $form */
         $form = $this->formBuilder->build(
             $id,
             $resourceKey,
-            $structure->getUuid(),
+            (string) $structure->getUuid(),
             $structure->getLanguageCode(),
             $property->getName()
         );
@@ -111,22 +94,22 @@ class SingleFormSelection extends SimpleContentType
         return $form->createView();
     }
 
-    private function loadShadowForm(PropertyInterface $property, $id, $type)
+    private function loadShadowForm(PropertyInterface $property, int $id, string $type): ?FormInterface
     {
         $structure = $property->getStructure();
 
         if (!$structure instanceof StructureBridge) {
-            return;
+            return null;
         }
 
         if (!$structure->getIsShadow()) {
-            return;
+            return null;
         }
 
         return $this->formBuilder->build(
             $id,
             $type,
-            $structure->getUuid(),
+            (string) $structure->getUuid(),
             $structure->getShadowBaseLanguage(),
             $property->getName()
         );
@@ -154,13 +137,5 @@ class SingleFormSelection extends SimpleContentType
         return [
             'entity' => $formEntity->serializeForLocale($locale),
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getTemplate()
-    {
-        return $this->template;
     }
 }

@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\TitleProvider;
 
+use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\Compat\StructureInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -24,9 +25,6 @@ class StructureTitleProvider implements TitleProviderInterface
      */
     private $requestStack;
 
-    /**
-     * @param RequestStack $requestStack
-     */
     public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
@@ -35,19 +33,20 @@ class StructureTitleProvider implements TitleProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function getTitle($typeId)
+    public function getTitle(string $typeId, ?string $locale = null): ?string
     {
         $request = $this->requestStack->getMasterRequest();
         $structure = $request->attributes->get('structure');
 
         if (!$structure instanceof StructureInterface || $structure->getUuid() !== $typeId) {
-            return;
+            return null;
         }
 
+        /** @var PropertyInterface|null $property */
         $property = $structure->getProperty('title');
 
         if (!$property) {
-            return;
+            return null;
         }
 
         return $property->getValue();

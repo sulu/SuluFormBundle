@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -26,12 +26,11 @@ class DateType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfiguration()
+    public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.date',
             __DIR__ . '/../../Resources/config/form-fields/field_date.xml',
-            [],
             'basic'
         );
     }
@@ -39,7 +38,7 @@ class DateType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
+    public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $type = TypeDateType::class;
         $translation = $field->getTranslation($locale);
@@ -54,7 +53,7 @@ class DateType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getDefaultValue(FormField $field, $locale)
+    public function getDefaultValue(FormField $field, string $locale)
     {
         $value = $field->getTranslation($locale)->getDefaultValue();
 

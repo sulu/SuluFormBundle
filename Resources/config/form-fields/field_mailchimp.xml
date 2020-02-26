@@ -4,28 +4,16 @@
             xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/properties-1.0.xsd">
     <xi:include href="default_field.xml"  xpointer="xmlns(sulu=http://schemas.sulu.io/template/template)
                       xpointer(//sulu:property)"/>
-    <property name="options/listId" type="single_select">
+    <property name="options/listId" type="single_select" mandatory="true">
         <meta>
             <title>sulu_form.mailchimp_list</title>
         </meta>
         <params>
-            <param name="values" type="collection">
-                <param name="id1">
-                    <meta>
-                        <title>sulu_form.mailchimp.list</title>
-                    </meta>
-                </param>
-                <param name="id2">
-                    <meta>
-                        <title>sulu_form.mailchimp.list</title>
-                    </meta>
-                </param>
-                <param name="id3">
-                    <meta>
-                        <title>sulu_form.mailchimp.list</title>
-                    </meta>
-                </param>
-            </param>
+            <param
+                    name="values"
+                    type="expression"
+                    value="service('sulu_form.dynamic.mailchimp_list_select').getValues()"
+            />
         </params>
     </property>
 </properties>

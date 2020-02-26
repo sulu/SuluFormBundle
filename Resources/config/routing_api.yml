@@ -1,12 +1,12 @@
 sulu_form.list:
     type: rest
-    resource: Sulu\Bundle\FormBundle\Controller\ListController
+    resource: sulu_form.list_controller
     prefix: form
     name_prefix: sulu_form.
 
 sulu_form.forms:
     type: rest
-    resource: Sulu\Bundle\FormBundle\Controller\FormController
+    resource: sulu_form.form_controller
     name_prefix: sulu_form.
 
 sulu_form.dynamic:
@@ -14,14 +14,3 @@ sulu_form.dynamic:
     resource: sulu_form.dynamic_controller
     prefix: form
     name_prefix: sulu_form.
-
-sulu_form.csv_overlay:
-    path: /form/templates/csv-export.html
-    defaults:
-        _controller: FrameworkBundle:Template:template
-        template: SuluFormBundle:CsvExport:form.html.twig
-
-sulu_form.forms.template:
-    path: /form/templates/form.html
-    defaults:
-        _controller: SuluFormBundle:Template:form

@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -20,39 +20,22 @@ class ListProviderRegistry
      */
     protected $providers = [];
 
-    /**
-     * @param ListProviderInterface $provider
-     * @param $name
-     */
-    public function add(ListProviderInterface $provider, $name)
+    public function add(ListProviderInterface $provider, string $name): void
     {
         $this->providers[$name] = $provider;
     }
 
     /**
-     * @param string $template
-     * @param string $webspace
-     * @param string $locale
-     * @param string $uuid
-     *
      * @return FieldDescriptor[]
      */
-    public function getFieldDescriptors($template, $webspace, $locale, $uuid)
+    public function getFieldDescriptors(string $template, string $webspace, string $locale, string $uuid): array
     {
         $provider = $this->getProvider($template);
 
         return $provider->getFieldDescriptors($webspace, $locale, $uuid);
     }
 
-    /**
-     * @param string $template
-     * @param string $webspace
-     * @param string $locale
-     * @param string $uuid
-     *
-     * @return string
-     */
-    public function getEntityName($template, $webspace, $locale, $uuid)
+    public function getEntityName(string $template, string $webspace, string $locale, string $uuid): string
     {
         $provider = $this->getProvider($template);
 
@@ -62,17 +45,12 @@ class ListProviderRegistry
     /**
      * @return ListProviderInterface[]
      */
-    public function getProviders()
+    public function getProviders(): array
     {
         return $this->providers;
     }
 
-    /**
-     * @param $template
-     *
-     * @return ListProviderInterface
-     */
-    protected function getProvider($template)
+    protected function getProvider(string $template): ListProviderInterface
     {
         return $this->providers[$template];
     }

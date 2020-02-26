@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\Tests\Unit\Configuration;
 
+use PHPUnit\Framework\TestCase;
 use Sulu\Bundle\FormBundle\Configuration\FormConfigurationFactory;
 use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
@@ -19,7 +20,6 @@ use Sulu\Bundle\FormBundle\Entity\FormField;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslationReceiver;
 use Sulu\Bundle\FormBundle\Media\CollectionStrategyInterface;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Test for the form configuration factory.
@@ -41,10 +41,10 @@ class FormConfigurationFactoryTest extends TestCase
 
         $formConfigurationFactory = new FormConfigurationFactory(
             $collectionStrategy->reveal(),
-            'SuluFormBundle:mails:notify.html.twig',
-            'SuluFormBundle:mails:customer.html.twig',
-            'SuluFormBundle:mails:notify_plain_text.html.twig',
-            'SuluFormBundle:mails:customer_plain_text.html.twig'
+            '@SuluForm/mails/notify.html.twig',
+            '@SuluForm/mails/customer.html.twig',
+            '@SuluForm/mails/notify_plain_text.html.twig',
+            '@SuluForm/mails/customer_plain_text.html.twig'
         );
 
         $formConfiguration = $formConfigurationFactory->buildByDynamic($dynamic);

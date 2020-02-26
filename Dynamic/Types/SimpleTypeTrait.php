@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -21,12 +21,9 @@ trait SimpleTypeTrait
     /**
      * Return the default value.
      *
-     * @param FormField $field
-     * @param string $locale
-     *
      * @return mixed
      */
-    public function getDefaultValue(FormField $field, $locale)
+    public function getDefaultValue(FormField $field, string $locale)
     {
         return $field->getTranslation($locale)->getDefaultValue();
     }

@@ -4,7 +4,7 @@ This part describes step by step how to create a dynamic form with this bundle.
 
 ## Basic Sulu Template
 
-Create a template in `app/Resources/pages` which uses the content type of the bundle to select
+Create a template in `config/templates/pages` which uses the content type of the bundle to select
 one of the dynamic templates which can be created in the Sulu backend.
 
 ```xml
@@ -15,8 +15,8 @@ one of the dynamic templates which can be created in the Sulu backend.
 
     <key>form</key>
 
-    <view>AppBundle:website:templates/pages/default</view>
-    <controller>SuluWebsiteBundle:Default:index</controller>
+    <view>pages/form</view>
+    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
     <cacheLifetime>1209600</cacheLifetime>
 
     <meta>
@@ -32,6 +32,7 @@ one of the dynamic templates which can be created in the Sulu backend.
                         <title lang="en">Title</title>
                         <title lang="de">Titel</title>
                     </meta>
+
                     <params>
                         <param name="headline" value="true"/>
                     </params>
@@ -55,6 +56,7 @@ one of the dynamic templates which can be created in the Sulu backend.
                 <title lang="de">Formular</title>
                 <title lang="en">Form</title>
             </meta>
+
             <params>
                 <param name="resourceKey" value="page"/>
             </params>
@@ -80,7 +82,7 @@ has been submitted successfully!
     {% if content.form %}
         {% if app.request.get('send') != 'true' %}
             {# FORM THEME #}
-            {% form_theme content.form 'SuluFormBundle:themes:dynamic.html.twig' %}
+            {% form_theme content.form '@SuluForm/themes/dynamic.html.twig' %}
             {{ form(content.form) }}
         {% else %}
             {{ view.form.entity.successText|raw }}
@@ -105,22 +107,22 @@ For customizing the notification mail and the customer confirmation mail, adding
 sulu_form:
     mail:
         templates:
-            notify: 'AppBundle:mails:dynamic-notify.html.twig'
-            notify_plain_text: 'AppBundle:mails:dynamic-notify-plain-text.html.twig'
-            customer: 'AppBundle:mails:dynamic-customer.html.twig'
-            customer_plain_text: 'AppBundle:mails:dynamic-customer-plain-text.html.twig'
+            notify: 'mails/dynamic-notify.html.twig'
+            notify_plain_text: 'mails/dynamic-notify-plain-text.html.twig'
+            customer: 'mails/dynamic-customer.html.twig'
+            customer_plain_text: 'mails/dynamic-customer-plain-text.html.twig'
 ```
 
 Examples for the notification and costumer mail you can find [here](https://github.com/sulu/SuluFormBundle/tree/master/Resources/views/mails/).
 
 ## List Tab - Export
 
-To visualise a tab in the Sulu template, simply configured the following in your `app/config/config.yml`:
+To visualise a tab in the Sulu template, simply configured the following in your `config/packages/sulu_form.yaml`:
 
 ```yml
 sulu_form:
     dynamic_lists:
-        content: # tab navigation key e.g. "content" for sulu pages or "article" for sulu articles.
+        sulu_page.page_edit_form: # view key e.g. "sulu_page.page_edit_form" for sulu pages or "sulu_article.edit_form" for sulu articles.
             form: # unique key mostly the same as the template key or a combination between template and property key.
                 template: form # template key
                 property: form # form property name
@@ -166,7 +168,7 @@ php bin/adminconsole debug:container --tag=sulu_form.dynamic.type
 
 ## Media Collections
 
-To create for every form and page an own collection you need to configure the following in your `config.yml`:
+To create for every form and page an own collection you need to configure the following in your `config/packages/sulu_form.yaml`:
 
 ```yml
 sulu_form:

@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -23,27 +23,13 @@ use Symfony\Component\Form\FormBuilderInterface;
 class MailchimpType implements FormFieldTypeInterface
 {
     /**
-     * @var string
-     */
-    private $apiKey;
-
-    /**
-     * @param string $apiKey
-     */
-    public function __construct($apiKey)
-    {
-        $this->apiKey = $apiKey;
-    }
-
-    /**
      * {@inheritdoc}
      */
-    public function getConfiguration()
+    public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
             'sulu_form.type.mailchimp',
             __DIR__ . '/../../Resources/config/form-fields/field_mailchimp.xml',
-            ['mailChimpLists' => $this->getMailChimpLists()],
             'special'
         );
     }
@@ -51,7 +37,7 @@ class MailchimpType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function build(FormBuilderInterface $builder, FormField $field, $locale, $options)
+    public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $type = TypeCheckboxType::class;
         $builder->add($field->getKey(), $type, $options);
@@ -60,39 +46,8 @@ class MailchimpType implements FormFieldTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getDefaultValue(FormField $field, $locale)
+    public function getDefaultValue(FormField $field, string $locale)
     {
         return $field->getTranslation($locale)->getDefaultValue();
-    }
-
-    /**
-     * Returns array of Mailchimp lists of given account defined by the API key.
-     *
-     * @return array
-     */
-    private function getMailChimpLists()
-    {
-        $lists = [];
-
-        // If Milchimp class doesn't exist or no key is set return empty list.
-        if (!class_exists(\DrewM\MailChimp\MailChimp::class) || !$this->apiKey) {
-            return $lists;
-        }
-
-        $mailChimp = new \DrewM\MailChimp\MailChimp($this->apiKey);
-        $response = $mailChimp->get('lists', ['count' => 100]);
-
-        if (!isset($response['lists'])) {
-            return $lists;
-        }
-
-        foreach ($response['lists'] as $list) {
-            $lists[] = [
-                'id' => $list['id'],
-                'name' => $list['name'],
-            ];
-        }
-
-        return $lists;
     }
 }

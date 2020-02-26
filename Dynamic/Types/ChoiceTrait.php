@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -19,13 +19,9 @@ use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 trait ChoiceTrait
 {
     /**
-     * Get choices.
-     *
-     * @param FormFieldTranslation $translation
-     *
-     * @return array
+     * @return string[]
      */
-    protected function getChoices(FormFieldTranslation $translation)
+    protected function getChoices(FormFieldTranslation $translation): array
     {
         $choices = preg_split('/\r\n|\r|\n/', $translation->getOption('choices'), -1, PREG_SPLIT_NO_EMPTY);
 
@@ -35,15 +31,14 @@ trait ChoiceTrait
     /**
      * Returns options for multichoice form type like select, multiple select, radio or checkboxes.
      *
-     * @param FormFieldTranslation $translation
-     * @param array $options
+     * @param string[] $options
      *
-     * @return array
+     * @return string[]
      */
     private function getChoiceOptions(
         FormFieldTranslation $translation,
-        $options
-    ) {
+        array $options
+    ): array {
         if (isset($options['attr']['placeholder'])) {
             $options['placeholder'] = $options['attr']['placeholder'];
             unset($options['attr']['placeholder']);
@@ -59,11 +54,9 @@ trait ChoiceTrait
     /**
      * Returns default options for multichoice form type.
      *
-     * @param string $value
-     *
      * @return string[]
      */
-    private function getDefaultOptions($value)
+    private function getDefaultOptions(string $value): array
     {
         return preg_split('/\r\n|\r|\n/', $value, -1, PREG_SPLIT_NO_EMPTY);
     }

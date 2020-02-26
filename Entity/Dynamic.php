@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Entity;
 
 use Sulu\Component\Persistence\Model\AuditableInterface;
+use Sulu\Component\Security\Authentication\UserInterface;
 
 class Dynamic implements AuditableInterface
 {
@@ -32,7 +33,7 @@ class Dynamic implements AuditableInterface
     ];
 
     /**
-     * @var int
+     * @var null|int
      */
     private $id;
 
@@ -57,7 +58,7 @@ class Dynamic implements AuditableInterface
     private $locale;
 
     /**
-     * @var Form
+     * @var null|Form
      */
     private $form;
 
@@ -187,7 +188,7 @@ class Dynamic implements AuditableInterface
     private $data = '[]';
 
     /**
-     * @var \DateTime
+     * @var null|\DateTime
      */
     private $created;
 
@@ -197,27 +198,21 @@ class Dynamic implements AuditableInterface
     private $changed;
 
     /**
-     * @var
+     * @var UserInterface
      */
     private $creator;
 
     /**
-     * @var
+     * @var UserInterface
      */
     private $changer;
 
     /**
      * Dynamic constructor.
      *
-     * @param string $type
-     * @param string $typeId
-     * @param string $locale
-     * @param Form $form
-     * @param array $data
-     * @param string $webspaceKey
-     * @param string $typeName
+     * @param mixed[] $data
      */
-    public function __construct($type, $typeId, $locale, $form, $data = [], $webspaceKey = null, $typeName = '')
+    public function __construct(string $type, string $typeId, string $locale, ?Form $form, array $data = [], ?string $webspaceKey = null, ?string $typeName = null)
     {
         $this->type = $type;
         $this->typeId = $typeId;
@@ -232,19 +227,17 @@ class Dynamic implements AuditableInterface
     }
 
     /**
-     * Get data.
-     *
-     * @return array
+     * @return mixed[]
      */
-    public function getData()
+    public function getData(): array
     {
         return json_decode($this->data, true);
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $value
      */
-    public function __set($name, $value)
+    public function __set(string $name, $value): void
     {
         if (property_exists($this, $name)) {
             if (in_array($name, self::$ARRAY_TYPES)) {
@@ -263,7 +256,7 @@ class Dynamic implements AuditableInterface
     /**
      * {@inheritdoc}
      */
-    public function __isset($name)
+    public function __isset(string $name): bool
     {
         if (!is_string($name)) {
             return false;
@@ -279,26 +272,22 @@ class Dynamic implements AuditableInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed
      */
-    public function __get($name)
+    public function __get(string $name)
     {
         return $this->getField($name);
     }
 
     /**
-     * Get field.
-     *
-     * @param string $key
-     *
-     * @return string|array
+     * @return string|mixed|null
      */
-    public function getField($key)
+    public function getField(string $key)
     {
         if (property_exists($this, $key)) {
             if (in_array($key, self::$ARRAY_TYPES)) {
                 if (!is_string($this->$key)) {
-                    return;
+                    return null;
                 }
 
                 return json_decode($this->$key, true);
@@ -312,16 +301,14 @@ class Dynamic implements AuditableInterface
         if (isset($array[$key])) {
             return $array[$key];
         }
+
+        return null;
     }
 
     /**
-     * Get fields.
-     *
-     * @param bool $hideHidden
-     *
-     * @return array
+     * @return mixed[]
      */
-    public function getFields($hideHidden = false)
+    public function getFields(bool $hideHidden = false): array
     {
         $entry = [];
 
@@ -341,13 +328,9 @@ class Dynamic implements AuditableInterface
     }
 
     /**
-     * Get fields by type.
-     *
-     * @param string $type
-     *
-     * @return array
+     * @return mixed[]
      */
-    public function getFieldsByType($type)
+    public function getFieldsByType(string $type): array
     {
         $entry = [];
 
@@ -362,102 +345,53 @@ class Dynamic implements AuditableInterface
         return $entry;
     }
 
-    /**
-     * Get field type.
-     *
-     * @param string $key
-     *
-     * @return string
-     */
-    public function getFieldType($key)
+    public function getFieldType(string $key): ?string
     {
         if (!$this->form) {
-            return;
+            return null;
         }
 
         return $this->form->getFieldType($key);
     }
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * Get form.
-     *
-     * @return Form
-     */
-    public function getForm()
+    public function getForm(): Form
     {
         return $this->form;
     }
 
-    /**
-     * Get locale.
-     *
-     * @return string
-     */
-    public function getLocale()
+    public function getLocale(): string
     {
         return $this->locale;
     }
 
-    /**
-     * Set locale.
-     *
-     * @param string $locale
-     *
-     * @return $this
-     */
-    public function setLocale($locale)
+    public function setLocale(string $locale): self
     {
         $this->locale = $locale;
 
         return $this;
     }
 
-    /**
-     * Get type.
-     *
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * Get typeId.
-     *
-     * @return string
-     */
-    public function getTypeId()
+    public function getTypeId(): string
     {
         return $this->typeId;
     }
 
-    /**
-     * Get typeName.
-     *
-     * @return string
-     */
-    public function getTypeName()
+    public function getTypeName(): ?string
     {
         return $this->typeName;
     }
 
-    /**
-     * Get webspaceKey.
-     *
-     * @return string
-     */
-    public function getWebspaceKey()
+    public function getWebspaceKey(): ?string
     {
         return $this->webspaceKey;
     }
@@ -465,7 +399,7 @@ class Dynamic implements AuditableInterface
     /**
      * {@inheritdoc}
      */
-    public function getCreated()
+    public function getCreated(): ?\DateTime
     {
         return $this->created;
     }
@@ -473,7 +407,7 @@ class Dynamic implements AuditableInterface
     /**
      * {@inheritdoc}
      */
-    public function getChanged()
+    public function getChanged(): \DateTime
     {
         return $this->changed;
     }
@@ -481,7 +415,7 @@ class Dynamic implements AuditableInterface
     /**
      * {@inheritdoc}
      */
-    public function getCreator()
+    public function getCreator(): ?UserInterface
     {
         return $this->creator;
     }
@@ -489,7 +423,7 @@ class Dynamic implements AuditableInterface
     /**
      * {@inheritdoc}
      */
-    public function getChanger()
+    public function getChanger(): ?UserInterface
     {
         return $this->changer;
     }

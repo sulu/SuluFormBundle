@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\ListBuilder;
 
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
+use Sulu\Bundle\FormBundle\Exception\InvalidListBuilderValueException;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -34,25 +35,16 @@ class DynamicListBuilder implements DynamicListBuilderInterface
      */
     protected $downloadUrl;
 
-    /**
-     * DynamicListResolver constructor.
-     *
-     * @param string $delimiter
-     * @param RouterInterface $router
-     */
-    public function __construct($delimiter, $router)
+    public function __construct(string $delimiter, RouterInterface $router)
     {
         $this->delimiter = $delimiter;
         $this->router = $router;
     }
 
     /**
-     * @param Dynamic $dynamic
-     * @param $locale
-     *
-     * @return array
+     * {@inheritdoc}
      */
-    public function build(Dynamic $dynamic, $locale)
+    public function build(Dynamic $dynamic, string $locale): array
     {
         $entry = $dynamic->getFields();
 
@@ -76,20 +68,16 @@ class DynamicListBuilder implements DynamicListBuilderInterface
     /**
      * Convert value to string.
      *
-     * @param string|array $value
-     *
-     * @return string
-     *
-     * @throws \Exception
+     * @param mixed $value
      */
-    protected function toString($value)
+    protected function toString($value): string
     {
         if (is_string($value) || is_numeric($value)) {
             return $value;
         }
 
         if (is_bool($value)) {
-            return $value ? 1 : 0;
+            return $value ? '1' : '0';
         }
 
         if ($value instanceof \DateTime) {
@@ -101,20 +89,13 @@ class DynamicListBuilder implements DynamicListBuilderInterface
         }
 
         if (!is_array($value)) {
-            throw new \Exception('Invalid value for list builder.');
+            throw new InvalidListBuilderValueException($value);
         }
 
         return implode($this->delimiter, $value);
     }
 
-    /**
-     * Get media urls.
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    protected function getMediaUrls($value)
+    protected function getMediaUrls(string $value): string
     {
         if (is_string($value)) {
             return $this->getMediaUrl($value);
@@ -131,24 +112,15 @@ class DynamicListBuilder implements DynamicListBuilderInterface
         return $this->toString($value);
     }
 
-    /**
-     * Get media url.
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    protected function getMediaUrl($value)
+    protected function getMediaUrl(string $value): string
     {
         return str_replace(urlencode('{id}'), $value, $this->getDownloadUrl());
     }
 
     /**
      * For performance generate route only once.
-     *
-     * @return string
      */
-    protected function getDownloadUrl()
+    protected function getDownloadUrl(): string
     {
         if (null === $this->downloadUrl) {
             $this->downloadUrl = $this->router->generate(
@@ -157,7 +129,7 @@ class DynamicListBuilder implements DynamicListBuilderInterface
                     'slug' => 'file',
                     'id' => '{id}',
                 ],
-                true
+                RouterInterface::ABSOLUTE_URL
             );
         }
 

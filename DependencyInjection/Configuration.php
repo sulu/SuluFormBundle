@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -26,8 +26,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('sulu_form');
+        $treeBuilder = new TreeBuilder('sulu_form');
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode->children()
             ->scalarNode('mailchimp_api_key')->defaultValue(null)->end()
@@ -56,16 +56,16 @@ class Configuration implements ConfigurationInterface
                         ->addDefaultsIfNotSet()
                         ->children()
                             ->scalarNode('notify')
-                                ->defaultValue('SuluFormBundle:mails:notify.html.twig')
+                                ->defaultValue('@SuluForm/mails/notify.html.twig')
                             ->end()
                             ->scalarNode('notify_plain_text')
-                                ->defaultValue('SuluFormBundle:mails:notify_plain_text.html.twig')
+                                ->defaultValue('@SuluForm/mails/notify_plain_text.html.twig')
                             ->end()
                             ->scalarNode('customer')
-                                ->defaultValue('SuluFormBundle:mails:customer.html.twig')
+                                ->defaultValue('@SuluForm/mails/customer.html.twig')
                             ->end()
                             ->scalarNode('customer_plain_text')
-                                ->defaultValue('SuluFormBundle:mails:customer_plain_text.html.twig')
+                                ->defaultValue('@SuluForm/mails/customer_plain_text.html.twig')
                             ->end()
                         ->end()
                     ->end()

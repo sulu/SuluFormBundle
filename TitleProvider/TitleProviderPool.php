@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -34,7 +34,7 @@ class TitleProviderPool implements TitleProviderPoolInterface
     /**
      * {@inheritdoc}
      */
-    public function get($alias)
+    public function get(string $alias): TitleProviderInterface
     {
         return $this->providers[$alias];
     }
@@ -42,7 +42,7 @@ class TitleProviderPool implements TitleProviderPoolInterface
     /**
      * {@inheritdoc}
      */
-    public function all()
+    public function all(): array
     {
         return $this->providers;
     }

@@ -38,18 +38,12 @@
             <tag name="sulu.context" context="admin"/>
         </service>
 
-        <service id="sulu_form.navigation_provider.form"
-                 class="Sulu\Bundle\FormBundle\Admin\FormNavigationProvider">
-            <tag name="sulu_admin.content_navigation" alias="sulu_form_form" />
-            <tag name="sulu.context" context="admin" />
-        </service>
-
-        <!-- Static -->
-        <service id="sulu_form.navigation_provider.template"
-                 class="Sulu\Bundle\FormBundle\Admin\TemplateNavigationProvider">
-            <argument type="service" id="sulu.list.provider.registry"/>
-
-            <tag name="sulu_admin.content_navigation" alias="content" />
+        <service id="sulu_form.dynamic_list_admin"
+                 class="Sulu\Bundle\FormBundle\Admin\DynamicListAdmin">
+            <argument type="service" id="sulu_admin.view_builder_factory"/>
+            <argument>%sulu_form.dynamic_lists.config%</argument>
+            <tag name="sulu.admin"/>
+            <tag name="sulu.context" context="admin"/>
         </service>
 
         <!-- List Provider Registry -->
@@ -67,7 +61,6 @@
         <!-- Content Types -->
         <service id="sulu_form.content_type.single_form_selection"
                  class="Sulu\Bundle\FormBundle\Content\Types\SingleFormSelection">
-            <argument>SuluFormBundle:Template:content-types/form_select_simple.html.twig</argument>
             <argument type="service" id="sulu_form.repository.form" />
             <argument type="service" id="sulu_form.builder" />
             <argument type="service" id="sulu_form.reference_store.form"/>
@@ -206,12 +199,44 @@
             <argument type="service" id="fos_rest.view_handler"/>
         </service>
 
+        <!-- Form Controller -->
+        <service id="sulu_form.form_controller" class="Sulu\Bundle\FormBundle\Controller\FormController" public="true">
+            <argument type="service" id="fos_rest.view_handler.default"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="sulu_form.manager.form"/>
+            <argument type="service" id="sulu_core.doctrine_rest_helper"/>
+            <argument type="service" id="sulu_core.doctrine_list_builder_factory"/>
+            <argument type="service" id="sulu_core.list_builder.field_descriptor_factory"/>
+            <argument type="service" id="sulu_core.list_rest_helper"/>
+
+            <tag name="sulu.context" context="admin"/>
+        </service>
+
+        <!-- List Controller -->
+        <service id="sulu_form.list_controller" class="Sulu\Bundle\FormBundle\Controller\ListController" public="true">
+            <argument type="service" id="fos_rest.view_handler.default"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="sulu_core.doctrine_rest_helper"/>
+            <argument type="service" id="sulu_core.doctrine_list_builder_factory"/>
+            <argument type="service" id="sulu.list.provider.registry"/>
+
+            <tag name="sulu.context" context="admin"/>
+        </service>
+
         <!-- Dynamic List Metadata Loader -->
         <service id="sulu_form.metadata.dynamic_list_metadata_loader" class="Sulu\Bundle\FormBundle\Metadata\DynamicListMetadataLoader">
             <argument type="service" id="translator"/>
             <argument type="service" id="sulu_form.manager.form"/>
             <argument type="service" id="sulu_form.list_builder.dynamic_list_factory"/>
             <tag name="sulu_admin.list_metadata_loader"/>
+        </service>
+
+        <!-- CacheInvalidationListener -->
+        <service id="sulu_form.cache_invalidation_listener" class="Sulu\Bundle\FormBundle\Event\CacheInvalidationListener">
+            <argument type="service" id="sulu_http_cache.cache_manager" on-invalid="null" />
+
+            <tag name="doctrine.event_listener" event="postUpdate"/>
+            <tag name="doctrine.event_listener" event="preRemove"/>
         </service>
     </services>
 </container>

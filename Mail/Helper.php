@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -23,12 +23,12 @@ class Helper implements HelperInterface
     private $mailer;
 
     /**
-     * @var string
+     * @var null|string
      */
     protected $toMail;
 
     /**
-     * @var string
+     * @var null|string
      */
     protected $fromMail;
 
@@ -37,17 +37,11 @@ class Helper implements HelperInterface
      */
     protected $logger;
 
-    /**
-     * @param \Swift_Mailer $mailer
-     * @param string $fromMail
-     * @param string $toMail
-     * @param LoggerInterface $logger
-     */
     public function __construct(
         \Swift_Mailer $mailer,
-        $fromMail,
-        $toMail,
-        $logger = null
+        ?string $fromMail,
+        ?string $toMail,
+        ?LoggerInterface $logger = null
     ) {
         $this->mailer = $mailer;
         $this->toMail = $toMail;
@@ -69,7 +63,7 @@ class Helper implements HelperInterface
         $ccMail = [],
         $bccMail = [],
         $plainText = null
-    ) {
+    ): int {
         $message = new \Swift_Message(
             $subject,
             $body
@@ -113,7 +107,7 @@ class Helper implements HelperInterface
 
         $message->setCc($ccMail);
         $message->setBcc($bccMail);
-        if ($plainText != null) {
+        if (null != $plainText) {
             $message->addPart($plainText, 'text/plain');
         }
 

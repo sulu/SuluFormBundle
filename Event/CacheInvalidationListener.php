@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -14,7 +14,7 @@ namespace Sulu\Bundle\FormBundle\Event;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
-use Sulu\Component\HttpCache\HandlerInvalidateReferenceInterface;
+use Sulu\Bundle\HttpCacheBundle\Cache\CacheManagerInterface;
 
 /**
  * Invalidate references when form is persisted.
@@ -22,29 +22,33 @@ use Sulu\Component\HttpCache\HandlerInvalidateReferenceInterface;
 class CacheInvalidationListener
 {
     /**
-     * @var HandlerInvalidateReferenceInterface
+     * @var null|CacheManagerInterface
      */
-    private $invalidationHandler;
+    private $cacheManager;
 
-    public function __construct(HandlerInvalidateReferenceInterface $invalidationHandler)
+    public function __construct(?CacheManagerInterface $cacheManager)
     {
-        $this->invalidationHandler = $invalidationHandler;
+        $this->cacheManager = $cacheManager;
     }
 
-    public function postUpdate(LifecycleEventArgs $eventArgs)
+    public function postUpdate(LifecycleEventArgs $eventArgs): void
     {
         $this->invalidateEntity($eventArgs->getObject());
     }
 
-    public function preRemove(LifecycleEventArgs $eventArgs)
+    public function preRemove(LifecycleEventArgs $eventArgs): void
     {
         $this->invalidateEntity($eventArgs->getObject());
     }
 
-    private function invalidateEntity($object)
+    private function invalidateEntity(object $object): void
     {
+        if (!$this->cacheManager) {
+            return;
+        }
+
         if ($object instanceof Form) {
-            $this->invalidationHandler->invalidateReference('form', $object->getId());
+            $this->cacheManager->invalidateReference('contact', (string) $object->getId());
         } elseif ($object instanceof FormTranslation) {
             $this->invalidateEntity($object->getForm());
         }

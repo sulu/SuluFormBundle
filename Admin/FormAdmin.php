@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -14,9 +14,9 @@ namespace Sulu\Bundle\FormBundle\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;
+use Sulu\Bundle\AdminBundle\Admin\View\ToolbarAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewCollection;
-use Sulu\Bundle\AdminBundle\Admin\View\ToolbarAction;
 use Sulu\Component\Localization\Localization;
 use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
@@ -40,9 +40,6 @@ class FormAdmin extends Admin
 
     /**
      * FormAdmin constructor.
-     * @param SecurityCheckerInterface $securityChecker
-     * @param ViewBuilderFactoryInterface $viewBuilderFactory
-     * @param WebspaceManagerInterface $webspaceManager
      */
     public function __construct(
         SecurityCheckerInterface $securityChecker,
@@ -72,27 +69,11 @@ class FormAdmin extends Admin
     /**
      * {@inheritdoc}
      */
-    public function getCommands()
-    {
-        return [];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getJsBundleName()
-    {
-        return 'suluform';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function configureViews(ViewCollection $viewCollection): void
     {
         $formLocales = array_values(
             array_map(
-                function (Localization $localization) {
+                function(Localization $localization) {
                     return $localization->getLocale();
                 },
                 $this->webspaceManager->getAllLocalizations()

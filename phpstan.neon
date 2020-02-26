@@ -1,12 +1,32 @@
+includes:
+    - vendor/jangregor/phpstan-prophecy/src/extension.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-doctrine/rules.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
+
 parameters:
+    paths:
+        - .
+    level: 5
+    symfony:
+            container_xml_path: %rootDir%/../../../Tests/Application/var/cache/admin/dev/adminAdminDevDebugProjectContainer.xml
     excludes_analyse:
         - %currentWorkingDirectory%/vendor/*
         - %currentWorkingDirectory%/Tests/*
-        - %currentWorkingDirectory%/Admin/DynamicListNavigationProvider.php
-        - %currentWorkingDirectory%/Admin/FormNavigationProvider.php
-        - %currentWorkingDirectory%/Admin/TemplateNavigationProvider.php
-        - %currentWorkingDirectory%/Dynamic/Types/RecaptchaType.php
-        - %currentWorkingDirectory%/Event/CacheInvalidationListener.php
-        - %currentWorkingDirectory%/DependencyInjection/SuluFormExtension.php
+        - %currentWorkingDirectory%/DependencyInjection/Configuration.php
+    ignoreErrors:
+        - '#Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch()#'
+        - '#Cannot assign offset \x27[a-zA-Z0-9\\_]+\x27 to string.#' #\x27 represents the single quote character '
+        -
+            message: '#caught "Exception" must be rethrown#'
+            path: Event/RequestListener.php
+        -
+            message: '#Sulu\\Bundle\\MediaBundle\\Collection\\Manager\\CollectionManagerInterface\:\:save\(\) expects int\, null given\.#'
+            path: Media/CollectionStrategyTree.php
 
-
+        -
+            message: '#Result of || is always true.#'
+            path: TitleProvider/StructureTitleProvider.php

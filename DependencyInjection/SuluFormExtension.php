@@ -3,7 +3,7 @@
 /*
  * This file is part of Sulu.
  *
- * (c) MASSIVE ART WebServices GmbH
+ * (c) Sulu GmbH
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -11,10 +11,8 @@
 
 namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
-use Sulu\Bundle\FormBundle\Admin\DynamicListNavigationProvider;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -85,21 +83,24 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                         ],
                         'dynamic_forms' => [
                             'routes' => [
-                                'list' =>'sulu_form.get_dynamics',
+                                'list' => 'sulu_form.get_dynamics',
                                 'detail' => 'sulu_form.delete_dynamic',
                             ],
-                        ]
+                        ],
                     ],
                     'field_type_options' => [
                         'single_selection' => [
                             'single_form_selection' => [
-                                'default_type' => 'single_select',
+                                'default_type' => 'list_overlay',
                                 'resource_key' => 'forms',
                                 'types' => [
-                                    'single_select' => [
-                                        'id_property' => 'id',
-                                        'display_property' => 'title',
-                                        'overlay_title' => '',
+                                    'list_overlay' => [
+                                        'adapter' => 'table',
+                                        'list_key' => 'forms',
+                                        'display_properties' => ['title'],
+                                        'empty_text' => 'sulu_form.single_form_selection.no_form_selected',
+                                        'icon' => 'su-th-list',
+                                        'overlay_title' => 'sulu_form.single_form_selection.overlay_title',
                                     ],
                                 ],
                             ],
@@ -140,31 +141,6 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
             'sulu_form.media_collection_strategy.' . $config['media_collection_strategy']
         );
 
-        // add dynamic lists
-        $dynamicLists = $config['dynamic_lists'];
-        if (!isset($dynamicLists['sulu_form_form'])) {
-            $dynamicLists['sulu_form_form'] = [
-                'form' => [
-                    'property' => 'id',
-                    'position' => 40,
-                    'name' => 'sulu_form.navigation.data',
-                    'width' => 'max',
-                ],
-            ];
-        }
-
-        foreach ($dynamicLists as $key => $value) {
-            $parameter = 'sulu_form.dynamic_lists.' . $key . '.config';
-            $container->setParameter($parameter, $value ?: []);
-
-            $definition = new Definition(DynamicListNavigationProvider::class);
-            $definition->addArgument('%' . $parameter . '%');
-            $definition->setClass(DynamicListNavigationProvider::class);
-            $definition->addTag('sulu_admin.content_navigation', ['alias' => $key]);
-            $definition->addTag('sulu.context', ['context' => 'admin']);
-            $container->setDefinition('sulu_form.navigation_provider.' . $key . '.dynamic_list', $definition);
-        }
-
         // Dynamic List Builder
         $container->setParameter(
             'sulu_form.dynamic_list_builder.default',
@@ -183,6 +159,10 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $loader->load('title-providers.xml');
 
         if ($config['mailchimp_api_key']) {
+            if (!class_exists(\DrewM\MailChimp\MailChimp::class)) {
+                throw new \LogicException('You need to install the "drewm/mailchimp-api" package to use the mailchimp type.');
+            }
+
             $loader->load('type_mailchimp.xml');
         }
 
