@@ -43,7 +43,7 @@ class RecaptchaType implements FormFieldTypeInterface
     {
         // Use in this way the recaptcha bundle could maybe not exists.
         $options['mapped'] = false;
-        $options['constraints'][] = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue();
+        $options['constraints'] = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue();
         $options['attr']['options'] = [
             'theme' => 'light',
             'type' => 'image',
