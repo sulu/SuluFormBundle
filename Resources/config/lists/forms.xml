@@ -33,7 +33,6 @@
                 name="title"
                 visibility="always"
                 searchability="yes"
-                filter-type="string"
                 translation="sulu_form.title">
             <field>
                 <field-name>title</field-name>
