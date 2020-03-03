@@ -87,7 +87,7 @@ class DynamicListAdmin extends Admin
                 }
 
                 if (isset($config['template'])) {
-                    $view->setTabCondition(sprintf('template === "%s"', $config['template']));
+                    $view->setTabCondition(sprintf('template == "%s"', $config['template']));
                 }
 
                 $view->addRequestParameters($requestParameters);

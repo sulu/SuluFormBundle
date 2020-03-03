@@ -18,8 +18,6 @@ interface CollectionStrategyInterface
 {
     /**
      * Get collection id.
-     *
-     * @return int
      */
     public function getCollectionId(
         int $formId,
