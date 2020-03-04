@@ -25,7 +25,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->dynamicFormMetadataLoader = $this->getContainer()->get('sulu_form_test.dynamic_form_metadata_loader');
     }
 
-    public function testGetMetadata(): void
+    public function testGetMetadataEnglish(): void
     {
         $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'en');
 
@@ -54,14 +54,13 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->assertEquals('attachment', $fields->getDefaultType());
         $this->assertEquals([
             'attachment',
+            'recaptcha',
             'checkbox',
             'checkboxMultiple',
             'city',
             'company',
             'country',
             'date',
-            'dropdown',
-            'dropdownMultiple',
             'email',
             'fax',
             'firstName',
@@ -69,17 +68,76 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
             'function',
             'headline',
             'lastName',
+            'textarea',
             'phone',
             'radioButtons',
-            'recaptcha',
             'salutation',
+            'dropdown',
+            'dropdownMultiple',
+            'text',
             'spacer',
             'state',
             'street',
-            'text',
-            'textarea',
             'title',
             'zip',
+        ], array_keys($fields->getTypes()));
+    }
+
+    public function testGetMetadataGerman(): void
+    {
+        $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'de');
+
+        $this->assertInstanceOf(FormMetadata::class, $formMetadata);
+        $this->assertEquals('form_details', $formMetadata->getKey());
+        $this->assertCount(5, $formMetadata->getItems());
+        $this->assertContains('title', array_keys($formMetadata->getItems()));
+        $this->assertContains('formFields', array_keys($formMetadata->getItems()));
+        $this->assertContains('websiteConfiguration', array_keys($formMetadata->getItems()));
+        $this->assertContains('emailConfiguration', array_keys($formMetadata->getItems()));
+        $this->assertContains('receivers', array_keys($formMetadata->getItems()));
+
+        $formFields = $formMetadata->getItems()['formFields'];
+        $this->assertInstanceOf(SectionMetadata::class, $formFields);
+        $this->assertCount(1, $formFields->getItems());
+        $this->assertContains('fields', array_keys($formFields->getItems()));
+        $this->assertEquals('section', $formFields->getType());
+        $this->assertEquals('formFields', $formFields->getName());
+        $this->assertEquals('Formular Felder', $formFields->getLabel());
+
+        $fields = $formFields->getItems()['fields'];
+        $this->assertInstanceOf(FieldMetadata::class, $fields);
+        $this->assertCount(27, $fields->getTypes());
+        $this->assertEquals('fields', $fields->getName());
+        $this->assertEquals('block', $fields->getType());
+        $this->assertEquals('attachment', $fields->getDefaultType());
+        $this->assertEquals([
+            'attachment',
+            'salutation',
+            'state',
+            'recaptcha',
+            'checkbox',
+            'checkboxMultiple',
+            'date',
+            'dropdown',
+            'dropdownMultiple',
+            'email',
+            'text',
+            'fax',
+            'company',
+            'freeText',
+            'function',
+            'country',
+            'spacer',
+            'textarea',
+            'lastName',
+            'zip',
+            'radioButtons',
+            'city',
+            'street',
+            'phone',
+            'title',
+            'firstName',
+            'headline',
         ], array_keys($fields->getTypes()));
     }
 
