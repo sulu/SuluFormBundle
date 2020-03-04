@@ -92,9 +92,18 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
             $fields->setType('block');
 
             $types = $this->formFieldTypePool->all();
-            ksort($types);
+
+            $fieldTypeMetaDataCollection = [];
             foreach ($types as $typeKey => $type) {
-                $fields->addType($this->loadFieldTypeMetadata($typeKey, $type, $locale));
+                $fieldTypeMetaDataCollection[] = $this->loadFieldTypeMetadata($typeKey, $type, $locale);
+            }
+
+            usort($fieldTypeMetaDataCollection, static function (FormMetadata $a, FormMetadata $b): int {
+                return strcmp($a->getTitle(), $b->getTitle());
+            });
+
+            foreach ($fieldTypeMetaDataCollection as $fieldTypeMetaData) {
+                $fields->addType($fieldTypeMetaData);
             }
 
             $fields->setDefaultType(current($fields->getTypes())->getName());
