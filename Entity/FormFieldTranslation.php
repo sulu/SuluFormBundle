@@ -17,7 +17,7 @@ namespace Sulu\Bundle\FormBundle\Entity;
 class FormFieldTranslation
 {
     /**
-     * @var string
+     * @var null|string
      */
     private $title;
 
@@ -56,14 +56,14 @@ class FormFieldTranslation
      */
     private $options;
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
         return $this;
     }
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
