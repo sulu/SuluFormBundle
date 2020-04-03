@@ -226,14 +226,14 @@
         </service>
 
         <!-- Form Website Controller -->
-        <service id="sulu_form.form_website_controller" class="Sulu\Bundle\FormBundle\Controller\FormWebsiteController" public="true">
+        <service id="Sulu\Bundle\FormBundle\Controller\FormWebsiteController">
             <tag name="container.service_subscriber" />
             <tag name="controller.service_arguments" />
+            <tag name="sulu.context" context="website"/>
             <call method="setContainer">
                 <argument type="service" id="Psr\Container\ContainerInterface" />
             </call>
         </service>
-        <service id="Sulu\Bundle\FormBundle\Controller\FormWebsiteController" alias="sulu_form.form_website_controller" public="true"/>
 
         <!-- Dynamic List Metadata Loader -->
         <service id="sulu_form.metadata.dynamic_list_metadata_loader" class="Sulu\Bundle\FormBundle\Metadata\DynamicListMetadataLoader">
