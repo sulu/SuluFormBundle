@@ -251,10 +251,16 @@ class Handler implements HandlerInterface
      *
      * @param mixed[] $additionalData
      */
-    protected function getPlainText(FormInterface $form, MailConfigurationInterface $configuration, array $additionalData): string
+    protected function getPlainText(FormInterface $form, MailConfigurationInterface $configuration, array $additionalData): ?string
     {
+        $plainTextTemplate = $configuration->getPlainTextTemplate();
+
+        if (!$plainTextTemplate) {
+            return null;
+        }
+
         return $this->twig->render(
-            $configuration->getPlainTextTemplate(),
+            $plainTextTemplate,
             array_merge(
                 $configuration->getTemplateAttributes(),
                 $additionalData
