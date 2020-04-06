@@ -72,7 +72,7 @@ interface MailConfigurationInterface
     /**
      * Get plain text mail template.
      */
-    public function getPlainTextTemplate(): string;
+    public function getPlainTextTemplate(): ?string;
 
     /**
      * Get template attributes.

@@ -15,6 +15,7 @@
             <argument type="service" id="sulu_media.media_manager" />
             <argument type="service" id="logger" />
         </service>
+        <service id="Sulu\Bundle\FormBundle\Form\HandlerInterface" alias="sulu_form.handler"/>
 
         <!-- Mail-->
         <service id="sulu.mail.helper" class="Sulu\Bundle\FormBundle\Mail\Helper">
@@ -77,6 +78,7 @@
             <argument>%sulu_form.mail.template.notify_plain_text%</argument>
             <argument>%sulu_form.mail.template.customer_plain_text%</argument>
         </service>
+        <service id="Sulu\Bundle\FormBundle\Configuration\FormConfigurationFactory" alias="sulu_form.configuration.form_configuration_factory"/>
 
         <!-- Form Builder -->
         <service id="sulu_form.builder" class="Sulu\Bundle\FormBundle\Form\Builder">
@@ -221,6 +223,16 @@
             <argument type="service" id="sulu.list.provider.registry"/>
 
             <tag name="sulu.context" context="admin"/>
+        </service>
+
+        <!-- Form Website Controller -->
+        <service id="Sulu\Bundle\FormBundle\Controller\FormWebsiteController">
+            <tag name="container.service_subscriber" />
+            <tag name="controller.service_arguments" />
+            <tag name="sulu.context" context="website"/>
+            <call method="setContainer">
+                <argument type="service" id="Psr\Container\ContainerInterface" />
+            </call>
         </service>
 
         <!-- Dynamic List Metadata Loader -->
