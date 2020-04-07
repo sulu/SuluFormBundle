@@ -6,7 +6,7 @@
 
 Dynamic Entity has been reduced to some basic fields. All previous data fields are merged into the `data` column.
 
-#### Data Migraion
+#### Data Migration
 Migrate the data fields into the json `data`. 
 ```sql
 UPDATE
