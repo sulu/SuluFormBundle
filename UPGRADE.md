@@ -2,6 +2,271 @@
 
 ## 2.0.0 (unreleased)
 
+### Database
+
+Dynamic Entity has been reduced to some basic fields. All previous data fields are merged into the `data` column.
+
+#### Data Migraion
+Migrate the data fields into the json `data`. 
+```sql
+UPDATE
+  fo_dynamics as dyn
+SET
+  dyn.data = (
+    CONCAT(
+      '{',
+      SUBSTRING(dyn.data, 2, CHAR_LENGTH(dyn.data) -2),
+      IF(
+        STRCMP('', SUBSTRING(dyn.data, 2, LENGTH(dyn.data) -2)) = 0,
+        ' ',
+        ','
+      ),
+      IF(
+        dyn.salutation is not NULL,
+        CONCAT(
+          '\"salutation\":\"',
+          replace(dyn.salutation, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.title is not NULL,
+        CONCAT(
+          '\"title\":\"',
+          replace(dyn.title, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.firstName is not NULL,
+        CONCAT(
+          '\"firstName\":\"',
+          replace(dyn.firstName, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.lastName is not NULL,
+        CONCAT(
+          '\"lastName\":\"',
+          replace(dyn.lastName, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.email is not NULL,
+        CONCAT(
+          '\"email\":\"',
+          replace(dyn.email, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.phone is not NULL,
+        CONCAT(
+          '\"phone\":\"',
+          replace(dyn.phone, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.fax is not NULL,
+        CONCAT(
+          '\"fax\":\"',
+          replace(dyn.fax, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.street is not NULL,
+        CONCAT(
+          '\"street\":\"',
+          replace(dyn.street, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.zip is not NULL,
+        CONCAT(
+          '\"zip\":\"',
+          replace(dyn.zip, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.city is not NULL,
+        CONCAT(
+          '\"city\":\"',
+          replace(dyn.city, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.state is not NULL,
+        CONCAT(
+          '\"state\":\"',
+          replace(dyn.state, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.country is not NULL,
+        CONCAT(
+          '\"country\":\"',
+          replace(dyn.country, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.function is not NULL,
+        CONCAT(
+          '\"function\":\"',
+          replace(dyn.function, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.company is not NULL,
+        CONCAT(
+          '\"company\":\"',
+          replace(dyn.company, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.text is not NULL,
+        CONCAT(
+          '\"text\":\"',
+          replace(dyn.text, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.textarea is not NULL,
+        CONCAT(
+          '\"textarea\":\"',
+          replace(
+            replace(dyn.textarea, '\r\n', '\\n'),
+            '"',
+            '\\\"'
+          ),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.date is not NULL,
+        CONCAT(
+          '\"date\":\"',
+          replace(dyn.date, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.attachment is not NULL,
+        CONCAT(
+          '\"attachment\":',
+          replace(dyn.attachment, '"', '\\\"'),
+          ','
+        ),
+        ''
+      ),
+      IF(
+        dyn.checkbox is not NULL,
+        CONCAT(
+          '\"checkbox\":\"',
+          replace(dyn.checkbox, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.checkboxMultiple is not NULL,
+        CONCAT(
+          '\"checkboxMultiple\":',
+          dyn.checkboxMultiple,
+          ','
+        ),
+        ''
+      ),
+      IF(
+        dyn.dropdown is not NULL,
+        CONCAT(
+          '\"dropdown\":\"',
+          replace(dyn.dropdown, '"', '\\\"'),
+          '\",'
+        ),
+        ''
+      ),
+      IF(
+        dyn.dropdownMultiple is not NULL,
+        CONCAT(
+          '\"dropdownMultiple\":',
+          dyn.dropdownMultiple,
+          ','
+        ),
+        ''
+      ),
+      IF(
+        dyn.radioButtons is not NULL,
+        CONCAT(
+          '\"radioButtons\":',
+          replace(dyn.radioButtons, '"', '\\\"'),
+          '[]'
+        ),
+        ''
+      ),
+      '}'
+    )
+  );
+
+```
+
+Delete the redundant columns.
+```sql
+ALTER TABLE fo_dynamics 
+  DROP COLUMN salutation,
+  DROP COLUMN title,
+  DROP COLUMN firstName,
+  DROP COLUMN lastName,
+  DROP COLUMN email,
+  DROP COLUMN phone,
+  DROP COLUMN fax,
+  DROP COLUMN street,
+  DROP COLUMN zip,
+  DROP COLUMN city,
+  DROP COLUMN state,
+  DROP COLUMN country,
+  DROP COLUMN function,
+  DROP COLUMN company,
+  DROP COLUMN text,
+  DROP COLUMN textarea,
+  DROP COLUMN date,
+  DROP COLUMN attachment,
+  DROP COLUMN checkbox,
+  DROP COLUMN checkboxMultiple,
+  DROP COLUMN dropdown,
+  DROP COLUMN dropdownMultiple,
+  DROP COLUMN radioButtons;
+
+```
+
 ### Form List Tab
 
 The list tab configuration need the parent route key (can be found in the related admin classes).
