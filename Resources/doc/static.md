@@ -19,7 +19,7 @@ Sulu template is not needed when using a ajax loaded form.
     <key>pages_template_key</key>
 
     <view>ClientWebsiteBundle:templates:pages_template_key</view>
-    <controller>SuluFormBundle:FormWebsite:form</controller>
+    <controller>Sulu\Bundle\FormBundle\Controller\FormWebsiteController::formAction</controller>
     <cacheLifetime>2400</cacheLifetime>
 
     <meta>
@@ -236,7 +236,7 @@ ClientWebsiteBundle:forms:theme.html.twig:
 
 ``` twig
 {% block token_widget %}
-    { render_esi(controller('SuluFormBundle:FormWebsite:token', { 'form': 'form_type_alias', 'html': true })) }}
+    { render_esi(controller('Sulu\Bundle\FormBundle\Controller\FormWebsiteController::tokenAction', { 'form': 'form_type_alias', 'html': true })) }}
 {% endblock token_widget %}
 ```
 

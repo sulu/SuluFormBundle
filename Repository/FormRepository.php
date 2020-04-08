@@ -11,10 +11,11 @@
 
 namespace Sulu\Bundle\FormBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use Sulu\Bundle\FormBundle\Entity\Form;
 
-class FormRepository extends \Doctrine\ORM\EntityRepository
+class FormRepository extends EntityRepository
 {
     public function loadById(int $id, ?string $locale = null): ?Form
     {

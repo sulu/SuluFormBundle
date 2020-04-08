@@ -146,7 +146,7 @@ class FormManager
      */
     public function updateReceivers(array $data, FormTranslation $translation): void
     {
-        $receiversRepository = $this->entityManager->getRepository('SuluFormBundle:FormTranslationReceiver');
+        $receiversRepository = $this->entityManager->getRepository(FormTranslationReceiver::class);
         $receiverDatas = self::getValue($data, 'receivers', []);
 
         // Remove old receivers.
