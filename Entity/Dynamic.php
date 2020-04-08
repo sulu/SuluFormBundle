@@ -122,12 +122,9 @@ class Dynamic implements AuditableInterface
     /**
      * @param mixed $value
      */
-    public function __set(string $name, $value): void
+    public function __set(string $key, $value): void
     {
-        $array = $this->getData();
-        $array[$name] = $value;
-
-        $this->data = json_encode($array, JSON_UNESCAPED_UNICODE);
+        $this->setField($key, $value);
     }
 
     /**
@@ -136,6 +133,19 @@ class Dynamic implements AuditableInterface
     public function __get(string $name)
     {
         return $this->getField($name);
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setField(string $key, $value): self
+    {
+        $array = $this->getData();
+        $array[$key] = $value;
+
+        $this->data = json_encode($array, JSON_UNESCAPED_UNICODE);
+
+        return $this;
     }
 
     /**

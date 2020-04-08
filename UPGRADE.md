@@ -7,7 +7,9 @@
 Dynamic Entity has been reduced to some basic fields. All previous data fields are merged into the `data` column.
 
 #### Data Migration
+
 Migrate the data fields into the json `data`. 
+
 ```sql
 UPDATE
   fo_dynamics as dyn
@@ -235,10 +237,10 @@ SET
       '}'
     )
   );
-
 ```
 
 Delete the redundant columns.
+
 ```sql
 ALTER TABLE fo_dynamics 
   DROP COLUMN salutation,
@@ -264,7 +266,6 @@ ALTER TABLE fo_dynamics
   DROP COLUMN dropdown,
   DROP COLUMN dropdownMultiple,
   DROP COLUMN radioButtons;
-
 ```
 
 ### Form List Tab
