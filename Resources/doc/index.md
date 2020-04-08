@@ -14,7 +14,7 @@ The `mail` dispatching is handled by the bundle.
 ## Installation
 
 ```bash
-composer require sulu/sulu-form-bundle
+composer require sulu/form-bundle
 ```
 
 Add to AbstractKernel (app/AbstractKernel.php)

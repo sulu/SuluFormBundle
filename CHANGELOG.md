@@ -128,6 +128,10 @@
  - FEATURE     #63    Added possibility to use form content type in other modules
  - ENHANCEMENT #60    Added `sulu_admin.email` as default mail address and show them as placeholder in form template
 
+## 0.1.1
+
+ - BUGFIX      #89    Fixed form serialization with receivers
+
 ## 0.1.0
 
  - ENHANCEMENT #59    Added correct composer dependencies
