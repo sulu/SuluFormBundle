@@ -1,13 +1,17 @@
 {
     "name": "sulu/form-bundle",
+    "license": "MIT",
     "description": "Bundle for creating forms in Sulu.",
     "type": "sulu-bundle",
     "require": {
-        "symfony/symfony": "~2.8.7, !=2.8.10",
-        "symfony/swiftmailer-bundle": "~2.3",
-        "doctrine/orm": "2.5.*",
         "php": "^5.5 || ^7.0",
-        "sulu/sulu": "~1.3 || dev-develop"
+        "doctrine/orm": "2.5.*",
+        "sulu/sulu": "^1.3",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "symfony/symfony": "~2.8.7, !=2.8.10"
+    },
+    "replace": {
+        "sulu/sulu-form-bundle": "self.version"
     },
     "keywords": [
         "sulu",
@@ -15,7 +19,6 @@
         "form manager",
         "dynamic"
     ],
-    "license": "MIT",
     "authors": [
         {
             "name": "Sulu Form Contributors",
@@ -27,5 +30,11 @@
         "psr-4": {
             "Sulu\\Bundle\\FormBundle\\": ""
         }
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
     }
 }
