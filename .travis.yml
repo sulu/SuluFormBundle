@@ -35,6 +35,7 @@ before_install:
 
 install:
   - travis_retry composer update $COMPOSER_FLAGS
+  - composer validate --strict
   - composer info -i
   - ./Tests/Application/bin/adminconsole doctrine:database:create
   - ./Tests/Application/bin/adminconsole doctrine:schema:update --force

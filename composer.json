@@ -51,6 +51,9 @@
         "symfony/var-dumper": "^4.3",
         "thecodingmachine/phpstan-strict-rules": "^0.11.2"
     },
+    "replace": {
+        "sulu/sulu-form-bundle": "self.version"
+    },
     "suggest": {
         "excelwebzone/recaptcha-bundle": "Allows to add recaptcha to any dynamic form",
         "drewm/mailchimp-api": "Allows to add a newsletter subscription over mailchimp to any dynamic form"
@@ -95,6 +98,9 @@
         ]
     },
     "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
         "sort-packages": true
     },
     "extra": {
