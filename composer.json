@@ -105,7 +105,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-develop": "2.0-dev"
+            "dev-release/1.0": "1.0.x-dev",
+            "dev-master": "2.x-dev"
         }
     }
 }
