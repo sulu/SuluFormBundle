@@ -17,222 +17,217 @@ SET
   dyn.data = (
     CONCAT(
       '{',
-      SUBSTRING(dyn.data, 2, CHAR_LENGTH(dyn.data) -2),
-      IF(
-        STRCMP('', SUBSTRING(dyn.data, 2, LENGTH(dyn.data) -2)) = 0,
-        ' ',
-        ','
-      ),
-      IF(
-        dyn.salutation is not NULL,
-        CONCAT(
-          '\"salutation\":\"',
-          replace(dyn.salutation, '"', '\\\"'),
-          '\",'
+      CONCAT_WS(
+        ',',
+        IF(
+          STRCMP('', SUBSTRING(dyn.data, 2, LENGTH(dyn.data) -2)) = 0,
+          NULL,
+          SUBSTRING(dyn.data, 2, CHAR_LENGTH(dyn.data) -2)
         ),
-        ''
-      ),
-      IF(
-        dyn.title is not NULL,
-        CONCAT(
-          '\"title\":\"',
-          replace(dyn.title, '"', '\\\"'),
-          '\",'
-        ),
-        ''
-      ),
-      IF(
-        dyn.firstName is not NULL,
-        CONCAT(
-          '\"firstName\":\"',
-          replace(dyn.firstName, '"', '\\\"'),
-          '\",'
-        ),
-        ''
-      ),
-      IF(
-        dyn.lastName is not NULL,
-        CONCAT(
-          '\"lastName\":\"',
-          replace(dyn.lastName, '"', '\\\"'),
-          '\",'
-        ),
-        ''
-      ),
-      IF(
-        dyn.email is not NULL,
-        CONCAT(
-          '\"email\":\"',
-          replace(dyn.email, '"', '\\\"'),
-          '\",'
-        ),
-        ''
-      ),
-      IF(
-        dyn.phone is not NULL,
-        CONCAT(
-          '\"phone\":\"',
-          replace(dyn.phone, '"', '\\\"'),
-          '\",'
-        ),
-        ''
-      ),
-      IF(
-        dyn.fax is not NULL,
-        CONCAT(
-          '\"fax\":\"',
-          replace(dyn.fax, '"', '\\\"'),
-          '\",'
-        ),
-        ''
-      ),
-      IF(
-        dyn.street is not NULL,
-        CONCAT(
-          '\"street\":\"',
-          replace(dyn.street, '"', '\\\"'),
-          '\",'
-        ),
-        ''
-      ),
-      IF(
-        dyn.zip is not NULL,
-        CONCAT(
-          '\"zip\":\"',
-          replace(dyn.zip, '"', '\\\"'),
-          '\",'
-        ),
-        ''
-      ),
-      IF(
-        dyn.city is not NULL,
-        CONCAT(
-          '\"city\":\"',
-          replace(dyn.city, '"', '\\\"'),
-          '\",'
-        ),
-        ''
-      ),
-      IF(
-        dyn.state is not NULL,
-        CONCAT(
-          '\"state\":\"',
-          replace(dyn.state, '"', '\\\"'),
-          '\",'
-        ),
-        ''
-      ),
-      IF(
-        dyn.country is not NULL,
-        CONCAT(
-          '\"country\":\"',
-          replace(dyn.country, '"', '\\\"'),
-          '\",'
-        ),
-        ''
-      ),
-      IF(
-        dyn.function is not NULL,
-        CONCAT(
-          '\"function\":\"',
-          replace(dyn.function, '"', '\\\"'),
-          '\",'
-        ),
-        ''
-      ),
-      IF(
-        dyn.company is not NULL,
-        CONCAT(
-          '\"company\":\"',
-          replace(dyn.company, '"', '\\\"'),
-          '\",'
-        ),
-        ''
-      ),
-      IF(
-        dyn.text is not NULL,
-        CONCAT(
-          '\"text\":\"',
-          replace(dyn.text, '"', '\\\"'),
-          '\",'
-        ),
-        ''
-      ),
-      IF(
-        dyn.textarea is not NULL,
-        CONCAT(
-          '\"textarea\":\"',
-          replace(
-            replace(dyn.textarea, '\r\n', '\\n'),
-            '"',
-            '\\\"'
+        IF(
+          dyn.salutation is not NULL,
+          CONCAT(
+            '\"salutation\":\"',
+            replace(replace(replace(dyn.salutation, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
           ),
-          '\",'
+          NULL
         ),
-        ''
-      ),
-      IF(
-        dyn.date is not NULL,
-        CONCAT(
-          '\"date\":\"',
-          replace(dyn.date, '"', '\\\"'),
-          '\",'
+        IF(
+          dyn.title is not NULL,
+          CONCAT(
+            '\"title\":\"',
+            replace(replace(replace(dyn.title, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
         ),
-        ''
-      ),
-      IF(
-        dyn.attachment is not NULL,
-        CONCAT(
-          '\"attachment\":',
-          replace(dyn.attachment, '"', '\\\"'),
-          ','
+        IF(
+          dyn.firstName is not NULL,
+          CONCAT(
+            '\"firstName\":\"',
+            replace(replace(replace(dyn.firstName, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
         ),
-        ''
-      ),
-      IF(
-        dyn.checkbox is not NULL,
-        CONCAT(
-          '\"checkbox\":\"',
-          replace(dyn.checkbox, '"', '\\\"'),
-          '\",'
+        IF(
+          dyn.lastName is not NULL,
+          CONCAT(
+            '\"lastName\":\"',
+            replace(replace(replace(dyn.lastName, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
         ),
-        ''
-      ),
-      IF(
-        dyn.checkboxMultiple is not NULL,
-        CONCAT(
-          '\"checkboxMultiple\":',
-          dyn.checkboxMultiple,
-          ','
+        IF(
+          dyn.email is not NULL,
+          CONCAT(
+            '\"email\":\"',
+            replace(replace(replace(dyn.email, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
         ),
-        ''
-      ),
-      IF(
-        dyn.dropdown is not NULL,
-        CONCAT(
-          '\"dropdown\":\"',
-          replace(dyn.dropdown, '"', '\\\"'),
-          '\",'
+        IF(
+          dyn.phone is not NULL,
+          CONCAT(
+            '\"phone\":\"',
+            replace(replace(replace(dyn.phone, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
         ),
-        ''
-      ),
-      IF(
-        dyn.dropdownMultiple is not NULL,
-        CONCAT(
-          '\"dropdownMultiple\":',
-          dyn.dropdownMultiple,
-          ','
+        IF(
+          dyn.fax is not NULL,
+          CONCAT(
+            '\"fax\":\"',
+            replace(replace(replace(dyn.fax, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
         ),
-        ''
-      ),
-      IF(
-        dyn.radioButtons is not NULL,
-        CONCAT(
-          '\"radioButtons\":',
-          replace(dyn.radioButtons, '"', '\\\"'),
-          '[]'
+        IF(
+          dyn.street is not NULL,
+          CONCAT(
+            '\"street\":\"',
+            replace(replace(replace(dyn.street, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
         ),
-        ''
+        IF(
+          dyn.zip is not NULL,
+          CONCAT(
+            '\"zip\":\"',
+            replace(replace(replace(dyn.zip, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
+        ),
+        IF(
+          dyn.city is not NULL,
+          CONCAT(
+            '\"city\":\"',
+            replace(replace(replace(dyn.city, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
+        ),
+        IF(
+          dyn.state is not NULL,
+          CONCAT(
+            '\"state\":\"',
+            replace(replace(replace(dyn.state, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
+        ),
+        IF(
+          dyn.country is not NULL,
+          CONCAT(
+            '\"country\":\"',
+            replace(replace(replace(dyn.country, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
+        ),
+        IF(
+          dyn.function is not NULL,
+          CONCAT(
+            '\"function\":\"',
+            replace(replace(replace(dyn.function, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
+        ),
+        IF(
+          dyn.company is not NULL,
+          CONCAT(
+            '\"company\":\"',
+            replace(replace(replace(dyn.company, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
+        ),
+        IF(
+          dyn.text is not NULL,
+          CONCAT(
+            '\"text\":\"',
+            replace(replace(replace(dyn.text, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
+        ),
+        IF(
+          dyn.textarea is not NULL,
+          CONCAT(
+            '\"textarea\":\"',
+            replace(replace(replace(replace(dyn.textarea, '\r\n', '\\n'), '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
+        ),
+        IF(
+          dyn.date is not NULL,
+          CONCAT(
+            '\"date\":\"',
+            replace(replace(replace(dyn.date, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
+        ),
+        IF(
+          dyn.attachment is not NULL,
+          CONCAT(
+            '\"attachment\":',
+            replace(replace(replace(dyn.attachment, '"', '\\\"'), '/', '\/'), '\\', '\\\\')
+          ),
+          NULL
+        ),
+        IF(
+          dyn.checkbox is not NULL,
+          CONCAT(
+            '\"checkbox\":\"',
+            replace(replace(replace(dyn.checkbox, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
+        ),
+        IF(
+          dyn.checkboxMultiple is not NULL,
+          CONCAT(
+            '\"checkboxMultiple\":',
+            dyn.checkboxMultiple
+          ),
+          NULL
+        ),
+        IF(
+          dyn.dropdown is not NULL,
+          CONCAT(
+            '\"dropdown\":\"',
+            replace(replace(replace(dyn.dropdown, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '\"'
+          ),
+          NULL
+        ),
+        IF(
+          dyn.dropdownMultiple is not NULL,
+          CONCAT(
+            '\"dropdownMultiple\":',
+            dyn.dropdownMultiple
+          ),
+          NULL
+        ),
+        IF(
+          dyn.radioButtons is not NULL,
+          CONCAT(
+            '\"radioButtons\":',
+            replace(replace(replace(dyn.radioButtons, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
+            '[]'
+          ),
+          NULL
+        )
       ),
       '}'
     )
