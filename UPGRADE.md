@@ -188,9 +188,8 @@ SET
         IF(
           dyn.checkbox is not NULL,
           CONCAT(
-            '\"checkbox\":\"',
-            replace(replace(replace(dyn.checkbox, '"', '\\\"'), '/', '\/'), '\\', '\\\\'),
-            '\"'
+            '\"checkbox\":',
+            dyn.checkbox
           ),
           NULL
         ),
