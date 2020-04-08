@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+ - BUGFIX      #201    Fix configuration of plain text emails   
+
 ## 1.0.0
 
  - No changes
@@ -124,6 +128,10 @@
  - BUGFIX      #72    Fixed add and remove a field of same type at same time
  - FEATURE     #63    Added possibility to use form content type in other modules
  - ENHANCEMENT #60    Added `sulu_admin.email` as default mail address and show them as placeholder in form template
+
+## 0.1.1
+
+ - BUGFIX      #89    Fixed form serialization with receivers
 
 ## 0.1.0
 

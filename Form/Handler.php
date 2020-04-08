@@ -253,14 +253,14 @@ class Handler implements HandlerInterface
      */
     protected function getPlainText(FormInterface $form, MailConfigurationInterface $configuration, array $additionalData): ?string
     {
-        $plainTextTemplate = $configuration->getPlainTextTemplate();
+        $template = $configuration->getPlainTextTemplate();
 
-        if (!$plainTextTemplate) {
+        if (!$template) {
             return null;
         }
 
-        return $this->twig->render(
-            $plainTextTemplate,
+        return $this->templating->render(
+            $template,
             array_merge(
                 $configuration->getTemplateAttributes(),
                 $additionalData

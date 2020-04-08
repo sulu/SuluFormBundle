@@ -41,6 +41,18 @@ interface TypeInterface
     /**
      * @param mixed $formData
      */
+    public function getCustomerPlainMail($formData = []): ?string;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotifyPlainMail($formData = []): ?string;
+
+    /**
+     * @param $formData
+     *
+     * @return string
+     */
     public function getCustomerFromMailAddress($formData = []): string;
 
     /**

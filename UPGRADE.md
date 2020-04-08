@@ -67,6 +67,10 @@ The content type for form selection has been changed from `form_select` to `sing
 </property>
 ```
 
+## 1.0.0
+
+No breaking changes since RC7.
+
 ## 1.0.0-RC7
 
 ### BC Breaks

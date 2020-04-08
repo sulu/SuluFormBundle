@@ -110,7 +110,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
      */
     public function getCustomerMail($formData = []): string
     {
-        return 'ClientWebsiteBundle:views:form/mail/' . $this->getName() . '/success.html.twig';
+        return '@ClientWebsite/views/form/mail/' . $this->getName() . '/success.html.twig';
     }
 
     /**
@@ -118,7 +118,23 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
      */
     public function getNotifyMail($formData = []): string
     {
-        return 'ClientWebsiteBundle:views:form/mail/' . $this->getName() . '/notify.html.twig';
+        return '@ClientWebsite/views/form/mail/' . $this->getName() . '/notify.html.twig';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCustomerPlainMail($formData = []): ?string
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotifyPlainMail($formData = []): ?string
+    {
+        return null;
     }
 
     /**

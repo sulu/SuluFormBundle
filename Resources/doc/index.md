@@ -16,7 +16,7 @@ The `mail` dispatching is handled by the bundle.
 Run the following command to install:
 
 ```bash
-composer require sulu/sulu-form-bundle
+composer require sulu/form-bundle
 ```
 
 Enable the required bundles in the `config/bundles.php` of your project:
@@ -43,6 +43,7 @@ sulu_form:
     mail:
         from: "%sulu_admin.email%"
         to:   "%sulu_admin.email%"
+        sender: "%sulu_admin.email%"
 ```
 
 ## Create Database

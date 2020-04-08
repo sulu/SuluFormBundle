@@ -130,6 +130,7 @@ class FormConfigurationFactory
         $adminMailConfiguration->setReplyTo($type->getNotifyReplyToMailAddress($formData));
         $adminMailConfiguration->setAddAttachments($type->getNotifySendAttachments($formData));
         $adminMailConfiguration->setTemplate($type->getNotifyMail($formData));
+        $adminMailConfiguration->setPlainTextTemplate($type->getNotifyPlainMail($formData));
         $adminMailConfiguration->setTemplateAttributes($attributes);
 
         return $adminMailConfiguration;
@@ -155,6 +156,7 @@ class FormConfigurationFactory
         $websiteMailConfiguration->setReplyTo($type->getCustomerReplyToMailAddress($formData));
         $websiteMailConfiguration->setAddAttachments(false); // Currently not implemented in the AbstractType.
         $websiteMailConfiguration->setTemplate($type->getCustomerMail($formData));
+        $websiteMailConfiguration->setPlainTextTemplate($type->getCustomerPlainMail($formData));
         $websiteMailConfiguration->setTemplateAttributes($attributes);
 
         return $websiteMailConfiguration;

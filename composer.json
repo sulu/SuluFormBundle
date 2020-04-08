@@ -1,6 +1,10 @@
 {
+<<<<<<< HEAD
     "name": "sulu/sulu-form-bundle",
     "license": "MIT",
+=======
+    "name": "sulu/form-bundle",
+>>>>>>> 12cbc262f76bd362dfa8428f5073b3d2186f36dc
     "description": "Bundle for creating forms in Sulu.",
     "type": "sulu-bundle",
     "keywords": [

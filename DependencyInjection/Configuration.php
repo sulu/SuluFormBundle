@@ -52,6 +52,7 @@ class Configuration implements ConfigurationInterface
                 ->children()
                     ->scalarNode('from')->defaultValue(null)->end()
                     ->scalarNode('to')->defaultValue(null)->end()
+                    ->scalarNode('sender')->defaultValue(null)->end()
                     ->arrayNode('templates')
                         ->addDefaultsIfNotSet()
                         ->children()
