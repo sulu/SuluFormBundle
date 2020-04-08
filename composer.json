@@ -1,5 +1,5 @@
 {
-    "name": "sulu/sulu-form-bundle",
+    "name": "sulu/form-bundle",
     "description": "Bundle for creating forms in Sulu.",
     "type": "sulu-bundle",
     "require": {
