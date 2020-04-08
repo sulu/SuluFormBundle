@@ -126,13 +126,13 @@
         <!-- Repositories -->
         <service id="sulu_form.repository.form" class="Sulu\Bundle\FormBundle\Repository\FormRepository">
             <factory service="doctrine.orm.entity_manager" method="getRepository"/>
-            <argument>SuluFormBundle:Form</argument>
+            <argument>Sulu\Bundle\FormBundle\Entity\Form</argument>
         </service>
 
         <!-- Dynamic -->
         <service id="sulu_form.repository.dynamic" class="Sulu\Bundle\FormBundle\Repository\DynamicRepository">
             <factory service="doctrine.orm.entity_manager" method="getRepository"/>
-            <argument>SuluFormBundle:Dynamic</argument>
+            <argument>Sulu\Bundle\FormBundle\Entity\Dynamic</argument>
         </service>
 
         <!-- Collection Strategy -->
