@@ -98,7 +98,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
                 $fieldTypeMetaDataCollection[] = $this->loadFieldTypeMetadata($typeKey, $type, $locale);
             }
 
-            usort($fieldTypeMetaDataCollection, static function (FormMetadata $a, FormMetadata $b): int {
+            usort($fieldTypeMetaDataCollection, static function(FormMetadata $a, FormMetadata $b): int {
                 return strcmp($a->getTitle(), $b->getTitle());
             });
 
