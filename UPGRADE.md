@@ -28,7 +28,7 @@ SET
           dyn.salutation is not NULL,
           CONCAT(
             '\"salutation\":\"',
-            replace(replace(replace(replace(dyn.salutation, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.salutation, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -37,7 +37,7 @@ SET
           dyn.title is not NULL,
           CONCAT(
             '\"title\":\"',
-            replace(replace(replace(replace(dyn.title, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.title, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -46,7 +46,7 @@ SET
           dyn.firstName is not NULL,
           CONCAT(
             '\"firstName\":\"',
-            replace(replace(replace(replace(dyn.firstName, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.firstName, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -55,7 +55,7 @@ SET
           dyn.lastName is not NULL,
           CONCAT(
             '\"lastName\":\"',
-            replace(replace(replace(replace(dyn.lastName, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.lastName, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -64,7 +64,7 @@ SET
           dyn.email is not NULL,
           CONCAT(
             '\"email\":\"',
-            replace(replace(replace(replace(dyn.email, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.email, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -73,7 +73,7 @@ SET
           dyn.phone is not NULL,
           CONCAT(
             '\"phone\":\"',
-            replace(replace(replace(replace(dyn.phone, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.phone, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -82,7 +82,7 @@ SET
           dyn.fax is not NULL,
           CONCAT(
             '\"fax\":\"',
-            replace(replace(replace(replace(dyn.fax, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.fax, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -91,7 +91,7 @@ SET
           dyn.street is not NULL,
           CONCAT(
             '\"street\":\"',
-            replace(replace(replace(replace(dyn.street, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.street, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -100,7 +100,7 @@ SET
           dyn.zip is not NULL,
           CONCAT(
             '\"zip\":\"',
-            replace(replace(replace(replace(dyn.zip, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.zip, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -109,7 +109,7 @@ SET
           dyn.city is not NULL,
           CONCAT(
             '\"city\":\"',
-            replace(replace(replace(replace(dyn.city, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.city, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -118,7 +118,7 @@ SET
           dyn.state is not NULL,
           CONCAT(
             '\"state\":\"',
-            replace(replace(replace(replace(dyn.state, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.state, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -127,7 +127,7 @@ SET
           dyn.country is not NULL,
           CONCAT(
             '\"country\":\"',
-            replace(replace(replace(replace(dyn.country, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.country, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -136,7 +136,7 @@ SET
           dyn.function is not NULL,
           CONCAT(
             '\"function\":\"',
-            replace(replace(replace(replace(dyn.function, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.function, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -145,7 +145,7 @@ SET
           dyn.company is not NULL,
           CONCAT(
             '\"company\":\"',
-            replace(replace(replace(replace(dyn.company, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.company, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -154,7 +154,7 @@ SET
           dyn.text is not NULL,
           CONCAT(
             '\"text\":\"',
-            replace(replace(replace(replace(dyn.text, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.text, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -163,7 +163,7 @@ SET
           dyn.textarea is not NULL,
           CONCAT(
             '\"textarea\":\"',
-            replace(replace(replace(replace(replace(dyn.textarea, '\r\n', '\\n'), '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.textarea, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -172,7 +172,7 @@ SET
           dyn.date is not NULL,
           CONCAT(
             '\"date\":\"',
-            replace(replace(replace(replace(dyn.date, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.date, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -181,7 +181,7 @@ SET
           dyn.attachment is not NULL,
           CONCAT(
             '\"attachment\":',
-            replace(replace(replace(replace(dyn.attachment, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t')
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.attachment, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f')
           ),
           NULL
         ),
@@ -209,7 +209,7 @@ SET
           dyn.dropdown is not NULL,
           CONCAT(
             '\"dropdown\":\"',
-            replace(replace(replace(replace(dyn.dropdown, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.dropdown, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '\"'
           ),
           NULL
@@ -226,7 +226,7 @@ SET
           dyn.radioButtons is not NULL,
           CONCAT(
             '\"radioButtons\":',
-            replace(replace(replace(replace(dyn.radioButtons, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(9), '\\t'),
+            replace(replace(replace(replace(replace(replace(replace(replace(dyn.radioButtons, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
             '[]'
           ),
           NULL
