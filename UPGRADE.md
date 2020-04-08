@@ -191,8 +191,9 @@ SET
             '\"checkbox\":',
             IF(
                 STRCMP('',dyn.checkbox) = 0,
-                dyn.checkbox,
-                 '\"\"')
+                '\"\"',
+                dyn.checkbox
+              )
           ),
           NULL
         ),
