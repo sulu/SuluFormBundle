@@ -189,7 +189,10 @@ SET
           dyn.checkbox is not NULL,
           CONCAT(
             '\"checkbox\":',
-            dyn.checkbox
+            IF(
+                STRCMP('',dyn.checkbox) = 0,
+                dyn.checkbox,
+                 '\"\"')
           ),
           NULL
         ),
