@@ -7,9 +7,6 @@ cache:
   directories:
     - "$HOME/.composer/cache/files"
 
-services:
-    - mysql
-
 env:
   global:
     - APP_ENV="test"
@@ -17,21 +14,28 @@ env:
     - MAILER_URL=null://localhost
     - SULU_ADMIN_EMAIL=
     - PHPCR_TRANSPORT=doctrinedbal
-    - DATABASE_URL=mysql://root:@127.0.0.1/sulu_form_test?serverVersion=5.6
-    - DATABASE_CHARSET=utf8mb4
-    - DATABASE_COLLATE=utf8mb4_unicode_ci
 
 matrix:
   include:
     - php: 7.2
       env:
         - COMPOSER_FLAGS="--prefer-dist --no-interaction --prefer-lowest --prefer-stable"
+        - DATABASE_URL=postgres://postgres:postgres@127.0.0.1/sulu_form_test?serverVersion=9.2
+        - DATABASE_CHARSET=UTF8
+        - DATABASE_COLLATE=
+      services:
+        - postgresql
     - php: 7.4
       env:
         - COMPOSER_FLAGS="--prefer-dist --no-interaction"
+        - DATABASE_URL=mysql://root:@127.0.0.1/sulu_form_test?serverVersion=5.6
+        - DATABASE_CHARSET=utf8mb4
+        - DATABASE_COLLATE=utf8mb4_unicode_ci
         - CODE_COVERAGE=true
         - LINT=true
         - PECL_INSTALL=imagick
+      services:
+        - mysql
 
 before_install:
   - phpenv config-add Tests/travis.php.ini
