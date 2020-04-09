@@ -259,7 +259,7 @@ class Handler implements HandlerInterface
             return null;
         }
 
-        return $this->templating->render(
+        return $this->twig->render(
             $template,
             array_merge(
                 $configuration->getTemplateAttributes(),
