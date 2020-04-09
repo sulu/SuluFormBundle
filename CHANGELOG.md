@@ -1,5 +1,9 @@
 # Changelog
 
+## dev-master
+
+ - BUGFIX      #215    Fix line breaks in notify emails
+
 ## 1.0.1
 
  - BUGFIX      #201    Fix configuration of plain text emails   
