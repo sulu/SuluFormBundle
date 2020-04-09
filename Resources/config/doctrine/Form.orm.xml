@@ -13,7 +13,7 @@
                      target-entity="Sulu\Bundle\FormBundle\Entity\FormTranslation"
                      mapped-by="form">
             <cascade>
-                <cascade-all/>
+                <cascade-persist/>
             </cascade>
         </one-to-many>
 

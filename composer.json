@@ -21,6 +21,7 @@
         "php": "^7.1",
         "sulu/sulu": "^2.0.3",
         "symfony/config": "^4.3",
+        "symfony/console": "^4.3",
         "symfony/dependency-injection": "^4.3",
         "symfony/event-dispatcher": "^4.3",
         "symfony/form": "^4.3",
