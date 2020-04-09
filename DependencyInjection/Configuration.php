@@ -99,14 +99,19 @@ class Configuration implements ConfigurationInterface
                 ->normalizeKeys(false)
                 ->prototype('scalar')->end()->defaultValue([])
             ->end()
-            ->scalarNode('dynamic_honeypot_field')->defaultValue(null)->end()
-            ->enumNode('dynamic_honeypot_strategy')
-                ->defaultValue(HandlerInterface::HONEY_POT_STRATEGY_SPAM)
-                ->values([
-                    HandlerInterface::HONEY_POT_STRATEGY_SPAM,
-                    HandlerInterface::HONEY_POT_STRATEGY_NO_EMAIL,
-                    HandlerInterface::HONEY_POT_STRATEGY_NO_SAVE,
-                ])
+            ->arrayNode('honeypot')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->scalarNode('field')->defaultValue(null)->end()
+                    ->enumNode('strategy')
+                        ->defaultValue(HandlerInterface::HONEY_POT_STRATEGY_SPAM)
+                        ->values([
+                            HandlerInterface::HONEY_POT_STRATEGY_SPAM,
+                            HandlerInterface::HONEY_POT_STRATEGY_NO_EMAIL,
+                            HandlerInterface::HONEY_POT_STRATEGY_NO_SAVE,
+                        ])
+                    ->end()
+                ->end()
             ->end()
             ->arrayNode('dynamic_disabled_types')
                 ->prototype('scalar')->end()->defaultValue([])

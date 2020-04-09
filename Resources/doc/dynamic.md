@@ -178,8 +178,9 @@ If you want to add a honeypot field for spam protection you can activate it the 
 
 ```yaml
 sulu_form:
-    dynamic_honeypot_field: "Honey Pot Field Name"
-    dynamic_honeypot_strategy: spam # no_save, no_email, spam
+    honeypot:
+        field: "Honey Pot Field Name"
+        strategy: spam # no_save, no_email, spam
 ```
 
 There are 3 honeypot strategies:
