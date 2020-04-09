@@ -260,12 +260,20 @@ class FormControllerTest extends SuluTestCase
         }
         // Receivers
         $this->assertCount(3, $response['receivers']);
-        foreach (['to', 'cc', 'bcc'] as $key => $receiver) {
-            $this->assertNotNull($response['receivers'][$key]['id']);
-            $this->assertEquals(ucfirst($receiver) . ' Receiver', $response['receivers'][$key]['name']);
-            $this->assertEquals($receiver . '-receiver@example.org', $response['receivers'][$key]['email']);
-            $this->assertEquals($receiver, $response['receivers'][$key]['type']);
-            $this->assertCountFields(4, $response['receivers'][$key]);
+        foreach (['to', 'cc', 'bcc'] as $key => $expectedType) {
+            $foundExpectedType = false;
+            foreach ($response['receivers'] as $receiver) {
+                if ($expectedType === $receiver['type']) {
+                    $foundExpectedType = true;
+                    $this->assertNotNull($receiver['id']);
+                    $this->assertEquals(ucfirst($expectedType) . ' Receiver', $receiver['name']);
+                    $this->assertEquals($expectedType . '-receiver@example.org', $receiver['email']);
+                    $this->assertEquals($expectedType, $receiver['type']);
+                    $this->assertCountFields(4, $receiver);
+                }
+            }
+
+            $this->assertTrue($foundExpectedType);
         }
         // Other
         $this->assertCountFields(17, $response);
