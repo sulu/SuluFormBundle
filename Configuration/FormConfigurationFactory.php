@@ -231,13 +231,20 @@ class FormConfigurationFactory
             return null;
         }
 
+        $customerEmail = $this->getEmailFromDynamic($dynamic);
+
+        if (!$customerEmail) {
+            return null;
+        }
+
         $websiteMailConfiguration = $this->createMailConfiguration($locale);
 
         $websiteMailConfiguration->setSubject($translation->getSubject());
         $websiteMailConfiguration->setFrom(
             $this->getEmail($translation->getFromEmail(), $translation->getFromName())
         );
-        $websiteMailConfiguration->setTo($this->getEmailFromDynamic($dynamic));
+
+        $websiteMailConfiguration->setTo($customerEmail);
 
         // Set attachment configuration.
         $websiteMailConfiguration->setAddAttachments($translation->getSendAttachments());
@@ -322,7 +329,7 @@ class FormConfigurationFactory
      *
      * @return string[]|null
      */
-    private function getEmail(string $email, ?string $name = null): ?array
+    private function getEmail(?string $email, ?string $name = null): ?array
     {
         if (!$email) {
             return null;

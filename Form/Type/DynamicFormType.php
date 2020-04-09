@@ -17,6 +17,7 @@ use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Exception\FormNotFoundException;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -35,12 +36,25 @@ class DynamicFormType extends AbstractType
      */
     private $checksum;
 
+    /**
+     * @var string|null
+     */
+    private $honeyPotField;
+
+    /**
+     * DynamicFormType constructor.
+     *
+     * @param FormFieldTypePool $typePool
+     * @param Checksum $checksum
+     */
     public function __construct(
         FormFieldTypePool $typePool,
-        Checksum $checksum
+        Checksum $checksum,
+        ?string $honeyPotField = null
     ) {
         $this->typePool = $typePool;
         $this->checksum = $checksum;
+        $this->honeyPotField = $honeyPotField;
     }
 
     /**
@@ -141,6 +155,19 @@ class DynamicFormType extends AbstractType
             'data' => $checksum,
             'mapped' => false,
         ]);
+
+        if ($this->honeyPotField) {
+            $builder->add(
+                str_replace(' ', '_', strtolower($this->honeyPotField)),
+                EmailType::class,
+                [
+                    'label' => $this->honeyPotField,
+                    'mapped' => false,
+                    'block_prefix' => 'honeypot',
+                    'required' => false,
+                ]
+            );
+        }
 
         // Add submit button.
         $builder->add(

@@ -63,8 +63,5 @@ install:
 
 script:
   - if [[ LINT == 'true' ]]; then composer lint; fi
-  - ./vendor/bin/phpunit --coverage-clover=coverage.clover
+  - ./vendor/bin/phpunit
 
-after_script:
-  - if [[ $CODE_COVERAGE == 'true' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
-  - if [[ $CODE_COVERAGE == 'true' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover ; fi
