@@ -23,7 +23,7 @@
                      target-entity="Sulu\Bundle\FormBundle\Entity\FormFieldTranslation"
                      mapped-by="field">
             <cascade>
-                <cascade-all/>
+                <cascade-persist/>
             </cascade>
         </one-to-many>
 

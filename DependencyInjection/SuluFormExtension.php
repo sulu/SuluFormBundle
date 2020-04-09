@@ -47,6 +47,17 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
             );
         }
 
+        if ($container->hasExtension('framework')) {
+            $container->prependExtensionConfig(
+                'framework',
+                [
+                    'esi' => [
+                        'enabled' => true,
+                    ],
+                ]
+            );
+        }
+
         if ($container->hasExtension('sulu_media')) {
             $container->prependExtensionConfig(
                 'sulu_media',

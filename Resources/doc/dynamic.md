@@ -65,7 +65,13 @@ one of the dynamic templates which can be created in the Sulu backend.
 </template>
 ```
 
-Use `article` as `resourceKey` when you use the form_select inside article template.
+Use `article` as `resourceKey` when you use the single_form_selection inside article template.
+
+To generate a basic form use the following command:
+
+```bash
+php bin/adminconsole sulu:form:generate-form
+```
 
 ## Output Form and customize
 
@@ -74,7 +80,7 @@ has been submitted successfully!
 
 ```twig
 <!doctype html>
-<html>
+<html lang="en">
 <head>
     <title>Basic Form</title>
 </head>

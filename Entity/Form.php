@@ -97,6 +97,7 @@ class Form
         if ($create) {
             $translation = new FormTranslation();
             $translation->setLocale($locale);
+            $this->addTranslation($translation);
 
             return $translation;
         }

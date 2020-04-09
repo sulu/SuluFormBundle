@@ -251,5 +251,13 @@
             <tag name="doctrine.event_listener" event="postUpdate"/>
             <tag name="doctrine.event_listener" event="preRemove"/>
         </service>
+
+        <!-- Commands -->
+        <service id="sulu_form.form_generator_command" class="Sulu\Bundle\FormBundle\Command\FormGeneratorCommand">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="sulu_core.webspace.webspace_manager"/>
+
+            <tag name="console.command"/>
+        </service>
     </services>
 </container>

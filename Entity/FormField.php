@@ -163,6 +163,8 @@ class FormField
         if ($create) {
             $translation = new FormFieldTranslation();
             $translation->setLocale($locale);
+            $this->addTranslation($translation);
+            $translation->setField($this);
 
             return $translation;
         }
