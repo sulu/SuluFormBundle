@@ -58,6 +58,16 @@ class FormFieldTranslation
 
     public function setTitle(?string $title): self
     {
+        if ($title) {
+            // this is a replacement for enterMode br which does not longer exist in ckeditor 5
+            // see also https://github.com/sulu/sulu/issues/5214
+            $title = str_replace(
+                ['</p><p>', '<p>', '</p>'],
+                ['<br/><br/>', '', ''],
+                $title
+            );
+        }
+
         $this->title = $title;
 
         return $this;
