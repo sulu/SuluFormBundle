@@ -363,9 +363,8 @@ class FormController extends AbstractRestController implements ClassResourceInte
                 $fieldData['options'] = $fieldTranslation->getOptions();
             }
 
-            $choiceFields = ['dropdown', 'radioButtons'];
-            if (in_array($fieldData['type'], $choiceFields) && empty($fieldData['options'])) {
-                $fieldData['options']['choices'] = [];
+            if (empty($fieldData['options'])) {
+                $fieldData['options'] = new stdClass(); // convert options to "{}"
             }
 
             $fields[] = $fieldData;
