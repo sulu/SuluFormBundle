@@ -366,6 +366,11 @@ class FormController extends AbstractRestController implements ClassResourceInte
             $fields[] = $fieldData;
         }
 
+        // Sort fields with correct order
+        usort($fields, function($fieldA, $fieldB) {
+            return $fieldA['order'] > $fieldB['order'];
+        });
+
         // Api Entity
         return array_merge(
             [
