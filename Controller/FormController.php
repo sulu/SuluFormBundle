@@ -363,6 +363,10 @@ class FormController extends AbstractRestController implements ClassResourceInte
                 $fieldData['options'] = $fieldTranslation->getOptions();
             }
 
+            if ($fieldData['type'] === 'radioButtons' && empty($fieldData['options'])) {
+                $fieldData['options']['choices'] = [];
+            }
+
             $fields[] = $fieldData;
         }
 
