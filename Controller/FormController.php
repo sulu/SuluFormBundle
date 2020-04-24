@@ -364,7 +364,7 @@ class FormController extends AbstractRestController implements ClassResourceInte
             }
 
             if (empty($fieldData['options'])) {
-                $fieldData['options'] = new stdClass(); // convert options to "{}"
+                $fieldData['options'] = new \stdClass(); // convert options to "{}"
             }
 
             $fields[] = $fieldData;
