@@ -155,14 +155,14 @@ class FormTranslation implements AuditableInterface
         return $this->subject;
     }
 
-    public function setFromEmail(string $fromEmail): self
+    public function setFromEmail(?string $fromEmail): self
     {
         $this->fromEmail = $fromEmail;
 
         return $this;
     }
 
-    public function getFromEmail(): string
+    public function getFromEmail(): ?string
     {
         return $this->fromEmail;
     }
@@ -179,14 +179,14 @@ class FormTranslation implements AuditableInterface
         return $this->fromName;
     }
 
-    public function setToEmail(string $toEmail): self
+    public function setToEmail(?string $toEmail): self
     {
         $this->toEmail = $toEmail;
 
         return $this;
     }
 
-    public function getToEmail(): string
+    public function getToEmail(): ?string
     {
         return $this->toEmail;
     }

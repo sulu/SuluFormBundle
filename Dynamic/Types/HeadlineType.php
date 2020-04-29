@@ -43,6 +43,7 @@ class HeadlineType implements FormFieldTypeInterface
     {
         $options['mapped'] = false;
         $options['attr']['type'] = $field->getType();
+        $options['block_prefix'] = 'headline';
 
         $type = HiddenType::class;
         $builder->add($field->getKey(), $type, $options);

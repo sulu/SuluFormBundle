@@ -1,16 +1,31 @@
 # CSRF Token
 
 The csrf token is session based so it need to be loaded over 
-an seperate request this can be done by esi or ajax. In your
-form theme template.
+an seperate request this can be done by esi (used by the basic theme) or ajax.
+In your form theme template.
 
-## Ajax ( required for varnish cache )
+## ESI
+
+Add the following to your form theme to overwrite the default
+behaviour of token generation or use the `@SuluForm/themes/basic.html.twig` theme.
+
+```twig
+{%- block csrf_token_widget -%}
+    {{ render_esi(controller('@SuluForm/FormWebsite/token', {
+        'form': form.parent.vars.name,
+        'html': true,
+         _requestAnalyzer: false
+     })) }}
+{% endblock %}
+```
+
+## Ajax
 
 A simplified version loading the csrf token over ajax could
 look like this:
 
-``` twig
-{%- block _dynamic_form__token_widget -%}
+```twig
+{%- block csrf_token_widget -%}
     {{ block('hidden_widget') }}
 
     <script>
@@ -20,26 +35,8 @@ look like this:
 {% endblock %}
 ```
 
-``` js
+```js
 jQuery.get('/form/token?form=' + formName + '&html=0').done(function(data) {
     jQuery('#' + fieldId).val(data);
 });
-```
-
-Block is called `sulu_form__token_widget` when using the default dynamic theme.
-
-## ESI
-
-Add the following to your form theme to overwrite the default
-behaviour of token generation or use the
-`@SuluForm/themes/dynamic.html.twig` theme.
-
-```twig
-{%- block _dynamic_form__token_widget -%}
-    {{ render_esi(controller('@SuluForm/FormWebsite/token', {
-        'form': form.parent.vars.name,
-        'html': true,
-         _requestAnalyzer: false
-     })) }}
-{% endblock %}
 ```

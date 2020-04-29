@@ -34,6 +34,11 @@ class FormGeneratorCommand extends Command
         $this->webspaceManager = $webspaceManager;
     }
 
+    protected function configure()
+    {
+        $this->setDescription('Generates a form with all basic form types');
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $form = $this->loadTestForm() ?: new Form();
@@ -68,10 +73,12 @@ class FormGeneratorCommand extends Command
             [
                 'type' => 'firstName',
                 'width' => 'half',
+                'required' => true,
             ],
             [
                 'type' => 'lastName',
                 'width' => 'half',
+                'required' => true,
             ],
             [
                 'type' => 'street',
@@ -124,6 +131,7 @@ class FormGeneratorCommand extends Command
             [
                 'type' => 'email',
                 'width' => 'half',
+                'required' => true,
             ],
             [
                 'type' => 'spacer',
@@ -136,6 +144,9 @@ class FormGeneratorCommand extends Command
             [
                 'type' => 'radioButtons',
                 'width' => 'full',
+                'options' => [
+                    'choices' => $this->getChoices(),
+                ],
             ],
             [
                 'type' => 'checkboxMultiple',

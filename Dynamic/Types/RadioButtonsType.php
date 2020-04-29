@@ -46,7 +46,6 @@ class RadioButtonsType implements FormFieldTypeInterface
         $options['expanded'] = true;
         $options['multiple'] = false;
         $options = $this->getChoiceOptions($translation, $options);
-        $options['attr']['class'] = 'radio-buttons';
         $type = ChoiceType::class;
 
         $builder->add($field->getKey(), $type, $options);

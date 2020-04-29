@@ -1,0 +1,116 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{# Add grid to every row #}
+{%- block form_row -%}
+    {% set row_attr = row_attr|merge({class: block('sulu_form_row_class_name')}) %}
+    {{- parent() -}}
+{%- endblock -%}
+
+{%- block button_row -%}
+    {% set row_attr = row_attr|merge({class: block('sulu_form_row_class_name')}) %}
+    {{- parent() -}}
+{%- endblock button_row -%}
+
+{# Output label as HTML #}
+{%- block form_label -%}
+    {%- if label is not same as(false) -%}
+        {%- set label %}{{ label|raw }}{% endset -%}
+        {{ parent() }}
+    {%- endif -%}
+{%- endblock form_label -%}
+
+{# CSRF Token over ESI #}
+{%- block csrf_token_widget %}
+    {{ render_esi(controller('Sulu\\Bundle\\FormBundle\\Controller\\FormWebsiteController::tokenAction', {
+        'form': form.parent.vars.name,
+        'html': true,
+        _requestAnalyzer: false }))
+    }}
+{%- endblock csrf_token_widget -%}
+
+{# Headline #}
+{%- block headline_row -%}
+    <div class="{{ block('sulu_form_row_class_name') }}">
+        {{- form_widget(form) -}}
+    </div>
+{%- endblock headline_row -%}
+
+{%- block headline_widget -%}
+    <h4>{{- label|raw -}}</h4>
+{%- endblock headline_widget -%}
+
+{# FreeText #}
+{%- block freeText_row -%}
+    <div class="{{ block('sulu_form_row_class_name') }}">
+        {{- form_widget(form) -}}
+    </div>
+{%- endblock freeText_row -%}
+
+{%- block freeText_widget -%}
+    <p>{{- label|raw -}}</p>
+{%- endblock freeText_widget -%}
+
+{# Spacer #}
+{%- block spacer_row -%}
+    <div class="{{ block('sulu_form_row_class_name') }}">
+        {{- form_widget(form) -}}
+    </div>
+{%- endblock spacer_row -%}
+
+{%- block spacer_widget -%}
+{%- endblock spacer_widget -%}
+
+{# Grid classes #}
+{%- block sulu_form_row_class_name -%}
+    {%- set className = 'width-' ~ attr.width|default('full') -%}
+    {%- if attr.lastWidth|default(false) -%}
+        {%- set className = className ~ ' width-is-last' %}
+    {%- endif -%}
+    {{- className -}}
+{%- endblock sulu_form_row_class_name -%}
+
+{# honeypot field #}
+{%- block honeypot_row -%}
+    <div class="form-honung">
+        {{- block('form_row') -}}
+    </div>
+{%- endblock -%}
+
+{# Normalize checkbox rendering #}
+{%- block checkbox_row -%}
+    {% set row_attr = row_attr|merge({class: block('sulu_form_row_class_name')}) %}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        <div class="{{ block('sulu_form_choice_class_name') }}">
+            {{- form_widget(form, widget_attr) -}}
+            {{- form_label(form) -}}
+        </div>
+        {{- form_errors(form) -}}
+        {{- form_help(form) -}}
+    </div>
+{%- endblock checkbox_row -%}
+
+{%- block choice_widget_expanded -%}
+    <div {{ block('widget_container_attributes') }}>
+        {%- for child in form -%}
+            <div class="{{ block('sulu_form_choice_class_name') }}">
+                {{- form_widget(child) -}}
+                {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
+            </div>
+        {%- endfor -%}
+    </div>
+{%- endblock choice_widget_expanded -%}
+
+{# Choice item class name #}
+{%- block sulu_form_choice_class_name -%}
+    {{- 'choice' -}}
+{%- endblock sulu_form_choice_class_name -%}
+
+{# avoid control attributes to be rendered #}
+{% block attributes -%}
+    {% set attr = attr|merge({width: false, widthNumber: false, lastWidth: false}) %}
+    {{- parent() -}}
+{%- endblock attributes -%}
