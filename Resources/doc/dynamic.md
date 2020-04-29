@@ -197,6 +197,26 @@ This option will save the form if enabled but will not send any emails.
 
 Will not save and will not send any emails.
 
+### Style honey pot field
+
+The honey pot field need to be hidden so in your theme add a new class to it:
+
+```twig
+{%- block honeypot_row -%}
+    <div class="honung">
+        {{- block('form_row') -}}
+    </div>
+{%- endblock -%}
+```
+
+And then hide it in your css with:
+
+```css
+.honung {
+    display: none;
+}
+```
+
 ## Media Collections
 
 To create for every form and page an own collection you need to configure the following in your `config/packages/sulu_form.yaml`:
