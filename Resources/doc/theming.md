@@ -3,28 +3,73 @@
 Mostly you want a custom theme here a basic example for common customization
 
 ```twig
-{% extends '@SuluForm/themes/dynamic.html.twig' %}
+{# templates/form/theme.html.twig #}
+{% extends '@SuluForm/themes/basic.html.twig' %}
+
+{# Add class to <form> tag #}
+{%- block form_start -%}
+    {% set attr = attr|merge({ class: 'form' }) %}
+    {{- parent() -}}
+{%- endblock -%}
+
+{# Integrate a basic grid #}
+{%- block form_widget_compound -%}
+    {%- if form is rootform -%}
+        {% set attr = attr|merge({class: 'grid'}) %}
+    {%- endif -%}
+
+    {{- parent() -}}
+{%- endblock form_widget_compound -%}
+
+{%- block sulu_form_row_class_name -%}
+    {{- 'grid__item width-' ~ attr.widthNumber|default(12) -}}
+    {#-
+     # The form bundle provides the following variables here:
+     #
+     # attr.width = 'full', 'half', ...
+     # attr.widthNumber = 12, 6, ...
+     # attr.lastWidth = true, false
+     -#}
+{%- endblock sulu_form_row_class_name -%}
+
+{# Add class to label #}
+{%- block form_label -%}
+    {% set label_attr = label_attr|merge({class: 'form__label'}) %}
+    {{- parent() -}}
+{%- endblock form_label -%}
 
 {# Custom title #}
-{%- block sulu_form_text_headline_widget -%}
-    <div class="title">{{- label|raw -}}</div>
-{%- endblock sulu_form_text_headline_widget -%}
+{%- block headline_widget -%}
+    <h4>{{- label|raw -}}</h4>
+{%- endblock headline_widget -%}
 
-{# Custom freeText #}
-{%- block sulu_form_text_freeText_widget -%}
-    <div class="free-text">{{- label|raw -}}</div>
-{%- endblock sulu_form_text_freeText_widget -%}
+{%- block freeText_widget -%}
+    <p>{{- label|raw -}}</p>
+{%- endblock freeText_widget -%}
 
-{# Custom grid class #}
-{%- block sulu_form_row_class_name -%}
-    {{- 'grid-item ' ~ attr.width|default('full') -}}
-{%- endblock sulu_form_row_class_name -%}
+{# Add classes to button #}
+{%- block button_widget -%}
+    {% set attr = attr|merge({ class: 'button button--full' }) %}
+    {{ parent() }}
+{%- endblock button_widget -%}
+
+{# Set wrapping class around checkbox and radio #}
+{%- block sulu_form_choice_class_name -%}
+    {{- 'form__choice' -}}
+{%- endblock sulu_form_choice_class_name -%}
+
+{# Add class to honeypot field to hide it with css #}
+{%- block honeypot_row -%}
+    <div class="form-block-honung">
+        {{- block('form_row') -}}
+    </div>
+{%- endblock -%}
 ```
 
 To use the new theme you must change the following line in your form rendering:
 
 ```twig
-{% form_theme content.form 'themes/custom-dynamic.html.twig' %}
+{% form_theme content.form 'templates/form/theme.html.twig' %}
 ```
 
 **Other theme customization**
@@ -35,4 +80,4 @@ https://github.com/symfony/symfony/blob/4.4/src/Symfony/Bridge/Twig/Resources/vi
 
 and
 
-https://github.com/sulu/SuluFormBundle/blob/master/Resources/views/themes/dynamic.html.twig
+https://github.com/sulu/SuluFormBundle/blob/master/Resources/views/themes/basic.html.twig

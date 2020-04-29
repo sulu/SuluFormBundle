@@ -43,6 +43,7 @@ class FreeTextType implements FormFieldTypeInterface
     {
         $options['mapped'] = false;
         $options['attr']['type'] = $field->getType();
+        $options['block_prefix'] = 'freeText';
 
         $type = HiddenType::class;
         $builder->add($field->getKey(), $type, $options);
