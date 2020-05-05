@@ -95,7 +95,12 @@ class DynamicListBuilder implements DynamicListBuilderInterface
         return implode($this->delimiter, $value);
     }
 
-    protected function getMediaUrls(string $value): string
+    /**
+     * @param mixed $value
+     *
+     * @return string
+     */
+    protected function getMediaUrls($value): string
     {
         if (is_string($value)) {
             return $this->getMediaUrl($value);
