@@ -16,6 +16,8 @@ use Sulu\Bundle\FormBundle\Configuration\FormConfigurationInterface;
 use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Event\FormEvent;
+use Sulu\Bundle\FormBundle\Event\FormSavePostEvent;
+use Sulu\Bundle\FormBundle\Event\FormSavePreEvent;
 use Sulu\Bundle\FormBundle\Mail;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -122,11 +124,11 @@ class Handler implements HandlerInterface
     private function save(FormInterface $form, FormConfigurationInterface $configuration): void
     {
         $this->eventDispatcher->dispatch(
-            new FormEvent(
+            new FormSavePreEvent(
                 $form,
                 $configuration
             ),
-            self::EVENT_FORM_SAVE
+            FormSavePreEvent::NAME
         );
 
         if (!$configuration->getSave()) {
@@ -137,11 +139,11 @@ class Handler implements HandlerInterface
         $this->entityManager->flush();
 
         $this->eventDispatcher->dispatch(
-            new FormEvent(
+            new FormSavePostEvent(
                 $form,
                 $configuration
             ),
-            self::EVENT_FORM_SAVED
+            FormSavePreEvent::NAME
         );
     }
 

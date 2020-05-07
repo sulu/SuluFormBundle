@@ -13,7 +13,6 @@ namespace Sulu\Bundle\FormBundle\Event;
 
 use DrewM\MailChimp\MailChimp;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
-use Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MailchimpListSubscriber implements EventSubscriberInterface
@@ -40,11 +39,11 @@ class MailchimpListSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            HandlerInterface::EVENT_FORM_SAVED => 'listSubscribe',
+            FormSavePostEvent::NAME => 'listSubscribe',
         ];
     }
 
-    public function listSubscribe(FormEvent $event): void
+    public function listSubscribe(FormSavePostEvent $event): void
     {
         $dynamic = $event->getData();
 
