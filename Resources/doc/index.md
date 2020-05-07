@@ -32,8 +32,8 @@ by change the following lines in `config/packages/framework.yaml`.
 
 ```yml
 framework:
-    esi: ~
-    fragments: ~
+    esi: true
+    fragments: true
 ```
 
 Configure the default sender and receivers email address (optional):
@@ -55,13 +55,8 @@ php bin/adminconsole doctrine:schema:update --dump-sql
 ```
 
 You can use `--force` to run the sqls but be carefully which other
-sql statements are executed.
-
-## Install assets
-
-```bash
-php bin/adminconsole assets:install --symlink --relative
-```
+sql statements are executed. Its recommended to use [DoctrineMigrationsBundle](https://github.com/doctrine/DoctrineMigrationsBundle)
+to update production databases.
 
 ## Routing
 
