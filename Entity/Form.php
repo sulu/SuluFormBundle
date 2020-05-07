@@ -203,7 +203,7 @@ class Form
             $value = null;
 
             if ($dynamic) {
-                $value = $dynamic->{$field->getKey()};
+                $value = $dynamic->getField($field->getKey());
             }
 
             $fields[$field->getOrder()] = [

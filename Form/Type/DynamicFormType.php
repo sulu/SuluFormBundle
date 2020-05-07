@@ -87,6 +87,7 @@ class DynamicFormType extends AbstractType
                 'constraints' => [],
                 'attr' => [],
                 'translation_domain' => false,
+                'property_path' => 'data[' . $field->getKey() . ']',
             ];
 
             $title = $fieldTranslation->getTitle();

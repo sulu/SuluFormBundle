@@ -286,6 +286,25 @@ sulu_form.token:
         _requestAnalyzer: false
 ```
 
+### Dynamic magic getter and setter removed
+
+The magic setter of the `Dynamic?  entity was removed:
+
+**before**:
+
+```php
+$dynamic->__set($key, $value);
+$dynamic->__get($key);
+$dynamic->{$key};
+```
+
+**after**:
+
+```php
+$dynamic->setField($key, $value);
+$dynamic->getField($key);
+```
+
 ### Token Controller moved
 
 The tokenAction was moved into an own Controller:
