@@ -45,7 +45,7 @@
 
 {# CSRF Token over ESI #}
 {%- block sulu_form__token_widget %}
-    {{ render_esi(controller('Sulu\\Bundle\\FormBundle\\Controller\\FormWebsiteController::tokenAction', {
+    {{ render_esi(controller('Sulu\\Bundle\\FormBundle\\Controller\\FormTokenController::tokenAction', {
         'form': form.parent.vars.name,
         'html': true,
         _requestAnalyzer: false }))

@@ -11,7 +11,7 @@ behaviour of token generation or use the `@SuluForm/themes/basic.html.twig` them
 
 ```twig
 {%- block csrf_token_widget -%}
-    {{ render_esi(controller('@SuluForm/FormWebsite/token', {
+    {{ render_esi(controller('Sulu\\Bundle\\FormBundle\\Controller\\FormTokenController::tokenAction', {
         'form': form.parent.vars.name,
         'html': true,
          _requestAnalyzer: false

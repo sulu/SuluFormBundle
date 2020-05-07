@@ -2,6 +2,22 @@
 
 ## 2.0.0 (unreleased)
 
+### Token Controller moved
+
+The tokenAction was moved into an own Controller:
+
+**before**:
+
+```twig
+'Sulu\\Bundle\\FormBundle\\Controller\\FormTokenController::tokenAction'
+```
+
+**after**:
+
+```twig
+'Sulu\\Bundle\\FormBundle\\Controller\\FormWebsiteController::tokenAction'
+```
+
 ### Database
 
 Dynamic Entity has been reduced to some basic fields. All previous data fields are merged into the `data` column.

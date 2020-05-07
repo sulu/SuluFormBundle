@@ -24,6 +24,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * @deprecated Static forms are deprecated and should not longer be used.
+ */
 class FormWebsiteController extends DefaultController
 {
     /**
@@ -35,6 +38,14 @@ class FormWebsiteController extends DefaultController
      * @var array
      */
     protected $attributes;
+
+    public function __construct()
+    {
+        @trigger_error(
+            __CLASS__ . ' is deprecated and should not longer be used.',
+            E_USER_DEPRECATED
+        );
+    }
 
     public static function getSubscribedServices()
     {
@@ -164,39 +175,6 @@ class FormWebsiteController extends DefaultController
         }
 
         return null;
-    }
-
-    public function tokenAction(Request $request): Response
-    {
-        $formName = $request->get('form');
-        $csrfToken = $this->get('security.csrf.token_manager')->getToken(
-            $request->get('form')
-        )->getValue();
-
-        $content = $csrfToken;
-
-        // this should be the default behaviour in future because for varnish its needed
-        if ($request->get('html')) {
-            $content = sprintf(
-                '<input type="hidden" id="%s__token" name="%s[_token]" value="%s" />',
-                $formName,
-                $formName,
-                $csrfToken
-            );
-        }
-
-        $response = new Response($content);
-
-        /* Deactivate Cache for this token action */
-        $response->setSharedMaxAge(0);
-        $response->setMaxAge(0);
-        // set shared will set the request to public so it need to be done after shared max set to 0
-        $response->setPrivate();
-        $response->headers->addCacheControlDirective('no-cache', true);
-        $response->headers->addCacheControlDirective('must-revalidate', true);
-        $response->headers->addCacheControlDirective('no-store', true);
-
-        return $response;
     }
 
     /**

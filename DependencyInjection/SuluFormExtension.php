@@ -11,6 +11,9 @@
 
 namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
+use Sulu\Bundle\FormBundle\Controller\FormTokenController;
+use Sulu\Bundle\FormBundle\Controller\FormWebsiteController;
+use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
@@ -196,6 +199,13 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
 
         if (class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class)) {
             $loader->load('type_recaptcha.xml');
+        }
+
+        if (SuluKernel::CONTEXT_WEBSITE === $container->getParameter('sulu.context')) {
+            $container->setAlias(FormWebsiteController::class, 'sulu_form.form_website_controller')
+                ->setPublic(true);
+            $container->setAlias(FormTokenController::class, 'sulu_form.form_token_controller')
+                ->setPublic(true);
         }
     }
 }
