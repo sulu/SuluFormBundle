@@ -106,9 +106,7 @@ class Dynamic implements AuditableInterface
         $this->webspaceKey = $webspaceKey;
         $this->typeName = $typeName;
 
-        foreach ($data as $name => $value) {
-            $this->__set($name, $value);
-        }
+        $this->setData($data);
     }
 
     /**
@@ -119,20 +117,11 @@ class Dynamic implements AuditableInterface
         return json_decode($this->data, true);
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function __set(string $key, $value): void
+    public function setData(array $data): self
     {
-        $this->setField($key, $value);
-    }
+        $this->data = json_encode($data, JSON_UNESCAPED_UNICODE);
 
-    /**
-     * @return mixed
-     */
-    public function __get(string $name)
-    {
-        return $this->getField($name);
+        return $this;
     }
 
     /**
