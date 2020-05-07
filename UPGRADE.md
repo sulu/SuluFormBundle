@@ -2,22 +2,6 @@
 
 ## 2.0.0 (unreleased)
 
-### Token Controller moved
-
-The tokenAction was moved into an own Controller:
-
-**before**:
-
-```twig
-'Sulu\\Bundle\\FormBundle\\Controller\\FormTokenController::tokenAction'
-```
-
-**after**:
-
-```twig
-'Sulu\\Bundle\\FormBundle\\Controller\\FormWebsiteController::tokenAction'
-```
-
 ### Database
 
 Dynamic Entity has been reduced to some basic fields. All previous data fields are merged into the `data` column.
@@ -282,11 +266,47 @@ ALTER TABLE fo_dynamics
   DROP COLUMN radioButtons;
 ```
 
+### Unnecessary routing files removed
+
+The `routing.yml` file was removed as it the routes are not needed for rendering dynamic forms.
+If you did build on top of this route something register the needed routes in your project:
+
+```yaml
+# config/routes/sulu_form.yaml
+
+sulu_form.only:
+    path: /form/only/{key}
+    defaults:
+        _controller: Sulu\Bundle\FormBundle\Controller\FormWebsiteController::onlyAction
+
+sulu_form.token:
+    path: /form/token
+    defaults:
+        _controller: Sulu\Bundle\FormBundle\Controller\FormTokenController::tokenAction
+        _requestAnalyzer: false
+```
+
+### Token Controller moved
+
+The tokenAction was moved into an own Controller:
+
+**before**:
+
+```twig
+'Sulu\\Bundle\\FormBundle\\Controller\\FormWebsiteController::tokenAction'
+```
+
+**after**:
+
+```twig
+'Sulu\\Bundle\\FormBundle\\Controller\\FormTokenController::tokenAction'
+```
+
 ### Form List Tab
 
 The list tab configuration need the parent route key (can be found in the related admin classes).
 
-**Before**
+**before**:
 
 ```yaml
 sulu_form:
@@ -298,7 +318,7 @@ sulu_form:
                 type: page
 ```
 
-**Before**
+**after**:
 
 ```yaml
 sulu_form:
@@ -327,7 +347,7 @@ ALTER TABLE fo_form_fields CHANGE keyName keyName VARCHAR(128) NOT NULL;
 
 The content type for form selection has been changed from `form_select` to `single_form_selection` also the param `type` has changed to `resourceKey`:
 
-**Before**
+**before**:
 
 ```xml
 <property name="form" type="form_select">
@@ -337,7 +357,7 @@ The content type for form selection has been changed from `form_select` to `sing
 </property>
 ```
 
-**Before**
+**after**:
 
 ```xml
 <property name="form" type="single_form_selection">

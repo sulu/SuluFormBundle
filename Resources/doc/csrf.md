@@ -24,7 +24,19 @@ behaviour of token generation or use the `@SuluForm/themes/basic.html.twig` them
 A simplified version loading the csrf token over ajax could
 look like this:
 
+```yaml
+# config/routes/sulu_form.yaml
+
+sulu_form.token:
+    path: /form/token
+    defaults:
+        _controller: Sulu\Bundle\FormBundle\Controller\FormTokenController::tokenAction
+        _requestAnalyzer: false
+```
+
 ```twig
+# your-theme.html.twig
+
 {%- block csrf_token_widget -%}
     {{ block('hidden_widget') }}
 
