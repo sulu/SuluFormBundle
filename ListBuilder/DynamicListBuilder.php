@@ -23,17 +23,17 @@ class DynamicListBuilder implements DynamicListBuilderInterface
     /**
      * @var string
      */
-    protected $delimiter;
+    private $delimiter;
 
     /**
      * @var RouterInterface
      */
-    protected $router;
+    private $router;
 
     /**
      * @var string
      */
-    protected $downloadUrl;
+    private $downloadUrl;
 
     public function __construct(string $delimiter, RouterInterface $router)
     {
@@ -70,7 +70,7 @@ class DynamicListBuilder implements DynamicListBuilderInterface
      *
      * @param mixed $value
      */
-    protected function toString($value): string
+    private function toString($value): string
     {
         if (is_string($value) || is_numeric($value)) {
             return $value;
@@ -100,7 +100,7 @@ class DynamicListBuilder implements DynamicListBuilderInterface
      *
      * @return string
      */
-    protected function getMediaUrls($value): string
+    private function getMediaUrls($value): string
     {
         if (is_string($value)) {
             return $this->getMediaUrl($value);
@@ -117,25 +117,28 @@ class DynamicListBuilder implements DynamicListBuilderInterface
         return $this->toString($value);
     }
 
-    protected function getMediaUrl(string $value): string
+    private function getMediaUrl(string $value): string
     {
-        return str_replace(urlencode('{id}'), $value, $this->getDownloadUrl());
+        return str_replace('{id}', $value, $this->getDownloadUrl());
     }
 
     /**
      * For performance generate route only once.
      */
-    protected function getDownloadUrl(): string
+    private function getDownloadUrl(): string
     {
         if (null === $this->downloadUrl) {
-            $this->downloadUrl = $this->router->generate(
+            // The given id must be a number which we replace
+            $idReplacerNumber = '875421';
+
+            $this->downloadUrl = str_replace($idReplacerNumber, '{id}', $this->router->generate(
                 'sulu_media.website.media.download',
                 [
                     'slug' => 'file',
-                    'id' => '{id}',
+                    'id' => $idReplacerNumber,
                 ],
                 RouterInterface::ABSOLUTE_URL
-            );
+            ));
         }
 
         return $this->downloadUrl;
