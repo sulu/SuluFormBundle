@@ -236,7 +236,7 @@ ClientWebsiteBundle:forms:theme.html.twig:
 
 ``` twig
 {% block token_widget %}
-    { render_esi(controller('Sulu\Bundle\FormBundle\Controller\FormWebsiteController::tokenAction', { 'form': 'form_type_alias', 'html': true })) }}
+    { render_esi(controller('Sulu\\Bundle\\FormBundle\\Controller\\FormTokenController::tokenAction', { 'form': 'form_type_alias', 'html': true })) }}
 {% endblock token_widget %}
 ```
 
