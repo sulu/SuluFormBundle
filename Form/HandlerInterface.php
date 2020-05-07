@@ -12,12 +12,17 @@
 namespace Sulu\Bundle\FormBundle\Form;
 
 use Sulu\Bundle\FormBundle\Configuration\FormConfigurationInterface;
+use Sulu\Bundle\FormBundle\Event\FormSavePostEvent;
+use Sulu\Bundle\FormBundle\Event\FormSavePreEvent;
 use Symfony\Component\Form\FormInterface;
 
 interface HandlerInterface
 {
-    const EVENT_FORM_SAVE = 'sulu_form.handler.save';
-    const EVENT_FORM_SAVED = 'sulu_form.handler.saved';
+    /** @deprecated use FormSavePreEvent::NAME instead */
+    const EVENT_FORM_SAVE = FormSavePreEvent::NAME;
+
+    /** @deprecated use FormSavePostEvent::NAME instead */
+    const EVENT_FORM_SAVED = FormSavePostEvent::NAME;
 
     const HONEY_POT_STRATEGY_NO_SAVE = 'no_save';
     const HONEY_POT_STRATEGY_NO_EMAIL = 'no_email';

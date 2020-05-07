@@ -12,7 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Event;
 
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * @deprecated
