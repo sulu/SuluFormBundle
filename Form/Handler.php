@@ -15,7 +15,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Sulu\Bundle\FormBundle\Configuration\FormConfigurationInterface;
 use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
-use Sulu\Bundle\FormBundle\Event\FormEvent;
 use Sulu\Bundle\FormBundle\Event\FormSavePostEvent;
 use Sulu\Bundle\FormBundle\Event\FormSavePreEvent;
 use Sulu\Bundle\FormBundle\Mail;
@@ -143,7 +142,7 @@ class Handler implements HandlerInterface
                 $form,
                 $configuration
             ),
-            FormSavePreEvent::NAME
+            FormSavePostEvent::NAME
         );
     }
 
