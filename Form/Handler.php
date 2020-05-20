@@ -266,7 +266,7 @@ class Handler implements HandlerInterface
         $accessor = new PropertyAccessor();
 
         foreach ($mediaIds as $key => $value) {
-            $accessor->setValue($entity, $key, $value);
+            $accessor->setValue($entity, 'data[' . $key . ']', $value);
         }
 
         return $entity;
