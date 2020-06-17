@@ -46,7 +46,7 @@ interface TypeInterface
     public function getNotifyPlainMail($formData = []): ?string;
 
     /**
-     * @param $formData
+     * @param mixed[] $formData
      */
     public function getCustomerFromMailAddress($formData = []): string;
 
