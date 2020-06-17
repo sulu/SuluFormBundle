@@ -211,6 +211,8 @@ class FormGeneratorCommand extends Command
 
         $this->entityManager->persist($form);
         $this->entityManager->flush();
+
+        return 0;
     }
 
     private function addField(

@@ -58,5 +58,7 @@ class NullHelper implements HelperInterface
             is_string($bccMail) ? $bccMail : serialize($bccMail),
             is_string($plainText) ? $plainText : serialize($plainText)
         ));
+
+        return 0;
     }
 }
