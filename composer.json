@@ -33,7 +33,7 @@
     },
     "require-dev": {
         "doctrine/data-fixtures": "^1.1",
-        "doctrine/doctrine-bundle": "^2.0",
+        "doctrine/doctrine-bundle": "^1.10 || ^2.0",
         "drewm/mailchimp-api": "^2.2",
         "excelwebzone/recaptcha-bundle": "^1.4.2",
         "handcraftedinthealps/zendsearch": "^2.0",

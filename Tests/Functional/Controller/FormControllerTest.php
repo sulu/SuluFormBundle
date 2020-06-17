@@ -393,6 +393,7 @@ class FormControllerTest extends SuluTestCase
 
         $this->em->persist($form);
         $this->em->flush();
+        $this->em->clear();
 
         return $form;
     }
