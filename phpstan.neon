@@ -18,7 +18,6 @@ parameters:
         - %currentWorkingDirectory%/Tests/*
         - %currentWorkingDirectory%/DependencyInjection/Configuration.php
     ignoreErrors:
-        - '#Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch()#'
         - '#Cannot assign offset \x27[a-zA-Z0-9\\_]+\x27 to string.#' #\x27 represents the single quote character '
         -
             message: '#caught "Exception" must be rethrown#'

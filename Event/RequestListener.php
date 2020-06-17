@@ -17,7 +17,7 @@ use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class RequestListener
 {
@@ -56,7 +56,7 @@ class RequestListener
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             // do nothing if it's not the master request

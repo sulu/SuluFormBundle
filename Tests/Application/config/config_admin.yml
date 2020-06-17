@@ -2,4 +2,4 @@ imports:
     - config.yml
 
 framework:
-    router: { resource: "%kernel.root_dir%/config/routing_admin.yml" }
+    router: { resource: "%kernel.project_dir%/config/routing_admin.yml" }
