@@ -24,7 +24,7 @@ use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWarmerInterface
 {
@@ -98,7 +98,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
                 $fieldTypeMetaDataCollection[] = $this->loadFieldTypeMetadata($typeKey, $type, $locale);
             }
 
-            usort($fieldTypeMetaDataCollection, static function(FormMetadata $a, FormMetadata $b): int {
+            usort($fieldTypeMetaDataCollection, static function (FormMetadata $a, FormMetadata $b): int {
                 return strcmp($a->getTitle(), $b->getTitle());
             });
 
@@ -114,6 +114,8 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
             $configCache = $this->getConfigCache($formMetadata->getKey(), $locale);
             $configCache->write(serialize($formMetadata), [new FileResource($resource)]);
         }
+
+        return [];
     }
 
     public function getMetadata(string $key, string $locale, array $metadataOptions = []): ?MetadataInterface

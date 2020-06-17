@@ -18,7 +18,7 @@ use Sulu\Bundle\AdminBundle\Metadata\MetadataInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory;
 use Sulu\Bundle\FormBundle\Manager\FormManager;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DynamicListMetadataLoader implements ListMetadataLoaderInterface
 {

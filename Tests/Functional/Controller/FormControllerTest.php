@@ -19,9 +19,15 @@ use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslationReceiver;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class FormControllerTest extends SuluTestCase
 {
+    /**
+     * @var KernelBrowser
+     */
+    private $client;
+
     /**
      * @var EntityManagerInterface
      */
@@ -30,63 +36,59 @@ class FormControllerTest extends SuluTestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->client = $this->createAuthenticatedClient();
         $this->purgeDatabase();
         $this->em = $this->getEntityManager();
     }
 
     public function testListMetadata(): void
     {
-        $client = $this->createAuthenticatedClient();
-        $client->request(
+        $this->client->request(
             'GET',
             '/admin/metadata/list/forms'
         );
 
-        $this->assertHttpStatusCode(200, $client->getResponse());
+        $this->assertHttpStatusCode(200, $this->client->getResponse());
     }
 
     public function testFormMetadata(): void
     {
-        $client = $this->createAuthenticatedClient();
-        $client->request(
+        $this->client->request(
             'GET',
             '/admin/metadata/form/form_details'
         );
 
-        $this->assertHttpStatusCode(200, $client->getResponse());
+        $this->assertHttpStatusCode(200, $this->client->getResponse());
     }
 
     public function testGetNotFound()
     {
-        $client = $this->createAuthenticatedClient();
-        $client->request(
+        $this->client->request(
             'GET',
             '/admin/api/forms/1'
         );
 
-        $this->assertHttpStatusCode(404, $client->getResponse());
+        $this->assertHttpStatusCode(404, $this->client->getResponse());
     }
 
     public function testGet(): void
     {
         $form = $this->createFullForm();
 
-        $client = $this->createAuthenticatedClient();
-        $client->request(
+        $this->client->request(
             'GET',
             '/admin/api/forms/' . $form->getId()
         );
 
-        $this->assertHttpStatusCode(200, $client->getResponse());
-        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertHttpStatusCode(200, $this->client->getResponse());
+        $response = json_decode($this->client->getResponse()->getContent(), true);
 
         $this->assertFullForm($response);
     }
 
     public function testPostMinimal(): void
     {
-        $client = $this->createAuthenticatedClient();
-        $client->request(
+        $this->client->request(
             'POST',
             '/admin/api/forms',
             [
@@ -97,22 +99,21 @@ class FormControllerTest extends SuluTestCase
             ]
         );
 
-        $this->assertHttpStatusCode(201, $client->getResponse());
-        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertHttpStatusCode(201, $this->client->getResponse());
+        $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertMinimalForm($response);
     }
 
     public function testPostFull(): void
     {
-        $client = $this->createAuthenticatedClient();
-        $client->request(
+        $this->client->request(
             'POST',
             '/admin/api/forms',
             $this->getFullFormData()
         );
 
-        $this->assertHttpStatusCode(201, $client->getResponse());
-        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertHttpStatusCode(201, $this->client->getResponse());
+        $response = json_decode($this->client->getResponse()->getContent(), true);
 
         $this->assertFullForm($response);
     }
@@ -120,8 +121,7 @@ class FormControllerTest extends SuluTestCase
     public function testPutMinimal(): void
     {
         $form = $this->createFullForm();
-        $client = $this->createAuthenticatedClient();
-        $client->request(
+        $this->client->request(
             'PUT',
             '/admin/api/forms/' . $form->getId(),
             [
@@ -132,69 +132,64 @@ class FormControllerTest extends SuluTestCase
             ]
         );
 
-        $this->assertHttpStatusCode(200, $client->getResponse());
-        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertHttpStatusCode(200, $this->client->getResponse());
+        $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertMinimalForm($response);
     }
 
     public function testPutFull(): void
     {
         $form = $this->createMinimalForm();
-        $client = $this->createAuthenticatedClient();
-        $client->request(
+        $this->client->request(
             'PUT',
             '/admin/api/forms/' . $form->getId(),
             $this->getFullFormData()
         );
 
-        $this->assertHttpStatusCode(200, $client->getResponse());
-        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertHttpStatusCode(200, $this->client->getResponse());
+        $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertFullForm($response);
     }
 
     public function testPutNotExist(): void
     {
-        $client = $this->createAuthenticatedClient();
-        $client->request(
+        $this->client->request(
             'PUT',
             '/admin/api/forms/2',
             $this->getFullFormData()
         );
 
-        $this->assertHttpStatusCode(404, $client->getResponse());
+        $this->assertHttpStatusCode(404, $this->client->getResponse());
     }
 
     public function testDelete(): void
     {
         $form = $this->createFullForm();
 
-        $client = $this->createAuthenticatedClient();
-        $client->request(
+        $this->client->request(
             'DELETE',
             '/admin/api/forms/' . $form->getId()
         );
 
-        $this->assertHttpStatusCode(204, $client->getResponse());
+        $this->assertHttpStatusCode(204, $this->client->getResponse());
 
         // Test 404 for removed item
-        $client = $this->createAuthenticatedClient();
-        $client->request(
+        $this->client->request(
             'GET',
             '/admin/api/forms/1'
         );
 
-        $this->assertHttpStatusCode(404, $client->getResponse());
+        $this->assertHttpStatusCode(404, $this->client->getResponse());
     }
 
     public function testDeleteNotFound(): void
     {
-        $client = $this->createAuthenticatedClient();
-        $client->request(
+        $this->client->request(
             'DELETE',
             '/admin/api/forms/2'
         );
 
-        $this->assertHttpStatusCode(404, $client->getResponse());
+        $this->assertHttpStatusCode(404, $this->client->getResponse());
     }
 
     private function assertMinimalForm($response)
@@ -242,9 +237,9 @@ class FormControllerTest extends SuluTestCase
         $this->assertEquals('To', $response['toName']);
         $this->assertEquals('<p>Mail Text</p>', $response['mailText']);
         // Fields
-        $expectedFieldTypess = ['email', 'email'];
-        $this->assertCount(count($expectedFieldTypess), $response['fields']);
-        foreach ($expectedFieldTypess as $key => $type) {
+        $expectedFieldTypes = ['email', 'email'];
+        $this->assertCount(count($expectedFieldTypes), $response['fields']);
+        foreach ($expectedFieldTypes as $key => $type) {
             $this->assertNotNull($response['fields'][$key]['id']);
             $this->assertEquals($type, $response['fields'][$key]['type']);
             $this->assertStringContainsString($type, $response['fields'][$key]['key']);
@@ -395,7 +390,6 @@ class FormControllerTest extends SuluTestCase
         $form->addTranslation($formTranslation);
 
         $formField->setForm($form);
-        $form->addField($formField);
 
         $this->em->persist($form);
         $this->em->flush();
