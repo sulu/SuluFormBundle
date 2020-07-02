@@ -1,47 +1,72 @@
-# Sulu Form Bundle
+<h1 align="center">SuluFormBundle</h1>
 
-[![GitHub license](https://img.shields.io/github/license/sulu/SuluFormBundle.svg)](https://github.com/sulu/SuluFormBundle/blob/develop/LICENSE)
-[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/sulu/SuluFormBundle.svg)](https://github.com/sulu/SuluFormBundle/releases)
-[![GitHub tag (latest by date)](https://img.shields.io/github/tag-date/sulu/SuluFormBundle.svg)](https://github.com/sulu/SuluFormBundle/releases)
-[![Travis](https://travis-ci.org/sulu/SuluFormBundle.png?branch=master)](https://travis-ci.org/sulu/SuluFormBundle)
-[![Packagist](https://img.shields.io/packagist/dt/sulu/sulu-form-bundle.svg)](https://packagist.org/packages/sulu/sulu-form-bundle)
+<p align="center">
+    <a href="https://sulu.io/" target="_blank">
+        <img width="30%" src="https://sulu.io/uploads/media/800x/00/230-Official%20Bundle%20Seal.svg?v=2-6&inline=1" alt="Official Sulu Bundle Badge">
+    </a>
+</p>
 
-The SuluFormBundle adds support for creating dynamic forms in Sulu. It can
-be used for contact, sweepstake or other forms.
+<p align="center">
+    <a href="https://github.com/sulu/SuluFormBundle/blob/master/LICENSE" target="_blank">
+        <img src="https://img.shields.io/github/license/sulu/SuluFormBundle.svg" alt="GitHub license">
+    </a>
+    <a href="https://github.com/sulu/SuluFormBundle/releases" target="_blank">
+        <img src="https://img.shields.io/github/tag/sulu/SuluFormBundle.svg" alt="GitHub tag (latest SemVer)">
+    </a>
+    <a href="https://travis-ci.org/sulu/SuluFormBundle/branches" target="_blank">
+        <img src="https://img.shields.io/travis/sulu/SuluFormBundle/master.svg?label=travis" alt="Travis build">
+    </a>
+    <a href="https://github.com/sulu/sulu/releases" target="_blank">
+        <img src="https://img.shields.io/badge/sulu%20compatibility-%3E=2.0-52b6ca.svg" alt="Sulu compatibility">
+    </a>
+</p>
+<br/>
 
-**Features**
+The **SuluFormBundle** adds support for creating dynamic forms in [Sulu](https://sulu.io/) Admin.
+It can be used for contact, sweepstake or other forms.
 
- - Dynamic form builder
- - Mail handling
- - List view of submitted data
+<br/>
+<p align="center">
+    <img width="80%" src="https://sulu.io/uploads/media/800x@2x/00/250-sulu-form-bundle.gif?v=1-0&inline=1" alt="Sulu Form Slideshow">
+</p>
+<br/>
 
-## Status
+The SuluFormBundle is compatible with Sulu **starting from version 2.0**. Have a look at the `require` section in 
+the [composer.json](composer.json) to find an 
+**up-to-date list of the requirements** of the bundle.
 
-This repository will become version 1.0 of SuluFormBundle. It is under
-**heavy development** and currently its APIs and code are not stable
-yet (pre 1.0).
+## 🚀&nbsp; Installation and Documentation
 
-## Requirements
+Execute the following [composer](https://getcomposer.org/) command to add the bundle to the dependencies of your 
+project:
 
-For the requirements check the [composer.json](composer.json "composer.json")
-file.
+```bash
+composer require sulu/form-bundle
+```
 
-# Documentation / Installation
+Afterwards, visit the [bundle documentation](Resources/doc/index.md) to 
+find out **how to set up and configure the SuluFormBundle** to your specific needs.
 
-The Documentation is stored in the
-[Resources/doc/](Resources/doc/index.md "Documentation") folder.
 
-## License
+## 💡&nbsp; Key Concepts
 
-This bundle is under the MIT license. See the complete license
-[in the bundle](LICENSE)
+The bundle allows that the content manager itself can create dynamic forms over the admin ui.
+This form fields can be position by the content manager in a basic grid.
+Also the content manager configure the email which is sent to the visitor or them selfs.
+The bundle is build on top of the [Symfony Form Component](https://symfony.com/doc/5.0/forms.html) and use its theming features.
 
-## Reporting an issue or a feature request
 
-Issues and feature requests are tracked in the
-[Github issue tracker](https://github.com/sulu/SuluFormBundle/issues).
+## ❤️&nbsp; Support and Contributions
 
-When reporting a bug, it may be a good idea to reproduce it in a basic project
-built using the [Sulu Minimal Edition](https://github.com/sulu/sulu-minimal)
-to allow developers of the bundle to reproduce the issue by simply cloning it
-and following some steps.
+The Sulu content management system is a **community-driven open source project** backed by various partner companies. 
+We are committed to a fully transparent development process and **highly appreciate any contributions**. 
+
+In case you have questions, we are happy to welcome you in our official [Slack channel](https://sulu.io/services-and-support).
+If you found a bug or miss a specific feature, feel free to **file a new issue** with a respective title and description 
+on the the [sulu/SuluFormBundle](https://github.com/sulu/SuluFormBundle) repository.
+
+
+## 📘&nbsp; License
+
+The Sulu content management system is released under the under terms of the [MIT License](LICENSE).
+
