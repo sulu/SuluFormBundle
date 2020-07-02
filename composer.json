@@ -61,11 +61,5 @@
             "*": "dist"
         },
         "sort-packages": true
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-release/1.0": "1.0.x-dev",
-            "dev-master": "2.x-dev"
-        }
     }
 }
