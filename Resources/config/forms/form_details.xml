@@ -40,7 +40,7 @@
                         <title>sulu_form.subject</title>
                     </meta>
                 </property>
-                <property name="fromEmail" type="email" colspan="6" mandatory="true">
+                <property name="fromEmail" type="email" colspan="6">
                     <meta>
                         <title>sulu_form.from_email</title>
                     </meta>
@@ -50,7 +50,7 @@
                         <title>sulu_form.from_name</title>
                     </meta>
                 </property>
-                <property name="toEmail" type="email" colspan="6" mandatory="true">
+                <property name="toEmail" type="email" colspan="6">
                     <meta>
                         <title>sulu_form.to_email</title>
                     </meta>
