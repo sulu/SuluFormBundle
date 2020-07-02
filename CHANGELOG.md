@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0
+
+ - FEATURE     #194    Add sender the same as parameter for Sender-header on envelope
+ - BUGFIX      #215    Fix line breaks in notify emails
+
 ## 1.0.1
 
  - BUGFIX      #201    Fix configuration of plain text emails   
