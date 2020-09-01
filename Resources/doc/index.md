@@ -41,9 +41,9 @@ Configure the default sender and receivers email address (optional):
 ```yml
 sulu_form:
     mail:
-        from: "%sulu_admin.email%"
-        to:   "%sulu_admin.email%"
-        sender: "%sulu_admin.email%"
+        from: "%env(SULU_ADMIN_EMAIL)%"
+        to:   "%env(SULU_ADMIN_EMAIL)%"
+        sender: "%env(SULU_ADMIN_EMAIL)%"
 ```
 
 ## Create Database
