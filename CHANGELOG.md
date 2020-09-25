@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+
+ - FEATURE     #267    Add possibility for a honeypot field
+
 ## 1.1.0
 
  - FEATURE     #194    Add sender the same as parameter for Sender-header on envelope
