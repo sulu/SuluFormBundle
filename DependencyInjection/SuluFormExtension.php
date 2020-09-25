@@ -121,6 +121,16 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
             $config['dynamic_list_builder']['delimiter']
         );
 
+        $container->setParameter(
+            'sulu_form.honeypot_field',
+            $config['honeypot']['field']
+        );
+
+        $container->setParameter(
+            'sulu_form.honeypot_strategy',
+            $config['honeypot']['strategy']
+        );
+
         // Load services
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
