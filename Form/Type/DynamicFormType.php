@@ -16,6 +16,7 @@ use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -163,7 +164,7 @@ class DynamicFormType extends AbstractType
                 [
                     'label' => $this->honeyPotField,
                     'mapped' => false,
-                    'block_prefix' => 'honeypot',
+                    'attr' => ['honeypot'],
                     'required' => false,
                 ]
             );
