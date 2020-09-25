@@ -198,7 +198,6 @@ The honey pot field need to be hidden so in your theme add a new class to it:
         {{- block('form_row') -}}
     </div>
 {%- endblock -%}
-
 ```
 
 And then hide it in your css with:
