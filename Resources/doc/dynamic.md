@@ -188,6 +188,38 @@ This option will save the form if enabled but will not send any emails.
 
 Will not save and will not send any emails.
 
+### Style honey pot field
+
+The honey pot field need to be hidden so in your theme add a new class to it:
+
+```twig
+{%- block form_row -%}
+    {% if form.vars.attr['honeypot']|default(false) %}
+        <div class="honung">
+    {% endif %}
+
+    {{ block('sulu_form_row_start') }}
+    {{- form_label(form) -}}
+    {{- form_errors(form) -}}
+    {{- form_widget(form) -}}
+    {{ block('sulu_form_row_end') }}
+
+    {% if form.vars.attr['honeypot']|default(false) %}
+        </div>
+    {% endif %}
+{%- endblock -%}
+
+```
+
+And then hide it in your css with:
+
+```css
+.honung {
+    display: none;
+}
+```
+
+
 ## Media Collections
 
 To create for every form and page an own collection you need to configure the following in your `config.yml`:
