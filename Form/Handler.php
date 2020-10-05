@@ -75,6 +75,8 @@ class Handler implements HandlerInterface
      * @param EngineInterface $templating
      * @param EventDispatcherInterface $eventDispatcher
      * @param MediaManager $mediaManager
+     * @param string $honeyPotStrategy
+     * @param string $honeyPotField
      */
     public function __construct(
         ObjectManager $entityManager,
@@ -82,8 +84,8 @@ class Handler implements HandlerInterface
         EngineInterface $templating,
         EventDispatcherInterface $eventDispatcher,
         MediaManager $mediaManager,
-        string $honeyPotStrategy = self::HONEY_POT_STRATEGY_SPAM,
-        string $honeyPotField = null
+        $honeyPotStrategy = self::HONEY_POT_STRATEGY_SPAM,
+        $honeyPotField = null
     ) {
         $this->entityManager = $entityManager;
         $this->mailHelper = $mailHelper;
@@ -168,7 +170,6 @@ class Handler implements HandlerInterface
     {
         if ($adminMailConfiguration = $configuration->getAdminMailConfiguration()) {
             $subjectPrefix = '';
-
             if ($this->isSpamByHoneypot($form)) {
                 $subjectPrefix = '(SPAM) ';
             }
@@ -188,7 +189,7 @@ class Handler implements HandlerInterface
      * @param MailConfigurationInterface $configuration
      * @param string $subjectPrefix
      */
-    private function sendMail(FormInterface $form, MailConfigurationInterface $configuration, string $subjectPrefix = '')
+    private function sendMail(FormInterface $form, MailConfigurationInterface $configuration, $subjectPrefix = '')
     {
         // TODO FIXME this is currently the only way to get the medias to the email view.
         $additionalData = [];
@@ -341,7 +342,7 @@ class Handler implements HandlerInterface
             )
         );
     }
-    
+
     private function isSpamByHoneypot(FormInterface $form): bool
     {
         if (!$this->honeyPotField) {

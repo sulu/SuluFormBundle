@@ -208,7 +208,6 @@ And then hide it in your css with:
 }
 ```
 
-
 ## Media Collections
 
 To create for every form and page an own collection you need to configure the following in your `config.yml`:
