@@ -60,18 +60,32 @@ class Handler implements HandlerInterface
     protected $attachments = [];
 
     /**
+     * @var string
+     */
+    private $honeyPotStrategy;
+
+    /**
+     * @var string|null
+     */
+    private $honeyPotField;
+
+    /**
      * @param ObjectManager $entityManager
      * @param Mail\HelperInterface $mailHelper
      * @param EngineInterface $templating
      * @param EventDispatcherInterface $eventDispatcher
      * @param MediaManager $mediaManager
+     * @param string $honeyPotStrategy
+     * @param string $honeyPotField
      */
     public function __construct(
         ObjectManager $entityManager,
         Mail\HelperInterface $mailHelper,
         EngineInterface $templating,
         EventDispatcherInterface $eventDispatcher,
-        MediaManager $mediaManager
+        MediaManager $mediaManager,
+        $honeyPotStrategy = self::HONEY_POT_STRATEGY_SPAM,
+        $honeyPotField = null
     ) {
         $this->entityManager = $entityManager;
         $this->mailHelper = $mailHelper;
@@ -79,6 +93,8 @@ class Handler implements HandlerInterface
         $this->eventDispatcher = $eventDispatcher;
         $this->mediaManager = $mediaManager;
         $this->attachments = [];
+        $this->honeyPotStrategy = $honeyPotStrategy;
+        $this->honeyPotField = $honeyPotField;
     }
 
     /**
@@ -95,9 +111,20 @@ class Handler implements HandlerInterface
             return false;
         }
 
+        $isSpam = $this->isSpamByHoneypot($form);
+
+        if ($isSpam && self::HONEY_POT_STRATEGY_NO_SAVE === $this->honeyPotStrategy) {
+            return true; // emulate a successfully form submit
+        }
+
         $mediaIds = $this->uploadMedia($form, $configuration);
         $this->mapMediaIds($form->getData(), $mediaIds);
         $this->save($form, $configuration);
+
+        if ($isSpam && self::HONEY_POT_STRATEGY_NO_EMAIL === $this->honeyPotStrategy) {
+            return true; // emulate a successfully form submit
+        }
+
         $this->sendMails($form, $configuration);
 
         return true;
@@ -142,7 +169,12 @@ class Handler implements HandlerInterface
     private function sendMails(FormInterface $form, FormConfigurationInterface $configuration)
     {
         if ($adminMailConfiguration = $configuration->getAdminMailConfiguration()) {
-            $this->sendMail($form, $adminMailConfiguration);
+            $subjectPrefix = '';
+            if ($this->isSpamByHoneypot($form)) {
+                $subjectPrefix = '(SPAM) ';
+            }
+
+            $this->sendMail($form, $adminMailConfiguration, $subjectPrefix);
         }
 
         if ($websiteMailConfiguration = $configuration->getWebsiteMailConfiguration()) {
@@ -155,8 +187,9 @@ class Handler implements HandlerInterface
      *
      * @param FormInterface $form
      * @param MailConfigurationInterface $configuration
+     * @param string $subjectPrefix
      */
-    private function sendMail(FormInterface $form, MailConfigurationInterface $configuration)
+    private function sendMail(FormInterface $form, MailConfigurationInterface $configuration, $subjectPrefix = '')
     {
         // TODO FIXME this is currently the only way to get the medias to the email view.
         $additionalData = [];
@@ -175,8 +208,14 @@ class Handler implements HandlerInterface
             )
         );
 
+        $subject = $configuration->getSubject();
+
+        if ($subjectPrefix) {
+            $subject = $subjectPrefix . $subject;
+        }
+
         $this->mailHelper->sendMail(
-            $configuration->getSubject(),
+            $subject,
             $body,
             $configuration->getTo(),
             $configuration->getFrom(),
@@ -302,5 +341,26 @@ class Handler implements HandlerInterface
                 $additionalData
             )
         );
+    }
+
+    private function isSpamByHoneypot(FormInterface $form): bool
+    {
+        if (!$this->honeyPotField) {
+            return false;
+        }
+
+        $honeypotFieldName = str_replace(' ', '_', strtolower($this->honeyPotField));
+
+        if (!$form->has($honeypotFieldName)) {
+            return false;
+        }
+
+        $honeypotField = $form->get($honeypotFieldName);
+
+        if (!$honeypotField->getData()) {
+            return false;
+        }
+
+        return true;
     }
 }

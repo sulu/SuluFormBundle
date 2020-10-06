@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
+use Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -97,6 +98,20 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('ajax_templates')
                 ->normalizeKeys(false)
                 ->prototype('scalar')->end()->defaultValue([])
+            ->end()
+            ->arrayNode('honeypot')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->scalarNode('field')->defaultValue(null)->end()
+                    ->enumNode('strategy')
+                        ->defaultValue(HandlerInterface::HONEY_POT_STRATEGY_SPAM)
+                        ->values([
+                            HandlerInterface::HONEY_POT_STRATEGY_SPAM,
+                            HandlerInterface::HONEY_POT_STRATEGY_NO_EMAIL,
+                            HandlerInterface::HONEY_POT_STRATEGY_NO_SAVE,
+                        ])
+                    ->end()
+                ->end()
             ->end()
             ->arrayNode('dynamic_disabled_types')
                 ->prototype('scalar')->end()->defaultValue([])

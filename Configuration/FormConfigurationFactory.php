@@ -264,13 +264,19 @@ class FormConfigurationFactory
             return null;
         }
 
+        $customerEmail = $this->getEmailFromDynamic($dynamic);
+
+        if (!$customerEmail) {
+            return null;
+        }
+
         $websiteMailConfiguration = $this->createMailConfiguration($locale);
 
         $websiteMailConfiguration->setSubject($translation->getSubject());
         $websiteMailConfiguration->setFrom(
             $this->getEmail($translation->getFromEmail(), $translation->getFromName())
         );
-        $websiteMailConfiguration->setTo($this->getEmailFromDynamic($dynamic));
+        $websiteMailConfiguration->setTo($customerEmail);
 
         // Set attachment configuration.
         $websiteMailConfiguration->setAddAttachments($translation->getSendAttachments());

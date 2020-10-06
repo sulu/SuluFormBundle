@@ -47,9 +47,5 @@ install:
   - ./Tests/app/console doctrine:schema:update --force
 
 script:
-  - ./vendor/bin/phpunit --coverage-clover=coverage.clover
+  - ./vendor/bin/phpunit
   - if [[ $PHPSTAN == 'true' ]]; then ./vendor/bin/phpstan analyse ./ --level 1 -c phpstan.neon ; fi
-
-after_script:
-  - if [[ $CODE_COVERAGE == 'true' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
-  - if [[ $CODE_COVERAGE == 'true' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover ; fi
