@@ -243,7 +243,6 @@ class FormConfigurationFactory
         $websiteMailConfiguration->setFrom(
             $this->getEmail($translation->getFromEmail(), $translation->getFromName())
         );
-
         $websiteMailConfiguration->setTo($customerEmail);
 
         // Set attachment configuration.

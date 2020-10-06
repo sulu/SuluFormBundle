@@ -63,5 +63,4 @@ install:
 
 script:
   - if [[ LINT == 'true' ]]; then composer lint; fi
-  - ./vendor/bin/phpunit
-
+  - composer test
