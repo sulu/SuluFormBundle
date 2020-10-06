@@ -45,11 +45,12 @@ class DynamicFormType extends AbstractType
      *
      * @param FormFieldTypePool $typePool
      * @param Checksum $checksum
+     * @param string|null $honeyPotField
      */
     public function __construct(
         FormFieldTypePool $typePool,
         Checksum $checksum,
-        ?string $honeyPotField = null
+        $honeyPotField = null
     ) {
         $this->typePool = $typePool;
         $this->checksum = $checksum;
