@@ -192,8 +192,35 @@ Will not save and will not send any emails.
 
 The honey pot field need to be hidden so in your theme add a new class to it:
 
+##### ! Important ! This has to be done for every property name.
+
 ```twig
-{%- block _dynamic_form_honeypot_row -%}
+{%- block _dynamic_%propertyName%_honeypot_row -%}
+    <div class="honung">
+        {{- block('form_row') -}}
+    </div>
+{%- endblock -%}
+```
+
+For example:
+
+```xml
+<property name="myFormName" type="single_form_selection">
+    <meta>
+        <title lang="de">Formular</title>
+        <title lang="en">Form</title>
+    </meta>
+
+    <params>
+        <param name="resourceKey" value="page"/>
+    </params>
+</property>
+```
+
+results in:
+
+```twig
+{%- block _dynamic_myFormName_honeypot_row -%}
     <div class="honung">
         {{- block('form_row') -}}
     </div>
