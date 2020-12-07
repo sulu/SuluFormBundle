@@ -64,8 +64,13 @@ class FormConfigurationFactory
      */
     public function buildByDynamic(Dynamic $dynamic): FormConfigurationInterface
     {
-        $config = $this->create($dynamic->getLocale());
+        $form = $dynamic->getForm();
+        $locale = $dynamic->getLocale();
+        $translation = $form->getTranslation($locale);
+
+        $config = $this->create($locale);
         $config->setFileFields($this->getFileFieldsByDynamic($dynamic));
+        $config->setFileSave(!$translation->getDeactivateAttachmentSave());
 
         $adminMailConfiguration = $this->buildAdminMailConfigurationByDynamic($dynamic);
         $websiteMailConfiguration = $this->buildWebsiteMailConfigurationByDynamic($dynamic);

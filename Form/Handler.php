@@ -56,11 +56,6 @@ class Handler implements HandlerInterface
     protected $mailHelper;
 
     /**
-     * @var array
-     */
-    protected $attachments = [];
-
-    /**
      * @var string
      */
     private $honeyPotStrategy;
@@ -84,7 +79,6 @@ class Handler implements HandlerInterface
         $this->twig = $twig;
         $this->eventDispatcher = $eventDispatcher;
         $this->mediaManager = $mediaManager;
-        $this->attachments = [];
         $this->honeyPotStrategy = $honeyPotStrategy;
         $this->honeyPotField = $honeyPotField;
     }
@@ -104,8 +98,11 @@ class Handler implements HandlerInterface
             return true; // emulate a successfully form submit
         }
 
-        $mediaIds = $this->uploadMedia($form, $configuration);
-        $this->mapMediaIds($form->getData(), $mediaIds);
+        if ($configuration->getFileSave()) {
+            $mediaIds = $this->uploadMedia($form, $configuration);
+            $this->mapMediaIds($form->getData(), $mediaIds);
+        }
+
         $this->save($form, $configuration);
 
         if ($isSpam && self::HONEY_POT_STRATEGY_NO_EMAIL === $this->honeyPotStrategy) {
@@ -148,17 +145,19 @@ class Handler implements HandlerInterface
 
     private function sendMails(FormInterface $form, FormConfigurationInterface $configuration): void
     {
+        $attachments = $this->getAttachments($form, $configuration);
+
         if ($adminMailConfiguration = $configuration->getAdminMailConfiguration()) {
             $subjectPrefix = '';
             if ($this->isSpamByHoneypot($form)) {
                 $subjectPrefix = '(SPAM) ';
             }
 
-            $this->sendMail($form, $adminMailConfiguration, $subjectPrefix);
+            $this->sendMail($form, $adminMailConfiguration, $attachments, $subjectPrefix);
         }
 
         if ($websiteMailConfiguration = $configuration->getWebsiteMailConfiguration()) {
-            $this->sendMail($form, $websiteMailConfiguration);
+            $this->sendMail($form, $websiteMailConfiguration, $attachments, '');
         }
     }
 
@@ -167,10 +166,15 @@ class Handler implements HandlerInterface
      *
      * @param FormInterface $form
      * @param MailConfigurationInterface $configuration
+     * @param \SplFileInfo[] $attachments
      * @param string $subjectPrefix
      */
-    private function sendMail(FormInterface $form, MailConfigurationInterface $configuration, string $subjectPrefix = '')
-    {
+    private function sendMail(
+        FormInterface $form,
+        MailConfigurationInterface $configuration,
+        array $attachments = [],
+        string $subjectPrefix = ''
+    ) {
         // TODO FIXME this is currently the only way to get the medias to the email view.
         $additionalData = [];
         $formData = $form->getData();
@@ -201,11 +205,42 @@ class Handler implements HandlerInterface
             $configuration->getFrom(),
             true,
             $configuration->getReplyTo(),
-            $configuration->getAddAttachments() ? $this->attachments : [],
+            $configuration->getAddAttachments() ? $attachments : [],
             $configuration->getCc(),
             $configuration->getBcc(),
             $this->getPlainText($form, $configuration, $additionalData)
         );
+    }
+
+    /**
+     * @return \SplFileInfo[]
+     */
+    private function getAttachments(FormInterface $form, FormConfigurationInterface $configuration): array
+    {
+        $attachments = [];
+
+        foreach ($configuration->getFileFields() as $field => $collectionId) {
+            if (!$form->has($field) || !count($form[$field]->getData())) {
+                continue;
+            }
+
+            $files = $form[$field]->getData();
+
+            if (!is_array($files)) {
+                $files = [$files];
+            }
+
+            /** @var UploadedFile $file */
+            foreach ($files as $file) {
+                if (!$file instanceof UploadedFile) {
+                    continue;
+                }
+
+                $attachments[] = $file;
+            }
+        }
+
+        return $attachments;
     }
 
     /**
@@ -215,7 +250,6 @@ class Handler implements HandlerInterface
      */
     private function uploadMedia(FormInterface $form, FormConfigurationInterface $configuration): array
     {
-        $this->attachments = [];
         $mediaIds = [];
 
         foreach ($configuration->getFileFields() as $field => $collectionId) {
@@ -242,8 +276,6 @@ class Handler implements HandlerInterface
                     null
                 );
 
-                // save attachments data for swift message
-                $this->attachments[] = $file;
                 $ids[] = $media->getId();
             }
 

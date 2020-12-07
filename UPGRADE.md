@@ -1,5 +1,15 @@
 # Upgrade
 
+## 2.1.0
+
+#### Add deactivateAttachmentSave field to form
+
+To allow to deactivate that attachment is saved, the following needed to be adjusted in the database:
+
+```sql
+ALTER TABLE fo_form_translations ADD deactivateAttachmentSave TINYINT(1) DEFAULT '0' NOT NULL;
+```
+
 ## 2.0.0
 
 ### Database

@@ -32,6 +32,11 @@ class FormConfiguration implements FormConfigurationInterface
     private $fileFields = [];
 
     /**
+     * @var bool
+     */
+    private $fileSave = true;
+
+    /**
      * @var MailConfigurationInterface
      */
     private $adminMailConfiguration;
@@ -116,6 +121,18 @@ class FormConfiguration implements FormConfigurationInterface
     public function setFileFields(array $fileFields)
     {
         $this->fileFields = $fileFields;
+
+        return $this;
+    }
+
+    public function getFileSave(): bool
+    {
+        return $this->fileSave;
+    }
+
+    public function setFileSave(bool $fileSave)
+    {
+        $this->fileSave = $fileSave;
 
         return $this;
     }

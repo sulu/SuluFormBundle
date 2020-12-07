@@ -34,6 +34,13 @@ interface FormConfigurationInterface
     public function getFileFields(): array;
 
     /**
+     * Should the files be saved.
+     *
+     * @return bool
+     */
+    public function getFileSave(): bool;
+
+    /**
      * Get admin mail configuration.
      */
     public function getAdminMailConfiguration(): ?MailConfigurationInterface;

@@ -205,6 +205,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertFalse($response['deactivateCustomerMails']);
         $this->assertFalse($response['deactivateNotifyMails']);
         $this->assertFalse($response['sendAttachments']);
+        $this->assertFalse($response['deactivateAttachmentSave']);
         $this->assertEquals('testing@example.com', $response['fromEmail']);
         $this->assertEquals('testing@example.com', $response['toEmail']);
         $this->assertNull($response['fromName']);
@@ -231,6 +232,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertTrue($response['deactivateCustomerMails']);
         $this->assertTrue($response['deactivateNotifyMails']);
         $this->assertTrue($response['sendAttachments']);
+        $this->assertTrue($response['deactivateAttachmentSave']);
         $this->assertEquals('from@example.org', $response['fromEmail']);
         $this->assertEquals('to@example.org', $response['toEmail']);
         $this->assertEquals('From', $response['fromName']);
@@ -410,6 +412,7 @@ class FormControllerTest extends SuluTestCase
             'deactivateCustomerMails' => true,
             'deactivateNotifyMails' => true,
             'sendAttachments' => true,
+            'deactivateAttachmentSave' => true,
             'fromEmail' => 'from@example.org',
             'toEmail' => 'to@example.org',
             'fromName' => 'From',

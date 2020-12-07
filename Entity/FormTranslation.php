@@ -74,6 +74,11 @@ class FormTranslation implements AuditableInterface
     /**
      * @var bool
      */
+    private $deactivateAttachmentSave = false;
+
+    /**
+     * @var bool
+     */
     private $deactivateNotifyMails = false;
 
     /**
@@ -249,6 +254,18 @@ class FormTranslation implements AuditableInterface
     public function getSendAttachments(): bool
     {
         return $this->sendAttachments;
+    }
+
+    public function getDeactivateAttachmentSave(): bool
+    {
+        return $this->deactivateAttachmentSave;
+    }
+
+    public function setDeactivateAttachmentSave(bool $deactivateAttachmentSave): self
+    {
+        $this->deactivateAttachmentSave = $deactivateAttachmentSave;
+
+        return $this;
     }
 
     public function setDeactivateNotifyMails(bool $deactivateNotifyMails): self
