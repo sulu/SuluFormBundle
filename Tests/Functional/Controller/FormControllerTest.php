@@ -216,7 +216,7 @@ class FormControllerTest extends SuluTestCase
         // Receivers
         $this->assertCount(0, $response['receivers']);
         // Other fields
-        $this->assertCountFields(17, $response);
+        $this->assertCountFields(18, $response);
     }
 
     private function assertFullForm($response)
@@ -273,7 +273,7 @@ class FormControllerTest extends SuluTestCase
             $this->assertTrue($foundExpectedType);
         }
         // Other
-        $this->assertCountFields(17, $response);
+        $this->assertCountFields(18, $response);
     }
 
     private function assertCountFields($expectedCount, $haystack)
@@ -316,6 +316,7 @@ class FormControllerTest extends SuluTestCase
         $formTranslation->setDeactivateCustomerMails(true);
         $formTranslation->setDeactivateNotifyMails(true);
         $formTranslation->setSendAttachments(true);
+        $formTranslation->setDeactivateAttachmentSave(true);
         $formTranslation->setFromEmail('from@example.org');
         $formTranslation->setFromName('From');
         $formTranslation->setToEmail('to@example.org');
