@@ -2,6 +2,8 @@
 
 ## 2.1.0
 
+### Database
+
 #### Add deactivateAttachmentSave field to form
 
 To allow to deactivate that attachment is saved, the following needed to be adjusted in the database:
