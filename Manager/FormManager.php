@@ -92,6 +92,7 @@ class FormManager
         $translation->setSubmitLabel(self::getValue($data, 'submitLabel'));
         $translation->setSuccessText(self::getValue($data, 'successText'));
         $translation->setSendAttachments(self::getValue($data, 'sendAttachments', false));
+        $translation->setDeactivateAttachmentSave($translation->getSendAttachments() && self::getValue($data, 'deactivateAttachmentSave', false));
         $translation->setDeactivateNotifyMails(self::getValue($data, 'deactivateNotifyMails', false));
         $translation->setDeactivateCustomerMails(self::getValue($data, 'deactivateCustomerMails', false));
         $translation->setReplyTo(self::getValue($data, 'replyTo', false));

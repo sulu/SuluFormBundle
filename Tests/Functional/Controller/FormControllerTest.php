@@ -205,6 +205,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertFalse($response['deactivateCustomerMails']);
         $this->assertFalse($response['deactivateNotifyMails']);
         $this->assertFalse($response['sendAttachments']);
+        $this->assertFalse($response['deactivateAttachmentSave']);
         $this->assertEquals('testing@example.com', $response['fromEmail']);
         $this->assertEquals('testing@example.com', $response['toEmail']);
         $this->assertNull($response['fromName']);
@@ -215,7 +216,7 @@ class FormControllerTest extends SuluTestCase
         // Receivers
         $this->assertCount(0, $response['receivers']);
         // Other fields
-        $this->assertCountFields(17, $response);
+        $this->assertCountFields(18, $response);
     }
 
     private function assertFullForm($response)
@@ -231,6 +232,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertTrue($response['deactivateCustomerMails']);
         $this->assertTrue($response['deactivateNotifyMails']);
         $this->assertTrue($response['sendAttachments']);
+        $this->assertTrue($response['deactivateAttachmentSave']);
         $this->assertEquals('from@example.org', $response['fromEmail']);
         $this->assertEquals('to@example.org', $response['toEmail']);
         $this->assertEquals('From', $response['fromName']);
@@ -271,7 +273,7 @@ class FormControllerTest extends SuluTestCase
             $this->assertTrue($foundExpectedType);
         }
         // Other
-        $this->assertCountFields(17, $response);
+        $this->assertCountFields(18, $response);
     }
 
     private function assertCountFields($expectedCount, $haystack)
@@ -314,6 +316,7 @@ class FormControllerTest extends SuluTestCase
         $formTranslation->setDeactivateCustomerMails(true);
         $formTranslation->setDeactivateNotifyMails(true);
         $formTranslation->setSendAttachments(true);
+        $formTranslation->setDeactivateAttachmentSave(true);
         $formTranslation->setFromEmail('from@example.org');
         $formTranslation->setFromName('From');
         $formTranslation->setToEmail('to@example.org');
@@ -410,6 +413,7 @@ class FormControllerTest extends SuluTestCase
             'deactivateCustomerMails' => true,
             'deactivateNotifyMails' => true,
             'sendAttachments' => true,
+            'deactivateAttachmentSave' => true,
             'fromEmail' => 'from@example.org',
             'toEmail' => 'to@example.org',
             'fromName' => 'From',

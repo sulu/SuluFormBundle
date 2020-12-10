@@ -95,6 +95,7 @@ class FormConfigurationFactoryTest extends TestCase
         $formTranslation->getDeactivateNotifyMails()->willReturn(false);
         $formTranslation->getDeactivateCustomerMails()->willReturn(false);
         $formTranslation->getSendAttachments()->willReturn(true);
+        $formTranslation->getDeactivateAttachmentSave()->willReturn(false);
         $formTranslation->getReplyTo()->willReturn(true);
         $formTranslation->getSubject()->willReturn('Subject');
         $formTranslation->getFromEmail()->willReturn('from@example.dev');

@@ -330,6 +330,7 @@ class FormController extends AbstractRestController implements ClassResourceInte
                 'submitLabel' => $translation->getSubmitLabel(),
                 'successText' => $translation->getSuccessText(),
                 'sendAttachments' => $translation->getSendAttachments(),
+                'deactivateAttachmentSave' => $translation->getDeactivateAttachmentSave(),
                 'deactivateNotifyMails' => $translation->getDeactivateNotifyMails(),
                 'deactivateCustomerMails' => $translation->getDeactivateCustomerMails(),
                 'receivers' => $receivers,

@@ -23,6 +23,11 @@
                 <option name="default">0</option>
             </options>
         </field>
+        <field name="deactivateAttachmentSave" column="deactivateAttachmentSave" type="boolean" nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
         <field name="deactivateNotifyMails" column="deactivateNotifyMails" type="boolean" nullable="false">
             <options>
                 <option name="default">0</option>

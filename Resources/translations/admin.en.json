@@ -15,6 +15,7 @@
   "sulu_form.to_name": "Receiver: Name",
   "sulu_form.user_as_reply_to": "Autofill \"reply-to\" address",
   "sulu_form.send_attachments": "Send attachments?",
+  "sulu_form.deactivate_attachment_save": "Deactivate attachment save",
   "sulu_form.deactivate_notify": "Deactivate Notifymails",
   "sulu_form.deactivate_success": "Deactivate Successmails",
   "sulu_form.receivers": "Receivers",
