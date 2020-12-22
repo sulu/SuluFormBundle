@@ -5,40 +5,40 @@ on:
     push:
         branches:
             - master
+            - develop
             - '[0-9]+.[0-9]+'
 
 jobs:
     test:
-        name: "Run tests with php ${{ matrix.php-version }}"
-        runs-on: ubuntu-18.04
-
-        env:
-            SYMFONY__DATABASE__DRIVER: pdo_mysql
-            SYMFONY__DATABASE__VERSION: 5.7
-            SYMFONY__DATABASE__HOST: 127.0.0.1
-            SYMFONY__DATABASE__PORT: 3306
-            SYMFONY__DATABASE__NAME: sulu_test
-            SYMFONY__DATABASE__USER: root
-            SYMFONY__DATABASE__PASSWORD: root
+        name: "Run tests with php ${{ matrix.php-version }} (${{ matrix.database }}, ${{ matrix.phpcr-transport }})"
+        runs-on: ubuntu-latest
 
         strategy:
             fail-fast: false
             matrix:
                 include:
-                    - php-version: '7.0'
-                      # --prefer-lowest would need a fix in sulu/sulu ^1.6
-                      composer-flags: '--prefer-dist --no-interaction --prefer-stable'
+                    - php-version: '7.2'
+                      database: postgres
+                      phpcr-transport: doctrinedbal
+                      composer-flags: '--prefer-dist --no-interaction --prefer-lowest --prefer-stable'
                       tools: 'composer:v1'
-                      phpstan: false
+                      lint: false
                       env:
-                          SYMFONY__DEPRECATIONS__HELPER: disabled
-
+                          SYMFONY_DEPRECATIONS_HELPER: disabled
+                          DATABASE_URL: postgres://postgres:postgres@127.0.0.1/sulu_form_test?serverVersion=12.5
+                          DATABASE_CHARSET: UTF8
+                          DATABASE_COLLATE:
                     - php-version: '7.4'
+                      database: mysql
+                      phpcr-transport: doctrinedbal
                       composer-flags: '--prefer-dist --no-interaction'
                       tools: 'composer:v2'
-                      phpstan: true
+                      lint: true
                       env:
-                          SYMFONY__DEPRECATIONS__HELPER: weak
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=5.7
+                          DATABASE_CHARSET: utf8mb4
+                          DATABASE_COLLATE: utf8mb4_unicode_ci
 
         services:
             mysql:
@@ -49,6 +49,15 @@ jobs:
                     - 3306:3306
                 options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
 
+            postgres:
+                image: postgres:12.5
+                env:
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: postgres
+                ports:
+                    - 5432:5432
+                options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
         steps:
             - name: Checkout project
               uses: actions/checkout@v2
@@ -57,8 +66,9 @@ jobs:
               uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php-version }}
-                  extensions: 'mysql, imagick'
+                  extensions: 'imagick'
                   tools: ${{ matrix.tools }}
+                  coverage: none
 
             - name: Get composer cache directory
               id: composer-cache-dir
@@ -73,26 +83,21 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-composer-
 
-            - name: Require phpstan dependency
-              if: ${{ matrix.phpstan }}
-              run: composer require --dev phpstan/phpstan --no-interaction --no-update
-
             - name: Install dependencies
               run: |
                   composer validate --strict
                   composer update ${{ matrix.composer-flags }}
 
-            - name: Create database
-              run: |
-                  Tests/app/console doctrine:database:create
-                  Tests/app/console doctrine:schema:update --force
+            - name: Bootstrap test environment
+              run: composer bootstrap-test-environment
               env: ${{ matrix.env }}
 
-            - name: PHPStan
-              if: ${{ matrix.phpstan }}
-              run: vendor/bin/phpstan analyse ./ --level 1 -c phpstan.neon
+            - name: Lint
+              if: ${{ matrix.lint }}
+              run: composer lint
               env: ${{ matrix.env }}
 
             - name: Run tests
-              run: time vendor/bin/phpunit
+              run: time composer test
               env: ${{ matrix.env }}
+
