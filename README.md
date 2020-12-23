@@ -13,8 +13,8 @@
     <a href="https://github.com/sulu/SuluFormBundle/releases" target="_blank">
         <img src="https://img.shields.io/github/tag/sulu/SuluFormBundle.svg" alt="GitHub tag (latest SemVer)">
     </a>
-    <a href="https://travis-ci.org/sulu/SuluFormBundle/branches" target="_blank">
-        <img src="https://img.shields.io/travis/sulu/SuluFormBundle/master.svg?label=travis" alt="Travis build">
+    <a href="https://github.com/sulu/SuluFormBundle/actions" target="_blank">
+        <img src="https://img.shields.io/github/workflow/status/sulu/SuluFormBundle/Test%20application/master.svg?label=github-actions" alt="GitHub actions status">
     </a>
     <a href="https://github.com/sulu/sulu/releases" target="_blank">
         <img src="https://img.shields.io/badge/sulu%20compatibility-%3E=2.0-52b6ca.svg" alt="Sulu compatibility">
