@@ -9,7 +9,7 @@ on:
 
 jobs:
     test:
-        name: "Run tests with php ${{ matrix.php-version }} (${{ matrix.database }}, ${{ matrix.phpcr-transport }})"
+        name: "Run tests with php ${{ matrix.php-version }}"
         runs-on: ubuntu-18.04
 
         env:
@@ -26,25 +26,19 @@ jobs:
             matrix:
                 include:
                     - php-version: '7.0'
-                      database: mysql
-                      phpcr-transport: doctrinedbal
                       # --prefer-lowest would need a fix in sulu/sulu ^1.6
                       composer-flags: '--prefer-dist --no-interaction --prefer-stable'
-                      php-extensions: 'mysql, imagick'
                       tools: 'composer:v1'
                       phpstan: false
                       env:
-                          SYMFONY_DEPRECATIONS_HELPER: disabled
+                          SYMFONY__DEPRECATIONS__HELPER: disabled
 
                     - php-version: '7.4'
-                      database: mysql
-                      phpcr-transport: doctrinedbal
                       composer-flags: '--prefer-dist --no-interaction'
-                      php-extensions: 'mysql, imagick'
-                      tools: 'composer:v1'
+                      tools: 'composer:v2'
                       phpstan: true
                       env:
-                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          SYMFONY__DEPRECATIONS__HELPER: weak
 
         services:
             mysql:
@@ -63,9 +57,8 @@ jobs:
               uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php-version }}
-                  extensions: ${{ matrix.php-extensions }}
+                  extensions: 'mysql, imagick'
                   tools: ${{ matrix.tools }}
-                  coverage: none
 
             - name: Get composer cache directory
               id: composer-cache-dir
