@@ -3,3 +3,12 @@ imports:
 
 framework:
     router: { resource: "%kernel.project_dir%/config/routing_admin.yml" }
+
+services:
+    sulu_form_test.dynamic_list_metadata_loader:
+        alias: sulu_form.metadata.dynamic_list_metadata_loader
+        public: true
+
+    sulu_form_test.dynamic_form_metadata_loader:
+        alias: sulu_form.metadata.dynamic_form_metadata_loader
+        public: true

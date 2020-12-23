@@ -23,12 +23,3 @@ sulu_form:
 
 swiftmailer:
     disable_delivery:  true
-
-services:
-    sulu_form_test.dynamic_list_metadata_loader:
-        alias: sulu_form.metadata.dynamic_list_metadata_loader
-        public: true
-
-    sulu_form_test.dynamic_form_metadata_loader:
-        alias: sulu_form.metadata.dynamic_form_metadata_loader
-        public: true
