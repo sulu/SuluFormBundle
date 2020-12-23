@@ -10,7 +10,7 @@ on:
 
 jobs:
     test:
-        name: "Run tests with php ${{ matrix.php-version }} (${{ matrix.database }}, ${{ matrix.phpcr-transport }})"
+        name: "Run tests with php ${{ matrix.php-version }} (${{ matrix.database }})"
         runs-on: ubuntu-latest
 
         strategy:
@@ -19,7 +19,6 @@ jobs:
                 include:
                     - php-version: '7.2'
                       database: postgres
-                      phpcr-transport: doctrinedbal
                       composer-flags: '--prefer-dist --no-interaction --prefer-lowest --prefer-stable'
                       tools: 'composer:v1'
                       lint: false
@@ -30,7 +29,6 @@ jobs:
                           DATABASE_COLLATE:
                     - php-version: '7.4'
                       database: mysql
-                      phpcr-transport: doctrinedbal
                       composer-flags: '--prefer-dist --no-interaction'
                       tools: 'composer:v2'
                       lint: true
