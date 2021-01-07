@@ -80,4 +80,4 @@ https://github.com/symfony/symfony/blob/4.4/src/Symfony/Bridge/Twig/Resources/vi
 
 and
 
-https://github.com/sulu/SuluFormBundle/blob/master/Resources/views/themes/basic.html.twig
+https://github.com/sulu/SuluFormBundle/blob/2.x/Resources/views/themes/basic.html.twig
