@@ -7,14 +7,14 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/sulu/SuluFormBundle/blob/master/LICENSE" target="_blank">
+    <a href="https://github.com/sulu/SuluFormBundle/blob/2.x/LICENSE" target="_blank">
         <img src="https://img.shields.io/github/license/sulu/SuluFormBundle.svg" alt="GitHub license">
     </a>
     <a href="https://github.com/sulu/SuluFormBundle/releases" target="_blank">
         <img src="https://img.shields.io/github/tag/sulu/SuluFormBundle.svg" alt="GitHub tag (latest SemVer)">
     </a>
     <a href="https://github.com/sulu/SuluFormBundle/actions" target="_blank">
-        <img src="https://img.shields.io/github/workflow/status/sulu/SuluFormBundle/Test%20application/master.svg?label=github-actions" alt="GitHub actions status">
+        <img src="https://img.shields.io/github/workflow/status/sulu/SuluFormBundle/Test%20application.svg?label=test-workflow" alt="Test workflow status">
     </a>
     <a href="https://github.com/sulu/sulu/releases" target="_blank">
         <img src="https://img.shields.io/badge/sulu%20compatibility-%3E=2.0-52b6ca.svg" alt="Sulu compatibility">
