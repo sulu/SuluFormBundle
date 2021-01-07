@@ -79,12 +79,23 @@
             "@lint-yaml",
             "@lint-twig",
             "@lint-schema",
-            "@phpstan"
+            "@phpstan",
+            "@lint-container"
         ],
         "lint-composer": "@composer validate --strict",
         "lint-yaml": "@php Tests/Application/bin/adminconsole lint:yaml Resources/config",
         "lint-twig": "@php Tests/Application/bin/adminconsole lint:yaml Resources/views",
         "lint-schema": "@php Tests/Application/bin/adminconsole doctrine:schema:validate",
+        "lint-container": [
+            "@php Tests/Application/bin/adminconsole lint:container --env dev",
+            "@php Tests/Application/bin/websiteconsole lint:container --env dev",
+            "@php Tests/Application/bin/adminconsole lint:container --env test",
+            "@php Tests/Application/bin/websiteconsole lint:container --env test",
+            "@php Tests/Application/bin/adminconsole lint:container --env stage",
+            "@php Tests/Application/bin/websiteconsole lint:container --env stage",
+            "@php Tests/Application/bin/adminconsole lint:container --env prod",
+            "@php Tests/Application/bin/websiteconsole lint:container --env prod"
+        ],
         "test": [
             "@phpunit"
         ],
