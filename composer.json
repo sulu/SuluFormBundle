@@ -112,8 +112,10 @@
             "Tests/Application/bin/websiteconsole lint:container --env prod"
         ],
         "lint-doctrine": [
-            "Tests/Application/bin/adminconsole doctrine:ensure-production-settings --env prod",
-            "Tests/Application/bin/adminconsole doctrine:schema:validate"
+            "Tests/Application/bin/adminconsole doctrine:database:create --if-not-exists",
+            "Tests/Application/bin/adminconsole doctrine:schema:update --force",
+            "Tests/Application/bin/adminconsole doctrine:schema:validate",
+            "Tests/Application/bin/adminconsole doctrine:ensure-production-settings --env prod"
         ]
     },
     "config": {
