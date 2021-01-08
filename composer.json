@@ -83,6 +83,7 @@
             "@phpstan",
             "@php-cs",
             "@lint-twig",
+            "@lint-yaml",
             "@lint-container",
             "@lint-composer",
             "@lint-doctrine"
@@ -98,6 +99,7 @@
         "php-cs": "vendor/bin/php-cs-fixer fix --verbose --diff --dry-run",
         "php-cs-fix": "vendor/bin/php-cs-fixer fix",
         "lint-twig": "Tests/Application/bin/adminconsole lint:yaml Resources/views",
+        "lint-yaml": "Tests/Application/bin/adminconsole lint:yaml Resources/config Tests/Application/config",
         "lint-composer": "@composer validate --strict",
         "lint-container": [
             "Tests/Application/bin/adminconsole lint:container --env dev",
