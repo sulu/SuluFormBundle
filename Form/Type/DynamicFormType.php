@@ -43,9 +43,6 @@ class DynamicFormType extends AbstractType
 
     /**
      * DynamicFormType constructor.
-     *
-     * @param FormFieldTypePool $typePool
-     * @param Checksum $checksum
      */
     public function __construct(
         FormFieldTypePool $typePool,

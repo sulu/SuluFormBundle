@@ -164,10 +164,6 @@ class Handler implements HandlerInterface
 
     /**
      * Send mail.
-     *
-     * @param FormInterface $form
-     * @param MailConfigurationInterface $configuration
-     * @param string $subjectPrefix
      */
     private function sendMail(FormInterface $form, MailConfigurationInterface $configuration, string $subjectPrefix = '')
     {
