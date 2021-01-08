@@ -35,8 +35,6 @@ interface FormConfigurationInterface
 
     /**
      * Should the files be saved.
-     *
-     * @return bool
      */
     public function getFileSave(): bool;
 
