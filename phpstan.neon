@@ -11,12 +11,15 @@ parameters:
     paths:
         - .
     level: 5
-    symfony:
-            container_xml_path: %rootDir%/../../../Tests/Application/var/cache/admin/dev/Sulu_Bundle_FormBundle_Tests_Application_KernelDevDebugContainer.xml
     excludes_analyse:
         - %currentWorkingDirectory%/vendor/*
         - %currentWorkingDirectory%/Tests/*
         - %currentWorkingDirectory%/DependencyInjection/Configuration.php
+    symfony:
+        container_xml_path: %rootDir%/../../../Tests/Application/var/cache/admin/dev/Sulu_Bundle_FormBundle_Tests_Application_KernelDevDebugContainer.xml
+        console_application_loader: Tests/phpstan/console-application.php
+    doctrine:
+        objectManagerLoader: Tests/phpstan/object-manager.php
     ignoreErrors:
         - '#Cannot assign offset \x27[a-zA-Z0-9\\_]+\x27 to string.#' #\x27 represents the single quote character '
         -

@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * @deprecated Static forms are deprecated and should not longer be used.
+ * @deprecated static forms are deprecated and should not longer be used
  */
 class FormWebsiteController extends DefaultController
 {
