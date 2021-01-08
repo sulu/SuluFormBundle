@@ -55,7 +55,7 @@ class FormField
     private $defaultLocale;
 
     /**
-     * @var Collection|FormTranslation[]
+     * @var Collection|FormFieldTranslation[]
      */
     private $translations;
 
@@ -150,7 +150,7 @@ class FormField
     }
 
     /**
-     * @return FormFieldTranslation|FormTranslation|null
+     * @return FormFieldTranslation|null
      */
     public function getTranslation(string $locale, bool $create = false, bool $fallback = false)
     {
@@ -189,7 +189,7 @@ class FormField
     }
 
     /**
-     * @return ArrayCollection|Collection|FormTranslation[]
+     * @return Collection|FormFieldTranslation[]
      */
     public function getTranslations()
     {

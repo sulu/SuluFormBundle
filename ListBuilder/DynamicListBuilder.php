@@ -97,8 +97,6 @@ class DynamicListBuilder implements DynamicListBuilderInterface
 
     /**
      * @param mixed $value
-     *
-     * @return string
      */
     private function getMediaUrls($value): string
     {

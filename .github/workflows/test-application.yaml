@@ -80,20 +80,18 @@ jobs:
                       ${{ runner.os }}-composer-
 
             - name: Install dependencies
-              run: |
-                  composer validate --strict
-                  composer update ${{ matrix.composer-flags }}
+              run: composer update ${{ matrix.composer-flags }}
 
             - name: Bootstrap test environment
               run: composer bootstrap-test-environment
               env: ${{ matrix.env }}
 
-            - name: Lint
+            - name: Lint code
               if: ${{ matrix.lint }}
               run: composer lint
               env: ${{ matrix.env }}
 
-            - name: Run tests
+            - name: Execute test cases
               run: time composer test
               env: ${{ matrix.env }}
 
