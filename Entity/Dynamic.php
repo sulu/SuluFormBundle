@@ -12,10 +12,13 @@
 namespace Sulu\Bundle\FormBundle\Entity;
 
 use Sulu\Component\Persistence\Model\AuditableInterface;
+use Sulu\Component\Persistence\Model\AuditableTrait;
 use Sulu\Component\Security\Authentication\UserInterface;
 
 class Dynamic implements AuditableInterface
 {
+    use AuditableTrait;
+
     const TYPE_ATTACHMENT = 'attachment';
     const TYPE_EMAIL = 'email';
 
@@ -48,7 +51,7 @@ class Dynamic implements AuditableInterface
     private $typeId;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $typeName;
 
@@ -68,29 +71,9 @@ class Dynamic implements AuditableInterface
     private $webspaceKey;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $data = '[]';
-
-    /**
-     * @var null|\DateTime
-     */
-    private $created;
-
-    /**
-     * @var \DateTime
-     */
-    private $changed;
-
-    /**
-     * @var UserInterface
-     */
-    private $creator;
-
-    /**
-     * @var UserInterface
-     */
-    private $changer;
+    private $data;
 
     /**
      * Dynamic constructor.
@@ -114,7 +97,7 @@ class Dynamic implements AuditableInterface
      */
     public function getData(): array
     {
-        return json_decode($this->data, true);
+        return json_decode($this->data ?: '[]', true);
     }
 
     public function setData(array $data): self
@@ -240,38 +223,6 @@ class Dynamic implements AuditableInterface
     public function getWebspaceKey(): ?string
     {
         return $this->webspaceKey;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getCreated(): ?\DateTime
-    {
-        return $this->created;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getChanged(): \DateTime
-    {
-        return $this->changed;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getCreator(): ?UserInterface
-    {
-        return $this->creator;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getChanger(): ?UserInterface
-    {
-        return $this->changer;
     }
 
     /**

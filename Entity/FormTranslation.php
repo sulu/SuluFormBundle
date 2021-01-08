@@ -14,6 +14,7 @@ namespace Sulu\Bundle\FormBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Sulu\Component\Persistence\Model\AuditableInterface;
+use Sulu\Component\Persistence\Model\AuditableTrait;
 use Sulu\Component\Security\Authentication\UserInterface;
 
 /**
@@ -21,6 +22,8 @@ use Sulu\Component\Security\Authentication\UserInterface;
  */
 class FormTranslation implements AuditableInterface
 {
+    use AuditableTrait;
+
     /**
      * @var string
      */
@@ -32,7 +35,7 @@ class FormTranslation implements AuditableInterface
     private $subject;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $fromEmail;
 
@@ -42,7 +45,7 @@ class FormTranslation implements AuditableInterface
     private $fromName;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $toEmail;
 
@@ -100,26 +103,6 @@ class FormTranslation implements AuditableInterface
      * @var Form
      */
     private $form;
-
-    /**
-     * @var UserInterface
-     */
-    private $creator;
-
-    /**
-     * @var UserInterface
-     */
-    private $changer;
-
-    /**
-     * @var \DateTime
-     */
-    private $created;
-
-    /**
-     * @var \DateTime
-     */
-    private $changed;
 
     /**
      * @var Collection|FormTranslationReceiver[]
@@ -314,54 +297,6 @@ class FormTranslation implements AuditableInterface
     public function getForm(): Form
     {
         return $this->form;
-    }
-
-    public function getCreator(): ?UserInterface
-    {
-        return $this->creator;
-    }
-
-    public function setCreator(UserInterface $creator): self
-    {
-        $this->creator = $creator;
-
-        return $this;
-    }
-
-    public function getChanger(): UserInterface
-    {
-        return $this->changer;
-    }
-
-    public function setChanger(UserInterface $changer): self
-    {
-        $this->changer = $changer;
-
-        return $this;
-    }
-
-    public function getCreated(): \DateTime
-    {
-        return $this->created;
-    }
-
-    public function setCreated(\DateTime $created): self
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    public function getChanged(): \DateTime
-    {
-        return $this->changed;
-    }
-
-    public function setChanged(\DateTime $changed): self
-    {
-        $this->changed = $changed;
-
-        return $this;
     }
 
     /**

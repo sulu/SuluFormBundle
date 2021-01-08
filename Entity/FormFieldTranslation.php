@@ -52,7 +52,7 @@ class FormFieldTranslation
     private $shortTitle;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $options;
 
