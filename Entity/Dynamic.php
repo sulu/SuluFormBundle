@@ -13,7 +13,6 @@ namespace Sulu\Bundle\FormBundle\Entity;
 
 use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Persistence\Model\AuditableTrait;
-use Sulu\Component\Security\Authentication\UserInterface;
 
 class Dynamic implements AuditableInterface
 {
