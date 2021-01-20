@@ -9,8 +9,8 @@ on:
 
 jobs:
     test:
-        name: "Run tests with php ${{ matrix.php-version }}"
-        runs-on: ubuntu-18.04
+        name: 'PHP ${{ matrix.php-version }} (${{ matrix.dependency-versions }})'
+        runs-on: ubuntu-latest
 
         env:
             SYMFONY__DATABASE__DRIVER: pdo_mysql
@@ -27,14 +27,14 @@ jobs:
                 include:
                     - php-version: '7.0'
                       # --prefer-lowest would need a fix in sulu/sulu ^1.6
-                      composer-flags: '--prefer-dist --no-interaction --prefer-stable'
+                      dependency-versions: 'highest'
                       tools: 'composer:v1'
                       phpstan: false
                       env:
                           SYMFONY__DEPRECATIONS__HELPER: disabled
 
                     - php-version: '7.4'
-                      composer-flags: '--prefer-dist --no-interaction'
+                      dependency-versions: 'highest'
                       tools: 'composer:v2'
                       phpstan: true
                       env:
@@ -60,32 +60,23 @@ jobs:
                   extensions: 'mysql, imagick'
                   tools: ${{ matrix.tools }}
 
-            - name: Get composer cache directory
-              id: composer-cache-dir
-              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-            - name: Cache dependencies
-              uses: actions/cache@v2
-              with:
-                  path: ${{ steps.composer-cache-dir.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ hashFiles('composer.json', 'composer.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-composer-
-
             - name: Require phpstan dependency
               if: ${{ matrix.phpstan }}
               run: composer require --dev phpstan/phpstan --no-interaction --no-update
 
-            - name: Install dependencies
-              run: |
-                  composer validate --strict
-                  composer update ${{ matrix.composer-flags }}
+            - name: Install composer dependencies
+              uses: ramsey/composer-install@v1
+              with:
+                  dependency-versions: ${{matrix.dependency-versions}}
 
             - name: Create database
               run: |
                   Tests/app/console doctrine:database:create
                   Tests/app/console doctrine:schema:update --force
               env: ${{ matrix.env }}
+
+            - name: Lint code
+              run: composer validate --strict
 
             - name: PHPStan
               if: ${{ matrix.phpstan }}
