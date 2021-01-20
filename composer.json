@@ -76,7 +76,8 @@
     },
     "scripts": {
         "bootstrap-test-environment": [
-            "Tests/Application/bin/adminconsole doctrine:database:create --if-not-exists --env test",
+            "Tests/Application/bin/adminconsole doctrine:database:drop --if-exists --force --env test",
+            "Tests/Application/bin/adminconsole doctrine:database:create --env test",
             "Tests/Application/bin/adminconsole doctrine:schema:update --force --env test"
         ],
         "lint": [
@@ -112,9 +113,7 @@
             "Tests/Application/bin/websiteconsole lint:container --env prod"
         ],
         "lint-doctrine": [
-            "Tests/Application/bin/adminconsole doctrine:database:create --if-not-exists",
-            "Tests/Application/bin/adminconsole doctrine:schema:update --force",
-            "Tests/Application/bin/adminconsole doctrine:schema:validate",
+            "Tests/Application/bin/adminconsole doctrine:schema:validate --skip-sync",
             "Tests/Application/bin/adminconsole doctrine:ensure-production-settings --env prod"
         ]
     },
