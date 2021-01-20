@@ -9,7 +9,7 @@ on:
 
 jobs:
     test:
-        name: "Run tests with php ${{ matrix.php-version }} (${{ matrix.database }})"
+        name: 'PHP ${{ matrix.php-version }} (${{ matrix.database }}, ${{ matrix.dependency-versions }})'
         runs-on: ubuntu-latest
 
         strategy:
@@ -18,7 +18,7 @@ jobs:
                 include:
                     - php-version: '7.2'
                       database: postgres
-                      composer-flags: '--prefer-dist --no-interaction --prefer-lowest --prefer-stable'
+                      dependency-versions: 'lowest'
                       tools: 'composer:v1'
                       lint: false
                       env:
@@ -28,7 +28,7 @@ jobs:
                           DATABASE_COLLATE:
                     - php-version: '7.4'
                       database: mysql
-                      composer-flags: '--prefer-dist --no-interaction'
+                      dependency-versions: 'highest'
                       tools: 'composer:v2'
                       lint: true
                       env:
@@ -67,20 +67,10 @@ jobs:
                   tools: ${{ matrix.tools }}
                   coverage: none
 
-            - name: Get composer cache directory
-              id: composer-cache-dir
-              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-            - name: Cache dependencies
-              uses: actions/cache@v2
+            - name: Install composer dependencies
+              uses: ramsey/composer-install@v1
               with:
-                  path: ${{ steps.composer-cache-dir.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ hashFiles('composer.json', 'composer.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-composer-
-
-            - name: Install dependencies
-              run: composer update ${{ matrix.composer-flags }}
+                  dependency-versions: ${{matrix.dependency-versions}}
 
             - name: Bootstrap test environment
               run: composer bootstrap-test-environment
