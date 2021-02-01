@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1
+
+ - BUGFIX      #268    Fixed honeypot documentation
+
 ## 1.2.0
 
  - FEATURE     #267    Add possibility for a honeypot field
