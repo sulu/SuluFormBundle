@@ -11,7 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\Form;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Sulu\Bundle\FormBundle\Configuration\FormConfigurationInterface;
 use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
