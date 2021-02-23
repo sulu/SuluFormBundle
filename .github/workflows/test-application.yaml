@@ -1,0 +1,88 @@
+name: Test application
+
+on:
+    pull_request:
+    push:
+        branches:
+            - '[0-9]+.x'
+            - '[0-9]+.[0-9]+'
+
+jobs:
+    test:
+        name: 'PHP ${{ matrix.php-version }} (${{ matrix.dependency-versions }})'
+        runs-on: ubuntu-latest
+
+        env:
+            SYMFONY__DATABASE__DRIVER: pdo_mysql
+            SYMFONY__DATABASE__VERSION: 5.7
+            SYMFONY__DATABASE__HOST: 127.0.0.1
+            SYMFONY__DATABASE__PORT: 3306
+            SYMFONY__DATABASE__NAME: sulu_test
+            SYMFONY__DATABASE__USER: root
+            SYMFONY__DATABASE__PASSWORD: root
+
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - php-version: '7.0'
+                      # --prefer-lowest would need a fix in sulu/sulu ^1.6
+                      dependency-versions: 'highest'
+                      tools: 'composer:v1'
+                      phpstan: false
+                      env:
+                          SYMFONY__DEPRECATIONS__HELPER: disabled
+
+                    - php-version: '7.4'
+                      dependency-versions: 'highest'
+                      tools: 'composer:v2'
+                      phpstan: true
+                      env:
+                          SYMFONY__DEPRECATIONS__HELPER: weak
+
+        services:
+            mysql:
+                image: mysql:5.7
+                env:
+                    MYSQL_ROOT_PASSWORD: root
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+
+        steps:
+            - name: Checkout project
+              uses: actions/checkout@v2
+
+            - name: Install and configure PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-version }}
+                  extensions: 'mysql, imagick'
+                  tools: ${{ matrix.tools }}
+
+            - name: Require phpstan dependency
+              if: ${{ matrix.phpstan }}
+              run: composer require --dev phpstan/phpstan --no-interaction --no-update
+
+            - name: Install composer dependencies
+              uses: ramsey/composer-install@v1
+              with:
+                  dependency-versions: ${{matrix.dependency-versions}}
+
+            - name: Create database
+              run: |
+                  Tests/app/console doctrine:database:create
+                  Tests/app/console doctrine:schema:update --force
+              env: ${{ matrix.env }}
+
+            - name: Lint code
+              run: composer validate --strict
+
+            - name: PHPStan
+              if: ${{ matrix.phpstan }}
+              run: vendor/bin/phpstan analyse ./ --level 1 -c phpstan.neon
+              env: ${{ matrix.env }}
+
+            - name: Run tests
+              run: time vendor/bin/phpunit
+              env: ${{ matrix.env }}
