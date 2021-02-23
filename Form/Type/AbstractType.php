@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\Form\Type;
 
+use Sulu\Bundle\FormBundle\Csrf\DisabledCsrfTokenManager;
 use Symfony\Component\Form\AbstractType as SymfonyAbstractType;
 use Symfony\Component\Form\Util\StringUtil;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -60,6 +61,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
         if ($this->csrfProtection) {
             $defaults['csrf_field_name'] = $this->csrfFieldName;
             $defaults['intention'] = $this->getDefaultIntention();
+            $defaults['csrf_token_manager'] = new DisabledCsrfTokenManager();
         }
 
         if ($this->dataClass) {
