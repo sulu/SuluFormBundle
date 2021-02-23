@@ -42,7 +42,6 @@ jobs:
                       database: mysql
                       dependency-versions: 'highest'
                       tools: 'composer:v2'
-                      composer-options: '--ignore-platform-reqs'
                       lint: true
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
