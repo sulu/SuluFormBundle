@@ -9,7 +9,7 @@ on:
 
 jobs:
     test:
-        name: 'PHP ${{ matrix.php-version }} (${{ matrix.database }}, ${{ matrix.dependency-versions }})'
+        name: 'PHP ${{ matrix.php-version }} (${{ matrix.database }}, ${{ matrix.dependency-versions }}, Lint ${{ matrix.lint }})'
         runs-on: ubuntu-latest
 
         strategy:
@@ -26,6 +26,7 @@ jobs:
                           DATABASE_URL: postgres://postgres:postgres@127.0.0.1/sulu_form_test?serverVersion=12.5
                           DATABASE_CHARSET: UTF8
                           DATABASE_COLLATE:
+
                     - php-version: '7.4'
                       database: mysql
                       dependency-versions: 'highest'
@@ -34,6 +35,17 @@ jobs:
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=5.7
+                          DATABASE_CHARSET: utf8mb4
+                          DATABASE_COLLATE: utf8mb4_unicode_ci
+
+                    - php-version: '8.0'
+                      database: mysql
+                      dependency-versions: 'highest'
+                      tools: 'composer:v2'
+                      lint: true
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=8.0
                           DATABASE_CHARSET: utf8mb4
                           DATABASE_COLLATE: utf8mb4_unicode_ci
 
@@ -71,6 +83,7 @@ jobs:
               uses: ramsey/composer-install@v1
               with:
                   dependency-versions: ${{matrix.dependency-versions}}
+                  composer-options: ${{ matrix.composer-options }}
 
             - name: Bootstrap test environment
               run: composer bootstrap-test-environment
