@@ -1,111 +1,21 @@
 <?php
 
 
-namespace Functional\Listener;
+namespace Sulu\Bundle\FormBundle\Tests\Functional\Mail\Fixtures;
 
 
+use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Persistence\ObjectManager;
 use Sulu\Bundle\FormBundle\Configuration\MailConfiguration;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormField;
 use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslationReceiver;
-use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 
-class FormRequestTest extends SuluTestCase
+class LoadFormFixture implements FixtureInterface
 {
-
-    /**
-     * @var \Symfony\Bundle\FrameworkBundle\KernelBrowser
-     */
-    private $client;
-
-    /**
-     * @var \Doctrine\ORM\EntityManagerInterface
-     */
-    private $entityManager;
-
-    public function testPageRendersWithoutForm()
-    {
-        $this->inititalize();
-
-        $this->updateHomePage(null);
-
-        $this->client->request('GET', '/');
-//        $this->assertResponseIsSuccessful();
-        $response = $this->client->getResponse();
-        $this->assertHttpStatusCode(200, $response);
-    }
-
-    public function testPageRendersWithSetForm()
-    {
-        $this->inititalize();
-
-        $form = $this->createFullForm();
-        $this->updateHomePage($form);
-        $this->doSendForm($form);
-
-        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
-        // 2 messages should be send 1 to admin and 1 to email
-        $this->assertSame(2, $mailCollector->getMessageCount());
-
-        $this->assertEmailCount(0);
-    }
-
-    public function testDoesNotMailWhenNullHandlerSet()
-    {
-        $_ENV['MAIL_HANDLER'] = 'NullHelper';
-        $this->inititalize();
-
-        $form = $this->createFullForm();
-        $this->updateHomePage($form);
-        $this->doSendForm($form);
-
-        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
-        // 2 messages should be send 1 to admin and 1 to email
-        $this->assertSame(0, $mailCollector->getMessageCount());
-
-        $this->assertEmailCount(0);
-    }
-
-    public function testUsesMailerWhenMailerHandlerSet()
-    {
-        $_ENV['MAIL_HANDLER'] = 'MailerHelper';
-        $this->inititalize();
-
-        $form = $this->createFullForm();
-        $this->updateHomePage($form);
-        $this->doSendForm($form);
-
-        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
-        $this->assertSame(0, $mailCollector->getMessageCount());
-
-        $this->assertEmailCount(2);
-    }
-    /**
-     * @param Form $form
-     * @throws \Sulu\Component\DocumentManager\Exception\DocumentManagerException
-     */
-    private function updateHomePage(Form $form = null): void
-    {
-        /* @var $suluDocumentManager \Sulu\Component\DocumentManager\DocumentManagerInterface */
-        $suluDocumentManager = static::getContainer()->get('sulu_document_manager.document_manager');
-
-        /* @var $homePage \Sulu\Bundle\PageBundle\Document\HomeDocument */
-        $homePage = $suluDocumentManager->find('/cmf/sulu-io/contents');
-        $homePage->setResourceSegment('/');
-        $homePage->getStructure()->bind([
-            'form' => $form ? $form->getId() : null,
-            'url' => '/'
-        ]);
-
-        $suluDocumentManager->publish($homePage, 'de');
-        $suluDocumentManager->persist($homePage, 'de');
-        $suluDocumentManager->flush();
-    }
-
-
-    private function createFullForm(): Form
+    public function load(ObjectManager $manager)
     {
         $form = new Form();
         $form->setDefaultLocale('de');
@@ -199,40 +109,9 @@ class FormRequestTest extends SuluTestCase
 
         $formField->setForm($form);
 
-        $this->entityManager->persist($form);
-        $this->entityManager->flush();
-        $this->entityManager->clear();
-
-        return $form;
+        $manager->persist($form);
+        $manager->flush();
+        $manager->clear();
     }
 
-    /**
-     * @param Form $form
-     */
-    private function doSendForm(Form $form): void
-    {
-        $crawler = $this->client->request('GET', '/');
-        $this->assertHttpStatusCode(200, $this->client->getResponse());
-
-        $formName = sprintf('dynamic_form%d', $form->getId());
-        $formSelector = sprintf('form[name=%s]', $formName);
-        $this->assertEquals(1, $crawler->filter($formSelector)->count());
-
-        $formElm = $crawler->filter($formSelector)->first()->form([
-            $formName . '[email]' => 'test@example.org',
-            $formName . '[email1]' => 'jon@example.org',
-        ]);
-
-        $this->client->enableProfiler();
-        $this->client->submit($formElm);
-        $this->assertResponseRedirects('?send=true');
-    }
-
-    private function inititalize(): void
-    {
-        $this->client = $this->createWebsiteClient();
-        $this->purgeDatabase();
-        $this->initPhpcr();
-        $this->entityManager = $this->getEntityManager();
-    }
 }

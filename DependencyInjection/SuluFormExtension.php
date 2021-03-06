@@ -13,8 +13,10 @@ namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Sulu\Bundle\FormBundle\Controller\FormTokenController;
 use Sulu\Bundle\FormBundle\Controller\FormWebsiteController;
+use Sulu\Bundle\MediaBundle\Media\Storage\StorageInterface;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
@@ -216,6 +218,25 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
 
         if ($config['media']['protected']) {
             $loader->load('protected_media.xml');
+        }
+
+        $this->configureHelper($config, $container);
+    }
+
+    private function configureHelper(array $config, ContainerBuilder $container)
+    {
+        $helper = $config['mail']['helper'];
+        if (\method_exists($container, 'resolveEnvPlaceholders')) {
+            $helper = $container->resolveEnvPlaceholders($helper, true);
+        }
+        $container->setParameter('sulu.mail.helper', $helper);
+
+        if ($helper == Configuration::MAILER_HELPER) {
+            $container->setAlias('sulu.mail.helper', 'sulu.mail.mailer');
+        } elseif ($helper == Configuration::NULL_HELPER) {
+            $container->setAlias('sulu.mail.helper', 'sulu_mail.null_helper');
+        } elseif ($helper == Configuration::SWIFT_MAILER_HELPER) {
+            $container->setAlias('sulu.mail.helper', 'sulu.mail.swift_mailer');
         }
     }
 }

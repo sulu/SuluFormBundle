@@ -14,6 +14,7 @@ namespace Sulu\Bundle\FormBundle\DependencyInjection;
 use Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Mailer\Mailer;
 
 /**
  * This is the class that validates and merges configuration from your app/config files.
@@ -22,6 +23,10 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
+    const NULL_HELPER = 'NullHelper';
+    const SWIFT_MAILER_HELPER = 'SwiftMailer';
+    const MAILER_HELPER = 'Mailer';
+
     /**
      * {@inheritdoc}
      */
@@ -70,7 +75,7 @@ class Configuration implements ConfigurationInterface
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('helper')
-                        ->defaultValue('SwiftMailer')
+                        ->defaultValue(self::SWIFT_MAILER_HELPER)
                         ->end()
                     ->scalarNode('from')->defaultValue(null)->end()
                     ->scalarNode('to')->defaultValue(null)->end()

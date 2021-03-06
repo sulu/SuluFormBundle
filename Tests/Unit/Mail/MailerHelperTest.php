@@ -6,6 +6,7 @@ namespace Sulu\Bundle\FormBundle\Tests\Unit\Mail;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Log\LoggerInterface;
 use Sulu\Bundle\FormBundle\Mail\MailerHelper;
 use Symfony\Component\HttpFoundation\File\File;
@@ -35,26 +36,27 @@ class MailerHelperTest extends TestCase
     private $mailerHelper;
 
     /**
-     * @var MockObject|MailerInterface
+     * @var ObjectProphecy|MailerInterface
      */
     private $mailerMock;
 
     /**
-     * @var MockObject|LoggerInterface
+     * @var ObjectProphecy|LoggerInterface
      */
     private $loggerMock;
 
     protected function setUp(): void
     {
-        $this->mailerMock = $this->getMockBuilder(MailerInterface::class)->getMock();
-        $this->loggerMock = $this->getMockBuilder(LoggerInterface::class)->getMock();
+
+        $this->mailerMock = $this->prophesize(MailerInterface::class);
+        $this->loggerMock = $this->prophesize(LoggerInterface::class);
 
         $this->mailerHelper = new MailerHelper(
-            $this->mailerMock,
+            $this->mailerMock->reveal(),
             'from@example.org',
             'to@example.org',
             'sender@example.org',
-            $this->loggerMock
+            $this->loggerMock->reveal()
         );
     }
 
@@ -82,13 +84,9 @@ class MailerHelperTest extends TestCase
             ->from('from@example.org')
             ->sender('sender@example.org');
 
-        $this->mailerMock->expects($this->once())
-            ->method('send')
-            ->with($this->equalTo($mail));
+        $this->mailerMock->send($mail)->shouldBeCalled();
 
-        $this->loggerMock->expects($this->once())
-            ->method('info')
-            ->with($this->equalTo(sprintf(
+        $this->loggerMock->info(sprintf(
                 'Try register mail from SuluFormBundle: ' . PHP_EOL .
                 '   From: from@example.org' . PHP_EOL .
                 '   To: to@example.org' . PHP_EOL .
@@ -101,7 +99,7 @@ class MailerHelperTest extends TestCase
                 serialize([]),
                 serialize([]),
                 null
-            )));
+            ))->shouldBeCalled();
 
         $this->mailerHelper->sendMail(
             'test subject',
@@ -121,9 +119,7 @@ class MailerHelperTest extends TestCase
             ->from(new Address('from@example.org', 'From Email'))
             ->sender('sender@example.org');
 
-        $this->mailerMock->expects($this->once())
-            ->method('send')
-            ->with($this->equalTo($mail));
+        $this->mailerMock->send($mail)->shouldBeCalled();
 
         $this->mailerHelper->sendMail(
             'test subject',
@@ -152,9 +148,7 @@ class MailerHelperTest extends TestCase
             ->attachFromPath(__FILE__, basename('example.php'))
         ;
 
-        $this->mailerMock->expects($this->once())
-            ->method('send')
-            ->with($this->equalTo($mail));
+        $this->mailerMock->send($mail)->shouldBeCalled();
 
         $this->mailerHelper->sendMail(
             'test subject',
@@ -194,9 +188,7 @@ class MailerHelperTest extends TestCase
             ->replyTo(new Address('reply-to@example.org', 'ReplyTo Email'))
             ;
 
-        $this->mailerMock->expects($this->once())
-            ->method('send')
-            ->with($this->equalTo($mail));
+        $this->mailerMock->send($mail)->shouldBeCalled();
 
         $this->mailerHelper->sendMail(
             'test subject',
