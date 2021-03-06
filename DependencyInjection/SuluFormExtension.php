@@ -16,8 +16,10 @@ use Sulu\Bundle\FormBundle\Controller\FormWebsiteController;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -209,6 +211,8 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
             $container->setAlias(FormTokenController::class, 'sulu_form.form_token_controller')
                 ->setPublic(true);
         }
+
+        $container->setParameter('sulu_mail.mail.helper_name', $config['mail']['helper']);
 
         if ($config['media']['protected']) {
             $loader->load('protected_media.xml');

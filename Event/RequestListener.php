@@ -17,6 +17,7 @@ use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class RequestListener
@@ -64,7 +65,6 @@ class RequestListener
         }
 
         $request = $event->getRequest();
-
         if (!$request->isMethod('post')) {
             // do nothing if it's not a post request
             return;

@@ -11,9 +11,13 @@
 
 namespace Sulu\Bundle\FormBundle\Tests\Application;
 
+use Sulu\Bundle\FormBundle\Tests\Application\Controller\DefaultController;
 use Sulu\Bundle\FormBundle\SuluFormBundle;
 use Sulu\Bundle\TestBundle\Kernel\SuluTestKernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 
 class Kernel extends SuluTestKernel
 {

@@ -18,6 +18,8 @@ use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Event\FormSavePostEvent;
 use Sulu\Bundle\FormBundle\Event\FormSavePreEvent;
 use Sulu\Bundle\FormBundle\Mail;
+use Sulu\Bundle\FormBundle\Mail\HelperAwareInterface;
+use Sulu\Bundle\FormBundle\Mail\HelperInterface;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
@@ -28,7 +30,7 @@ use Twig\Environment;
 /**
  * Handling of form based on form configuration.
  */
-class Handler implements HandlerInterface
+class Handler implements HandlerInterface, HelperAwareInterface
 {
     /**
      * @var ObjectManager
@@ -74,6 +76,7 @@ class Handler implements HandlerInterface
         string $honeyPotStrategy = self::HONEY_POT_STRATEGY_SPAM,
         string $honeyPotField = null
     ) {
+
         $this->entityManager = $entityManager;
         $this->mailHelper = $mailHelper;
         $this->twig = $twig;
@@ -81,6 +84,11 @@ class Handler implements HandlerInterface
         $this->mediaManager = $mediaManager;
         $this->honeyPotStrategy = $honeyPotStrategy;
         $this->honeyPotField = $honeyPotField;
+    }
+
+    public function setHelper(HelperInterface $mailHelper): void
+    {
+        $this->mailHelper = $mailHelper;
     }
 
     /**

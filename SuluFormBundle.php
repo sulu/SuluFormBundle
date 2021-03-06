@@ -13,8 +13,10 @@ namespace Sulu\Bundle\FormBundle;
 
 use Sulu\Bundle\FormBundle\DependencyInjection\CompilerPass\DynamicListBuilderCompilerPass;
 use Sulu\Bundle\FormBundle\DependencyInjection\CompilerPass\ListProviderCompilerPass;
+use Sulu\Bundle\FormBundle\DependencyInjection\CompilerPass\MailHelperCompilerPass;
 use Sulu\Bundle\FormBundle\DependencyInjection\CompilerPass\RemoveTaggedServiceCollectorCompilerPass;
 use Sulu\Component\Symfony\CompilerPass\TaggedServiceCollectorCompilerPass;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
