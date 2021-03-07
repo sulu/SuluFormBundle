@@ -1,6 +1,3 @@
-#import:
-#    - config.yml
-#
 sulu_form:
     mail:
-        helper: 'Mailer'
+        helper: 'mailer'

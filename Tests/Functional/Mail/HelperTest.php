@@ -1,20 +1,24 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) Sulu GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 namespace Sulu\Bundle\FormBundle\Tests\Functional\Mail;
 
-
-use Doctrine\ORM\EntityManagerInterface;
-use Sulu\Bundle\FormBundle\Tests\Functional\Mail\Fixtures\LoadFormFixture;
-use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
-use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class HelperTest extends HelperTestCase
 {
     public function testSendsEmailUsingSwiftmailer()
     {
+//        $this->markTestSkipped();
+
         $formTranslationRepository = $this->entityManager->getRepository(FormTranslation::class);
         /** @var FormTranslation $formTranslation */
         $formTranslation = $formTranslationRepository->findOneBy(['title' => 'Title', 'locale' => 'de']);

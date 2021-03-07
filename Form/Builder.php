@@ -17,8 +17,6 @@ use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Form\Type\DynamicFormType;
-use Sulu\Bundle\FormBundle\Mail\HelperAwareInterface;
-use Sulu\Bundle\FormBundle\Mail\HelperInterface;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
 use Symfony\Component\Form\FormFactory;
@@ -284,5 +282,4 @@ class Builder implements BuilderInterface
 
         return $webspaceKey;
     }
-
 }

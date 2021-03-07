@@ -1,10 +1,16 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) Sulu GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 namespace Sulu\Bundle\FormBundle\Tests\Unit\Mail;
 
-
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Log\LoggerInterface;
@@ -12,21 +18,12 @@ use Sulu\Bundle\FormBundle\Mail\MailerHelper;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 
 /**
  * Class MailerHelperTest
  * This tests the MailerHelper class that sends an email using the symfony mailer component.
- *
- * The MailerHelper class has 3 protected methods that could be overwritten to change the mail message.
- * The setHeaders must set the headers of the email including to cc bcc ect.
- * The setBody must set the html or text body of the email.
- * The setAttachments should set attachments to the email.
- * The setAttachments should set attachments to the email.
- * in the future it might be nice to delegate the methods to a separate service.
- *
- * @package Sulu\Bundle\FormBundle\Tests\Unit\Mail
  */
 class MailerHelperTest extends TestCase
 {
@@ -47,7 +44,6 @@ class MailerHelperTest extends TestCase
 
     protected function setUp(): void
     {
-
         $this->mailerMock = $this->prophesize(MailerInterface::class);
         $this->loggerMock = $this->prophesize(LoggerInterface::class);
 
@@ -131,7 +127,7 @@ class MailerHelperTest extends TestCase
     }
 
     /**
-     * Sends mail with attachment
+     * Sends mail with attachment.
      *
      * Normal files should have filesystem names
      * Uploaded Files should have the original filename
@@ -159,13 +155,13 @@ class MailerHelperTest extends TestCase
             [],
             [
                 new File(__FILE__),
-                new UploadedFile(__FILE__, 'example.php')
+                new UploadedFile(__FILE__, 'example.php'),
             ]
         );
     }
 
     /**
-     * Send mail with all parameters, named email adresses but not with attachments
+     * Send mail with all parameters, named email adresses but not with attachments.
      *
      * custom text should be used
      * html message should be used.
@@ -206,5 +202,4 @@ class MailerHelperTest extends TestCase
             'test message in plain text'
         );
     }
-
 }

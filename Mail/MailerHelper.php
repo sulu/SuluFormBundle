@@ -28,22 +28,22 @@ class MailerHelper implements HelperInterface
     /**
      * @var null|string
      */
-    protected $toMail;
+    private $toMail;
 
     /**
      * @var null|string
      */
-    protected $fromMail;
+    private $fromMail;
 
     /**
      * @var string|null
      */
-    protected $sender;
+    private $sender;
 
     /**
      * @var LoggerInterface
      */
-    protected $logger;
+    private $logger;
 
     public function __construct(
         MailerInterface $mailer,
@@ -60,7 +60,7 @@ class MailerHelper implements HelperInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function sendMail(
         $subject,
@@ -73,8 +73,7 @@ class MailerHelper implements HelperInterface
         $ccMail = [],
         $bccMail = [],
         $plainText = null
-    ): int
-    {
+    ): int {
         $message = new Email();
 
         $this->setHeaders(
@@ -101,6 +100,7 @@ class MailerHelper implements HelperInterface
         );
 
         $this->mailer->send($message);
+
         return 0;
     }
 
@@ -113,13 +113,13 @@ class MailerHelper implements HelperInterface
      * @param Email $message email message
      * @param string $subject subject of the email
      * @param Address[] $fromMail list of addresses already accounting for the defaults
-     * @param Address[] $toMail  list of addresses already accounting for the defaults
+     * @param Address[] $toMail list of addresses already accounting for the defaults
      * @param Address[] $replyTo list of addresses already accounting for the defaults may be an empty array
      * @param Address[] $ccMail list of addresses already accounting for the defaults may be an empty array
      * @param Address[] $bccMail list of addresses already accounting for the defaults may be an empty array
      * @param Address|null $sender address already accounting for the defaults
      */
-    protected function setHeaders(
+    private function setHeaders(
         Email $message,
         string $subject,
         array $fromMail,
@@ -128,8 +128,7 @@ class MailerHelper implements HelperInterface
         array $ccMail,
         array $bccMail,
         ?Address $sender
-    ): void
-    {
+    ): void {
         $message->subject($subject);
         $message->from(...$fromMail);
         $message->to(...$toMail);
@@ -149,14 +148,12 @@ class MailerHelper implements HelperInterface
     }
 
     /**
-     * @param Email $message
      * @param \SplFileInfo[] $attachments
      */
-    protected function setAttachments(
+    private function setAttachments(
         Email $message,
         array $attachments
-    ): void
-    {
+    ): void {
         foreach ($attachments as $file) {
             if (!($file instanceof \SplFileInfo)) {
                 continue;
@@ -173,18 +170,14 @@ class MailerHelper implements HelperInterface
     }
 
     /**
-     * @param Email $message
-     * @param bool $html
-     * @param string $body
      * @param string $plainText
      */
-    protected function setBody(
+    private function setBody(
         Email $message,
         bool $html,
         string $body,
         ?string $plainText
-    ): void
-    {
+    ): void {
         if ($html) {
             $message->html($body);
         } else {
@@ -200,9 +193,6 @@ class MailerHelper implements HelperInterface
      * @param string|array $fromMail
      * @param string|array $toMail
      * @param string|array $replyTo
-     * @param string $subject
-     * @param array $ccMail
-     * @param array $bccMail
      * @param string $plainText
      */
     private function logMessage(
@@ -213,8 +203,7 @@ class MailerHelper implements HelperInterface
         array $ccMail,
         array $bccMail,
         ?string $plainText
-    ): void
-    {
+    ): void {
         $this->logger->info(sprintf(
             'Try register mail from SuluFormBundle: ' . PHP_EOL .
             '   From: %s' . PHP_EOL .
@@ -236,6 +225,7 @@ class MailerHelper implements HelperInterface
 
     /**
      * @param string|array $fromMail email address or [email-address => name] for muliple named addresses
+     *
      * @return Address[]
      */
     private function parseToAddresses($fromMail): array

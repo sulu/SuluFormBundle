@@ -1,12 +1,18 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) Sulu GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 namespace Sulu\Bundle\FormBundle\Tests\Functional\Mail;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
-use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Tests\Functional\Mail\Fixtures\LoadFormFixture;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -34,35 +40,14 @@ class HelperTestCase extends SuluTestCase
 
         $fixture = new LoadFormFixture();
         $fixture->load($this->entityManager);
+
+        $this->entityManager->flush();
+        $this->entityManager->clear();
     }
-
-//    public function testPageRendersWithoutForm()
-//    {
-//        $this->updateHomePage(null);
-//
-//        $this->client->request('GET', '/');
-//        $this->assertResponseIsSuccessful();;
-//    }
-
-//    public function testPageRendersWithSetForm()
-//    {
-//        $formTranslationRepository = $this->entityManager->getRepository(FormTranslation::class);
-//        /** @var FormTranslation $formTranslation */
-//        $formTranslation = $formTranslationRepository->findOneBy(['title' => 'Title', 'locale' => 'de']);
-//        $form = $formTranslation->getForm();
-//
-//        $this->updateHomePage($form);
-//        $this->doSendForm($form);
-//
-//        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
-//        // 2 messages should be send 1 to admin and 1 to email
-//        $this->assertSame(2, $mailCollector->getMessageCount());
-//
-//        $this->assertEmailCount(0);
-//    }
 
     /**
      * @param Form $form
+     *
      * @throws \Sulu\Component\DocumentManager\Exception\DocumentManagerException
      */
     protected function updateHomePage(Form $form = null): void
@@ -75,7 +60,7 @@ class HelperTestCase extends SuluTestCase
         $homePage->setResourceSegment('/');
         $homePage->getStructure()->bind([
             'form' => $form ? $form->getId() : null,
-            'url' => '/'
+            'url' => '/',
         ]);
 
         $suluDocumentManager->publish($homePage, 'de');
@@ -83,9 +68,6 @@ class HelperTestCase extends SuluTestCase
         $suluDocumentManager->flush();
     }
 
-    /**
-     * @param Form $form
-     */
     protected function doSendForm(Form $form): void
     {
         $crawler = $this->client->request('GET', '/');

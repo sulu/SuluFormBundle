@@ -18,15 +18,7 @@
         </service>
         <service id="Sulu\Bundle\FormBundle\Form\HandlerInterface" alias="sulu_form.handler"/>
 
-        <service id="sulu.mail.helper_aware_configurator" class="Sulu\Bundle\FormBundle\Mail\HelperAwareConfigurator">
-            <argument type="service" id="sulu.mail.helper" />
-            <argument type="tagged_iterator" tag="sulu_mail.handler" index-by="key" />
-            <argument>%sulu_mail.mail.helper_name%</argument>
-        </service>
-
         <!-- Mail-->
-        <service id="sulu.mail.helper" alias="sulu.mail.swift_mailer" />
-
         <service id="sulu.mail.swift_mailer" class="Sulu\Bundle\FormBundle\Mail\Helper">
             <argument type="service" id="mailer" />
             <argument>%sulu_form.mail.from%</argument>
@@ -45,7 +37,7 @@
 
         <service id="sulu_mail.null_helper" class="Sulu\Bundle\FormBundle\Mail\NullHelper">
             <argument type="service" id="logger" />
-            <tag name="sulu_mail.handler" key="NullHelper" />
+            <deprecated />
         </service>
 
         <!-- Admin -->

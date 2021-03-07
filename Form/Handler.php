@@ -74,7 +74,6 @@ class Handler implements HandlerInterface
         string $honeyPotStrategy = self::HONEY_POT_STRATEGY_SPAM,
         string $honeyPotField = null
     ) {
-
         $this->entityManager = $entityManager;
         $this->mailHelper = $mailHelper;
         $this->twig = $twig;

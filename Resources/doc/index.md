@@ -53,7 +53,7 @@ Symfony mailer):
 ```yml
 sulu_form:
     mail:
-        helper: "SwiftMailer"
+        helper: "swift_mailer" # is default
 ```
 
 ## Create Database
