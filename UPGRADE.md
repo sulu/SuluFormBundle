@@ -1,5 +1,12 @@
 # Upgrade
 
+## 2.1.1
+
+### Builder constructor changed
+
+The `Builder` service of the SuluFormBundle requires now the `security.csrf.token_manager` service to be injected
+this was required to solve caching problems on pages using forms.
+
 ## 2.1.0
 
 ### Database
