@@ -193,7 +193,6 @@ class DynamicFormType extends AbstractType
 
         $defaults['csrf_protection'] = true;
         $defaults['csrf_field_name'] = '_token';
-        $defaults['csrf_token_manager'] = new DisabledCsrfTokenManager();
         $defaults['data_class'] = Dynamic::class;
 
         $resolver->setDefaults($defaults);

@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\Form;
 
+use Sulu\Bundle\FormBundle\Csrf\DisabledCsrfTokenManager;
 use Sulu\Bundle\FormBundle\Dynamic\Checksum;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
@@ -23,6 +24,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * Builds a dynamic form.
@@ -64,13 +66,19 @@ class Builder implements BuilderInterface
      */
     protected $checksum;
 
+    /**
+     * @var CsrfTokenManagerInterface
+     */
+    private $csrfTokenManager;
+
     public function __construct(
         RequestStack $requestStack,
         FormFieldTypePool $formFieldTypePool,
         TitleProviderPoolInterface $titleProviderPool,
         FormRepository $formRepository,
         FormFactory $formFactory,
-        Checksum $checksum
+        Checksum $checksum,
+        CsrfTokenManagerInterface $csrfTokenManager
     ) {
         $this->requestStack = $requestStack;
         $this->formFieldTypePool = $formFieldTypePool;
@@ -78,6 +86,7 @@ class Builder implements BuilderInterface
         $this->formRepository = $formRepository;
         $this->formFactory = $formFactory;
         $this->checksum = $checksum;
+        $this->csrfTokenManager = $csrfTokenManager;
     }
 
     /**
@@ -212,6 +221,7 @@ class Builder implements BuilderInterface
                 'csrf_protection' => $csrfTokenProtection,
                 'name' => $name,
                 'block_name' => 'dynamic_' . $name,
+                'csrf_token_manager' => new DisabledCsrfTokenManager($this->csrfTokenManager),
             ]
         );
     }

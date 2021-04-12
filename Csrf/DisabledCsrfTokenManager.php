@@ -16,19 +16,29 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class DisabledCsrfTokenManager implements CsrfTokenManagerInterface
 {
+    /**
+     * CsrfTokenManagerInterface
+     */
+    private $csrfTokenManager;
+
+    public function __construct(CsrfTokenManagerInterface $csrfTokenManager)
+    {
+        $this->csrfTokenManager = $csrfTokenManager;
+    }
+
     public function refreshToken(string $tokenId)
     {
-        throw new \RuntimeException('Should not be called');
+        return $this->csrfTokenManager->refreshToken($tokenId);
     }
 
     public function removeToken(string $tokenId)
     {
-        throw new \RuntimeException('Should not be called');
+        return $this->csrfTokenManager->removeToken($tokenId);
     }
 
     public function isTokenValid(CsrfToken $token)
     {
-        throw new \RuntimeException('Should not be called');
+        return $this->csrfTokenManager->isTokenValid($token);
     }
 
     public function getToken(string $tokenId)
