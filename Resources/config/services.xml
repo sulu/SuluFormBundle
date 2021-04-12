@@ -90,6 +90,7 @@
             <argument type="service" id="sulu_form.repository.form" />
             <argument type="service" id="form.factory" />
             <argument type="service" id="sulu_form.checksum" />
+            <argument type="service" id="security.csrf.token_manager"/>
         </service>
 
         <!-- Dynamic Form Type -->

@@ -11,7 +11,6 @@
 
 namespace Sulu\Bundle\FormBundle\Form\Type;
 
-use Sulu\Bundle\FormBundle\Csrf\DisabledCsrfTokenManager;
 use Sulu\Bundle\FormBundle\Dynamic\Checksum;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
@@ -193,7 +192,6 @@ class DynamicFormType extends AbstractType
 
         $defaults['csrf_protection'] = true;
         $defaults['csrf_field_name'] = '_token';
-        $defaults['csrf_token_manager'] = new DisabledCsrfTokenManager();
         $defaults['data_class'] = Dynamic::class;
 
         $resolver->setDefaults($defaults);
