@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Controller;
 
 use Sulu\Bundle\FormBundle\Configuration\FormConfigurationFactory;
+use Sulu\Bundle\FormBundle\Csrf\DisabledCsrfTokenManager;
 use Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Sulu\Bundle\FormBundle\Form\Type\AbstractType;
 use Sulu\Bundle\WebsiteBundle\Controller\DefaultController;
@@ -23,6 +24,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * @deprecated static forms are deprecated and should not longer be used
@@ -53,6 +55,7 @@ class FormWebsiteController extends DefaultController
         $subscribesServices['form.registry'] = FormRegistryInterface::class;
         $subscribesServices['sulu_form.configuration.form_configuration_factory'] = FormConfigurationFactory::class;
         $subscribesServices['sulu_form.handler'] = HandlerInterface::class;
+        $subscribesServices['security.csrf.token_manager'] = CsrfTokenManagerInterface::class;
 
         return $subscribesServices;
     }
@@ -74,7 +77,9 @@ class FormWebsiteController extends DefaultController
         $type = $this->get('form.registry')->getType($typeClass)->getInnerType();
         $type->setAttributes($attributes);
 
-        $this->form = $this->get('form.factory')->create($typeClass);
+        $this->form = $this->get('form.factory')->create($typeClass, [], [
+            'csrf_token_manager' => new DisabledCsrfTokenManager($this->get('security.csrf.token_manager')),
+        ]);
         $this->form->handleRequest($request);
 
         if ($this->form->isSubmitted()

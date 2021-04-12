@@ -11,7 +11,6 @@
 
 namespace Sulu\Bundle\FormBundle\Form\Type;
 
-use Sulu\Bundle\FormBundle\Csrf\DisabledCsrfTokenManager;
 use Sulu\Bundle\FormBundle\Dynamic\Checksum;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
