@@ -21,7 +21,7 @@ behaviour of token generation or use the `@SuluForm/themes/basic.html.twig` them
 
 ## Ajax
 
-> This solution is required when using `Varnish`:
+> This solution is required when pages are cached using `Varnish`:
 
 ```yaml
 # config/routes/sulu_form.yaml
@@ -35,7 +35,7 @@ sulu_form.token:
 
 ### A. Ajax with jquery
 
-A simplified version loading the csrf token over ajax could look like this:
+A simple example for loading the csrf token over ajax looks like this:
 
 ```twig
 # your-theme.html.twig
@@ -56,9 +56,9 @@ jQuery.get('/_form/token?form=' + formName + '&html=0').done(function(data) {
 });
 ```
 
-### B. Ajax with sulu web js
+### B. Ajax with sulu web-js
 
-When using [`@sulu/web`](https://github.com/sulu/web-js) / [`sulu/web-twig`](https://github.com/sulu/web-twig) component library this could look like the following:
+When using [`@sulu/web`](https://github.com/sulu/web-js) / [`sulu/web-twig`](https://github.com/sulu/web-twig) component library, loading the csrf token over ajax looks like this:
 
 ```twig
 {# templates/form/your-theme.html.twig #}
@@ -68,7 +68,7 @@ When using [`@sulu/web`](https://github.com/sulu/web-js) / [`sulu/web-twig`](htt
 {%- block csrf_token_widget -%}
     {{ block('hidden_widget') }}
 
-    {% do register_component('csrf-token', { id: id, fornName: form.parent.vars.name }) %}
+    {% do register_component('csrf-token', { id: id, formName: form.parent.vars.name }) %}
 {% endblock %}
 ```
 

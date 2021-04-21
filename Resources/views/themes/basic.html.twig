@@ -28,8 +28,8 @@
     }) %}
 
     {#
-        for cacheable pages we need to load the csrf token over esi
-        for the post request we can directly render it
+        If a request is cacheable, the CSRF token must be loaded over ESI to allow for caching the response.
+        If a request is not cacheable (eg. POST request), we can directly render it.
     #}
     {% if app.request.isMethodCacheable %}
         {{ render_esi(controller) }}
