@@ -19,13 +19,23 @@
     {%- endif -%}
 {%- endblock form_label -%}
 
-{# CSRF Token over ESI #}
+{# CSRF Token #}
 {%- block csrf_token_widget %}
-    {{ render_esi(controller('Sulu\\Bundle\\FormBundle\\Controller\\FormTokenController::tokenAction', {
+    {% set controller = controller('Sulu\\Bundle\\FormBundle\\Controller\\FormTokenController::tokenAction', {
         'form': form.parent.vars.name,
         'html': true,
-        _requestAnalyzer: false }))
-    }}
+        _requestAnalyzer: false
+    }) %}
+
+    {#
+        If a request is cacheable, the CSRF token must be loaded over ESI to allow for caching the response.
+        If a request is not cacheable (eg. POST request), we can directly render it.
+    #}
+    {% if app.request.isMethodCacheable %}
+        {{ render_esi(controller) }}
+    {% else %}
+        {{ render(controller) }}
+    {% endif %}
 {%- endblock csrf_token_widget -%}
 
 {# Headline #}
