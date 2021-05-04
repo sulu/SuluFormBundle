@@ -92,7 +92,12 @@ class RequestListener
             $dynFormSavedEvent = new DynFormSavedEvent($serializedObject, $dynamic);
             $this->eventDispatcher->dispatch($dynFormSavedEvent, DynFormSavedEvent::NAME);
 
-            $response = new RedirectResponse('?send=true');
+            if ($form->get('targetSuccess') && !empty($form->get('targetSuccess')->getData())) {
+                $response = new RedirectResponse($form->get('targetSuccess')->getData());
+            } else {
+                $response = new RedirectResponse('?send=true');
+            }
+
             $event->setResponse($response);
         }
     }

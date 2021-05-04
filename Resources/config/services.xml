@@ -97,6 +97,7 @@
         <service id="sulu_form.form_type" class="Sulu\Bundle\FormBundle\Form\Type\DynamicFormType">
             <argument type="service" id="sulu_form.dynamic.form_field_type_pool" />
             <argument type="service" id="sulu_form.checksum" />
+            <argument type="service" id="sulu.content.mapper"/>
             <argument>%sulu_form.honeypot_field%</argument>
 
             <tag name="form.type"/>
@@ -175,8 +176,8 @@
 
         <!-- Properties XML Loader -->
         <service
-                id="sulu_form.metadata.properties_xml_loader"
-                class="Sulu\Bundle\FormBundle\Metadata\PropertiesXmlLoader"
+            id="sulu_form.metadata.properties_xml_loader"
+            class="Sulu\Bundle\FormBundle\Metadata\PropertiesXmlLoader"
         >
             <argument type="service" id="sulu_page.structure.properties_xml_parser"/>
         </service>
@@ -231,8 +232,8 @@
 
         <!-- Form Website Controller -->
         <service id="sulu_form.form_website_controller"
-            class="Sulu\Bundle\FormBundle\Controller\FormWebsiteController"
-            public="true">
+                 class="Sulu\Bundle\FormBundle\Controller\FormWebsiteController"
+                 public="true">
             <tag name="container.service_subscriber" />
             <tag name="controller.service_arguments" />
             <tag name="sulu.context" context="website"/>
