@@ -35,10 +35,28 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('mailchimp_subscribe_status')->defaultValue('subscribed')->end()
             ->enumNode('media_collection_strategy')
                 ->values([
+                    null,
                     SuluFormExtension::MEDIA_COLLECTION_STRATEGY_SINGLE,
                     SuluFormExtension::MEDIA_COLLECTION_STRATEGY_TREE,
                 ])
-                ->defaultValue(SuluFormExtension::MEDIA_COLLECTION_STRATEGY_SINGLE)
+                ->defaultValue(null)
+                ->setDeprecated()
+            ->end()
+            ->arrayNode('media')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->booleanNode('protected')
+                        ->info('Enables the media protection so media are only downloadable from the admin.')
+                        ->defaultValue(false)
+                    ->end()
+                    ->enumNode('collection_strategy')
+                        ->values([
+                            SuluFormExtension::MEDIA_COLLECTION_STRATEGY_SINGLE,
+                            SuluFormExtension::MEDIA_COLLECTION_STRATEGY_TREE,
+                        ])
+                        ->defaultValue(SuluFormExtension::MEDIA_COLLECTION_STRATEGY_SINGLE)
+                    ->end()
+                ->end()
             ->end()
             ->arrayNode('static_forms')
                 ->useAttributeAsKey('name')

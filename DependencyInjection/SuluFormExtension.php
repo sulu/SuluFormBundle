@@ -133,6 +133,8 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $mediaCollectionStrategy = $config['media_collection_strategy'] ? $config['media_collection_strategy'] : $config['media']['collection_strategy'];
+
         $container->setParameter('sulu_form.mail.from', $config['mail']['from']);
         $container->setParameter('sulu_form.mail.to', $config['mail']['to']);
         $container->setParameter('sulu_form.mail.sender', $config['mail']['sender']);
@@ -146,14 +148,14 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sulu_form.mailchimp_api_key', $config['mailchimp_api_key']);
         $container->setParameter('sulu_form.mailchimp_subscribe_status', $config['mailchimp_subscribe_status']);
         $container->setParameter('sulu_form.dynamic_lists.config', $config['dynamic_lists']);
-        $container->setParameter('sulu_form.media_collection_strategy', $config['media_collection_strategy']);
+        $container->setParameter('sulu_form.media_collection_strategy', $mediaCollectionStrategy);
         $container->setParameter('sulu_form.static_forms', $config['static_forms']);
         $container->setParameter('sulu_form.dynamic_disabled_types', $config['dynamic_disabled_types']);
 
         // Default Media Collection Strategy
         $container->setAlias(
             'sulu_form.media_collection_strategy.default',
-            'sulu_form.media_collection_strategy.' . $config['media_collection_strategy']
+            'sulu_form.media_collection_strategy.' . $mediaCollectionStrategy
         );
 
         // Dynamic List Builder
@@ -206,6 +208,10 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                 ->setPublic(true);
             $container->setAlias(FormTokenController::class, 'sulu_form.form_token_controller')
                 ->setPublic(true);
+        }
+
+        if ($config['media']['protected']) {
+            $loader->load('protected_media.xml');
         }
     }
 }
