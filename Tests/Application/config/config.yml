@@ -3,7 +3,6 @@ parameters:
 
 framework:
     esi: ~
-    csrf_protection: false
     profiler: { only_exceptions: false }
     fragments: ~
 
