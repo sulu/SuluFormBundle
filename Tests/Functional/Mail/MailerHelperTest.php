@@ -20,8 +20,6 @@ class MailerHelperTest extends HelperTestCase
 
     public function testSendsEmailUsingMailerComponent()
     {
-        $this->markTestSkipped();
-
         $formTranslationRepository = $this->entityManager->getRepository(FormTranslation::class);
         /** @var FormTranslation $formTranslation */
         $formTranslation = $formTranslationRepository->findOneBy(['title' => 'Title', 'locale' => 'de']);
@@ -33,6 +31,7 @@ class MailerHelperTest extends HelperTestCase
         $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
         $this->assertSame(0, $mailCollector->getMessageCount());
 
+        // 2 messages should be send 1 to admin and 1 to email
         $this->assertEmailCount(2);
     }
 }

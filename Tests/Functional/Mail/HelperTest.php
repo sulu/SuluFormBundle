@@ -17,8 +17,6 @@ class HelperTest extends HelperTestCase
 {
     public function testSendsEmailUsingSwiftmailer()
     {
-//        $this->markTestSkipped();
-
         $formTranslationRepository = $this->entityManager->getRepository(FormTranslation::class);
         /** @var FormTranslation $formTranslation */
         $formTranslation = $formTranslationRepository->findOneBy(['title' => 'Title', 'locale' => 'de']);

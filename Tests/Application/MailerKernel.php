@@ -28,6 +28,6 @@ class MailerKernel extends Kernel
             . 'var' . \DIRECTORY_SEPARATOR
             . 'cache' . \DIRECTORY_SEPARATOR
             . $this->getContext() . \DIRECTORY_SEPARATOR
-            . $this->environment . '_mailer';
+            . $this->environment;
     }
 }
