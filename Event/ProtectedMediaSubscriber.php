@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Event;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NoResultException;
 use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
 use Sulu\Bundle\MediaBundle\Media\FormatCache\FormatCacheInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
