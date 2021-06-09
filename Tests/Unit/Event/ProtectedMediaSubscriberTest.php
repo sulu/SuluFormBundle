@@ -127,7 +127,7 @@ class ProtectedMediaSubscriberTest extends TestCase
     public function testDownloadRoute(): void
     {
         $request = new Request();
-        $request->attributes->set('_route', 'sulu_media.website.image.download');
+        $request->attributes->set('_route', 'sulu_media.website.media.download');
         $request->server->set('REQUEST_URI', '/media/2/download/test-image.jpg');
         $request->attributes->set('id', '2');
         $request->attributes->set('_route_params', ['id' => '2', 'slug' => 'test-image.jpg']);
