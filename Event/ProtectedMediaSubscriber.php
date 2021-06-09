@@ -82,10 +82,17 @@ class ProtectedMediaSubscriber implements EventSubscriberInterface
 
         $routeName = $request->attributes->get('_route');
 
+        if ('sulu_media.website.image.proxy' !== $routeName
+            && 'sulu_media.website.media.download' !== $routeName
+        ) {
+            return;
+        }
+
         $mediaId = null;
 
         if ('sulu_media.website.image.proxy' === $routeName) {
             $slug = $request->attributes->get('slug');
+
             if (!$slug) {
                 return;
             }
@@ -127,7 +134,11 @@ class ProtectedMediaSubscriber implements EventSubscriberInterface
             ->where('media.id = :id')
             ->setParameter('id', $mediaId);
 
-        $collectionKey = $queryBuilder->getQuery()->getSingleScalarResult();
+        try {
+            $collectionKey = $queryBuilder->getQuery()->getSingleScalarResult();
+        } catch (NoResultException $e) {
+            return false;
+        }
 
         foreach ($this->protectedCollectionKeys as $protectedCollectionKey) {
             if (0 === \strpos($collectionKey, $protectedCollectionKey)) {
