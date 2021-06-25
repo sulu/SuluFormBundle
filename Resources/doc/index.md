@@ -46,9 +46,7 @@ sulu_form:
         sender: "%env(SULU_ADMIN_EMAIL)%"
 ```
 
-Configure the email handler to SwiftMailer (default), 
-NullHelper (for no mails) or MailerHelper (for the new 
-Symfony mailer):
+Optional configure the email handler to SwiftMailer (`swift_mailer`) or the Symfony Mailer (`mailer`):
 
 ```yml
 sulu_form:

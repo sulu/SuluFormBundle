@@ -21,13 +21,4 @@ class MailerKernel extends Kernel
 
         $loader->load(__DIR__ . '/config/config_test_mailer.yaml');
     }
-
-    public function getCacheDir()
-    {
-        return $this->getProjectDir() . \DIRECTORY_SEPARATOR
-            . 'var' . \DIRECTORY_SEPARATOR
-            . 'cache' . \DIRECTORY_SEPARATOR
-            . $this->getContext() . \DIRECTORY_SEPARATOR
-            . $this->environment;
-    }
 }

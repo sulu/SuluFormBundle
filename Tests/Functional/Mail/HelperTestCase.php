@@ -14,7 +14,9 @@ namespace Sulu\Bundle\FormBundle\Tests\Functional\Mail;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Tests\Functional\Mail\Fixtures\LoadFormFixture;
+use Sulu\Bundle\PageBundle\Document\HomeDocument;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
+use Sulu\Component\DocumentManager\DocumentManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class HelperTestCase extends SuluTestCase
@@ -45,17 +47,12 @@ class HelperTestCase extends SuluTestCase
         $this->entityManager->clear();
     }
 
-    /**
-     * @param Form $form
-     *
-     * @throws \Sulu\Component\DocumentManager\Exception\DocumentManagerException
-     */
     protected function updateHomePage(Form $form = null): void
     {
-        /* @var $suluDocumentManager \Sulu\Component\DocumentManager\DocumentManagerInterface */
+        /* @var $suluDocumentManager DocumentManagerInterface */
         $suluDocumentManager = static::getContainer()->get('sulu_document_manager.document_manager');
 
-        /* @var $homePage \Sulu\Bundle\PageBundle\Document\HomeDocument */
+        /* @var $homePage HomeDocument */
         $homePage = $suluDocumentManager->find('/cmf/sulu-io/contents');
         $homePage->setResourceSegment('/');
         $homePage->getStructure()->bind([
@@ -63,8 +60,8 @@ class HelperTestCase extends SuluTestCase
             'url' => '/',
         ]);
 
-        $suluDocumentManager->publish($homePage, 'de');
         $suluDocumentManager->persist($homePage, 'de');
+        $suluDocumentManager->publish($homePage, 'de');
         $suluDocumentManager->flush();
     }
 

@@ -64,6 +64,7 @@ class RequestListener
         }
 
         $request = $event->getRequest();
+
         if (!$request->isMethod('post')) {
             // do nothing if it's not a post request
             return;
