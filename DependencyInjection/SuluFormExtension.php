@@ -19,6 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\Mailer\MailerInterface;
 
 /**
  * This is the class that loads and manages your bundle configuration.
@@ -210,8 +211,36 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                 ->setPublic(true);
         }
 
+        $container->setParameter('sulu_mail.mail.helper_name', $config['mail']['helper']);
+
         if ($config['media']['protected']) {
             $loader->load('protected_media.xml');
         }
+
+        $this->configureHelper($loader, $config, $container);
+    }
+
+    private function configureHelper(Loader\XmlFileLoader $loader, array $config, ContainerBuilder $container)
+    {
+        $helper = $config['mail']['helper'];
+        if (\method_exists($container, 'resolveEnvPlaceholders')) {
+            $helper = $container->resolveEnvPlaceholders($helper, true);
+        }
+
+        if (\class_exists(\Swift_Mailer::class)) {
+            $helper = $helper ?: 'swift_mailer';
+            $loader->load('swift_mailer.xml');
+        }
+
+        if (\interface_exists(MailerInterface::class)) {
+            $helper = $helper ?: 'mailer';
+            $loader->load('mailer.xml');
+        }
+
+        if (!$helper) {
+            throw new \LogicException('The SuluFormBundle requires "swiftmailer/swiftmailer" or "symfony/mailer" to be installed.');
+        }
+
+        $container->setAlias('sulu.mail.helper', 'sulu.mail.' . $helper);
     }
 }

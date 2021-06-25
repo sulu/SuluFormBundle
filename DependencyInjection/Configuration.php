@@ -22,6 +22,9 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
+    const SWIFT_MAILER_HELPER = 'swift_mailer';
+    const MAILER_HELPER = 'mailer';
+
     /**
      * {@inheritdoc}
      */
@@ -69,6 +72,10 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('mail')
                 ->addDefaultsIfNotSet()
                 ->children()
+                    ->scalarNode('helper')
+                        ->defaultValue(null)
+                        ->info('Shipped helper are "swift_mailer" and "mailer", defaults to "swift_mailer" if both exists.')
+                    ->end()
                     ->scalarNode('from')->defaultValue(null)->end()
                     ->scalarNode('to')->defaultValue(null)->end()
                     ->scalarNode('sender')->defaultValue(null)->end()

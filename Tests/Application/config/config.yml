@@ -5,6 +5,8 @@ framework:
     esi: ~
     profiler: { only_exceptions: false }
     fragments: ~
+    mailer:
+        dsn: 'null://null'
 
 doctrine:
     orm:

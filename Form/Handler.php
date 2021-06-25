@@ -17,7 +17,7 @@ use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Event\FormSavePostEvent;
 use Sulu\Bundle\FormBundle\Event\FormSavePreEvent;
-use Sulu\Bundle\FormBundle\Mail;
+use Sulu\Bundle\FormBundle\Mail\HelperInterface;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
@@ -51,7 +51,7 @@ class Handler implements HandlerInterface
     protected $mediaManager;
 
     /**
-     * @var Mail\HelperInterface
+     * @var HelperInterface
      */
     protected $mailHelper;
 
@@ -67,7 +67,7 @@ class Handler implements HandlerInterface
 
     public function __construct(
         ObjectManager $entityManager,
-        Mail\HelperInterface $mailHelper,
+        HelperInterface $mailHelper,
         Environment $twig,
         EventDispatcherInterface $eventDispatcher,
         MediaManager $mediaManager,
