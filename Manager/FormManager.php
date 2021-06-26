@@ -89,6 +89,7 @@ class FormManager
         $translation->setToEmail(self::getValue($data, 'toEmail'));
         $translation->setToName(self::getValue($data, 'toName'));
         $translation->setMailText(self::getValue($data, 'mailText'));
+        $translation->setTargetSuccess(self::getValue($data, 'targetSuccess'));
         $translation->setSubmitLabel(self::getValue($data, 'submitLabel'));
         $translation->setSuccessText(self::getValue($data, 'successText'));
         $translation->setSendAttachments(self::getValue($data, 'sendAttachments', false));

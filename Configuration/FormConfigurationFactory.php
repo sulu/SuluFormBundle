@@ -71,6 +71,7 @@ class FormConfigurationFactory
         $config = $this->create($locale);
         $config->setFileFields($this->getFileFieldsByDynamic($dynamic));
         $config->setFileSave(!$translation->getDeactivateAttachmentSave());
+        $config->setSuccessRedirect($translation->getTargetSuccess());
 
         $adminMailConfiguration = $this->buildAdminMailConfigurationByDynamic($dynamic);
         $websiteMailConfiguration = $this->buildWebsiteMailConfigurationByDynamic($dynamic);

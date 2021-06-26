@@ -16,6 +16,7 @@
         <field name="toEmail" column="toEmail" type="string" length="255" nullable="true"/>
         <field name="toName" column="toName" type="string" length="255" nullable="true"/>
         <field name="mailText" column="mailText" type="text" nullable="true"/>
+        <field name="targetSuccess" column="targetSuccess" type="string" nullable="true"/>
         <field name="submitLabel" column="submitLabel" type="string" nullable="true"/>
         <field name="successText" column="successText" type="text" nullable="true"/>
         <field name="sendAttachments" column="sendAttachments" type="boolean" nullable="false">

@@ -37,6 +37,11 @@ class FormConfiguration implements FormConfigurationInterface
     private $fileSave = true;
 
     /**
+     * @var string|null
+     */
+    private ?string $successRedirect = null;
+
+    /**
      * @var MailConfigurationInterface
      */
     private $adminMailConfiguration;
@@ -145,6 +150,18 @@ class FormConfiguration implements FormConfigurationInterface
     public function setSave(bool $save): self
     {
         $this->save = $save;
+
+        return $this;
+    }
+
+    public function getSuccessRedirect(): ?string
+    {
+        return $this->successRedirect;
+    }
+
+    public function setSuccessRedirect(?string $successRedirect): self
+    {
+        $this->successRedirect = $successRedirect;
 
         return $this;
     }

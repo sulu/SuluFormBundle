@@ -22,6 +22,12 @@
             </meta>
 
             <properties>
+                <property name="targetSuccess" type="single_page_selection">
+                    <meta>
+                        <title lang="en">sulu_form.success_landing_page</title>
+                    </meta>
+                </property>
+
                 <property name="submitLabel" type="text_line">
                     <meta>
                         <title>sulu_form.submit_label</title>

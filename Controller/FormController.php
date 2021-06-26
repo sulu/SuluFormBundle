@@ -327,6 +327,7 @@ class FormController extends AbstractRestController implements ClassResourceInte
                 'toName' => $translation->getToName(),
                 'subject' => $translation->getSubject(),
                 'mailText' => $translation->getMailText(),
+                'targetSuccess' => $translation->getTargetSuccess(),
                 'submitLabel' => $translation->getSubmitLabel(),
                 'successText' => $translation->getSuccessText(),
                 'sendAttachments' => $translation->getSendAttachments(),

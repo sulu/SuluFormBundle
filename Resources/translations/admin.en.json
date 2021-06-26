@@ -79,5 +79,6 @@
   "sulu_form.salutation_mr": "Mr.",
   "sulu_form.salutation_ms": "Ms.",
   "sulu_form.single_form_selection.no_form_selected": "No form selected",
-  "sulu_form.single_form_selection.overlay_title": "Select a form"
+  "sulu_form.single_form_selection.overlay_title": "Select a form",
+  "sulu_form.success_landing_page": "Success landing page"
 }
