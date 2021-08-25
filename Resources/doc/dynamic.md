@@ -67,11 +67,13 @@ one of the dynamic templates which can be created in the Sulu backend.
 
 Use `article` as `resourceKey` when you use the single_form_selection inside article template.
 
-To generate a basic form use the following command:
+You can create a basic form called: `Test Form` which include all usable form types with:
 
 ```bash
 php bin/adminconsole sulu:form:generate-form
 ```
+
+> If a form called: `Test Form` already exist, it will be updated. 
 
 ## Output Form and customize
 
