@@ -21,7 +21,7 @@ use Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory;
 use Sulu\Bundle\FormBundle\Repository\DynamicRepository;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Bundle\MediaBundle\Media\Exception\MediaNotFoundException;
-use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
+use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,7 +45,7 @@ class DynamicController implements ClassResourceInterface
     private $dynamicListFactory;
 
     /**
-     * @var MediaManager
+     * @var MediaManagerInterface
      */
     private $mediaManager;
 
@@ -67,7 +67,7 @@ class DynamicController implements ClassResourceInterface
     public function __construct(
         DynamicRepository $dynamicRepository,
         DynamicListFactory $dynamicListFactory,
-        MediaManager $mediaManager,
+        MediaManagerInterface $mediaManager,
         EntityManager $entityManager,
         FormRepository $formRepository,
         ViewHandler $viewHandler
