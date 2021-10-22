@@ -39,6 +39,8 @@ trait ChoiceTrait
         FormFieldTranslation $translation,
         array $options
     ): array {
+        $options['placeholder'] = false;
+
         if (isset($options['attr']['placeholder'])) {
             $options['placeholder'] = $options['attr']['placeholder'];
             unset($options['attr']['placeholder']);
