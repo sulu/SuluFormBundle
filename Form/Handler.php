@@ -103,7 +103,9 @@ class Handler implements HandlerInterface
             $this->mapMediaIds($form->getData(), $mediaIds);
         }
 
-        $this->save($form, $configuration);
+        if (!$this->save($form, $configuration)) {
+            return false;
+        }
 
         if ($isSpam && self::HONEY_POT_STRATEGY_NO_EMAIL === $this->honeyPotStrategy) {
             return true; // emulate a successfully form submit
@@ -117,7 +119,7 @@ class Handler implements HandlerInterface
     /**
      * Save form.
      */
-    private function save(FormInterface $form, FormConfigurationInterface $configuration): void
+    private function save(FormInterface $form, FormConfigurationInterface $configuration): bool
     {
         $this->eventDispatcher->dispatch(
             new FormSavePreEvent(
@@ -127,8 +129,12 @@ class Handler implements HandlerInterface
             FormSavePreEvent::NAME
         );
 
+        if (!$form->isValid()) {
+            return false;
+        }
+
         if (!$configuration->getSave()) {
-            return;
+            return true;
         }
 
         $this->entityManager->persist($form->getData());
@@ -141,6 +147,8 @@ class Handler implements HandlerInterface
             ),
             FormSavePostEvent::NAME
         );
+
+        return true;
     }
 
     private function sendMails(FormInterface $form, FormConfigurationInterface $configuration): void
