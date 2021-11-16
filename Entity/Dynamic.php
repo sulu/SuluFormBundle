@@ -361,9 +361,9 @@ class Dynamic implements AuditableInterface
     }
 
     /**
-     * @return string|mixed[]|null
+     * @return int[]|null
      */
-    public function getAttachment()
+    public function getAttachment(): ?array
     {
         return $this->getField('attachment');
     }
