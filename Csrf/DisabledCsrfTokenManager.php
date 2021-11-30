@@ -26,22 +26,22 @@ class DisabledCsrfTokenManager implements CsrfTokenManagerInterface
         $this->csrfTokenManager = $csrfTokenManager;
     }
 
-    public function refreshToken(string $tokenId): CsrfToken
+    public function refreshToken(string $tokenId)
     {
         return $this->csrfTokenManager->refreshToken($tokenId);
     }
 
-    public function removeToken(string $tokenId): ?string
+    public function removeToken(string $tokenId)
     {
         return $this->csrfTokenManager->removeToken($tokenId);
     }
 
-    public function isTokenValid(CsrfToken $token): bool
+    public function isTokenValid(CsrfToken $token)
     {
         return $this->csrfTokenManager->isTokenValid($token);
     }
 
-    public function getToken(string $tokenId): CsrfToken
+    public function getToken(string $tokenId)
     {
         return new CsrfToken('', null);
     }
