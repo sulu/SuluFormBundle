@@ -29,6 +29,7 @@
         "symfony/event-dispatcher-contracts": "^1.0 || ^2.0",
         "symfony/form": "^4.4 || ^5.0",
         "symfony/validator": "^4.4 || ^5.0",
+        "symfony/security-csrf": "^4.4 || ^5.0",
         "symfony/swiftmailer-bundle": "^3.1.4",
         "symfony/translation": "^4.4 || ^5.0",
         "twig/twig": "^1.41 || ^2.0 || ^3.0"
