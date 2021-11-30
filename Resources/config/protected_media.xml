@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- Article Title Provider -->
+        <service id="sulu_form.private_media_subscriber" class="Sulu\Bundle\FormBundle\Event\ProtectedMediaSubscriber">
+            <argument type="service" id="router"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="sulu_media.format_cache"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+    </services>
+</container>

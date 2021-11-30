@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <h1>{{ content.title }}</h1>
+
+    {{ content.article|raw }}
+
+    {% if content.form %}
+        <h2> Form </h2>
+        {% if app.request.get('send') != 'true' %}
+            {# FORM THEME #}
+            {% form_theme content.form '@SuluForm/themes/basic.html.twig' %}
+            {{ form(content.form) }}
+        {% else %}
+            {{ view.form.entity.successText|raw }}
+        {% endif %}
+    {% endif %}
+{% endblock %}

@@ -221,6 +221,8 @@ class FormGeneratorCommand extends Command
         $this->entityManager->persist($form);
         $this->entityManager->flush();
 
+        $output->writeln('A form called "Test Form" has been successfully created/updated.');
+
         return 0;
     }
 

@@ -14,7 +14,7 @@ To use a dropzone in forms you need edit your form theme
 
 {%- block file_widget -%}
     {# Dropzone #}
-    <div id="dropzone-{{ form.vars.name }}"
+    <div id="dropzone-{{ form.vars.id }}"
          data-name="{{ form.vars.full_name }}"
          data-accept="{{ form.vars.attr.accept|default() }}"
          data-max="{{ form.vars.attr.max|default(10) }}"

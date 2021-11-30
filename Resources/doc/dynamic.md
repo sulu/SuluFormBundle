@@ -67,11 +67,13 @@ one of the dynamic templates which can be created in the Sulu backend.
 
 Use `article` as `resourceKey` when you use the single_form_selection inside article template.
 
-To generate a basic form use the following command:
+You can create a basic form called: `Test Form` which include all usable form types with:
 
 ```bash
 php bin/adminconsole sulu:form:generate-form
 ```
+
+> If a form called: `Test Form` already exist, it will be updated. 
 
 ## Output Form and customize
 
@@ -223,7 +225,20 @@ To create for every form and page an own collection you need to configure the fo
 
 ```yml
 sulu_form:
-    media_collection_strategy: "tree"
+    media:
+        collection_strategy: "tree"
+```
+
+## Media Protection
+
+In some cases you want that the uploaded media is only download able from the admin context in all cases.
+To force this you need to log into to enabled media protection with, this should be enabled by default in
+since 2.2 over the form bundle recipe:
+
+```yml
+sulu_form:
+    media:
+        protected: true
 ```
 
 ## Test Checklist

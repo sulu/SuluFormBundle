@@ -14,6 +14,9 @@ namespace Sulu\Bundle\FormBundle\Mail;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
+/**
+ * @deprecated
+ */
 class NullHelper implements HelperInterface
 {
     /**
@@ -23,6 +26,11 @@ class NullHelper implements HelperInterface
 
     public function __construct(LoggerInterface $logger = null)
     {
+        @trigger_error(
+            \sprintf('The "%s" is deprecated use the null transport of mailer instead.', __CLASS__),
+            E_USER_DEPRECATED
+        );
+
         $this->logger = $logger ?: new NullLogger();
     }
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="sulu.mail.mailer" class="Sulu\Bundle\FormBundle\Mail\MailerHelper">
+            <argument type="service" id="mailer.mailer" />
+            <argument>%sulu_form.mail.from%</argument>
+            <argument>%sulu_form.mail.to%</argument>
+            <argument>%sulu_form.mail.sender%</argument>
+            <argument type="service" id="logger" />
+        </service>
+    </services>
+</container>

@@ -17,8 +17,8 @@ use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Event\FormSavePostEvent;
 use Sulu\Bundle\FormBundle\Event\FormSavePreEvent;
-use Sulu\Bundle\FormBundle\Mail;
-use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
+use Sulu\Bundle\FormBundle\Mail\HelperInterface;
+use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -46,12 +46,12 @@ class Handler implements HandlerInterface
     protected $eventDispatcher;
 
     /**
-     * @var MediaManager
+     * @var MediaManagerInterface
      */
     protected $mediaManager;
 
     /**
-     * @var Mail\HelperInterface
+     * @var HelperInterface
      */
     protected $mailHelper;
 
@@ -67,10 +67,10 @@ class Handler implements HandlerInterface
 
     public function __construct(
         ObjectManager $entityManager,
-        Mail\HelperInterface $mailHelper,
+        HelperInterface $mailHelper,
         Environment $twig,
         EventDispatcherInterface $eventDispatcher,
-        MediaManager $mediaManager,
+        MediaManagerInterface $mediaManager,
         string $honeyPotStrategy = self::HONEY_POT_STRATEGY_SPAM,
         string $honeyPotField = null
     ) {
