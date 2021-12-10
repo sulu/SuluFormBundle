@@ -27,27 +27,27 @@ class MailConfiguration implements MailConfigurationInterface
     private $subject;
 
     /**
-     * @var string|array<string|int, string>
+     * @var string|string[]
      */
     private $from;
 
     /**
-     * @var string|array<string|int, string>
+     * @var string|string[]
      */
     private $to = [];
 
     /**
-     * @var string|array<string|int, string>
+     * @var string|string[]
      */
     private $cc = [];
 
     /**
-     * @var string|array<string|int, string>
+     * @var string|string[]
      */
     private $bcc = [];
 
     /**
-     * @var string|array<string, string>|array<int, string>|array<int, array<string, string>>
+     * @var string|string[]
      */
     private $replyTo;
 
@@ -110,7 +110,7 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * Set from address.
      *
-     * @param string|array<string|int, string> $from
+     * @param string|string[] $from
      */
     public function setFrom($from): self
     {
@@ -130,7 +130,7 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * Set to addresses.
      *
-     * @param string|array<string|int, string> $to
+     * @param string|string[] $to
      */
     public function setTo($to): self
     {
@@ -150,7 +150,7 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * Set cc addresses.
      *
-     * @param string|array<string|int, string> $cc
+     * @param string|string[] $cc
      */
     public function setCc($cc): self
     {
@@ -170,7 +170,7 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * Set bcc addresses.
      *
-     * @param string|array<string|int, string> $bcc
+     * @param string|string[] $bcc
      */
     public function setBcc($bcc): self
     {
@@ -190,7 +190,7 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * Set reply to.
      *
-     * @param string|array<string|int, string> $replyTo
+     * @param string|string[] $replyTo
      */
     public function setReplyTo($replyTo): self
     {

@@ -52,6 +52,7 @@ class FormGeneratorCommand extends Command
     {
         $form = $this->loadTestForm() ?: new Form();
 
+        /** @var non-empty-array<string> $locales */
         $locales = $this->webspaceManager->getAllLocales();
         $form->setDefaultLocale(current($locales));
 
@@ -217,7 +218,7 @@ class FormGeneratorCommand extends Command
     }
 
     /**
-     * @param string[] $locales
+     * @param non-empty-array<string> $locales
      * @param mixed[] $options
      */
     private function addField(

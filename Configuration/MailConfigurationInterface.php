@@ -27,35 +27,35 @@ interface MailConfigurationInterface
     /**
      * Get from address.
      *
-     * @return string|array<string|int, string>
+     * @return string|string[]
      */
     public function getFrom();
 
     /**
      * Get to addresses.
      *
-     * @return string|array<string|int, string>
+     * @return string|string[]
      */
     public function getTo();
 
     /**
      * Get cc addresses.
      *
-     * @return string|array<string|int, string>
+     * @return string|string[]
      */
     public function getCc();
 
     /**
      * Get bcc addresses.
      *
-     * @return string|array<string|int, string>
+     * @return string|string[]
      */
     public function getBcc();
 
     /**
      * Get reply to.
      *
-     * @return string|array<string|int, string>
+     * @return string|string[]
      */
     public function getReplyTo();
 
