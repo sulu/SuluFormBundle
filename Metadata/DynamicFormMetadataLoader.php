@@ -81,6 +81,9 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         $this->debug = $debug;
     }
 
+    /**
+     * @param string $cacheDir
+     */
     public function warmUp($cacheDir)
     {
         $resource = __DIR__ . '/../Resources/config/forms/form_details.xml';

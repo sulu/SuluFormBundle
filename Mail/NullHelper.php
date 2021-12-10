@@ -42,9 +42,9 @@ class NullHelper implements HelperInterface
         $body,
         $toMail = null,
         $fromMail = null,
-        $html = true,
+        bool $html = true,
         $replyTo = null,
-        $attachments = [],
+        array $attachments = [],
         $ccMail = [],
         $bccMail = [],
         $plainText = null

@@ -109,7 +109,7 @@ class FormTranslation implements AuditableInterface
     private $form;
 
     /**
-     * @var Collection|FormTranslationReceiver[]
+     * @var Collection<int, FormTranslationReceiver>
      */
     private $receivers;
 
@@ -316,7 +316,7 @@ class FormTranslation implements AuditableInterface
     }
 
     /**
-     * @return FormTranslationReceiver[]|Collection
+     * @return Collection<int, FormTranslationReceiver>
      */
     public function getReceivers()
     {

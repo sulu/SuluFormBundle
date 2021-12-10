@@ -13,9 +13,12 @@ namespace Sulu\Bundle\FormBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Sulu\Bundle\FormBundle\Entity\Dynamic;
 
 /**
  * Repository for the dynamic entity.
+ *
+ * @template-extends EntityRepository<Dynamic>
  */
 class DynamicRepository extends EntityRepository
 {

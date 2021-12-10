@@ -43,15 +43,16 @@ class FormGeneratorCommand extends Command
         $this->webspaceManager = $webspaceManager;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Generates a form with all basic form types');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $form = $this->loadTestForm() ?: new Form();
 
+        /** @var non-empty-array<string> $locales */
         $locales = $this->webspaceManager->getAllLocales();
         $form->setDefaultLocale(current($locales));
 
@@ -115,11 +116,9 @@ class FormGeneratorCommand extends Command
             ],
             [
                 'type' => 'headline',
-                'width' => 'full',
             ],
             [
                 'type' => 'freeText',
-                'width' => 'full',
             ],
             [
                 'type' => 'function',
@@ -148,47 +147,39 @@ class FormGeneratorCommand extends Command
             ],
             [
                 'type' => 'attachment',
-                'width' => 'full',
             ],
             [
                 'type' => 'radioButtons',
-                'width' => 'full',
                 'options' => [
                     'choices' => $this->getChoices(),
                 ],
             ],
             [
                 'type' => 'checkboxMultiple',
-                'width' => 'full',
                 'options' => [
                     'choices' => $this->getChoices(),
                 ],
             ],
             [
                 'type' => 'dropdown',
-                'width' => 'full',
                 'options' => [
                     'choices' => $this->getChoices(),
                 ],
             ],
             [
                 'type' => 'dropdownMultiple',
-                'width' => 'full',
                 'options' => [
                     'choices' => $this->getChoices(),
                 ],
             ],
             [
                 'type' => 'checkbox',
-                'width' => 'full',
             ],
             [
                 'type' => 'text',
-                'width' => 'full',
             ],
             [
                 'type' => 'textarea',
-                'width' => 'full',
             ],
         ];
 
@@ -226,6 +217,10 @@ class FormGeneratorCommand extends Command
         return 0;
     }
 
+    /**
+     * @param non-empty-array<string> $locales
+     * @param mixed[] $options
+     */
     private function addField(
         Form $form,
         array $locales,
@@ -235,7 +230,7 @@ class FormGeneratorCommand extends Command
         string $width = 'full',
         bool $required = false,
         array $options = []
-    ) {
+    ): void {
         $formField = $form->getField($fieldKey) ?: new FormField();
         $formField->setForm($form);
         $formField->setDefaultLocale(current($locales));
@@ -272,7 +267,10 @@ class FormGeneratorCommand extends Command
         }
     }
 
-    private function getChoices()
+    /**
+     * @return string
+     */
+    private function getChoices(): string
     {
         return
             'Choice 1' . PHP_EOL .

@@ -25,6 +25,8 @@ use Symfony\Component\Mailer\MailerInterface;
  * This is the class that loads and manages your bundle configuration.
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
+ *
+ * @internal
  */
 class SuluFormExtension extends Extension implements PrependExtensionInterface
 {
@@ -35,7 +37,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
     /**
      * {@inheritdoc}
      */
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         if ($container->hasExtension('fos_js_routing')) {
             $container->prependExtensionConfig(
@@ -129,7 +131,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
@@ -220,7 +222,10 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $this->configureHelper($loader, $config, $container);
     }
 
-    private function configureHelper(Loader\XmlFileLoader $loader, array $config, ContainerBuilder $container)
+    /**
+     * @param mixed[] $config
+     */
+    private function configureHelper(Loader\XmlFileLoader $loader, array $config, ContainerBuilder $container): void
     {
         $helper = $config['mail']['helper'];
         if (\method_exists($container, 'resolveEnvPlaceholders')) {

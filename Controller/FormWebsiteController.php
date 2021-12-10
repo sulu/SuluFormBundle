@@ -32,12 +32,12 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class FormWebsiteController extends DefaultController
 {
     /**
-     * @var FormInterface
+     * @var FormInterface|null
      */
     protected $form;
 
     /**
-     * @var array
+     * @var mixed[]
      */
     protected $attributes;
 
@@ -185,7 +185,7 @@ class FormWebsiteController extends DefaultController
     /**
      * Get errors.
      *
-     * @return array[]
+     * @return array<string, string[]>
      */
     protected function getErrors(): array
     {
@@ -217,6 +217,11 @@ class FormWebsiteController extends DefaultController
 
     /**
      * {@inheritdoc}
+     *
+     * @param mixed[] $attributes
+     * @param bool $preview
+     *
+     * @return mixed[]
      */
     protected function getAttributes($attributes, StructureInterface $structure = null, $preview = false)
     {
@@ -224,7 +229,7 @@ class FormWebsiteController extends DefaultController
             $this->attributes = parent::getAttributes($attributes, $structure, $preview);
         }
 
-        if (!empty($this->form)) {
+        if ($this->form) {
             $this->attributes['form'] = $this->form->createView();
         }
 

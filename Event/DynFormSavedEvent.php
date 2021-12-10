@@ -22,7 +22,7 @@ class DynFormSavedEvent extends Event
     const NAME = 'sulu.dynform.saved';
 
     /**
-     * @var array
+     * @var mixed[]
      */
     protected $data;
 

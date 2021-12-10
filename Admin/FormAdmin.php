@@ -31,8 +31,19 @@ class FormAdmin extends Admin
     const EDIT_FORM_VIEW = 'sulu_form.edit_form';
     const EDIT_FORM_DETAILS_VIEW = 'sulu_form.edit_form.details';
 
+    /**
+     * @var SecurityCheckerInterface
+     */
     private $securityChecker;
+
+    /**
+     * @var ViewBuilderFactoryInterface
+     */
     private $viewBuilderFactory;
+
+    /**
+     * @var WebspaceManagerInterface
+     */
     private $webspaceManager;
 
     /**

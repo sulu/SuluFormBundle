@@ -27,27 +27,27 @@ class MailConfiguration implements MailConfigurationInterface
     private $subject;
 
     /**
-     * @var string|array
+     * @var string|string[]
      */
     private $from;
 
     /**
-     * @var string|array
+     * @var string|string[]
      */
     private $to = [];
 
     /**
-     * @var string|array
+     * @var string|string[]
      */
     private $cc = [];
 
     /**
-     * @var string|array
+     * @var string|string[]
      */
     private $bcc = [];
 
     /**
-     * @var string|array
+     * @var string|string[]
      */
     private $replyTo;
 
@@ -67,7 +67,7 @@ class MailConfiguration implements MailConfigurationInterface
     private $plainTextTemplate;
 
     /**
-     * @var array
+     * @var mixed[]
      */
     private $templateAttributes;
 
@@ -110,7 +110,7 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * Set from address.
      *
-     * @param string|array $from
+     * @param string|string[] $from
      */
     public function setFrom($from): self
     {
@@ -130,7 +130,7 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * Set to addresses.
      *
-     * @param string|array $to
+     * @param string|string[] $to
      */
     public function setTo($to): self
     {
@@ -150,7 +150,7 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * Set cc addresses.
      *
-     * @param string|array $cc
+     * @param string|string[] $cc
      */
     public function setCc($cc): self
     {
@@ -170,7 +170,7 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * Set bcc addresses.
      *
-     * @param string|array $bcc
+     * @param string|string[] $bcc
      */
     public function setBcc($bcc): self
     {
@@ -190,7 +190,7 @@ class MailConfiguration implements MailConfigurationInterface
     /**
      * Set reply to.
      *
-     * @param string|array $replyTo
+     * @param string|string[] $replyTo
      */
     public function setReplyTo($replyTo): self
     {

@@ -14,6 +14,9 @@ namespace Sulu\Bundle\FormBundle\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * @internal
+ */
 class RemoveTaggedServiceCollectorCompilerPass implements CompilerPassInterface
 {
     /**

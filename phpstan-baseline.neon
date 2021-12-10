@@ -1,0 +1,1687 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: Admin/DynamicListAdmin.php
+
+		-
+			message: "#^Cannot access offset 'name' on mixed\\.$#"
+			count: 2
+			path: Admin/DynamicListAdmin.php
+
+		-
+			message: "#^Cannot access offset 'position' on mixed\\.$#"
+			count: 2
+			path: Admin/DynamicListAdmin.php
+
+		-
+			message: "#^Cannot access offset 'property' on mixed\\.$#"
+			count: 2
+			path: Admin/DynamicListAdmin.php
+
+		-
+			message: "#^Cannot access offset 'template' on mixed\\.$#"
+			count: 2
+			path: Admin/DynamicListAdmin.php
+
+		-
+			message: "#^Cannot access offset 'type' on mixed\\.$#"
+			count: 1
+			path: Admin/DynamicListAdmin.php
+
+		-
+			message: "#^Cannot access offset 'view' on mixed\\.$#"
+			count: 2
+			path: Admin/DynamicListAdmin.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ViewBuilderFactoryInterface\\:\\:createListViewBuilder\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Admin/DynamicListAdmin.php
+
+		-
+			message: "#^Parameter \\#1 \\$tabOrder of method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ListViewBuilderInterface\\:\\:setTabOrder\\(\\) expects int, mixed given\\.$#"
+			count: 1
+			path: Admin/DynamicListAdmin.php
+
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
+			count: 1
+			path: Admin/DynamicListAdmin.php
+
+		-
+			message: "#^Cannot call method setForm\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Command/FormGeneratorCommand.php
+
+		-
+			message: "#^Cannot call method setLocale\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Command/FormGeneratorCommand.php
+
+		-
+			message: "#^Cannot call method setOptions\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Command/FormGeneratorCommand.php
+
+		-
+			message: "#^Cannot call method setTitle\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Command/FormGeneratorCommand.php
+
+		-
+			message: "#^Cannot call method setTitle\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Command/FormGeneratorCommand.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Command\\\\FormGeneratorCommand\\:\\:loadTestForm\\(\\) should return Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\|null but returns mixed\\.$#"
+			count: 1
+			path: Command/FormGeneratorCommand.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Configuration\\\\FormConfiguration\\:\\:\\$adminMailConfiguration \\(Sulu\\\\Bundle\\\\FormBundle\\\\Configuration\\\\MailConfigurationInterface\\) does not accept Sulu\\\\Bundle\\\\FormBundle\\\\Configuration\\\\MailConfigurationInterface\\|null\\.$#"
+			count: 1
+			path: Configuration/FormConfiguration.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Configuration\\\\FormConfiguration\\:\\:\\$websiteMailConfiguration \\(Sulu\\\\Bundle\\\\FormBundle\\\\Configuration\\\\MailConfigurationInterface\\) does not accept Sulu\\\\Bundle\\\\FormBundle\\\\Configuration\\\\MailConfigurationInterface\\|null\\.$#"
+			count: 1
+			path: Configuration/FormConfiguration.php
+
+		-
+			message: "#^Cannot call method getDeactivateAttachmentSave\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Cannot call method getDeactivateCustomerMails\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Cannot call method getDeactivateNotifyMails\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Cannot call method getFromEmail\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 2
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Cannot call method getFromName\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 2
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Cannot call method getReceivers\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Cannot call method getReplyTo\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Cannot call method getSendAttachments\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 2
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Cannot call method getSubject\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 2
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Cannot call method getTitle\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Cannot call method getToEmail\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Cannot call method getToName\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$email of method Sulu\\\\Bundle\\\\FormBundle\\\\Configuration\\\\FormConfigurationFactory\\:\\:getEmail\\(\\) expects string\\|null, mixed given\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$fileFields of method Sulu\\\\Bundle\\\\FormBundle\\\\Configuration\\\\FormConfiguration\\:\\:setFileFields\\(\\) expects array\\<int\\>, array\\<string, int\\|null\\> given\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$formData of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getCustomerMail\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$formData of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getCustomerSubject\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$formData of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getNotifyMail\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$formData of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getNotifySubject\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$formId of method Sulu\\\\Bundle\\\\FormBundle\\\\Media\\\\CollectionStrategyInterface\\:\\:getCollectionId\\(\\) expects int, int\\|null given\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$from of method Sulu\\\\Bundle\\\\FormBundle\\\\Configuration\\\\MailConfiguration\\:\\:setFrom\\(\\) expects array\\<string\\>\\|string, array\\<string\\>\\|null given\\.$#"
+			count: 2
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$replyTo of method Sulu\\\\Bundle\\\\FormBundle\\\\Configuration\\\\MailConfiguration\\:\\:setReplyTo\\(\\) expects array\\<string\\>\\|string, array\\<string\\>\\|null given\\.$#"
+			count: 1
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$arrays of function array_merge expects array, array\\<string\\>\\|null given\\.$#"
+			count: 3
+			path: Configuration/FormConfigurationFactory.php
+
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: Controller/DynamicController.php
+
+		-
+			message: "#^Cannot call method getFieldsByType\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\|null\\.$#"
+			count: 1
+			path: Controller/DynamicController.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: Controller/DynamicController.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Controller\\\\DynamicController\\:\\:getLocale\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Controller/DynamicController.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Controller\\\\DynamicController\\:\\:loadForm\\(\\) should return Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form but returns Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\|null\\.$#"
+			count: 1
+			path: Controller/DynamicController.php
+
+		-
+			message: "#^Parameter \\#1 \\$dynamics of method Sulu\\\\Bundle\\\\FormBundle\\\\ListBuilder\\\\DynamicListFactory\\:\\:build\\(\\) expects array\\<Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\>, array given\\.$#"
+			count: 1
+			path: Controller/DynamicController.php
+
+		-
+			message: "#^Parameter \\#1 \\$entity of method Doctrine\\\\ORM\\\\EntityManager\\:\\:remove\\(\\) expects object, Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\|null given\\.$#"
+			count: 1
+			path: Controller/DynamicController.php
+
+		-
+			message: "#^Parameter \\#1 \\$id of method Sulu\\\\Bundle\\\\MediaBundle\\\\Media\\\\Manager\\\\MediaManagerInterface\\:\\:delete\\(\\) expects int, mixed given\\.$#"
+			count: 1
+			path: Controller/DynamicController.php
+
+		-
+			message: "#^Parameter \\#2 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\ListBuilder\\\\DynamicListFactory\\:\\:build\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Controller/DynamicController.php
+
+		-
+			message: "#^Parameter \\#2 \\$sort of method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\DynamicRepository\\:\\:findByFilters\\(\\) expects array\\<string\\>, array\\<int\\|string, mixed\\> given\\.$#"
+			count: 1
+			path: Controller/DynamicController.php
+
+		-
+			message: "#^Parameter \\#2 \\$string of function explode expects string, mixed given\\.$#"
+			count: 1
+			path: Controller/DynamicController.php
+
+		-
+			message: "#^Parameter \\#3 \\$limit of method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\DynamicRepository\\:\\:findByFilters\\(\\) expects int\\|null, mixed given\\.$#"
+			count: 1
+			path: Controller/DynamicController.php
+
+		-
+			message: "#^Parameter \\#3 \\$route of class Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\ListRepresentation constructor expects string, mixed given\\.$#"
+			count: 1
+			path: Controller/DynamicController.php
+
+		-
+			message: "#^Parameter \\#5 \\$page of class Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\ListRepresentation constructor expects int, mixed given\\.$#"
+			count: 1
+			path: Controller/DynamicController.php
+
+		-
+			message: "#^Parameter \\#6 \\$limit of class Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\ListRepresentation constructor expects int, mixed given\\.$#"
+			count: 1
+			path: Controller/DynamicController.php
+
+		-
+			message: "#^Argument of an invalid type array\\<Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\>\\|null supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: Controller/FormController.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Controller\\\\FormController\\:\\:getLimit\\(\\) should return int but returns mixed\\.$#"
+			count: 1
+			path: Controller/FormController.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Controller\\\\FormController\\:\\:getLocale\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: Controller/FormController.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Controller\\\\FormController\\:\\:getOffset\\(\\) should return int but returns mixed\\.$#"
+			count: 1
+			path: Controller/FormController.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Controller\\\\FormController\\:\\:getPage\\(\\) should return int but returns mixed\\.$#"
+			count: 1
+			path: Controller/FormController.php
+
+		-
+			message: "#^Parameter \\#1 \\$entity of method Sulu\\\\Bundle\\\\FormBundle\\\\Controller\\\\FormController\\:\\:getApiEntity\\(\\) expects Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form, Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\|null given\\.$#"
+			count: 1
+			path: Controller/FormController.php
+
+		-
+			message: "#^Parameter \\#2 \\$fieldDescriptors of method Sulu\\\\Component\\\\Rest\\\\RestHelperInterface\\:\\:initializeListBuilder\\(\\) expects array\\<Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\FieldDescriptorInterface\\>, array\\<Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\FieldDescriptorInterface\\>\\|null given\\.$#"
+			count: 1
+			path: Controller/FormController.php
+
+		-
+			message: "#^Parameter \\#3 \\$route of class Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\ListRepresentation constructor expects string, mixed given\\.$#"
+			count: 1
+			path: Controller/FormController.php
+
+		-
+			message: "#^Parameter \\#1 \\$tokenId of method Symfony\\\\Component\\\\Security\\\\Csrf\\\\CsrfTokenManagerInterface\\:\\:getToken\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Controller/FormTokenController.php
+
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
+			count: 1
+			path: Controller/FormTokenController.php
+
+		-
+			message: "#^Parameter \\#3 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
+			count: 1
+			path: Controller/FormTokenController.php
+
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Form\\\\FormError\\|Symfony\\\\Component\\\\Form\\\\FormErrorIterator\\:\\:getMessage\\(\\)\\.$#"
+			count: 2
+			path: Controller/FormWebsiteController.php
+
+		-
+			message: "#^Cannot call method all\\(\\) on Symfony\\\\Component\\\\Form\\\\FormInterface\\|null\\.$#"
+			count: 1
+			path: Controller/FormWebsiteController.php
+
+		-
+			message: "#^Cannot call method getData\\(\\) on Symfony\\\\Component\\\\Form\\\\FormInterface\\|null\\.$#"
+			count: 2
+			path: Controller/FormWebsiteController.php
+
+		-
+			message: "#^Cannot call method getErrors\\(\\) on Symfony\\\\Component\\\\Form\\\\FormInterface\\|null\\.$#"
+			count: 1
+			path: Controller/FormWebsiteController.php
+
+		-
+			message: "#^Parameter \\#1 \\$form of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Handler\\:\\:handle\\(\\) expects Symfony\\\\Component\\\\Form\\\\FormInterface, Symfony\\\\Component\\\\Form\\\\FormInterface\\|null given\\.$#"
+			count: 2
+			path: Controller/FormWebsiteController.php
+
+		-
+			message: "#^Parameter \\#1 \\$template of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getEntityName\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Controller/ListController.php
+
+		-
+			message: "#^Parameter \\#1 \\$template of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getFieldDescriptors\\(\\) expects string, mixed given\\.$#"
+			count: 2
+			path: Controller/ListController.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\ListBuilderInterface\\:\\:where\\(\\) expects string, mixed given\\.$#"
+			count: 3
+			path: Controller/ListController.php
+
+		-
+			message: "#^Parameter \\#2 \\$webspace of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getEntityName\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Controller/ListController.php
+
+		-
+			message: "#^Parameter \\#2 \\$webspace of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getFieldDescriptors\\(\\) expects string, mixed given\\.$#"
+			count: 2
+			path: Controller/ListController.php
+
+		-
+			message: "#^Parameter \\#3 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getEntityName\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Controller/ListController.php
+
+		-
+			message: "#^Parameter \\#3 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getFieldDescriptors\\(\\) expects string, mixed given\\.$#"
+			count: 2
+			path: Controller/ListController.php
+
+		-
+			message: "#^Parameter \\#3 \\$route of class Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\ListRepresentation constructor expects string, mixed given\\.$#"
+			count: 1
+			path: Controller/ListController.php
+
+		-
+			message: "#^Parameter \\#4 \\$uuid of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getEntityName\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Controller/ListController.php
+
+		-
+			message: "#^Parameter \\#4 \\$uuid of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getFieldDescriptors\\(\\) expects string, mixed given\\.$#"
+			count: 2
+			path: Controller/ListController.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of function in_array expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 1
+			path: DependencyInjection/CompilerPass/RemoveTaggedServiceCollectorCompilerPass.php
+
+		-
+			message: "#^Cannot access offset 'helper' on mixed\\.$#"
+			count: 1
+			path: DependencyInjection/SuluFormExtension.php
+
+		-
+			message: "#^Cannot access offset 'lists' on array\\|false\\.$#"
+			count: 1
+			path: Dynamic/Helper/MailchimpListSelect.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Helper\\\\MailchimpListSelect\\:\\:\\$apiKey \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: Dynamic/Helper/MailchimpListSelect.php
+
+		-
+			message: "#^Cannot access an offset on mixed\\.$#"
+			count: 2
+			path: Dynamic/Types/AttachmentType.php
+
+		-
+			message: "#^Cannot access offset 'accept' on mixed\\.$#"
+			count: 1
+			path: Dynamic/Types/AttachmentType.php
+
+		-
+			message: "#^Cannot access offset 'max' on mixed\\.$#"
+			count: 1
+			path: Dynamic/Types/AttachmentType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/AttachmentType.php
+
+		-
+			message: "#^Cannot call method getOption\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 4
+			path: Dynamic/Types/AttachmentType.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: Dynamic/Types/AttachmentType.php
+
+		-
+			message: "#^Cannot access offset 'placeholder' on mixed\\.$#"
+			count: 3
+			path: Dynamic/Types/CheckboxMultipleType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/CheckboxMultipleType.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Types\\\\CheckboxMultipleType\\:\\:getDefaultOptions\\(\\) should return array\\<string\\> but returns array\\<int, string\\>\\|false\\.$#"
+			count: 1
+			path: Dynamic/Types/CheckboxMultipleType.php
+
+		-
+			message: "#^Parameter \\#1 \\$keys of function array_combine expects array\\<int\\|string\\>, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: Dynamic/Types/CheckboxMultipleType.php
+
+		-
+			message: "#^Parameter \\#1 \\$translation of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Types\\\\CheckboxMultipleType\\:\\:getChoiceOptions\\(\\) expects Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation, Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null given\\.$#"
+			count: 1
+			path: Dynamic/Types/CheckboxMultipleType.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Types\\\\CheckboxMultipleType\\:\\:getDefaultOptions\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Dynamic/Types/CheckboxMultipleType.php
+
+		-
+			message: "#^Parameter \\#2 \\$subject of function preg_split expects string, mixed given\\.$#"
+			count: 1
+			path: Dynamic/Types/CheckboxMultipleType.php
+
+		-
+			message: "#^Parameter \\#2 \\$values of function array_combine expects array, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: Dynamic/Types/CheckboxMultipleType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/CheckboxType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/CityType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/CompanyType.php
+
+		-
+			message: "#^Cannot access offset 'placeholder' on mixed\\.$#"
+			count: 3
+			path: Dynamic/Types/CountryType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/CountryType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/DateType.php
+
+		-
+			message: "#^Cannot access offset 'placeholder' on mixed\\.$#"
+			count: 3
+			path: Dynamic/Types/DropdownMultiple.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/DropdownMultiple.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Types\\\\DropdownMultiple\\:\\:getDefaultOptions\\(\\) should return array\\<string\\> but returns array\\<int, string\\>\\|false\\.$#"
+			count: 1
+			path: Dynamic/Types/DropdownMultiple.php
+
+		-
+			message: "#^Parameter \\#1 \\$keys of function array_combine expects array\\<int\\|string\\>, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: Dynamic/Types/DropdownMultiple.php
+
+		-
+			message: "#^Parameter \\#1 \\$translation of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Types\\\\DropdownMultiple\\:\\:getChoiceOptions\\(\\) expects Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation, Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null given\\.$#"
+			count: 1
+			path: Dynamic/Types/DropdownMultiple.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Types\\\\DropdownMultiple\\:\\:getDefaultOptions\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Dynamic/Types/DropdownMultiple.php
+
+		-
+			message: "#^Parameter \\#2 \\$subject of function preg_split expects string, mixed given\\.$#"
+			count: 1
+			path: Dynamic/Types/DropdownMultiple.php
+
+		-
+			message: "#^Parameter \\#2 \\$values of function array_combine expects array, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: Dynamic/Types/DropdownMultiple.php
+
+		-
+			message: "#^Cannot access offset 'placeholder' on mixed\\.$#"
+			count: 3
+			path: Dynamic/Types/DropdownType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/DropdownType.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Types\\\\DropdownType\\:\\:getDefaultOptions\\(\\) should return array\\<string\\> but returns array\\<int, string\\>\\|false\\.$#"
+			count: 1
+			path: Dynamic/Types/DropdownType.php
+
+		-
+			message: "#^Parameter \\#1 \\$keys of function array_combine expects array\\<int\\|string\\>, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: Dynamic/Types/DropdownType.php
+
+		-
+			message: "#^Parameter \\#1 \\$translation of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Types\\\\DropdownType\\:\\:getChoiceOptions\\(\\) expects Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation, Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null given\\.$#"
+			count: 1
+			path: Dynamic/Types/DropdownType.php
+
+		-
+			message: "#^Parameter \\#2 \\$subject of function preg_split expects string, mixed given\\.$#"
+			count: 1
+			path: Dynamic/Types/DropdownType.php
+
+		-
+			message: "#^Parameter \\#2 \\$values of function array_combine expects array, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: Dynamic/Types/DropdownType.php
+
+		-
+			message: "#^Cannot access an offset on mixed\\.$#"
+			count: 1
+			path: Dynamic/Types/EmailType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/EmailType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/FaxType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/FirstNameType.php
+
+		-
+			message: "#^Cannot access offset 'type' on mixed\\.$#"
+			count: 1
+			path: Dynamic/Types/FreeTextType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/FreeTextType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/FunctionType.php
+
+		-
+			message: "#^Cannot access offset 'type' on mixed\\.$#"
+			count: 1
+			path: Dynamic/Types/HeadlineType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/HeadlineType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/LastNameType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/MailchimpType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/PhoneType.php
+
+		-
+			message: "#^Cannot access offset 'placeholder' on mixed\\.$#"
+			count: 3
+			path: Dynamic/Types/RadioButtonsType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/RadioButtonsType.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Types\\\\RadioButtonsType\\:\\:getDefaultOptions\\(\\) should return array\\<string\\> but returns array\\<int, string\\>\\|false\\.$#"
+			count: 1
+			path: Dynamic/Types/RadioButtonsType.php
+
+		-
+			message: "#^Parameter \\#1 \\$keys of function array_combine expects array\\<int\\|string\\>, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: Dynamic/Types/RadioButtonsType.php
+
+		-
+			message: "#^Parameter \\#1 \\$translation of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Types\\\\RadioButtonsType\\:\\:getChoiceOptions\\(\\) expects Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation, Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null given\\.$#"
+			count: 1
+			path: Dynamic/Types/RadioButtonsType.php
+
+		-
+			message: "#^Parameter \\#2 \\$subject of function preg_split expects string, mixed given\\.$#"
+			count: 1
+			path: Dynamic/Types/RadioButtonsType.php
+
+		-
+			message: "#^Parameter \\#2 \\$values of function array_combine expects array, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: Dynamic/Types/RadioButtonsType.php
+
+		-
+			message: "#^Cannot access offset 'options' on mixed\\.$#"
+			count: 1
+			path: Dynamic/Types/RecaptchaType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/RecaptchaType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/SalutationType.php
+
+		-
+			message: "#^Cannot access offset 'type' on mixed\\.$#"
+			count: 1
+			path: Dynamic/Types/SpacerType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/SpacerType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/StateType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/StreetType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/TextType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/TextareaType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/TitleType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/ZipType.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getAttachment\\(\\) should return array\\<int\\>\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getCheckbox\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getCheckboxMultiple\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getCity\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getCompany\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getCountry\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getData\\(\\) should return array but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getDate\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getDropdown\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getDropdownMultiple\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getEmail\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getFax\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getFirstName\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getForm\\(\\) should return Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form but returns Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\|null\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getFunction\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getLastName\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getPhone\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getRadioButtons\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getSalutation\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getState\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getStreet\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getText\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getTextarea\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getTitle\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getZip\\(\\) should return string\\|null but returns mixed\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:\\$data \\(string\\|null\\) does not accept string\\|false\\.$#"
+			count: 2
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:\\$webspaceKey \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: Entity/Dynamic.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Entity/Form.php
+
+		-
+			message: "#^Cannot call method getFromEmail\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Entity/Form.php
+
+		-
+			message: "#^Cannot call method getFromName\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Entity/Form.php
+
+		-
+			message: "#^Cannot call method getMailText\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Entity/Form.php
+
+		-
+			message: "#^Cannot call method getOptions\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Entity/Form.php
+
+		-
+			message: "#^Cannot call method getPlaceholder\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Entity/Form.php
+
+		-
+			message: "#^Cannot call method getShortTitle\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Entity/Form.php
+
+		-
+			message: "#^Cannot call method getSubject\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Entity/Form.php
+
+		-
+			message: "#^Cannot call method getSubmitLabel\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Entity/Form.php
+
+		-
+			message: "#^Cannot call method getSuccessText\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Entity/Form.php
+
+		-
+			message: "#^Cannot call method getTitle\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Entity/Form.php
+
+		-
+			message: "#^Cannot call method getTitle\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Entity/Form.php
+
+		-
+			message: "#^Cannot call method getToEmail\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Entity/Form.php
+
+		-
+			message: "#^Cannot call method getToName\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Entity/Form.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\:\\:getOptions\\(\\) should return array but returns mixed\\.$#"
+			count: 1
+			path: Entity/FormFieldTranslation.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\:\\:\\$defaultValue \\(string\\|null\\) does not accept mixed\\.$#"
+			count: 1
+			path: Entity/FormFieldTranslation.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\:\\:\\$options \\(string\\|null\\) does not accept string\\|false\\|null\\.$#"
+			count: 1
+			path: Entity/FormFieldTranslation.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Event\\\\DynFormSavedEvent\\:\\:\\$dynamic \\(Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\) does not accept Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\|null\\.$#"
+			count: 1
+			path: Event/DynFormSavedEvent.php
+
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: Event/MailchimpListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'listId' on mixed\\.$#"
+			count: 1
+			path: Event/MailchimpListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'options' on mixed\\.$#"
+			count: 1
+			path: Event/MailchimpListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'type' on mixed\\.$#"
+			count: 4
+			path: Event/MailchimpListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'value' on mixed\\.$#"
+			count: 4
+			path: Event/MailchimpListSubscriber.php
+
+		-
+			message: "#^Parameter \\#1 \\$email of method DrewM\\\\MailChimp\\\\MailChimp\\:\\:subscriberHash\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Event/MailchimpListSubscriber.php
+
+		-
+			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, mixed given\\.$#"
+			count: 1
+			path: Event/ProtectedMediaSubscriber.php
+
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$arrays of function array_merge expects array, mixed given\\.$#"
+			count: 1
+			path: Event/ProtectedMediaSubscriber.php
+
+		-
+			message: "#^In method \"Sulu\\\\Bundle\\\\FormBundle\\\\Event\\\\RequestListener\\:\\:onKernelRequest\", caught \"Exception\" must be rethrown\\. Either catch a more specific exception or add a \"throw\" clause in the \"catch\" block to propagate the exception\\. More info\\: http\\://bit\\.ly/failloud$#"
+			count: 1
+			path: Event/RequestListener.php
+
+		-
+			message: "#^Array \\(array\\<Symfony\\\\Component\\\\Form\\\\FormInterface\\>\\) does not accept Symfony\\\\Component\\\\Form\\\\FormInterface\\|null\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Cannot access offset 'checksum' on array\\|bool\\|float\\|int\\|string\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Cannot access offset 'formId' on array\\|bool\\|float\\|int\\|string\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Cannot access offset 'formName' on array\\|bool\\|float\\|int\\|string\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Cannot access offset 'type' on array\\|bool\\|float\\|int\\|string\\.$#"
+			count: 2
+			path: Form/Builder.php
+
+		-
+			message: "#^Cannot access offset 'typeId' on array\\|bool\\|float\\|int\\|string\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Cannot call method get\\(\\) on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"
+			count: 3
+			path: Form/Builder.php
+
+		-
+			message: "#^Cannot call method getAttribute\\(\\) on mixed\\.$#"
+			count: 2
+			path: Form/Builder.php
+
+		-
+			message: "#^Cannot call method getLocale\\(\\) on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Parameter \\#1 \\$checksum of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:check\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Parameter \\#1 \\$id of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Builder\\:\\:build\\(\\) expects int, mixed given\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Parameter \\#2 \\$type of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:check\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Parameter \\#2 \\$type of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Builder\\:\\:build\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Parameter \\#3 \\$typeId of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:check\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Parameter \\#3 \\$typeId of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Builder\\:\\:build\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Parameter \\#4 \\$formId of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:check\\(\\) expects int, mixed given\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Parameter \\#4 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Builder\\:\\:build\\(\\) expects string\\|null, mixed given\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Parameter \\#5 \\$formName of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:check\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Parameter \\#5 \\$name of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Builder\\:\\:build\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Parameter \\#6 \\$webspaceKey of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Builder\\:\\:createForm\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:persist\\(\\) expects object, mixed given\\.$#"
+			count: 1
+			path: Form/Handler.php
+
+		-
+			message: "#^Parameter \\#1 \\$subject of method Sulu\\\\Bundle\\\\FormBundle\\\\Mail\\\\HelperInterface\\:\\:sendMail\\(\\) expects array\\<string\\>\\|string, string\\|null given\\.$#"
+			count: 1
+			path: Form/Handler.php
+
+		-
+			message: "#^Parameter \\#2 \\$mediaIds of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Handler\\:\\:mapMediaIds\\(\\) expects array\\<int\\>, array given\\.$#"
+			count: 1
+			path: Form/Handler.php
+
+		-
+			message: "#^Parameter \\#4 \\$collectionId of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Handler\\:\\:getMediaData\\(\\) expects int, mixed given\\.$#"
+			count: 1
+			path: Form/Handler.php
+
+		-
+			message: "#^Cannot access offset string on mixed\\.$#"
+			count: 2
+			path: Form/Type/AbstractType.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getBlockPrefix\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: Form/Type/AbstractType.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getCustomerFromMailAddress\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: Form/Type/AbstractType.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getCustomerReplyToMailAddress\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: Form/Type/AbstractType.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getCustomerToMailAddress\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: Form/Type/AbstractType.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getMailText\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: Form/Type/AbstractType.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getNotifyFromMailAddress\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: Form/Type/AbstractType.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getNotifyReplyToMailAddress\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: Form/Type/AbstractType.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getNotifyToMailAddress\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: Form/Type/AbstractType.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getSubmitLabel\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: Form/Type/AbstractType.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getSuccessText\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: Form/Type/AbstractType.php
+
+		-
+			message: "#^Parameter \\#1 \\$formData of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getCustomerMail\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: Form/Type/AbstractType.php
+
+		-
+			message: "#^Parameter \\#1 \\$formData of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getNotifyMail\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: Form/Type/AbstractType.php
+
+		-
+			message: "#^Parameter \\#1 \\$formEntityId of class Sulu\\\\Bundle\\\\FormBundle\\\\Exception\\\\FormNotFoundException constructor expects int, int\\|null given\\.$#"
+			count: 1
+			path: Form/Type/DynamicFormType.php
+
+		-
+			message: "#^Parameter \\#1 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\:\\:getTranslation\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Form/Type/DynamicFormType.php
+
+		-
+			message: "#^Parameter \\#1 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormField\\:\\:getTranslation\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Form/Type/DynamicFormType.php
+
+		-
+			message: "#^Parameter \\#1 \\$type of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:get\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Form/Type/DynamicFormType.php
+
+		-
+			message: "#^Parameter \\#2 \\$locale of class Sulu\\\\Bundle\\\\FormBundle\\\\Exception\\\\FormNotFoundException constructor expects string, mixed given\\.$#"
+			count: 1
+			path: Form/Type/DynamicFormType.php
+
+		-
+			message: "#^Parameter \\#2 \\$typeId of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:get\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Form/Type/DynamicFormType.php
+
+		-
+			message: "#^Parameter \\#3 \\$formId of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:get\\(\\) expects int, int\\|null given\\.$#"
+			count: 1
+			path: Form/Type/DynamicFormType.php
+
+		-
+			message: "#^Parameter \\#3 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\FormFieldTypeInterface\\:\\:build\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Form/Type/DynamicFormType.php
+
+		-
+			message: "#^Parameter \\#4 \\$formName of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:get\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Form/Type/DynamicFormType.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\ListBuilder\\\\DynamicListBuilder\\:\\:toString\\(\\) should return string but returns float\\|int\\|string\\.$#"
+			count: 1
+			path: ListBuilder/DynamicListBuilder.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of class Sulu\\\\Bundle\\\\FormBundle\\\\Exception\\\\InvalidListBuilderValueException constructor expects string, string\\|false given\\.$#"
+			count: 1
+			path: ListBuilder/DynamicListBuilder.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\ListBuilder\\\\DynamicListFactory\\:\\:build\\(\\) should return array\\<string\\> but returns array\\<int, mixed\\>\\.$#"
+			count: 1
+			path: ListBuilder/DynamicListFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function strip_tags expects string, string\\|null given\\.$#"
+			count: 1
+			path: ListBuilder/DynamicListFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$addresses of method Swift_Mime_SimpleMessage\\:\\:setFrom\\(\\) expects array\\|string, array\\<string\\>\\|string\\|null given\\.$#"
+			count: 1
+			path: Mail/Helper.php
+
+		-
+			message: "#^Parameter \\#1 \\$body of method Swift_Message\\:\\:addPart\\(\\) expects string\\|Swift_OutputByteStream, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: Mail/Helper.php
+
+		-
+			message: "#^Parameter \\#1 \\$subject of class Swift_Message constructor expects string\\|null, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: Mail/Helper.php
+
+		-
+			message: "#^Parameter \\#2 \\$body of class Swift_Message constructor expects string\\|null, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: Mail/Helper.php
+
+		-
+			message: "#^Parameter \\#1 \\$address of class Symfony\\\\Component\\\\Mime\\\\Address constructor expects string, int\\|string given\\.$#"
+			count: 1
+			path: Mail/MailerHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$fromMail of method Sulu\\\\Bundle\\\\FormBundle\\\\Mail\\\\MailerHelper\\:\\:logMessage\\(\\) expects array\\<int\\|string, string\\>\\|string, array\\<string\\>\\|string\\|null given\\.$#"
+			count: 1
+			path: Mail/MailerHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$fromMail of method Sulu\\\\Bundle\\\\FormBundle\\\\Mail\\\\MailerHelper\\:\\:parseToAddresses\\(\\) expects array\\<int\\|string, string\\>\\|string, array\\<string\\>\\|string\\|null given\\.$#"
+			count: 3
+			path: Mail/MailerHelper.php
+
+		-
+			message: "#^Parameter \\#2 \\$subject of method Sulu\\\\Bundle\\\\FormBundle\\\\Mail\\\\MailerHelper\\:\\:setHeaders\\(\\) expects string, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: Mail/MailerHelper.php
+
+		-
+			message: "#^Parameter \\#2 \\$toMail of method Sulu\\\\Bundle\\\\FormBundle\\\\Mail\\\\MailerHelper\\:\\:logMessage\\(\\) expects array\\<int\\|string, string\\>\\|string, array\\<string\\>\\|string\\|null given\\.$#"
+			count: 1
+			path: Mail/MailerHelper.php
+
+		-
+			message: "#^Parameter \\#3 \\$body of method Sulu\\\\Bundle\\\\FormBundle\\\\Mail\\\\MailerHelper\\:\\:setBody\\(\\) expects string, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: Mail/MailerHelper.php
+
+		-
+			message: "#^Parameter \\#3 \\$replyTo of method Sulu\\\\Bundle\\\\FormBundle\\\\Mail\\\\MailerHelper\\:\\:logMessage\\(\\) expects array\\<int\\|string, string\\>\\|string, array\\<string\\>\\|string\\|null given\\.$#"
+			count: 1
+			path: Mail/MailerHelper.php
+
+		-
+			message: "#^Parameter \\#4 \\$plainText of method Sulu\\\\Bundle\\\\FormBundle\\\\Mail\\\\MailerHelper\\:\\:setBody\\(\\) expects string\\|null, array\\<string\\>\\|string\\|null given\\.$#"
+			count: 1
+			path: Mail/MailerHelper.php
+
+		-
+			message: "#^Parameter \\#4 \\$subject of method Sulu\\\\Bundle\\\\FormBundle\\\\Mail\\\\MailerHelper\\:\\:logMessage\\(\\) expects string, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: Mail/MailerHelper.php
+
+		-
+			message: "#^Parameter \\#5 \\$ccMail of method Sulu\\\\Bundle\\\\FormBundle\\\\Mail\\\\MailerHelper\\:\\:logMessage\\(\\) expects array\\<int\\|string, string\\>, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: Mail/MailerHelper.php
+
+		-
+			message: "#^Parameter \\#6 \\$bccMail of method Sulu\\\\Bundle\\\\FormBundle\\\\Mail\\\\MailerHelper\\:\\:logMessage\\(\\) expects array\\<int\\|string, string\\>, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: Mail/MailerHelper.php
+
+		-
+			message: "#^Parameter \\#7 \\$plainText of method Sulu\\\\Bundle\\\\FormBundle\\\\Mail\\\\MailerHelper\\:\\:logMessage\\(\\) expects string\\|null, array\\<string\\>\\|string\\|null given\\.$#"
+			count: 1
+			path: Mail/MailerHelper.php
+
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 2
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot access offset 'email' on mixed\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot access offset 'name' on mixed\\.$#"
+			count: 2
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot access offset 'type' on mixed\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method getId\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method getId\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method getSendAttachments\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setChanged\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setDeactivateAttachmentSave\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setDeactivateCustomerMails\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setDeactivateNotifyMails\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setField\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setForm\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setFromEmail\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setFromName\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setMailText\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setOptions\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setPlaceholder\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setReplyTo\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setSendAttachments\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setShortTitle\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setSubject\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setSubmitLabel\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setSuccessText\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setTitle\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setTitle\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setToEmail\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Cannot call method setToName\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_column expects array, mixed given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$data of static method Sulu\\\\Bundle\\\\FormBundle\\\\Manager\\\\FormManager\\:\\:getValue\\(\\) expects array, mixed given\\.$#"
+			count: 9
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$datetime of class DateTime constructor expects string, mixed given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$defaultLocale of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\:\\:setDefaultLocale\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$email of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslationReceiver\\:\\:setEmail\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$id of method Sulu\\\\Bundle\\\\FormBundle\\\\Manager\\\\FormManager\\:\\:findById\\(\\) expects int, int\\|null given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$key of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\:\\:getField\\(\\) expects string\\|null, mixed given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\:\\:getTranslation\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslationReceiver\\:\\:setName\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$required of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormField\\:\\:setRequired\\(\\) expects bool, mixed given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$translation of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\:\\:addTranslation\\(\\) expects Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation, Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$translation of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormField\\:\\:addTranslation\\(\\) expects Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation, Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$type of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormField\\:\\:setType\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$type of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslationReceiver\\:\\:setType\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$type of method Sulu\\\\Bundle\\\\FormBundle\\\\Manager\\\\FormManager\\:\\:getUniqueKey\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$width of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormField\\:\\:setWidth\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function array_key_exists expects array, mixed given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#2 \\$translation of method Sulu\\\\Bundle\\\\FormBundle\\\\Manager\\\\FormManager\\:\\:updateReceivers\\(\\) expects Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation, Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslation\\|null given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#3 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Manager\\\\FormManager\\:\\:updateFields\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Manager/FormManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$title of method Sulu\\\\Bundle\\\\FormBundle\\\\Media\\\\CollectionStrategyTree\\:\\:createCollection\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Media/CollectionStrategyTree.php
+
+		-
+			message: "#^Cannot call method getItems\\(\\) on mixed\\.$#"
+			count: 1
+			path: Metadata/DynamicFormMetadataLoader.php
+
+		-
+			message: "#^Cannot call method getName\\(\\) on Sulu\\\\Bundle\\\\AdminBundle\\\\Metadata\\\\FormMetadata\\\\FormMetadata\\|false\\.$#"
+			count: 1
+			path: Metadata/DynamicFormMetadataLoader.php
+
+		-
+			message: "#^Cannot call method getProperties\\(\\) on mixed\\.$#"
+			count: 1
+			path: Metadata/DynamicFormMetadataLoader.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Metadata\\\\DynamicFormMetadataLoader\\:\\:getMetadata\\(\\) should return Sulu\\\\Bundle\\\\AdminBundle\\\\Metadata\\\\MetadataInterface\\|null but returns mixed\\.$#"
+			count: 1
+			path: Metadata/DynamicFormMetadataLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$data of function unserialize expects string, string\\|false given\\.$#"
+			count: 1
+			path: Metadata/DynamicFormMetadataLoader.php
+
+		-
+			message: "#^Cannot call method item\\(\\) on DOMNodeList\\|false\\.$#"
+			count: 1
+			path: Metadata/PropertiesXmlLoader.php
+
+		-
+			message: "#^Parameter \\#3 \\$context of method Sulu\\\\Component\\\\Content\\\\Metadata\\\\Parser\\\\PropertiesXmlParser\\:\\:load\\(\\) expects DOMNode, DOMNode\\|null given\\.$#"
+			count: 1
+			path: Metadata/PropertiesXmlLoader.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: Repository/DynamicRepository.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\DynamicRepository\\:\\:findByFilters\\(\\) should return array but returns mixed\\.$#"
+			count: 1
+			path: Repository/DynamicRepository.php
+
+		-
+			message: "#^Parameter \\#2 \\$fromDate of method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\DynamicRepository\\:\\:addDateRangeFilter\\(\\) expects string\\|null, mixed given\\.$#"
+			count: 1
+			path: Repository/DynamicRepository.php
+
+		-
+			message: "#^Parameter \\#2 \\$search of method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\DynamicRepository\\:\\:addSearchFilter\\(\\) expects string\\|null, mixed given\\.$#"
+			count: 1
+			path: Repository/DynamicRepository.php
+
+		-
+			message: "#^Parameter \\#3 \\$searchFields of method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\DynamicRepository\\:\\:addSearchFilter\\(\\) expects array\\<string\\>\\|null, mixed given\\.$#"
+			count: 1
+			path: Repository/DynamicRepository.php
+
+		-
+			message: "#^Parameter \\#3 \\$toDate of method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\DynamicRepository\\:\\:addDateRangeFilter\\(\\) expects string\\|null, mixed given\\.$#"
+			count: 1
+			path: Repository/DynamicRepository.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: Repository/FormRepository.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\FormRepository\\:\\:getValue\\(\\) should return int\\|null but returns mixed\\.$#"
+			count: 2
+			path: Repository/FormRepository.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\FormRepository\\:\\:loadAll\\(\\) should return array\\<Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\> but returns mixed\\.$#"
+			count: 1
+			path: Repository/FormRepository.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\FormRepository\\:\\:loadById\\(\\) should return Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\|null but returns mixed\\.$#"
+			count: 1
+			path: Repository/FormRepository.php
+
+		-
+			message: "#^Cannot access property \\$attributes on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"
+			count: 1
+			path: TitleProvider/StructureTitleProvider.php
+

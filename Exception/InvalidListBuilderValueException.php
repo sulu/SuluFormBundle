@@ -14,10 +14,13 @@ namespace Sulu\Bundle\FormBundle\Exception;
 class InvalidListBuilderValueException extends \Exception
 {
     /**
-     * @var mixed
+     * @var string
      */
     private $value;
 
+    /**
+     * @param string $value
+     */
     public function __construct($value)
     {
         parent::__construct(sprintf('Invalid value ("%s") for list builder.', $value));

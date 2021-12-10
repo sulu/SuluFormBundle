@@ -78,9 +78,9 @@ class MailerHelper implements HelperInterface
 
         $this->setHeaders(
             $message,
-            $subject ?? '',
-            $this->parseToAddresses($fromMail ?? $this->fromMail),
-            $this->parseToAddresses($toMail ?? $this->toMail),
+            $subject ?: '',
+            $this->parseToAddresses($fromMail ?: $this->fromMail),
+            $this->parseToAddresses($toMail ?: $this->toMail),
             $this->parseToAddresses($replyTo),
             $this->parseToAddresses($ccMail),
             $this->parseToAddresses($bccMail),
@@ -90,10 +90,10 @@ class MailerHelper implements HelperInterface
         $this->setAttachments($message, $attachments);
 
         $this->logMessage(
-            $fromMail ?? $this->fromMail,
-            $toMail ?? $this->toMail,
+            $fromMail ?: $this->fromMail,
+            $toMail ?: $this->toMail,
             $replyTo,
-            $subject ?? '',
+            $subject ?: '',
             $ccMail,
             $bccMail,
             $plainText
@@ -190,9 +190,11 @@ class MailerHelper implements HelperInterface
     }
 
     /**
-     * @param string|array $fromMail
-     * @param string|array $toMail
-     * @param string|array $replyTo
+     * @param string|array<string|int, string> $fromMail
+     * @param string|array<string|int, string> $toMail
+     * @param string|array<string|int, string> $replyTo
+     * @param array<string|int, string> $ccMail
+     * @param array<string|int, string> $bccMail
      * @param string $plainText
      */
     private function logMessage(
@@ -213,8 +215,8 @@ class MailerHelper implements HelperInterface
             '   CC: %s' . PHP_EOL .
             '   BCC: %s' . PHP_EOL .
             '   Plain text: %s' . PHP_EOL,
-            is_string($fromMail) ? $fromMail ?? $this->fromMail : serialize($fromMail),
-            is_string($toMail) ? $toMail ?? $this->toMail : serialize($toMail),
+            is_string($fromMail) ? $fromMail ?: $this->fromMail : serialize($fromMail),
+            is_string($toMail) ? $toMail ?: $this->toMail : serialize($toMail),
             is_string($replyTo) ? $replyTo : serialize($replyTo),
             $subject,
             serialize($ccMail),
@@ -224,7 +226,7 @@ class MailerHelper implements HelperInterface
     }
 
     /**
-     * @param string|array $fromMail email address or [email-address => name] for muliple named addresses
+     * @param string|array<string|int, string> $fromMail email address or [email-address => name] for muliple named addresses
      *
      * @return Address[]
      */

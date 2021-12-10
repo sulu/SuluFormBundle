@@ -165,6 +165,8 @@ class Handler implements HandlerInterface
      * Send mail.
      *
      * @param \SplFileInfo[] $attachments
+     *
+     * @return void
      */
     private function sendMail(
         FormInterface $form,

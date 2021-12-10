@@ -89,7 +89,7 @@ class DynamicListBuilder implements DynamicListBuilderInterface
         }
 
         if (!is_array($value)) {
-            throw new InvalidListBuilderValueException($value);
+            throw new InvalidListBuilderValueException(json_encode($value));
         }
 
         return implode($this->delimiter, $value);

@@ -28,7 +28,7 @@ class DynamicListFactory implements DynamicListFactoryInterface
     protected $defaultBuilder;
 
     /**
-     * @var array
+     * @var array<string, DynamicListBuilderInterface>
      */
     protected $builders;
 
@@ -115,7 +115,7 @@ class DynamicListFactory implements DynamicListFactoryInterface
             $alias = $this->defaultBuilder;
         }
 
-        if (!$this->builders[$alias]) {
+        if (!isset($this->builders[$alias])) {
             throw new BuilderNotFoundException($alias);
         }
 

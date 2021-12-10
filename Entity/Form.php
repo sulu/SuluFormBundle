@@ -30,12 +30,12 @@ class Form
     private $defaultLocale;
 
     /**
-     * @var Collection|FormTranslation[]
+     * @var Collection<int, FormTranslation>
      */
     private $translations;
 
     /**
-     * @var Collection|FormField[]
+     * @var Collection<int, FormField>
      */
     private $fields;
 
@@ -79,7 +79,7 @@ class Form
     /**
      * Get translations.
      *
-     * @return Collection|FormTranslation[]
+     * @return Collection<int, FormTranslation>
      */
     public function getTranslations()
     {
@@ -124,7 +124,7 @@ class Form
     }
 
     /**
-     * @return Collection|FormField[]
+     * @return Collection<int, FormField>
      */
     public function getFields()
     {

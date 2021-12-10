@@ -130,6 +130,9 @@ class FormConfiguration implements FormConfigurationInterface
         return $this->fileSave;
     }
 
+    /**
+     * @return $this
+     */
     public function setFileSave(bool $fileSave)
     {
         $this->fileSave = $fileSave;
