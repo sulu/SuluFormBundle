@@ -37,7 +37,7 @@ class FormWebsiteController extends DefaultController
     protected $form;
 
     /**
-     * @var array
+     * @var mixed[]
      */
     protected $attributes;
 
@@ -185,7 +185,7 @@ class FormWebsiteController extends DefaultController
     /**
      * Get errors.
      *
-     * @return array[]
+     * @return array<string, string[]>
      */
     protected function getErrors(): array
     {
@@ -217,6 +217,11 @@ class FormWebsiteController extends DefaultController
 
     /**
      * {@inheritdoc}
+     *
+     * @param mixed[] $attributes
+     * @param bool $preview
+     *
+     * @return mixed[]
      */
     protected function getAttributes($attributes, StructureInterface $structure = null, $preview = false)
     {

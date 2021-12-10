@@ -32,7 +32,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class Builder implements BuilderInterface
 {
     /**
-     * @var array
+     * @var FormInterface[]
      */
     private $cache = [];
 

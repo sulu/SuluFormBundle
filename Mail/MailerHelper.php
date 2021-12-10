@@ -190,9 +190,11 @@ class MailerHelper implements HelperInterface
     }
 
     /**
-     * @param string|array $fromMail
-     * @param string|array $toMail
-     * @param string|array $replyTo
+     * @param string|array<string|int, string> $fromMail
+     * @param string|array<string|int, string> $toMail
+     * @param string|array<string|int, string> $replyTo
+     * @param array<string|int, string> $ccMail
+     * @param array<string|int, string> $bccMail
      * @param string $plainText
      */
     private function logMessage(
@@ -224,7 +226,7 @@ class MailerHelper implements HelperInterface
     }
 
     /**
-     * @param string|array $fromMail email address or [email-address => name] for muliple named addresses
+     * @param string|array<string|int, string> $fromMail email address or [email-address => name] for muliple named addresses
      *
      * @return Address[]
      */

@@ -19,6 +19,7 @@ use Sulu\Component\Content\Compat\Structure\PageBridge;
 use Sulu\Component\Content\Compat\Structure\StructureBridge;
 use Sulu\Component\Content\SimpleContentType;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 /**
@@ -54,13 +55,15 @@ class SingleFormSelection extends SimpleContentType
 
     /**
      * {@inheritdoc}
+     *
+     * @return FormView|null
      */
     public function getContentData(PropertyInterface $property)
     {
         $id = (int) $property->getValue();
 
         if (!$id) {
-            return;
+            return null;
         }
 
         if (!isset($property->getParams()['resourceKey'])) {
@@ -85,7 +88,7 @@ class SingleFormSelection extends SimpleContentType
             $form = $this->loadShadowForm($property, $id, $resourceKey);
 
             if (!$form) {
-                return;
+                return null;
             }
         }
 
@@ -117,6 +120,8 @@ class SingleFormSelection extends SimpleContentType
 
     /**
      * {@inheritdoc}
+     *
+     * @return mixed[]
      */
     public function getViewData(PropertyInterface $property)
     {

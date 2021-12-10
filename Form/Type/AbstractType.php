@@ -36,7 +36,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     protected $csrfFieldName = '_token';
 
     /**
-     * @var array
+     * @var mixed[]
      */
     protected $attributes = [];
 
@@ -50,6 +50,8 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function configureOptions(OptionsResolver $resolver)
     {

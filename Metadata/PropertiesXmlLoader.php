@@ -36,6 +36,10 @@ class PropertiesXmlLoader extends AbstractLoader
         );
     }
 
+    /**
+     * @param string $resource
+     * @param string $type
+     */
     protected function parse($resource, \DOMXPath $xpath, $type): PropertiesMetadata
     {
         $tags = [];

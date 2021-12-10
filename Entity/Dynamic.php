@@ -21,12 +21,18 @@ class Dynamic implements AuditableInterface
     const TYPE_ATTACHMENT = 'attachment';
     const TYPE_EMAIL = 'email';
 
+    /**
+     * @var string[]
+     */
     protected static $ARRAY_TYPES = [
         'checkboxMultiple',
         'dropdownMultiple',
         self::TYPE_ATTACHMENT,
     ];
 
+    /**
+     * @var string[]
+     */
     public static $HIDDEN_TYPES = [
         'spacer',
         'headline',
@@ -99,6 +105,9 @@ class Dynamic implements AuditableInterface
         return json_decode($this->data ?: '[]', true);
     }
 
+    /**
+     * @param mixed[] $data
+     */
     public function setData(array $data): self
     {
         $this->data = json_encode($data, JSON_UNESCAPED_UNICODE);

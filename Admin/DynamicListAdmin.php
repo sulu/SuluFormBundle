@@ -30,7 +30,7 @@ class DynamicListAdmin extends Admin
     private $viewBuilderFactory;
 
     /**
-     * @var array
+     * @var mixed[]
      */
     private $config;
 

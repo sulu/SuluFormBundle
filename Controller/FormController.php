@@ -74,6 +74,8 @@ class FormController extends AbstractRestController implements ClassResourceInte
 
     /**
      * {@inheritdoc}
+     *
+     * @return string
      */
     public function getSecurityContext()
     {

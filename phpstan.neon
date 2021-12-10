@@ -10,7 +10,7 @@ includes:
 parameters:
     paths:
         - .
-    level: 5
+    level: 6
     excludePaths:
         - %currentWorkingDirectory%/vendor/*
         - %currentWorkingDirectory%/Tests/*

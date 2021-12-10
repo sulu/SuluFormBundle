@@ -19,22 +19,22 @@ interface TypeInterface
     public function setAttributes(array $attributes): void;
 
     /**
-     * @param mixed $formData
+     * @param mixed[] $formData
      */
     public function getCustomerSubject($formData = []): ?string;
 
     /**
-     * @param mixed $formData
+     * @param mixed[] $formData
      */
     public function getNotifySubject($formData = []): ?string;
 
     /**
-     * @param mixed $formData
+     * @param mixed[] $formData
      */
     public function getCustomerMail($formData = []): string;
 
     /**
-     * @param mixed $formData
+     * @param mixed[] $formData
      */
     public function getNotifyMail($formData = []): string;
 
@@ -43,10 +43,13 @@ interface TypeInterface
      */
     public function getCustomerPlainMail($formData = []): ?string;
 
+    /**
+     * @param mixed $formData
+     */
     public function getNotifyPlainMail($formData = []): ?string;
 
     /**
-     * @param mixed[] $formData
+     * @param mixed $formData
      */
     public function getCustomerFromMailAddress($formData = []): string;
 
