@@ -31,9 +31,9 @@ trait ChoiceTrait
     /**
      * Returns options for multichoice form type like select, multiple select, radio or checkboxes.
      *
-     * @param string[] $options
+     * @param mixed[] $options
      *
-     * @return string[]
+     * @return mixed[]
      */
     private function getChoiceOptions(
         FormFieldTranslation $translation,

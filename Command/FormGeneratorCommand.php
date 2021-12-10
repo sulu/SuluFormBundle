@@ -115,11 +115,9 @@ class FormGeneratorCommand extends Command
             ],
             [
                 'type' => 'headline',
-                'width' => 'full',
             ],
             [
                 'type' => 'freeText',
-                'width' => 'full',
             ],
             [
                 'type' => 'function',
@@ -148,47 +146,39 @@ class FormGeneratorCommand extends Command
             ],
             [
                 'type' => 'attachment',
-                'width' => 'full',
             ],
             [
                 'type' => 'radioButtons',
-                'width' => 'full',
                 'options' => [
                     'choices' => $this->getChoices(),
                 ],
             ],
             [
                 'type' => 'checkboxMultiple',
-                'width' => 'full',
                 'options' => [
                     'choices' => $this->getChoices(),
                 ],
             ],
             [
                 'type' => 'dropdown',
-                'width' => 'full',
                 'options' => [
                     'choices' => $this->getChoices(),
                 ],
             ],
             [
                 'type' => 'dropdownMultiple',
-                'width' => 'full',
                 'options' => [
                     'choices' => $this->getChoices(),
                 ],
             ],
             [
                 'type' => 'checkbox',
-                'width' => 'full',
             ],
             [
                 'type' => 'text',
-                'width' => 'full',
             ],
             [
                 'type' => 'textarea',
-                'width' => 'full',
             ],
         ];
 

@@ -32,7 +32,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class FormWebsiteController extends DefaultController
 {
     /**
-     * @var FormInterface
+     * @var FormInterface|null
      */
     protected $form;
 
@@ -224,7 +224,7 @@ class FormWebsiteController extends DefaultController
             $this->attributes = parent::getAttributes($attributes, $structure, $preview);
         }
 
-        if (!empty($this->form)) {
+        if ($this->form) {
             $this->attributes['form'] = $this->form->createView();
         }
 

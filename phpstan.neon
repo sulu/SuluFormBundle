@@ -11,7 +11,7 @@ parameters:
     paths:
         - .
     level: 5
-    excludes_analyse:
+    excludePaths:
         - %currentWorkingDirectory%/vendor/*
         - %currentWorkingDirectory%/Tests/*
         - %currentWorkingDirectory%/DependencyInjection/Configuration.php
@@ -20,8 +20,3 @@ parameters:
         console_application_loader: Tests/phpstan/console-application.php
     doctrine:
         objectManagerLoader: Tests/phpstan/object-manager.php
-    ignoreErrors:
-        - '#Cannot assign offset \x27[a-zA-Z0-9\\_]+\x27 to string.#' #\x27 represents the single quote character '
-        -
-            message: '#caught "Exception" must be rethrown#'
-            path: Event/RequestListener.php
