@@ -50,7 +50,7 @@ class DisabledCsrfTokenManager implements CsrfTokenManagerInterface
     /**
      * @param string $tokenId
      */
-    public function getToken($tokenId)
+    public function getToken($tokenId): CsrfToken
     {
         return new CsrfToken('', null);
     }
