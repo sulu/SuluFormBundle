@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="sulu_form.subscriber.sendinblue_list_subscriber" class="Sulu\Bundle\FormBundle\Event\SendinblueListSubscriber">
+            <argument>%sulu_form.sendinblue_api_key%</argument>
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="sulu_form.dynamic.type_sendinblue" class="Sulu\Bundle\FormBundle\Dynamic\Types\SendinblueType">
+            <tag name="sulu_form.dynamic.type" alias="sendinblue"/>
+        </service>
+
+        <service id="sulu_form.dynamic.sendinblue_list_select" class="Sulu\Bundle\FormBundle\Dynamic\Helper\SendinblueListSelect" public="true">
+            <argument>%sulu_form.sendinblue_api_key%</argument>
+        </service>
+
+        <service id="sulu_form.dynamic.sendinblue_mail_template_select" class="Sulu\Bundle\FormBundle\Dynamic\Helper\SendinblueMailTemplateSelect" public="true">
+            <argument>%sulu_form.sendinblue_api_key%</argument>
+        </service>
+    </services>
+</container>

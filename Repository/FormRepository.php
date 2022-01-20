@@ -16,7 +16,6 @@ use Doctrine\ORM\NoResultException;
 use Sulu\Bundle\FormBundle\Entity\Form;
 
 /**
- *
  * @template-extends EntityRepository<Form>
  */
 class FormRepository extends EntityRepository

@@ -1,0 +1,46 @@
+<properties xmlns="http://schemas.sulu.io/template/template"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xi="http://www.w3.org/2001/XInclude"
+            xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/properties-1.0.xsd">
+    <xi:include href="default_field.xml"  xpointer="xmlns(sulu=http://schemas.sulu.io/template/template)
+                      xpointer(//sulu:property)"/>
+    <property name="options/listId" type="single_select" mandatory="true">
+        <meta>
+            <title>sulu_form.sendinblue_list</title>
+        </meta>
+        <params>
+            <param
+                    name="values"
+                    type="expression"
+                    value="service('sulu_form.dynamic.sendinblue_list_select').getValues()"
+            />
+        </params>
+    </property>
+    <property name="options/mailTemplateId" type="single_select" mandatory="true">
+        <meta>
+            <title>sulu_form.sendinblue_mail_template</title>
+        </meta>
+        <params>
+            <param
+                    name="values"
+                    type="expression"
+                    value="service('sulu_form.dynamic.sendinblue_mail_template_select').getValues()"
+            />
+        </params>
+    </property>
+    <property name="options/redirectionUrl" type="url" mandatory="true">
+        <meta>
+            <title>sulu_form.sendinblue_redirection_url</title>
+        </meta>
+    </property>
+    <property name="options/attributeNameFirstName" type="text_line" colspan="6">
+        <meta>
+            <title>sulu_form.sendinblue_attribute_name_first_name</title>
+        </meta>
+    </property>
+    <property name="options/attributeNameLastName" type="text_line" colspan="6">
+        <meta>
+            <title>sulu_form.sendinblue_attribute_name_last_name</title>
+        </meta>
+    </property>
+</properties>

@@ -267,9 +267,6 @@ class FormGeneratorCommand extends Command
         }
     }
 
-    /**
-     * @return string
-     */
     private function getChoices(): string
     {
         return
