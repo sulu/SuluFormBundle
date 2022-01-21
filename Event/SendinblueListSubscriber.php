@@ -16,16 +16,24 @@ use SendinBlue\Client\Configuration;
 use SendinBlue\Client\Model\CreateDoiContact;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class SendinblueListSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
+
     /**
      * @var ContactsApi
      */
     private $contactsApi;
 
-    public function __construct(?string $apiKey)
+    public function __construct(RequestStack $requestStack, ?string $apiKey)
     {
+        $this->requestStack = $requestStack;
+
         $config = new Configuration();
         $config->setApiKey('api-key', $apiKey);
 
@@ -45,8 +53,13 @@ class SendinblueListSubscriber implements EventSubscriberInterface
     public function listSubscribe(FormSavePostEvent $event): void
     {
         $dynamic = $event->getData();
+        $request = $this->requestStack->getCurrentRequest();
 
         if (!$dynamic instanceof Dynamic) {
+            return;
+        }
+
+        if (!$request) {
             return;
         }
 
@@ -55,7 +68,8 @@ class SendinblueListSubscriber implements EventSubscriberInterface
         $email = '';
         $firstName = '';
         $lastName = '';
-        $listsByMailTemplate = [];
+        $redirectionUrl = $request->getUriForPath('');
+        $listIdsByMailTemplate = [];
 
         foreach ($form['fields'] as $field) {
             if ('firstName' === $field['type'] && !$firstName) {
@@ -67,40 +81,25 @@ class SendinblueListSubscriber implements EventSubscriberInterface
             } elseif ('sendinblue' == $field['type'] && $field['value']) {
                 $mailTemplateId = $field['options']['mailTemplateId'] ?? null;
                 $listId = $field['options']['listId'] ?? null;
-                $redirectionUrl = $field['options']['redirectionUrl'] ?? null;
-                $attributeNameFirstName = ($field['options']['attributeNameFirstName'] ?? null) ?: 'FIRST_NAME';
-                $attributeNameLastName = ($field['options']['attributeNameLastName'] ?? null) ?: 'LAST_NAME';
 
-                if (!$mailTemplateId || !$listId || !$redirectionUrl) {
+                if (!$mailTemplateId || !$listId) {
                     continue;
                 }
 
-                $listsByMailTemplate[$mailTemplateId][] = [
-                    'listId' => $listId,
-                    'redirectionUrl' => $redirectionUrl,
-                    'attributeNameFirstName' => $attributeNameFirstName,
-                    'attributeNameLastName' => $attributeNameLastName,
-                ];
+                $listIdsByMailTemplate[$mailTemplateId][] = $listId;
             }
         }
 
-        if ($email && count($listsByMailTemplate) > 0) {
-            foreach ($listsByMailTemplate as $mailTemplateId => $lists) {
-                $redirectionUrl = $lists[0]['redirectionUrl'];
-                $attributeNameFirstName = $lists[0]['attributeNameFirstName'];
-                $attributeNameLastName = $lists[0]['attributeNameLastName'];
-                $listIds = \array_map(function($list) {
-                    return $list['listId'];
-                }, $lists);
-
+        if ($email && count($listIdsByMailTemplate) > 0) {
+            foreach ($listIdsByMailTemplate as $mailTemplateId => $listIds) {
                 $createDoiContact = new CreateDoiContact([
                     'email' => $email,
                     'templateId' => $mailTemplateId,
                     'includeListIds' => $listIds,
                     'redirectionUrl' => $redirectionUrl,
                     'attributes' => [
-                        $attributeNameFirstName => $firstName,
-                        $attributeNameLastName => $firstName,
+                        'FIRST_NAME' => $firstName,
+                        'LAST_NAME' => $firstName,
                     ],
                 ]);
 

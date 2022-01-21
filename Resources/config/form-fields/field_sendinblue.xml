@@ -28,19 +28,4 @@
             />
         </params>
     </property>
-    <property name="options/redirectionUrl" type="url" mandatory="true">
-        <meta>
-            <title>sulu_form.sendinblue_redirection_url</title>
-        </meta>
-    </property>
-    <property name="options/attributeNameFirstName" type="text_line" colspan="6">
-        <meta>
-            <title>sulu_form.sendinblue_attribute_name_first_name</title>
-        </meta>
-    </property>
-    <property name="options/attributeNameLastName" type="text_line" colspan="6">
-        <meta>
-            <title>sulu_form.sendinblue_attribute_name_last_name</title>
-        </meta>
-    </property>
 </properties>
