@@ -89,6 +89,7 @@ Make sure you've set the correct permissions in the Sulu backend for this bundle
 ## Additional form fields
 
 - [Mailchimp](mailchimp.md "Mailchimp Form Field")
+- [Sendinblue](sendinblue.md "Sendinblue Form Field")
 - [Recaptcha](recaptcha.md "Recaptcha Form Field")
 - [Dropzone](dropzone.md "Dropzone Form Field")
 

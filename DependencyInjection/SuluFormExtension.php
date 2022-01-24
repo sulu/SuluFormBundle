@@ -148,6 +148,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sulu_form.ajax_templates', $config['ajax_templates']);
         $container->setParameter('sulu_form.dynamic_widths', $config['dynamic_widths']);
         $container->setParameter('sulu_form.dynamic_auto_title', $config['dynamic_auto_title']);
+        $container->setParameter('sulu_form.sendinblue_api_key', $config['sendinblue_api_key']);
         $container->setParameter('sulu_form.mailchimp_api_key', $config['mailchimp_api_key']);
         $container->setParameter('sulu_form.mailchimp_subscribe_status', $config['mailchimp_subscribe_status']);
         $container->setParameter('sulu_form.dynamic_lists.config', $config['dynamic_lists']);
@@ -187,6 +188,14 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $loader->load('services.xml');
         $loader->load('types.xml');
         $loader->load('title-providers.xml');
+
+        if ($config['sendinblue_api_key']) {
+            if (!class_exists(\SendinBlue\Client\Configuration::class)) {
+                throw new \LogicException('You need to install the "sendinblue/api-v3-sdk" package to use the sendinblue type.');
+            }
+
+            $loader->load('type_sendinblue.xml');
+        }
 
         if ($config['mailchimp_api_key']) {
             if (!class_exists(\DrewM\MailChimp\MailChimp::class)) {

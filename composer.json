@@ -42,28 +42,30 @@
         "friendsofphp/php-cs-fixer": "^2.17",
         "handcraftedinthealps/zendsearch": "^2.0",
         "jackalope/jackalope-doctrine-dbal": "^1.3.2",
+        "jangregor/phpstan-prophecy": "^1.0",
         "massive/search-bundle": "^2.0",
-        "phpunit/phpunit": "^8.0",
-        "symfony/mime": "^4.4 || ^5.0",
-        "symfony/mailer": "^4.4 || ^5.0",
-        "symfony/browser-kit": "^4.4 || ^5.0",
-        "symfony/dotenv": "^4.4 || ^5.0",
-        "symfony/monolog-bundle": "^3.1",
-        "symfony/stopwatch": "^4.4 || ^5.0",
-        "symfony/var-dumper": "^4.4 || ^5.0",
         "phpstan/phpstan": "^1.0",
         "phpstan/phpstan-doctrine": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
         "phpstan/phpstan-symfony": "^1.0",
-        "thecodingmachine/phpstan-strict-rules": "^1.0",
-        "jangregor/phpstan-prophecy": "^1.0"
+        "phpunit/phpunit": "^8.0",
+        "sendinblue/api-v3-sdk": "^8.0",
+        "symfony/browser-kit": "^4.4 || ^5.0",
+        "symfony/dotenv": "^4.4 || ^5.0",
+        "symfony/mailer": "^4.4 || ^5.0",
+        "symfony/mime": "^4.4 || ^5.0",
+        "symfony/monolog-bundle": "^3.1",
+        "symfony/stopwatch": "^4.4 || ^5.0",
+        "symfony/var-dumper": "^4.4 || ^5.0",
+        "thecodingmachine/phpstan-strict-rules": "^1.0"
     },
     "replace": {
         "sulu/sulu-form-bundle": "self.version"
     },
     "suggest": {
         "excelwebzone/recaptcha-bundle": "Allows to add recaptcha to any dynamic form",
-        "drewm/mailchimp-api": "Allows to add a newsletter subscription over mailchimp to any dynamic form"
+        "drewm/mailchimp-api": "Allows to add a newsletter subscription over mailchimp to any dynamic form",
+        "sendinblue/api-v3-sdk": "Allows to add a newsletter subscription over sendinblue to any dynamic form"
     },
     "autoload": {
         "psr-4": {
