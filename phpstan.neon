@@ -1,4 +1,5 @@
 includes:
+    - phpstan-baseline.neon
     - vendor/jangregor/phpstan-prophecy/extension.neon
     - vendor/phpstan/phpstan-doctrine/extension.neon
     - vendor/phpstan/phpstan-doctrine/rules.neon
