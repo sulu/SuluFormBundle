@@ -72,7 +72,7 @@ class SendinblueListSubscriber implements EventSubscriberInterface
         $email = '';
         $firstName = '';
         $lastName = '';
-        $redirectionUrl = $request->getUriForPath('');
+        $redirectionUrl = $request->getUriForPath('') . '?subscribe=true';
         $listIdsByMailTemplate = [];
 
         foreach ($form['fields'] as $field) {
