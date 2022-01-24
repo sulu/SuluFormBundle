@@ -426,6 +426,46 @@ parameters:
 			path: Dynamic/Helper/MailchimpListSelect.php
 
 		-
+			message: "#^Cannot access offset 'id' on object\\.$#"
+			count: 1
+			path: Dynamic/Helper/SendinblueListSelect.php
+
+		-
+			message: "#^Cannot access offset 'name' on object\\.$#"
+			count: 1
+			path: Dynamic/Helper/SendinblueListSelect.php
+
+		-
+			message: "#^Parameter \\#2 \\$key of method SendinBlue\\\\Client\\\\Configuration\\:\\:setApiKey\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Dynamic/Helper/SendinblueListSelect.php
+
+		-
+			message: "#^Cannot assign offset 'tag' to SendinBlue\\\\Client\\\\Model\\\\GetSmtpTemplateOverview\\.$#"
+			count: 1
+			path: Dynamic/Helper/SendinblueMailTemplateSelect.php
+
+		-
+			message: "#^Offset 'tag' on SendinBlue\\\\Client\\\\Model\\\\GetSmtpTemplateOverview on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: Dynamic/Helper/SendinblueMailTemplateSelect.php
+
+		-
+			message: "#^Parameter \\#1 \\$templateStatus of method SendinBlue\\\\Client\\\\Api\\\\TransactionalEmailsApi\\:\\:getSmtpTemplates\\(\\) expects bool\\|null, string given\\.$#"
+			count: 1
+			path: Dynamic/Helper/SendinblueMailTemplateSelect.php
+
+		-
+			message: "#^Parameter \\#2 \\$key of method SendinBlue\\\\Client\\\\Configuration\\:\\:setApiKey\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Dynamic/Helper/SendinblueMailTemplateSelect.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: Dynamic/Helper/SendinblueMailTemplateSelect.php
+
+		-
 			message: "#^Cannot access an offset on mixed\\.$#"
 			count: 2
 			path: Dynamic/Types/AttachmentType.php
@@ -709,6 +749,11 @@ parameters:
 			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
 			count: 1
 			path: Dynamic/Types/SalutationType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/SendinblueType.php
 
 		-
 			message: "#^Cannot access offset 'type' on mixed\\.$#"
@@ -1021,9 +1066,39 @@ parameters:
 			path: Event/RequestListener.php
 
 		-
-			message: "#^Array \\(array\\<Symfony\\\\Component\\\\Form\\\\FormInterface\\>\\) does not accept Symfony\\\\Component\\\\Form\\\\FormInterface\\|null\\.$#"
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
 			count: 1
-			path: Form/Builder.php
+			path: Event/SendinblueListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'listId' on mixed\\.$#"
+			count: 1
+			path: Event/SendinblueListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'mailTemplateId' on mixed\\.$#"
+			count: 1
+			path: Event/SendinblueListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'options' on mixed\\.$#"
+			count: 2
+			path: Event/SendinblueListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'type' on mixed\\.$#"
+			count: 4
+			path: Event/SendinblueListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'value' on mixed\\.$#"
+			count: 4
+			path: Event/SendinblueListSubscriber.php
+
+		-
+			message: "#^Parameter \\#2 \\$key of method SendinBlue\\\\Client\\\\Configuration\\:\\:setApiKey\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Event/SendinblueListSubscriber.php
 
 		-
 			message: "#^Cannot access offset 'checksum' on array\\|bool\\|float\\|int\\|string\\.$#"
@@ -1117,6 +1192,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#6 \\$webspaceKey of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Builder\\:\\:createForm\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Form/Builder.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Builder\\:\\:\\$cache \\(array\\<Symfony\\\\Component\\\\Form\\\\FormInterface\\>\\) does not accept array\\<Symfony\\\\Component\\\\Form\\\\FormInterface\\|null\\>\\.$#"
 			count: 1
 			path: Form/Builder.php
 
@@ -1636,11 +1716,6 @@ parameters:
 			path: Repository/DynamicRepository.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\DynamicRepository\\:\\:findByFilters\\(\\) should return array but returns mixed\\.$#"
-			count: 1
-			path: Repository/DynamicRepository.php
-
-		-
 			message: "#^Parameter \\#2 \\$fromDate of method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\DynamicRepository\\:\\:addDateRangeFilter\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: Repository/DynamicRepository.php
@@ -1668,11 +1743,6 @@ parameters:
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\FormRepository\\:\\:getValue\\(\\) should return int\\|null but returns mixed\\.$#"
 			count: 2
-			path: Repository/FormRepository.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\FormRepository\\:\\:loadAll\\(\\) should return array\\<Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\> but returns mixed\\.$#"
-			count: 1
 			path: Repository/FormRepository.php
 
 		-

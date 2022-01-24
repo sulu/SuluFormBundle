@@ -16,6 +16,7 @@ use SendinBlue\Client\Configuration;
 
 /**
  * @final
+ *
  * @internal
  */
 class SendinblueMailTemplateSelect
