@@ -18,6 +18,10 @@ use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+/**
+ * @final
+ * @internal
+ */
 class SendinblueListSubscriber implements EventSubscriberInterface
 {
     /**

@@ -14,6 +14,10 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Helper;
 use SendinBlue\Client\Api\TransactionalEmailsApi;
 use SendinBlue\Client\Configuration;
 
+/**
+ * @final
+ * @internal
+ */
 class SendinblueMailTemplateSelect
 {
     /**
