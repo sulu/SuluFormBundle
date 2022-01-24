@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @final
+ *
  * @internal
  */
 class SendinblueListSubscriber implements EventSubscriberInterface
