@@ -16,6 +16,7 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Manager\FormManager;
 use Sulu\Component\Rest\AbstractRestController;
+use Sulu\Component\Rest\Exception\RestException;
 use Sulu\Component\Rest\ListBuilder\AbstractListBuilder;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
@@ -172,6 +173,50 @@ class FormController extends AbstractRestController implements ClassResourceInte
         $entity = $this->formManager->save($this->getData($request), $locale);
 
         return $this->handleView($this->view($this->getApiEntity($entity, $locale), 201));
+    }
+
+    public function postTriggerAction(Request $request, int $id): Response
+    {
+        $action = $request->query->get('action');
+        $locale = $this->getLocale($request);
+        $entity = $this->formManager->findById($id, $locale);
+
+        if (!$entity) {
+            throw new NotFoundHttpException(sprintf('No form with id "%s" was found!', $id));
+        }
+
+        try {
+            switch ($action) {
+                case 'copy':
+                    $copiedForm = null;
+                    foreach ($entity->getTranslations() as $translation) {
+                        /** @var array{ title: string, fields: mixed[] } $data */
+                        $data = $this->getApiEntity($entity, $translation->getLocale());
+                        $data['title'] = $data['title'] . ' (2)';
+
+                        /** @var array{ options: \stdClass|mixed[] } $field */
+                        foreach ($data['fields'] as &$field) {
+                            if ($field['options'] instanceof \stdClass) {
+                                $field['options'] = [];
+                            }
+                        }
+
+                        $copiedForm = $this->formManager->save(
+                            $data,
+                            $translation->getLocale(),
+                            $copiedForm ? $copiedForm->getId() : null
+                        );
+                    }
+
+                    return $this->handleView($this->view($this->getApiEntity($copiedForm, $locale)));
+                default:
+                    throw new RestException(\sprintf('Unrecognized action: "%s"', $action));
+            }
+        } catch (RestException $ex) {
+            $view = $this->view($ex->toArray(), 400);
+
+            return $this->handleView($view);
+        }
     }
 
     public function putAction(Request $request, int $id): Response

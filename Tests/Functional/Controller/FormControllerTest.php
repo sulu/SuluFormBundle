@@ -118,6 +118,47 @@ class FormControllerTest extends SuluTestCase
         $this->assertFullForm($response);
     }
 
+    public function testPostTriggerNotFound(): void
+    {
+        $this->client->request(
+            'POST',
+            '/admin/api/forms/2?action=copy',
+        );
+
+        $this->assertHttpStatusCode(404, $this->client->getResponse());
+    }
+
+    public function testPostTriggerInvalidAction(): void
+    {
+        $form = $this->createMinimalForm();
+
+        $this->client->request(
+            'POST',
+            '/admin/api/forms/' . $form->getId() . '?action=not-an-action',
+        );
+
+        $this->assertHttpStatusCode(400, $this->client->getResponse());
+    }
+
+    public function testPostTriggerCopy(): void
+    {
+        $form = $this->createFullForm();
+
+        $this->client->request(
+            'POST',
+            '/admin/api/forms/' . $form->getId() . '?action=copy',
+        );
+
+        $this->assertHttpStatusCode(200, $this->client->getResponse());
+        $response = json_decode($this->client->getResponse()->getContent(), true);
+
+        $this->assertEquals('Title (2)', $response['title']);
+        $this->assertNotEquals($form->getId(), $response['id']);
+        $response['title'] = str_replace(' (2)', '', $response['title']);
+
+        $this->assertFullForm($response);
+    }
+
     public function testPutMinimal(): void
     {
         $form = $this->createFullForm();
