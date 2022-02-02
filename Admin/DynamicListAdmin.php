@@ -45,18 +45,30 @@ class DynamicListAdmin extends Admin
 
     public function configureViews(ViewCollection $viewCollection): void
     {
-        $action = 'form-list';
-        // TODO handle multipage views
-
+        /** @var array<string, mixed> $sections */
         foreach ($this->config as $parent => $sections) {
+            if (!$viewCollection->has($parent)) {
+                continue;
+            }
+
+            $counter = 0;
+
+            /** @var mixed[] $config */
             foreach ($sections as $key => $config) {
-                if (!$viewCollection->has($parent)) {
-                    continue;
+                ++$counter;
+
+                $action = 'form-list';
+                if ($counter > 1) {
+                    $action .= '-' . str_replace('_', '-', $key);
                 }
 
                 $name = $parent . '.' . $action . '-key';
                 if (isset($config['name'])) {
                     $name = $config['name'];
+                }
+
+                if ($viewCollection->has($name)) {
+                    throw new \RuntimeException(\sprintf('View "%s" does already exist.', $name));
                 }
 
                 $requestParameters = [
