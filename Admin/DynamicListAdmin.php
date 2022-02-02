@@ -46,6 +46,7 @@ class DynamicListAdmin extends Admin
     public function configureViews(ViewCollection $viewCollection): void
     {
         foreach ($this->config as $parent => $sections) {
+            /** @var mixed[] $config */
             foreach ($sections as $config) {
                 if (!$viewCollection->has($parent)) {
                     continue;
