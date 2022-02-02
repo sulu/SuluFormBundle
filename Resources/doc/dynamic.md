@@ -132,7 +132,6 @@ sulu_form:
     dynamic_lists:
         sulu_page.page_edit_form: # view key e.g. "sulu_page.page_edit_form" for sulu pages or "sulu_article.edit_form" for sulu articles.
             form: # unique key mostly the same as the template key or a combination between template and property key.
-                action: form-list # the path of the view
                 template: form # template key
                 property: form # form property name
                 type: page # the site type e.g. page, article, … (same as the content type type param)

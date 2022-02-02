@@ -46,18 +46,20 @@ class DynamicListAdmin extends Admin
     public function configureViews(ViewCollection $viewCollection): void
     {
         foreach ($this->config as $parent => $sections) {
+            $counter = 0;
             /** @var mixed[] $config */
-            foreach ($sections as $config) {
+            foreach ($sections as $key => $config) {
+                 ++$counter;
                 if (!$viewCollection->has($parent)) {
                     continue;
                 }
 
                 $action = 'form-list';
-                if (isset($config['action'])) {
-                    $action = $config['action'];
+                if ($counter > 1) {
+                    $action .= '-' . str_replace('_', '-', $key);
                 }
 
-                $name = $parent . '.' . $action;
+                $name = $parent . '.' . $action . '-key';
                 if (isset($config['name'])) {
                     $name = $config['name'];
                 }
