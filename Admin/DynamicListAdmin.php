@@ -61,7 +61,7 @@ class DynamicListAdmin extends Admin
                     $name = $config['name'];
                 }
 
-                if (!$viewCollection->has($name)) {
+                if ($viewCollection->has($name)) {
                     throw new \RuntimeException(\sprintf('View "%s" does already exist.', $name));
                 }
 
