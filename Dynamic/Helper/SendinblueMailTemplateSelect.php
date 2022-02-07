@@ -55,7 +55,7 @@ class SendinblueMailTemplateSelect
         $mailTemplateObjects = [];
 
         do {
-            $response = $this->transactionalEmailsApi->getSmtpTemplates('true', (string) $limit, (string) $offset);
+            $response = $this->transactionalEmailsApi->getSmtpTemplates('true', $limit, $offset);
 
             if (null === $total) {
                 $total = $response->getCount();

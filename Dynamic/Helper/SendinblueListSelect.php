@@ -55,7 +55,7 @@ class SendinblueListSelect
         $listObjects = [];
 
         do {
-            $response = $this->contactsApi->getLists((string) $limit, (string) $offset);
+            $response = $this->contactsApi->getLists($limit, $offset);
 
             if (null === $total) {
                 $total = $response->getCount();
