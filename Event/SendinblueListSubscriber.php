@@ -31,13 +31,17 @@ class SendinblueListSubscriber implements EventSubscriberInterface
     private $requestStack;
 
     /**
-     * @var ContactsApi
+     * @var ContactsApi|null
      */
     private $contactsApi;
 
     public function __construct(RequestStack $requestStack, ?string $apiKey)
     {
         $this->requestStack = $requestStack;
+
+        if (!$apiKey) {
+            return;
+        }
 
         $config = new Configuration();
         $config->setApiKey('api-key', $apiKey);
@@ -57,6 +61,10 @@ class SendinblueListSubscriber implements EventSubscriberInterface
 
     public function listSubscribe(FormSavePostEvent $event): void
     {
+        if (!$this->contactsApi) {
+            return;
+        }
+
         $dynamic = $event->getData();
         $request = $this->requestStack->getCurrentRequest();
 
