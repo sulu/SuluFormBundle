@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Tests\Functional\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Sulu\Bundle\ActivityBundle\Domain\Model\ActivityInterface;
 use Sulu\Bundle\FormBundle\Configuration\MailConfiguration;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormField;
@@ -102,6 +103,10 @@ class FormControllerTest extends SuluTestCase
         $this->assertHttpStatusCode(201, $this->client->getResponse());
         $response = \json_decode($this->client->getResponse()->getContent(), true);
         $this->assertMinimalForm($response);
+
+        $activity = $this->em->getRepository(ActivityInterface::class)->findOneBy(['type' => 'created']);
+        $this->assertNotNull($activity);
+        $this->assertSame((string) $response['id'], $activity->getResourceId());
     }
 
     public function testPostFull(): void
@@ -157,6 +162,10 @@ class FormControllerTest extends SuluTestCase
         $response['title'] = \str_replace(' (2)', '', $response['title']);
 
         $this->assertFullForm($response);
+
+        $activity = $this->em->getRepository(ActivityInterface::class)->findOneBy(['type' => 'copied']);
+        $this->assertNotNull($activity);
+        $this->assertSame((string) $response['id'], $activity->getResourceId());
     }
 
     public function testPutMinimal(): void
@@ -176,6 +185,10 @@ class FormControllerTest extends SuluTestCase
         $this->assertHttpStatusCode(200, $this->client->getResponse());
         $response = \json_decode($this->client->getResponse()->getContent(), true);
         $this->assertMinimalForm($response);
+
+        $activity = $this->em->getRepository(ActivityInterface::class)->findOneBy(['type' => 'modified']);
+        $this->assertNotNull($activity);
+        $this->assertSame((string) $response['id'], $activity->getResourceId());
     }
 
     public function testPutFull(): void
@@ -206,10 +219,11 @@ class FormControllerTest extends SuluTestCase
     public function testDelete(): void
     {
         $form = $this->createFullForm();
+        $formId = $form->getId();
 
         $this->client->request(
             'DELETE',
-            '/admin/api/forms/' . $form->getId()
+            '/admin/api/forms/' . $formId
         );
 
         $this->assertHttpStatusCode(204, $this->client->getResponse());
@@ -221,6 +235,10 @@ class FormControllerTest extends SuluTestCase
         );
 
         $this->assertHttpStatusCode(404, $this->client->getResponse());
+
+        $activity = $this->em->getRepository(ActivityInterface::class)->findOneBy(['type' => 'removed']);
+        $this->assertNotNull($activity);
+        $this->assertSame((string) $formId, $activity->getResourceId());
     }
 
     public function testDeleteNotFound(): void
