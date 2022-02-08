@@ -401,11 +401,6 @@ parameters:
 			path: Dynamic/Helper/SendinblueListSelect.php
 
 		-
-			message: "#^Parameter \\#2 \\$key of method SendinBlue\\\\Client\\\\Configuration\\:\\:setApiKey\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: Dynamic/Helper/SendinblueListSelect.php
-
-		-
 			message: "#^Cannot assign offset 'tag' to SendinBlue\\\\Client\\\\Model\\\\GetSmtpTemplateOverview\\.$#"
 			count: 1
 			path: Dynamic/Helper/SendinblueMailTemplateSelect.php
@@ -417,11 +412,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$templateStatus of method SendinBlue\\\\Client\\\\Api\\\\TransactionalEmailsApi\\:\\:getSmtpTemplates\\(\\) expects bool\\|null, string given\\.$#"
-			count: 1
-			path: Dynamic/Helper/SendinblueMailTemplateSelect.php
-
-		-
-			message: "#^Parameter \\#2 \\$key of method SendinBlue\\\\Client\\\\Configuration\\:\\:setApiKey\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: Dynamic/Helper/SendinblueMailTemplateSelect.php
 
@@ -1058,11 +1048,6 @@ parameters:
 		-
 			message: "#^Cannot access offset 'value' on mixed\\.$#"
 			count: 4
-			path: Event/SendinblueListSubscriber.php
-
-		-
-			message: "#^Parameter \\#2 \\$key of method SendinBlue\\\\Client\\\\Configuration\\:\\:setApiKey\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
 			path: Event/SendinblueListSubscriber.php
 
 		-

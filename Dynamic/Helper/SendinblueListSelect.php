@@ -22,12 +22,16 @@ use SendinBlue\Client\Configuration;
 class SendinblueListSelect
 {
     /**
-     * @var ContactsApi
+     * @var ContactsApi|null
      */
     private $contactsApi;
 
     public function __construct(?string $apiKey)
     {
+        if (!$apiKey) {
+            return;
+        }
+
         $config = new Configuration();
         $config->setApiKey('api-key', $apiKey);
 
@@ -41,9 +45,33 @@ class SendinblueListSelect
      */
     public function getValues(): array
     {
+        if (!$this->contactsApi) {
+            return [];
+        }
+
+        $limit = 50;
+        $offset = 0;
+        $total = null;
+        $listObjects = [];
+
+        do {
+            $response = $this->contactsApi->getLists($limit, $offset);
+
+            if (null === $total) {
+                $total = $response->getCount();
+            }
+
+            $newListObjects = $response->getLists();
+            if (0 === \count($newListObjects)) {
+                break;
+            }
+
+            $listObjects = array_merge($listObjects, $newListObjects);
+            $offset += $limit;
+        } while (count($listObjects) < $total);
+
         $lists = [];
 
-        $listObjects = $this->contactsApi->getLists()->getLists();
         foreach ($listObjects as $list) {
             $lists[] = [
                 'name' => $list['id'],

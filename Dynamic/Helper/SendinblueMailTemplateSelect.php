@@ -22,12 +22,16 @@ use SendinBlue\Client\Configuration;
 class SendinblueMailTemplateSelect
 {
     /**
-     * @var TransactionalEmailsApi
+     * @var TransactionalEmailsApi|null
      */
     private $transactionalEmailsApi;
 
     public function __construct(?string $apiKey)
     {
+        if (!$apiKey) {
+            return;
+        }
+
         $config = new Configuration();
         $config->setApiKey('api-key', $apiKey);
 
@@ -41,9 +45,33 @@ class SendinblueMailTemplateSelect
      */
     public function getValues(): array
     {
+        if (!$this->transactionalEmailsApi) {
+            return [];
+        }
+
+        $limit = 50;
+        $offset = 0;
+        $total = null;
+        $mailTemplateObjects = [];
+
+        do {
+            $response = $this->transactionalEmailsApi->getSmtpTemplates('true', $limit, $offset);
+
+            if (null === $total) {
+                $total = $response->getCount();
+            }
+
+            $newMailTemplateObjects = $response->getTemplates();
+            if (0 === \count($newMailTemplateObjects)) {
+                break;
+            }
+
+            $mailTemplateObjects = array_merge($mailTemplateObjects, $newMailTemplateObjects);
+            $offset += $limit;
+        } while (count($mailTemplateObjects) < $total);
+
         $mailTemplates = [];
 
-        $mailTemplateObjects = $this->transactionalEmailsApi->getSmtpTemplates('true')->getTemplates();
         foreach ($mailTemplateObjects as $template) {
             if (($template['tag'] ?? null) !== 'optin') {
                 continue;
