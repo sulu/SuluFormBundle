@@ -12,6 +12,12 @@
 namespace Sulu\Bundle\FormBundle\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
+use Sulu\Bundle\FormBundle\Domain\Event\FormCopiedEvent;
+use Sulu\Bundle\FormBundle\Domain\Event\FormCreatedEvent;
+use Sulu\Bundle\FormBundle\Domain\Event\FormModifiedEvent;
+use Sulu\Bundle\FormBundle\Domain\Event\FormRemovedEvent;
+use Sulu\Bundle\FormBundle\Domain\Event\FormTranslationAddedEvent;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormField;
 use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
@@ -33,14 +39,21 @@ class FormManager
     protected $formRepository;
 
     /**
+     * @var DomainEventCollectorInterface
+     */
+    private $domainEventCollector;
+
+    /**
      * EventManager constructor.
      */
     public function __construct(
         EntityManagerInterface $entityManager,
-        FormRepository $formRepository
+        FormRepository $formRepository,
+        DomainEventCollectorInterface $domainEventCollector
     ) {
         $this->entityManager = $entityManager;
         $this->formRepository = $formRepository;
+        $this->domainEventCollector = $domainEventCollector;
     }
 
     public function findById(int $id, ?string $locale = null): ?Form
@@ -66,7 +79,7 @@ class FormManager
         return $this->formRepository->countByFilters($locale, $filters);
     }
 
-    public function copy(int $id): Form
+    public function copy(int $id, string $locale): Form
     {
         $form = $this->findById($id);
 
@@ -131,6 +144,18 @@ class FormManager
             $newForm->addField($newField);
         }
 
+        /** @var FormTranslation $newFormTranslation */
+        $newFormTranslation = $newForm->getTranslation($locale);
+
+        $this->domainEventCollector->collect(
+            new FormCopiedEvent(
+                $newForm,
+                $id,
+                $newFormTranslation->getTitle(),
+                $locale
+            )
+        );
+
         $this->entityManager->persist($newForm);
         $this->entityManager->flush();
 
@@ -140,7 +165,7 @@ class FormManager
     /**
      * @param mixed[] $data
      */
-    public function save(array $data, ?string $locale = null, ?int $id = null): ?Form
+    public function save(array $data, ?string $locale = null, ?int $id = null, ?bool $omitDomainEvent = false): ?Form
     {
         $form = new Form();
 
@@ -154,6 +179,7 @@ class FormManager
         }
 
         // Translation
+        $isNewTranslation = !$form->getTranslation($locale, false, false);
         $translation = $form->getTranslation($locale, true);
         $translation->setTitle(self::getValue($data, 'title'));
         $translation->setSubject(self::getValue($data, 'subject'));
@@ -186,6 +212,16 @@ class FormManager
         $this->updateFields($data, $form, $locale);
         $this->updateReceivers($data, $translation);
 
+        if (!$omitDomainEvent) {
+            if (!$id) {
+                $this->domainEventCollector->collect(new FormCreatedEvent($form, $locale, $data));
+            } elseif ($isNewTranslation) {
+                $this->domainEventCollector->collect(new FormTranslationAddedEvent($form, $locale, $data));
+            } else {
+                $this->domainEventCollector->collect(new FormModifiedEvent($form, $locale, $data));
+            }
+        }
+
         $this->entityManager->persist($form);
         $this->entityManager->flush();
 
@@ -205,6 +241,12 @@ class FormManager
         if (!$object) {
             return null;
         }
+
+        /** @var FormTranslation $translation */
+        $translation = $object->getTranslation($locale, false, true);
+        $this->domainEventCollector->collect(
+            new FormRemovedEvent($id, $translation->getTitle(), $translation->getLocale())
+        );
 
         $this->entityManager->remove($object);
         $this->entityManager->flush();

@@ -13,6 +13,7 @@ namespace Sulu\Bundle\FormBundle\Controller;
 
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sulu\Bundle\FormBundle\Admin\FormAdmin;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Exception\FormNotFoundException;
 use Sulu\Bundle\FormBundle\Manager\FormManager;
@@ -79,7 +80,7 @@ class FormController extends AbstractRestController implements ClassResourceInte
      */
     public function getSecurityContext()
     {
-        return 'sulu.form.forms';
+        return FormAdmin::SECURITY_CONTEXT;
     }
 
     public function getModelClass(): string
@@ -104,7 +105,7 @@ class FormController extends AbstractRestController implements ClassResourceInte
             $listBuilder = $this->factory->create($this->getModelClass());
 
             // get fieldDescriptors
-            $fieldDescriptors = $this->fieldDescriptorFactory->getFieldDescriptors('forms');
+            $fieldDescriptors = $this->fieldDescriptorFactory->getFieldDescriptors(Form::RESOURCE_KEY);
 
             $this->restHelper->initializeListBuilder($listBuilder, $fieldDescriptors);
 
@@ -183,7 +184,7 @@ class FormController extends AbstractRestController implements ClassResourceInte
             switch ($action) {
                 case 'copy':
                     try {
-                        $copiedForm = $this->formManager->copy($id);
+                        $copiedForm = $this->formManager->copy($id, $locale);
                     } catch (FormNotFoundException $e) {
                         throw new NotFoundHttpException(\sprintf('No form with id "%s" was found!', $e->getFormEntityId()), $e);
                     }
