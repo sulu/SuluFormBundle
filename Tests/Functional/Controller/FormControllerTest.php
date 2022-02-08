@@ -122,7 +122,7 @@ class FormControllerTest extends SuluTestCase
     {
         $this->client->request(
             'POST',
-            '/admin/api/forms/2?action=copy',
+            '/admin/api/forms/2?action=copy'
         );
 
         $this->assertHttpStatusCode(404, $this->client->getResponse());
@@ -134,7 +134,7 @@ class FormControllerTest extends SuluTestCase
 
         $this->client->request(
             'POST',
-            '/admin/api/forms/' . $form->getId() . '?action=not-an-action',
+            '/admin/api/forms/' . $form->getId() . '?action=not-an-action'
         );
 
         $this->assertHttpStatusCode(400, $this->client->getResponse());
@@ -146,7 +146,7 @@ class FormControllerTest extends SuluTestCase
 
         $this->client->request(
             'POST',
-            '/admin/api/forms/' . $form->getId() . '?action=copy',
+            '/admin/api/forms/' . $form->getId() . '?action=copy'
         );
 
         $this->assertHttpStatusCode(200, $this->client->getResponse());
