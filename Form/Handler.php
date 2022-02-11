@@ -17,7 +17,10 @@ use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Event\FormSavePostEvent;
 use Sulu\Bundle\FormBundle\Event\FormSavePreEvent;
+use Sulu\Bundle\FormBundle\Exception\FormSubmissionIsSpamExceptionInterface;
 use Sulu\Bundle\FormBundle\Mail\HelperInterface;
+use Sulu\Bundle\FormBundle\SpamChecker\HoneypotSpamChecker;
+use Sulu\Bundle\FormBundle\SpamChecker\SpamCheckerInterface;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
@@ -56,14 +59,9 @@ class Handler implements HandlerInterface
     protected $mailHelper;
 
     /**
-     * @var string
+     * @var SpamCheckerInterface
      */
-    private $honeyPotStrategy;
-
-    /**
-     * @var string|null
-     */
-    private $honeyPotField;
+    private $spamChecker;
 
     public function __construct(
         ObjectManager $entityManager,
@@ -71,16 +69,26 @@ class Handler implements HandlerInterface
         Environment $twig,
         EventDispatcherInterface $eventDispatcher,
         MediaManagerInterface $mediaManager,
-        string $honeyPotStrategy = self::HONEY_POT_STRATEGY_SPAM,
-        string $honeyPotField = null
+        string $honeyPotStrategy = SpamCheckerInterface::SPAM_STRATEGY_SPAM,
+        string $honeyPotField = null,
+        SpamCheckerInterface $spamChecker = null
     ) {
         $this->entityManager = $entityManager;
         $this->mailHelper = $mailHelper;
         $this->twig = $twig;
         $this->eventDispatcher = $eventDispatcher;
         $this->mediaManager = $mediaManager;
-        $this->honeyPotStrategy = $honeyPotStrategy;
-        $this->honeyPotField = $honeyPotField;
+
+        if (null === $spamChecker) {
+            @\trigger_error(
+                \sprintf('Instantiating "%s" without the $spamChecker argument is deprecated', self::class),
+                \E_USER_DEPRECATED
+            );
+
+            $this->spamChecker = new HoneypotSpamChecker($honeyPotField, $honeyPotStrategy);
+        } else {
+            $this->spamChecker = $spamChecker;
+        }
     }
 
     /**
@@ -92,9 +100,16 @@ class Handler implements HandlerInterface
             return false;
         }
 
-        $isSpam = $this->isSpamByHoneypot($form);
+        $isSpam = false;
+        $spamStrategy = null;
+        try {
+            $this->spamChecker->check($form, $configuration);
+        } catch (FormSubmissionIsSpamExceptionInterface $e) {
+            $isSpam = true;
+            $spamStrategy = $e->getSpamStrategy();
+        }
 
-        if ($isSpam && self::HONEY_POT_STRATEGY_NO_SAVE === $this->honeyPotStrategy) {
+        if ($isSpam && SpamCheckerInterface::SPAM_STRATEGY_NO_SAVE === $spamStrategy) {
             return true; // emulate a successfully form submit
         }
 
@@ -105,11 +120,11 @@ class Handler implements HandlerInterface
 
         $this->save($form, $configuration);
 
-        if ($isSpam && self::HONEY_POT_STRATEGY_NO_EMAIL === $this->honeyPotStrategy) {
+        if ($isSpam && SpamCheckerInterface::SPAM_STRATEGY_NO_EMAIL === $spamStrategy) {
             return true; // emulate a successfully form submit
         }
 
-        $this->sendMails($form, $configuration);
+        $this->sendMails($form, $configuration, $isSpam);
 
         return true;
     }
@@ -143,13 +158,16 @@ class Handler implements HandlerInterface
         );
     }
 
-    private function sendMails(FormInterface $form, FormConfigurationInterface $configuration): void
-    {
+    private function sendMails(
+        FormInterface $form,
+        FormConfigurationInterface $configuration,
+        bool $isSpam
+    ): void {
         $attachments = $this->getAttachments($form, $configuration);
 
         if ($adminMailConfiguration = $configuration->getAdminMailConfiguration()) {
             $subjectPrefix = '';
-            if ($this->isSpamByHoneypot($form)) {
+            if ($isSpam) {
                 $subjectPrefix = '(SPAM) ';
             }
 
@@ -341,26 +359,5 @@ class Handler implements HandlerInterface
                 $additionalData
             )
         );
-    }
-
-    private function isSpamByHoneypot(FormInterface $form): bool
-    {
-        if (!$this->honeyPotField) {
-            return false;
-        }
-
-        $honeypotFieldName = str_replace(' ', '_', strtolower($this->honeyPotField));
-
-        if (!$form->has($honeypotFieldName)) {
-            return false;
-        }
-
-        $honeypotField = $form->get($honeypotFieldName);
-
-        if (!$honeypotField->getData()) {
-            return false;
-        }
-
-        return true;
     }
 }

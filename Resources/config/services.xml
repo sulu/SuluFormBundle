@@ -15,6 +15,7 @@
             <argument type="service" id="sulu_media.media_manager" />
             <argument>%sulu_form.honeypot_strategy%</argument>
             <argument>%sulu_form.honeypot_field%</argument>
+            <argument type="service" id="sulu_form.spam_checker"/>
         </service>
         <service id="Sulu\Bundle\FormBundle\Form\HandlerInterface" alias="sulu_form.handler"/>
 
@@ -266,6 +267,18 @@
             <argument type="service" id="sulu_core.webspace.webspace_manager"/>
 
             <tag name="console.command"/>
+        </service>
+
+        <!-- SpamCheckers -->
+        <service id="sulu_form.spam_checker" class="Sulu\Bundle\FormBundle\SpamChecker\SpamChecker">
+            <argument type="tagged" tag="sulu_form.spam_checker"/>
+        </service>
+        <service id="Sulu\Bundle\FormBundle\SpamChecker\SpamCheckerInterface" alias="sulu_form.spam_checker"/>
+
+        <service id="sulu_form.honeypot_spam_checker" class="Sulu\Bundle\FormBundle\SpamChecker\HoneypotSpamChecker">
+            <argument>%sulu_form.honeypot_field%</argument>
+            <argument>%sulu_form.honeypot_strategy%</argument>
+            <tag name="sulu_form.spam_checker"/>
         </service>
     </services>
 </container>

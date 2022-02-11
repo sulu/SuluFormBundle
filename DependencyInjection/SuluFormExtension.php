@@ -13,6 +13,7 @@ namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Sulu\Bundle\FormBundle\Controller\FormTokenController;
 use Sulu\Bundle\FormBundle\Controller\FormWebsiteController;
+use Sulu\Bundle\FormBundle\SpamChecker\SpamCheckerInterface;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -229,6 +230,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         }
 
         $this->configureHelper($loader, $config, $container);
+        $this->registerInterfacesForAutoconfiguration($container);
     }
 
     /**
@@ -256,5 +258,11 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         }
 
         $container->setAlias('sulu.mail.helper', 'sulu.mail.' . $helper);
+    }
+
+    private function registerInterfacesForAutoconfiguration(ContainerBuilder $container): void
+    {
+        $container->registerForAutoconfiguration(SpamCheckerInterface::class)
+            ->addTag('sulu_form.spam_checker');
     }
 }

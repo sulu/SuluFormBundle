@@ -1,5 +1,12 @@
 # Upgrade
 
+## 2.x
+
+### Handler constructor changed
+
+The `Handler` service now accepts a new argument `$spamChecker`. If you have overridden this service in your project,
+you should inject the `sulu_form.spam_checker` service manually.
+
 ## 2.1.1
 
 ### Builder constructor changed
