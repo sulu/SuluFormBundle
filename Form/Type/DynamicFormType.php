@@ -16,6 +16,7 @@ use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Exception\FormNotFoundException;
+use Sulu\Component\Content\Mapper\ContentMapperInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -42,16 +43,23 @@ class DynamicFormType extends AbstractType
     private $honeyPotField;
 
     /**
+     * @var ContentMapperInterface
+     */
+    private $contentMapper;
+
+    /**
      * DynamicFormType constructor.
      */
     public function __construct(
         FormFieldTypePool $typePool,
         Checksum $checksum,
+        ContentMapperInterface $contentMapper,
         ?string $honeyPotField = null
     ) {
         $this->typePool = $typePool;
         $this->checksum = $checksum;
         $this->honeyPotField = $honeyPotField;
+        $this->contentMapper = $contentMapper;
     }
 
     /**
@@ -167,6 +175,20 @@ class DynamicFormType extends AbstractType
                     'required' => false,
                 ]
             );
+        }
+
+        // Redirect URL after success
+        if ($translation->getTargetSuccess()) {
+            $contentStructure = $this->contentMapper->load(
+                $translation->getTargetSuccess(),
+                $builder->getData()->getWebspaceKey(),
+                $locale
+            );
+
+            $builder->add('targetSuccess', HiddenType::class, [
+                'data' => $contentStructure->getPath(),
+                'mapped' => false,
+            ]);
         }
 
         // Add submit button.
