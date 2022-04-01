@@ -83,7 +83,9 @@ class FormManager
             $newFormTranslation->setTitle($translation->getTitle() . ' (2)');
             $newFormTranslation->setSubject($translation->getSubject());
             $newFormTranslation->setFromEmail($translation->getFromEmail());
+            $newFormTranslation->setFromName($translation->getFromName());
             $newFormTranslation->setToEmail($translation->getToEmail());
+            $newFormTranslation->setToName($translation->getToName());
             $newFormTranslation->setMailText($translation->getMailText());
             $newFormTranslation->setSubmitLabel($translation->getSubmitLabel());
             $newFormTranslation->setSuccessText($translation->getSuccessText());
