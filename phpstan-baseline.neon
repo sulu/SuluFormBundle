@@ -276,11 +276,6 @@ parameters:
 			path: Controller/FormController.php
 
 		-
-			message: "#^Parameter \\#1 \\$form of class Sulu\\\\Bundle\\\\FormBundle\\\\Domain\\\\Event\\\\FormCopiedEvent constructor expects Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form, Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\|null given\\.$#"
-			count: 1
-			path: Controller/FormController.php
-
-		-
 			message: "#^Parameter \\#2 \\$fieldDescriptors of method Sulu\\\\Component\\\\Rest\\\\RestHelperInterface\\:\\:initializeListBuilder\\(\\) expects array\\<Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\FieldDescriptorInterface\\>, array\\<Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\FieldDescriptorInterface\\>\\|null given\\.$#"
 			count: 1
 			path: Controller/FormController.php
