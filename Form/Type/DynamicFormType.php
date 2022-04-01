@@ -63,9 +63,13 @@ class DynamicFormType extends AbstractType
     {
         /** @var Form $formEntity */
         $formEntity = $options['formEntity'];
+        /** @var string $locale */
         $locale = $options['locale'];
+        /** @var string $type */
         $type = $options['type'];
+        /** @var string $typeId */
         $typeId = $options['typeId'];
+        /** @var string $name */
         $name = $options['name'];
 
         if (!$translation = $formEntity->getTranslation($locale)) {

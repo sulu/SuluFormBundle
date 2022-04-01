@@ -1151,6 +1151,11 @@ parameters:
 			path: Form/Builder.php
 
 		-
+			message: "#^Cannot call method getData\\(\\) on mixed\\.$#"
+			count: 4
+			path: Form/Handler.php
+
+		-
 			message: "#^Parameter \\#1 \\$object of method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:persist\\(\\) expects object, mixed given\\.$#"
 			count: 1
 			path: Form/Handler.php
@@ -1241,42 +1246,7 @@ parameters:
 			path: Form/Type/DynamicFormType.php
 
 		-
-			message: "#^Parameter \\#1 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\:\\:getTranslation\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Form/Type/DynamicFormType.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormField\\:\\:getTranslation\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Form/Type/DynamicFormType.php
-
-		-
-			message: "#^Parameter \\#1 \\$type of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:get\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Form/Type/DynamicFormType.php
-
-		-
-			message: "#^Parameter \\#2 \\$locale of class Sulu\\\\Bundle\\\\FormBundle\\\\Exception\\\\FormNotFoundException constructor expects string, mixed given\\.$#"
-			count: 1
-			path: Form/Type/DynamicFormType.php
-
-		-
-			message: "#^Parameter \\#2 \\$typeId of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:get\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Form/Type/DynamicFormType.php
-
-		-
 			message: "#^Parameter \\#3 \\$formId of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:get\\(\\) expects int, int\\|null given\\.$#"
-			count: 1
-			path: Form/Type/DynamicFormType.php
-
-		-
-			message: "#^Parameter \\#3 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\FormFieldTypeInterface\\:\\:build\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Form/Type/DynamicFormType.php
-
-		-
-			message: "#^Parameter \\#4 \\$formName of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:get\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: Form/Type/DynamicFormType.php
 
@@ -1651,7 +1621,7 @@ parameters:
 			path: Metadata/DynamicFormMetadataLoader.php
 
 		-
-			message: "#^Cannot call method item\\(\\) on DOMNodeList\\|false\\.$#"
+			message: "#^Cannot call method item\\(\\) on DOMNodeList\\<DOMNode\\>\\|false\\.$#"
 			count: 1
 			path: Metadata/PropertiesXmlLoader.php
 
@@ -1662,6 +1632,11 @@ parameters:
 
 		-
 			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: Repository/DynamicRepository.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\DynamicRepository\\:\\:findByFilters\\(\\) should return array but returns mixed\\.$#"
 			count: 1
 			path: Repository/DynamicRepository.php
 

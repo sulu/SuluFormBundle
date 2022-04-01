@@ -42,7 +42,7 @@ jobs:
                       database: mysql
                       dependency-versions: 'highest'
                       tools: 'composer:v2'
-                      lint: true
+                      lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=5.7
@@ -53,7 +53,7 @@ jobs:
                       database: mysql
                       dependency-versions: 'highest'
                       tools: 'composer:v2'
-                      lint: false
+                      lint: true
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=5.7
@@ -100,12 +100,11 @@ jobs:
               run: composer bootstrap-test-environment
               env: ${{ matrix.env }}
 
-            - name: Lint code
-              if: ${{ matrix.lint }}
-              run: composer lint
-              env: ${{ matrix.env }}
-
             - name: Execute test cases
               run: time composer test
               env: ${{ matrix.env }}
 
+            - name: Lint code
+              if: ${{ matrix.lint }}
+              run: composer lint
+              env: ${{ matrix.env }}

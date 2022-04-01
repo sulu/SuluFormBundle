@@ -14,8 +14,10 @@ namespace Sulu\Bundle\FormBundle\Controller;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Exception\FormNotFoundException;
 use Sulu\Bundle\FormBundle\Manager\FormManager;
 use Sulu\Component\Rest\AbstractRestController;
+use Sulu\Component\Rest\Exception\RestException;
 use Sulu\Component\Rest\ListBuilder\AbstractListBuilder;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
@@ -172,6 +174,31 @@ class FormController extends AbstractRestController implements ClassResourceInte
         $entity = $this->formManager->save($this->getData($request), $locale);
 
         return $this->handleView($this->view($this->getApiEntity($entity, $locale), 201));
+    }
+
+    public function postTriggerAction(Request $request, int $id): Response
+    {
+        $action = $request->query->get('action');
+        $locale = $this->getLocale($request);
+
+        try {
+            switch ($action) {
+                case 'copy':
+                    try {
+                        $copiedForm = $this->formManager->copy($id);
+                    } catch (FormNotFoundException $e) {
+                        throw new NotFoundHttpException(sprintf('No form with id "%s" was found!', $e->getFormEntityId()), $e);
+                    }
+
+                    return $this->handleView($this->view($this->getApiEntity($copiedForm, $locale)));
+                default:
+                    throw new RestException(\sprintf('Unrecognized action: "%s"', $action));
+            }
+        } catch (RestException $ex) {
+            $view = $this->view($ex->toArray(), 400);
+
+            return $this->handleView($view);
+        }
     }
 
     public function putAction(Request $request, int $id): Response

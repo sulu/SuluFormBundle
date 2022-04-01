@@ -17,6 +17,7 @@ use Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Sulu\Bundle\FormBundle\Form\Type\AbstractType;
 use Sulu\Bundle\WebsiteBundle\Controller\DefaultController;
 use Sulu\Component\Content\Compat\StructureInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormRegistryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -192,6 +193,7 @@ class FormWebsiteController extends DefaultController
         $errors = [];
 
         $generalErrors = [];
+        /** @var FormError $error */
         foreach ($this->form->getErrors() as $error) {
             $generalErrors[] = $error->getMessage();
         }
@@ -203,6 +205,7 @@ class FormWebsiteController extends DefaultController
         foreach ($this->form->all() as $field) {
             $fieldErrors = [];
 
+            /** @var FormError $error */
             foreach ($field->getErrors() as $error) {
                 $fieldErrors[] = $error->getMessage();
             }

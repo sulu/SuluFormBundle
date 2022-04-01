@@ -9,6 +9,13 @@ sulu_form.forms:
     resource: sulu_form.form_controller
     name_prefix: sulu_form.
 
+sulu_form.post_form_trigger:
+    path: /forms/{id}.{_format}
+    methods: POST
+    defaults:
+        _controller: sulu_form.form_controller::postTriggerAction
+        _format: json
+
 sulu_form.dynamic:
     type: rest
     resource: sulu_form.dynamic_controller
