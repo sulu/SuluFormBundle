@@ -13,6 +13,7 @@ namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Sulu\Bundle\FormBundle\Controller\FormTokenController;
 use Sulu\Bundle\FormBundle\Controller\FormWebsiteController;
+use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -89,7 +90,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                         ],
                     ],
                     'resources' => [
-                        'forms' => [
+                        Form::RESOURCE_KEY => [
                             'routes' => [
                                 'list' => 'sulu_form.get_forms',
                                 'detail' => 'sulu_form.get_form',
@@ -106,7 +107,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                         'single_selection' => [
                             'single_form_selection' => [
                                 'default_type' => 'list_overlay',
-                                'resource_key' => 'forms',
+                                'resource_key' => Form::RESOURCE_KEY,
                                 'types' => [
                                     'list_overlay' => [
                                         'adapter' => 'table',

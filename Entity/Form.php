@@ -19,6 +19,8 @@ use Doctrine\Common\Collections\Collection;
  */
 class Form
 {
+    public const RESOURCE_KEY = 'forms';
+
     /**
      * @var null|int
      */

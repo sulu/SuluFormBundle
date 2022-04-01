@@ -85,5 +85,10 @@
   "sulu_form.salutation_mr": "Herr",
   "sulu_form.salutation_ms": "Frau",
   "sulu_form.single_form_selection.no_form_selected": "Kein Formular ausgewählt",
-  "sulu_form.single_form_selection.overlay_title": "Wählen Sie ein Formular aus"
+  "sulu_form.single_form_selection.overlay_title": "Wählen Sie ein Formular aus",
+  "sulu_activity.description.forms.created": "{userFullName} hat das Formular \"{resourceTitle}\" erstellt",
+  "sulu_activity.description.forms.modified": "{userFullName} hat das Formular \"{resourceTitle}\" geändert",
+  "sulu_activity.description.forms.translation_added": "{userFullName} hat eine Übersetzung für \"{resourceLocale}\" zum Forumlar \"{resourceTitle}\" hinzugefügt",
+  "sulu_activity.description.forms.removed": "{userFullName} hat das Formular \"{resourceTitle}\" gelöscht",
+  "sulu_activity.description.forms.copied": "{userFullName} hat das Formular \"{resourceTitle}\" kopiert"
 }
