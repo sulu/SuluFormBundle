@@ -64,6 +64,69 @@ class FormManager
         return $this->formRepository->countByFilters($locale, $filters);
     }
 
+    public function copy(int $id): Form
+    {
+        $form = $this->findById($id);
+
+        $newForm = new Form();
+        $newForm->setDefaultLocale($form->getDefaultLocale());
+
+        foreach ($form->getTranslations() as $translation) {
+            $newFormTranslation = $newForm->getTranslation($translation->getLocale(), true);
+            $newFormTranslation->setTitle($translation->getTitle() . ' (2)');
+            $newFormTranslation->setSubject($translation->getSubject());
+            $newFormTranslation->setFromEmail($translation->getFromEmail());
+            $newFormTranslation->setToEmail($translation->getToEmail());
+            $newFormTranslation->setMailText($translation->getMailText());
+            $newFormTranslation->setSubmitLabel($translation->getSubmitLabel());
+            $newFormTranslation->setSuccessText($translation->getSuccessText());
+            $newFormTranslation->setSendAttachments($translation->getSendAttachments());
+            $newFormTranslation->setDeactivateAttachmentSave($translation->getDeactivateAttachmentSave());
+            $newFormTranslation->setDeactivateNotifyMails($translation->getDeactivateNotifyMails());
+            $newFormTranslation->setDeactivateCustomerMails($translation->getDeactivateCustomerMails());
+            $newFormTranslation->setReplyTo($translation->getReplyTo());
+            $newFormTranslation->setChanged(new \DateTime());
+            $newFormTranslation->setForm($newForm);
+            $newForm->addTranslation($newFormTranslation);
+
+            foreach ($translation->getReceivers() as $receiver) {
+                $newReceiver = new FormTranslationReceiver();
+                $newReceiver->setType($receiver->getType());
+                $newReceiver->setEmail($receiver->getEmail());
+                $newReceiver->setName($receiver->getName());
+                $newReceiver->setFormTranslation($newFormTranslation);
+                $newFormTranslation->addReceiver($newReceiver);
+            }
+        }
+
+        foreach ($form->getFields() as $field) {
+            $newField = new FormField();
+            $newField->setDefaultLocale($field->getDefaultLocale());
+            $newField->setKey($field->getKey());
+            $newField->setType($field->getType());
+            $newField->setOrder($field->getOrder());
+            $newField->setWidth($field->getWidth());
+            $newField->setRequired($field->getRequired());
+
+            foreach ($field->getTranslations() as $fieldTranslation) {
+                $newFieldTranslation = $newField->getTranslation($fieldTranslation->getLocale(), true);
+                $newFieldTranslation->setTitle($fieldTranslation->getTitle());
+                $newFieldTranslation->setPlaceholder($fieldTranslation->getPlaceholder());
+                $newFieldTranslation->setDefaultValue($fieldTranslation->getDefaultValue());
+                $newFieldTranslation->setShortTitle($fieldTranslation->getShortTitle());
+                $newFieldTranslation->setOptions($fieldTranslation->getOptions());
+            }
+
+            $newField->setForm($newForm);
+            $newForm->addField($newField);
+        }
+
+        $this->entityManager->persist($newForm);
+        $this->entityManager->flush();
+
+        return $newForm;
+    }
+
     /**
      * @param mixed[] $data
      */
