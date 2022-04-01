@@ -30,9 +30,6 @@ class StructureTitleProvider implements TitleProviderInterface
         $this->requestStack = $requestStack;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTitle(string $typeId, ?string $locale = null): ?string
     {
         $request = $this->requestStack->getMasterRequest();

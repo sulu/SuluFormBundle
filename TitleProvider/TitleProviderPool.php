@@ -31,17 +31,11 @@ class TitleProviderPool implements TitleProviderPoolInterface
         $this->providers = $providers;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function get(string $alias): TitleProviderInterface
     {
         return $this->providers[$alias];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function all(): array
     {
         return $this->providers;

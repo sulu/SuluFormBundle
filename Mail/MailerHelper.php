@@ -59,9 +59,6 @@ class MailerHelper implements HelperInterface
         $this->logger = $logger ?: new NullLogger();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function sendMail(
         $subject,
         $body,
@@ -206,21 +203,21 @@ class MailerHelper implements HelperInterface
         array $bccMail,
         ?string $plainText
     ): void {
-        $this->logger->info(sprintf(
-            'Try register mail from SuluFormBundle: ' . PHP_EOL .
-            '   From: %s' . PHP_EOL .
-            '   To: %s' . PHP_EOL .
-            '   Reply to: %s' . PHP_EOL .
-            '   Subject: %s' . PHP_EOL .
-            '   CC: %s' . PHP_EOL .
-            '   BCC: %s' . PHP_EOL .
-            '   Plain text: %s' . PHP_EOL,
-            is_string($fromMail) ? $fromMail ?: $this->fromMail : serialize($fromMail),
-            is_string($toMail) ? $toMail ?: $this->toMail : serialize($toMail),
-            is_string($replyTo) ? $replyTo : serialize($replyTo),
+        $this->logger->info(\sprintf(
+            'Try register mail from SuluFormBundle: ' . \PHP_EOL .
+            '   From: %s' . \PHP_EOL .
+            '   To: %s' . \PHP_EOL .
+            '   Reply to: %s' . \PHP_EOL .
+            '   Subject: %s' . \PHP_EOL .
+            '   CC: %s' . \PHP_EOL .
+            '   BCC: %s' . \PHP_EOL .
+            '   Plain text: %s' . \PHP_EOL,
+            \is_string($fromMail) ? $fromMail ?: $this->fromMail : \serialize($fromMail),
+            \is_string($toMail) ? $toMail ?: $this->toMail : \serialize($toMail),
+            \is_string($replyTo) ? $replyTo : \serialize($replyTo),
             $subject,
-            serialize($ccMail),
-            serialize($bccMail),
+            \serialize($ccMail),
+            \serialize($bccMail),
             $plainText
         ));
     }
@@ -232,11 +229,11 @@ class MailerHelper implements HelperInterface
      */
     private function parseToAddresses($fromMail): array
     {
-        if (is_string($fromMail)) {
+        if (\is_string($fromMail)) {
             return [Address::create($fromMail)];
         }
 
-        if (!is_array($fromMail)) {
+        if (!\is_array($fromMail)) {
             return [];
         }
 

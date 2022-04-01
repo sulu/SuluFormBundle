@@ -24,12 +24,9 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-    const SWIFT_MAILER_HELPER = 'swift_mailer';
-    const MAILER_HELPER = 'mailer';
+    public const SWIFT_MAILER_HELPER = 'swift_mailer';
+    public const MAILER_HELPER = 'mailer';
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('sulu_form');
@@ -105,7 +102,7 @@ class Configuration implements ConfigurationInterface
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('default')->defaultValue('simple')->end()
-                    ->scalarNode('delimiter')->defaultValue(PHP_EOL)->end()
+                    ->scalarNode('delimiter')->defaultValue(\PHP_EOL)->end()
                 ->end()
             ->end()
             ->booleanNode('dynamic_auto_title')->defaultValue(true)->end()

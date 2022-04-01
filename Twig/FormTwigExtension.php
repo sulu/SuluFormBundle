@@ -31,9 +31,6 @@ class FormTwigExtension extends AbstractExtension
         $this->formBuilder = $formBuilder;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFunctions()
     {
         return [

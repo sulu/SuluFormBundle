@@ -16,9 +16,9 @@ namespace Sulu\Bundle\FormBundle\Configuration;
  */
 interface MailConfigurationInterface
 {
-    const TYPE_TO = 'to';
-    const TYPE_CC = 'cc';
-    const TYPE_BCC = 'bcc';
+    public const TYPE_TO = 'to';
+    public const TYPE_CC = 'cc';
+    public const TYPE_BCC = 'bcc';
 
     public function getLocale(): string;
 

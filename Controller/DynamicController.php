@@ -103,11 +103,11 @@ class DynamicController implements ClassResourceInterface
         $entries = $this->dynamicListFactory->build($entries, $view);
 
         // avoid total request when entries < limit
-        if (count($entries) == $limit) {
+        if (\count($entries) == $limit) {
             $total = $this->dynamicRepository->countByFilters($filters);
         } else {
             // calculate total
-            $total = count($entries) + $offset;
+            $total = \count($entries) + $offset;
         }
 
         // create list representation
@@ -131,7 +131,7 @@ class DynamicController implements ClassResourceInterface
     {
         $dynamic = $this->dynamicRepository->find($id);
 
-        $attachments = array_filter(array_values($dynamic->getFieldsByType(Dynamic::TYPE_ATTACHMENT)));
+        $attachments = \array_filter(\array_values($dynamic->getFieldsByType(Dynamic::TYPE_ATTACHMENT)));
 
         foreach ($attachments as $mediaIds) {
             foreach ($mediaIds as $mediaId) {
@@ -164,10 +164,10 @@ class DynamicController implements ClassResourceInterface
             'fromDate' => $request->get('fromDate'),
             'toDate' => $request->get('toDate'),
             'search' => $request->get('search'),
-            'searchFields' => array_filter(explode(',', $request->get('searchFields', ''))),
+            'searchFields' => \array_filter(\explode(',', $request->get('searchFields', ''))),
         ];
 
-        return array_filter($filters);
+        return \array_filter($filters);
     }
 
     protected function loadForm(Request $request): Form

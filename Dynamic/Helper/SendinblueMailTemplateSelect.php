@@ -66,9 +66,9 @@ class SendinblueMailTemplateSelect
                 break;
             }
 
-            $mailTemplateObjects = array_merge($mailTemplateObjects, $newMailTemplateObjects);
+            $mailTemplateObjects = \array_merge($mailTemplateObjects, $newMailTemplateObjects);
             $offset += $limit;
-        } while (count($mailTemplateObjects) < $total);
+        } while (\count($mailTemplateObjects) < $total);
 
         $mailTemplates = [];
 

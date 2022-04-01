@@ -23,7 +23,7 @@ class InvalidListBuilderValueException extends \Exception
      */
     public function __construct($value)
     {
-        parent::__construct(sprintf('Invalid value ("%s") for list builder.', $value));
+        parent::__construct(\sprintf('Invalid value ("%s") for list builder.', $value));
 
         $this->value = $value;
     }

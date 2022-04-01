@@ -82,18 +82,18 @@ class MailerHelperTest extends TestCase
 
         $this->mailerMock->send($mail)->shouldBeCalled();
 
-        $this->loggerMock->info(sprintf(
-                'Try register mail from SuluFormBundle: ' . PHP_EOL .
-                '   From: from@example.org' . PHP_EOL .
-                '   To: to@example.org' . PHP_EOL .
-                '   Reply to: %s' . PHP_EOL .
-                '   Subject: test subject' . PHP_EOL .
-                '   CC: %s' . PHP_EOL .
-                '   BCC: %s' . PHP_EOL .
-                '   Plain text: %s' . PHP_EOL,
-                serialize(null),
-                serialize([]),
-                serialize([]),
+        $this->loggerMock->info(\sprintf(
+                'Try register mail from SuluFormBundle: ' . \PHP_EOL .
+                '   From: from@example.org' . \PHP_EOL .
+                '   To: to@example.org' . \PHP_EOL .
+                '   Reply to: %s' . \PHP_EOL .
+                '   Subject: test subject' . \PHP_EOL .
+                '   CC: %s' . \PHP_EOL .
+                '   BCC: %s' . \PHP_EOL .
+                '   Plain text: %s' . \PHP_EOL,
+                \serialize(null),
+                \serialize([]),
+                \serialize([]),
                 null
             ))->shouldBeCalled();
 
@@ -140,8 +140,8 @@ class MailerHelperTest extends TestCase
             ->to('to@example.org')
             ->from('from@example.org')
             ->sender('sender@example.org')
-            ->attachFromPath(__FILE__, basename(__FILE__))
-            ->attachFromPath(__FILE__, basename('example.php'))
+            ->attachFromPath(__FILE__, \basename(__FILE__))
+            ->attachFromPath(__FILE__, \basename('example.php'))
         ;
 
         $this->mailerMock->send($mail)->shouldBeCalled();

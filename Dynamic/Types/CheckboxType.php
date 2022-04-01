@@ -24,9 +24,6 @@ class CheckboxType implements FormFieldTypeInterface
 {
     use SimpleTypeTrait;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
@@ -36,9 +33,6 @@ class CheckboxType implements FormFieldTypeInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $type = TypeCheckboxType::class;

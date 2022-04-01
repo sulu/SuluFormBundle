@@ -185,7 +185,7 @@ class Handler implements HandlerInterface
 
         $body = $this->twig->render(
             $configuration->getTemplate(),
-            array_merge(
+            \array_merge(
                 $configuration->getTemplateAttributes(),
                 $additionalData
             )
@@ -219,13 +219,13 @@ class Handler implements HandlerInterface
         $attachments = [];
 
         foreach ($configuration->getFileFields() as $field => $collectionId) {
-            if (!$form->has($field) || !count($form[$field]->getData())) {
+            if (!$form->has($field) || !\count($form[$field]->getData())) {
                 continue;
             }
 
             $files = $form[$field]->getData();
 
-            if (!is_array($files)) {
+            if (!\is_array($files)) {
                 $files = [$files];
             }
 
@@ -252,14 +252,14 @@ class Handler implements HandlerInterface
         $mediaIds = [];
 
         foreach ($configuration->getFileFields() as $field => $collectionId) {
-            if (!$form->has($field) || !count($form[$field]->getData())) {
+            if (!$form->has($field) || !\count($form[$field]->getData())) {
                 continue;
             }
 
             $files = $form[$field]->getData();
             $ids = [];
 
-            if (!is_array($files)) {
+            if (!\is_array($files)) {
                 $files = [$files];
             }
 
@@ -336,7 +336,7 @@ class Handler implements HandlerInterface
 
         return $this->twig->render(
             $template,
-            array_merge(
+            \array_merge(
                 $configuration->getTemplateAttributes(),
                 $additionalData
             )
@@ -349,7 +349,7 @@ class Handler implements HandlerInterface
             return false;
         }
 
-        $honeypotFieldName = str_replace(' ', '_', strtolower($this->honeyPotField));
+        $honeypotFieldName = \str_replace(' ', '_', \strtolower($this->honeyPotField));
 
         if (!$form->has($honeypotFieldName)) {
             return false;

@@ -63,9 +63,6 @@ class ProtectedMediaSubscriber implements EventSubscriberInterface
         $this->protectedCollectionKeys = $protectedCollectionKeys;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents()
     {
         return [

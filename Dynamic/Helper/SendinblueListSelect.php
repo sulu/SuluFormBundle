@@ -66,9 +66,9 @@ class SendinblueListSelect
                 break;
             }
 
-            $listObjects = array_merge($listObjects, $newListObjects);
+            $listObjects = \array_merge($listObjects, $newListObjects);
             $offset += $limit;
-        } while (count($listObjects) < $total);
+        } while (\count($listObjects) < $total);
 
         $lists = [];
 

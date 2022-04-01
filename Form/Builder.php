@@ -89,14 +89,11 @@ class Builder implements BuilderInterface
         $this->csrfTokenManager = $csrfTokenManager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildByRequest(Request $request): ?FormInterface
     {
         foreach ($request->request->all() as $key => $parameters) {
-            if (0 === strpos($key, 'dynamic_')) {
-                $formNameParts = explode('dynamic_', $key, 2);
+            if (0 === \strpos($key, 'dynamic_')) {
+                $formNameParts = \explode('dynamic_', $key, 2);
                 $checksumCheck = $this->checksum->check(
                     $parameters['checksum'],
                     $parameters['type'],
@@ -139,9 +136,6 @@ class Builder implements BuilderInterface
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function build(int $id, string $type, string $typeId, ?string $locale = null, string $name = 'form'): ?FormInterface
     {
         $request = $this->requestStack->getCurrentRequest();
@@ -194,7 +188,7 @@ class Builder implements BuilderInterface
 
     private function getKey(int $id, string $type, string $typeId, string $locale, string $name): string
     {
-        return implode('__', func_get_args());
+        return \implode('__', \func_get_args());
     }
 
     private function createForm(string $name, string $type, string $typeId, string $locale, Form $formEntity, string $webspaceKey): FormInterface
@@ -205,7 +199,7 @@ class Builder implements BuilderInterface
         $recaptchaFields = $formEntity->getFieldsByType('recaptcha');
         $csrfTokenProtection = true;
 
-        if (count($recaptchaFields)) {
+        if (\count($recaptchaFields)) {
             $csrfTokenProtection = false;
         }
 

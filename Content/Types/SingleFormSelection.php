@@ -54,8 +54,6 @@ class SingleFormSelection extends SimpleContentType
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return FormView|null
      */
     public function getContentData(PropertyInterface $property)
@@ -119,8 +117,6 @@ class SingleFormSelection extends SimpleContentType
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return mixed[]
      */
     public function getViewData(PropertyInterface $property)

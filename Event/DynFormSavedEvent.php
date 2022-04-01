@@ -19,7 +19,7 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class DynFormSavedEvent extends Event
 {
-    const NAME = 'sulu.dynform.saved';
+    public const NAME = 'sulu.dynform.saved';
 
     /**
      * @var mixed[]

@@ -181,7 +181,7 @@ class Form
         $fields = [];
 
         foreach ($this->fields as $field) {
-            if (!in_array($field->getKey(), $keys)) {
+            if (!\in_array($field->getKey(), $keys)) {
                 $fields[] = $field;
             }
         }
@@ -217,7 +217,7 @@ class Form
                 'value' => $value,
             ];
 
-            ksort($fields);
+            \ksort($fields);
         }
 
         $translation = $this->getTranslation($locale, false, true);

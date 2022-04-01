@@ -125,7 +125,7 @@ class DynamicRepository extends EntityRepository
             return;
         }
 
-        $terms = explode(' ', $search);
+        $terms = \explode(' ', $search);
 
         // Search each term in each search field
         foreach ($terms as $counter => $term) {
@@ -138,7 +138,7 @@ class DynamicRepository extends EntityRepository
                 );
             }
 
-            $queryBuilder->andWhere(call_user_func_array([$queryBuilder->expr(), 'orX'], $expressions));
+            $queryBuilder->andWhere(\call_user_func_array([$queryBuilder->expr(), 'orX'], $expressions));
             $queryBuilder->setParameter('searchTerm' . $counter, '%' . $term . '%');
         }
     }

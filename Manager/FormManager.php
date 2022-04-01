@@ -233,7 +233,7 @@ class FormManager
             $receiver = new FormTranslationReceiver();
             $receiver->setType($receiverData['type']);
             $receiver->setEmail($receiverData['email']);
-            if (!array_key_exists('name', $receiverData)) {
+            if (!\array_key_exists('name', $receiverData)) {
                 $receiverData['name'] = null;
             }
             $receiver->setName($receiverData['name']);
@@ -252,7 +252,7 @@ class FormManager
      */
     protected function updateFields(array $data, Form $form, string $locale): void
     {
-        $reservedKeys = array_column(self::getValue($data, 'fields', []), 'key');
+        $reservedKeys = \array_column(self::getValue($data, 'fields', []), 'key');
 
         $counter = 0;
 
@@ -344,7 +344,7 @@ class FormManager
             $name .= $counter;
         }
 
-        if (!in_array($name, $keys)) {
+        if (!\in_array($name, $keys)) {
             return $name;
         }
 

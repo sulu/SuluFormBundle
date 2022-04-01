@@ -40,17 +40,12 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
      */
     protected $attributes = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function setAttributes(array $attributes): void
     {
         $this->attributes = $attributes;
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return void
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -91,141 +86,93 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCustomerSubject($formData = []): ?string
     {
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNotifySubject($formData = []): ?string
     {
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCustomerMail($formData = []): string
     {
         return '@ClientWebsite/views/form/mail/' . $this->getName() . '/success.html.twig';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNotifyMail($formData = []): string
     {
         return '@ClientWebsite/views/form/mail/' . $this->getName() . '/notify.html.twig';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCustomerPlainMail($formData = []): ?string
     {
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNotifyPlainMail($formData = []): ?string
     {
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCustomerFromMailAddress($formData = []): string
     {
         return $this->getAttribute('mail_customer_from_address');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCustomerToMailAddress($formData = []): string
     {
         $email = $this->getAttribute('mail_customer_to_address');
 
-        if (is_object($formData)) {
-            if (method_exists($formData, 'getEmail')) {
+        if (\is_object($formData)) {
+            if (\method_exists($formData, 'getEmail')) {
                 $email = $formData->getEmail();
             } elseif (isset($formData->email)) {
                 $email = $formData->email;
             }
-        } elseif (is_array($formData) && isset($formData['email'])) {
+        } elseif (\is_array($formData) && isset($formData['email'])) {
             $email = $formData['email'];
         }
 
         return $email;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCustomerReplyToMailAddress($formData = []): string
     {
         return $this->getAttribute('mail_customer_replyto_address');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNotifyFromMailAddress($formData = []): string
     {
         return $this->getAttribute('mail_notify_from_address');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNotifyToMailAddress($formData = []): string
     {
         return $this->getAttribute('mail_notify_to_address');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNotifyReplyToMailAddress($formData = []): string
     {
         return $this->getAttribute('mail_notify_replyto_address');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNotifySendAttachments($formData = []): bool
     {
         return false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNotifyDeactivateMails($formData = []): bool
     {
         return !$this->getNotifyMail($formData);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCustomerDeactivateMails($formData = []): bool
     {
         return !$this->getCustomerMail($formData);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getMailText($formData = []): string
     {
         return $this->getAttribute('mail_text');
@@ -239,25 +186,16 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
         return $this->getAttribute('submit_label');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSuccessText($formData = []): string
     {
         return $this->getAttribute('success_text');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFileFields(): array
     {
         return ['files'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCollectionId(): ?int
     {
         return null;
@@ -269,7 +207,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     public function getName(): string
     {
         // As of Symfony 2.8, the name defaults to the fully-qualified class name
-        return get_class($this);
+        return \get_class($this);
     }
 
     /**
@@ -284,7 +222,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
      */
     public function getBlockPrefix()
     {
-        $fqcn = get_class($this);
+        $fqcn = \get_class($this);
         $name = $this->getName();
         // For BC: Use the name as block prefix if one is set
         return $name !== $fqcn ? $name : StringUtil::fqcnToBlockPrefix($fqcn);

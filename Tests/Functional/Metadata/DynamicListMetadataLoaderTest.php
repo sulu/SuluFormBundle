@@ -399,7 +399,7 @@ class DynamicListMetadataLoaderTest extends SuluTestCase
         $formField->setType($type);
         $formField->setWidth('full');
         $formField->setRequired(true);
-        $formField->setOrder(count($form->getFields()) + 1);
+        $formField->setOrder(\count($form->getFields()) + 1);
 
         $formFieldTranslation1 = new FormFieldTranslation();
         $formFieldTranslation1->setShortTitle($translationEn);

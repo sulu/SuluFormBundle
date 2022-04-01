@@ -20,7 +20,7 @@ class BuilderNotFoundException extends \Exception
 
     public function __construct(string $builder)
     {
-        parent::__construct(sprintf('Builder with the name "%s" not found.', $builder));
+        parent::__construct(\sprintf('Builder with the name "%s" not found.', $builder));
 
         $this->builder = $builder;
     }

@@ -49,7 +49,7 @@ class DynamicListMetadataLoader implements ListMetadataLoaderInterface
 
     public function getMetadata(string $key, string $locale, array $metadataOptions): ?MetadataInterface
     {
-        if (0 !== strcmp('form_data', $key)) {
+        if (0 !== \strcmp('form_data', $key)) {
             return null;
         }
 
@@ -81,7 +81,7 @@ class DynamicListMetadataLoader implements ListMetadataLoaderInterface
      */
     private function getForm(array $metadataOptions, string $locale): ?Form
     {
-        if (!array_key_exists('id', $metadataOptions)) {
+        if (!\array_key_exists('id', $metadataOptions)) {
             return null;
         }
         $entity = $this->formManager->findById($metadataOptions['id'], $locale);

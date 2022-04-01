@@ -30,13 +30,10 @@ use Symfony\Component\Mailer\MailerInterface;
  */
 class SuluFormExtension extends Extension implements PrependExtensionInterface
 {
-    const SYSTEM_COLLECTION_ROOT = 'sulu_form';
-    const MEDIA_COLLECTION_STRATEGY_SINGLE = 'single';
-    const MEDIA_COLLECTION_STRATEGY_TREE = 'tree';
+    public const SYSTEM_COLLECTION_ROOT = 'sulu_form';
+    public const MEDIA_COLLECTION_STRATEGY_SINGLE = 'single';
+    public const MEDIA_COLLECTION_STRATEGY_TREE = 'tree';
 
-    /**
-     * {@inheritdoc}
-     */
     public function prepend(ContainerBuilder $container): void
     {
         if ($container->hasExtension('fos_js_routing')) {
@@ -128,9 +125,6 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
@@ -190,7 +184,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $loader->load('title-providers.xml');
 
         if ($config['sendinblue_api_key']) {
-            if (!class_exists(\SendinBlue\Client\Configuration::class)) {
+            if (!\class_exists(\SendinBlue\Client\Configuration::class)) {
                 throw new \LogicException('You need to install the "sendinblue/api-v3-sdk" package to use the sendinblue type.');
             }
 
@@ -198,7 +192,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         }
 
         if ($config['mailchimp_api_key']) {
-            if (!class_exists(\DrewM\MailChimp\MailChimp::class)) {
+            if (!\class_exists(\DrewM\MailChimp\MailChimp::class)) {
                 throw new \LogicException('You need to install the "drewm/mailchimp-api" package to use the mailchimp type.');
             }
 
@@ -207,11 +201,11 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
 
         $bundles = $container->getParameter('kernel.bundles');
 
-        if (array_key_exists('SuluArticleBundle', $bundles)) {
+        if (\array_key_exists('SuluArticleBundle', $bundles)) {
             $loader->load('article.xml');
         }
 
-        if (class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class)) {
+        if (\class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class)) {
             $loader->load('type_recaptcha.xml');
         }
 

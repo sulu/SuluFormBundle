@@ -22,9 +22,6 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class DynamicListBuilderCompilerPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition('sulu_form.list_builder.dynamic_list_factory')) {

@@ -66,7 +66,7 @@ class ListController extends AbstractRestController implements ClassResourceInte
 
         $fieldDescriptors = $this->providerRegistry->getFieldDescriptors($template, $webspace, $locale, $uuid);
 
-        return $this->handleView($this->view(array_values($fieldDescriptors)));
+        return $this->handleView($this->view(\array_values($fieldDescriptors)));
     }
 
     public function cgetAction(Request $request): Response

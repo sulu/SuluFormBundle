@@ -101,21 +101,21 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
                 $fieldTypeMetaDataCollection[] = $this->loadFieldTypeMetadata($typeKey, $type, $locale);
             }
 
-            usort($fieldTypeMetaDataCollection, static function(FormMetadata $a, FormMetadata $b): int {
-                return strcmp($a->getTitle(), $b->getTitle());
+            \usort($fieldTypeMetaDataCollection, static function(FormMetadata $a, FormMetadata $b): int {
+                return \strcmp($a->getTitle(), $b->getTitle());
             });
 
             foreach ($fieldTypeMetaDataCollection as $fieldTypeMetaData) {
                 $fields->addType($fieldTypeMetaData);
             }
 
-            $fields->setDefaultType(current($fields->getTypes())->getName());
+            $fields->setDefaultType(\current($fields->getTypes())->getName());
             $section->addItem($fields);
             $formItems = $formMetadata->getItems();
             $this->arrayInsertAtPosition($formItems, 1, [$section->getName() => $section]);
             $formMetadata->setItems($formItems);
             $configCache = $this->getConfigCache($formMetadata->getKey(), $locale);
-            $configCache->write(serialize($formMetadata), [new FileResource($resource)]);
+            $configCache->write(\serialize($formMetadata), [new FileResource($resource)]);
         }
 
         return [];
@@ -125,7 +125,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
     {
         $configCache = $this->getConfigCache($key, $locale);
 
-        if (!file_exists($configCache->getPath())) {
+        if (!\file_exists($configCache->getPath())) {
             return null;
         }
 
@@ -133,7 +133,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
             $this->warmUp($this->cacheDir);
         }
 
-        $form = unserialize(file_get_contents($configCache->getPath()));
+        $form = \unserialize(\file_get_contents($configCache->getPath()));
 
         return $form;
     }
@@ -144,7 +144,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
      */
     private function arrayInsertAtPosition(array &$array, int $pos, array $insert): void
     {
-        $array = array_merge(array_slice($array, 0, $pos), $insert, array_slice($array, $pos));
+        $array = \array_merge(\array_slice($array, 0, $pos), $insert, \array_slice($array, $pos));
     }
 
     private function loadFieldTypeMetadata(string $typeKey, FormFieldTypeInterface $type, string $locale): FormMetadata
@@ -167,6 +167,6 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
 
     private function getConfigCache(string $key, string $locale): ConfigCache
     {
-        return new ConfigCache(sprintf('%s%s%s.%s', $this->cacheDir, DIRECTORY_SEPARATOR, $key, $locale), $this->debug);
+        return new ConfigCache(\sprintf('%s%s%s.%s', $this->cacheDir, \DIRECTORY_SEPARATOR, $key, $locale), $this->debug);
     }
 }

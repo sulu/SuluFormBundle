@@ -25,12 +25,12 @@ use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
 class FormAdmin extends Admin
 {
-    const LIST_VIEW = 'sulu_form.list';
-    const LIST_VIEW_DATA = 'sulu_form.edit_form.data';
-    const ADD_FORM_VIEW = 'sulu_form.add_form';
-    const ADD_FORM_DETAILS_VIEW = 'sulu_form.add_form.details';
-    const EDIT_FORM_VIEW = 'sulu_form.edit_form';
-    const EDIT_FORM_DETAILS_VIEW = 'sulu_form.edit_form.details';
+    public const LIST_VIEW = 'sulu_form.list';
+    public const LIST_VIEW_DATA = 'sulu_form.edit_form.data';
+    public const ADD_FORM_VIEW = 'sulu_form.add_form';
+    public const ADD_FORM_DETAILS_VIEW = 'sulu_form.add_form.details';
+    public const EDIT_FORM_VIEW = 'sulu_form.edit_form';
+    public const EDIT_FORM_DETAILS_VIEW = 'sulu_form.edit_form.details';
 
     /**
      * @var SecurityCheckerInterface
@@ -60,9 +60,6 @@ class FormAdmin extends Admin
         $this->webspaceManager = $webspaceManager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void
     {
         if ($this->securityChecker->hasPermission('sulu.form.forms', PermissionTypes::VIEW)) {
@@ -75,13 +72,10 @@ class FormAdmin extends Admin
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureViews(ViewCollection $viewCollection): void
     {
-        $formLocales = array_values(
-            array_map(
+        $formLocales = \array_values(
+            \array_map(
                 function(Localization $localization) {
                     return $localization->getLocale();
                 },
@@ -163,9 +157,6 @@ class FormAdmin extends Admin
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSecurityContexts()
     {
         return [

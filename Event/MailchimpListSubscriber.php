@@ -33,9 +33,6 @@ class MailchimpListSubscriber implements EventSubscriberInterface
         $this->subscribeStatus = $subscribeStatus;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents()
     {
         return [
@@ -70,7 +67,7 @@ class MailchimpListSubscriber implements EventSubscriberInterface
             }
         }
 
-        if ('' != $email && '' != $this->apiKey && count($listIds) > 0) {
+        if ('' != $email && '' != $this->apiKey && \count($listIds) > 0) {
             $MailChimp = new MailChimp($this->apiKey);
             foreach ($listIds as $listId) {
                 if (!$listId) {

@@ -54,7 +54,7 @@ class FormGeneratorCommand extends Command
 
         /** @var non-empty-array<string> $locales */
         $locales = $this->webspaceManager->getAllLocales();
-        $form->setDefaultLocale(current($locales));
+        $form->setDefaultLocale(\current($locales));
 
         foreach ($locales as $locale) {
             $formTranslation = $form->getTranslation($locale, true);
@@ -233,7 +233,7 @@ class FormGeneratorCommand extends Command
     ): void {
         $formField = $form->getField($fieldKey) ?: new FormField();
         $formField->setForm($form);
-        $formField->setDefaultLocale(current($locales));
+        $formField->setDefaultLocale(\current($locales));
         $formField->setRequired($required);
         $formField->setType($fieldType);
         $formField->setWidth($width);
@@ -242,7 +242,7 @@ class FormGeneratorCommand extends Command
 
         foreach ($locales as $locale) {
             $formFieldTranslation = $formField->getTranslation($locale, true);
-            $formFieldTranslation->setTitle(ucfirst($fieldType));
+            $formFieldTranslation->setTitle(\ucfirst($fieldType));
             $formFieldTranslation->setOptions($options);
         }
 
@@ -270,13 +270,13 @@ class FormGeneratorCommand extends Command
     private function getChoices(): string
     {
         return
-            'Choice 1' . PHP_EOL .
-            'Choice 2' . PHP_EOL .
-            'Choice 3' . PHP_EOL .
-            'Choice 4' . PHP_EOL .
-            'Choice 5' . PHP_EOL .
-            'Choice 6' . PHP_EOL .
-            'Choice 7' . PHP_EOL
+            'Choice 1' . \PHP_EOL .
+            'Choice 2' . \PHP_EOL .
+            'Choice 3' . \PHP_EOL .
+            'Choice 4' . \PHP_EOL .
+            'Choice 5' . \PHP_EOL .
+            'Choice 6' . \PHP_EOL .
+            'Choice 7' . \PHP_EOL
         ;
     }
 }

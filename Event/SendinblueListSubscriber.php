@@ -49,9 +49,6 @@ class SendinblueListSubscriber implements EventSubscriberInterface
         $this->contactsApi = new ContactsApi(null, $config);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents()
     {
         return [
@@ -103,7 +100,7 @@ class SendinblueListSubscriber implements EventSubscriberInterface
             }
         }
 
-        if ($email && count($listIdsByMailTemplate) > 0) {
+        if ($email && \count($listIdsByMailTemplate) > 0) {
             foreach ($listIdsByMailTemplate as $mailTemplateId => $listIds) {
                 $createDoiContact = new CreateDoiContact([
                     'email' => $email,
