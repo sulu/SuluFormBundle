@@ -29,9 +29,6 @@ class AttachmentType implements FormFieldTypeInterface
 {
     use SimpleTypeTrait;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
@@ -41,9 +38,6 @@ class AttachmentType implements FormFieldTypeInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $type = FileType::class;
@@ -54,13 +48,13 @@ class AttachmentType implements FormFieldTypeInterface
         $mimeTypes = [];
 
         $translation = $field->getTranslation($locale);
-        if (is_array($translation->getOption('type'))) {
+        if (\is_array($translation->getOption('type'))) {
             foreach ($translation->getOption('type') as $attachmentType) {
                 $mimeTypes[] = $attachmentType . '/*';
             }
         }
 
-        $options['attr']['accept'] = implode(',', $mimeTypes);
+        $options['attr']['accept'] = \implode(',', $mimeTypes);
 
         // File Constraint.
         if ($translation->getOption('type') === ['image']) {

@@ -44,9 +44,9 @@ class FormWebsiteController extends DefaultController
 
     public function __construct()
     {
-        @trigger_error(
+        @\trigger_error(
             __CLASS__ . ' is deprecated and should not longer be used.',
-            E_USER_DEPRECATED
+            \E_USER_DEPRECATED
         );
     }
 
@@ -219,8 +219,6 @@ class FormWebsiteController extends DefaultController
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @param mixed[] $attributes
      * @param bool $preview
      *

@@ -24,9 +24,6 @@ class CheckboxMultipleType implements FormFieldTypeInterface
 {
     use ChoiceTrait;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
@@ -36,9 +33,6 @@ class CheckboxMultipleType implements FormFieldTypeInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $translation = $field->getTranslation($locale);
@@ -50,9 +44,6 @@ class CheckboxMultipleType implements FormFieldTypeInterface
         $builder->add($field->getKey(), $type, $options);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefaultValue(FormField $field, string $locale)
     {
         $value = $field->getTranslation($locale)->getDefaultValue();

@@ -17,14 +17,11 @@ use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 
 class DynamicProvider implements ListProviderInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getFieldDescriptors(string $webspace, string $locale, string $uuid): array
     {
-        @trigger_error(
+        @\trigger_error(
             __METHOD__ . '() use the new dynamic list provider.',
-            E_USER_DEPRECATED
+            \E_USER_DEPRECATED
         );
 
         $fieldDescriptors = [
@@ -52,7 +49,7 @@ class DynamicProvider implements ListProviderInterface
     protected function createFieldDescriptor(string $name, string $type = '', string $translationKey = '', string $visibility = FieldDescriptorInterface::VISIBILITY_YES): DoctrineFieldDescriptor
     {
         if (!$translationKey) {
-            $translationKey = 'sulu_form.type.' . strtolower($name);
+            $translationKey = 'sulu_form.type.' . \strtolower($name);
         }
 
         return new DoctrineFieldDescriptor(
@@ -66,9 +63,6 @@ class DynamicProvider implements ListProviderInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getEntityName(string $webspace, string $locale, string $uuid): string
     {
         return Dynamic::class;

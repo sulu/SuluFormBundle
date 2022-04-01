@@ -41,9 +41,6 @@ class DynamicListBuilder implements DynamicListBuilderInterface
         $this->router = $router;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function build(Dynamic $dynamic, string $locale): array
     {
         $entry = $dynamic->getFields();
@@ -72,11 +69,11 @@ class DynamicListBuilder implements DynamicListBuilderInterface
      */
     private function toString($value): string
     {
-        if (is_string($value) || is_numeric($value)) {
+        if (\is_string($value) || \is_numeric($value)) {
             return $value;
         }
 
-        if (is_bool($value)) {
+        if (\is_bool($value)) {
             return $value ? '1' : '0';
         }
 
@@ -88,11 +85,11 @@ class DynamicListBuilder implements DynamicListBuilderInterface
             return '';
         }
 
-        if (!is_array($value)) {
-            throw new InvalidListBuilderValueException(json_encode($value));
+        if (!\is_array($value)) {
+            throw new InvalidListBuilderValueException(\json_encode($value));
         }
 
-        return implode($this->delimiter, $value);
+        return \implode($this->delimiter, $value);
     }
 
     /**
@@ -100,16 +97,16 @@ class DynamicListBuilder implements DynamicListBuilderInterface
      */
     private function getMediaUrls($value): string
     {
-        if (is_string($value)) {
+        if (\is_string($value)) {
             return $this->getMediaUrl($value);
         }
 
-        if (is_array($value)) {
+        if (\is_array($value)) {
             foreach ($value as $key => $mediaId) {
                 $value[$key] = $this->getMediaUrl($mediaId);
             }
 
-            return implode($this->delimiter, $value);
+            return \implode($this->delimiter, $value);
         }
 
         return $this->toString($value);
@@ -117,7 +114,7 @@ class DynamicListBuilder implements DynamicListBuilderInterface
 
     private function getMediaUrl(string $value): string
     {
-        return str_replace('{id}', $value, $this->getDownloadUrl());
+        return \str_replace('{id}', $value, $this->getDownloadUrl());
     }
 
     /**
@@ -129,7 +126,7 @@ class DynamicListBuilder implements DynamicListBuilderInterface
             // The given id must be a number which we replace
             $idReplacerNumber = '875421';
 
-            $this->downloadUrl = str_replace($idReplacerNumber, '{id}', $this->router->generate(
+            $this->downloadUrl = \str_replace($idReplacerNumber, '{id}', $this->router->generate(
                 'sulu_media.website.media.download',
                 [
                     'slug' => 'file',

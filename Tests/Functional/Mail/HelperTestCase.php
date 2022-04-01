@@ -70,8 +70,8 @@ class HelperTestCase extends SuluTestCase
         $crawler = $this->client->request('GET', '/');
         $this->assertHttpStatusCode(200, $this->client->getResponse());
 
-        $formName = sprintf('dynamic_form%d', $form->getId());
-        $formSelector = sprintf('form[name=%s]', $formName);
+        $formName = \sprintf('dynamic_form%d', $form->getId());
+        $formSelector = \sprintf('form[name=%s]', $formName);
         $this->assertEquals(1, $crawler->filter($formSelector)->count());
 
         $formElm = $crawler->filter($formSelector)->first()->form([

@@ -33,9 +33,6 @@ class CollectionStrategySingle implements CollectionStrategyInterface
         $this->systemCollectionManager = $systemCollectionManager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCollectionId(
         int $formId,
         string $formTitle,

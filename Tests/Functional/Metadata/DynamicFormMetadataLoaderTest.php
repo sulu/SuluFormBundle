@@ -32,16 +32,16 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->assertInstanceOf(FormMetadata::class, $formMetadata);
         $this->assertEquals('form_details', $formMetadata->getKey());
         $this->assertCount(5, $formMetadata->getItems());
-        $this->assertContains('title', array_keys($formMetadata->getItems()));
-        $this->assertContains('formFields', array_keys($formMetadata->getItems()));
-        $this->assertContains('websiteConfiguration', array_keys($formMetadata->getItems()));
-        $this->assertContains('emailConfiguration', array_keys($formMetadata->getItems()));
-        $this->assertContains('receivers', array_keys($formMetadata->getItems()));
+        $this->assertContains('title', \array_keys($formMetadata->getItems()));
+        $this->assertContains('formFields', \array_keys($formMetadata->getItems()));
+        $this->assertContains('websiteConfiguration', \array_keys($formMetadata->getItems()));
+        $this->assertContains('emailConfiguration', \array_keys($formMetadata->getItems()));
+        $this->assertContains('receivers', \array_keys($formMetadata->getItems()));
 
         $formFields = $formMetadata->getItems()['formFields'];
         $this->assertInstanceOf(SectionMetadata::class, $formFields);
         $this->assertCount(1, $formFields->getItems());
-        $this->assertContains('fields', array_keys($formFields->getItems()));
+        $this->assertContains('fields', \array_keys($formFields->getItems()));
         $this->assertEquals('section', $formFields->getType());
         $this->assertEquals('formFields', $formFields->getName());
         $this->assertEquals('Form Fields', $formFields->getLabel());
@@ -80,7 +80,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
             'street',
             'title',
             'zip',
-        ], array_keys($fields->getTypes()));
+        ], \array_keys($fields->getTypes()));
     }
 
     public function testGetMetadataGerman(): void
@@ -90,16 +90,16 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->assertInstanceOf(FormMetadata::class, $formMetadata);
         $this->assertEquals('form_details', $formMetadata->getKey());
         $this->assertCount(5, $formMetadata->getItems());
-        $this->assertContains('title', array_keys($formMetadata->getItems()));
-        $this->assertContains('formFields', array_keys($formMetadata->getItems()));
-        $this->assertContains('websiteConfiguration', array_keys($formMetadata->getItems()));
-        $this->assertContains('emailConfiguration', array_keys($formMetadata->getItems()));
-        $this->assertContains('receivers', array_keys($formMetadata->getItems()));
+        $this->assertContains('title', \array_keys($formMetadata->getItems()));
+        $this->assertContains('formFields', \array_keys($formMetadata->getItems()));
+        $this->assertContains('websiteConfiguration', \array_keys($formMetadata->getItems()));
+        $this->assertContains('emailConfiguration', \array_keys($formMetadata->getItems()));
+        $this->assertContains('receivers', \array_keys($formMetadata->getItems()));
 
         $formFields = $formMetadata->getItems()['formFields'];
         $this->assertInstanceOf(SectionMetadata::class, $formFields);
         $this->assertCount(1, $formFields->getItems());
-        $this->assertContains('fields', array_keys($formFields->getItems()));
+        $this->assertContains('fields', \array_keys($formFields->getItems()));
         $this->assertEquals('section', $formFields->getType());
         $this->assertEquals('formFields', $formFields->getName());
         $this->assertEquals('Formular Felder', $formFields->getLabel());
@@ -138,7 +138,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
             'title',
             'firstName',
             'headline',
-        ], array_keys($fields->getTypes()));
+        ], \array_keys($fields->getTypes()));
     }
 
     public function testGetMetadataLabelsEnglish(): void

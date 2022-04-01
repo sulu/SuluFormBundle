@@ -59,7 +59,7 @@ class DynamicListAdmin extends Admin
 
                 $action = 'form-list';
                 if ($counter > 1) {
-                    $action .= '-' . str_replace('_', '-', $key);
+                    $action .= '-' . \str_replace('_', '-', $key);
                 }
 
                 $name = $parent . '.' . $action . '-key';
@@ -99,7 +99,7 @@ class DynamicListAdmin extends Admin
                 }
 
                 if (isset($config['template'])) {
-                    $view->setTabCondition(sprintf('template == "%s"', $config['template']));
+                    $view->setTabCondition(\sprintf('template == "%s"', $config['template']));
                 }
 
                 $view->addRequestParameters($requestParameters);

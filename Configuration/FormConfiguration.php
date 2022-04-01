@@ -51,25 +51,16 @@ class FormConfiguration implements FormConfigurationInterface
         $this->locale = $locale;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getLocale(): string
     {
         return $this->locale;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAdminMailConfiguration(): ?MailConfigurationInterface
     {
         return $this->adminMailConfiguration;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getWebsiteMailConfiguration(): ?MailConfigurationInterface
     {
         return $this->websiteMailConfiguration;
@@ -103,9 +94,6 @@ class FormConfiguration implements FormConfigurationInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFileFields(): array
     {
         return $this->fileFields;

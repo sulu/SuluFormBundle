@@ -90,7 +90,7 @@ class FormConfigurationFactory
     public function buildByType(AbstractType $type, $formData, string $locale, array $attributes): FormConfigurationInterface
     {
         $config = $this->create($locale);
-        $config->setFileFields(array_fill_keys($type->getFileFields(), $type->getCollectionId()));
+        $config->setFileFields(\array_fill_keys($type->getFileFields(), $type->getCollectionId()));
 
         $attributes['form'] = [
             'data' => $formData,
@@ -196,17 +196,17 @@ class FormConfigurationFactory
             $email = $this->getEmail($receiver->getEmail(), $receiver->getName());
 
             if (MailConfigurationInterface::TYPE_TO == $receiver->getType()) {
-                $toList = array_merge($toList, $email);
+                $toList = \array_merge($toList, $email);
             } elseif (MailConfigurationInterface::TYPE_CC == $receiver->getType()) {
-                $ccList = array_merge($ccList, $email);
+                $ccList = \array_merge($ccList, $email);
             } elseif (MailConfigurationInterface::TYPE_BCC == $receiver->getType()) {
-                $bccList = array_merge($bccList, $email);
+                $bccList = \array_merge($bccList, $email);
             }
         }
 
-        $adminMailConfiguration->setTo(array_filter($toList));
-        $adminMailConfiguration->setCc(array_filter($ccList));
-        $adminMailConfiguration->setBcc(array_filter($bccList));
+        $adminMailConfiguration->setTo(\array_filter($toList));
+        $adminMailConfiguration->setCc(\array_filter($ccList));
+        $adminMailConfiguration->setBcc(\array_filter($bccList));
 
         if ($translation->getReplyTo()) {
             $adminMailConfiguration->setReplyTo($this->getEmailFromDynamic($dynamic));
@@ -272,7 +272,7 @@ class FormConfigurationFactory
 
         $fields = $form->getFieldsByType(Dynamic::TYPE_ATTACHMENT);
 
-        if (0 === count($fields)) {
+        if (0 === \count($fields)) {
             return [];
         }
 
@@ -323,7 +323,7 @@ class FormConfigurationFactory
     private function getEmailFromDynamic(Dynamic $dynamic): ?array
     {
         $emails = $dynamic->getFieldsByType(Dynamic::TYPE_EMAIL);
-        $email = reset($emails);
+        $email = \reset($emails);
 
         return $this->getEmail($email);
     }

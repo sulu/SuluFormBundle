@@ -76,17 +76,11 @@ class MailConfiguration implements MailConfigurationInterface
         $this->locale = $locale;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getLocale(): string
     {
         return $this->locale;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSubject(): ?string
     {
         return $this->subject;
@@ -99,9 +93,6 @@ class MailConfiguration implements MailConfigurationInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFrom()
     {
         return $this->from;
@@ -119,9 +110,6 @@ class MailConfiguration implements MailConfigurationInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTo()
     {
         return $this->to;
@@ -139,9 +127,6 @@ class MailConfiguration implements MailConfigurationInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCc()
     {
         return $this->cc;
@@ -159,9 +144,6 @@ class MailConfiguration implements MailConfigurationInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBcc()
     {
         return $this->bcc;
@@ -179,9 +161,6 @@ class MailConfiguration implements MailConfigurationInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getReplyTo()
     {
         return $this->replyTo;
@@ -199,9 +178,6 @@ class MailConfiguration implements MailConfigurationInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAddAttachments(): bool
     {
         return $this->addAttachments;
@@ -217,9 +193,6 @@ class MailConfiguration implements MailConfigurationInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplate(): string
     {
         return $this->template;
@@ -232,9 +205,6 @@ class MailConfiguration implements MailConfigurationInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPlainTextTemplate(): ?string
     {
         return $this->plainTextTemplate;
@@ -250,9 +220,6 @@ class MailConfiguration implements MailConfigurationInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplateAttributes(): array
     {
         return $this->templateAttributes;

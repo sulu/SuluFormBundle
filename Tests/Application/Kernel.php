@@ -17,20 +17,14 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 class Kernel extends SuluTestKernel
 {
-    /**
-     * {@inheritdoc}
-     */
     public function __construct($environment, $debug, $suluContext = self::CONTEXT_ADMIN)
     {
         parent::__construct($environment, $debug, $suluContext);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function registerBundles()
     {
-        return array_merge(
+        return \array_merge(
             parent::registerBundles(),
             [
                 new SuluFormBundle(),
@@ -38,9 +32,6 @@ class Kernel extends SuluTestKernel
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         parent::registerContainerConfiguration($loader);

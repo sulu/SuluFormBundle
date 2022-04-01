@@ -23,9 +23,6 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class DateType implements FormFieldTypeInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
@@ -35,9 +32,6 @@ class DateType implements FormFieldTypeInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $type = TypeDateType::class;
@@ -50,9 +44,6 @@ class DateType implements FormFieldTypeInterface
         $builder->add($field->getKey(), $type, $options);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefaultValue(FormField $field, string $locale)
     {
         $value = $field->getTranslation($locale)->getDefaultValue();

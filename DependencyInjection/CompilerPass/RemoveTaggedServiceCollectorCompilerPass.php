@@ -41,9 +41,6 @@ class RemoveTaggedServiceCollectorCompilerPass implements CompilerPassInterface
         $this->disableParam = $disableParam;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         $disabledSerivcesAliases = $container->getParameter($this->disableParam);
@@ -51,7 +48,7 @@ class RemoveTaggedServiceCollectorCompilerPass implements CompilerPassInterface
 
         foreach ($taggedServices as $id => $attributes) {
             if (isset($attributes[0][$this->aliasAttribute])
-                    && in_array($attributes[0][$this->aliasAttribute], $disabledSerivcesAliases)) {
+                    && \in_array($attributes[0][$this->aliasAttribute], $disabledSerivcesAliases)) {
                 if ($container->hasDefinition($id)) {
                     $container->removeDefinition($id);
                 }

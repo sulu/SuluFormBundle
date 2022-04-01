@@ -24,9 +24,6 @@ class StreetType implements FormFieldTypeInterface
 {
     use SimpleTypeTrait;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
@@ -35,9 +32,6 @@ class StreetType implements FormFieldTypeInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $type = TypeTextType::class;

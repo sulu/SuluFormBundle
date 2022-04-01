@@ -14,7 +14,7 @@ declare(strict_types=1);
 use Sulu\Bundle\FormBundle\Tests\Application\Kernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
-require dirname(__DIR__) . '/Application/config/bootstrap.php';
+require \dirname(__DIR__) . '/Application/config/bootstrap.php';
 
 $kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG'], Kernel::CONTEXT_ADMIN);
 $kernel->boot();

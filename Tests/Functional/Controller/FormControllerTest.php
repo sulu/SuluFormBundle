@@ -81,7 +81,7 @@ class FormControllerTest extends SuluTestCase
         );
 
         $this->assertHttpStatusCode(200, $this->client->getResponse());
-        $response = json_decode($this->client->getResponse()->getContent(), true);
+        $response = \json_decode($this->client->getResponse()->getContent(), true);
 
         $this->assertFullForm($response);
     }
@@ -100,7 +100,7 @@ class FormControllerTest extends SuluTestCase
         );
 
         $this->assertHttpStatusCode(201, $this->client->getResponse());
-        $response = json_decode($this->client->getResponse()->getContent(), true);
+        $response = \json_decode($this->client->getResponse()->getContent(), true);
         $this->assertMinimalForm($response);
     }
 
@@ -113,7 +113,7 @@ class FormControllerTest extends SuluTestCase
         );
 
         $this->assertHttpStatusCode(201, $this->client->getResponse());
-        $response = json_decode($this->client->getResponse()->getContent(), true);
+        $response = \json_decode($this->client->getResponse()->getContent(), true);
 
         $this->assertFullForm($response);
     }
@@ -150,11 +150,11 @@ class FormControllerTest extends SuluTestCase
         );
 
         $this->assertHttpStatusCode(200, $this->client->getResponse());
-        $response = json_decode($this->client->getResponse()->getContent(), true);
+        $response = \json_decode($this->client->getResponse()->getContent(), true);
 
         $this->assertEquals('Title (2)', $response['title']);
         $this->assertNotEquals($form->getId(), $response['id']);
-        $response['title'] = str_replace(' (2)', '', $response['title']);
+        $response['title'] = \str_replace(' (2)', '', $response['title']);
 
         $this->assertFullForm($response);
     }
@@ -174,7 +174,7 @@ class FormControllerTest extends SuluTestCase
         );
 
         $this->assertHttpStatusCode(200, $this->client->getResponse());
-        $response = json_decode($this->client->getResponse()->getContent(), true);
+        $response = \json_decode($this->client->getResponse()->getContent(), true);
         $this->assertMinimalForm($response);
     }
 
@@ -188,7 +188,7 @@ class FormControllerTest extends SuluTestCase
         );
 
         $this->assertHttpStatusCode(200, $this->client->getResponse());
-        $response = json_decode($this->client->getResponse()->getContent(), true);
+        $response = \json_decode($this->client->getResponse()->getContent(), true);
         $this->assertFullForm($response);
     }
 
@@ -281,7 +281,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertEquals('<p>Mail Text</p>', $response['mailText']);
         // Fields
         $expectedFieldTypes = ['email', 'email'];
-        $this->assertCount(count($expectedFieldTypes), $response['fields']);
+        $this->assertCount(\count($expectedFieldTypes), $response['fields']);
         foreach ($expectedFieldTypes as $key => $type) {
             $this->assertNotNull($response['fields'][$key]['id']);
             $this->assertEquals($type, $response['fields'][$key]['type']);
@@ -304,7 +304,7 @@ class FormControllerTest extends SuluTestCase
                 if ($expectedType === $receiver['type']) {
                     $foundExpectedType = true;
                     $this->assertNotNull($receiver['id']);
-                    $this->assertEquals(ucfirst($expectedType) . ' Receiver', $receiver['name']);
+                    $this->assertEquals(\ucfirst($expectedType) . ' Receiver', $receiver['name']);
                     $this->assertEquals($expectedType . '-receiver@example.org', $receiver['email']);
                     $this->assertEquals($expectedType, $receiver['type']);
                     $this->assertCountFields(4, $receiver);

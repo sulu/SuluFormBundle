@@ -61,7 +61,7 @@ class FormFieldTranslation
         if ($title) {
             // this is a replacement for enterMode br which does not longer exist in ckeditor 5
             // see also https://github.com/sulu/sulu/issues/5214
-            $title = str_replace(
+            $title = \str_replace(
                 ['</p><p>', '<p>', '</p>'],
                 ['<br/><br/>', '', ''],
                 $title
@@ -158,7 +158,7 @@ class FormFieldTranslation
             return [];
         }
 
-        return json_decode($this->options, true);
+        return \json_decode($this->options, true);
     }
 
     /**
@@ -166,8 +166,8 @@ class FormFieldTranslation
      */
     public function setOptions(?array $options): self
     {
-        if (is_array($options)) {
-            $options = json_encode($options);
+        if (\is_array($options)) {
+            $options = \json_encode($options);
         }
 
         $this->options = $options;

@@ -50,9 +50,6 @@ class CollectionStrategyTree implements CollectionStrategyInterface
         $this->titleProviderPool = $titleProviderPool;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCollectionId(
         int $formId,
         string $formTitle,

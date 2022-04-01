@@ -25,9 +25,6 @@ class RadioButtonsType implements FormFieldTypeInterface
     use ChoiceTrait;
     use SimpleTypeTrait;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
@@ -37,9 +34,6 @@ class RadioButtonsType implements FormFieldTypeInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $translation = $field->getTranslation($locale);
