@@ -19,7 +19,7 @@ class FormNotFoundException extends \Exception
     private $formEntityId;
 
     /**
-     * @param string $locale
+     * @param string|null $locale
      */
     public function __construct(int $formEntityId, $locale)
     {

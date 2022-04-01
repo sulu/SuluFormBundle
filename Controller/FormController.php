@@ -14,6 +14,7 @@ namespace Sulu\Bundle\FormBundle\Controller;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Exception\FormNotFoundException;
 use Sulu\Bundle\FormBundle\Manager\FormManager;
 use Sulu\Component\Rest\AbstractRestController;
 use Sulu\Component\Rest\Exception\RestException;
@@ -183,7 +184,11 @@ class FormController extends AbstractRestController implements ClassResourceInte
         try {
             switch ($action) {
                 case 'copy':
-                    $copiedForm = $this->formManager->copy($id);
+                    try {
+                        $copiedForm = $this->formManager->copy($id);
+                    } catch (FormNotFoundException $e) {
+                        throw new NotFoundHttpException(sprintf('No form with id "%s" was found!', $e->getFormEntityId()));
+                    }
 
                     return $this->handleView($this->view($this->getApiEntity($copiedForm, $locale)));
                 default:

@@ -16,6 +16,7 @@ use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormField;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslationReceiver;
+use Sulu\Bundle\FormBundle\Exception\FormNotFoundException;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 
 class FormManager
@@ -67,6 +68,10 @@ class FormManager
     public function copy(int $id): Form
     {
         $form = $this->findById($id);
+
+        if (!$form) {
+            throw new FormNotFoundException($id, null);
+        }
 
         $newForm = new Form();
         $newForm->setDefaultLocale($form->getDefaultLocale());
