@@ -272,7 +272,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$entity of method Sulu\\\\Bundle\\\\FormBundle\\\\Controller\\\\FormController\\:\\:getApiEntity\\(\\) expects Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form, Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\|null given\\.$#"
-			count: 2
+			count: 1
 			path: Controller/FormController.php
 
 		-
@@ -1256,42 +1256,7 @@ parameters:
 			path: Form/Type/DynamicFormType.php
 
 		-
-			message: "#^Parameter \\#1 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\:\\:getTranslation\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Form/Type/DynamicFormType.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormField\\:\\:getTranslation\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Form/Type/DynamicFormType.php
-
-		-
-			message: "#^Parameter \\#1 \\$type of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:get\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Form/Type/DynamicFormType.php
-
-		-
-			message: "#^Parameter \\#2 \\$locale of class Sulu\\\\Bundle\\\\FormBundle\\\\Exception\\\\FormNotFoundException constructor expects string, mixed given\\.$#"
-			count: 1
-			path: Form/Type/DynamicFormType.php
-
-		-
-			message: "#^Parameter \\#2 \\$typeId of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:get\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Form/Type/DynamicFormType.php
-
-		-
 			message: "#^Parameter \\#3 \\$formId of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:get\\(\\) expects int, int\\|null given\\.$#"
-			count: 1
-			path: Form/Type/DynamicFormType.php
-
-		-
-			message: "#^Parameter \\#3 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\FormFieldTypeInterface\\:\\:build\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Form/Type/DynamicFormType.php
-
-		-
-			message: "#^Parameter \\#4 \\$formName of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:get\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: Form/Type/DynamicFormType.php
 

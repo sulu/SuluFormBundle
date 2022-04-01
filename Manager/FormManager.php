@@ -14,6 +14,7 @@ namespace Sulu\Bundle\FormBundle\Manager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormField;
+use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslationReceiver;
 use Sulu\Bundle\FormBundle\Exception\FormNotFoundException;
@@ -77,6 +78,7 @@ class FormManager
         $newForm->setDefaultLocale($form->getDefaultLocale());
 
         foreach ($form->getTranslations() as $translation) {
+            /** @var FormTranslation $newFormTranslation */
             $newFormTranslation = $newForm->getTranslation($translation->getLocale(), true);
             $newFormTranslation->setTitle($translation->getTitle() . ' (2)');
             $newFormTranslation->setSubject($translation->getSubject());
@@ -114,6 +116,7 @@ class FormManager
             $newField->setRequired($field->getRequired());
 
             foreach ($field->getTranslations() as $fieldTranslation) {
+                /** @var FormFieldTranslation $newFieldTranslation */
                 $newFieldTranslation = $newField->getTranslation($fieldTranslation->getLocale(), true);
                 $newFieldTranslation->setTitle($fieldTranslation->getTitle());
                 $newFieldTranslation->setPlaceholder($fieldTranslation->getPlaceholder());

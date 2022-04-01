@@ -187,7 +187,7 @@ class FormController extends AbstractRestController implements ClassResourceInte
                     try {
                         $copiedForm = $this->formManager->copy($id);
                     } catch (FormNotFoundException $e) {
-                        throw new NotFoundHttpException(sprintf('No form with id "%s" was found!', $e->getFormEntityId()));
+                        throw new NotFoundHttpException(sprintf('No form with id "%s" was found!', $e->getFormEntityId()), $e);
                     }
 
                     return $this->handleView($this->view($this->getApiEntity($copiedForm, $locale)));
