@@ -33,6 +33,10 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->getRootNode();
 
         $rootNode->children()
+            ->booleanNode('csrf_protection')
+                ->info('Enable csrf protection for dynamic forms.')
+                ->defaultFalse()
+            ->end()
             ->scalarNode('sendinblue_api_key')->defaultValue(null)->end()
             ->scalarNode('mailchimp_api_key')->defaultValue(null)->end()
             ->scalarNode('mailchimp_subscribe_status')->defaultValue('subscribed')->end()

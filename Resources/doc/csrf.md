@@ -1,22 +1,13 @@
 # CSRF Token
 
-The csrf token is session based so it need to be loaded over 
-an seperate request this can be done by esi (used by the basic theme) or ajax.
-In your form theme template.
+The csrf token is session based, because of the sulu caching mechanism
+it is needed to be load that token over a separate request (ajax).
 
-## ESI
+Enable csrf protection for dynamic forms via:
 
-Add the following to your form theme to overwrite the default
-behaviour of token generation or use the `@SuluForm/themes/basic.html.twig` theme.
-
-```twig
-{%- block csrf_token_widget -%}
-    {{ render_esi(controller('Sulu\\Bundle\\FormBundle\\Controller\\FormTokenController::tokenAction', {
-        'form': form.parent.vars.name,
-        'html': true,
-         _requestAnalyzer: false
-     })) }}
-{% endblock %}
+```yaml
+sulu_form:
+    csrf_protection: true
 ```
 
 ## Ajax
@@ -43,6 +34,7 @@ A simple example for loading the csrf token over ajax looks like this:
 {%- block csrf_token_widget -%}
     {{ block('hidden_widget') }}
 
+    {# this is just an example it should use data attributes or something similar to read formName and fieldId #}
     <script>
         var formName = '{{ form.parent.vars.name }}';
         var fieldId = '{{ id }}';
@@ -51,8 +43,15 @@ A simple example for loading the csrf token over ajax looks like this:
 ```
 
 ```js
-jQuery.get('/_form/token?form=' + formName + '&html=0').done(function(data) {
-    jQuery('#' + fieldId).val(data);
+fetch('/_form/token?form=' + formName + '&html=0', {
+    credentials: 'same-origin', // required for old safari versions
+    headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+    },
+}).then((response) => {
+    return response.text();
+}).then((token) => {
+    document.getElementById(fieldId).value = token;
 });
 ```
 
@@ -97,4 +96,21 @@ import web from '@sulu/web';
 import CsrfToken from './components/csrf-token';
 
 web.registerComponent('csrf-token', CsrfToken);
+```
+
+## ESI
+
+> This solution does not work with Symfony 5.4 or later. Please use ajax loading when enabling csrf protection.
+
+Add the following to your form theme to overwrite the default
+behaviour of token generation or use the `@SuluForm/themes/basic.html.twig` theme.
+
+```twig
+{%- block csrf_token_widget -%}
+    {{ render_esi(controller('Sulu\\Bundle\\FormBundle\\Controller\\FormTokenController::tokenAction', {
+        'form': form.parent.vars.name,
+        'html': true,
+         _requestAnalyzer: false
+     })) }}
+{% endblock %}
 ```

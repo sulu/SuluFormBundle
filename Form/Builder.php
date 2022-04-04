@@ -71,6 +71,11 @@ class Builder implements BuilderInterface
      */
     private $csrfTokenManager;
 
+    /**
+     * @var bool
+     */
+    private $csrfProtection;
+
     public function __construct(
         RequestStack $requestStack,
         FormFieldTypePool $formFieldTypePool,
@@ -78,7 +83,8 @@ class Builder implements BuilderInterface
         FormRepository $formRepository,
         FormFactory $formFactory,
         Checksum $checksum,
-        CsrfTokenManagerInterface $csrfTokenManager
+        CsrfTokenManagerInterface $csrfTokenManager,
+        bool $csrfProtection = false
     ) {
         $this->requestStack = $requestStack;
         $this->formFieldTypePool = $formFieldTypePool;
@@ -87,6 +93,7 @@ class Builder implements BuilderInterface
         $this->formFactory = $formFactory;
         $this->checksum = $checksum;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->csrfProtection = $csrfProtection;
     }
 
     public function buildByRequest(Request $request): ?FormInterface
@@ -197,7 +204,7 @@ class Builder implements BuilderInterface
         $typeName = $this->titleProviderPool->get($type)->getTitle($typeId, $locale);
 
         $recaptchaFields = $formEntity->getFieldsByType('recaptcha');
-        $csrfTokenProtection = true;
+        $csrfTokenProtection = $this->csrfProtection;
 
         if (\count($recaptchaFields)) {
             $csrfTokenProtection = false;

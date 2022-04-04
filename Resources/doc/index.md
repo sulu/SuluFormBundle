@@ -27,15 +27,6 @@ Sulu\Bundle\FormBundle\SuluFormBundle::class => ['all' => true],
 
 ## Config
 
-Activate esi for csrf token reload on cache pages
-by change the following lines in `config/packages/framework.yaml`.
-
-```yml
-framework:
-    esi: true
-    fragments: true
-```
-
 Configure the default sender and receivers email address (optional):
 
 ```yml
@@ -92,7 +83,3 @@ Make sure you've set the correct permissions in the Sulu backend for this bundle
 - [Sendinblue](sendinblue.md "Sendinblue Form Field")
 - [Recaptcha](recaptcha.md "Recaptcha Form Field")
 - [Dropzone](dropzone.md "Dropzone Form Field")
-
-## Varnish
-
-Using varnish have a look at the [CSRF](csrf.md "CSRF Token") documentation.

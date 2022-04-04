@@ -245,9 +245,9 @@ sulu_form:
 
 The following things you should check when implement the dynamic form type on your website.
 
- - Test CSRF Token on production in 2 different browser sessions
  - Test media upload
- - Test the notifiy email
+ - Test the notify email
  - Test the customer email
- - Test backend field errors
- - Test backend general errors ( e.g. remove CSRF token value )
+ - Test form submit errors (e.g. use spaces in required fields should show error after submit)
+ - Test backend general errors ( e.g. remove CSRF token value if enabled )
+ - Test CSRF Token on production in 2 different browser sessions (when csrf protection enabled)
