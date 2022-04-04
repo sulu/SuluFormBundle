@@ -84,6 +84,7 @@
             <argument type="service" id="form.factory" />
             <argument type="service" id="sulu_form.checksum" />
             <argument type="service" id="security.csrf.token_manager"/>
+            <argument>%sulu_form.csrf_protection%</argument>
         </service>
 
         <!-- Dynamic Form Type -->

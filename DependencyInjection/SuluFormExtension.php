@@ -133,6 +133,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
 
         $mediaCollectionStrategy = $config['media_collection_strategy'] ? $config['media_collection_strategy'] : $config['media']['collection_strategy'];
 
+        $container->setParameter('sulu_form.csrf_protection', $config['csrf_protection']);
         $container->setParameter('sulu_form.mail.from', $config['mail']['from']);
         $container->setParameter('sulu_form.mail.to', $config['mail']['to']);
         $container->setParameter('sulu_form.mail.sender', $config['mail']['sender']);
