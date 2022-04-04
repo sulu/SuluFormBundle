@@ -6,7 +6,7 @@
 
 By default, the csrf protection is disabled now because of caching mechanism it is required that
 csrf token is loaded over ajax. Since Symfony 5.4, it is not possible todo this over ESI, as the
-session cookie can not be created by a symfony subrequest, which was already the behaviour before when
+session cookie can not be created by a Symfony subrequest, which was already the behaviour before when
 using a caching server like varnish.
 
 If you want to enable csrf protection again it is required to configure:
