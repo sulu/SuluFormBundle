@@ -52,6 +52,7 @@
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="sulu_form.repository.form" />
             <argument type="service" id="sulu_activity.domain_event_collector"/>
+            <argument type="service" id="sulu_trash.trash_manager" on-invalid="null"/>
         </service>
 
         <!-- Content Types -->

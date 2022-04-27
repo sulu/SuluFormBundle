@@ -86,9 +86,11 @@
   "sulu_form.salutation_ms": "Ms.",
   "sulu_form.single_form_selection.no_form_selected": "No form selected",
   "sulu_form.single_form_selection.overlay_title": "Select a form",
+  "sulu_activity.resource.forms": "Form",
   "sulu_activity.description.forms.created": "{userFullName} has created the form \"{resourceTitle}\"",
   "sulu_activity.description.forms.modified": "{userFullName} has changed the form \"{resourceTitle}\"",
   "sulu_activity.description.forms.translation_added": "{userFullName} has added a translation \"{resourceLocale}\" to the form \"{resourceTitle}\"",
   "sulu_activity.description.forms.removed": "{userFullName} has removed the form \"{resourceTitle}\"",
-  "sulu_activity.description.forms.copied": "{userFullName} has copied the form \"{resourceTitle}\""
+  "sulu_activity.description.forms.copied": "{userFullName} has copied the form \"{resourceTitle}\"",
+  "sulu_activity.description.forms.restored": "{userFullName} has restored the form \"{resourceTitle}\""
 }
