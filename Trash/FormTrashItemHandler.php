@@ -30,6 +30,51 @@ use Sulu\Bundle\TrashBundle\Domain\Repository\TrashItemRepositoryInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 use Webmozart\Assert\Assert;
 
+/**
+ * @phpstan-type FormTrashItemData array{
+ *     defaultLocale: string,
+ *     translations: array<array{
+ *         title: string,
+ *         subject: string,
+ *         fromEmail: string,
+ *         fromName: string,
+ *         toEmail: string,
+ *         toName: string,
+ *         mailText: string,
+ *         submitLabel: string,
+ *         successText: string,
+ *         sendAttachments: bool,
+ *         deactivateAttachmentSave: bool,
+ *         deactivateNotifyMails: bool,
+ *         deactivateCustomerMails: bool,
+ *         replyTo: bool,
+ *         locale: string,
+ *         created: string,
+ *         creatorId: string,
+ *         receivers: array<array{
+ *             type: string,
+ *             email: string,
+ *             name: string,
+ *         }>,
+ *     }>,
+ *     fields: array<array{
+ *         key: string,
+ *         type: string,
+ *         width: string,
+ *         required: bool,
+ *         order: int,
+ *         defaultLocale: string,
+ *         translations: array<array{
+ *             title: string,
+ *             locale: string,
+ *             placeholder: string,
+ *             defaultValue: string,
+ *             shortTitle: string,
+ *             options: mixed[],
+ *         }>,
+ *     }>,
+ * }
+ */
 final class FormTrashItemHandler implements
     StoreTrashItemHandlerInterface,
     RestoreTrashItemHandlerInterface,
@@ -74,13 +119,13 @@ final class FormTrashItemHandler implements
     {
         Assert::isInstanceOf($resource, Form::class);
 
-        $formTitles = [];
+        /** @var FormTrashItemData $data */
         $data = [
-            'id' => $resource->getId(),
             'defaultLocale' => $resource->getDefaultLocale(),
             'translations' => [],
             'fields' => [],
         ];
+        $formTitles = [];
 
         foreach ($resource->getTranslations() as $translation) {
             $formTitles[$translation->getLocale()] = $translation->getTitle();
@@ -158,6 +203,7 @@ final class FormTrashItemHandler implements
     public function restore(TrashItemInterface $trashItem, array $restoreFormData = []): object
     {
         $id = (int) $trashItem->getResourceId();
+        /** @var FormTrashItemData $data */
         $data = $trashItem->getRestoreData();
 
         $form = new Form();
