@@ -22,7 +22,7 @@ class Kernel extends SuluTestKernel
         parent::__construct($environment, $debug, $suluContext);
     }
 
-    public function registerBundles()
+    public function registerBundles(): iterable
     {
         return \array_merge(
             parent::registerBundles(),
@@ -39,7 +39,7 @@ class Kernel extends SuluTestKernel
         $loader->load(__DIR__ . '/config/config_' . $this->getContext() . '.yml');
     }
 
-    protected function getKernelParameters()
+    protected function getKernelParameters(): array
     {
         $parameters = parent::getKernelParameters();
 

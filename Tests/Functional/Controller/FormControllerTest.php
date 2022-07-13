@@ -20,6 +20,7 @@ use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslationReceiver;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
+use Sulu\Bundle\TrashBundle\Domain\Model\TrashItemInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class FormControllerTest extends SuluTestCase
@@ -239,6 +240,10 @@ class FormControllerTest extends SuluTestCase
         $activity = $this->em->getRepository(ActivityInterface::class)->findOneBy(['type' => 'removed']);
         $this->assertNotNull($activity);
         $this->assertSame((string) $formId, $activity->getResourceId());
+
+        $trashItemRepository = $this->em->getRepository(TrashItemInterface::class);
+        $trashItem = $trashItemRepository->findOneBy(['resourceKey' => Form::RESOURCE_KEY, 'resourceId' => $formId]);
+        $this->assertNotNull($trashItem);
     }
 
     public function testDeleteNotFound(): void

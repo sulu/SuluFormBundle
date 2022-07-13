@@ -100,6 +100,7 @@ class Form
             $translation = new FormTranslation();
             $translation->setLocale($locale);
             $this->addTranslation($translation);
+            $translation->setForm($this);
 
             return $translation;
         }

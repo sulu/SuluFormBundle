@@ -401,11 +401,6 @@ parameters:
 			path: Dynamic/Helper/SendinblueListSelect.php
 
 		-
-			message: "#^Cannot assign offset 'tag' to SendinBlue\\\\Client\\\\Model\\\\GetSmtpTemplateOverview\\.$#"
-			count: 1
-			path: Dynamic/Helper/SendinblueMailTemplateSelect.php
-
-		-
 			message: "#^Offset 'tag' on SendinBlue\\\\Client\\\\Model\\\\GetSmtpTemplateOverview on left side of \\?\\? does not exist\\.$#"
 			count: 1
 			path: Dynamic/Helper/SendinblueMailTemplateSelect.php

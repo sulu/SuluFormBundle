@@ -25,6 +25,7 @@ use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Entity\FormTranslationReceiver;
 use Sulu\Bundle\FormBundle\Exception\FormNotFoundException;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
+use Sulu\Bundle\TrashBundle\Application\TrashManager\TrashManagerInterface;
 
 class FormManager
 {
@@ -44,16 +45,23 @@ class FormManager
     private $domainEventCollector;
 
     /**
+     * @var TrashManagerInterface|null
+     */
+    private $trashManager;
+
+    /**
      * EventManager constructor.
      */
     public function __construct(
         EntityManagerInterface $entityManager,
         FormRepository $formRepository,
-        DomainEventCollectorInterface $domainEventCollector
+        DomainEventCollectorInterface $domainEventCollector,
+        ?TrashManagerInterface $trashManager
     ) {
         $this->entityManager = $entityManager;
         $this->formRepository = $formRepository;
         $this->domainEventCollector = $domainEventCollector;
+        $this->trashManager = $trashManager;
     }
 
     public function findById(int $id, ?string $locale = null): ?Form
@@ -240,6 +248,10 @@ class FormManager
 
         if (!$object) {
             return null;
+        }
+
+        if ($this->trashManager) {
+            $this->trashManager->store(Form::RESOURCE_KEY, $object);
         }
 
         /** @var FormTranslation $translation */

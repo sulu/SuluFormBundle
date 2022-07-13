@@ -207,6 +207,10 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
             $loader->load('article.xml');
         }
 
+        if (\array_key_exists('SuluTrashBundle', $bundles)) {
+            $loader->load('services_trash.xml');
+        }
+
         if (\class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class)) {
             $loader->load('type_recaptcha.xml');
         }
