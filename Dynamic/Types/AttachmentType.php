@@ -54,7 +54,9 @@ class AttachmentType implements FormFieldTypeInterface
             }
         }
 
-        $options['attr']['accept'] = \implode(',', $mimeTypes);
+        if (!empty($mimeTypes)) {
+            $options['attr']['accept'] = \implode(',', $mimeTypes);
+        }
 
         // File Constraint.
         if ($translation->getOption('type') === ['image']) {
@@ -78,8 +80,6 @@ class AttachmentType implements FormFieldTypeInterface
             $options['constraints'][] = new Count([
                 'max' => $fileMax,
             ]);
-
-            $options['attr']['max'] = $fileMax;
         }
 
         $options['multiple'] = true;
