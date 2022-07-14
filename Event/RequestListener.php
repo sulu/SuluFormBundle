@@ -58,7 +58,7 @@ class RequestListener
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (\method_exists($event, 'isMainRequest') ? !$event->isMainRequest() : !$event->isMasterRequest()) {
             // do nothing if it's not the master request
             return;
         }

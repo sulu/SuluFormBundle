@@ -72,7 +72,7 @@ class ProtectedMediaSubscriber implements EventSubscriberInterface
 
     public function onRequest(RequestEvent $event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (\method_exists($event, 'isMainRequest') ? !$event->isMainRequest() : !$event->isMasterRequest()) {
             return;
         }
 
