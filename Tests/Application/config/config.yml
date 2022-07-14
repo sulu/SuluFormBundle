@@ -26,4 +26,4 @@ sulu_form:
 massive_search:
     adapters:
         zend_lucene:
-            base_path: "%kernel.project_dir%/var/indexes"
+            basepath: "%kernel.project_dir%/var/indexes"
