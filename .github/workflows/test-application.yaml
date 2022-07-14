@@ -8,8 +8,8 @@ on:
             - '[0-9]+.[0-9]+'
 
 jobs:
-    test:
-        name: 'PHP ${{ matrix.php-version }} (${{ matrix.database }}, ${{ matrix.dependency-versions }}, Lint ${{ matrix.lint }})'
+    php:
+        name: 'PHP ${{ matrix.php-version }} (${{ matrix.database }}, ${{ matrix.dependency-versions }})'
         runs-on: ubuntu-latest
 
         strategy:
@@ -19,8 +19,7 @@ jobs:
                     - php-version: '7.2'
                       database: postgres
                       dependency-versions: 'lowest'
-                      tools: 'composer:v1'
-                      lint: false
+                      tools: 'composer:v2'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: disabled
                           DATABASE_URL: postgres://postgres:postgres@127.0.0.1/sulu_form_test?serverVersion=12.5
@@ -31,7 +30,6 @@ jobs:
                       database: mysql
                       dependency-versions: 'highest'
                       tools: 'composer:v2'
-                      lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=5.7
@@ -42,7 +40,6 @@ jobs:
                       database: mysql
                       dependency-versions: 'highest'
                       tools: 'composer:v2'
-                      lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=5.7
@@ -53,7 +50,6 @@ jobs:
                       database: mysql
                       dependency-versions: 'highest'
                       tools: 'composer:v2'
-                      lint: true
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=5.7
@@ -104,7 +100,30 @@ jobs:
               run: time composer test
               env: ${{ matrix.env }}
 
+    lint:
+        name: 'PHP Lint'
+        runs-on: ubuntu-latest
+        env:
+            DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=5.7
+
+        steps:
+            - name: Checkout project
+              uses: actions/checkout@v2
+
+            - name: Install and configure PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 8.1
+                  extensions: 'imagick'
+                  tools: 'composer:v2'
+                  coverage: none
+
+            - name: Install composer dependencies
+              uses: ramsey/composer-install@v1
+              with:
+                  dependency-versions: ${{matrix.dependency-versions}}
+                  composer-options: ${{ matrix.composer-options }}
+
+
             - name: Lint code
-              if: ${{ matrix.lint }}
               run: composer lint
-              env: ${{ matrix.env }}
