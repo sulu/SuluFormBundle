@@ -1,5 +1,12 @@
 # Upgrade
 
+## 2.5.0
+
+### Deprecate Swiftmailer
+
+To support Symfony 6 and Sulu 2.5 the usage of Swiftmailer has been deprecated.
+Remove the `Swiftmailer` from your project to automatically use the `symfony/mailer` instead.
+
 ## 2.4.0
 
 ### CSRF Protection disabled

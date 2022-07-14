@@ -27,7 +27,7 @@ class Configuration implements ConfigurationInterface
     public const SWIFT_MAILER_HELPER = 'swift_mailer';
     public const MAILER_HELPER = 'mailer';
 
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('sulu_form');
         $rootNode = $treeBuilder->getRootNode();
