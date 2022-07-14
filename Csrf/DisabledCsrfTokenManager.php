@@ -14,6 +14,9 @@ namespace Sulu\Bundle\FormBundle\Csrf;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
+/**
+ * @final
+ */
 class DisabledCsrfTokenManager implements CsrfTokenManagerInterface
 {
     /**
