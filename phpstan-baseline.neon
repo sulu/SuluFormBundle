@@ -386,6 +386,16 @@ parameters:
 			path: DependencyInjection/SuluFormExtension.php
 
 		-
+			message: "#^Method Symfony\\\\Component\\\\DependencyInjection\\\\Definition\\:\\:setDeprecated\\(\\) invoked with 2 parameters, 3 required\\.$#"
+			count: 1
+			path: DependencyInjection/SuluFormExtension.php
+
+		-
+			message: "#^Parameter \\#1 \\$package of method Symfony\\\\Component\\\\DependencyInjection\\\\Definition\\:\\:setDeprecated\\(\\) expects string, true given\\.$#"
+			count: 1
+			path: DependencyInjection/SuluFormExtension.php
+
+		-
 			message: "#^Call to method hash\\(\\) on an unknown class Symfony\\\\Component\\\\Security\\\\Core\\\\Encoder\\\\MessageDigestPasswordEncoder\\.$#"
 			count: 1
 			path: Dynamic/Checksum.php
