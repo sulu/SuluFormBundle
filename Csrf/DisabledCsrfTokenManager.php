@@ -29,7 +29,7 @@ class DisabledCsrfTokenManager implements CsrfTokenManagerInterface
     /**
      * @param string $tokenId
      */
-    public function refreshToken($tokenId)
+    public function refreshToken($tokenId): CsrfToken
     {
         return $this->csrfTokenManager->refreshToken($tokenId);
     }
@@ -37,12 +37,12 @@ class DisabledCsrfTokenManager implements CsrfTokenManagerInterface
     /**
      * @param string $tokenId
      */
-    public function removeToken($tokenId)
+    public function removeToken($tokenId): ?string
     {
         return $this->csrfTokenManager->removeToken($tokenId);
     }
 
-    public function isTokenValid(CsrfToken $token)
+    public function isTokenValid(CsrfToken $token): bool
     {
         return $this->csrfTokenManager->isTokenValid($token);
     }
@@ -50,7 +50,7 @@ class DisabledCsrfTokenManager implements CsrfTokenManagerInterface
     /**
      * @param string $tokenId
      */
-    public function getToken($tokenId)
+    public function getToken($tokenId): CsrfToken
     {
         return new CsrfToken('', null);
     }
