@@ -80,6 +80,8 @@ class AttachmentType implements FormFieldTypeInterface
             $options['constraints'][] = new Count([
                 'max' => $fileMax,
             ]);
+
+            $options['attr']['max'] = $fileMax;
         }
 
         $options['multiple'] = true;
