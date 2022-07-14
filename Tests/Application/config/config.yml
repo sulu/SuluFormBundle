@@ -1,5 +1,6 @@
 parameters:
     secret: test
+    kernel.root_dir: '%kernel.project_dir%'
 
 framework:
     esi: ~
@@ -22,8 +23,3 @@ sulu_form:
     mail:
         from: "from@example.org"
         to:   "to@example.org"
-
-massive_search:
-    adapters:
-        zend_lucene:
-            basepath: "%kernel.project_dir%/var/indexes"
