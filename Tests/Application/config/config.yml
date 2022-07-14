@@ -22,6 +22,3 @@ sulu_form:
     mail:
         from: "from@example.org"
         to:   "to@example.org"
-
-swiftmailer:
-    disable_delivery:  true
