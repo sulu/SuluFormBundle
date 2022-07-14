@@ -1,6 +1,5 @@
 parameters:
     secret: test
-    kernel.root_dir: '%kernel.project_dir%'
 
 framework:
     esi: ~
