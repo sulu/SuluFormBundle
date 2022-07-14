@@ -17,7 +17,6 @@ use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -191,7 +190,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $reflection = new \ReflectionClass($definition);
         $reflectionMethod = $reflection->getMethod('setDeprecated');
 
-        if (isset($reflectionMethod->getParameters()[1]) && $reflectionMethod->getParameters()[1]->getName() === 'version') {
+        if (isset($reflectionMethod->getParameters()[1]) && 'version' === $reflectionMethod->getParameters()[1]->getName()) {
             $definition->setDeprecated('sulu/form-bundle', '2.3', 'The "%service_id%" is deprecated use the mailer configuration instead.');
         } else {
             $definition->setDeprecated(true, 'The "%service_id%" is deprecated use the mailer configuration instead.');
