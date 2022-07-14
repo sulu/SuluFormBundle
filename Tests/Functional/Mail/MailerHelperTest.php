@@ -28,8 +28,11 @@ class MailerHelperTest extends HelperTestCase
         $this->updateHomePage($form);
         $this->doSendForm($form);
 
-        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
-        $this->assertSame(0, $mailCollector->getMessageCount());
+        if ($this->client->getProfile()->hasCollector('swiftmailer')) {
+            // @deprecated
+            $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
+            $this->assertSame(0, $mailCollector->getMessageCount());
+        }
 
         // 2 messages should be send 1 to admin and 1 to email
         $this->assertEmailCount(2);
