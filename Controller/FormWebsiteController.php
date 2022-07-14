@@ -50,7 +50,7 @@ class FormWebsiteController extends DefaultController
         );
     }
 
-    public static function getSubscribedServices()
+    public static function getSubscribedServices(): array
     {
         $subscribesServices = parent::getSubscribedServices();
         $subscribesServices['form.registry'] = FormRegistryInterface::class;
