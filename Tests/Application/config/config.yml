@@ -22,3 +22,8 @@ sulu_form:
     mail:
         from: "from@example.org"
         to:   "to@example.org"
+
+massive_search:
+    adapters:
+        zend_lucene:
+            base_path: "%kernel.project_dir%/var/indexes"
