@@ -31,7 +31,7 @@
         "symfony/mailer": "^4.4 || ^5.0 || ^6.0",
         "symfony/validator": "^4.4 || ^5.0 || ^6.0",
         "symfony/security-csrf": "^4.4 || ^5.0 || ^6.0",
-        "symfony/translation": "^4.4 || ^5.0",
+        "symfony/translation": "^4.4 || ^5.0 || ^6.0",
         "twig/twig": "^1.41 || ^2.0 || ^3.0"
     },
     "require-dev": {
