@@ -17,6 +17,7 @@ use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -184,6 +185,9 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $loader->load('services.xml');
         $loader->load('types.xml');
         $loader->load('title-providers.xml');
+
+        $definition = $container->getDefinition('sulu_mail.null_helper');
+        $definition->setDeprecated('sulu/form-bundle', '2.3');
 
         if ($config['sendinblue_api_key']) {
             if (!\class_exists(\SendinBlue\Client\Configuration::class)) {

@@ -24,7 +24,7 @@
         "sulu/sulu": "^2.4.1 || ^2.5.0@dev",
         "symfony/config": "^4.4 || ^5.0 || ^6.0",
         "symfony/console": "^4.4 || ^5.0 || ^6.0",
-        "symfony/dependency-injection": "^5.1 || ^6.0",
+        "symfony/dependency-injection": "^4.4 || ^5.0 || ^6.0",
         "symfony/event-dispatcher": "^4.4 || ^5.0 || ^6.0",
         "symfony/event-dispatcher-contracts": "^1.0 || ^2.0",
         "symfony/form": "^4.4 || ^5.0 || ^6.0",
