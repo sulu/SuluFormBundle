@@ -83,19 +83,19 @@ class MailerHelperTest extends TestCase
         $this->mailerMock->send($mail)->shouldBeCalled();
 
         $this->loggerMock->info(\sprintf(
-                'Try register mail from SuluFormBundle: ' . \PHP_EOL .
-                '   From: from@example.org' . \PHP_EOL .
-                '   To: to@example.org' . \PHP_EOL .
-                '   Reply to: %s' . \PHP_EOL .
-                '   Subject: test subject' . \PHP_EOL .
-                '   CC: %s' . \PHP_EOL .
-                '   BCC: %s' . \PHP_EOL .
-                '   Plain text: %s' . \PHP_EOL,
-                \serialize(null),
-                \serialize([]),
-                \serialize([]),
-                null
-            ))->shouldBeCalled();
+            'Try register mail from SuluFormBundle: ' . \PHP_EOL .
+            '   From: from@example.org' . \PHP_EOL .
+            '   To: to@example.org' . \PHP_EOL .
+            '   Reply to: %s' . \PHP_EOL .
+            '   Subject: test subject' . \PHP_EOL .
+            '   CC: %s' . \PHP_EOL .
+            '   BCC: %s' . \PHP_EOL .
+            '   Plain text: %s' . \PHP_EOL,
+            \serialize(null),
+            \serialize([]),
+            \serialize([]),
+            null
+        ))->shouldBeCalled();
 
         $this->mailerHelper->sendMail(
             'test subject',
@@ -182,7 +182,7 @@ class MailerHelperTest extends TestCase
             )
             ->bcc(new Address('bcc@example.org', 'bCC Email'))
             ->replyTo(new Address('reply-to@example.org', 'ReplyTo Email'))
-            ;
+        ;
 
         $this->mailerMock->send($mail)->shouldBeCalled();
 

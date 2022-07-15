@@ -63,7 +63,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertHttpStatusCode(200, $this->client->getResponse());
     }
 
-    public function testGetNotFound()
+    public function testGetNotFound(): void
     {
         $this->client->request(
             'GET',
@@ -340,7 +340,7 @@ class FormControllerTest extends SuluTestCase
         $this->assertCountFields(18, $response);
     }
 
-    private function assertCountFields($expectedCount, $haystack)
+    private function assertCountFields($expectedCount, $haystack): void
     {
         $this->assertCount(
             $expectedCount,

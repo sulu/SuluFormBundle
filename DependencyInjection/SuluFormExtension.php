@@ -185,6 +185,17 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $loader->load('types.xml');
         $loader->load('title-providers.xml');
 
+        $definition = $container->getDefinition('sulu_mail.null_helper');
+
+        $reflection = new \ReflectionClass($definition);
+        $reflectionMethod = $reflection->getMethod('setDeprecated');
+
+        if (isset($reflectionMethod->getParameters()[1]) && 'version' === $reflectionMethod->getParameters()[1]->getName()) {
+            $definition->setDeprecated('sulu/form-bundle', '2.3', 'The "%service_id%" is deprecated use the mailer configuration instead.');
+        } else {
+            $definition->setDeprecated(true, 'The "%service_id%" is deprecated use the mailer configuration instead.');
+        }
+
         if ($config['sendinblue_api_key']) {
             if (!\class_exists(\SendinBlue\Client\Configuration::class)) {
                 throw new \LogicException('You need to install the "sendinblue/api-v3-sdk" package to use the sendinblue type.');
