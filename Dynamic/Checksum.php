@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\Dynamic;
 
+use Symfony\Component\PasswordHasher\Hasher\MessageDigestPasswordHasher;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 /**
@@ -24,14 +25,16 @@ class Checksum
     private $secret;
 
     /**
-     * @var MessageDigestPasswordEncoder
+     * @var MessageDigestPasswordEncoder|MessageDigestPasswordHasher
      */
     private $encoder;
 
     public function __construct(string $secret)
     {
         $this->secret = $secret;
-        $this->encoder = new MessageDigestPasswordEncoder();
+        $this->encoder = \class_exists(MessageDigestPasswordEncoder::class)
+            ? new MessageDigestPasswordEncoder()
+            : new MessageDigestPasswordHasher();
     }
 
     /**
@@ -41,7 +44,11 @@ class Checksum
     {
         $checksumRaw = $this->createKey($type, $typeId, $formId, $formName);
 
-        return $this->encoder->isPasswordValid($checksum, $checksumRaw, $this->secret);
+        if (\class_exists(MessageDigestPasswordEncoder::class)) {
+            return $this->encoder->isPasswordValid($checksum, $checksumRaw, $this->secret);
+        }
+
+        return $this->encoder->verify($checksum, $checksumRaw, $this->secret);
     }
 
     /**
@@ -59,6 +66,10 @@ class Checksum
     {
         $checksumRaw = $this->createKey($type, $typeId, $formId, $formName);
 
-        return $this->encoder->encodePassword($checksumRaw, $this->secret);
+        if (\class_exists(MessageDigestPasswordEncoder::class)) {
+            return $this->encoder->encodePassword($checksumRaw, $this->secret);
+        }
+
+        return $this->encoder->hash($checksumRaw, $this->secret);
     }
 }

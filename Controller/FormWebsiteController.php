@@ -50,7 +50,7 @@ class FormWebsiteController extends DefaultController
         );
     }
 
-    public static function getSubscribedServices()
+    public static function getSubscribedServices(): array
     {
         $subscribesServices = parent::getSubscribedServices();
         $subscribesServices['form.registry'] = FormRegistryInterface::class;
@@ -75,11 +75,11 @@ class FormWebsiteController extends DefaultController
 
         $typeClass = $this->getTypeClass($template);
         /** @var AbstractType $type */
-        $type = $this->get('form.registry')->getType($typeClass)->getInnerType();
+        $type = $this->container->get('form.registry')->getType($typeClass)->getInnerType();
         $type->setAttributes($attributes);
 
-        $this->form = $this->get('form.factory')->create($typeClass, [], [
-            'csrf_token_manager' => new DisabledCsrfTokenManager($this->get('security.csrf.token_manager')),
+        $this->form = $this->container->get('form.factory')->create($typeClass, [], [
+            'csrf_token_manager' => new DisabledCsrfTokenManager($this->container->get('security.csrf.token_manager')),
         ]);
         $this->form->handleRequest($request);
 
@@ -110,8 +110,8 @@ class FormWebsiteController extends DefaultController
 
         $typeClass = $this->getTypeClass($key);
         /** @var AbstractType $type */
-        $type = $this->get('form.registry')->getType($typeClass)->getInnerType();
-        $this->form = $this->get('form.factory')->create($typeClass);
+        $type = $this->container->get('form.registry')->getType($typeClass)->getInnerType();
+        $this->form = $this->container->get('form.factory')->create($typeClass);
         $this->form->handleRequest($request);
 
         if ($this->form->isSubmitted()
@@ -136,14 +136,14 @@ class FormWebsiteController extends DefaultController
     private function handleFormSubmit(Request $request, AbstractType $type, array $attributes): ?Response
     {
         // handle form submit
-        $configuration = $this->get('sulu_form.configuration.form_configuration_factory')->buildByType(
+        $configuration = $this->container->get('sulu_form.configuration.form_configuration_factory')->buildByType(
             $type,
             $this->form->getData(),
             $request->getLocale(),
             $attributes
         );
 
-        $success = $this->get('sulu_form.handler')->handle($this->form, $configuration);
+        $success = $this->container->get('sulu_form.handler')->handle($this->form, $configuration);
 
         if ($success) {
             if ($request->isXmlHttpRequest()) {
@@ -169,14 +169,14 @@ class FormWebsiteController extends DefaultController
     private function handleFormOnlySubmit(Request $request, AbstractType $type): ?RedirectResponse
     {
         // handle form submit
-        $configuration = $this->get('sulu_form.configuration.form_configuration_factory')->buildByType(
+        $configuration = $this->container->get('sulu_form.configuration.form_configuration_factory')->buildByType(
             $type,
             $this->form->getData(),
             $request->getLocale(),
             []
         );
 
-        if ($this->get('sulu_form.handler')->handle($this->form, $configuration)) {
+        if ($this->container->get('sulu_form.handler')->handle($this->form, $configuration)) {
             return new RedirectResponse('?send=true');
         }
 

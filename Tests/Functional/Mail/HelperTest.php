@@ -12,11 +12,19 @@
 namespace Sulu\Bundle\FormBundle\Tests\Functional\Mail;
 
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
+use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
 
+/**
+ * @deprecated
+ */
 class HelperTest extends HelperTestCase
 {
     public function testSendsEmailUsingSwiftmailer()
     {
+        if (!\class_exists(SwiftmailerBundle::class)) {
+            $this->markTestSkipped('Swiftmailer is not installed.');
+        }
+
         $formTranslationRepository = $this->entityManager->getRepository(FormTranslation::class);
         /** @var FormTranslation $formTranslation */
         $formTranslation = $formTranslationRepository->findOneBy(['title' => 'Title', 'locale' => 'de']);

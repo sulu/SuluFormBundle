@@ -21,7 +21,6 @@
         <!-- Mail-->
         <service id="sulu_mail.null_helper" class="Sulu\Bundle\FormBundle\Mail\NullHelper">
             <argument type="service" id="logger" />
-            <deprecated />
         </service>
 
         <!-- Admin -->
