@@ -273,9 +273,9 @@ SET
         IF(
           dyn.radioButtons is not NULL,
           CONCAT(
-            '\"radioButtons\":',
+            '\"radioButtons\":\"',
             replace(replace(replace(replace(replace(replace(replace(replace(dyn.radioButtons, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
-            '[]'
+            '\"'
           ),
           NULL
         )
