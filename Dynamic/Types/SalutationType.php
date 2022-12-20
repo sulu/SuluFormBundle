@@ -51,7 +51,7 @@ class SalutationType implements FormFieldTypeInterface
         return [
             'sulu_form.salutation_ms' => 'ms',
             'sulu_form.salutation_mr' => 'mr',
-            'sulu_form.salutation_other' => 'other',
+            'sulu_form.salutation_neutral' => 'neutral',
         ];
     }
 }

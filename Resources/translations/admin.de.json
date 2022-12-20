@@ -84,7 +84,7 @@
   "sulu_form.sendinblue_attribute_name_last_name": "Attribut-Name [Nachname]",
   "sulu_form.salutation_ms": "Frau",
   "sulu_form.salutation_mr": "Herr",
-  "sulu_form.salutation_other": "Divers",
+  "sulu_form.salutation_neutral": "Neutral",
   "sulu_form.salutation_please_choose": "Bitte auswählen",
   "sulu_form.single_form_selection.no_form_selected": "Kein Formular ausgewählt",
   "sulu_form.single_form_selection.overlay_title": "Wählen Sie ein Formular aus",

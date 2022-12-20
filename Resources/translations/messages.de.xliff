@@ -19,8 +19,8 @@
                 <target>Diese Mail kann nur in HTML angezeigt werden</target>
             </trans-unit>
             <trans-unit id="5">
-                <source>sulu_form.salutation_other</source>
-                <target>Divers</target>
+                <source>sulu_form.salutation_neutral</source>
+                <target>Neutral</target>
             </trans-unit>
             <trans-unit id="6">
                 <source>sulu_form.salutation_please_choose</source>

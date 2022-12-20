@@ -84,7 +84,7 @@
   "sulu_form.sendinblue_attribute_name_last_name": "Attribute name [Last name]",
   "sulu_form.salutation_ms": "Ms.",
   "sulu_form.salutation_mr": "Mr.",
-  "sulu_form.salutation_other": "Other",
+  "sulu_form.salutation_neutral": "Neutral",
   "sulu_form.salutation_please_choose": "Please choose",
   "sulu_form.single_form_selection.no_form_selected": "No form selected",
   "sulu_form.single_form_selection.overlay_title": "Select a form",
