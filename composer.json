@@ -45,6 +45,7 @@
         "jackalope/jackalope-doctrine-dbal": "^1.3.2",
         "jangregor/phpstan-prophecy": "^1.0",
         "massive/search-bundle": "^2.0",
+        "phpspec/prophecy": "^1.14",
         "phpstan/phpstan": "^1.0",
         "phpstan/phpstan-doctrine": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
