@@ -34,10 +34,11 @@ class SalutationType implements FormFieldTypeInterface
 
     public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
-        $options['choice_translation_domain'] = 'messages';
+        $options['translation_domain'] = 'messages';
         $options['expanded'] = false;
         $options['multiple'] = false;
         $options['choices'] = $this->getChoices();
+        $options['placeholder'] = 'sulu_form.salutation_please_choose';
         $type = ChoiceType::class;
         $builder->add($field->getKey(), $type, $options);
     }
@@ -48,8 +49,9 @@ class SalutationType implements FormFieldTypeInterface
     protected function getChoices(): array
     {
         return [
-            'sulu_form.salutation_mr' => 'mr',
             'sulu_form.salutation_ms' => 'ms',
+            'sulu_form.salutation_mr' => 'mr',
+            'sulu_form.salutation_neutral' => 'neutral',
         ];
     }
 }

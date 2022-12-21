@@ -18,6 +18,14 @@
                 <source>sulu_form.mail.plain_text</source>
                 <target>Diese Mail kann nur in HTML angezeigt werden</target>
             </trans-unit>
+            <trans-unit id="5">
+                <source>sulu_form.salutation_neutral</source>
+                <target>Neutral</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>sulu_form.salutation_please_choose</source>
+                <target>Bitte auswählen</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

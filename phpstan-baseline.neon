@@ -6,18 +6,13 @@ parameters:
 			path: Admin/DynamicListAdmin.php
 
 		-
-			message: "#^Parameter \\#1 \\$tabOrder of method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ListViewBuilderInterface\\:\\:setTabOrder\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: Admin/DynamicListAdmin.php
-
-		-
 			message: "#^Parameter \\#1 \\$viewName of method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ViewCollection\\:\\:has\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: Admin/DynamicListAdmin.php
 
 		-
 			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 2
+			count: 1
 			path: Admin/DynamicListAdmin.php
 
 		-
@@ -411,11 +406,6 @@ parameters:
 			path: Dynamic/Checksum.php
 
 		-
-			message: "#^Cannot access offset 'lists' on array\\|false\\.$#"
-			count: 1
-			path: Dynamic/Helper/MailchimpListSelect.php
-
-		-
 			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Helper\\\\MailchimpListSelect\\:\\:\\$apiKey \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: Dynamic/Helper/MailchimpListSelect.php
@@ -444,21 +434,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: Dynamic/Helper/SendinblueMailTemplateSelect.php
-
-		-
-			message: "#^Cannot access an offset on mixed\\.$#"
-			count: 2
-			path: Dynamic/Types/AttachmentType.php
-
-		-
-			message: "#^Cannot access offset 'accept' on mixed\\.$#"
-			count: 1
-			path: Dynamic/Types/AttachmentType.php
-
-		-
-			message: "#^Cannot access offset 'max' on mixed\\.$#"
-			count: 1
-			path: Dynamic/Types/AttachmentType.php
 
 		-
 			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
@@ -641,11 +616,6 @@ parameters:
 			path: Dynamic/Types/FirstNameType.php
 
 		-
-			message: "#^Cannot access offset 'type' on mixed\\.$#"
-			count: 1
-			path: Dynamic/Types/FreeTextType.php
-
-		-
 			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
 			count: 1
 			path: Dynamic/Types/FreeTextType.php
@@ -654,11 +624,6 @@ parameters:
 			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
 			count: 1
 			path: Dynamic/Types/FunctionType.php
-
-		-
-			message: "#^Cannot access offset 'type' on mixed\\.$#"
-			count: 1
-			path: Dynamic/Types/HeadlineType.php
 
 		-
 			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
@@ -716,11 +681,6 @@ parameters:
 			path: Dynamic/Types/RadioButtonsType.php
 
 		-
-			message: "#^Cannot access offset 'options' on mixed\\.$#"
-			count: 1
-			path: Dynamic/Types/RecaptchaType.php
-
-		-
 			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
 			count: 1
 			path: Dynamic/Types/RecaptchaType.php
@@ -734,11 +694,6 @@ parameters:
 			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
 			count: 1
 			path: Dynamic/Types/SendinblueType.php
-
-		-
-			message: "#^Cannot access offset 'type' on mixed\\.$#"
-			count: 1
-			path: Dynamic/Types/SpacerType.php
 
 		-
 			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
@@ -1102,7 +1057,7 @@ parameters:
 
 		-
 			message: "#^Cannot access offset 'type' on array\\|bool\\|float\\|int\\|string\\.$#"
-			count: 2
+			count: 1
 			path: Form/Builder.php
 
 		-
@@ -1131,11 +1086,6 @@ parameters:
 			path: Form/Builder.php
 
 		-
-			message: "#^Parameter \\#1 \\$id of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Builder\\:\\:build\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: Form/Builder.php
-
-		-
 			message: "#^Parameter \\#2 \\$type of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:check\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: Form/Builder.php
@@ -1151,27 +1101,12 @@ parameters:
 			path: Form/Builder.php
 
 		-
-			message: "#^Parameter \\#3 \\$typeId of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Builder\\:\\:build\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Form/Builder.php
-
-		-
 			message: "#^Parameter \\#4 \\$formId of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:check\\(\\) expects int, mixed given\\.$#"
 			count: 1
 			path: Form/Builder.php
 
 		-
-			message: "#^Parameter \\#4 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Builder\\:\\:build\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: Form/Builder.php
-
-		-
 			message: "#^Parameter \\#5 \\$formName of method Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Checksum\\:\\:check\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Form/Builder.php
-
-		-
-			message: "#^Parameter \\#5 \\$name of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Builder\\:\\:build\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: Form/Builder.php
 
@@ -1747,21 +1682,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$fromDate of method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\DynamicRepository\\:\\:addDateRangeFilter\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: Repository/DynamicRepository.php
-
-		-
-			message: "#^Parameter \\#2 \\$search of method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\DynamicRepository\\:\\:addSearchFilter\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: Repository/DynamicRepository.php
-
-		-
-			message: "#^Parameter \\#3 \\$searchFields of method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\DynamicRepository\\:\\:addSearchFilter\\(\\) expects array\\<string\\>\\|null, mixed given\\.$#"
-			count: 1
-			path: Repository/DynamicRepository.php
-
-		-
-			message: "#^Parameter \\#3 \\$toDate of method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\DynamicRepository\\:\\:addDateRangeFilter\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: Repository/DynamicRepository.php
 
