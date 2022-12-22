@@ -214,7 +214,7 @@ class FormGeneratorCommand extends Command
 
         $output->writeln('A form called "Test Form" has been successfully created/updated.');
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     /**
