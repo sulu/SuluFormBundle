@@ -24,6 +24,7 @@
   "sulu_form.required": "Pflichtfeld",
   "sulu_form.width": "Breite",
   "sulu_form.example": "Beispiel",
+  "sulu_form.help": "Hilfetext",
   "sulu_form.default": "Standard",
   "sulu_form.short_title": "Kurztitel",
   "sulu_form.short_title_description": "Optionaler Titel des Feldes, z.B. in der Benachrichtigungs-Email.",

@@ -381,6 +381,7 @@ class FormController extends AbstractRestController implements ClassResourceInte
             if ($fieldTranslation) {
                 $fieldData['title'] = $fieldTranslation->getTitle();
                 $fieldData['placeholder'] = $fieldTranslation->getPlaceholder();
+                $fieldData['help'] = $fieldTranslation->getHelp();
                 $fieldData['defaultValue'] = $fieldTranslation->getDefaultValue();
                 $fieldData['shortTitle'] = $fieldTranslation->getShortTitle();
                 $fieldData['options'] = $fieldTranslation->getOptions();

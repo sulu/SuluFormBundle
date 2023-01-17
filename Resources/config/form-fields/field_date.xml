@@ -22,4 +22,9 @@
             <param name="type" value="toggler"/>
         </params>
     </property>
+    <property name="help" type="text_editor" colspan="12">
+        <meta>
+            <title>sulu_form.help</title>
+        </meta>
+    </property>
 </properties>
