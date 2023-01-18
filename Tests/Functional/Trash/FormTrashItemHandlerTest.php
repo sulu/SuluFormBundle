@@ -120,6 +120,7 @@ class FormTrashItemHandlerTest extends SuluTestCase
         $formField1TranslationEn->setShortTitle('Short Title');
         $formField1TranslationEn->setTitle('Title');
         $formField1TranslationEn->setPlaceholder('Placeholder');
+        $formField1TranslationEn->setHelp('Help text');
         $formField1TranslationEn->setDefaultValue('Default Value');
         $formField1TranslationEn->setLocale('en');
         $formField1TranslationEn->setOptions([
@@ -132,6 +133,7 @@ class FormTrashItemHandlerTest extends SuluTestCase
         $formField1TranslationDe->setShortTitle('Kurzer Titel');
         $formField1TranslationDe->setTitle('Titel');
         $formField1TranslationDe->setPlaceholder('Platzhalter');
+        $formField1TranslationDe->setHelp('Help text');
         $formField1TranslationDe->setDefaultValue('Standardwert');
         $formField1TranslationDe->setLocale('de');
         $formField1TranslationDe->setOptions([]);
@@ -152,6 +154,7 @@ class FormTrashItemHandlerTest extends SuluTestCase
         $formField2Translation->setShortTitle('Short Title');
         $formField2Translation->setTitle('Title');
         $formField2Translation->setPlaceholder('Placeholder');
+        $formField2Translation->setHelp('Help text');
         $formField2Translation->setDefaultValue('Default Value');
         $formField2Translation->setLocale('en');
         $formField2Translation->setOptions([]);

@@ -190,7 +190,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->assertInstanceOf(FormMetadata::class, $attachment);
         $this->assertEquals('attachment', $attachment->getName());
         $this->assertEquals('Attachment', $attachment->getTitle());
-        $this->assertCount(6, $attachment->getItems());
+        $this->assertCount(7, $attachment->getItems());
 
         $this->arrayHasKey('required', $attachment->getItems());
         $this->assertEquals('Required field', $attachment->getItems()['required']->getLabel());
