@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Event;
 
 use SendinBlue\Client\Api\ContactsApi;
+use SendinBlue\Client\ApiException;
 use SendinBlue\Client\Configuration;
 use SendinBlue\Client\Model\CreateDoiContact;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
@@ -101,6 +102,10 @@ class SendinblueListSubscriber implements EventSubscriberInterface
         }
 
         if ($email && \count($listIdsByMailTemplate) > 0) {
+            // TODO check if contact already exists
+            //      if yes just update the contact and not trigger a CreateDoiContact
+            //      as that would throw a ApiException with code 400
+
             foreach ($listIdsByMailTemplate as $mailTemplateId => $listIds) {
                 $createDoiContact = new CreateDoiContact([
                     'email' => $email,
