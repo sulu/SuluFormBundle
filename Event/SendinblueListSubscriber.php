@@ -15,6 +15,7 @@ use SendinBlue\Client\Api\ContactsApi;
 use SendinBlue\Client\ApiException;
 use SendinBlue\Client\Configuration;
 use SendinBlue\Client\Model\CreateDoiContact;
+use SendinBlue\Client\Model\UpdateContact;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -101,25 +102,60 @@ class SendinblueListSubscriber implements EventSubscriberInterface
             }
         }
 
-        if ($email && \count($listIdsByMailTemplate) > 0) {
-            // TODO check if contact already exists
-            //      if yes just update the contact and not trigger a CreateDoiContact
-            //      as that would throw a ApiException with code 400
+        if (!$email || \count($listIdsByMailTemplate) === 0) {
+            return;
+        }
 
-            foreach ($listIdsByMailTemplate as $mailTemplateId => $listIds) {
-                $createDoiContact = new CreateDoiContact([
-                    'email' => $email,
-                    'templateId' => $mailTemplateId,
-                    'includeListIds' => $listIds,
-                    'redirectionUrl' => $redirectionUrl,
-                    'attributes' => [
-                        'FIRST_NAME' => $firstName,
-                        'LAST_NAME' => $firstName,
-                    ],
-                ]);
-
-                $this->contactsApi->createDoiContact($createDoiContact);
+        $contact = null;
+        try {
+            $contact = $this->contactsApi->getContactInfo($email);
+        } catch (ApiException $e) {
+            if (404 !== $e->getCode()) {
+                throw $e;
             }
+            // Contact does not exist, ignore the exception
+        }
+
+        if ($contact !== null) {
+            $updateContact = new UpdateContact();
+
+            $updateContact->setAttributes(
+                (object) \array_replace(
+                    (array) $contact->getAttributes(),
+                    [
+                        'FIRST_NAME' => $firstName,
+                        'LAST_NAME' => $lastName,
+                    ]
+                )
+            );
+
+            $collectedListIds = $contact->getListIds();
+            foreach ($listIdsByMailTemplate as $mailTemplateId => $listIds) {
+                $collectedListIds = array_merge($collectedListIds, $listIds);
+            }
+
+            $collectedListIds = array_unique($collectedListIds);
+
+            $updateContact->setListIds($collectedListIds);
+
+            $this->contactsApi->updateContact($email, $updateContact);
+
+            return;
+        }
+
+        foreach ($listIdsByMailTemplate as $mailTemplateId => $listIds) {
+            $createDoiContact = new CreateDoiContact([
+                'email' => $email,
+                'templateId' => $mailTemplateId,
+                'includeListIds' => $listIds,
+                'redirectionUrl' => $redirectionUrl,
+                'attributes' => [
+                    'FIRST_NAME' => $firstName,
+                    'LAST_NAME' => $lastName,
+                ],
+            ]);
+
+            $this->contactsApi->createDoiContact($createDoiContact);
         }
     }
 }
