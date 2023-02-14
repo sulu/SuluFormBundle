@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\Event;
 
+use GuzzleHttp\ClientInterface;
 use SendinBlue\Client\Api\ContactsApi;
 use SendinBlue\Client\ApiException;
 use SendinBlue\Client\Configuration;
@@ -37,8 +38,11 @@ class SendinblueListSubscriber implements EventSubscriberInterface
      */
     private $contactsApi;
 
-    public function __construct(RequestStack $requestStack, ?string $apiKey)
-    {
+    public function __construct(
+        RequestStack $requestStack,
+        ?string $apiKey,
+        ?ClientInterface $client = null
+    ) {
         $this->requestStack = $requestStack;
 
         if (!$apiKey) {
@@ -48,7 +52,7 @@ class SendinblueListSubscriber implements EventSubscriberInterface
         $config = new Configuration();
         $config->setApiKey('api-key', $apiKey);
 
-        $this->contactsApi = new ContactsApi(null, $config);
+        $this->contactsApi = new ContactsApi($client, $config);
     }
 
     public static function getSubscribedEvents()
@@ -91,7 +95,9 @@ class SendinblueListSubscriber implements EventSubscriberInterface
             } elseif ('email' === $field['type'] && !$email) {
                 $email = $field['value'];
             } elseif ('sendinblue' == $field['type'] && $field['value']) {
+                /** @var string|int|null $listId */
                 $mailTemplateId = $field['options']['mailTemplateId'] ?? null;
+                /** @var int|null $listId */
                 $listId = $field['options']['listId'] ?? null;
 
                 if (!$mailTemplateId || !$listId) {
@@ -102,7 +108,8 @@ class SendinblueListSubscriber implements EventSubscriberInterface
             }
         }
 
-        if (!$email || \count($listIdsByMailTemplate) === 0) {
+        /** @var string $email */
+        if (!$email || 0 === \count($listIdsByMailTemplate)) {
             return;
         }
 
@@ -116,7 +123,7 @@ class SendinblueListSubscriber implements EventSubscriberInterface
             // Contact does not exist, ignore the exception
         }
 
-        if ($contact !== null) {
+        if (null !== $contact) {
             $updateContact = new UpdateContact();
 
             $updateContact->setAttributes(
@@ -129,12 +136,13 @@ class SendinblueListSubscriber implements EventSubscriberInterface
                 )
             );
 
+            /** @var int[] $collectedListIds */
             $collectedListIds = $contact->getListIds();
             foreach ($listIdsByMailTemplate as $mailTemplateId => $listIds) {
-                $collectedListIds = array_merge($collectedListIds, $listIds);
+                $collectedListIds = \array_merge($collectedListIds, $listIds);
             }
 
-            $collectedListIds = array_unique($collectedListIds);
+            $collectedListIds = \array_unique($collectedListIds);
 
             $updateContact->setListIds($collectedListIds);
 
