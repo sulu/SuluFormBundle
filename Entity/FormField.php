@@ -32,12 +32,12 @@ class FormField
     /**
      * @var string
      */
-    private $width;
+    private $width = 'full';
 
     /**
      * @var bool
      */
-    private $required;
+    private $required = false;
 
     /**
      * @var null|int
