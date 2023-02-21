@@ -69,7 +69,7 @@ class SendinblueListSubscriberTest extends TestCase
 
     public function testlistSubscribeNotExist(): void
     {
-        $this->requestStack->push(Request::create('http://localhost/', 'POST'));
+        $this->requestStack->push(Request::create('http://localhost/newsletter', 'POST'));
         $event = $this->createFormSavePostEvent();
 
         $self = $this;
@@ -90,8 +90,7 @@ class SendinblueListSubscriberTest extends TestCase
                     ],
                     'includeListIds' => ['789'],
                     'templateId' => 456,
-                    'redirectionUrl' => 'http://localhost?subscribe=true',
-                    'updateEnable' => true,
+                    'redirectionUrl' => 'http://localhost/newsletter?send=true&subscribe=true',
                 ], $json);
 
                 return new Response();

@@ -82,7 +82,7 @@ class SendinblueListSubscriber implements EventSubscriberInterface
         $email = '';
         $firstName = '';
         $lastName = '';
-        $redirectionUrl = $request->getUriForPath('') . '?subscribe=true';
+        $redirectionUrl = $request->getUriForPath($request->getPathInfo()) . '?send=true&subscribe=true';
         $listIdsByMailTemplate = [];
 
         foreach ($form['fields'] as $field) {
@@ -121,7 +121,6 @@ class SendinblueListSubscriber implements EventSubscriberInterface
                     'firstname' => $firstName,
                     'lastname' => $lastName,
                 ],
-                'updateEnabled' => true,
             ]);
 
             $this->contactsApi->createDoiContact($createDoiContact);
