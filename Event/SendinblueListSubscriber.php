@@ -13,10 +13,8 @@ namespace Sulu\Bundle\FormBundle\Event;
 
 use GuzzleHttp\ClientInterface;
 use SendinBlue\Client\Api\ContactsApi;
-use SendinBlue\Client\ApiException;
 use SendinBlue\Client\Configuration;
 use SendinBlue\Client\Model\CreateDoiContact;
-use SendinBlue\Client\Model\UpdateContact;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -84,7 +82,7 @@ class SendinblueListSubscriber implements EventSubscriberInterface
         $email = '';
         $firstName = '';
         $lastName = '';
-        $redirectionUrl = $request->getUriForPath('') . '?subscribe=true';
+        $redirectionUrl = $request->getUriForPath($request->getPathInfo()) . '?send=true&subscribe=true';
         $listIdsByMailTemplate = [];
 
         foreach ($form['fields'] as $field) {
@@ -113,44 +111,6 @@ class SendinblueListSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $contact = null;
-        try {
-            $contact = $this->contactsApi->getContactInfo($email);
-        } catch (ApiException $e) {
-            if (404 !== $e->getCode()) {
-                throw $e;
-            }
-            // Contact does not exist, ignore the exception
-        }
-
-        if (null !== $contact) {
-            $updateContact = new UpdateContact();
-
-            $updateContact->setAttributes(
-                (object) \array_replace(
-                    (array) $contact->getAttributes(),
-                    [
-                        'FIRST_NAME' => $firstName,
-                        'LAST_NAME' => $lastName,
-                    ]
-                )
-            );
-
-            /** @var int[] $collectedListIds */
-            $collectedListIds = $contact->getListIds();
-            foreach ($listIdsByMailTemplate as $mailTemplateId => $listIds) {
-                $collectedListIds = \array_merge($collectedListIds, $listIds);
-            }
-
-            $collectedListIds = \array_unique($collectedListIds);
-
-            $updateContact->setListIds($collectedListIds);
-
-            $this->contactsApi->updateContact($email, $updateContact);
-
-            return;
-        }
-
         foreach ($listIdsByMailTemplate as $mailTemplateId => $listIds) {
             $createDoiContact = new CreateDoiContact([
                 'email' => $email,
@@ -158,8 +118,8 @@ class SendinblueListSubscriber implements EventSubscriberInterface
                 'includeListIds' => $listIds,
                 'redirectionUrl' => $redirectionUrl,
                 'attributes' => [
-                    'FIRST_NAME' => $firstName,
-                    'LAST_NAME' => $lastName,
+                    'firstname' => $firstName,
+                    'lastname' => $lastName,
                 ],
             ]);
 

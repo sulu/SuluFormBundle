@@ -17,7 +17,6 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Message\RequestInterface;
-use SendinBlue\Client\ApiException;
 use Sulu\Bundle\FormBundle\Configuration\FormConfiguration;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
@@ -70,19 +69,13 @@ class SendinblueListSubscriberTest extends TestCase
 
     public function testlistSubscribeNotExist(): void
     {
-        $this->requestStack->push(Request::create('http://localhost/', 'POST'));
+        $this->requestStack->push(Request::create('http://localhost/newsletter', 'POST'));
         $event = $this->createFormSavePostEvent();
 
         $self = $this;
         $this->client->send(Argument::cetera())->will(function($args) use ($self) {
             /** @var RequestInterface $request */
             $request = $args[0];
-
-            if ('https://api.sendinblue.com/v3/contacts/john.doe%40example.org' === $request->getUri()->__toString()) {
-                $self->assertSame('GET', $request->getMethod());
-
-                throw new ApiException('', 404);
-            }
 
             if ('https://api.sendinblue.com/v3/contacts/doubleOptinConfirmation' === $request->getUri()->__toString()) {
                 $self->assertSame('POST', $request->getMethod());
@@ -92,12 +85,12 @@ class SendinblueListSubscriberTest extends TestCase
                 $self->assertSame([
                     'email' => 'john.doe@example.org',
                     'attributes' => [
-                        'FIRST_NAME' => 'John',
-                        'LAST_NAME' => 'Doe',
+                        'firstname' => 'John',
+                        'lastname' => 'Doe',
                     ],
                     'includeListIds' => ['789'],
                     'templateId' => 456,
-                    'redirectionUrl' => 'http://localhost?subscribe=true',
+                    'redirectionUrl' => 'http://localhost/newsletter?send=true&subscribe=true',
                 ], $json);
 
                 return new Response();
@@ -105,54 +98,7 @@ class SendinblueListSubscriberTest extends TestCase
 
             throw new \RuntimeException('Unexpected request: ' . $request->getUri()->__toString());
         })
-            ->shouldBeCalledTimes(2);
-
-        // act
-        $this->sendinblueListSubscriber->listSubscribe($event);
-
-        $this->assertTrue(true);
-    }
-
-    public function testlistSubscribeAlreadyExist(): void
-    {
-        $this->requestStack->push(Request::create('http://localhost/', 'POST'));
-        $event = $this->createFormSavePostEvent();
-
-        $self = $this;
-        $this->client->send(Argument::cetera())->will(function($args) use ($self) {
-            /** @var RequestInterface $request */
-            $request = $args[0];
-
-            if ('https://api.sendinblue.com/v3/contacts/john.doe%40example.org' === $request->getUri()->__toString()
-                && 'GET' === $request->getMethod()
-            ) {
-                return new Response(200, ['Content-Type' => 'application/json'], \json_encode([
-                    'id' => 123,
-                    'email' => 'john.doe@example.org',
-                    'attributes' => [],
-                    'listIds' => [],
-                ]));
-            }
-
-            if ('https://api.sendinblue.com/v3/contacts/john.doe%40example.org' === $request->getUri()->__toString()
-                && 'PUT' === $request->getMethod()
-            ) {
-                $json = \json_decode($request->getBody()->getContents(), true);
-
-                $self->assertSame([
-                    'attributes' => [
-                        'FIRST_NAME' => 'John',
-                        'LAST_NAME' => 'Doe',
-                    ],
-                    'listIds' => ['789'],
-                ], $json);
-
-                return new Response();
-            }
-
-            throw new \RuntimeException('Unexpected request (' . $request->getMethod() . '): ' . $request->getUri()->__toString());
-        })
-            ->shouldBeCalledTimes(2);
+            ->shouldBeCalledOnce();
 
         // act
         $this->sendinblueListSubscriber->listSubscribe($event);
