@@ -1,0 +1,27 @@
+[options]
+types_first=false
+esproposal.decorators=ignore
+esproposal.optional_chaining=enable
+module.name_mapper='.+\.s?css' -> 'empty/object'
+module.name_mapper='fos-jsrouting/router' -> 'empty/object'
+
+[untyped]
+.*/node_modules/react-leaflet/.*
+
+[ignore]
+.*/node_modules/bower-json/.*
+.*/node_modules/config-chain/.*
+.*/node_modules/findup/.*
+.*/node_modules/jss/.*
+.*/node_modules/npmconf/.*
+.*/node_modules/stylelint/.*
+.*/node_modules/resolve/test/resolver/malformed_package_json/.*
+.*/vendor/symfony/.*
+
+.git/
+.github/
+bin/
+config/
+public/
+templates/
+var/
