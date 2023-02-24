@@ -15,6 +15,7 @@ use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;
 use Sulu\Bundle\AdminBundle\Admin\View\DropdownToolbarAction;
+use Sulu\Bundle\AdminBundle\Admin\View\ListItemAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ToolbarAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewCollection;
@@ -78,7 +79,7 @@ class FormAdmin extends Admin
     {
         $formLocales = \array_values(
             \array_map(
-                function(Localization $localization) {
+                static function(Localization $localization) {
                     return $localization->getLocale();
                 },
                 $this->webspaceManager->getAllLocalizations()
@@ -155,7 +156,19 @@ class FormAdmin extends Admin
                 ->addRouterAttributesToListRequest(['id' => 'form'])
                 ->addRouterAttributesToListMetadata(['id' => 'id'])
                 ->addToolbarActions($dataListToolbarActions)
+                ->addItemActions([
+                    new ListItemAction('sulu_form.dynamic_preview_item_action'),
+                ])
                 ->setParent(static::EDIT_FORM_VIEW)
+        );
+        $viewCollection->add(
+            $this->viewBuilderFactory->createViewBuilder(
+                'sulu_form.edit_form.data_details',
+                '/forms/:locale/:formId/data/details/:id',
+                'sulu_form.dynamic_preview'
+            )
+                ->setOption('dataListView', static::LIST_VIEW_DATA)
+                ->setOption('dataResourceKey', 'dynamic_forms')
         );
     }
 

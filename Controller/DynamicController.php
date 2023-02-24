@@ -26,6 +26,7 @@ use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Controller to create dynamic form entries list.
@@ -124,12 +125,46 @@ class DynamicController implements ClassResourceInterface
         return $this->viewHandler->handle($this->view($representation));
     }
 
+    public function getAction(Request $request, int $id): Response
+    {
+        /** @var null|Dynamic $dynamic */
+        $dynamic = $this->dynamicRepository->find($id);
+
+        if (!$dynamic) {
+            throw new NotFoundHttpException(\sprintf('No dynamic with id "%s" was found!', $id));
+        }
+
+        return $this->viewHandler->handle($this->view($this->getApiEntity($dynamic)));
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    private function getApiEntity(Dynamic $dynamic): array
+    {
+        return [
+            'id' => $dynamic->getId(),
+            'type' => $dynamic->getType(),
+            'typeId' => $dynamic->getTypeId(),
+            'locale' => $dynamic->getLocale(),
+            'webspaceKey' => $dynamic->getWebspaceKey(),
+            'typeName' => $dynamic->getTypeName(),
+            'created' => $dynamic->getCreated(),
+            'changed' => $dynamic->getChanged(),
+            'data' => $dynamic->getData(),
+        ];
+    }
+
     /**
      * Delete dynamic form entry.
      */
-    public function deleteAction(Request $request, int $id): Response
+    public function deleteAction(int $id): Response
     {
         $dynamic = $this->dynamicRepository->find($id);
+
+        if (!$dynamic) {
+            throw new NotFoundHttpException(\sprintf('No dynamic with id "%s" was found!', $id));
+        }
 
         $attachments = \array_filter(\array_values($dynamic->getFieldsByType(Dynamic::TYPE_ATTACHMENT)));
 

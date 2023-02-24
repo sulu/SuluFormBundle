@@ -171,11 +171,6 @@ parameters:
 			path: Controller/DynamicController.php
 
 		-
-			message: "#^Cannot call method getFieldsByType\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\|null\\.$#"
-			count: 1
-			path: Controller/DynamicController.php
-
-		-
 			message: "#^Cannot cast mixed to int\\.$#"
 			count: 1
 			path: Controller/DynamicController.php
@@ -192,11 +187,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$dynamics of method Sulu\\\\Bundle\\\\FormBundle\\\\ListBuilder\\\\DynamicListFactory\\:\\:build\\(\\) expects array\\<Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\>, array given\\.$#"
-			count: 1
-			path: Controller/DynamicController.php
-
-		-
-			message: "#^Parameter \\#1 \\$entity of method Doctrine\\\\ORM\\\\EntityManager\\:\\:remove\\(\\) expects object, Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\|null given\\.$#"
 			count: 1
 			path: Controller/DynamicController.php
 
@@ -1704,4 +1694,3 @@ parameters:
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpFoundation\\\\RequestStack\\:\\:getMasterRequest\\(\\)\\.$#"
 			count: 1
 			path: TitleProvider/StructureTitleProvider.php
-
