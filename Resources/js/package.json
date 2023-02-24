@@ -1,5 +1,5 @@
 {
-    "name": "sulu-forms-bundle",
+    "name": "sulu-form-bundle",
     "description": "Adds support for forms to Sulu",
     "license": "MIT",
     "repository": "https://github.com/sulu/sulu.git",
