@@ -76,7 +76,6 @@ class FormAdmin extends Admin
 
     public function configureViews(ViewCollection $viewCollection): void
     {
-        // Todo: add security
         $formLocales = \array_values(
             \array_map(
                 function(Localization $localization) {
@@ -117,21 +116,26 @@ class FormAdmin extends Admin
         if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::DELETE)) {
             $dataListToolbarActions[] = new ToolbarAction('sulu_admin.delete');
         }
-
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::VIEW)) {
+            $listViewBuilder = $this->viewBuilderFactory->createListViewBuilder(static::LIST_VIEW, '/forms/:locale')
+                ->setResourceKey(Form::RESOURCE_KEY)
+                ->setListKey('forms')
+                ->setTitle('sulu_form.forms')
+                ->addListAdapters(['table'])
+                ->addLocales($formLocales)
+                ->setDefaultLocale($formLocales[0])
+                ->enableSearching()
+                ->addToolbarActions($listToolbarActions)
+            ;
+            if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::EDIT)) {
+                $listViewBuilder->setEditView(static::EDIT_FORM_VIEW);
+            }
+            if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::ADD)) {
+                $listViewBuilder->setAddView(static::ADD_FORM_VIEW);
+            }
+            $viewCollection->add($listViewBuilder);
+        }
         if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::EDIT)) {
-            $viewCollection->add(
-                $this->viewBuilderFactory->createListViewBuilder(static::LIST_VIEW, '/forms/:locale')
-                    ->setResourceKey(Form::RESOURCE_KEY)
-                    ->setListKey('forms')
-                    ->setTitle('sulu_form.forms')
-                    ->addListAdapters(['table'])
-                    ->addLocales($formLocales)
-                    ->setDefaultLocale($formLocales[0])
-                    ->setAddView(static::ADD_FORM_VIEW)
-                    ->setEditView(static::EDIT_FORM_VIEW)
-                    ->enableSearching()
-                    ->addToolbarActions($listToolbarActions)
-            );
             $viewCollection->add(
                 $this->viewBuilderFactory->createResourceTabViewBuilder(static::ADD_FORM_VIEW, '/forms/:locale/add')
                     ->setResourceKey(Form::RESOURCE_KEY)
