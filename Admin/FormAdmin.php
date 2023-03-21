@@ -76,6 +76,7 @@ class FormAdmin extends Admin
 
     public function configureViews(ViewCollection $viewCollection): void
     {
+        // Todo: add security
         $formLocales = \array_values(
             \array_map(
                 function(Localization $localization) {
