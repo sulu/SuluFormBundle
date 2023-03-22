@@ -130,10 +130,8 @@ class FormAdmin extends Admin
                 ->setDefaultLocale($formLocales[0])
                 ->enableSearching()
                 ->addToolbarActions($listToolbarActions)
+                ->setEditView(static::EDIT_FORM_VIEW)
             ;
-            if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::VIEW)) {
-                $listViewBuilder->setEditView(static::EDIT_FORM_VIEW);
-            }
             if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::ADD)) {
                 $listViewBuilder->setAddView(static::ADD_FORM_VIEW);
             }
