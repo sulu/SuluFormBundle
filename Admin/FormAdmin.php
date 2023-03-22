@@ -64,7 +64,7 @@ class FormAdmin extends Admin
 
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void
     {
-        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::VIEW)) {
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::EDIT)) {
             $navigationItem = new NavigationItem('sulu_form.forms');
             $navigationItem->setIcon('su-magic');
             $navigationItem->setPosition(10);
@@ -84,79 +84,103 @@ class FormAdmin extends Admin
                 $this->webspaceManager->getAllLocalizations()
             )
         );
-        $formToolbarActions = [
-            new ToolbarAction('sulu_admin.save'),
-            new ToolbarAction('sulu_admin.delete'),
-            new DropdownToolbarAction(
+
+        $addFormToolbarActions = [];
+        $editFormToolbarActions = [];
+        $listToolbarActions = [];
+        $dataListToolbarActions = [];
+
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::ADD)) {
+            $addFormToolbarActions[] = new ToolbarAction('sulu_admin.save');
+        }
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::EDIT)) {
+            $editFormToolbarActions[] = new ToolbarAction('sulu_admin.save');
+        }
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::DELETE)) {
+            $editFormToolbarActions[] = new ToolbarAction('sulu_admin.delete');
+        }
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::ADD)) {
+            $editFormToolbarActions[] = new DropdownToolbarAction(
                 'sulu_admin.edit',
                 'su-pen',
                 [
                     new ToolbarAction('sulu_admin.copy'),
                 ]
-            ),
-        ];
-        $listToolbarActions = [
-            new ToolbarAction('sulu_admin.add'),
-            new ToolbarAction('sulu_admin.delete'),
-        ];
-        $dataListToolbarActions = [
-            new ToolbarAction('sulu_admin.delete'),
-            new ToolbarAction('sulu_admin.export'),
-        ];
-
-        $viewCollection->add(
-            $this->viewBuilderFactory->createListViewBuilder(static::LIST_VIEW, '/forms/:locale')
+            );
+        }
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::ADD)) {
+            $listToolbarActions[] = new ToolbarAction('sulu_admin.add');
+        }
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::DELETE)) {
+            $listToolbarActions[] = new ToolbarAction('sulu_admin.delete');
+        }
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::VIEW)) {
+            $dataListToolbarActions[] = new ToolbarAction('sulu_admin.export');
+        }
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::DELETE)) {
+            $dataListToolbarActions[] = new ToolbarAction('sulu_admin.delete');
+        }
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::VIEW)) {
+            $listViewBuilder = $this->viewBuilderFactory->createListViewBuilder(static::LIST_VIEW, '/forms/:locale')
                 ->setResourceKey(Form::RESOURCE_KEY)
                 ->setListKey('forms')
                 ->setTitle('sulu_form.forms')
                 ->addListAdapters(['table'])
                 ->addLocales($formLocales)
                 ->setDefaultLocale($formLocales[0])
-                ->setAddView(static::ADD_FORM_VIEW)
-                ->setEditView(static::EDIT_FORM_VIEW)
                 ->enableSearching()
                 ->addToolbarActions($listToolbarActions)
-        );
-        $viewCollection->add(
-            $this->viewBuilderFactory->createResourceTabViewBuilder(static::ADD_FORM_VIEW, '/forms/:locale/add')
-                ->setResourceKey(Form::RESOURCE_KEY)
-                ->addLocales($formLocales)
-                ->setBackView(static::LIST_VIEW)
-        );
-        $viewCollection->add(
-            $this->viewBuilderFactory->createFormViewBuilder(static::ADD_FORM_DETAILS_VIEW, '/details')
-                ->setResourceKey(Form::RESOURCE_KEY)
-                ->setFormKey('form_details')
-                ->setTabTitle('sulu_form.general')
                 ->setEditView(static::EDIT_FORM_VIEW)
-                ->addToolbarActions($formToolbarActions)
-                ->setParent(static::ADD_FORM_VIEW)
-        );
-        $viewCollection->add(
-            $this->viewBuilderFactory->createResourceTabViewBuilder(static::EDIT_FORM_VIEW, '/forms/:locale/:id')
-                ->setResourceKey(Form::RESOURCE_KEY)
-                ->addLocales($formLocales)
-                ->setBackView(static::LIST_VIEW)
-        );
-        $viewCollection->add(
-            $this->viewBuilderFactory->createFormViewBuilder(static::EDIT_FORM_DETAILS_VIEW, '/details')
-                ->setResourceKey(Form::RESOURCE_KEY)
-                ->setFormKey('form_details')
-                ->setTabTitle('sulu_form.general')
-                ->addToolbarActions($formToolbarActions)
-                ->setParent(static::EDIT_FORM_VIEW)
-        );
-        $viewCollection->add(
-            $this->viewBuilderFactory->createListViewBuilder(static::LIST_VIEW_DATA, '/data')
-                ->setResourceKey('dynamic_forms')
-                ->setListKey('form_data')
-                ->setTabTitle('sulu_form.data')
-                ->addListAdapters(['table'])
-                ->addRouterAttributesToListRequest(['id' => 'form'])
-                ->addRouterAttributesToListMetadata(['id' => 'id'])
-                ->addToolbarActions($dataListToolbarActions)
-                ->setParent(static::EDIT_FORM_VIEW)
-        );
+            ;
+            if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::ADD)) {
+                $listViewBuilder->setAddView(static::ADD_FORM_VIEW);
+            }
+            $viewCollection->add($listViewBuilder);
+        }
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::ADD)) {
+            $viewCollection->add(
+                $this->viewBuilderFactory->createResourceTabViewBuilder(static::ADD_FORM_VIEW, '/forms/:locale/add')
+                    ->setResourceKey(Form::RESOURCE_KEY)
+                    ->addLocales($formLocales)
+                    ->setBackView(static::LIST_VIEW)
+            );
+            $viewCollection->add(
+                $this->viewBuilderFactory->createFormViewBuilder(static::ADD_FORM_DETAILS_VIEW, '/details')
+                    ->setResourceKey(Form::RESOURCE_KEY)
+                    ->setFormKey('form_details')
+                    ->setTabTitle('sulu_form.general')
+                    ->setEditView(static::EDIT_FORM_VIEW)
+                    ->addToolbarActions($addFormToolbarActions)
+                    ->setParent(static::ADD_FORM_VIEW)
+            );
+        }
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::VIEW)) {
+            $viewCollection->add(
+                $this->viewBuilderFactory->createResourceTabViewBuilder(static::EDIT_FORM_VIEW, '/forms/:locale/:id')
+                    ->setResourceKey(Form::RESOURCE_KEY)
+                    ->addLocales($formLocales)
+                    ->setBackView(static::LIST_VIEW)
+            );
+            $viewCollection->add(
+                $this->viewBuilderFactory->createFormViewBuilder(static::EDIT_FORM_DETAILS_VIEW, '/details')
+                    ->setResourceKey(Form::RESOURCE_KEY)
+                    ->setFormKey('form_details')
+                    ->setTabTitle('sulu_form.general')
+                    ->addToolbarActions($editFormToolbarActions)
+                    ->setParent(static::EDIT_FORM_VIEW)
+            );
+            $viewCollection->add(
+                $this->viewBuilderFactory->createListViewBuilder(static::LIST_VIEW_DATA, '/data')
+                    ->setResourceKey('dynamic_forms')
+                    ->setListKey('form_data')
+                    ->setTabTitle('sulu_form.data')
+                    ->addListAdapters(['table'])
+                    ->addRouterAttributesToListRequest(['id' => 'form'])
+                    ->addRouterAttributesToListMetadata(['id' => 'id'])
+                    ->addToolbarActions($dataListToolbarActions)
+                    ->setParent(static::EDIT_FORM_VIEW)
+            );
+        }
     }
 
     public function getSecurityContexts()
