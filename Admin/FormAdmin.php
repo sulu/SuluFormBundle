@@ -85,18 +85,22 @@ class FormAdmin extends Admin
             )
         );
 
-        $formToolbarActions = [];
+        $addFormToolbarActions = [];
+        $editFormToolbarActions = [];
         $listToolbarActions = [];
         $dataListToolbarActions = [];
 
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::ADD)) {
+            $addFormToolbarActions[] = new ToolbarAction('sulu_admin.save');
+        }
         if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::EDIT)) {
-            $formToolbarActions[] = new ToolbarAction('sulu_admin.save');
+            $editFormToolbarActions[] = new ToolbarAction('sulu_admin.save');
         }
         if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::DELETE)) {
-            $formToolbarActions[] = new ToolbarAction('sulu_admin.delete');
+            $editFormToolbarActions[] = new ToolbarAction('sulu_admin.delete');
         }
         if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::ADD)) {
-            $formToolbarActions[] = new DropdownToolbarAction(
+            $editFormToolbarActions[] = new DropdownToolbarAction(
                 'sulu_admin.edit',
                 'su-pen',
                 [
@@ -127,7 +131,7 @@ class FormAdmin extends Admin
                 ->enableSearching()
                 ->addToolbarActions($listToolbarActions)
             ;
-            if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::EDIT)) {
+            if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::VIEW)) {
                 $listViewBuilder->setEditView(static::EDIT_FORM_VIEW);
             }
             if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::ADD)) {
@@ -148,11 +152,11 @@ class FormAdmin extends Admin
                     ->setFormKey('form_details')
                     ->setTabTitle('sulu_form.general')
                     ->setEditView(static::EDIT_FORM_VIEW)
-                    ->addToolbarActions($formToolbarActions)
+                    ->addToolbarActions($addFormToolbarActions)
                     ->setParent(static::ADD_FORM_VIEW)
             );
         }
-        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::EDIT)) {
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::VIEW)) {
             $viewCollection->add(
                 $this->viewBuilderFactory->createResourceTabViewBuilder(static::EDIT_FORM_VIEW, '/forms/:locale/:id')
                     ->setResourceKey(Form::RESOURCE_KEY)
@@ -164,7 +168,7 @@ class FormAdmin extends Admin
                     ->setResourceKey(Form::RESOURCE_KEY)
                     ->setFormKey('form_details')
                     ->setTabTitle('sulu_form.general')
-                    ->addToolbarActions($formToolbarActions)
+                    ->addToolbarActions($editFormToolbarActions)
                     ->setParent(static::EDIT_FORM_VIEW)
             );
             $viewCollection->add(
