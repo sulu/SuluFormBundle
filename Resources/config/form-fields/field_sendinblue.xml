@@ -28,4 +28,17 @@
             />
         </params>
     </property>
+
+    <property name="options/redirectLink" type="link" mandatory="false">
+        <meta>
+            <title>sulu_form.sendinblue_redirection_url</title>
+        </meta>
+        <params>
+            <param name="types" type="collection">
+                <param name="page"/>
+                <param name="external"/>
+                <param name="article"/>
+            </param>
+        </params>
+    </property>
 </properties>
