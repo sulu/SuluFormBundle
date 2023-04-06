@@ -6,8 +6,9 @@
     <services>
         <service id="sulu_form.subscriber.sendinblue_list_subscriber" class="Sulu\Bundle\FormBundle\Event\SendinblueListSubscriber">
             <argument type="service" id="request_stack"/>
-            <argument type="service" id="sulu_markup.link_tag.provider_pool"/>
             <argument>%sulu_form.sendinblue_api_key%</argument>
+            <argument>null</argument>
+            <argument type="service" id="sulu_markup.link_tag.provider_pool"/>
             <tag name="kernel.event_subscriber" />
         </service>
 

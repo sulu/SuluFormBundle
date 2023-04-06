@@ -44,9 +44,9 @@ class SendinblueListSubscriber implements EventSubscriberInterface
 
     public function __construct(
         RequestStack $requestStack,
-        ?LinkProviderPoolInterface $linkProviderPool = null,
         ?string $apiKey,
-        ?ClientInterface $client = null
+        ?ClientInterface $client = null,
+        ?LinkProviderPoolInterface $linkProviderPool = null
     ) {
         $this->requestStack = $requestStack;
         $this->linkProviderPool = $linkProviderPool;
