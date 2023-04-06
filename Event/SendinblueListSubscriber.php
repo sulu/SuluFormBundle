@@ -38,13 +38,13 @@ class SendinblueListSubscriber implements EventSubscriberInterface
     private $contactsApi;
 
     /**
-     * @var LinkProviderPoolInterface
+     * @var ?LinkProviderPoolInterface
      */
     private $linkProviderPool;
 
     public function __construct(
         RequestStack $requestStack,
-        LinkProviderPoolInterface $linkProviderPool,
+        ?LinkProviderPoolInterface $linkProviderPool = null,
         ?string $apiKey,
         ?ClientInterface $client = null
     ) {
@@ -108,7 +108,7 @@ class SendinblueListSubscriber implements EventSubscriberInterface
                 $listId = $field['options']['listId'] ?? null;
                 $redirectLink = $field['options']['redirectLink'] ?? null;
 
-                if ($redirectLink) {
+                if ($redirectLink && $this->linkProviderPool) {
                     $linkUrl = $this->getUrlFromLink($redirectLink);
                 }
 
@@ -142,7 +142,16 @@ class SendinblueListSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param array<string, ?string> $redirectLink
+     * @param array{
+     *     provider: ?string,
+     *     target: ?string,
+     *     anchor: ?string,
+     *     query: ?string,
+     *     href: ?string,
+     *     title: ?string,
+     *     rel: ?string,
+     *     locale: ?string,
+     * } $redirectLink
      */
     private function getUrlFromLink(array $redirectLink): ?string
     {

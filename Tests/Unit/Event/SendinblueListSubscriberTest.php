@@ -24,6 +24,7 @@ use Sulu\Bundle\FormBundle\Entity\FormField;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Event\FormSavePostEvent;
 use Sulu\Bundle\FormBundle\Event\SendinblueListSubscriber;
+use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderPoolInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -45,13 +46,20 @@ class SendinblueListSubscriberTest extends TestCase
      */
     private $sendinblueListSubscriber;
 
+    /**
+     * @var LinkProviderPoolInterface
+     */
+    private $linkProviderPool;
+
     public function setUp(): void
     {
         $this->requestStack = new RequestStack();
+        $this->linkProviderPool = $this->prophesize(LinkProviderPoolInterface::class);
         $this->client = $this->prophesize(ClientInterface::class);
 
         $this->sendinblueListSubscriber = new SendinblueListSubscriber(
             $this->requestStack,
+            $this->linkProviderPool->reveal(),
             'SOME_KEY',
             $this->client->reveal()
         );
