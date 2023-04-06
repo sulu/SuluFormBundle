@@ -1027,7 +1027,12 @@ parameters:
 
 		-
 			message: "#^Cannot access offset 'options' on mixed\\.$#"
-			count: 2
+			count: 3
+			path: Event/SendinblueListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'redirectLink' on mixed\\.$#"
+			count: 1
 			path: Event/SendinblueListSubscriber.php
 
 		-
@@ -1038,6 +1043,26 @@ parameters:
 		-
 			message: "#^Cannot access offset 'value' on mixed\\.$#"
 			count: 4
+			path: Event/SendinblueListSubscriber.php
+
+		-
+			message: "#^Cannot call method getProvider\\(\\) on Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\Link\\\\LinkProviderPoolInterface\\|null\\.$#"
+			count: 1
+			path: Event/SendinblueListSubscriber.php
+
+		-
+			message: "#^Parameter \\#1 \\$hrefs of method Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\Link\\\\LinkProviderInterface\\:\\:preload\\(\\) expects array\\<string\\>, array\\<int, string\\|null\\> given\\.$#"
+			count: 1
+			path: Event/SendinblueListSubscriber.php
+
+		-
+			message: "#^Parameter \\#1 \\$redirectLink of method Sulu\\\\Bundle\\\\FormBundle\\\\Event\\\\SendinblueListSubscriber\\:\\:getUrlFromLink\\(\\) expects array\\{provider\\: string\\|null, target\\: string\\|null, anchor\\: string\\|null, query\\: string\\|null, href\\: string\\|null, title\\: string\\|null, rel\\: string\\|null, locale\\: string\\|null\\}, mixed given\\.$#"
+			count: 1
+			path: Event/SendinblueListSubscriber.php
+
+		-
+			message: "#^Parameter \\#2 \\$locale of method Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\Link\\\\LinkProviderInterface\\:\\:preload\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
 			path: Event/SendinblueListSubscriber.php
 
 		-
@@ -1236,7 +1261,7 @@ parameters:
 			path: ListBuilder/DynamicListBuilder.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\ListBuilder\\\\DynamicListFactory\\:\\:build\\(\\) should return array\\<string\\> but returns array\\<int, mixed\\>\\.$#"
+			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\ListBuilder\\\\DynamicListFactory\\:\\:build\\(\\) should return array\\<string\\> but returns array\\<int\\<0, max\\>, mixed\\>\\.$#"
 			count: 1
 			path: ListBuilder/DynamicListFactory.php
 

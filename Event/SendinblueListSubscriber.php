@@ -171,11 +171,11 @@ class SendinblueListSubscriber implements EventSubscriberInterface
         }
 
         $url = reset($linkItems)->getUrl();
-        if (isset($value['query'])) {
-            $url = sprintf('%s?%s', $url, $value['query']);
+        if (isset($redirectLink['query'])) {
+            $url = sprintf('%s?%s', $url, $redirectLink['query']);
         }
-        if (isset($value['anchor'])) {
-            $url = sprintf('%s#%s', $url, $value['anchor']);
+        if (isset($redirectLink['anchor'])) {
+            $url = sprintf('%s#%s', $url, $redirectLink['anchor']);
         }
 
         return $url;
