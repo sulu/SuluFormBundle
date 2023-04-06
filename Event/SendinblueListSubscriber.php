@@ -170,12 +170,12 @@ class SendinblueListSubscriber implements EventSubscriberInterface
             return null;
         }
 
-        $url = reset($linkItems)->getUrl();
+        $url = \reset($linkItems)->getUrl();
         if (isset($redirectLink['query'])) {
-            $url = sprintf('%s?%s', $url, $redirectLink['query']);
+            $url = \sprintf('%s?%s', $url, $redirectLink['query']);
         }
         if (isset($redirectLink['anchor'])) {
-            $url = sprintf('%s#%s', $url, $redirectLink['anchor']);
+            $url = \sprintf('%s#%s', $url, $redirectLink['anchor']);
         }
 
         return $url;
