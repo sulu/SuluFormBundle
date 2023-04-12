@@ -1046,11 +1046,6 @@ parameters:
 			path: Event/SendinblueListSubscriber.php
 
 		-
-			message: "#^Cannot call method getProvider\\(\\) on Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\Link\\\\LinkProviderPoolInterface\\|null\\.$#"
-			count: 1
-			path: Event/SendinblueListSubscriber.php
-
-		-
 			message: "#^Parameter \\#1 \\$hrefs of method Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\Link\\\\LinkProviderInterface\\:\\:preload\\(\\) expects array\\<string\\>, array\\<int, string\\|null\\> given\\.$#"
 			count: 1
 			path: Event/SendinblueListSubscriber.php
