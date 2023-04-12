@@ -108,7 +108,7 @@ class SendinblueListSubscriber implements EventSubscriberInterface
                 $listId = $field['options']['listId'] ?? null;
                 $redirectLink = $field['options']['redirectLink'] ?? null;
 
-                if ($redirectLink && $this->linkProviderPool) {
+                if ($redirectLink) {
                     $linkUrl = $this->getUrlFromLink($redirectLink);
                 }
 
@@ -161,6 +161,10 @@ class SendinblueListSubscriber implements EventSubscriberInterface
 
         if ('external' === $redirectLink['provider']) {
             return $redirectLink['href'];
+        }
+
+        if (!$this->linkProviderPool) {
+            return null;
         }
 
         $linkProvider = $this->linkProviderPool->getProvider($redirectLink['provider']);
