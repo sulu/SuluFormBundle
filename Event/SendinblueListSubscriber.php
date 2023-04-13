@@ -16,6 +16,7 @@ use SendinBlue\Client\Api\ContactsApi;
 use SendinBlue\Client\Configuration;
 use SendinBlue\Client\Model\CreateDoiContact;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
+use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderPoolInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -36,12 +37,19 @@ class SendinblueListSubscriber implements EventSubscriberInterface
      */
     private $contactsApi;
 
+    /**
+     * @var ?LinkProviderPoolInterface
+     */
+    private $linkProviderPool;
+
     public function __construct(
         RequestStack $requestStack,
         ?string $apiKey,
-        ?ClientInterface $client = null
+        ?ClientInterface $client = null,
+        ?LinkProviderPoolInterface $linkProviderPool = null
     ) {
         $this->requestStack = $requestStack;
+        $this->linkProviderPool = $linkProviderPool;
 
         if (!$apiKey) {
             return;
@@ -83,6 +91,7 @@ class SendinblueListSubscriber implements EventSubscriberInterface
         $firstName = '';
         $lastName = '';
         $redirectionUrl = $request->getUriForPath($request->getPathInfo()) . '?send=true&subscribe=true';
+        $linkUrl = null;
         $listIdsByMailTemplate = [];
 
         foreach ($form['fields'] as $field) {
@@ -97,6 +106,11 @@ class SendinblueListSubscriber implements EventSubscriberInterface
                 $mailTemplateId = $field['options']['mailTemplateId'] ?? null;
                 /** @var int|null $listId */
                 $listId = $field['options']['listId'] ?? null;
+                $redirectLink = $field['options']['redirectLink'] ?? null;
+
+                if ($redirectLink) {
+                    $linkUrl = $this->getUrlFromLink($redirectLink);
+                }
 
                 if (!$mailTemplateId || !$listId) {
                     continue;
@@ -116,7 +130,7 @@ class SendinblueListSubscriber implements EventSubscriberInterface
                 'email' => $email,
                 'templateId' => $mailTemplateId,
                 'includeListIds' => $listIds,
-                'redirectionUrl' => $redirectionUrl,
+                'redirectionUrl' => $linkUrl ?? $redirectionUrl,
                 'attributes' => [
                     'firstname' => $firstName,
                     'lastname' => $lastName,
@@ -125,5 +139,49 @@ class SendinblueListSubscriber implements EventSubscriberInterface
 
             $this->contactsApi->createDoiContact($createDoiContact);
         }
+    }
+
+    /**
+     * @param array{
+     *     provider: ?string,
+     *     target: ?string,
+     *     anchor: ?string,
+     *     query: ?string,
+     *     href: ?string,
+     *     title: ?string,
+     *     rel: ?string,
+     *     locale: ?string,
+     * } $redirectLink
+     */
+    private function getUrlFromLink(array $redirectLink): ?string
+    {
+        if (!$redirectLink['provider']) {
+            return null;
+        }
+
+        if ('external' === $redirectLink['provider']) {
+            return $redirectLink['href'];
+        }
+
+        if (!$this->linkProviderPool) {
+            return null;
+        }
+
+        $linkProvider = $this->linkProviderPool->getProvider($redirectLink['provider']);
+        $linkItems = $linkProvider->preload([$redirectLink['href']], $redirectLink['locale'], true);
+
+        if (0 === \count($linkItems)) {
+            return null;
+        }
+
+        $url = \reset($linkItems)->getUrl();
+        if (isset($redirectLink['query'])) {
+            $url = \sprintf('%s?%s', $url, $redirectLink['query']);
+        }
+        if (isset($redirectLink['anchor'])) {
+            $url = \sprintf('%s#%s', $url, $redirectLink['anchor']);
+        }
+
+        return $url;
     }
 }
