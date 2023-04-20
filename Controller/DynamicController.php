@@ -85,6 +85,7 @@ class DynamicController implements ClassResourceInterface
      */
     public function cgetAction(Request $request): Response
     {
+        $locale = $this->getLocale($request);
         $filters = $this->getFilters($request);
         $page = $request->get('page', 1);
         $limit = $request->get('limit');
@@ -100,7 +101,7 @@ class DynamicController implements ClassResourceInterface
             $offset
         );
 
-        $entries = $this->dynamicListFactory->build($entries, $view);
+        $entries = $this->dynamicListFactory->build($entries, $locale, $view);
 
         // avoid total request when entries < limit
         if (\count($entries) == $limit) {
