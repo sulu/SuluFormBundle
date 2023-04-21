@@ -151,6 +151,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sulu_form.media_collection_strategy', $mediaCollectionStrategy);
         $container->setParameter('sulu_form.static_forms', $config['static_forms']);
         $container->setParameter('sulu_form.dynamic_disabled_types', $config['dynamic_disabled_types']);
+        $container->setParameter('sulu_form.dynamic_labeled_exports', $config['dynamic_labeled_exports']);
 
         // Default Media Collection Strategy
         $container->setAlias(

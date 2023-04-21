@@ -145,6 +145,10 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('dynamic_disabled_types')
                 ->prototype('scalar')->end()->defaultValue([])
             ->end()
+            ->booleanNode('dynamic_labeled_exports')
+                ->info('Prefers labels instead of fields key as headings during export.')
+                ->defaultFalse()
+            ->end()
         ;
 
         return $treeBuilder;
