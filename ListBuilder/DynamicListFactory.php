@@ -55,7 +55,7 @@ class DynamicListFactory implements DynamicListFactoryInterface
             }
 
             $title = '';
-            $translation = $field->getTranslation($locale);
+            $translation = $field->getTranslation($locale, false, true);
 
             if ($translation) {
                 $title = $translation->getShortTitle() ?: \strip_tags($translation->getTitle());
