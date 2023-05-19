@@ -32,6 +32,7 @@ class Dynamic implements AuditableInterface
         'headline',
         'freeText',
         'recaptcha',
+        'hidden',
     ];
 
     /**
