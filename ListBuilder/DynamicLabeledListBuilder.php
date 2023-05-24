@@ -38,7 +38,7 @@ class DynamicLabeledListBuilder extends DynamicListBuilder
 
     private function getLabels(Form $form, string $locale): array
     {
-        if (!isset($formFieldsLabelCache[$form->getId()])) {
+        if (!isset($this->formFieldsLabelCache[$form->getId()])) {
             $labels = [];
 
             foreach ($form->getFields() as $field) {
@@ -52,9 +52,9 @@ class DynamicLabeledListBuilder extends DynamicListBuilder
                 $labels[$field->getKey()] = $label;
             }
 
-            $formFieldsLabelCache[$form->getId()] = $labels;
+            $this->formFieldsLabelCache[$form->getId()] = $labels;
         }
 
-        return $formFieldsLabelCache[$form->getId()];
+        return $this->formFieldsLabelCache[$form->getId()];
     }
 }
