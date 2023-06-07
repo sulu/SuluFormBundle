@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType as TypeHiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Email form field type.
+ * The Hidden form field type.
  */
 class HiddenType implements FormFieldTypeInterface
 {
