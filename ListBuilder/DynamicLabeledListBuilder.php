@@ -16,7 +16,7 @@ use Sulu\Bundle\FormBundle\Entity\Form;
 
 class DynamicLabeledListBuilder extends DynamicListBuilder
 {
-    private $formFieldsLabelCache = [];
+    private array $formFieldsLabelCache = [];
 
     public function build(Dynamic $dynamic, string $locale): array
     {
@@ -42,14 +42,16 @@ class DynamicLabeledListBuilder extends DynamicListBuilder
             $labels = [];
 
             foreach ($form->getFields() as $field) {
-                $label = '';
+                if (\in_array($field->getType(), Dynamic::$HIDDEN_TYPES)) {
+                    continue;
+                }
+
                 $translation = $field->getTranslation($locale, false, true);
 
                 if ($translation) {
                     $label = $translation->getShortTitle() ?: \strip_tags($translation->getTitle());
+                    $labels[$field->getKey()] = $label;
                 }
-
-                $labels[$field->getKey()] = $label;
             }
 
             $this->formFieldsLabelCache[$form->getId()] = $labels;
