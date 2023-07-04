@@ -88,7 +88,7 @@ has been submitted successfully!
 </head>
 <body>
     {% if content.form %}
-        {% if app.request.get('send') != 'true' %}
+        {% if app.request.get('send') != view.form.entity.formId %}
             {# FORM THEME #}
             {% form_theme content.form '@SuluForm/themes/basic.html.twig' %}
             {{ form(content.form) }}
