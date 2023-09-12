@@ -153,7 +153,7 @@ class FormManager
         }
 
         /** @var FormTranslation $newFormTranslation */
-        $newFormTranslation = $newForm->getTranslation($locale);
+        $newFormTranslation = $newForm->getTranslation($locale, false, true);
 
         $this->domainEventCollector->collect(
             new FormCopiedEvent(
