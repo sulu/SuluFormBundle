@@ -120,6 +120,14 @@
             <tag name="sulu_form.dynamic_list_builder" alias="simple" />
         </service>
 
+        <service id="sulu_form.list_builder.dynamic_labeled_list_builder"
+                 class="Sulu\Bundle\FormBundle\ListBuilder\DynamicLabeledListBuilder">
+            <argument>%sulu_form.dynamic_list_builder.delimiter%</argument>
+            <argument type="service" id="router" />
+
+            <tag name="sulu_form.dynamic_list_builder" alias="labeled" />
+        </service>
+
         <!-- Repositories -->
         <service id="sulu_form.repository.form" class="Sulu\Bundle\FormBundle\Repository\FormRepository">
             <factory service="doctrine.orm.entity_manager" method="getRepository"/>
@@ -197,6 +205,7 @@
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="sulu_form.repository.form"/>
             <argument type="service" id="fos_rest.view_handler"/>
+            <argument>%sulu_form.dynamic_labeled_exports%</argument>
         </service>
 
         <!-- Form Controller -->
