@@ -7,6 +7,11 @@
 To support Symfony 6 and Sulu 2.5 the usage of Swiftmailer has been deprecated.
 Remove the `Swiftmailer` from your project to automatically use the `symfony/mailer` instead.
 
+### Deprecate attribute max on AttachmentType
+
+The attribute max is deprecated on AttachmentType since it is not applicable to input type file.
+A new attribute data-max was added to let you use this data in your custom templates.
+
 ## 2.4.0
 
 ### CSRF Protection disabled
