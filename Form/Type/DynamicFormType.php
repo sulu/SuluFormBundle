@@ -93,6 +93,7 @@ class DynamicFormType extends AbstractType
 
             $title = $fieldTranslation->getTitle();
             $placeholder = $fieldTranslation->getPlaceholder();
+            $help = $fieldTranslation->getHelp();
             $width = $field->getWidth() ?: 'full';
 
             $nextField = null;
@@ -111,6 +112,11 @@ class DynamicFormType extends AbstractType
 
             if ($placeholder) {
                 $options['attr']['placeholder'] = $placeholder;
+            }
+
+            if ($help) {
+                $options['help_html'] = true;
+                $options['help'] = $help;
             }
 
             // required

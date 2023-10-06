@@ -49,6 +49,11 @@ class FormFieldTranslation
     /**
      * @var null|string
      */
+    private $help;
+
+    /**
+     * @var null|string
+     */
     private $shortTitle;
 
     /**
@@ -115,6 +120,18 @@ class FormFieldTranslation
     public function setPlaceholder(?string $placeholder): self
     {
         $this->placeholder = $placeholder;
+
+        return $this;
+    }
+
+    public function getHelp(): ?string
+    {
+        return $this->help;
+    }
+
+    public function setHelp(?string $help): self
+    {
+        $this->help = $help;
 
         return $this;
     }
