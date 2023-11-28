@@ -24,7 +24,7 @@ class RecaptchaType implements FormFieldTypeInterface
     use SimpleTypeTrait;
 
     public function __construct(
-        private readonly int $recaptchaVersion
+        private readonly int $recaptchaVersion = 2
     ) {
     }
 
