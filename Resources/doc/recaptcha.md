@@ -36,14 +36,5 @@ ewz_recaptcha:
     private_key: <insert_your_private_key>
 ```
 
-#### IMPORTANT when using RECAPTCHA v3
-
-add the following config to `config/packages/sulu_form.yaml`
-
-```yaml
-sulu_form:
-    recaptcha_version: 3
-```
-
 Visit [https://www.google.com/recaptcha/](https://www.google.com/recaptcha/intro/index.html) to get the public and private key.  
 or visit [https://developers.google.com/recaptcha/docs/faq](https://developers.google.com/recaptcha/docs/faq) to get test keys.
