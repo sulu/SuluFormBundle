@@ -14,6 +14,7 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -24,7 +25,7 @@ class RecaptchaType implements FormFieldTypeInterface
     use SimpleTypeTrait;
 
     public function __construct(
-        private readonly int $recaptchaVersion = 2
+        private readonly ParameterBagInterface $params
     ) {
     }
 
@@ -43,7 +44,7 @@ class RecaptchaType implements FormFieldTypeInterface
         $constraint = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue();
         $type = \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class;
 
-        if (3 == $this->recaptchaVersion) {
+        if ($this->params->has('ewz_recaptcha.version') && 3 == $this->params->get('ewz_recaptcha.version')) {
             $constraint = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrueV3();
             $type = \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaV3Type::class;
         }
