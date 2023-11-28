@@ -224,7 +224,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         }
 
         if (\class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class)) {
-            if (3 === $container->getPArameter('sulu_form.recaptcha.version')) {
+            if (3 === $container->getParameter('sulu_form.recaptcha.version')) {
                 $loader->load('type_recaptcha_v3.xml');
             } else {
                 $loader->load('type_recaptcha.xml');
