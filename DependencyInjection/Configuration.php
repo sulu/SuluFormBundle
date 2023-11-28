@@ -145,6 +145,7 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('dynamic_disabled_types')
                 ->prototype('scalar')->end()->defaultValue([])
             ->end()
+            ->scalarNode('recaptcha_version')->defaultValue(2)->end()
         ;
 
         return $treeBuilder;

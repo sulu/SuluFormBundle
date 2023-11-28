@@ -151,6 +151,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sulu_form.media_collection_strategy', $mediaCollectionStrategy);
         $container->setParameter('sulu_form.static_forms', $config['static_forms']);
         $container->setParameter('sulu_form.dynamic_disabled_types', $config['dynamic_disabled_types']);
+        $container->setParameter('sulu_form.recaptcha.version', $config['recaptcha_version']);
 
         // Default Media Collection Strategy
         $container->setAlias(
@@ -223,7 +224,11 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         }
 
         if (\class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class)) {
-            $loader->load('type_recaptcha.xml');
+            if (3 === $container->getPArameter('sulu_form.recaptcha.version')) {
+                $loader->load('type_recaptcha_v3.xml');
+            } else {
+                $loader->load('type_recaptcha.xml');
+            }
         }
 
         if (SuluKernel::CONTEXT_WEBSITE === $container->getParameter('sulu.context')) {
