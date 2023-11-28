@@ -24,9 +24,12 @@ class RecaptchaType implements FormFieldTypeInterface
 {
     use SimpleTypeTrait;
 
+    private ParameterBagInterface $params;
+
     public function __construct(
-        private readonly ?ParameterBagInterface $params = null
+        ParameterBagInterface $params
     ) {
+        $this->params = $params;
     }
 
     public function getConfiguration(): FormFieldTypeConfiguration
@@ -44,8 +47,7 @@ class RecaptchaType implements FormFieldTypeInterface
         $constraint = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue();
         $type = \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class;
 
-        if ($this->params
-            && $this->params->has('ewz_recaptcha.version')
+        if ($this->params->has('ewz_recaptcha.version')
             && 3 == $this->params->get('ewz_recaptcha.version')
         ) {
             $constraint = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrueV3();
