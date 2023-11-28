@@ -5,6 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="sulu_form.dynamic.type_recaptcha" class="Sulu\Bundle\FormBundle\Dynamic\Types\RecaptchaType">
+            <argument>%ewz_recaptcha.version%</argument>
             <tag name="sulu_form.dynamic.type" alias="recaptcha"/>
         </service>
     </services>

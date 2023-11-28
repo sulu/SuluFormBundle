@@ -23,6 +23,11 @@ class RecaptchaType implements FormFieldTypeInterface
 {
     use SimpleTypeTrait;
 
+    public function __construct(
+        private readonly int $recaptchaVersion
+    ) {
+    }
+
     public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
@@ -35,13 +40,22 @@ class RecaptchaType implements FormFieldTypeInterface
     public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         // Use in this way the recaptcha bundle could maybe not exists.
+        $constraint = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue();
+        $type = \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class;
+
+        if (3 == $this->recaptchaVersion) {
+            $constraint = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrueV3();
+            $type = \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaV3Type::class;
+        }
+
         $options['mapped'] = false;
-        $options['constraints'] = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue();
+        $options['constraints'] = $constraint;
         $options['attr']['options'] = [
             'theme' => 'light',
             'type' => 'image',
             'size' => 'normal',
         ];
-        $builder->add($field->getKey(), \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class, $options);
+
+        $builder->add($field->getKey(), $type, $options);
     }
 }
