@@ -24,11 +24,15 @@ class RecaptchaType implements FormFieldTypeInterface
 {
     use SimpleTypeTrait;
 
-    private ParameterBagInterface $params;
+    /**
+     * @var ParameterBagInterface
+     */
+    private $params;
 
-    public function __construct(
-        ParameterBagInterface $params
-    ) {
+    /**
+     * @param ParameterBagInterface $params
+     */
+    public function __construct($params) {
         $this->params = $params;
     }
 
