@@ -32,7 +32,8 @@ class RecaptchaType implements FormFieldTypeInterface
     /**
      * @param ParameterBagInterface $params
      */
-    public function __construct($params) {
+    public function __construct($params)
+    {
         $this->params = $params;
     }
 
@@ -50,14 +51,6 @@ class RecaptchaType implements FormFieldTypeInterface
         // Use in this way the recaptcha bundle could maybe not exists.
         $constraint = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue();
         $type = \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class;
-
-        if ($this->params->has('ewz_recaptcha.version')
-            && 3 == $this->params->get('ewz_recaptcha.version')
-        ) {
-            $constraint = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrueV3();
-            $type = \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaV3Type::class;
-        }
-
         $options['mapped'] = false;
         $options['constraints'] = $constraint;
         $options['attr']['options'] = [
@@ -65,6 +58,14 @@ class RecaptchaType implements FormFieldTypeInterface
             'type' => 'image',
             'size' => 'normal',
         ];
+
+        if ($this->params->has('ewz_recaptcha.version')
+            && 3 == $this->params->get('ewz_recaptcha.version')
+        ) {
+            $constraint = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrueV3();
+            $type = \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaV3Type::class;
+            unset($options['attr']);
+        }
 
         $builder->add($field->getKey(), $type, $options);
     }
