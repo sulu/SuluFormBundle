@@ -52,7 +52,6 @@ class RecaptchaType implements FormFieldTypeInterface
         $constraint = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue();
         $type = \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class;
         $options['mapped'] = false;
-        $options['constraints'] = $constraint;
         $options['attr']['options'] = [
             'theme' => 'light',
             'type' => 'image',
@@ -66,6 +65,8 @@ class RecaptchaType implements FormFieldTypeInterface
             $type = \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaV3Type::class;
             unset($options['attr']);
         }
+        
+        $options['constraints'] = $constraint;
 
         $builder->add($field->getKey(), $type, $options);
     }
