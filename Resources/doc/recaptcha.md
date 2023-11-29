@@ -30,7 +30,7 @@ EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle::class ['all' => true],
 
 add the following config to `config/packages/ewz_recaptcha.yaml`
 
-```yml
+```yaml
 ewz_recaptcha:
     public_key:  <insert_your_public_key>
     private_key: <insert_your_private_key>

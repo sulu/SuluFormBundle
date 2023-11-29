@@ -14,6 +14,7 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -22,6 +23,19 @@ use Symfony\Component\Form\FormBuilderInterface;
 class RecaptchaType implements FormFieldTypeInterface
 {
     use SimpleTypeTrait;
+
+    /**
+     * @var ParameterBagInterface
+     */
+    private $params;
+
+    /**
+     * @param ParameterBagInterface $params
+     */
+    public function __construct($params)
+    {
+        $this->params = $params;
+    }
 
     public function getConfiguration(): FormFieldTypeConfiguration
     {
@@ -35,13 +49,25 @@ class RecaptchaType implements FormFieldTypeInterface
     public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         // Use in this way the recaptcha bundle could maybe not exists.
+        $constraint = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue();
+        $type = \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class;
         $options['mapped'] = false;
-        $options['constraints'] = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue();
         $options['attr']['options'] = [
             'theme' => 'light',
             'type' => 'image',
             'size' => 'normal',
         ];
-        $builder->add($field->getKey(), \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class, $options);
+
+        if ($this->params->has('ewz_recaptcha.version')
+            && 3 == $this->params->get('ewz_recaptcha.version')
+        ) {
+            $constraint = new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrueV3();
+            $type = \EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaV3Type::class;
+            unset($options['attr']);
+        }
+        
+        $options['constraints'] = $constraint;
+
+        $builder->add($field->getKey(), $type, $options);
     }
 }
