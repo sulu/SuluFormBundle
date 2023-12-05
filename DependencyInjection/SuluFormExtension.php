@@ -13,6 +13,8 @@ namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Sulu\Bundle\FormBundle\Controller\FormTokenController;
 use Sulu\Bundle\FormBundle\Controller\FormWebsiteController;
+use Sulu\Bundle\FormBundle\Dynamic\Types\RecaptchaType;
+use Sulu\Bundle\FormBundle\Dynamic\Types\RecaptchaV3Type;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\FileLocator;
@@ -223,7 +225,15 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         }
 
         if (\class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class)) {
-            $loader->load('type_recaptcha.xml');
+            // EWZRecaptchaBundle has to be registered before SuluFormBundle
+            if ($container->hasParameter('ewz_recaptcha.version')) {
+                if (3 == $container->getParameter('ewz_recaptcha.version')) {
+                    $container->setParameter('recaptcha_type.class', RecaptchaV3Type::class);
+                } else {
+                    $container->setParameter('recaptcha_type.class', RecaptchaType::class);
+                }
+                $loader->load('type_recaptcha.xml');
+            }
         }
 
         if (SuluKernel::CONTEXT_WEBSITE === $container->getParameter('sulu.context')) {
