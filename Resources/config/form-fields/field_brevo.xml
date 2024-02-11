@@ -6,32 +6,32 @@
                       xpointer(//sulu:property)"/>
     <property name="options/listId" type="single_select" mandatory="true">
         <meta>
-            <title>sulu_form.sendinblue_list</title>
+            <title>sulu_form.brevo_list</title>
         </meta>
         <params>
             <param
                     name="values"
                     type="expression"
-                    value="service('sulu_form.dynamic.sendinblue_list_select').getValues()"
+                    value="service('sulu_form.dynamic.brevo_list_select').getValues()"
             />
         </params>
     </property>
     <property name="options/mailTemplateId" type="single_select" mandatory="true">
         <meta>
-            <title>sulu_form.sendinblue_mail_template</title>
+            <title>sulu_form.brevo_mail_template</title>
         </meta>
         <params>
             <param
                     name="values"
                     type="expression"
-                    value="service('sulu_form.dynamic.sendinblue_mail_template_select').getValues()"
+                    value="service('sulu_form.dynamic.brevo_mail_template_select').getValues()"
             />
         </params>
     </property>
 
     <property name="options/redirectLink" type="link" mandatory="false">
         <meta>
-            <title>sulu_form.sendinblue_redirection_url</title>
+            <title>sulu_form.brevo_redirection_url</title>
         </meta>
         <params>
             <param name="types" type="collection">

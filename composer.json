@@ -51,7 +51,7 @@
         "phpstan/phpstan-phpunit": "^1.0",
         "phpstan/phpstan-symfony": "^1.0",
         "phpunit/phpunit": "^8.0",
-        "sendinblue/api-v3-sdk": "^8.0",
+        "getbrevo/brevo-php": "^1.0",
         "symfony/browser-kit": "^4.4 || ^5.0 || ^6.0",
         "symfony/dotenv": "^4.4 || ^5.0 || ^6.0",
         "symfony/mime": "^4.4 || ^5.0 || ^6.0",
@@ -66,7 +66,7 @@
     "suggest": {
         "excelwebzone/recaptcha-bundle": "Allows to add recaptcha to any dynamic form",
         "drewm/mailchimp-api": "Allows to add a newsletter subscription over mailchimp to any dynamic form",
-        "sendinblue/api-v3-sdk": "Allows to add a newsletter subscription over sendinblue to any dynamic form"
+        "getbrevo/brevo-php": "Allows to add a newsletter subscription over Brevo to any dynamic form"
     },
     "autoload": {
         "psr-4": {

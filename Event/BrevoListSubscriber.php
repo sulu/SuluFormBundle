@@ -12,9 +12,9 @@
 namespace Sulu\Bundle\FormBundle\Event;
 
 use GuzzleHttp\ClientInterface;
-use SendinBlue\Client\Api\ContactsApi;
-use SendinBlue\Client\Configuration;
-use SendinBlue\Client\Model\CreateDoiContact;
+use Brevo\Client\Api\ContactsApi;
+use Brevo\Client\Configuration;
+use Brevo\Client\Model\CreateDoiContact;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderPoolInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  *
  * @internal
  */
-class SendinblueListSubscriber implements EventSubscriberInterface
+class BrevoListSubscriber implements EventSubscriberInterface
 {
     /**
      * @var RequestStack
@@ -101,7 +101,7 @@ class SendinblueListSubscriber implements EventSubscriberInterface
                 $lastName = $field['value'];
             } elseif ('email' === $field['type'] && !$email) {
                 $email = $field['value'];
-            } elseif ('sendinblue' == $field['type'] && $field['value']) {
+            } elseif ('brevo' == $field['type'] && $field['value']) {
                 /** @var string|int|null $listId */
                 $mailTemplateId = $field['options']['mailTemplateId'] ?? null;
                 /** @var int|null $listId */
