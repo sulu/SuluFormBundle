@@ -18,15 +18,15 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType as TypeCheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Sendinblue form field type.
+ * The Brevo form field type.
  */
-class SendinblueType implements FormFieldTypeInterface
+class BrevoType implements FormFieldTypeInterface
 {
     public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
-            'sulu_form.type.sendinblue',
-            __DIR__ . '/../../Resources/config/form-fields/field_sendinblue.xml',
+            'sulu_form.type.brevo',
+            __DIR__ . '/../../Resources/config/form-fields/field_brevo.xml',
             'special'
         );
     }

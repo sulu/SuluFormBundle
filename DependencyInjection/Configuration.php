@@ -37,7 +37,7 @@ class Configuration implements ConfigurationInterface
                 ->info('Enable csrf protection for dynamic forms.')
                 ->defaultFalse()
             ->end()
-            ->scalarNode('sendinblue_api_key')->defaultValue(null)->end()
+            ->scalarNode('brevo_api_key')->defaultValue(null)->end()
             ->scalarNode('mailchimp_api_key')->defaultValue(null)->end()
             ->scalarNode('mailchimp_subscribe_status')->defaultValue('subscribed')->end()
             ->enumNode('media_collection_strategy')

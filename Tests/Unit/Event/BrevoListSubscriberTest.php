@@ -23,7 +23,7 @@ use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormField;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Event\FormSavePostEvent;
-use Sulu\Bundle\FormBundle\Event\SendinblueListSubscriber;
+use Sulu\Bundle\FormBundle\Event\BrevoListSubscriber;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderInterface;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderPoolInterface;
@@ -31,7 +31,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class SendinblueListSubscriberTest extends TestCase
+class BrevoListSubscriberTest extends TestCase
 {
     /**
      * @var RequestStack
@@ -44,9 +44,9 @@ class SendinblueListSubscriberTest extends TestCase
     private $client;
 
     /**
-     * @var SendinblueListSubscriber
+     * @var BrevoListSubscriber
      */
-    private $sendinblueListSubscriber;
+    private $brevoListSubscriber;
 
     /**
      * @var LinkProviderPoolInterface|ObjectProphecy
@@ -59,7 +59,7 @@ class SendinblueListSubscriberTest extends TestCase
         $this->linkProviderPool = $this->prophesize(LinkProviderPoolInterface::class);
         $this->client = $this->prophesize(ClientInterface::class);
 
-        $this->sendinblueListSubscriber = new SendinblueListSubscriber(
+        $this->brevoListSubscriber = new BrevoListSubscriber(
             $this->requestStack,
             'SOME_KEY',
             $this->client->reveal(),
@@ -73,7 +73,7 @@ class SendinblueListSubscriberTest extends TestCase
             [
                 'sulu_form.handler.saved' => 'listSubscribe',
             ],
-            SendinblueListSubscriber::getSubscribedEvents()
+            BrevoListSubscriber::getSubscribedEvents()
         );
     }
 
@@ -87,7 +87,7 @@ class SendinblueListSubscriberTest extends TestCase
             /** @var RequestInterface $request */
             $request = $args[0];
 
-            if ('https://api.sendinblue.com/v3/contacts/doubleOptinConfirmation' === $request->getUri()->__toString()) {
+            if ('https://api.brevo.com/v3/contacts/doubleOptinConfirmation' === $request->getUri()->__toString()) {
                 $self->assertSame('POST', $request->getMethod());
 
                 $json = \json_decode($request->getBody()->getContents(), true);
@@ -111,7 +111,7 @@ class SendinblueListSubscriberTest extends TestCase
             ->shouldBeCalledOnce();
 
         // act
-        $this->sendinblueListSubscriber->listSubscribe($event);
+        $this->brevoListSubscriber->listSubscribe($event);
 
         $this->assertTrue(true);
     }
@@ -126,7 +126,7 @@ class SendinblueListSubscriberTest extends TestCase
             /** @var RequestInterface $request */
             $request = $args[0];
 
-            if ('https://api.sendinblue.com/v3/contacts/doubleOptinConfirmation' === $request->getUri()->__toString()) {
+            if ('https://api.brevo.com/v3/contacts/doubleOptinConfirmation' === $request->getUri()->__toString()) {
                 $self->assertSame('POST', $request->getMethod());
 
                 $json = \json_decode($request->getBody()->getContents(), true);
@@ -156,7 +156,7 @@ class SendinblueListSubscriberTest extends TestCase
         $linkProvider->preload(['123-123-123'], 'de', true)->shouldBeCalled()->willReturn([$linkItem]);
 
         // act
-        $this->sendinblueListSubscriber->listSubscribe($event);
+        $this->brevoListSubscriber->listSubscribe($event);
 
         $this->assertTrue(true);
     }
@@ -186,7 +186,7 @@ class SendinblueListSubscriberTest extends TestCase
                 'required' => true,
             ],
             [
-                'type' => 'sendinblue',
+                'type' => 'brevo',
                 'options' => [
                     'mailTemplateId' => '456',
                     'listId' => '789',
@@ -226,7 +226,7 @@ class SendinblueListSubscriberTest extends TestCase
                 'firstName' => 'John',
                 'lastName' => 'Doe',
                 'email' => 'john.doe@example.org',
-                'sendinblue' => true,
+                'brevo' => true,
             ]
         );
 
