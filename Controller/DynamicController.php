@@ -164,7 +164,7 @@ class DynamicController implements ClassResourceInterface
             'fromDate' => $request->get('fromDate'),
             'toDate' => $request->get('toDate'),
             'search' => $request->get('search'),
-            'searchFields' => \array_filter(\explode(',', $request->get('searchFields', ''))),
+            'searchFields' => \array_filter(\explode(',', $request->get('fields', ''))),
         ];
 
         return \array_filter($filters);

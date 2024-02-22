@@ -129,14 +129,12 @@ class DynamicRepository extends EntityRepository
 
         // Search each term in each search field
         foreach ($terms as $counter => $term) {
-            $expressions = [];
-
-            foreach ($searchFields as $searchField) {
-                $expressions[] = $queryBuilder->expr()->like(
-                    'dynamic.' . $searchField,
+            $expressions = [
+                $queryBuilder->expr()->like(
+                    'dynamic.data',
                     ':searchTerm' . $counter
-                );
-            }
+                ),
+            ];
 
             $queryBuilder->andWhere(\call_user_func_array([$queryBuilder->expr(), 'orX'], $expressions));
             $queryBuilder->setParameter('searchTerm' . $counter, '%' . $term . '%');
