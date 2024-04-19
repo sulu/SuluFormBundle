@@ -31,6 +31,8 @@ $config->setRiskyAllowed(true)
         'phpdoc_types_order' => false,
         'single_line_throw' => false,
         'single_line_comment_spacing' => false,
+        'nullable_type_declaration_for_default_null_value' => false,
+        'no_superfluous_phpdoc_tags' => false,
     ])
     ->setFinder($finder);
 
