@@ -311,20 +311,20 @@ class FormManager
         $existingIds = [];
         $existingKeys = [];
         foreach ($fields as $key => $fieldData) { // make id and keys unique when block get copied
-             if (\in_array($fieldData['id'] ?? null, $existingIds)) {
-                  unset($fields[$key]['id']);
-             }
-             if (\in_array($fieldData['key'] ?? null, $existingKeys)) {
-                  unset($fields[$key]['key']);
-             }
+            if (\in_array($fieldData['id'] ?? null, $existingIds)) {
+                unset($fields[$key]['id']);
+            }
+            if (\in_array($fieldData['key'] ?? null, $existingKeys)) {
+                unset($fields[$key]['key']);
+            }
 
-             if (isset($fieldData['id'])) {
-                 $existingIds[] = $fieldData['id'];
-             }
+            if (isset($fieldData['id'])) {
+                $existingIds[] = $fieldData['id'];
+            }
 
-             if (isset($fieldData['key'])) {
-                 $existingKeys[] = $fieldData['key'];
-             }
+            if (isset($fieldData['key'])) {
+                $existingKeys[] = $fieldData['key'];
+            }
         }
 
         $reservedKeys = \array_column($fields, 'key');
