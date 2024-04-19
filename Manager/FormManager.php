@@ -306,11 +306,32 @@ class FormManager
      */
     protected function updateFields(array $data, Form $form, string $locale): void
     {
-        $reservedKeys = \array_column(self::getValue($data, 'fields', []), 'key');
+        $fields = self::getValue($data, 'fields', []);
+
+        $existingIds = [];
+        $existingKeys = [];
+        foreach ($fields as $key => $fieldData) { // make id and keys unique when block get copied
+             if (\in_array($fieldData['id'] ?? null, $existingIds)) {
+                  unset($fields[$key]['id']);
+             }
+             if (\in_array($fieldData['key'] ?? null, $existingKeys)) {
+                  unset($fields[$key]['key']);
+             }
+
+             if (isset($fieldData['id'])) {
+                 $existingIds[] = $fieldData['id'];
+             }
+
+             if (isset($fieldData['key'])) {
+                 $existingKeys[] = $fieldData['key'];
+             }
+        }
+
+        $reservedKeys = \array_column($fields, 'key');
 
         $counter = 0;
 
-        foreach (self::getValue($data, 'fields', []) as $fieldData) {
+        foreach ($fields as $fieldData) {
             ++$counter;
             $fieldType = self::getValue($fieldData, 'type');
             $fieldKey = self::getValue($fieldData, 'key');
@@ -356,6 +377,8 @@ class FormManager
                 $form->addField($field);
             }
         }
+
+        exit;
 
         // Remove Fields
         foreach ($form->getFieldsNotInArray($reservedKeys) as $deletedField) {
