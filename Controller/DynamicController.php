@@ -64,13 +64,19 @@ class DynamicController implements ClassResourceInterface
      */
     private $viewHandler;
 
+    /**
+     * @var bool
+     */
+    private $prefersLabeledExports;
+
     public function __construct(
         DynamicRepository $dynamicRepository,
         DynamicListFactory $dynamicListFactory,
         MediaManagerInterface $mediaManager,
         EntityManager $entityManager,
         FormRepository $formRepository,
-        ViewHandler $viewHandler
+        ViewHandler $viewHandler,
+        bool $prefersLabeledExports
     ) {
         $this->dynamicRepository = $dynamicRepository;
         $this->dynamicListFactory = $dynamicListFactory;
@@ -78,6 +84,7 @@ class DynamicController implements ClassResourceInterface
         $this->entityManager = $entityManager;
         $this->formRepository = $formRepository;
         $this->viewHandler = $viewHandler;
+        $this->prefersLabeledExports = $prefersLabeledExports;
     }
 
     /**
@@ -87,10 +94,10 @@ class DynamicController implements ClassResourceInterface
     {
         $locale = $this->getLocale($request);
         $filters = $this->getFilters($request);
+        $view = $this->getView($request);
         $page = $request->get('page', 1);
         $limit = $request->get('limit');
         $offset = (int) (($page - 1) * $limit);
-        $view = $request->get('view', 'default');
         $sortOrder = $request->get('sortOrder', 'asc');
         $sortBy = $request->get('sortBy', 'created');
 
@@ -185,5 +192,12 @@ class DynamicController implements ClassResourceInterface
     public function getLocale(Request $request): ?string
     {
         return $request->get('locale', $request->getLocale());
+    }
+
+    public function getView(Request $request): string
+    {
+        $defaultView = ($this->prefersLabeledExports && $request->getRequestFormat() === 'csv') ? 'labeled' : 'default';
+
+        return $request->get('view', $defaultView);
     }
 }

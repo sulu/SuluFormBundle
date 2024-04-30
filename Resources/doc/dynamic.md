@@ -241,6 +241,14 @@ sulu_form:
         protected: true
 ```
 
+## Export to CSV with labels as heading
+By default, forms are exported with the first row filled with the field keys. Enable the following option to fill it with field labels instead:
+
+```yml
+sulu_form:
+    dynamic_labeled_exports: true
+```
+
 ## Test Checklist
 
 The following things you should check when implement the dynamic form type on your website.
