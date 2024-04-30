@@ -100,6 +100,16 @@ class Builder implements BuilderInterface
     {
         foreach ($request->request->all() as $key => $parameters) {
             if (0 === \strpos($key, 'dynamic_')) {
+                if (!\is_array($parameters)
+                    || !\is_string($parameters['checksum'] ?? null)
+                    || !\is_string($parameters['type'] ?? null)
+                    || !\is_string($parameters['formId'] ?? null)
+                    || !\is_string($parameters['formName'] ?? null)
+                    || !\is_string($parameters['typeId'] ?? null)
+                ) {
+                    continue;
+                }
+
                 $formNameParts = \explode('dynamic_', $key, 2);
                 $checksumCheck = $this->checksum->check(
                     $parameters['checksum'],
@@ -117,16 +127,8 @@ class Builder implements BuilderInterface
                     throw new HttpException(400, 'SuluFormBundle: Checksum not valid!');
                 }
 
-                if (!isset($parameters['type'])
-                    || !isset($parameters['formId'])
-                    || !isset($parameters['formName'])
-                    || !isset($parameters['typeId'])
-                ) {
-                    continue;
-                }
-
                 $locale = $request->getLocale();
-                if (isset($parameters['locale'])) {
+                if (isset($parameters['locale']) && is_string($parameters['locale'])) {
                     $locale = $parameters['locale'];
                 }
 
