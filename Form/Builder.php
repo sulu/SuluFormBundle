@@ -128,7 +128,7 @@ class Builder implements BuilderInterface
                 }
 
                 $locale = $request->getLocale();
-                if (isset($parameters['locale']) && is_string($parameters['locale'])) {
+                if (isset($parameters['locale']) && \is_string($parameters['locale'])) {
                     $locale = $parameters['locale'];
                 }
 
