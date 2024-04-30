@@ -378,8 +378,6 @@ class FormManager
             }
         }
 
-        exit;
-
         // Remove Fields
         foreach ($form->getFieldsNotInArray($reservedKeys) as $deletedField) {
             $form->removeField($deletedField);
