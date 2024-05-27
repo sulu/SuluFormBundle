@@ -24,6 +24,9 @@ use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
+/**
+ * @final
+ */
 class FormAdmin extends Admin
 {
     public const SECURITY_CONTEXT = 'sulu.form.forms';
@@ -188,7 +191,7 @@ class FormAdmin extends Admin
         return [
             'Sulu' => [
                 'Form' => [
-                    static::SECURITY_CONTEXT => [
+                    self::SECURITY_CONTEXT => [
                         PermissionTypes::VIEW,
                         PermissionTypes::ADD,
                         PermissionTypes::EDIT,

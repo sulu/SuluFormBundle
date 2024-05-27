@@ -78,6 +78,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     {
         if (
             isset($this->attributes[$parent])
+            && is_array($this->attributes[$parent])
             && isset($this->attributes[$parent][$name])
         ) {
             return $this->attributes[$parent][$name];

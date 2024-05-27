@@ -34,7 +34,10 @@ class CountryType implements FormFieldTypeInterface
 
     public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
-        if (isset($options['attr']['placeholder'])) {
+        if (isset($options['attr'])
+            && \is_array($options['attr'])
+            && isset($options['attr']['placeholder'])
+        ) {
             $options['placeholder'] = $options['attr']['placeholder'];
             unset($options['attr']['placeholder']);
         }

@@ -133,6 +133,7 @@ class ProtectedMediaSubscriber implements EventSubscriberInterface
             ->setParameter('id', $mediaId);
 
         try {
+            /** @var string $collectionKey */
             $collectionKey = $queryBuilder->getQuery()->getSingleScalarResult();
         } catch (NoResultException $e) {
             return false;

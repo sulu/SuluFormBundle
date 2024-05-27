@@ -115,7 +115,7 @@ class Builder implements BuilderInterface
                     $parameters['checksum'],
                     $parameters['type'],
                     $parameters['typeId'],
-                    $parameters['formId'],
+                    (int) $parameters['formId'],
                     $parameters['formName']
                 );
 
@@ -133,7 +133,7 @@ class Builder implements BuilderInterface
                 }
 
                 return $this->build(
-                    $parameters['formId'],
+                    (int) $parameters['formId'],
                     $parameters['type'],
                     $parameters['typeId'],
                     $locale,

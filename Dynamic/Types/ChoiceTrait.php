@@ -31,7 +31,7 @@ trait ChoiceTrait
     /**
      * Returns options for multichoice form type like select, multiple select, radio or checkboxes.
      *
-     * @param mixed[] $options
+     * @param array<string, mixed> $options
      *
      * @return mixed[]
      */
@@ -39,7 +39,10 @@ trait ChoiceTrait
         FormFieldTranslation $translation,
         array $options
     ): array {
-        if (isset($options['attr']['placeholder'])) {
+        if (isset($options['attr'])
+            && \is_array($options['attr'])
+            && isset($options['attr']['placeholder'])
+        ) {
             $options['placeholder'] = $options['attr']['placeholder'];
             unset($options['attr']['placeholder']);
         }

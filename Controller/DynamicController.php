@@ -23,6 +23,7 @@ use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Bundle\MediaBundle\Media\Exception\MediaNotFoundException;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -87,12 +88,15 @@ class DynamicController implements ClassResourceInterface
     {
         $locale = $this->getLocale($request);
         $filters = $this->getFilters($request);
-        $page = $request->get('page', 1);
-        $limit = $request->get('limit');
+        $page = (int) $request->query->getInt('page', 1);
+        $limit = (int) $request->query->getInt('limit');
         $offset = (int) (($page - 1) * $limit);
-        $view = $request->get('view', 'default');
-        $sortOrder = $request->get('sortOrder', 'asc');
-        $sortBy = $request->get('sortBy', 'created');
+        /** @var string $view */
+        $view = $request->query->get('view', 'default');
+        /** @var string $sortOrder */
+        $sortOrder = $request->query->get('sortOrder', 'asc');
+        /** @var string $sortBy */
+        $sortBy = $request->query->get('sortBy', 'created');
 
         $entries = $this->dynamicRepository->findByFilters(
             $filters,
@@ -111,12 +115,9 @@ class DynamicController implements ClassResourceInterface
             $total = \count($entries) + $offset;
         }
 
-        // create list representation
-        $representation = new ListRepresentation(
+        $representation = new PaginatedRepresentation(
             $entries,
             'dynamic_forms',
-            $request->get('_route'),
-            $request->query->all(),
             $page,
             $limit,
             $total
@@ -158,14 +159,14 @@ class DynamicController implements ClassResourceInterface
     protected function getFilters(Request $request): array
     {
         $filters = [
-            'type' => $request->get('type'),
-            'typeId' => $request->get('typeId'),
-            'webspaceKey' => $request->get('webspaceKey'),
-            'form' => $request->get('form'),
-            'fromDate' => $request->get('fromDate'),
-            'toDate' => $request->get('toDate'),
-            'search' => $request->get('search'),
-            'searchFields' => \array_filter(\explode(',', $request->get('fields', ''))),
+            'type' => $request->query->get('type'),
+            'typeId' => $request->query->get('typeId'),
+            'webspaceKey' => $request->query->get('webspaceKey'),
+            'form' => $request->query->get('form'),
+            'fromDate' => $request->query->get('fromDate'),
+            'toDate' => $request->query->get('toDate'),
+            'search' => $request->query->get('search'),
+            'searchFields' => \array_filter(\explode(',', $request->query->get('fields', ''))),
         ];
 
         return \array_filter($filters);
@@ -182,8 +183,8 @@ class DynamicController implements ClassResourceInterface
         return $this->formRepository->loadById($formId);
     }
 
-    public function getLocale(Request $request): ?string
+    public function getLocale(Request $request): string
     {
-        return $request->get('locale', $request->getLocale());
+        return $request->query->get('locale', $request->getLocale());
     }
 }
