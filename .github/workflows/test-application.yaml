@@ -56,6 +56,26 @@ jobs:
                           DATABASE_CHARSET: utf8mb4
                           DATABASE_COLLATE: utf8mb4_unicode_ci
 
+                    - php-version: '8.2'
+                      database: mysql
+                      dependency-versions: 'highest'
+                      tools: 'composer:v2'
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=5.7
+                          DATABASE_CHARSET: utf8mb4
+                          DATABASE_COLLATE: utf8mb4_unicode_ci
+
+                    - php-version: '8.3'
+                      database: mysql
+                      dependency-versions: 'highest'
+                      tools: 'composer:v2'
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=5.7
+                          DATABASE_CHARSET: utf8mb4
+                          DATABASE_COLLATE: utf8mb4_unicode_ci
+
         services:
             mysql:
                 image: mysql:5.7
@@ -85,6 +105,9 @@ jobs:
                   extensions: 'imagick'
                   tools: ${{ matrix.tools }}
                   coverage: none
+
+            - name: Remove not required tooling for tests
+              run: composer remove php-cs-fixer/shim --dev
 
             - name: Install composer dependencies
               uses: ramsey/composer-install@v1
