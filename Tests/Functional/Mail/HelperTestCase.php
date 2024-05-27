@@ -47,7 +47,7 @@ class HelperTestCase extends SuluTestCase
         $this->entityManager->clear();
     }
 
-    protected function updateHomePage(Form $form = null): void
+    protected function updateHomePage(?Form $form = null): void
     {
         /* @var $suluDocumentManager DocumentManagerInterface */
         $suluDocumentManager = static::getContainer()->get('sulu_document_manager.document_manager');

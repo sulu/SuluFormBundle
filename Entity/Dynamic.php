@@ -234,137 +234,86 @@ class Dynamic implements AuditableInterface
         return $this->webspaceKey;
     }
 
-    /**
-     * @return string
-     */
     public function getSalutation(): ?string
     {
         return $this->getField('salutation');
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): ?string
     {
         return $this->getField('title');
     }
 
-    /**
-     * @return string
-     */
     public function getFirstName(): ?string
     {
         return $this->getField('firstName');
     }
 
-    /**
-     * @return string
-     */
     public function getLastName(): ?string
     {
         return $this->getField('lastName');
     }
 
-    /**
-     * @return string
-     */
     public function getEmail(): ?string
     {
         return $this->getField('email');
     }
 
-    /**
-     * @return string
-     */
     public function getPhone(): ?string
     {
         return $this->getField('phone');
     }
 
-    /**
-     * @return string
-     */
     public function getFax(): ?string
     {
         return $this->getField('fax');
     }
 
-    /**
-     * @return string
-     */
     public function getStreet(): ?string
     {
         return $this->getField('street');
     }
 
-    /**
-     * @return string
-     */
     public function getZip(): ?string
     {
         return $this->getField('zip');
     }
 
-    /**
-     * @return string
-     */
     public function getCity(): ?string
     {
         return $this->getField('city');
     }
 
-    /**
-     * @return string
-     */
     public function getState(): ?string
     {
         return $this->getField('state');
     }
 
-    /**
-     * @return string
-     */
     public function getCountry(): ?string
     {
         return $this->getField('country');
     }
 
-    /**
-     * @return string
-     */
     public function getFunction(): ?string
     {
         return $this->getField('function');
     }
 
-    /**
-     * @return string
-     */
     public function getCompany(): ?string
     {
         return $this->getField('company');
     }
 
-    /**
-     * @return string
-     */
     public function getText(): ?string
     {
         return $this->getField('text');
     }
 
-    /**
-     * @return string
-     */
     public function getTextarea(): ?string
     {
         return $this->getField('textarea');
     }
 
-    /**
-     * @return string
-     */
     public function getDate(): ?string
     {
         return $this->getField('data');
@@ -378,41 +327,26 @@ class Dynamic implements AuditableInterface
         return $this->getField('attachment');
     }
 
-    /**
-     * @return string
-     */
     public function getCheckbox(): ?string
     {
         return $this->getField('checkbox');
     }
 
-    /**
-     * @return string
-     */
     public function getCheckboxMultiple(): ?string
     {
         return $this->getField('checkboxMultiple');
     }
 
-    /**
-     * @return string
-     */
     public function getDropdown(): ?string
     {
         return $this->getField('dropdown');
     }
 
-    /**
-     * @return string
-     */
     public function getDropdownMultiple(): ?string
     {
         return $this->getField('dropdownMultiple');
     }
 
-    /**
-     * @return string
-     */
     public function getRadioButtons(): ?string
     {
         return $this->getField('radioButtons');

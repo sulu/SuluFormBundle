@@ -65,7 +65,7 @@ class FormRepository extends EntityRepository
     /**
      * @param mixed[] $filters
      */
-    public function countByFilters(string $locale = null, array $filters = []): int
+    public function countByFilters(?string $locale = null, array $filters = []): int
     {
         $queryBuilder = $this->createQueryBuilder('form');
         $queryBuilder->select($queryBuilder->expr()->count('form.id'));

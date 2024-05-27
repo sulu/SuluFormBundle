@@ -166,9 +166,6 @@ class MailerHelper implements HelperInterface
         }
     }
 
-    /**
-     * @param string $plainText
-     */
     private function setBody(
         Email $message,
         bool $html,
@@ -192,7 +189,6 @@ class MailerHelper implements HelperInterface
      * @param string|array<string|int, string> $replyTo
      * @param array<string|int, string> $ccMail
      * @param array<string|int, string> $bccMail
-     * @param string $plainText
      */
     private function logMessage(
         $fromMail,

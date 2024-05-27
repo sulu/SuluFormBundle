@@ -72,7 +72,7 @@ class Handler implements HandlerInterface
         EventDispatcherInterface $eventDispatcher,
         MediaManagerInterface $mediaManager,
         string $honeyPotStrategy = self::HONEY_POT_STRATEGY_SPAM,
-        string $honeyPotField = null
+        ?string $honeyPotField = null
     ) {
         $this->entityManager = $entityManager;
         $this->mailHelper = $mailHelper;
@@ -226,7 +226,7 @@ class Handler implements HandlerInterface
             /** @var FormInterface $formField */
             $formField = $form[$field];
 
-            if(!\count($formField->getData())) {
+            if (!\count($formField->getData())) {
                 continue;
             }
 
@@ -266,7 +266,7 @@ class Handler implements HandlerInterface
             /** @var FormInterface $formField */
             $formField = $form[$field];
 
-            if(!\count($formField->getData())) {
+            if (!\count($formField->getData())) {
                 continue;
             }
 

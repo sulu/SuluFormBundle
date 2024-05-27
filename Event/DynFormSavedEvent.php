@@ -34,7 +34,7 @@ class DynFormSavedEvent extends Event
     /**
      * @param mixed[] $data
      */
-    public function __construct(array $data, Dynamic $dynamic = null)
+    public function __construct(array $data, ?Dynamic $dynamic = null)
     {
         $this->data = $data;
         $this->dynamic = $dynamic;

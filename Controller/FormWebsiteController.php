@@ -225,7 +225,7 @@ class FormWebsiteController extends DefaultController
      *
      * @return mixed[]
      */
-    protected function getAttributes($attributes, StructureInterface $structure = null, $preview = false)
+    protected function getAttributes($attributes, ?StructureInterface $structure = null, $preview = false)
     {
         if (null === $this->attributes) { // for performance only called once
             $this->attributes = parent::getAttributes($attributes, $structure, $preview);

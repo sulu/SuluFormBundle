@@ -38,7 +38,7 @@ class FormTwigExtension extends AbstractExtension
         ];
     }
 
-    public function getFormById(int $id, string $type, string $typeId, string $locale = null, string $name = 'form'): ?FormView
+    public function getFormById(int $id, string $type, string $typeId, ?string $locale = null, string $name = 'form'): ?FormView
     {
         $form = $this->formBuilder->build((int) $id, $type, $typeId, $locale, $name);
 
