@@ -56,6 +56,7 @@ class LoadFormFixture implements FixtureInterface
         $formFieldTranslation->setShortTitle('Short Title');
         $formFieldTranslation->setTitle('Title');
         $formFieldTranslation->setPlaceholder('Placeholder');
+        $formFieldTranslation->setHelp('Help text');
         $formFieldTranslation->setDefaultValue('Default Value');
         $formFieldTranslation->setLocale('de');
         $formFieldTranslation->setOptions([]);
@@ -78,6 +79,7 @@ class LoadFormFixture implements FixtureInterface
         $formFieldTranslation2->setShortTitle('Short Title');
         $formFieldTranslation2->setTitle('Title');
         $formFieldTranslation2->setPlaceholder('Placeholder');
+        $formFieldTranslation2->setHelp('Help text');
         $formFieldTranslation2->setDefaultValue('Default Value');
         $formFieldTranslation2->setLocale('de');
         $formFieldTranslation2->setOptions([]);

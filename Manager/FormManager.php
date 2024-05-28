@@ -143,6 +143,7 @@ class FormManager
                 $newFieldTranslation = $newField->getTranslation($fieldTranslation->getLocale(), true);
                 $newFieldTranslation->setTitle($fieldTranslation->getTitle());
                 $newFieldTranslation->setPlaceholder($fieldTranslation->getPlaceholder());
+                $newFieldTranslation->setHelp($fieldTranslation->getHelp());
                 $newFieldTranslation->setDefaultValue($fieldTranslation->getDefaultValue());
                 $newFieldTranslation->setShortTitle($fieldTranslation->getShortTitle());
                 $newFieldTranslation->setOptions($fieldTranslation->getOptions());
@@ -339,6 +340,7 @@ class FormManager
             $fieldTranslation = $field->getTranslation($locale, true);
             $fieldTranslation->setTitle(self::getValue($fieldData, 'title'));
             $fieldTranslation->setPlaceholder(self::getValue($fieldData, 'placeholder'));
+            $fieldTranslation->setHelp(self::getValue($fieldData, 'help'));
             $fieldTranslation->setDefaultValue(self::getValue($fieldData, 'defaultValue'));
             $fieldTranslation->setShortTitle(self::getValue($fieldData, 'shortTitle'));
             $fieldTranslation->setOptions(self::getValue($fieldData, 'options'));

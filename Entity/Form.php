@@ -216,6 +216,7 @@ class Form
                 'options' => $fieldTranslation->getOptions(),
                 'defaultValue' => $fieldTranslation->getDefaultValue(),
                 'placeholder' => $fieldTranslation->getPlaceholder(),
+                'help' => $fieldTranslation->getHelp(),
                 'shortTitle' => $fieldTranslation->getShortTitle(),
                 'value' => $value,
             ];

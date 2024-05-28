@@ -68,6 +68,7 @@ use Webmozart\Assert\Assert;
  *             title: string,
  *             locale: string,
  *             placeholder: string,
+ *             help: string,
  *             defaultValue: string,
  *             shortTitle: string,
  *             options: mixed[],
@@ -178,6 +179,7 @@ final class FormTrashItemHandler implements
                     'title' => $translation->getTitle(),
                     'locale' => $translation->getLocale(),
                     'placeholder' => $translation->getPlaceholder(),
+                    'help' => $translation->getHelp(),
                     'defaultValue' => $translation->getDefaultValue(),
                     'shortTitle' => $translation->getShortTitle(),
                     'options' => $translation->getOptions(),
@@ -254,6 +256,7 @@ final class FormTrashItemHandler implements
                 $fieldTranslation = $field->getTranslation($fieldTranslationData['locale'], true);
                 $fieldTranslation->setTitle($fieldTranslationData['title']);
                 $fieldTranslation->setPlaceholder($fieldTranslationData['placeholder']);
+                $fieldTranslation->setHelp($fieldTranslationData['help']);
                 $fieldTranslation->setDefaultValue($fieldTranslationData['defaultValue']);
                 $fieldTranslation->setShortTitle($fieldTranslationData['shortTitle']);
                 $fieldTranslation->setOptions($fieldTranslationData['options']);

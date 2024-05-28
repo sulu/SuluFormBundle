@@ -25,6 +25,7 @@
   "sulu_form.required": "Required field",
   "sulu_form.width": "Width",
   "sulu_form.example": "Example",
+  "sulu_form.help": "Help text",
   "sulu_form.default": "Default",
   "sulu_form.short_title": "Short title",
   "sulu_form.short_title_description": "Optional title of field, for example in notification mail.",
