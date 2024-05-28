@@ -1141,26 +1141,6 @@ parameters:
 			path: Mail/MailerHelper.php
 
 		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 2
-			path: Manager/FormManager.php
-
-		-
-			message: "#^Cannot access offset 'email' on mixed\\.$#"
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: "#^Cannot access offset 'name' on mixed\\.$#"
-			count: 2
-			path: Manager/FormManager.php
-
-		-
-			message: "#^Cannot access offset 'type' on mixed\\.$#"
-			count: 1
-			path: Manager/FormManager.php
-
-		-
 			message: "#^Cannot call method getId\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
 			count: 1
 			path: Manager/FormManager.php
@@ -1286,27 +1266,12 @@ parameters:
 			path: Manager/FormManager.php
 
 		-
-			message: "#^Parameter \\#1 \\$array of function array_column expects array, mixed given\\.$#"
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: "#^Parameter \\#1 \\$data of static method Sulu\\\\Bundle\\\\FormBundle\\\\Manager\\\\FormManager\\:\\:getValue\\(\\) expects array, mixed given\\.$#"
-			count: 9
-			path: Manager/FormManager.php
-
-		-
 			message: "#^Parameter \\#1 \\$datetime of class DateTime constructor expects string, mixed given\\.$#"
 			count: 1
 			path: Manager/FormManager.php
 
 		-
 			message: "#^Parameter \\#1 \\$defaultLocale of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\:\\:setDefaultLocale\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: "#^Parameter \\#1 \\$email of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslationReceiver\\:\\:setEmail\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: Manager/FormManager.php
 
@@ -1323,11 +1288,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\:\\:getTranslation\\(\\) expects string, string\\|null given\\.$#"
 			count: 3
-			path: Manager/FormManager.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslationReceiver\\:\\:setName\\(\\) expects string, mixed given\\.$#"
-			count: 1
 			path: Manager/FormManager.php
 
 		-
@@ -1351,22 +1311,12 @@ parameters:
 			path: Manager/FormManager.php
 
 		-
-			message: "#^Parameter \\#1 \\$type of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormTranslationReceiver\\:\\:setType\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Manager/FormManager.php
-
-		-
 			message: "#^Parameter \\#1 \\$type of method Sulu\\\\Bundle\\\\FormBundle\\\\Manager\\\\FormManager\\:\\:getUniqueKey\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: Manager/FormManager.php
 
 		-
 			message: "#^Parameter \\#1 \\$width of method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormField\\:\\:setWidth\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: "#^Parameter \\#2 \\$array of function array_key_exists expects array, mixed given\\.$#"
 			count: 1
 			path: Manager/FormManager.php
 

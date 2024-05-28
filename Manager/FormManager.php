@@ -273,6 +273,7 @@ class FormManager
     {
         $receiversRepository = $this->entityManager->getRepository(FormTranslationReceiver::class);
         $receiverDatas = self::getValue($data, 'receivers', []);
+        \assert(\is_array($receiverDatas), 'Receivers must be an array.');
 
         // Remove old receivers.
         $oldReceivers = $receiversRepository->findBy(['formTranslation' => $translation]);
@@ -307,6 +308,7 @@ class FormManager
     protected function updateFields(array $data, Form $form, string $locale): void
     {
         $fields = self::getValue($data, 'fields', []);
+        \assert(\is_array($fields), 'Fields must be an array.');
 
         $existingIds = [];
         $existingKeys = [];
