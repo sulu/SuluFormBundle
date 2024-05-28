@@ -337,6 +337,7 @@ class FormManager
             ++$counter;
             $fieldType = self::getValue($fieldData, 'type');
             $fieldKey = self::getValue($fieldData, 'key');
+
             $field = $form->getField($fieldKey);
             $uniqueKey = $this->getUniqueKey($fieldType, $reservedKeys);
 
@@ -347,10 +348,12 @@ class FormManager
             if (!$field) {
                 $field = new FormField();
                 $field->setKey($uniqueKey);
-                $reservedKeys[] = $uniqueKey;
             } elseif ($field->getType() !== $fieldType || !$field->getKey()) {
                 $field->setKey($uniqueKey);
-                $reservedKeys[] = $uniqueKey;
+            }
+
+            if (!\in_array($field->getKey(), $reservedKeys)) {
+                $reservedKeys[] = $field->getKey();
             }
 
             $field->setOrder($counter);
