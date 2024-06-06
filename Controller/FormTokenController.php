@@ -30,13 +30,14 @@ class FormTokenController
     public function tokenAction(Request $request): Response
     {
         $formName = $request->get('form');
+        $formName = \is_string($formName) ? $formName : '';
         $csrfToken = $this->csrfTokenManager->getToken($formName)->getValue();
 
         $content = $csrfToken;
 
         if ($request->get('html')) {
-            $formName = htmlspecialchars($formName, ENT_QUOTES, 'UTF-8');
-            $csrfToken = htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8');
+            $formName = \htmlspecialchars($formName, \ENT_QUOTES, 'UTF-8');
+            $csrfToken = \htmlspecialchars($csrfToken, \ENT_QUOTES, 'UTF-8');
 
             $content = \sprintf(
                 '<input type="hidden" id="%s__token" name="%s[_token]" value="%s" />',

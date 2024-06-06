@@ -22,9 +22,9 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class FormTokenControllerTest extends SuluTestCase
 {
     /**
-     * @var FormTokenController
+     * @var FormTokenControllerTest
      */
-    private formTokenController $formTokenController;
+    private $formTokenController;
 
     protected function setUp(): void
     {
