@@ -15,6 +15,7 @@ use Sulu\Bundle\FormBundle\Dynamic\Checksum;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
 use Sulu\Bundle\FormBundle\Dynamic\Types\FreeTextType;
 use Sulu\Bundle\FormBundle\Dynamic\Types\HeadlineType;
+use Sulu\Bundle\FormBundle\Dynamic\Types\SpacerType;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Exception\FormNotFoundException;
@@ -121,6 +122,8 @@ class DynamicFormType extends AbstractType
             if (
                 !$formFieldType instanceof FreeTextType
                 && !$formFieldType instanceof HeadlineType
+                && !$formFieldType instanceof \Sulu\Bundle\FormBundle\Dynamic\Types\HiddenType
+                && !$formFieldType instanceof SpacerType
                 && $field->getRequired()
             ) {
                 $options['constraints'][] = new NotBlank();
