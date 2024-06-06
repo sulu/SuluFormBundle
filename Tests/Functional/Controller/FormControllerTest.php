@@ -239,7 +239,7 @@ class FormControllerTest extends SuluTestCase
                         'required' => true,
                     ],
                     [
-                        'key' => 'email', // we are testing here if second email field is correctly created as email2
+                        'key' => 'email', // we are testing here if third email field is correctly created as email2
                         'type' => 'email',
                         'title' => 'Title',
                         'shortTitle' => 'Short Title',
