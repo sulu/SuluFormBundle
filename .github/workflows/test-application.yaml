@@ -107,7 +107,7 @@ jobs:
                   coverage: none
 
             - name: Remove not required tooling for tests
-              run: composer remove php-cs-fixer/shim --dev
+              run: composer remove php-cs-fixer/shim "*phpstan*" --dev --no-update
 
             - name: Install composer dependencies
               uses: ramsey/composer-install@v1
