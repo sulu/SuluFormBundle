@@ -11,10 +11,10 @@
 
 namespace Sulu\Bundle\FormBundle\Event;
 
+use Brevo\Client\Api\ContactsApi;
+use Brevo\Client\Configuration;
+use Brevo\Client\Model\CreateDoiContact;
 use GuzzleHttp\ClientInterface;
-use SendinBlue\Client\Api\ContactsApi;
-use SendinBlue\Client\Configuration;
-use SendinBlue\Client\Model\CreateDoiContact;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderPoolInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -24,10 +24,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * @final
  *
  * @internal
- *
- * @deprecated
  */
-class SendinblueListSubscriber implements EventSubscriberInterface
+class BrevoListSubscriber implements EventSubscriberInterface
 {
     /**
      * @var RequestStack
@@ -103,7 +101,7 @@ class SendinblueListSubscriber implements EventSubscriberInterface
                 $lastName = $field['value'];
             } elseif ('email' === $field['type'] && !$email) {
                 $email = $field['value'];
-            } elseif ('sendinblue' == $field['type'] && $field['value']) {
+            } elseif ('brevo' == $field['type'] && $field['value']) {
                 /** @var string|int|null $listId */
                 $mailTemplateId = $field['options']['mailTemplateId'] ?? null;
                 /** @var int|null $listId */
@@ -170,14 +168,13 @@ class SendinblueListSubscriber implements EventSubscriberInterface
         }
 
         $linkProvider = $this->linkProviderPool->getProvider($redirectLink['provider']);
-        $linkItems = \iterator_to_array($linkProvider->preload([$redirectLink['href']], $redirectLink['locale'], true));
+        $linkItems = $linkProvider->preload([$redirectLink['href']], $redirectLink['locale'], true);
 
-        $firstItem = \reset($linkItems);
-        if (false === $firstItem) {
+        if (0 === \count($linkItems)) {
             return null;
         }
 
-        $url = $firstItem->getUrl();
+        $url = \reset($linkItems)->getUrl();
         if (isset($redirectLink['query'])) {
             $url = \sprintf('%s?%s', $url, $redirectLink['query']);
         }

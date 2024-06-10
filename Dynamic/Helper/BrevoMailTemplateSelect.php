@@ -11,17 +11,15 @@
 
 namespace Sulu\Bundle\FormBundle\Dynamic\Helper;
 
-use SendinBlue\Client\Api\TransactionalEmailsApi;
-use SendinBlue\Client\Configuration;
+use Brevo\Client\Api\TransactionalEmailsApi;
+use Brevo\Client\Configuration;
 
 /**
  * @final
  *
  * @internal
- *
- * @deprecated
  */
-class SendinblueMailTemplateSelect
+class BrevoMailTemplateSelect
 {
     /**
      * @var TransactionalEmailsApi|null
@@ -41,7 +39,7 @@ class SendinblueMailTemplateSelect
     }
 
     /**
-     * Returns array of Sendinblue mail templates of given account defined by the API key.
+     * Returns array of Brevo mail templates of given account defined by the API key.
      *
      * @return mixed[]
      */
@@ -57,7 +55,7 @@ class SendinblueMailTemplateSelect
         $mailTemplateObjects = [];
 
         do {
-            $response = $this->transactionalEmailsApi->getSmtpTemplates('true', $limit, $offset);
+            $response = $this->transactionalEmailsApi->getSmtpTemplates(true, $limit, $offset);
 
             if (null === $total) {
                 $total = $response->getCount();

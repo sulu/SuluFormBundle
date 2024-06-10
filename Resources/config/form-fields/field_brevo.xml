@@ -1,0 +1,44 @@
+<properties xmlns="http://schemas.sulu.io/template/template"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xi="http://www.w3.org/2001/XInclude"
+            xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/properties-1.0.xsd">
+    <xi:include href="default_field.xml"  xpointer="xmlns(sulu=http://schemas.sulu.io/template/template)
+                      xpointer(//sulu:property)"/>
+    <property name="options/listId" type="single_select" mandatory="true">
+        <meta>
+            <title>sulu_form.brevo_list</title>
+        </meta>
+        <params>
+            <param
+                    name="values"
+                    type="expression"
+                    value="service('sulu_form.dynamic.brevo_list_select').getValues()"
+            />
+        </params>
+    </property>
+    <property name="options/mailTemplateId" type="single_select" mandatory="true">
+        <meta>
+            <title>sulu_form.brevo_mail_template</title>
+        </meta>
+        <params>
+            <param
+                    name="values"
+                    type="expression"
+                    value="service('sulu_form.dynamic.brevo_mail_template_select').getValues()"
+            />
+        </params>
+    </property>
+
+    <property name="options/redirectLink" type="link" mandatory="false">
+        <meta>
+            <title>sulu_form.brevo_redirection_url</title>
+        </meta>
+        <params>
+            <param name="types" type="collection">
+                <param name="page"/>
+                <param name="external"/>
+                <param name="article"/>
+            </param>
+        </params>
+    </property>
+</properties>

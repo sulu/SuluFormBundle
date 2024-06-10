@@ -40,6 +40,7 @@
         "doctrine/doctrine-bundle": "^2.0",
         "drewm/mailchimp-api": "^2.2",
         "excelwebzone/recaptcha-bundle": "^1.4.2",
+        "getbrevo/brevo-php": "^2.0",
         "handcraftedinthealps/zendsearch": "^2.0",
         "jackalope/jackalope-doctrine-dbal": "^2.0",
         "jangregor/phpstan-prophecy": "^1.0",
@@ -67,7 +68,7 @@
     "suggest": {
         "excelwebzone/recaptcha-bundle": "Allows to add recaptcha to any dynamic form",
         "drewm/mailchimp-api": "Allows to add a newsletter subscription over mailchimp to any dynamic form",
-        "sendinblue/api-v3-sdk": "Allows to add a newsletter subscription over sendinblue to any dynamic form"
+        "getbrevo/brevo-php": "Allows to add a newsletter subscription over Brevo to any dynamic form"
     },
     "autoload": {
         "psr-4": {

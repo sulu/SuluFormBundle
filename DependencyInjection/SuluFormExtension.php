@@ -203,6 +203,14 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
             $loader->load('type_sendinblue.xml');
         }
 
+        if ($config['brevo_api_key']) {
+            if (!\class_exists(\Brevo\Client\Configuration::class)) {
+                throw new \LogicException('You need to install the "getbrevo/brevo-php" package to use the Brevo type.');
+            }
+
+            $loader->load('type_brevo.xml');
+        }
+
         if ($config['mailchimp_api_key']) {
             if (!\class_exists(\DrewM\MailChimp\MailChimp::class)) {
                 throw new \LogicException('You need to install the "drewm/mailchimp-api" package to use the mailchimp type.');

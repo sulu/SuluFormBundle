@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="sulu_form.subscriber.brevo_list_subscriber" class="Sulu\Bundle\FormBundle\Event\BrevoListSubscriber">
+            <argument type="service" id="request_stack"/>
+            <argument>%sulu_form.brevo_api_key%</argument>
+            <argument>null</argument>
+            <argument type="service" id="sulu_markup.link_tag.provider_pool"/>
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="sulu_form.dynamic.type_brevo" class="Sulu\Bundle\FormBundle\Dynamic\Types\BrevoType">
+            <tag name="sulu_form.dynamic.type" alias="brevo"/>
+        </service>
+
+        <service id="sulu_form.dynamic.brevo_list_select" class="Sulu\Bundle\FormBundle\Dynamic\Helper\BrevoListSelect" public="true">
+            <argument>%sulu_form.brevo_api_key%</argument>
+        </service>
+
+        <service id="sulu_form.dynamic.brevo_mail_template_select" class="Sulu\Bundle\FormBundle\Dynamic\Helper\BrevoMailTemplateSelect" public="true">
+            <argument>%sulu_form.brevo_api_key%</argument>
+        </service>
+    </services>
+</container>

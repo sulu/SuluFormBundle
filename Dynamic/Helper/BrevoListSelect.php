@@ -11,17 +11,15 @@
 
 namespace Sulu\Bundle\FormBundle\Dynamic\Helper;
 
-use SendinBlue\Client\Api\ContactsApi;
-use SendinBlue\Client\Configuration;
+use Brevo\Client\Api\ContactsApi;
+use Brevo\Client\Configuration;
 
 /**
  * @final
  *
  * @internal
- *
- * @deprecated
  */
-class SendinblueListSelect
+class BrevoListSelect
 {
     /**
      * @var ContactsApi|null
@@ -41,7 +39,7 @@ class SendinblueListSelect
     }
 
     /**
-     * Returns array of Sendinblue lists of given account defined by the API key.
+     * Returns array of Brevo lists of given account defined by the API key.
      *
      * @return mixed[]
      */

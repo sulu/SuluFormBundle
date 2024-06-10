@@ -306,6 +306,26 @@ parameters:
 			path: Dynamic/Helper/SendinblueMailTemplateSelect.php
 
 		-
+			message: "#^Cannot access offset 'id' on object\\.$#"
+			count: 1
+			path: Dynamic/Helper/BrevoListSelect.php
+
+		-
+			message: "#^Cannot access offset 'name' on object\\.$#"
+			count: 1
+			path: Dynamic/Helper/BrevoListSelect.php
+
+		-
+			message: "#^Offset 'tag' on Brevo\\\\Client\\\\Model\\\\GetSmtpTemplateOverview on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: Dynamic/Helper/BrevoMailTemplateSelect.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: Dynamic/Helper/BrevoMailTemplateSelect.php
+
+		-
 			message: "#^Cannot call method getOption\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
 			count: 4
 			path: Dynamic/Types/AttachmentType.php
@@ -464,6 +484,11 @@ parameters:
 			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
 			count: 1
 			path: Dynamic/Types/SendinblueType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/BrevoType.php
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getAttachment\\(\\) should return array\\<int\\>\\|null but returns mixed\\.$#"
@@ -779,6 +804,56 @@ parameters:
 			message: "#^Parameter \\#2 \\$locale of method Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\Link\\\\LinkProviderInterface\\:\\:preload\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: Event/SendinblueListSubscriber.php
+
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'listId' on mixed\\.$#"
+			count: 1
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'mailTemplateId' on mixed\\.$#"
+			count: 1
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'options' on mixed\\.$#"
+			count: 3
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'redirectLink' on mixed\\.$#"
+			count: 1
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'type' on mixed\\.$#"
+			count: 4
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'value' on mixed\\.$#"
+			count: 4
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Parameter \\#1 \\$hrefs of method Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\Link\\\\LinkProviderInterface\\:\\:preload\\(\\) expects array\\<string\\>, array\\<int, string\\|null\\> given\\.$#"
+			count: 1
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Parameter \\#1 \\$redirectLink of method Sulu\\\\Bundle\\\\FormBundle\\\\Event\\\\BrevoListSubscriber\\:\\:getUrlFromLink\\(\\) expects array\\{provider\\: string\\|null, target\\: string\\|null, anchor\\: string\\|null, query\\: string\\|null, href\\: string\\|null, title\\: string\\|null, rel\\: string\\|null, locale\\: string\\|null\\}, mixed given\\.$#"
+			count: 1
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Parameter \\#2 \\$locale of method Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\Link\\\\LinkProviderInterface\\:\\:preload\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Event/BrevoListSubscriber.php
 
 		-
 			message: "#^Cannot call method get\\(\\) on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"
