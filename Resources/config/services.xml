@@ -104,6 +104,7 @@
             <argument type="service" id="event_dispatcher" />
 
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
+            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
         </service>
 
         <!-- List Builder -->

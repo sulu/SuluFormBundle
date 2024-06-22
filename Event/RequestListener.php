@@ -17,7 +17,9 @@ use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class RequestListener
 {
@@ -40,6 +42,14 @@ class RequestListener
      * @var EventDispatcherInterface
      */
     protected $eventDispatcher;
+
+    /**
+     * Flag set to true when an invalid form is submitted,
+     * so we can set the http return code to 422.
+     *
+     * @var bool
+     */
+    protected $invalidSubmittedForm = false;
 
     /**
      * RequestListener constructor.
@@ -73,8 +83,14 @@ class RequestListener
         try {
             $form = $this->formBuilder->buildByRequest($request);
 
-            if (!$form || !$form->isSubmitted() || !$form->isValid()) {
+            if (!$form || !$form->isSubmitted()) {
                 // do nothing when no form was found or not valid
+                return;
+            }
+
+            if ($form && $form->isSubmitted() && !$form->isValid()) {
+                $this->invalidSubmittedForm = true;
+
                 return;
             }
         } catch (\Exception $e) {
@@ -93,6 +109,21 @@ class RequestListener
             $this->eventDispatcher->dispatch($dynFormSavedEvent, DynFormSavedEvent::NAME);
 
             $response = new RedirectResponse('?send=true');
+            $event->setResponse($response);
+        }
+    }
+
+    public function onKernelResponse(ResponseEvent $event): void
+    {
+        if (\method_exists($event, 'isMainRequest') ? !$event->isMainRequest() : !$event->isMasterRequest()) {
+            // do nothing if it's not the master request
+            return;
+        }
+
+        if ($this->invalidSubmittedForm) {
+            $response = $event->getResponse() ?? new Response();
+            $response->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
+
             $event->setResponse($response);
         }
     }
