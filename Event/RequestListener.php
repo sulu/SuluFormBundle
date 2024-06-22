@@ -88,7 +88,7 @@ class RequestListener
                 return;
             }
 
-            if ($form && $form->isSubmitted() && !$form->isValid()) {
+            if (!$form->isValid()) {
                 $this->invalidSubmittedForm = true;
 
                 return;
@@ -121,7 +121,7 @@ class RequestListener
         }
 
         if ($this->invalidSubmittedForm) {
-            $response = $event->getResponse() ?? new Response();
+            $response = $event->getResponse();
             $response->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
 
             $event->setResponse($response);

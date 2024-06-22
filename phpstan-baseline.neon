@@ -806,6 +806,11 @@ parameters:
 			path: Event/RequestListener.php
 
 		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ResponseEvent\\:\\:isMasterRequest\\(\\)\\.$#"
+			count: 1
+			path: Event/RequestListener.php
+
+		-
 			message: "#^In method \"Sulu\\\\Bundle\\\\FormBundle\\\\Event\\\\RequestListener\\:\\:onKernelRequest\", caught \"Exception\" must be rethrown\\. Either catch a more specific exception or add a \"throw\" clause in the \"catch\" block to propagate the exception\\. More info\\: http\\://bit\\.ly/failloud$#"
 			count: 1
 			path: Event/RequestListener.php
