@@ -238,8 +238,8 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->assertEquals('number', $attachment->getItems()['options/max']->getType());
         $this->assertEquals(6, $attachment->getItems()['options/max']->getColspan());
 
-        $this->assertObjectHasAttribute('schema', $attachment);
-        $this->assertObjectHasAttribute('key', $attachment);
+        $this->assertTrue(\property_exists($attachment, 'schema'));
+        $this->assertTrue(\property_exists($attachment, 'key'));
     }
 
     public function testGetMetadataAttachmentGerman(): void
