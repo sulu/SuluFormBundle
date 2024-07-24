@@ -33,8 +33,6 @@ class HelperTestCase extends SuluTestCase
 
     protected function setUp(): void
     {
-        static::$kernel = null; // requires as Symfony 4.4 does not unset on tearDown
-
         $this->client = $this->createWebsiteClient();
         $this->purgeDatabase();
         $this->initPhpcr();

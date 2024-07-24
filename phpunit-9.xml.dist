@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true" bootstrap="Tests/test-bootstrap.php">
-    <testsuites>
+   <testsuites>
         <testsuite name="Sulu Form Bundle">
             <directory>./Tests</directory>
         </testsuite>
     </testsuites>
 
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory>.</directory>
+            <exclude>
+                <directory>Resources/</directory>
+                <directory>Tests/</directory>
+                <directory>vendor/</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
     <php>
         <env name="KERNEL_CLASS" value="Sulu\Bundle\FormBundle\Tests\Application\Kernel"/>
         <env name="APP_ENV" value="test" force="true"/>
     </php>
-
-    <source>
-        <include>
-            <directory>./</directory>
-        </include>
-        <exclude>
-            <directory>Resources/</directory>
-            <directory>Tests/</directory>
-            <directory>vendor/</directory>
-        </exclude>
-    </source>
 </phpunit>
