@@ -105,6 +105,7 @@
 
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
             <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
+            <tag name="kernel.reset" method="reset" />
         </service>
 
         <!-- List Builder -->

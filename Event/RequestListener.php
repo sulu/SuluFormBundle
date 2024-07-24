@@ -20,8 +20,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
+use Symfony\Contracts\Service\ResetInterface;
 
-class RequestListener
+class RequestListener implements ResetInterface
 {
     /**
      * @var BuilderInterface
@@ -126,5 +127,10 @@ class RequestListener
 
             $event->setResponse($response);
         }
+    }
+
+    public function reset(): void
+    {
+        $this->invalidSubmittedForm = false;
     }
 }
