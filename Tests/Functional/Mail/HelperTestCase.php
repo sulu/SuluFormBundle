@@ -73,12 +73,21 @@ class HelperTestCase extends SuluTestCase
         $this->assertEquals(1, $crawler->filter($formSelector)->count());
 
         $formElm = $crawler->filter($formSelector)->first()->form([
+            $formName . '[email]' => '',
+            $formName . '[email1]' => '',
+        ]);
+
+        $this->client->enableProfiler();
+        $crawler = $this->client->submit($formElm);
+        $this->assertResponseStatusCodeSame(422);
+
+        $formElm = $crawler->filter($formSelector)->first()->form([
             $formName . '[email]' => 'test@example.org',
             $formName . '[email1]' => 'jon@example.org',
         ]);
 
-        $this->client->enableProfiler();
         $this->client->submit($formElm);
+        $this->assertResponseStatusCodeSame(302);
         $this->assertResponseRedirects('?send=true');
     }
 }
