@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Tests\Unit\Mail;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Log\LoggerInterface;
 use Sulu\Bundle\FormBundle\Mail\MailerHelper;
@@ -27,6 +28,8 @@ use Symfony\Component\Mime\Email;
  */
 class MailerHelperTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var MailerHelper
      */

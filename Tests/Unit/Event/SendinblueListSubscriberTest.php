@@ -15,6 +15,7 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Message\RequestInterface;
 use Sulu\Bundle\FormBundle\Configuration\FormConfiguration;
@@ -33,6 +34,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class SendinblueListSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var RequestStack
      */

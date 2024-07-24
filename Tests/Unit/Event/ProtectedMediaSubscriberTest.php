@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\FormBundle\Event\ProtectedMediaSubscriber;
 use Sulu\Bundle\FormBundle\Tests\Application\Kernel;
@@ -29,6 +30,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ProtectedMediaSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var EntityManagerInterface|ObjectProphecy
      */
