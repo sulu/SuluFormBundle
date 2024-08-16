@@ -49,7 +49,7 @@ class BrevoListSubscriberTest extends TestCase
     /**
      * @var BrevoListSubscriber
      */
-    private $BrevoListSubscriber;
+    private $brevoListSubscriber;
 
     /**
      * @var LinkProviderPoolInterface|ObjectProphecy
@@ -62,7 +62,7 @@ class BrevoListSubscriberTest extends TestCase
         $this->linkProviderPool = $this->prophesize(LinkProviderPoolInterface::class);
         $this->client = $this->prophesize(ClientInterface::class);
 
-        $this->BrevoListSubscriber = new BrevoListSubscriber(
+        $this->brevoListSubscriber = new BrevoListSubscriber(
             $this->requestStack,
             'SOME_KEY',
             $this->client->reveal(),
@@ -114,7 +114,7 @@ class BrevoListSubscriberTest extends TestCase
             ->shouldBeCalledOnce();
 
         // act
-        $this->BrevoListSubscriber->listSubscribe($event);
+        $this->brevoListSubscriber->listSubscribe($event);
 
         $this->assertTrue(true);
     }
@@ -159,7 +159,7 @@ class BrevoListSubscriberTest extends TestCase
         $linkProvider->preload(['123-123-123'], 'de', true)->shouldBeCalled()->willReturn([$linkItem]);
 
         // act
-        $this->BrevoListSubscriber->listSubscribe($event);
+        $this->brevoListSubscriber->listSubscribe($event);
 
         $this->assertTrue(true);
     }
