@@ -2,6 +2,25 @@
 
 ## 3.0.0
 
+### Replace sendinblue with getbrevo
+
+The Sendinblue Form Field is now deprecated; please use the Brevo Form Field instead.
+Both fields offer the same functionality but rely on different SDKs.
+Therefore, replace `sendinblue/api-v3-sdk` with `getbrevo/brevo-php` in your dependencies.
+Additionally, update the configuration variable from `sendinblue_api_key` to `brevo_api_key`
+in `config/packages/sulu_form.yaml`.
+
+You can find all Brevo configuration options [here](Resources/doc/brevo.md).
+
+#### Data Migration
+
+Use the following database query to update all existing forms.
+
+```sql
+UPDATE `fo_form_fields` SET `type` = 'brevo' WHERE `type` = 'sendinblue';
+>>>>>>> 696bb05 (Upgrade instructions):UPGRADE.md
+```
+
 ### Content Type replaced with PropertyResolver and ResourceLoader
 
 The `SingleFormSelection` content type has been replaced with the new Sulu 3.0 content resolution architecture using `PropertyResolverInterface` and `ResourceLoaderInterface`.
