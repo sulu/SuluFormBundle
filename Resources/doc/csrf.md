@@ -12,6 +12,8 @@ sulu_form:
 
 ## Ajax
 
+We need to add a new `Route` generates use the csrf token for the ajax based loading:
+
 ```yaml
 # config/routes/sulu_form.yaml
 
