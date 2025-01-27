@@ -82,7 +82,7 @@ jobs:
                       database: mysql
                       dependency-versions: 'highest'
                       tools: 'composer:v2'
-                      composer-options: '--ignore-platform-reqs'
+                      composer-stability: 'dev'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=5.7
@@ -123,6 +123,10 @@ jobs:
               # These tools are not required to run tests, so we are removing them to improve dependency resolving and
               # testing lowest versions.
               run: composer remove "*php-cs-fixer*" "*phpstan*" "*rector*" --dev --no-update
+
+            - name: Set composer stability
+              if: ${{ matrix.composer-stability }}
+              run: composer config minimum-stability ${{ matrix.composer-stability }}
 
             - name: Install composer dependencies
               uses: ramsey/composer-install@v2
