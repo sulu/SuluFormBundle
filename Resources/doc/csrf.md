@@ -12,8 +12,6 @@ sulu_form:
 
 ## Ajax
 
-> This solution is required when pages are cached using `Varnish`:
-
 ```yaml
 # config/routes/sulu_form.yaml
 
@@ -96,21 +94,4 @@ import web from '@sulu/web';
 import CsrfToken from './components/csrf-token';
 
 web.registerComponent('csrf-token', CsrfToken);
-```
-
-## ESI
-
-> This solution does not work with Symfony 5.4 or later. Please use ajax loading when enabling csrf protection.
-
-Add the following to your form theme to overwrite the default
-behaviour of token generation or use the `@SuluForm/themes/basic.html.twig` theme.
-
-```twig
-{%- block csrf_token_widget -%}
-    {{ render_esi(controller('Sulu\\Bundle\\FormBundle\\Controller\\FormTokenController::tokenAction', {
-        'form': form.parent.vars.name,
-        'html': true,
-         _requestAnalyzer: false
-     })) }}
-{% endblock %}
 ```

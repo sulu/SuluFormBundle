@@ -32,6 +32,7 @@
         If a request is not cacheable (eg. POST request), we can directly render it.
     #}
     {% if app.request.isMethodCacheable %}
+        {% deprecated 'CSRF Token over ESI is deprecated and fails since Symfony 5.4, use Ajax based CSRF Token loading, see CSRF docs.' %}
         {{ render_esi(controller) }}
     {% else %}
         {{ render(controller) }}
