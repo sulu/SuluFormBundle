@@ -41,11 +41,6 @@ parameters:
 			path: Command/FormGeneratorCommand.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Command\\\\FormGeneratorCommand\\:\\:loadTestForm\\(\\) should return Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\|null but returns mixed\\.$#"
-			count: 1
-			path: Command/FormGeneratorCommand.php
-
-		-
 			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Configuration\\\\FormConfiguration\\:\\:\\$adminMailConfiguration \\(Sulu\\\\Bundle\\\\FormBundle\\\\Configuration\\\\MailConfigurationInterface\\) does not accept Sulu\\\\Bundle\\\\FormBundle\\\\Configuration\\\\MailConfigurationInterface\\|null\\.$#"
 			count: 1
 			path: Configuration/FormConfiguration.php
@@ -1383,11 +1378,6 @@ parameters:
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\FormRepository\\:\\:getValue\\(\\) should return int\\|null but returns mixed\\.$#"
 			count: 2
-			path: Repository/FormRepository.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\FormRepository\\:\\:loadById\\(\\) should return Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Form\\|null but returns mixed\\.$#"
-			count: 1
 			path: Repository/FormRepository.php
 
 		-
