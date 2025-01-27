@@ -24,7 +24,7 @@ sulu_form.token:
         _requestAnalyzer: false
 ```
 
-### A. Ajax with jquery
+### A. Ajax without a JavaScript Framework
 
 A simple example for loading the csrf token over ajax looks like this:
 
@@ -67,7 +67,7 @@ When using [`@sulu/web`](https://github.com/sulu/web-js) / [`sulu/web-twig`](htt
 {%- block csrf_token_widget -%}
     {{ block('hidden_widget') }}
 
-    {% do register_component('csrf-token', { id: id, formName: form.parent.vars.name }) %}
+    {% do prepare_component('csrf-token', { id: id, formName: form.parent.vars.name }) %}
 {% endblock %}
 ```
 
