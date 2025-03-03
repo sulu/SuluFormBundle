@@ -147,13 +147,20 @@ class Handler implements HandlerInterface
 
     private function sendMails(FormInterface $form, FormConfigurationInterface $configuration): void
     {
+        $checkCaptchaEvent = new FormSendPreEvent(
+            $form,
+            $configuration
+        );
+
         $this->eventDispatcher->dispatch(
-            new FormSendPreEvent(
-                $form,
-                $configuration
-            ),
+            $checkCaptchaEvent,
             FormSendPreEvent::NAME
         );
+
+        // check for a valid captcha/altcha process
+        if ($checkCaptchaEvent->getData()['captcha'] === false) {
+            return;
+        }
 
         $attachments = $this->getAttachments($form, $configuration);
 
