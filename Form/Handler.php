@@ -17,6 +17,8 @@ use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Event\FormSavePostEvent;
 use Sulu\Bundle\FormBundle\Event\FormSavePreEvent;
+use Sulu\Bundle\FormBundle\Event\FormSendPostEvent;
+use Sulu\Bundle\FormBundle\Event\FormSendPreEvent;
 use Sulu\Bundle\FormBundle\Mail\HelperInterface;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -145,6 +147,14 @@ class Handler implements HandlerInterface
 
     private function sendMails(FormInterface $form, FormConfigurationInterface $configuration): void
     {
+        $this->eventDispatcher->dispatch(
+            new FormSendPreEvent(
+                $form,
+                $configuration
+            ),
+            FormSendPreEvent::NAME
+        );
+
         $attachments = $this->getAttachments($form, $configuration);
 
         if ($adminMailConfiguration = $configuration->getAdminMailConfiguration()) {
@@ -159,6 +169,14 @@ class Handler implements HandlerInterface
         if ($websiteMailConfiguration = $configuration->getWebsiteMailConfiguration()) {
             $this->sendMail($form, $websiteMailConfiguration, $attachments, '');
         }
+
+        $this->eventDispatcher->dispatch(
+            new FormSendPostEvent(
+                $form,
+                $configuration
+            ),
+            FormSendPostEvent::NAME
+        );
     }
 
     /**
