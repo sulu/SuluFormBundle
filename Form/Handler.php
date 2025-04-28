@@ -121,13 +121,20 @@ class Handler implements HandlerInterface
      */
     private function save(FormInterface $form, FormConfigurationInterface $configuration): void
     {
+        $checkCaptchaEvent = new FormSavePreEvent(
+            $form,
+            $configuration
+        );
+
         $this->eventDispatcher->dispatch(
-            new FormSavePreEvent(
-                $form,
-                $configuration
-            ),
+            $checkCaptchaEvent,
             FormSavePreEvent::NAME
         );
+
+        // check for a valid captcha/altcha process
+        if ($checkCaptchaEvent->getData()['captcha'] === false) {
+            return;
+        }
 
         if (!$configuration->getSave()) {
             return;
