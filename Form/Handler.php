@@ -132,7 +132,7 @@ class Handler implements HandlerInterface
         );
 
         // check for a valid captcha/altcha process
-        if ($checkCaptchaEvent->getData()['captcha'] === false) {
+        if (is_array($checkCaptchaEvent->getData()) && $checkCaptchaEvent->getData()['captcha'] === false) {
             return;
         }
 
