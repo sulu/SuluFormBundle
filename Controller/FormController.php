@@ -24,6 +24,7 @@ use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\ListRestHelperInterface;
 use Sulu\Component\Rest\ListBuilder\Metadata\FieldDescriptorFactoryInterface;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -139,11 +140,9 @@ class FormController extends AbstractRestController implements ClassResourceInte
         }
 
         // create list representation
-        $representation = new ListRepresentation(
+        $representation = new PaginatedRepresentation(
             $list,
             $this->getListName(),
-            $request->get('_route'),
-            $request->query->all(),
             $page,
             $limit,
             $total

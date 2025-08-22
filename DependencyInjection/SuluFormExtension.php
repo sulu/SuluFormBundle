@@ -228,8 +228,6 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         }
 
         if (SuluKernel::CONTEXT_WEBSITE === $container->getParameter('sulu.context')) {
-            $container->setAlias(FormWebsiteController::class, 'sulu_form.form_website_controller')
-                ->setPublic(true);
             $container->setAlias(FormTokenController::class, 'sulu_form.form_token_controller')
                 ->setPublic(true);
         }

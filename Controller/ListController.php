@@ -17,6 +17,7 @@ use Sulu\Bundle\FormBundle\Provider\ListProviderRegistry;
 use Sulu\Component\Rest\AbstractRestController;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RestHelperInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -109,11 +110,9 @@ class ListController extends AbstractRestController implements ClassResourceInte
         $limit = $listBuilder->getLimit();
 
         // create list representation
-        $representation = new ListRepresentation(
+        $representation = new PaginatedRepresentation(
             $list,
             'entries',
-            $request->get('_route'),
-            $request->query->all(),
             $page,
             $limit,
             $total

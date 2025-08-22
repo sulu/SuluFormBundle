@@ -11,8 +11,8 @@
 
 namespace Sulu\Bundle\FormBundle\Metadata;
 
-use Sulu\Component\Content\Metadata\Loader\AbstractLoader;
-use Sulu\Component\Content\Metadata\Parser\PropertiesXmlParser;
+use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Loader\AbstractLoader;
+use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Parser\PropertiesXmlParser;
 use Sulu\Component\Content\Metadata\PropertiesMetadata;
 
 class PropertiesXmlLoader extends AbstractLoader
@@ -40,25 +40,17 @@ class PropertiesXmlLoader extends AbstractLoader
      * @param string $resource
      * @param string $type
      */
-    protected function parse($resource, \DOMXPath $xpath, $type): PropertiesMetadata
+    protected function parse($resource, \DOMXPath $xpath, $type): array
     {
-        $tags = [];
-
         $propertiesMetadata = new PropertiesMetadata();
         $propertiesMetadata->setResource($resource);
 
         $propertiesNode = $xpath->query('/x:properties')->item(0);
         $properties = $this->propertiesXmlParser->load(
-            $tags,
             $xpath,
-            $propertiesNode
+            $propertiesNode,
         );
 
-        foreach ($properties as $property) {
-            $propertiesMetadata->addChild($property);
-        }
-        $propertiesMetadata->burnProperties();
-
-        return $propertiesMetadata;
+        return $properties;
     }
 }

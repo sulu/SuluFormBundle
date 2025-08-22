@@ -12,7 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Metadata;
 
 use Sulu\Bundle\AdminBundle\FormMetadata\FormMetadataMapper;
-use Sulu\Bundle\AdminBundle\FormMetadata\FormXmlLoader;
+use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Loader\FormXmlLoader;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadataLoaderInterface;
@@ -45,6 +45,8 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
 
     /**
      * @var FormMetadataMapper
+     *
+     * TODO REMOVE
      */
     private $formMetadataMapper;
 
@@ -90,7 +92,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         $formMetadataCollection = $this->formXmlLoader->load($resource);
         foreach ($formMetadataCollection->getItems() as $locale => $formMetadata) {
             $section = new SectionMetadata('formFields');
-            $section->setLabel($this->translator->trans('sulu_form.form_fields', [], 'admin', $locale));
+            $section->setLabel($this->translator->trans('sulu_form.form_fields', [], 'admin', $locale), $locale);
             $fields = new FieldMetadata('fields');
             $fields->setType('block');
 
@@ -101,8 +103,8 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
                 $fieldTypeMetaDataCollection[] = $this->loadFieldTypeMetadata($typeKey, $type, $locale);
             }
 
-            \usort($fieldTypeMetaDataCollection, static function(FormMetadata $a, FormMetadata $b): int {
-                return \strcmp($a->getTitle(), $b->getTitle());
+            \usort($fieldTypeMetaDataCollection, static function(FormMetadata $a, FormMetadata $b)use($locale): int {
+                return \strcmp($a->getTitle($locale), $b->getTitle($locale));
             });
 
             foreach ($fieldTypeMetaDataCollection as $fieldTypeMetaData) {
@@ -111,11 +113,13 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
 
             $fields->setDefaultType(\current($fields->getTypes())->getName());
             $section->addItem($fields);
+            /* TODO HOW?
             $formItems = $formMetadata->getItems();
             $this->arrayInsertAtPosition($formItems, 1, [$section->getName() => $section]);
             $formMetadata->setItems($formItems);
             $configCache = $this->getConfigCache($formMetadata->getKey(), $locale);
             $configCache->write(\serialize($formMetadata), [new FileResource($resource)]);
+            */
         }
 
         return [];
@@ -151,11 +155,12 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
     {
         $form = new FormMetadata();
         $configuration = $type->getConfiguration();
+
         $properties = $this->propertiesXmlLoader->load($configuration->getXmlPath());
 
-        $form->setItems($this->formMetadataMapper->mapChildren($properties->getProperties(), $locale));
-        $form->setName($typeKey);
-        $form->setTitle($this->translator->trans($configuration->getTitle(), [], 'admin', $locale));
+        $form->setItems($properties);
+        $form->setKey($typeKey);
+        $form->setTitle($this->translator->trans($configuration->getTitle(), [], 'admin', $locale), $locale);
 
         return $form;
     }
