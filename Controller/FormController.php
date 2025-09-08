@@ -11,7 +11,6 @@
 
 namespace Sulu\Bundle\FormBundle\Controller;
 
-use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Bundle\FormBundle\Admin\FormAdmin;
 use Sulu\Bundle\FormBundle\Entity\Form;
@@ -31,7 +30,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class FormController extends AbstractRestController implements ClassResourceInterface, SecuredControllerInterface
+class FormController extends AbstractRestController implements SecuredControllerInterface
 {
     /**
      * @var FormManager

@@ -1,5 +1,3 @@
-# Deprecated use the routing.yaml file
-
 sulu_form.get_lists_fields:
     path: '/form/lists/fields.{_format}'
     methods: GET
