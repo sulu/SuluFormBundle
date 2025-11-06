@@ -9,6 +9,10 @@
         <meta>
             <title>sulu_form.title</title>
         </meta>
+
+        <params>
+            <param name="enter_mode" value="br"/>
+        </params>
     </property>
     <property name="shortTitle" type="text_line">
         <meta>
