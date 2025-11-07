@@ -13,6 +13,7 @@ namespace Sulu\Bundle\FormBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\ControllerTrait;
+use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\ViewHandler;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
@@ -29,7 +30,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 /**
  * Controller to create dynamic form entries list.
  */
-class DynamicController
+class DynamicController implements ClassResourceInterface
 {
     use ControllerTrait;
 

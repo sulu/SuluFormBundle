@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\Controller;
 
+use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Bundle\FormBundle\Provider\ListProviderRegistry;
 use Sulu\Component\Rest\AbstractRestController;
@@ -22,7 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class ListController extends AbstractRestController
+class ListController extends AbstractRestController implements ClassResourceInterface
 {
     /**
      * @var RestHelperInterface
