@@ -125,7 +125,7 @@ class DynamicListBuilder implements DynamicListBuilderInterface
         if (null === $this->downloadUrl) {
             // The given id must be a number which we replace
             $idReplacerNumber = '875421';
-            $localeToReplace = 'en';
+            $localeToReplace = '__locale__';
 
             $this->downloadUrl = \str_replace([$idReplacerNumber, $localeToReplace], ['{id}', '{locale}'], $this->router->generate(
                 'sulu_media.redirect',
