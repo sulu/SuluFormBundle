@@ -1,6 +1,6 @@
 # Upgrade
 
-## 2.6.0
+## 2.5.9
 
 ### Deprecate usage of fos rest routing
 
