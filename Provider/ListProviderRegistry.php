@@ -16,13 +16,15 @@ use Sulu\Component\Rest\ListBuilder\FieldDescriptor;
 class ListProviderRegistry
 {
     /**
-     * @var ListProviderInterface[]
+     * @var array<string, ListProviderInterface>
      */
-    protected $providers = [];
+    private array $providers = [];
 
-    public function add(ListProviderInterface $provider, string $name): void
-    {
-        $this->providers[$name] = $provider;
+    /**
+     * @param iterable<string, ListProviderInterface> $providers
+     */
+    public function __construct(iterable $providers) {
+        $this->providers = [...$providers];
     }
 
     /**

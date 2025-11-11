@@ -12,7 +12,6 @@
 namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Sulu\Bundle\FormBundle\Controller\FormTokenController;
-use Sulu\Bundle\FormBundle\Controller\FormWebsiteController;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\FileLocator;
