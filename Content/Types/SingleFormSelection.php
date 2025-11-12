@@ -24,6 +24,9 @@ use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 /**
  * ContentType for selecting a form.
+ * @deprecated
+ *
+ * todo: delete
  */
 class SingleFormSelection extends SimpleContentType
 {

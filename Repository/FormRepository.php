@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\FormBundle\Repository;
 
+use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use Sulu\Bundle\FormBundle\Entity\Form;
@@ -20,6 +21,26 @@ use Sulu\Bundle\FormBundle\Entity\Form;
  */
 class FormRepository extends EntityRepository
 {
+    /**
+     * @param array<int> $ids
+     *
+     * @return array<Form>
+     */
+    public function loadByIds(int $ids, ?string $locale = null): array
+    {
+        $queryBuilder = $this->createQueryBuilder('form')
+            ->leftJoin('form.translations', 'translation')->addSelect('translation')
+            ->leftJoin('form.fields', 'field')->addSelect('field')
+            ->leftJoin('field.translations', 'fieldTranslation')->addSelect('fieldTranslation')
+            ->leftJoin('translation.receivers', 'receiver')->addSelect('receiver');
+
+        $queryBuilder->where($queryBuilder->expr()->in('form.id', $ids));
+        $queryBuilder->orderBy('field.order');
+        $query = $queryBuilder->getQuery();
+
+        return $query->getResult();
+    }
+
     public function loadById(int $id, ?string $locale = null): ?Form
     {
         $queryBuilder = $this->createQueryBuilder('form')
@@ -52,8 +73,8 @@ class FormRepository extends EntityRepository
             ->leftJoin('form.fields', 'field')->addSelect('field')
             ->leftJoin('field.translations', 'fieldTranslation')->addSelect('fieldTranslation');
 
-        $queryBuilder->setMaxResults(self::getValue($filters, 'limit'))
-            ->setFirstResult(self::getValue($filters, 'offset'));
+        $queryBuilder->setMaxResults($filters['limit'] ?? null)
+            ->setFirstResult($filters['offset'] ?? null));
 
         $queryBuilder->orderBy('form.id');
         $queryBuilder->addOrderBy('field.order');
@@ -71,18 +92,5 @@ class FormRepository extends EntityRepository
         $queryBuilder->select($queryBuilder->expr()->count('form.id'));
 
         return (int) $queryBuilder->getQuery()->getSingleScalarResult();
-    }
-
-    /**
-     * @param mixed[] $data
-     * @param mixed $default
-     */
-    protected static function getValue(array $data, string $key, $default = null): ?int
-    {
-        if (isset($data[$key])) {
-            return $data[$key];
-        }
-
-        return $default;
     }
 }
