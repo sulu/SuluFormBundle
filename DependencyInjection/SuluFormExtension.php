@@ -212,6 +212,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
             $loader->load('type_mailchimp.xml');
         }
 
+        /** @var array<string, class-string> $bundles */
         $bundles = $container->getParameter('kernel.bundles');
 
         if (\array_key_exists('SuluArticleBundle', $bundles)) {

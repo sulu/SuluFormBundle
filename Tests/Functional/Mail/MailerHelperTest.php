@@ -16,10 +16,19 @@ use Sulu\Bundle\FormBundle\Tests\Application\MailerKernel;
 
 class MailerHelperTest extends HelperTestCase
 {
-    protected static $class = MailerKernel::class;
+    protected function setUp(): void
+    {
+        static::$class = MailerKernel::class;
+        static::$kernel = null; // requires as Symfony 4.4 does not unset on tearDown
+
+        parent::setUp();
+    }
 
     public function testSendsEmailUsingMailerComponent()
     {
+        $this->assertIsObject(static::$kernel);
+        $this->assertSame(MailerKernel::class, \get_class(static::$kernel));
+
         $formTranslationRepository = $this->entityManager->getRepository(FormTranslation::class);
         /** @var FormTranslation $formTranslation */
         $formTranslation = $formTranslationRepository->findOneBy(['title' => 'Title', 'locale' => 'de']);
@@ -34,7 +43,7 @@ class MailerHelperTest extends HelperTestCase
             $this->assertSame(0, $mailCollector->getMessageCount());
         }
 
-        // 2 messages should be send 1 to admin and 1 to email
+        // 2 messages should be sent 1 to admin and 1 to email
         $this->assertEmailCount(2);
     }
 }

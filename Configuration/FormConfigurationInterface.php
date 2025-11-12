@@ -29,7 +29,7 @@ interface FormConfigurationInterface
     /**
      * Get file fields.
      *
-     * @return mixed[]
+     * @return int[]
      */
     public function getFileFields(): array;
 

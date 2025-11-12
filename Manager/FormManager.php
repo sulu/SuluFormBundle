@@ -153,7 +153,7 @@ class FormManager
         }
 
         /** @var FormTranslation $newFormTranslation */
-        $newFormTranslation = $newForm->getTranslation($locale);
+        $newFormTranslation = $newForm->getTranslation($locale, false, true);
 
         $this->domainEventCollector->collect(
             new FormCopiedEvent(
@@ -273,6 +273,7 @@ class FormManager
     {
         $receiversRepository = $this->entityManager->getRepository(FormTranslationReceiver::class);
         $receiverDatas = self::getValue($data, 'receivers', []);
+        \assert(\is_array($receiverDatas), 'Receivers must be an array.');
 
         // Remove old receivers.
         $oldReceivers = $receiversRepository->findBy(['formTranslation' => $translation]);
@@ -306,14 +307,37 @@ class FormManager
      */
     protected function updateFields(array $data, Form $form, string $locale): void
     {
-        $reservedKeys = \array_column(self::getValue($data, 'fields', []), 'key');
+        $fields = self::getValue($data, 'fields', []);
+        \assert(\is_array($fields), 'Fields must be an array.');
+
+        $existingIds = [];
+        $existingKeys = [];
+        foreach ($fields as $key => $fieldData) { // make id and keys unique when block get copied
+            if (\in_array($fieldData['id'] ?? null, $existingIds)) {
+                unset($fields[$key]['id']);
+            }
+            if (\in_array($fieldData['key'] ?? null, $existingKeys)) {
+                unset($fields[$key]['key']);
+            }
+
+            if (isset($fieldData['id'])) {
+                $existingIds[] = $fieldData['id'];
+            }
+
+            if (isset($fieldData['key'])) {
+                $existingKeys[] = $fieldData['key'];
+            }
+        }
+
+        $reservedKeys = \array_column($fields, 'key');
 
         $counter = 0;
 
-        foreach (self::getValue($data, 'fields', []) as $fieldData) {
+        foreach ($fields as $fieldData) {
             ++$counter;
             $fieldType = self::getValue($fieldData, 'type');
             $fieldKey = self::getValue($fieldData, 'key');
+
             $field = $form->getField($fieldKey);
             $uniqueKey = $this->getUniqueKey($fieldType, $reservedKeys);
 
@@ -324,10 +348,12 @@ class FormManager
             if (!$field) {
                 $field = new FormField();
                 $field->setKey($uniqueKey);
-                $reservedKeys[] = $uniqueKey;
             } elseif ($field->getType() !== $fieldType || !$field->getKey()) {
                 $field->setKey($uniqueKey);
-                $reservedKeys[] = $uniqueKey;
+            }
+
+            if (!\in_array($field->getKey(), $reservedKeys)) {
+                $reservedKeys[] = $field->getKey();
             }
 
             $field->setOrder($counter);

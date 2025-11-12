@@ -21,6 +21,10 @@ if (!\file_exists($file)) {
 
 require $file;
 
+if (!\trait_exists(Prophecy\PhpUnit\ProphecyTrait::class)) { // backwards compatibility layer for < PHP 7.3
+    require __DIR__ . '/../../prophecy-trait-bc-layer.php';
+}
+
 // Load cached env vars if the .env.local.php file exists
 // Run "composer dump-env prod" to create it (requires symfony/flex >=1.2)
 if (\is_array($env = @include \dirname(__DIR__) . '/.env.local.php')) {

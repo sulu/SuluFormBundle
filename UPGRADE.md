@@ -1,5 +1,31 @@
 # Upgrade
 
+## 2.5.9
+
+### Deprecate usage of fos rest routing
+
+We are no longer considering the [fos rest routing](https://github.com/handcraftedinthealps/RestRoutingBundle) as a best practice.
+All bundles should use the Symfony routing system instead.
+
+Inside your `config/routes/sulu_admin.yaml` you can remove the fos rest routing configuration.
+First, remove all instances of `type: rest` and also replace `.yml` with `.yaml`:
+
+```diff
+# config/routes/sulu_admin.yaml`
+ sulu_form_api:
+-    type: rest
+-    resource: "@SuluFormBundle/Resources/config/routing_api.yml"
++    resource: "@SuluFormBundle/Resources/config/routing_api.yaml"
+     prefix: /admin/api
+```
+
+## 2.5.3
+
+### Deprecate attribute max on AttachmentType
+
+The attribute max is deprecated on AttachmentType since it is not applicable to input type file.
+A new attribute data-max was added to let you use this data in your custom templates.
+
 ## 2.5.0
 
 ### Deprecate Swiftmailer
@@ -273,9 +299,9 @@ SET
         IF(
           dyn.radioButtons is not NULL,
           CONCAT(
-            '\"radioButtons\":',
+            '\"radioButtons\":\"',
             replace(replace(replace(replace(replace(replace(replace(replace(dyn.radioButtons, '\\', '\\\\'), '/', '\\/'), '"', '\\\"'), CHAR(10), '\\n'), CHAR(9), '\\t'), CHAR(8), '\\b'), CHAR(13), '\\r'), CHAR(12), '\\f'),
-            '[]'
+            '\"'
           ),
           NULL
         )

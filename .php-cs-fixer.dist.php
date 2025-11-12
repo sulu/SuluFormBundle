@@ -31,6 +31,7 @@ $config->setRiskyAllowed(true)
         'phpdoc_types_order' => false,
         'single_line_throw' => false,
         'single_line_comment_spacing' => false,
+        'trailing_comma_in_multiline' => false,
     ])
     ->setFinder($finder);
 

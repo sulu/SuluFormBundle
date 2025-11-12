@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Tests\Unit\Configuration;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Sulu\Bundle\FormBundle\Configuration\FormConfigurationFactory;
 use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
@@ -26,6 +27,8 @@ use Sulu\Bundle\FormBundle\Media\CollectionStrategyInterface;
  */
 class FormConfigurationFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testBuildByDynamic(): void
     {
         $dynamic = $this->createDynamic();

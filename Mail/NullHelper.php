@@ -24,7 +24,7 @@ class NullHelper implements HelperInterface
      */
     protected $logger;
 
-    public function __construct(LoggerInterface $logger = null)
+    public function __construct(?LoggerInterface $logger = null)
     {
         @\trigger_error(
             \sprintf('The "%s" is deprecated use the null transport of mailer instead.', __CLASS__),

@@ -69,11 +69,9 @@ class FormConfiguration implements FormConfigurationInterface
     /**
      * Set admin mail configuration.
      *
-     * @param MailConfigurationInterface $adminMailConfiguration
-     *
      * @return $this
      */
-    public function setAdminMailConfiguration(MailConfigurationInterface $adminMailConfiguration = null)
+    public function setAdminMailConfiguration(?MailConfigurationInterface $adminMailConfiguration = null)
     {
         $this->adminMailConfiguration = $adminMailConfiguration;
 
@@ -83,11 +81,9 @@ class FormConfiguration implements FormConfigurationInterface
     /**
      * Set website mail configuration.
      *
-     * @param MailConfigurationInterface $websiteMailConfiguration
-     *
      * @return $this
      */
-    public function setWebsiteMailConfiguration(MailConfigurationInterface $websiteMailConfiguration = null)
+    public function setWebsiteMailConfiguration(?MailConfigurationInterface $websiteMailConfiguration = null)
     {
         $this->websiteMailConfiguration = $websiteMailConfiguration;
 

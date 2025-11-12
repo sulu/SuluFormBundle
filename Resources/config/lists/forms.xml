@@ -59,20 +59,20 @@
         <property
                 name="changed"
                 translation="sulu_admin.changed"
-                visibility="yes"
-                type="datetime">
+                visibility="yes">
             <field-name>changed</field-name>
             <entity-name>Sulu\Bundle\FormBundle\Entity\FormTranslation</entity-name>
             <joins ref="translation"/>
+            <transformer type="datetime"/>
         </property>
         <property
                 name="created"
                 translation="sulu_admin.created"
-                visibility="no"
-                type="datetime">
+                visibility="no">
             <field-name>created</field-name>
             <entity-name>Sulu\Bundle\FormBundle\Entity\FormTranslation</entity-name>
             <joins ref="translation"/>
+            <transformer type="datetime"/>
         </property>
     </properties>
 </list>

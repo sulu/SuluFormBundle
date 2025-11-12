@@ -20,6 +20,7 @@ jobs:
                       database: postgres
                       dependency-versions: 'lowest'
                       tools: 'composer:v2'
+                      phpunit-config: 'phpunit-9.xml.dist'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: disabled
                           DATABASE_URL: postgres://postgres:postgres@127.0.0.1/sulu_form_test?serverVersion=12.5
@@ -30,6 +31,7 @@ jobs:
                       database: mysql
                       dependency-versions: 'highest'
                       tools: 'composer:v2'
+                      phpunit-config: 'phpunit-9.xml.dist'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=5.7
@@ -56,6 +58,37 @@ jobs:
                           DATABASE_CHARSET: utf8mb4
                           DATABASE_COLLATE: utf8mb4_unicode_ci
 
+                    - php-version: '8.2'
+                      database: postgres
+                      dependency-versions: 'highest'
+                      tools: 'composer:v2'
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          DATABASE_URL: postgres://postgres:postgres@127.0.0.1/sulu_form_test?serverVersion=12.5
+                          DATABASE_CHARSET: UTF8
+                          DATABASE_COLLATE:
+
+                    - php-version: '8.3'
+                      database: mysql
+                      dependency-versions: 'highest'
+                      tools: 'composer:v2'
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=5.7
+                          DATABASE_CHARSET: utf8mb4
+                          DATABASE_COLLATE: utf8mb4_unicode_ci
+
+                    - php-version: '8.4'
+                      database: mysql
+                      dependency-versions: 'highest'
+                      tools: 'composer:v2'
+                      composer-stability: 'dev'
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=5.7
+                          DATABASE_CHARSET: utf8mb4
+                          DATABASE_COLLATE: utf8mb4_unicode_ci
+
         services:
             mysql:
                 image: mysql:5.7
@@ -76,7 +109,7 @@ jobs:
 
         steps:
             - name: Checkout project
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Install and configure PHP
               uses: shivammathur/setup-php@v2
@@ -86,8 +119,17 @@ jobs:
                   tools: ${{ matrix.tools }}
                   coverage: none
 
+            - name: Remove Lint Tools
+              # These tools are not required to run tests, so we are removing them to improve dependency resolving and
+              # testing lowest versions.
+              run: composer remove "*php-cs-fixer*" "*phpstan*" "*rector*" --dev --no-update
+
+            - name: Set composer stability
+              if: ${{ matrix.composer-stability }}
+              run: composer config minimum-stability ${{ matrix.composer-stability }}
+
             - name: Install composer dependencies
-              uses: ramsey/composer-install@v1
+              uses: ramsey/composer-install@v2
               with:
                   dependency-versions: ${{matrix.dependency-versions}}
                   composer-options: ${{ matrix.composer-options }}
@@ -97,7 +139,7 @@ jobs:
               env: ${{ matrix.env }}
 
             - name: Execute test cases
-              run: time composer test
+              run: time composer test -- --config ${{ matrix.phpunit-config || 'phpunit.xml.dist' }}
               env: ${{ matrix.env }}
 
     lint:
@@ -108,18 +150,18 @@ jobs:
 
         steps:
             - name: Checkout project
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Install and configure PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.1
+                  php-version: 8.3
                   extensions: 'imagick'
                   tools: 'composer:v2'
                   coverage: none
 
             - name: Install composer dependencies
-              uses: ramsey/composer-install@v1
+              uses: ramsey/composer-install@v2
               with:
                   dependency-versions: ${{matrix.dependency-versions}}
                   composer-options: ${{ matrix.composer-options }}

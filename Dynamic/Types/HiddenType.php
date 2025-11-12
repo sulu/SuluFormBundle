@@ -14,35 +14,27 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Types;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeConfiguration;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
-use Symfony\Component\Form\Extension\Core\Type\CountryType as TypeCountryType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType as TypeHiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Country form field type.
+ * The Hidden form field type.
  */
-class CountryType implements FormFieldTypeInterface
+class HiddenType implements FormFieldTypeInterface
 {
     use SimpleTypeTrait;
 
     public function getConfiguration(): FormFieldTypeConfiguration
     {
         return new FormFieldTypeConfiguration(
-            'sulu_form.type.country',
-            __DIR__ . '/../../Resources/config/form-fields/field_example_default.xml'
+            'sulu_form.type.hidden',
+            __DIR__ . '/../../Resources/config/form-fields/field_hidden.xml'
         );
     }
 
     public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
-        if (isset($options['attr'])
-            && \is_array($options['attr'])
-            && isset($options['attr']['placeholder'])
-        ) {
-            $options['placeholder'] = $options['attr']['placeholder'];
-            unset($options['attr']['placeholder']);
-        }
-
-        $type = TypeCountryType::class;
+        $type = TypeHiddenType::class;
         $builder->add($field->getKey(), $type, $options);
     }
 }

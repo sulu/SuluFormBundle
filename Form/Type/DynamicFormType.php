@@ -13,6 +13,9 @@ namespace Sulu\Bundle\FormBundle\Form\Type;
 
 use Sulu\Bundle\FormBundle\Dynamic\Checksum;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool;
+use Sulu\Bundle\FormBundle\Dynamic\Types\FreeTextType;
+use Sulu\Bundle\FormBundle\Dynamic\Types\HeadlineType;
+use Sulu\Bundle\FormBundle\Dynamic\Types\SpacerType;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Exception\FormNotFoundException;
@@ -92,6 +95,7 @@ class DynamicFormType extends AbstractType
             ];
 
             $title = $fieldTranslation->getTitle();
+            $title = \is_string($title) ? \str_replace(['<!--p-->', '<!--/p-->'], [''], $title) : $title;
             $placeholder = $fieldTranslation->getPlaceholder();
             $width = $field->getWidth() ?: 'full';
 
@@ -113,12 +117,20 @@ class DynamicFormType extends AbstractType
                 $options['attr']['placeholder'] = $placeholder;
             }
 
+            $formFieldType = $this->typePool->get($field->getType());
+
             // required
-            if ($field->getRequired()) {
+            if (
+                !$formFieldType instanceof FreeTextType
+                && !$formFieldType instanceof HeadlineType
+                && !$formFieldType instanceof \Sulu\Bundle\FormBundle\Dynamic\Types\HiddenType
+                && !$formFieldType instanceof SpacerType
+                && $field->getRequired()
+            ) {
                 $options['constraints'][] = new NotBlank();
             }
 
-            $this->typePool->get($field->getType())->build($builder, $field, $locale, $options);
+            $formFieldType->build($builder, $field, $locale, $options);
         }
 
         // Add hidden locale. (de, en, ...)

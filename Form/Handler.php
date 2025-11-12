@@ -72,7 +72,7 @@ class Handler implements HandlerInterface
         EventDispatcherInterface $eventDispatcher,
         MediaManagerInterface $mediaManager,
         string $honeyPotStrategy = self::HONEY_POT_STRATEGY_SPAM,
-        string $honeyPotField = null
+        ?string $honeyPotField = null
     ) {
         $this->entityManager = $entityManager;
         $this->mailHelper = $mailHelper;
@@ -219,11 +219,18 @@ class Handler implements HandlerInterface
         $attachments = [];
 
         foreach ($configuration->getFileFields() as $field => $collectionId) {
-            if (!$form->has($field) || !\count($form[$field]->getData())) {
+            if (!$form->has($field)) {
                 continue;
             }
 
-            $files = $form[$field]->getData();
+            /** @var FormInterface $formField */
+            $formField = $form[$field];
+
+            if (!\count($formField->getData())) {
+                continue;
+            }
+
+            $files = $formField->getData();
 
             if (!\is_array($files)) {
                 $files = [$files];
@@ -252,11 +259,18 @@ class Handler implements HandlerInterface
         $mediaIds = [];
 
         foreach ($configuration->getFileFields() as $field => $collectionId) {
-            if (!$form->has($field) || !\count($form[$field]->getData())) {
+            if (!$form->has($field)) {
                 continue;
             }
 
-            $files = $form[$field]->getData();
+            /** @var FormInterface $formField */
+            $formField = $form[$field];
+
+            if (!\count($formField->getData())) {
+                continue;
+            }
+
+            $files = $formField->getData();
             $ids = [];
 
             if (!\is_array($files)) {

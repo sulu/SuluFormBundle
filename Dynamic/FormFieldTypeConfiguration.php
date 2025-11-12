@@ -60,8 +60,6 @@ class FormFieldTypeConfiguration
 
     /**
      * Sets template.
-     *
-     * @return FormFieldTypeConfiguration
      */
     public function setXmlPath(string $xmlPath): self
     {

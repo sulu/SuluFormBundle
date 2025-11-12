@@ -67,6 +67,7 @@
   "sulu_form.type.radiobuttons": "Radio Buttons",
   "sulu_form.type.recaptcha": "Captcha",
   "sulu_form.type.mailchimp": "Mailchimp",
+  "sulu_form.type.hidden": "Hidden",
   "sulu_form.type.sendinblue": "Sendinblue",
   "sulu_form.width.full": "Full",
   "sulu_form.width.half": "Half",

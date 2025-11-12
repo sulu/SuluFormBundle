@@ -20,6 +20,7 @@ use Sulu\Component\Content\Compat\StructureInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormRegistryInterface;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -224,7 +225,7 @@ class FormWebsiteController extends DefaultController
      *
      * @return mixed[]
      */
-    protected function getAttributes($attributes, StructureInterface $structure = null, $preview = false)
+    protected function getAttributes($attributes, ?StructureInterface $structure = null, $preview = false)
     {
         if (null === $this->attributes) { // for performance only called once
             $this->attributes = parent::getAttributes($attributes, $structure, $preview);
@@ -237,6 +238,9 @@ class FormWebsiteController extends DefaultController
         return $this->attributes;
     }
 
+    /**
+     * @return class-string<FormTypeInterface>
+     */
     private function getTypeClass(string $key): string
     {
         return $this->getParameter('sulu_form.static_forms')[$key]['class'];

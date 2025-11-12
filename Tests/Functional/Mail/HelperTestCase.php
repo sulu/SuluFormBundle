@@ -33,8 +33,6 @@ class HelperTestCase extends SuluTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         $this->client = $this->createWebsiteClient();
         $this->purgeDatabase();
         $this->initPhpcr();
@@ -47,7 +45,7 @@ class HelperTestCase extends SuluTestCase
         $this->entityManager->clear();
     }
 
-    protected function updateHomePage(Form $form = null): void
+    protected function updateHomePage(?Form $form = null): void
     {
         /* @var $suluDocumentManager DocumentManagerInterface */
         $suluDocumentManager = static::getContainer()->get('sulu_document_manager.document_manager');
@@ -75,12 +73,21 @@ class HelperTestCase extends SuluTestCase
         $this->assertEquals(1, $crawler->filter($formSelector)->count());
 
         $formElm = $crawler->filter($formSelector)->first()->form([
+            $formName . '[email]' => '',
+            $formName . '[email1]' => '',
+        ]);
+
+        $this->client->enableProfiler();
+        $crawler = $this->client->submit($formElm);
+        $this->assertResponseStatusCodeSame(422);
+
+        $formElm = $crawler->filter($formSelector)->first()->form([
             $formName . '[email]' => 'test@example.org',
             $formName . '[email1]' => 'jon@example.org',
         ]);
 
-        $this->client->enableProfiler();
         $this->client->submit($formElm);
+        $this->assertResponseStatusCodeSame(302);
         $this->assertResponseRedirects('?send=true&form=' . $form->getId());
     }
 }

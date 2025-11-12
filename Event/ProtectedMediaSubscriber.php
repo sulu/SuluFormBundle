@@ -95,8 +95,12 @@ class ProtectedMediaSubscriber implements EventSubscriberInterface
                 return;
             }
 
-            $mediaProperties = $this->formatCache->analyzedMediaUrl($request->getPathInfo());
-            $mediaId = $mediaProperties['id'];
+            try {
+                $mediaProperties = $this->formatCache->analyzedMediaUrl($request->getPathInfo());
+                $mediaId = $mediaProperties['id'];
+            } catch (\Exception $e) { // @phpstan-ignore-line // it is not the listeners responsibility to handle exceptions its later done by the controller
+                return;
+            }
         }
 
         if (!$mediaId) {
@@ -133,6 +137,7 @@ class ProtectedMediaSubscriber implements EventSubscriberInterface
             ->setParameter('id', $mediaId);
 
         try {
+            /** @var string $collectionKey */
             $collectionKey = $queryBuilder->getQuery()->getSingleScalarResult();
         } catch (NoResultException $e) {
             return false;

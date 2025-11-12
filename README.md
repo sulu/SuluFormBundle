@@ -14,7 +14,7 @@
         <img src="https://img.shields.io/github/tag/sulu/SuluFormBundle.svg" alt="GitHub tag (latest SemVer)">
     </a>
     <a href="https://github.com/sulu/SuluFormBundle/actions" target="_blank">
-        <img src="https://img.shields.io/github/workflow/status/sulu/SuluFormBundle/Test%20application.svg?label=test-workflow" alt="Test workflow status">
+        <img src="https://img.shields.io/github/actions/workflow/status/sulu/SuluFormBundle/test-application.yaml" alt="Test workflow status">
     </a>
     <a href="https://github.com/sulu/sulu/releases" target="_blank">
         <img src="https://img.shields.io/badge/sulu%20compatibility-%3E=2.0-52b6ca.svg" alt="Sulu compatibility">
@@ -31,20 +31,20 @@ It can be used for contact, sweepstake or other forms.
 </p>
 <br/>
 
-The SuluFormBundle is compatible with Sulu **starting from version 2.0**. Have a look at the `require` section in 
-the [composer.json](composer.json) to find an 
+The SuluFormBundle is compatible with Sulu **starting from version 2.0**. Have a look at the `require` section in
+the [composer.json](composer.json) to find an
 **up-to-date list of the requirements** of the bundle.
 
 ## 🚀&nbsp; Installation and Documentation
 
-Execute the following [composer](https://getcomposer.org/) command to add the bundle to the dependencies of your 
+Execute the following [composer](https://getcomposer.org/) command to add the bundle to the dependencies of your
 project:
 
 ```bash
 composer require sulu/form-bundle
 ```
 
-Afterwards, visit the [bundle documentation](Resources/doc/index.md) to 
+Afterwards, visit the [bundle documentation](Resources/doc/index.md) to
 find out **how to set up and configure the SuluFormBundle** to your specific needs.
 
 
@@ -58,11 +58,11 @@ The bundle is build on top of the [Symfony Form Component](https://symfony.com/d
 
 ## ❤️&nbsp; Support and Contributions
 
-The Sulu content management system is a **community-driven open source project** backed by various partner companies. 
-We are committed to a fully transparent development process and **highly appreciate any contributions**. 
+The Sulu content management system is a **community-driven open source project** backed by various partner companies.
+We are committed to a fully transparent development process and **highly appreciate any contributions**.
 
 In case you have questions, we are happy to welcome you in our official [Slack channel](https://sulu.io/services-and-support).
-If you found a bug or miss a specific feature, feel free to **file a new issue** with a respective title and description 
+If you found a bug or miss a specific feature, feel free to **file a new issue** with a respective title and description
 on the the [sulu/SuluFormBundle](https://github.com/sulu/SuluFormBundle) repository.
 
 

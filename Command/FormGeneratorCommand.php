@@ -22,8 +22,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class FormGeneratorCommand extends Command
 {
-    protected static $defaultName = 'sulu:form:generate-form';
-
     /**
      * @var EntityManagerInterface
      */
@@ -38,7 +36,7 @@ class FormGeneratorCommand extends Command
         EntityManagerInterface $entityManager,
         WebspaceManagerInterface $webspaceManager
     ) {
-        parent::__construct(static::$defaultName);
+        parent::__construct('sulu:form:generate-form');
         $this->entityManager = $entityManager;
         $this->webspaceManager = $webspaceManager;
     }

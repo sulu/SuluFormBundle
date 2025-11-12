@@ -232,14 +232,6 @@ https://github.com/symfony/symfony/blob/v2.7.0/src/Symfony/Bridge/Twig/Resources
 </html>
 ```
 
-ClientWebsiteBundle:forms:theme.html.twig:
-
-``` twig
-{% block token_widget %}
-    { render_esi(controller('Sulu\\Bundle\\FormBundle\\Controller\\FormTokenController::tokenAction', { 'form': 'form_type_alias', 'html': true })) }}
-{% endblock token_widget %}
-```
-
 ## E-Mail
 
 You need to create 2 emails(visitor/admin). Default Path are:  

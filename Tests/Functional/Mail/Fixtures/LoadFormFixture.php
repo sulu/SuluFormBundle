@@ -22,7 +22,7 @@ use Sulu\Bundle\FormBundle\Entity\FormTranslationReceiver;
 
 class LoadFormFixture implements FixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $form = new Form();
         $form->setDefaultLocale('de');

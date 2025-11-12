@@ -84,7 +84,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
     /**
      * @param string $cacheDir
      */
-    public function warmUp($cacheDir)
+    public function warmUp($cacheDir, ?string $buildDir = null): array
     {
         $resource = __DIR__ . '/../Resources/config/forms/form_details.xml';
         $formMetadataCollection = $this->formXmlLoader->load($resource);
@@ -160,7 +160,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         return $form;
     }
 
-    public function isOptional()
+    public function isOptional(): bool
     {
         return false;
     }

@@ -78,6 +78,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     {
         if (
             isset($this->attributes[$parent])
+            && \is_array($this->attributes[$parent])
             && isset($this->attributes[$parent][$name])
         ) {
             return $this->attributes[$parent][$name];
@@ -224,6 +225,7 @@ abstract class AbstractType extends SymfonyAbstractType implements TypeInterface
     {
         $fqcn = \get_class($this);
         $name = $this->getName();
+
         // For BC: Use the name as block prefix if one is set
         return $name !== $fqcn ? $name : StringUtil::fqcnToBlockPrefix($fqcn);
     }

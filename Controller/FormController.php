@@ -83,6 +83,9 @@ class FormController extends AbstractRestController implements ClassResourceInte
         return FormAdmin::SECURITY_CONTEXT;
     }
 
+    /**
+     * @return class-string
+     */
     public function getModelClass(): string
     {
         return Form::class;

@@ -15,9 +15,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\FormBundle\Event\ProtectedMediaSubscriber;
 use Sulu\Bundle\FormBundle\Tests\Application\Kernel;
+use Sulu\Bundle\MediaBundle\Media\Exception\ImageProxyInvalidUrl;
 use Sulu\Bundle\MediaBundle\Media\FormatCache\FormatCacheInterface;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -29,6 +31,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ProtectedMediaSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var EntityManagerInterface|ObjectProphecy
      */
@@ -87,7 +91,9 @@ class ProtectedMediaSubscriberTest extends TestCase
         $event = new RequestEvent(
             new Kernel('test', true, SuluKernel::CONTEXT_WEBSITE),
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            \defined(HttpKernelInterface::class . '::MASTER_REQUEST')
+                ? HttpKernelInterface::MASTER_REQUEST
+                : HttpKernelInterface::MAIN_REQUEST
         );
 
         $this->formatCache->analyzedMediaUrl(Argument::any())
@@ -108,7 +114,9 @@ class ProtectedMediaSubscriberTest extends TestCase
         $event = new RequestEvent(
             new Kernel('test', true, SuluKernel::CONTEXT_WEBSITE),
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            \defined(HttpKernelInterface::class . '::MASTER_REQUEST')
+                ? HttpKernelInterface::MASTER_REQUEST
+                : HttpKernelInterface::MAIN_REQUEST
         );
 
         $this->formatCache->analyzedMediaUrl(Argument::any())
@@ -124,6 +132,28 @@ class ProtectedMediaSubscriberTest extends TestCase
         $this->protectedMediaSubscriber->onRequest($event);
     }
 
+    public function testAnalyzedMediaUrlThrowException(): void
+    {
+        $request = new Request();
+        $request->attributes->set('_route', 'sulu_media.website.image.proxy');
+        $request->server->set('REQUEST_URI', '/uploads/media/50x50/2-test-image.jpg');
+        $request->attributes->set('slug', '/50x50/2-test-image.jpg');
+
+        $event = new RequestEvent(
+            new Kernel('test', true, SuluKernel::CONTEXT_WEBSITE),
+            $request,
+            \defined(HttpKernelInterface::class . '::MASTER_REQUEST')
+                ? HttpKernelInterface::MASTER_REQUEST
+                : HttpKernelInterface::MAIN_REQUEST
+        );
+
+        $this->formatCache->analyzedMediaUrl(Argument::any())
+            ->willThrow(new ImageProxyInvalidUrl('some error'))
+            ->shouldBeCalled();
+
+        $this->assertNull($this->protectedMediaSubscriber->onRequest($event));
+    }
+
     public function testDownloadRoute(): void
     {
         $request = new Request();
@@ -136,7 +166,9 @@ class ProtectedMediaSubscriberTest extends TestCase
         $event = new RequestEvent(
             new Kernel('test', true, SuluKernel::CONTEXT_WEBSITE),
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            \defined(HttpKernelInterface::class . '::MASTER_REQUEST')
+                ? HttpKernelInterface::MASTER_REQUEST
+                : HttpKernelInterface::MAIN_REQUEST
         );
 
         $this->mockLoadCollectionKey('sulu_form');

@@ -206,6 +206,79 @@ class FormControllerTest extends SuluTestCase
         $this->assertFullForm($response);
     }
 
+    public function testPutDuplicatedField(): void
+    {
+        $form = $this->createFullForm();
+        $this->client->request(
+            'PUT',
+            '/admin/api/forms/' . $form->getId(),
+            [
+                'locale' => 'en',
+                'title' => 'Title',
+                'toEmail' => 'testing@example.com',
+                'fromEmail' => 'testing@example.com',
+                'fields' => [
+                    [
+                        'key' => 'email',
+                        'type' => 'email',
+                        'title' => 'Title',
+                        'shortTitle' => 'Short Title',
+                        'placeholder' => 'Placeholder',
+                        'defaultValue' => 'Default Value',
+                        'width' => 'full',
+                        'required' => true,
+                    ],
+                    [
+                        'key' => 'email', // we are testing here if second email field is correctly interpreted as email1
+                        'type' => 'email',
+                        'title' => 'Title',
+                        'shortTitle' => 'Short Title',
+                        'placeholder' => 'Placeholder',
+                        'defaultValue' => 'Default Value',
+                        'width' => 'full',
+                        'required' => true,
+                    ],
+                    [
+                        'key' => 'email', // we are testing here if third email field is correctly created as email2
+                        'type' => 'email',
+                        'title' => 'Title',
+                        'shortTitle' => 'Short Title',
+                        'placeholder' => 'Placeholder',
+                        'defaultValue' => 'Default Value',
+                        'width' => 'full',
+                        'required' => true,
+                    ],
+                ],
+            ]
+        );
+
+        $this->assertHttpStatusCode(200, $this->client->getResponse());
+        $response = \json_decode($this->client->getResponse()->getContent(), true);
+
+        $respondedFields = [];
+        foreach ($response['fields'] ?? [] as $field) {
+            $respondedFields[] = [
+                'key' => $field['key'],
+                'type' => $field['type'],
+            ];
+        }
+
+        $this->assertSame([
+            [
+                'key' => 'email',
+                'type' => 'email',
+            ],
+            [
+                'key' => 'email1',
+                'type' => 'email',
+            ],
+            [
+                'key' => 'email2',
+                'type' => 'email',
+            ],
+        ], $respondedFields);
+    }
+
     public function testPutNotExist(): void
     {
         $this->client->request(

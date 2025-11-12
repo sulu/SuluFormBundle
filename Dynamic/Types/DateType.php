@@ -41,6 +41,7 @@ class DateType implements FormFieldTypeInterface
         }
         $options['format'] = \IntlDateFormatter::LONG;
         $options['input'] = 'string';
+        $options['widget'] = 'choice';
         $builder->add($field->getKey(), $type, $options);
     }
 
