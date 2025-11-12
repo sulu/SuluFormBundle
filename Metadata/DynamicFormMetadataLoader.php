@@ -27,6 +27,9 @@ use Webmozart\Assert\Assert;
 
 class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWarmerInterface
 {
+    /**
+     * @param array<string> $locales
+     */
     public function __construct(
         private FormFieldTypePool $formFieldTypePool,
         private PropertiesXmlLoader $propertiesXmlLoader,
@@ -45,45 +48,41 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
     {
         $resource = __DIR__ . '/../Resources/config/forms/form_details.xml';
         $formMetadata = $this->formXmlLoader->load($resource);
+        $section = new SectionMetadata('formFields');
         foreach ($this->locales as $locale) {
-            $section = new SectionMetadata('formFields');
             $section->setLabel($this->translator->trans('sulu_form.form_fields', [], 'admin', $locale), $locale);
-            $fields = new FieldMetadata('fields');
-            $fields->setType('block');
-
-            $types = $this->formFieldTypePool->all();
-
-            $fieldTypeMetaDataCollection = [];
-            foreach ($types as $typeKey => $type) {
-                $fieldTypeMetaDataCollection[] = $this->loadFieldTypeMetadata($typeKey, $type, $locale);
-            }
-            Assert::notEmpty($fieldTypeMetaDataCollection, 'No field type metadata loaded');
-
-            \usort($fieldTypeMetaDataCollection, static function(FormMetadata $a, FormMetadata $b) use ($locale): int {
-                return \strcmp($a->getTitle($locale), $b->getTitle($locale));
-            });
-
-            foreach ($fieldTypeMetaDataCollection as $fieldTypeMetaData) {
-                $fields->addType($fieldTypeMetaData);
-            }
-
-            $fields->setDefaultType(\current($fields->getTypes())->getName());
-            $section->addItem($fields);
-
-            $formItems = $formMetadata->getItems();
-            array_splice($formItems, 1, 0, [$section->getName() => $section]);
-            $formMetadata->setItems($formItems);
-
-            $configCache = $this->getConfigCache($formMetadata->getKey(), $locale);
-            $configCache->write(\serialize($formMetadata), [new FileResource($resource)]);
         }
+        $fields = new FieldMetadata('fields');
+        $fields->setType('block');
+
+        $types = $this->formFieldTypePool->all();
+
+        $fieldTypeMetaDataCollection = [];
+        foreach ($types as $typeKey => $type) {
+            $fieldTypeMetaDataCollection[] = $this->loadFieldTypeMetadata($typeKey, $type);
+        }
+        Assert::notEmpty($fieldTypeMetaDataCollection, 'No field type metadata loaded');
+
+        foreach ($fieldTypeMetaDataCollection as $fieldTypeMetaData) {
+            $fields->addType($fieldTypeMetaData);
+        }
+
+        $fields->setDefaultType(\current($fields->getTypes())->getName());
+        $section->addItem($fields);
+
+        $formItems = $formMetadata->getItems();
+        array_splice($formItems, 1, 0, [$section->getName() => $section]);
+        $formMetadata->setItems($formItems);
+
+        $configCache = $this->getConfigCache($formMetadata->getKey());
+        $configCache->write(\serialize($formMetadata), [new FileResource($resource)]);
 
         return [];
     }
 
     public function getMetadata(string $key, string $locale, array $metadataOptions = []): ?MetadataInterface
     {
-        $configCache = $this->getConfigCache($key, $locale);
+        $configCache = $this->getConfigCache($key);
 
         if (!\file_exists($configCache->getPath())) {
             return null;
@@ -98,7 +97,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         return $form;
     }
 
-    private function loadFieldTypeMetadata(string $typeKey, FormFieldTypeInterface $type, string $locale): FormMetadata
+    private function loadFieldTypeMetadata(string $typeKey, FormFieldTypeInterface $type): FormMetadata
     {
         $form = new FormMetadata();
         $configuration = $type->getConfiguration();
@@ -107,7 +106,10 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
 
         $form->setItems($properties);
         $form->setKey($typeKey);
-        $form->setTitle($this->translator->trans($configuration->getTitle(), [], 'admin', $locale), $locale);
+
+        foreach ($this->locales as $locale) {
+            $form->setTitle($this->translator->trans($configuration->getTitle(), [], 'admin', $locale), $locale);
+        }
 
         return $form;
     }
@@ -117,8 +119,8 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         return false;
     }
 
-    private function getConfigCache(string $key, string $locale): ConfigCache
+    private function getConfigCache(string $key): ConfigCache
     {
-        return new ConfigCache(\sprintf('%s%s%s.%s', $this->cacheDir, \DIRECTORY_SEPARATOR, $key, $locale), $this->debug);
+        return new ConfigCache(\sprintf('%s%s%s', $this->cacheDir, \DIRECTORY_SEPARATOR, $key), $this->debug);
     }
 }
