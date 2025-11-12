@@ -17,24 +17,16 @@ namespace Sulu\Bundle\FormBundle\Dynamic;
 class FormFieldTypePool
 {
     /**
-     * @var FormFieldTypeInterface[]
+     * @var array<string, FormFieldTypeInterface>
      */
     private $types;
 
     /**
-     * @param FormFieldTypeInterface[] $types
+     * @param iterable<string, FormFieldTypeInterface> $types
      */
-    public function __construct(array $types)
+    public function __construct(iterable $types)
     {
-        $this->types = $types;
-    }
-
-    /**
-     * Returns type specified by alias.
-     */
-    public function get(string $alias): FormFieldTypeInterface
-    {
-        return $this->types[$alias];
+        $this->types = [...$types];
     }
 
     /**

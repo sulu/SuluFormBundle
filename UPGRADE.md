@@ -1,5 +1,18 @@
 # Upgrade
 
+## 3.0.0
+
+### ListProviderCompilerPass has been removed
+
+In Sulu the manual tagging has been replaced by Symfony's default `tagged_iterator` implementation. This also includes
+the `ListProviderCompilerPass`. Now the `ListRegistry` class no longer has an `add` function since all services are now
+wired into the constructor of the class.
+
+### Removing deprecated classes
+
+* `Controller\FormWebsiteController`
+* `Form\Type\AbstractType`
+
 ## 2.5.3
 
 ### Deprecate attribute max on AttachmentType

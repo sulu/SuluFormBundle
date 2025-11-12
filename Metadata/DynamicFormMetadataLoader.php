@@ -11,11 +11,9 @@
 
 namespace Sulu\Bundle\FormBundle\Metadata;
 
-use Sulu\Bundle\AdminBundle\FormMetadata\FormMetadataMapper;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadataLoaderInterface;
-use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\ItemMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Loader\FormXmlLoader;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\SectionMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\MetadataInterface;
@@ -25,62 +23,18 @@ use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Webmozart\Assert\Assert;
 
 class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWarmerInterface
 {
-    /**
-     * @var FormFieldTypePool
-     */
-    private $formFieldTypePool;
-
-    /**
-     * @var PropertiesXmlLoader
-     */
-    private $propertiesXmlLoader;
-
-    /**
-     * @var FormXmlLoader
-     */
-    private $formXmlLoader;
-
-    /**
-     * @var FormMetadataMapper
-     *
-     * TODO REMOVE
-     */
-    private $formMetadataMapper;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @var string
-     */
-    private $cacheDir;
-
-    /**
-     * @var bool
-     */
-    private $debug;
-
     public function __construct(
-        FormFieldTypePool $formFieldTypePool,
-        PropertiesXmlLoader $propertiesXmlLoader,
-        FormXmlLoader $formXmlLoader,
-        FormMetadataMapper $formMetadataMapper,
-        TranslatorInterface $translator,
-        string $cacheDir,
-        bool $debug
+        private FormFieldTypePool $formFieldTypePool,
+        private PropertiesXmlLoader $propertiesXmlLoader,
+        private FormXmlLoader $formXmlLoader,
+        private TranslatorInterface $translator,
+        private string $cacheDir,
+        private bool $debug
     ) {
-        $this->formFieldTypePool = $formFieldTypePool;
-        $this->propertiesXmlLoader = $propertiesXmlLoader;
-        $this->formXmlLoader = $formXmlLoader;
-        $this->formMetadataMapper = $formMetadataMapper;
-        $this->translator = $translator;
-        $this->cacheDir = $cacheDir;
-        $this->debug = $debug;
     }
 
     /**
@@ -102,6 +56,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
             foreach ($types as $typeKey => $type) {
                 $fieldTypeMetaDataCollection[] = $this->loadFieldTypeMetadata($typeKey, $type, $locale);
             }
+            Assert::notEmpty($fieldTypeMetaDataCollection, 'No field type metadata loaded');
 
             \usort($fieldTypeMetaDataCollection, static function(FormMetadata $a, FormMetadata $b) use ($locale): int {
                 return \strcmp($a->getTitle($locale), $b->getTitle($locale));
@@ -113,13 +68,13 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
 
             $fields->setDefaultType(\current($fields->getTypes())->getName());
             $section->addItem($fields);
-            /* TODO HOW?
+
             $formItems = $formMetadata->getItems();
-            $this->arrayInsertAtPosition($formItems, 1, [$section->getName() => $section]);
+            array_splice($formItems, 1, 0, [$section->getName() => $section]);
             $formMetadata->setItems($formItems);
+
             $configCache = $this->getConfigCache($formMetadata->getKey(), $locale);
             $configCache->write(\serialize($formMetadata), [new FileResource($resource)]);
-            */
         }
 
         return [];
@@ -140,15 +95,6 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         $form = \unserialize(\file_get_contents($configCache->getPath()));
 
         return $form;
-    }
-
-    /**
-     * @param ItemMetadata[] $array
-     * @param ItemMetadata[] $insert
-     */
-    private function arrayInsertAtPosition(array &$array, int $pos, array $insert): void
-    {
-        $array = \array_merge(\array_slice($array, 0, $pos), $insert, \array_slice($array, $pos));
     }
 
     private function loadFieldTypeMetadata(string $typeKey, FormFieldTypeInterface $type, string $locale): FormMetadata

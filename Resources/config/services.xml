@@ -151,7 +151,7 @@
 
         <!-- Type Pool -->
         <service id="sulu_form.dynamic.form_field_type_pool" class="Sulu\Bundle\FormBundle\Dynamic\FormFieldTypePool">
-            <argument type="tagged_iterator" tag="sulu_form.dynamic_type" index-by="alias" />
+            <argument type="tagged_iterator" tag="sulu_form.dynamic.type" index-by="alias" />
         </service>
 
         <!-- Twig extension -->
@@ -184,7 +184,6 @@
             <argument type="service" id="sulu_form.dynamic.form_field_type_pool"/>
             <argument type="service" id="sulu_form.metadata.properties_xml_loader"/>
             <argument type="service" id="sulu_admin.form_metadata.form_xml_loader"/>
-            <argument type="service" id="sulu_admin.form_metadata.form_metadata_mapper"/>
             <argument type="service" id="translator"/>
             <argument>%kernel.cache_dir%/sulu-form-bundle/forms</argument>
             <argument>%kernel.debug%</argument>

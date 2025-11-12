@@ -13,7 +13,6 @@ namespace Sulu\Bundle\FormBundle\Metadata;
 
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Loader\AbstractLoader;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Parser\PropertiesXmlParser;
-use Sulu\Component\Content\Metadata\PropertiesMetadata;
 
 class PropertiesXmlLoader extends AbstractLoader
 {
@@ -21,13 +20,8 @@ class PropertiesXmlLoader extends AbstractLoader
 
     public const SCHEMA_NAMESPACE_URI = 'http://schemas.sulu.io/template/template';
 
-    /**
-     * @var PropertiesXmlParser
-     */
-    private $propertiesXmlParser;
-
     public function __construct(
-        PropertiesXmlParser $propertiesXmlParser
+        private PropertiesXmlParser $propertiesXmlParser
     ) {
         $this->propertiesXmlParser = $propertiesXmlParser;
         parent::__construct(
@@ -42,9 +36,6 @@ class PropertiesXmlLoader extends AbstractLoader
      */
     protected function parse($resource, \DOMXPath $xpath, $type): array
     {
-        $propertiesMetadata = new PropertiesMetadata();
-        $propertiesMetadata->setResource($resource);
-
         $propertiesNode = $xpath->query('/x:properties')->item(0);
         $properties = $this->propertiesXmlParser->load(
             $xpath,
