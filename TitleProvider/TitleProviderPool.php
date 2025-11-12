@@ -17,18 +17,18 @@ namespace Sulu\Bundle\FormBundle\TitleProvider;
 class TitleProviderPool implements TitleProviderPoolInterface
 {
     /**
-     * @var TitleProviderInterface[]
+     * @var array<string, TitleProviderInterface>
      */
     private $providers;
 
     /**
      * TitleProviderPool constructor.
      *
-     * @param TitleProviderInterface[] $providers
+     * @param iterable<string, TitleProviderInterface> $providers
      */
-    public function __construct(array $providers)
+    public function __construct(iterable $providers)
     {
-        $this->providers = $providers;
+        $this->providers = [...$providers];
     }
 
     public function get(string $alias): TitleProviderInterface

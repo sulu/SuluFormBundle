@@ -51,7 +51,7 @@ class DynamicListBuilder implements DynamicListBuilderInterface
 
         foreach ($entry as $key => $value) {
             if (Dynamic::TYPE_ATTACHMENT === $dynamic->getFieldType($key)) {
-                $singleEntry[$key] = $this->getMediaUrls($value);
+                $singleEntry[$key] = $this->getMediaUrls($value, $locale);
             } else {
                 $singleEntry[$key] = $this->toString($value);
             }
@@ -95,15 +95,15 @@ class DynamicListBuilder implements DynamicListBuilderInterface
     /**
      * @param mixed $value
      */
-    private function getMediaUrls($value): string
+    private function getMediaUrls($value, string $locale): string
     {
         if (\is_string($value)) {
-            return $this->getMediaUrl($value);
+            return $this->getMediaUrl($value, $locale);
         }
 
         if (\is_array($value)) {
             foreach ($value as $key => $mediaId) {
-                $value[$key] = $this->getMediaUrl($mediaId);
+                $value[$key] = $this->getMediaUrl($mediaId, $locale);
             }
 
             return \implode($this->delimiter, $value);
@@ -112,9 +112,9 @@ class DynamicListBuilder implements DynamicListBuilderInterface
         return $this->toString($value);
     }
 
-    private function getMediaUrl(string $value): string
+    private function getMediaUrl(string $value, string $locale): string
     {
-        return \str_replace('{id}', $value, $this->getDownloadUrl());
+        return \str_replace(['{id}', '{locale}'], [$value, $locale], $this->getDownloadUrl());
     }
 
     /**
@@ -125,12 +125,13 @@ class DynamicListBuilder implements DynamicListBuilderInterface
         if (null === $this->downloadUrl) {
             // The given id must be a number which we replace
             $idReplacerNumber = '875421';
+            $localeToReplace = '__locale__';
 
-            $this->downloadUrl = \str_replace($idReplacerNumber, '{id}', $this->router->generate(
-                'sulu_media.website.media.download',
+            $this->downloadUrl = \str_replace([$idReplacerNumber, $localeToReplace], ['{id}', '{locale}'], $this->router->generate(
+                'sulu_media.redirect',
                 [
-                    'slug' => 'file',
                     'id' => $idReplacerNumber,
+                    'locale' => $localeToReplace,
                 ],
                 RouterInterface::ABSOLUTE_URL
             ));

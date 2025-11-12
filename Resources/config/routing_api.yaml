@@ -1,0 +1,69 @@
+sulu_form.get_lists_fields:
+    path: '/form/lists/fields.{_format}'
+    methods: GET
+    controller: 'sulu_form.list_controller::cgetFieldsAction'
+    format: json
+    requirements: { _format: json|csv }
+
+sulu_form.get_lists:
+    path: '/form/lists.{_format}'
+    methods: GET
+    controller: 'sulu_form.list_controller::cgetAction'
+    format: json
+    requirements: { _format: json|csv }
+
+sulu_form.get_forms:
+    path: '/forms.{_format}'
+    methods: GET
+    controller: 'sulu_form.form_controller::cgetAction'
+    format: json
+    requirements: { _format: json|csv }
+
+sulu_form.get_form:
+    path: '/forms/{id}.{_format}'
+    methods: GET
+    controller: 'sulu_form.form_controller::getAction'
+    format: json
+    requirements: { _format: json|csv }
+
+sulu_form.post_form:
+    path: '/forms.{_format}'
+    methods: POST
+    controller: 'sulu_form.form_controller::postAction'
+    format: json
+    requirements: { _format: json|csv }
+
+sulu_form.put_form:
+    path: '/forms/{id}.{_format}'
+    methods: PUT
+    controller: 'sulu_form.form_controller::putAction'
+    format: json
+    requirements: { _format: json|csv }
+
+sulu_form.delete_form:
+    path: '/forms/{id}.{_format}'
+    methods: DELETE
+    controller: 'sulu_form.form_controller::deleteAction'
+    format: json
+    requirements: { _format: json|csv }
+
+sulu_form.post_form_trigger:
+    path: '/forms/{id}.{_format}'
+    methods: POST
+    controller: 'sulu_form.form_controller::postTriggerAction'
+    format: json
+    requirements: { _format: json|csv }
+
+sulu_form.get_dynamics:
+    path: '/form/dynamics.{_format}'
+    methods: GET
+    controller: 'sulu_form.dynamic_controller::cgetAction'
+    format: json
+    requirements: { _format: json|csv }
+
+sulu_form.delete_dynamic:
+    path: '/form/dynamics/{id}.{_format}'
+    methods: DELETE
+    controller: 'sulu_form.dynamic_controller::deleteAction'
+    format: json
+    requirements: { _format: json|csv }

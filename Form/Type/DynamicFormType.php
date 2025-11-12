@@ -95,6 +95,7 @@ class DynamicFormType extends AbstractType
             ];
 
             $title = $fieldTranslation->getTitle();
+            $title = \is_string($title) ? \str_replace(['<!--p-->', '<!--/p-->'], [''], $title) : $title;
             $placeholder = $fieldTranslation->getPlaceholder();
             $width = $field->getWidth() ?: 'full';
 

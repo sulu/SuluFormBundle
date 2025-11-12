@@ -256,6 +256,11 @@ parameters:
 			path: Controller/FormWebsiteController.php
 
 		-
+			message: "#^Parameter \\#1 \\$entityName of method Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\Doctrine\\\\DoctrineListBuilderFactoryInterface\\:\\:create\\(\\) expects class\\-string, string given\\.$#"
+			count: 1
+			path: Controller/ListController.php
+
+		-
 			message: "#^Parameter \\#1 \\$template of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getEntityName\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: Controller/ListController.php
@@ -266,7 +271,7 @@ parameters:
 			path: Controller/ListController.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\ListBuilderInterface\\:\\:where\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$value of method Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\AbstractListBuilder\\:\\:where\\(\\) expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
 			count: 3
 			path: Controller/ListController.php
 
