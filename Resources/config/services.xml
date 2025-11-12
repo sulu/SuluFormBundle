@@ -186,10 +186,8 @@
             <argument type="service" id="sulu_admin.form_metadata.form_xml_loader"/>
             <argument type="service" id="translator"/>
             <argument>%kernel.cache_dir%/sulu-form-bundle/forms</argument>
+            <argument>%kernel.enabled_locales%</argument>
             <argument>%kernel.debug%</argument>
-            <tag name="sulu.context" context="admin"/>
-            <tag name="kernel.cache_warmer" />
-            <tag name="sulu_admin.form_metadata_loader"/>
         </service>
 
         <!-- Dynamic Controller -->

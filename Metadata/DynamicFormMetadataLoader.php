@@ -33,6 +33,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         private FormXmlLoader $formXmlLoader,
         private TranslatorInterface $translator,
         private string $cacheDir,
+        private array $locales,
         private bool $debug
     ) {
     }
@@ -43,8 +44,8 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
     public function warmUp($cacheDir, ?string $buildDir = null): array
     {
         $resource = __DIR__ . '/../Resources/config/forms/form_details.xml';
-        $formMetadataCollection = $this->formXmlLoader->load($resource);
-        foreach ($formMetadataCollection->getItems() as $locale => $formMetadata) {
+        $formMetadata = $this->formXmlLoader->load($resource);
+        foreach ($this->locales as $locale) {
             $section = new SectionMetadata('formFields');
             $section->setLabel($this->translator->trans('sulu_form.form_fields', [], 'admin', $locale), $locale);
             $fields = new FieldMetadata('fields');
