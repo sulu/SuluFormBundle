@@ -81,6 +81,6 @@ class HelperTestCase extends SuluTestCase
 
         $this->client->enableProfiler();
         $this->client->submit($formElm);
-        $this->assertResponseRedirects('?send=' . $form->getId());
+        $this->assertResponseRedirects('?send=true&form=' . $form->getId());
     }
 }
