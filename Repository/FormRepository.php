@@ -74,7 +74,7 @@ class FormRepository extends EntityRepository
             ->leftJoin('field.translations', 'fieldTranslation')->addSelect('fieldTranslation');
 
         $queryBuilder->setMaxResults($filters['limit'] ?? null)
-            ->setFirstResult($filters['offset'] ?? null));
+            ->setFirstResult($filters['offset'] ?? null);
 
         $queryBuilder->orderBy('form.id');
         $queryBuilder->addOrderBy('field.order');
