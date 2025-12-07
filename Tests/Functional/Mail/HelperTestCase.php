@@ -14,28 +14,19 @@ namespace Sulu\Bundle\FormBundle\Tests\Functional\Mail;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Tests\Functional\Mail\Fixtures\LoadFormFixture;
-use Sulu\Bundle\PageBundle\Document\HomeDocument;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
-use Sulu\Component\DocumentManager\DocumentManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class HelperTestCase extends SuluTestCase
 {
-    /**
-     * @var KernelBrowser
-     */
-    protected $client;
+    protected KernelBrowser $client;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManagerInterface $entityManager;
 
     protected function setUp(): void
     {
         $this->client = $this->createWebsiteClient();
         $this->purgeDatabase();
-        $this->initPhpcr();
         $this->entityManager = $this->getEntityManager();
 
         $fixture = new LoadFormFixture();
@@ -47,9 +38,6 @@ class HelperTestCase extends SuluTestCase
 
     protected function updateHomePage(?Form $form = null): void
     {
-        /* @var $suluDocumentManager DocumentManagerInterface */
-        $suluDocumentManager = static::getContainer()->get('sulu_document_manager.document_manager');
-
         /* @var $homePage HomeDocument */
         $homePage = $suluDocumentManager->find('/cmf/sulu-io/contents');
         $homePage->setResourceSegment('/');

@@ -48,10 +48,7 @@ class ProtectedMediaSubscriberTest extends TestCase
      */
     private $urlGenerator;
 
-    /**
-     * @var ProtectedMediaSubscriber
-     */
-    private $protectedMediaSubscriber;
+    private ProtectedMediaSubscriber $protectedMediaSubscriber;
 
     public function setUp(): void
     {
@@ -91,9 +88,7 @@ class ProtectedMediaSubscriberTest extends TestCase
         $event = new RequestEvent(
             new Kernel('test', true, SuluKernel::CONTEXT_WEBSITE),
             $request,
-            \defined(HttpKernelInterface::class . '::MASTER_REQUEST')
-                ? HttpKernelInterface::MASTER_REQUEST
-                : HttpKernelInterface::MAIN_REQUEST
+            HttpKernelInterface::MAIN_REQUEST
         );
 
         $this->formatCache->analyzedMediaUrl(Argument::any())
@@ -114,9 +109,7 @@ class ProtectedMediaSubscriberTest extends TestCase
         $event = new RequestEvent(
             new Kernel('test', true, SuluKernel::CONTEXT_WEBSITE),
             $request,
-            \defined(HttpKernelInterface::class . '::MASTER_REQUEST')
-                ? HttpKernelInterface::MASTER_REQUEST
-                : HttpKernelInterface::MAIN_REQUEST
+            HttpKernelInterface::MAIN_REQUEST
         );
 
         $this->formatCache->analyzedMediaUrl(Argument::any())
@@ -142,9 +135,7 @@ class ProtectedMediaSubscriberTest extends TestCase
         $event = new RequestEvent(
             new Kernel('test', true, SuluKernel::CONTEXT_WEBSITE),
             $request,
-            \defined(HttpKernelInterface::class . '::MASTER_REQUEST')
-                ? HttpKernelInterface::MASTER_REQUEST
-                : HttpKernelInterface::MAIN_REQUEST
+            HttpKernelInterface::MAIN_REQUEST
         );
 
         $this->formatCache->analyzedMediaUrl(Argument::any())
@@ -166,9 +157,7 @@ class ProtectedMediaSubscriberTest extends TestCase
         $event = new RequestEvent(
             new Kernel('test', true, SuluKernel::CONTEXT_WEBSITE),
             $request,
-            \defined(HttpKernelInterface::class . '::MASTER_REQUEST')
-                ? HttpKernelInterface::MASTER_REQUEST
-                : HttpKernelInterface::MAIN_REQUEST
+            HttpKernelInterface::MAIN_REQUEST
         );
 
         $this->mockLoadCollectionKey('sulu_form');

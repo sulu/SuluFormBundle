@@ -183,6 +183,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $loader->load('services.xml');
         $loader->load('types.xml');
         $loader->load('title-providers.xml');
+        $loader->load('article.xml');
 
         $definition = $container->getDefinition('sulu_mail.null_helper');
 
@@ -214,9 +215,6 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         /** @var array<string, class-string> $bundles */
         $bundles = $container->getParameter('kernel.bundles');
 
-        if (\array_key_exists('SuluArticleBundle', $bundles)) {
-            $loader->load('article.xml');
-        }
 
         if (\array_key_exists('SuluTrashBundle', $bundles)) {
             $loader->load('services_trash.xml');

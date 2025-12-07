@@ -188,6 +188,8 @@
             <argument>%kernel.cache_dir%/sulu-form-bundle/forms</argument>
             <argument>%kernel.enabled_locales%</argument>
             <argument>%kernel.debug%</argument>
+
+            <tag name="sulu_admin.form_metadata_loader" />
         </service>
 
         <!-- Dynamic Controller -->
@@ -239,6 +241,7 @@
             <argument type="service" id="translator"/>
             <argument type="service" id="sulu_form.manager.form"/>
             <argument type="service" id="sulu_form.list_builder.dynamic_list_factory"/>
+
             <tag name="sulu_admin.list_metadata_loader"/>
         </service>
 

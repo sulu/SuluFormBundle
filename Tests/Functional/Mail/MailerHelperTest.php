@@ -19,12 +19,11 @@ class MailerHelperTest extends HelperTestCase
     protected function setUp(): void
     {
         static::$class = MailerKernel::class;
-        static::$kernel = null; // requires as Symfony 4.4 does not unset on tearDown
 
         parent::setUp();
     }
 
-    public function testSendsEmailUsingMailerComponent()
+    public function testSendsEmailUsingMailerComponent(): void
     {
         $this->assertIsObject(static::$kernel);
         $this->assertSame(MailerKernel::class, \get_class(static::$kernel));

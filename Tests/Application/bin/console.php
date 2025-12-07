@@ -29,12 +29,7 @@ $env = $input->getParameterOption(['--env', '-e'], \getenv('SYMFONY_ENV') ?: 'de
 $debug = '0' !== \getenv('SYMFONY_DEBUG') && !$input->hasParameterOption(['--no-debug', '']) && 'prod' !== $env;
 
 if ($debug) {
-    // Clean up when sf 4.3 support is removed
-    if (\class_exists(Debug::class)) {
-        Debug::enable();
-    } else {
-        Symfony\Component\Debug\Debug::enable();
-    }
+    Debug::enable();
 }
 
 $kernel = new Kernel($env, $debug, $suluContext);

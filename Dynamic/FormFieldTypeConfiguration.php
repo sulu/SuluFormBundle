@@ -16,26 +16,11 @@ namespace Sulu\Bundle\FormBundle\Dynamic;
  */
 class FormFieldTypeConfiguration
 {
-    /**
-     * @var string
-     */
-    private $title;
-
-    /**
-     * @var string
-     */
-    private $xmlPath;
-
-    /**
-     * @var string
-     */
-    private $group;
-
-    public function __construct(string $titleTranslationKey, string $xmlPath, string $group = '')
-    {
-        $this->title = $titleTranslationKey;
-        $this->xmlPath = $xmlPath;
-        $this->group = $group;
+    public function __construct(
+        private string $title,
+        private string $xmlPath,
+        private string $group = '',
+    ) {
     }
 
     public function getTitle(): string
@@ -50,17 +35,11 @@ class FormFieldTypeConfiguration
         return $this;
     }
 
-    /**
-     * Returns template.
-     */
     public function getXmlPath(): string
     {
         return $this->xmlPath;
     }
 
-    /**
-     * Sets template.
-     */
     public function setXmlPath(string $xmlPath): self
     {
         $this->xmlPath = $xmlPath;

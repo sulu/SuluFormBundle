@@ -8,10 +8,12 @@ In Sulu the manual tagging has been replaced by Symfony's default `tagged_iterat
 the `ListProviderCompilerPass`. Now the `ListRegistry` class no longer has an `add` function since all services are now
 wired into the constructor of the class.
 
-### Removing deprecated classes
+### Removing deprecations
 
 * `Controller\FormWebsiteController`
 * `Form\Type\AbstractType`
+
+The `handcraftedinthealps/rest-routing-bundle` bundle was removed.
 
 ## 2.5.9
 

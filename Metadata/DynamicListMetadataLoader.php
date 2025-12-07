@@ -22,29 +22,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DynamicListMetadataLoader implements ListMetadataLoaderInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @var FormManager
-     */
-    private $formManager;
-
-    /**
-     * @var DynamicListFactory
-     */
-    private $dynamicListFactory;
-
     public function __construct(
-        TranslatorInterface $translator,
-        FormManager $formManager,
-        DynamicListFactory $dynamicListFactory
+        private TranslatorInterface $translator,
+        private FormManager $formManager,
+        private DynamicListFactory $dynamicListFactory
     ) {
-        $this->translator = $translator;
-        $this->formManager = $formManager;
-        $this->dynamicListFactory = $dynamicListFactory;
     }
 
     public function getMetadata(string $key, string $locale, array $metadataOptions): ?MetadataInterface
