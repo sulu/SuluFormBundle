@@ -63,8 +63,7 @@
         </service>
 
         <service id="sulu_form.content_type.form_resource_loader"
-                 class="Sulu\Bundle\FormBundle\Content\ResourceLoader\FormSelectionResourceLoader">
-            <argument type="service" id="sulu_form.repository.form" />
+                 class="Sulu\Bundle\FormBundle\Content\ResourceLoader\FormSelectionResourceLoader" autowire="true">
 
             <tag name="sulu_content.resource_loader" type="sulu_form" />
         </service>
@@ -89,8 +88,11 @@
             <argument type="service" id="form.factory" />
             <argument type="service" id="sulu_form.checksum" />
             <argument type="service" id="security.csrf.token_manager"/>
+            <argument type="service" id="sulu_core.webspace.request_analyzer" />
             <argument>%sulu_form.csrf_protection%</argument>
         </service>
+
+        <service id="Sulu\Bundle\FormBundle\Form\BuilderInterface" alias="sulu_form.builder" />
 
         <!-- Dynamic Form Type -->
         <service id="sulu_form.form_type" class="Sulu\Bundle\FormBundle\Form\Type\DynamicFormType">

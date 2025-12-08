@@ -29,38 +29,17 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class DynamicFormType extends AbstractType
 {
-    /**
-     * @var FormFieldTypePool
-     */
-    private $typePool;
-
-    /**
-     * @var Checksum
-     */
-    private $checksum;
-
-    /**
-     * @var string|null
-     */
-    private $honeyPotField;
-
-    /**
-     * DynamicFormType constructor.
-     */
     public function __construct(
-        FormFieldTypePool $typePool,
-        Checksum $checksum,
-        ?string $honeyPotField = null
+        private FormFieldTypePool $typePool,
+        private Checksum $checksum,
+        private ?string $honeyPotField = null
     ) {
-        $this->typePool = $typePool;
-        $this->checksum = $checksum;
-        $this->honeyPotField = $honeyPotField;
     }
 
     /**
      * @return void
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var Form $formEntity */
         $formEntity = $options['formEntity'];

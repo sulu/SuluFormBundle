@@ -14,7 +14,7 @@ namespace Sulu\Bundle\FormBundle\Dynamic;
 /**
  * Holds the available form types.
  */
-class FormFieldTypePool
+final class FormFieldTypePool
 {
     /**
      * @var array<string, FormFieldTypeInterface>
@@ -27,6 +27,22 @@ class FormFieldTypePool
     public function __construct(iterable $types)
     {
         $this->types = [...$types];
+    }
+
+    public function get(string $type): FormFieldTypeInterface
+    {
+        if (array_key_exists($type, $this->types)) {
+            return $this->types[$type];
+        }
+
+        throw new \InvalidArgumentException(
+            sprintf(
+                'Unknown title provider "%s". Known providers: %s',
+                $type,
+                implode(', ',array_keys($this->types)),
+            )
+        );
+
     }
 
     /**

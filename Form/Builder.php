@@ -19,6 +19,7 @@ use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Form\Type\DynamicFormType;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
+use Sulu\Component\Webspace\Analyzer\RequestAnalyzerInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,11 +32,6 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  */
 class Builder implements BuilderInterface
 {
-    /**
-     * @var FormInterface[]
-     */
-    private array $cache = [];
-
     public function __construct(
         private RequestStack $requestStack,
         private FormFieldTypePool $formFieldTypePool,
@@ -44,6 +40,7 @@ class Builder implements BuilderInterface
         private FormFactory $formFactory,
         private Checksum $checksum,
         private CsrfTokenManagerInterface $csrfTokenManager,
+        private RequestAnalyzerInterface $requestAnalyser,
         private bool $csrfProtection = false
     ) {
     }
@@ -97,28 +94,10 @@ class Builder implements BuilderInterface
         return null;
     }
 
-    public function build(int $id, string $type, string $typeId, ?string $locale = null, string $name = 'form'): ?FormInterface
-    {
-        $request = $this->requestStack->getCurrentRequest();
-
-        if (!$locale) {
-            $locale = $request->getLocale();
-        }
-
-        // Check if form was builded before and return the cached form.
-        $key = $this->getKey($id, $type, $typeId, $locale, $name);
-
-        if (!isset($this->cache[$key])) {
-            $this->cache[$key] = $this->buildForm($id, $type, $typeId, $locale, $name);
-        }
-
-        return $this->cache[$key];
-    }
-
     /**
      * Returns formType and the built form.
      */
-    protected function buildForm(int $id, string $type, string $typeId, string $locale, string $name): ?FormInterface
+    public function build(int $id, string $type, string $typeId, ?string $locale = null, string $name = 'form'): ?FormInterface
     {
         $request = $this->requestStack->getCurrentRequest();
 
@@ -147,12 +126,14 @@ class Builder implements BuilderInterface
         return $form;
     }
 
-    private function getKey(int $id, string $type, string $typeId, string $locale, string $name): string
-    {
-        return \implode('__', \func_get_args());
-    }
-
-    private function createForm(string $name, string $type, string $typeId, string $locale, Form $formEntity, string $webspaceKey): FormInterface
+    private function createForm(
+        string $name,
+        string $type,
+        string $typeId,
+        string $locale,
+        Form $formEntity,
+        string $webspaceKey,
+    ): FormInterface
     {
         $defaults = $this->getDefaults($formEntity, $locale);
         $typeName = $this->titleProviderPool->get($type)->getTitle($typeId, $locale);
@@ -187,14 +168,9 @@ class Builder implements BuilderInterface
     private function loadFormEntity(int $id, string $locale): ?Form
     {
         $formEntity = $this->formRepository->loadById($id, $locale);
+        $translation = $formEntity?->getTranslation($locale);
 
-        if (!$formEntity) {
-            return null;
-        }
-
-        $translation = $formEntity->getTranslation($locale);
-
-        if (!$translation) {
+        if ($translation === null) {
             // No translation for this locale exists
             return null;
         }
@@ -229,10 +205,9 @@ class Builder implements BuilderInterface
         $request = $this->requestStack->getCurrentRequest();
         $webspaceKey = null;
 
-        if ($request->get('_sulu')) {
-            if ($request->get('_sulu')->getAttribute('webspace')) {
-                $webspaceKey = $request->get('_sulu')->getAttribute('webspace')->getKey();
-            }
+        $suluMetadata = $request->attributes->get('_sulu');
+        if ($suluMetadata->getAttribute('webspace')) {
+            $webspaceKey = $suluMetadata->getAttribute('webspace')->getKey();
         }
 
         return $webspaceKey;

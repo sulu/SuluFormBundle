@@ -14,9 +14,6 @@ namespace Sulu\Bundle\FormBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-/**
- * Form entity.
- */
 class Form
 {
     public const RESOURCE_KEY = 'forms';
@@ -238,7 +235,6 @@ class Form
             'toEmail' => $translation->getToEmail(),
             'toName' => $translation->getToName(),
             'fields' => $fields,
-            'created' => $dynamic ? $dynamic->getCreated() : null,
         ];
     }
 }

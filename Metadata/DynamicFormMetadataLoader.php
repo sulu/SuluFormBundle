@@ -85,7 +85,6 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         $configCache = $this->getConfigCache($formMetadata->getKey());
         $configCache->write(\serialize($formMetadata), [new FileResource($resource)]);
 
-        dump($formMetadata);
         return [];
     }
 

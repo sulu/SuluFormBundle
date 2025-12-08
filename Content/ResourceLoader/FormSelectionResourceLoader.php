@@ -4,28 +4,46 @@ declare(strict_types=1);
 
 namespace Sulu\Bundle\FormBundle\Content\ResourceLoader;
 
-use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Content\Application\ResourceLoader\Loader\ResourceLoaderInterface;
+use Sulu\Bundle\FormBundle\Form\BuilderInterface;
+use Symfony\Component\Form\FormView;
 
 final class FormSelectionResourceLoader implements ResourceLoaderInterface
 {
     public const string RESOURCE_LOADER_KEY = 'sulu_form';
 
     public function __construct(
-        private FormRepository $formRepository,
+        private BuilderInterface $formBuilder,
     ) {}
 
     public function load(array $ids, ?string $locale, array $params = []): array
     {
-        //dd($ids);
         $data = [];
-        $formEntities = $this->formRepository->loadByIds($ids, $locale);
-        foreach ($formEntities as $entity) {
-            $data[$entity->getId()] = $entity->serializeForLocale($locale);
+        foreach ($ids as $id) {
+            $data[$id] = $this->loadForm((int) $id, 'article', 'typeId', $locale, 'form');
         }
 
         return $data;
     }
+
+    private function loadForm(
+        int $id,
+        string $type,
+        string $typeId,
+        ?string $locale,
+        string $name,
+    ): ?FormView {
+        $form = $this->formBuilder->build(
+            $id,
+            $type,
+            $typeId,
+            $locale,
+            $name,
+        );
+
+        return $form?->createView();
+    }
+
 
     public static function getKey(): string
     {
