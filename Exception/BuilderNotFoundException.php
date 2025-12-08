@@ -14,13 +14,18 @@ namespace Sulu\Bundle\FormBundle\Exception;
 class BuilderNotFoundException extends \Exception
 {
     /**
-     * @var string
-     */
-    private $builder;
+    * @param array<string> $availableBuilders
+    */
+    public function __construct(
+        private string $builder,
+        ?array $availableBuilders = null,
+    ) {
+        $availableBuildersInfo = '';
+        if($availableBuilders !== null) {
+            $availableBuildersInfo =' Known builders: '.join($availableBuilders);
+        }
 
-    public function __construct(string $builder)
-    {
-        parent::__construct(\sprintf('Builder with the name "%s" not found.', $builder));
+        parent::__construct(\sprintf('Builder with the name "%s" not found.%s', $builder, $availableBuildersInfo));
 
         $this->builder = $builder;
     }

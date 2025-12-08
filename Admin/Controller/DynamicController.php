@@ -9,15 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\Controller;
+namespace Sulu\Bundle\FormBundle\Admin\Controller;
 
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\ControllerTrait;
-use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\ViewHandler;
+use Sulu\Bundle\FormBundle\Admin\ListBuilder\DynamicListFactoryInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
-use Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory;
 use Sulu\Bundle\FormBundle\Repository\DynamicRepository;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Bundle\MediaBundle\Media\Exception\MediaNotFoundException;
@@ -30,13 +29,13 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 /**
  * Controller to create dynamic form entries list.
  */
-class DynamicController implements ClassResourceInterface
+class DynamicController
 {
     use ControllerTrait;
 
     public function __construct(
         private DynamicRepository $dynamicRepository,
-        private DynamicListFactory $dynamicListFactory,
+        private DynamicListFactoryInterface $dynamicListFactory,
         private MediaManagerInterface $mediaManager,
         private EntityManager $entityManager,
         private FormRepository $formRepository,

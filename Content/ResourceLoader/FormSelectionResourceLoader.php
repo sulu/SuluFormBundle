@@ -30,7 +30,7 @@ final class FormSelectionResourceLoader implements ResourceLoaderInterface
     {
         $data = [];
         foreach ($ids as $id) {
-            $data[$id] = $this->loadForm((int) $id, 'article', 'typeId', $locale, 'form');
+            $data[$id] = $this->loadForm((int) $id, $params['resourceKey'], 'typeId', $locale, 'form');
         }
 
         return $data;

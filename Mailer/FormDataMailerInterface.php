@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\Mail;
+namespace Sulu\Bundle\FormBundle\Mailer;
 
 use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;
 
-interface HelperInterface
+interface FormDataMailerInterface
 {
     public const MAIL_RECEIVER_TO = MailConfigurationInterface::TYPE_TO;
     public const MAIL_RECEIVER_CC = MailConfigurationInterface::TYPE_CC;

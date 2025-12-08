@@ -31,11 +31,6 @@ class FormGeneratorCommand extends Command
         parent::__construct();
     }
 
-    protected function configure(): void
-    {
-        $this->setDescription('Generates a form with all basic form types');
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $form = $this->loadTestForm() ?: new Form();

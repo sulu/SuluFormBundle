@@ -89,6 +89,7 @@
   "sulu_form.salutation_please_choose": "Please choose",
   "sulu_form.single_form_selection.no_form_selected": "No form selected",
   "sulu_form.single_form_selection.overlay_title": "Select a form",
+  "sulu_form.parent_page": "Übergeordnete Seite",
   "sulu_activity.resource.forms": "Form",
   "sulu_activity.description.forms.created": "{userFullName} has created the form \"{resourceTitle}\"",
   "sulu_activity.description.forms.modified": "{userFullName} has changed the form \"{resourceTitle}\"",

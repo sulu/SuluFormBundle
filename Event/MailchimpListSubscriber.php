@@ -17,20 +17,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MailchimpListSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var string
-     */
-    protected $apiKey;
-
-    /**
-     * @var string
-     */
-    protected $subscribeStatus;
-
-    public function __construct(string $apiKey = '', string $subscribeStatus = 'subscribed')
-    {
-        $this->apiKey = $apiKey;
-        $this->subscribeStatus = $subscribeStatus;
+    public function __construct(
+        protected ?string $apiKey = '',
+        protected string $subscribeStatus = 'subscribed'
+    ) {
     }
 
     public static function getSubscribedEvents()

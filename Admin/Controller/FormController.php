@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\Controller;
+namespace Sulu\Bundle\FormBundle\Admin\Controller;
 
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Bundle\FormBundle\Admin\FormAdmin;

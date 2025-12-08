@@ -89,6 +89,7 @@
   "sulu_form.salutation_please_choose": "Bitte auswählen",
   "sulu_form.single_form_selection.no_form_selected": "Kein Formular ausgewählt",
   "sulu_form.single_form_selection.overlay_title": "Wählen Sie ein Formular aus",
+  "sulu_form.parent_page": "Übergeordnete Seite",
   "sulu_activity.resource.forms": "Formular",
   "sulu_activity.description.forms.created": "{userFullName} hat das Formular \"{resourceTitle}\" erstellt",
   "sulu_activity.description.forms.modified": "{userFullName} hat das Formular \"{resourceTitle}\" geändert",

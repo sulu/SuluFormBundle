@@ -4,6 +4,9 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <imports>
+        <import  resource="services/*" />
+    </imports>
     <!-- Define here your own services: -->
     <services>
         <!-- Form Handler -->
@@ -17,11 +20,6 @@
             <argument>%sulu_form.honeypot_field%</argument>
         </service>
         <service id="Sulu\Bundle\FormBundle\Form\HandlerInterface" alias="sulu_form.handler"/>
-
-        <!-- Mail-->
-        <service id="sulu_mail.null_helper" class="Sulu\Bundle\FormBundle\Mail\NullHelper">
-            <argument type="service" id="logger" />
-        </service>
 
         <!-- Admin -->
         <service id="sulu_form.admin"
@@ -37,7 +35,8 @@
                  class="Sulu\Bundle\FormBundle\Admin\DynamicListAdmin">
             <argument type="service" id="sulu_admin.view_builder_factory"/>
             <argument>%sulu_form.dynamic_lists.config%</argument>
-            <tag name="sulu.admin"/>
+
+            <tag name="sulu.admin" priority="-1024" />
             <tag name="sulu.context" context="admin"/>
         </service>
 
@@ -58,7 +57,8 @@
 
         <!-- Content Types -->
         <service id="sulu_form.content_type.single_form_property_resolver"
-                 class="Sulu\Bundle\FormBundle\Content\PropertyResolver\SingleFormSelectionPropertyResolver">
+            class="Sulu\Bundle\FormBundle\Content\PropertyResolver\SingleFormSelectionPropertyResolver">
+            <argument type="service" id="Sulu\Bundle\FormBundle\Repository\FormRepository" />
             <tag name="sulu_content.property_resolver" />
         </service>
 
@@ -103,38 +103,41 @@
         </service>
 
         <!-- Request Listener -->
-        <service id="sulu_form.request_listener" class="Sulu\Bundle\FormBundle\Event\RequestListener">
+        <service id="sulu_form.request_listener" class="Sulu\Bundle\FormBundle\Event\FormDataRequestListener">
             <argument type="service" id="sulu_form.builder" />
             <argument type="service" id="sulu_form.handler" />
             <argument type="service" id="sulu_form.configuration.form_configuration_factory" />
             <argument type="service" id="event_dispatcher" />
 
-            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
             <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
             <tag name="kernel.reset" method="reset" />
         </service>
 
         <!-- List Builder -->
         <service id="sulu_form.list_builder.dynamic_list_factory"
-                 class="Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory">
+                class="Sulu\Bundle\FormBundle\Admin\ListBuilder\DynamicListFactory">
             <argument>%sulu_form.dynamic_list_builder.default%</argument>
 
-            <argument type="tagged_iterator" tag="sulu_form.dynamic_list_builder" />
+            <argument type="tagged_iterator" tag="sulu_form.dynamic_list_builder" index-by="alias" />
         </service>
+        <service id="Sulu\Bundle\FormBundle\Admin\ListBuilder\DynamicListFactoryInterface" alias="sulu_form.list_builder.dynamic_list_factory" />
 
         <service id="sulu_form.list_builder.dynamic_list_builder"
-                 class="Sulu\Bundle\FormBundle\ListBuilder\DynamicListBuilder">
+                 class="Sulu\Bundle\FormBundle\Admin\ListBuilder\DynamicListBuilder">
             <argument>%sulu_form.dynamic_list_builder.delimiter%</argument>
             <argument type="service" id="router" />
 
             <tag name="sulu_form.dynamic_list_builder" alias="simple" />
         </service>
+        <service id="Sulu\Bundle\FormBundle\Admin\ListBuilder\DynamicListBuilderInterface" alias="sulu_form.list_builder.dynamic_list_builder" />
 
         <!-- Repositories -->
         <service id="sulu_form.repository.form" class="Sulu\Bundle\FormBundle\Repository\FormRepository">
             <factory service="doctrine.orm.entity_manager" method="getRepository"/>
             <argument>Sulu\Bundle\FormBundle\Entity\Form</argument>
         </service>
+        <service id="Sulu\Bundle\FormBundle\Repository\FormRepository" alias="sulu_form.repository.form" />
 
         <!-- Dynamic -->
         <service id="sulu_form.repository.dynamic" class="Sulu\Bundle\FormBundle\Repository\DynamicRepository">
@@ -185,53 +188,6 @@
             <argument type="service" id="sulu_admin.properties_xml_parser"/>
         </service>
 
-        <!-- Dynamic Form Metadata Loader -->
-        <service id="sulu_form.metadata.dynamic_form_metadata_loader" class="Sulu\Bundle\FormBundle\Metadata\DynamicFormMetadataLoader">
-            <argument type="service" id="sulu_form.dynamic.form_field_type_pool"/>
-            <argument type="service" id="sulu_form.metadata.properties_xml_loader"/>
-            <argument type="service" id="sulu_admin.form_metadata.form_xml_loader"/>
-            <argument type="service" id="translator"/>
-            <argument>%kernel.cache_dir%/sulu-form-bundle/forms</argument>
-            <argument>%kernel.enabled_locales%</argument>
-            <argument>%kernel.debug%</argument>
-
-            <tag name="sulu_admin.form_metadata_loader" />
-        </service>
-
-        <!-- Dynamic Controller -->
-        <service id="sulu_form.dynamic_controller" class="Sulu\Bundle\FormBundle\Controller\DynamicController" public="true">
-            <argument type="service" id="sulu_form.repository.dynamic"/>
-            <argument type="service" id="sulu_form.list_builder.dynamic_list_factory"/>
-            <argument type="service" id="sulu_media.media_manager"/>
-            <argument type="service" id="doctrine.orm.entity_manager"/>
-            <argument type="service" id="sulu_form.repository.form"/>
-            <argument type="service" id="fos_rest.view_handler"/>
-        </service>
-
-        <!-- Form Controller -->
-        <service id="sulu_form.form_controller" class="Sulu\Bundle\FormBundle\Controller\FormController" public="true">
-            <argument type="service" id="fos_rest.view_handler.default"/>
-            <argument type="service" id="security.token_storage"/>
-            <argument type="service" id="sulu_form.manager.form"/>
-            <argument type="service" id="sulu_core.doctrine_rest_helper"/>
-            <argument type="service" id="sulu_core.doctrine_list_builder_factory"/>
-            <argument type="service" id="sulu_core.list_builder.field_descriptor_factory"/>
-            <argument type="service" id="sulu_core.list_rest_helper"/>
-            <argument type="service" id="sulu_activity.domain_event_dispatcher"/>
-
-            <tag name="sulu.context" context="admin"/>
-        </service>
-
-        <!-- List Controller -->
-        <service id="sulu_form.list_controller" class="Sulu\Bundle\FormBundle\Controller\ListController" public="true">
-            <argument type="service" id="fos_rest.view_handler.default"/>
-            <argument type="service" id="security.token_storage"/>
-            <argument type="service" id="sulu_core.doctrine_rest_helper"/>
-            <argument type="service" id="sulu_core.doctrine_list_builder_factory"/>
-            <argument type="service" id="sulu.list.provider.registry"/>
-
-            <tag name="sulu.context" context="admin"/>
-        </service>
 
         <!-- Form Website Controller -->
         <service id="sulu_form.form_token_controller"

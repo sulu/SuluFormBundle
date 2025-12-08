@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\Mail;
+namespace Sulu\Bundle\FormBundle\Mailer;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -17,7 +17,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
-class MailerHelper implements HelperInterface
+class FormDataMailer implements FormDataMailerInterface
 {
     public function __construct(
         private MailerInterface $mailer,

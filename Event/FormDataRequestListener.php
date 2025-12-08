@@ -17,33 +17,14 @@ use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Form\HandlerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Contracts\Service\ResetInterface;
 
-class RequestListener implements ResetInterface
+class FormDataRequestListener implements ResetInterface
 {
-    /**
-     * @var BuilderInterface
-     */
-    protected $formBuilder;
-
-    /**
-     * @var HandlerInterface
-     */
-    protected $formHandler;
-
-    /**
-     * @var FormConfigurationFactory
-     */
-    protected $formConfigurationFactory;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    protected $eventDispatcher;
-
     /**
      * Flag set to true when an invalid form is submitted,
      * so we can set the http return code to 422.
@@ -52,31 +33,24 @@ class RequestListener implements ResetInterface
      */
     protected $invalidSubmittedForm = false;
 
-    /**
-     * RequestListener constructor.
-     */
     public function __construct(
-        BuilderInterface $formBuilder,
-        HandlerInterface $formHandler,
-        FormConfigurationFactory $formConfigurationFactory,
-        EventDispatcherInterface $eventDispatcher
+       protected BuilderInterface $formBuilder,
+       protected HandlerInterface $formHandler,
+       protected FormConfigurationFactory $formConfigurationFactory,
+       protected EventDispatcherInterface $eventDispatcher
     ) {
-        $this->formBuilder = $formBuilder;
-        $this->formHandler = $formHandler;
-        $this->formConfigurationFactory = $formConfigurationFactory;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        if (\method_exists($event, 'isMainRequest') ? !$event->isMainRequest() : !$event->isMasterRequest()) {
+        if (!$event->isMainRequest()) {
             // do nothing if it's not the master request
             return;
         }
 
         $request = $event->getRequest();
 
-        if (!$request->isMethod('post')) {
+        if (!$request->isMethod(Request::METHOD_POST)) {
             // do nothing if it's not a post request
             return;
         }
@@ -116,7 +90,7 @@ class RequestListener implements ResetInterface
 
     public function onKernelResponse(ResponseEvent $event): void
     {
-        if (\method_exists($event, 'isMainRequest') ? !$event->isMainRequest() : !$event->isMasterRequest()) {
+        if (!$event->isMainRequest()) {
             // do nothing if it's not the master request
             return;
         }

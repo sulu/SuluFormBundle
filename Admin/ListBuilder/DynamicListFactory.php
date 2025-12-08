@@ -9,8 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\ListBuilder;
+namespace Sulu\Bundle\FormBundle\Admin\ListBuilder;
 
+use Sulu\Bundle\FormBundle\Admin\ListBuilder\DynamicListBuilderInterface;
+use Sulu\Bundle\FormBundle\Admin\ListBuilder\DynamicListFactoryInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Exception\BuilderNotFoundException;
@@ -99,7 +101,7 @@ class DynamicListFactory implements DynamicListFactoryInterface
         }
 
         if (!\array_key_exists($alias, $this->builders)) {
-            throw new BuilderNotFoundException($alias);
+            throw new BuilderNotFoundException($alias, array_keys($this->builders));
         }
 
         return $this->builders[$alias];

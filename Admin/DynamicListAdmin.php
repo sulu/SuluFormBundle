@@ -19,28 +19,13 @@ use Sulu\Bundle\AdminBundle\Admin\View\ViewCollection;
 
 class DynamicListAdmin extends Admin
 {
-    public static function getPriority(): int
-    {
-        return -1024;
-    }
-
-    /**
-     * @var ViewBuilderFactoryInterface
-     */
-    private $viewBuilderFactory;
-
-    /**
-     * @var mixed[]
-     */
-    private $config;
-
     /**
      * @param mixed[] $config
      */
-    public function __construct(ViewBuilderFactoryInterface $viewBuilderFactory, array $config)
-    {
-        $this->viewBuilderFactory = $viewBuilderFactory;
-        $this->config = $config;
+    public function __construct(
+       private ViewBuilderFactoryInterface $viewBuilderFactory,
+       private array $config,
+    ) {
     }
 
     public function configureViews(ViewCollection $viewCollection): void

@@ -37,32 +37,11 @@ class FormAdmin extends Admin
     public const EDIT_FORM_VIEW = 'sulu_form.edit_form';
     public const EDIT_FORM_DETAILS_VIEW = 'sulu_form.edit_form.details';
 
-    /**
-     * @var SecurityCheckerInterface
-     */
-    private $securityChecker;
-
-    /**
-     * @var ViewBuilderFactoryInterface
-     */
-    private $viewBuilderFactory;
-
-    /**
-     * @var WebspaceManagerInterface
-     */
-    private $webspaceManager;
-
-    /**
-     * FormAdmin constructor.
-     */
     public function __construct(
-        SecurityCheckerInterface $securityChecker,
-        ViewBuilderFactoryInterface $viewBuilderFactory,
-        WebspaceManagerInterface $webspaceManager
+       private SecurityCheckerInterface $securityChecker,
+       private ViewBuilderFactoryInterface $viewBuilderFactory,
+       private WebspaceManagerInterface $webspaceManager
     ) {
-        $this->securityChecker = $securityChecker;
-        $this->viewBuilderFactory = $viewBuilderFactory;
-        $this->webspaceManager = $webspaceManager;
     }
 
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void

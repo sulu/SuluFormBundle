@@ -15,8 +15,8 @@ use Sulu\Bundle\AdminBundle\Metadata\ListMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\ListMetadata\ListMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\ListMetadata\ListMetadataLoaderInterface;
 use Sulu\Bundle\AdminBundle\Metadata\MetadataInterface;
+use Sulu\Bundle\FormBundle\Admin\ListBuilder\DynamicListFactoryInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
-use Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory;
 use Sulu\Bundle\FormBundle\Manager\FormManager;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -25,13 +25,13 @@ class DynamicListMetadataLoader implements ListMetadataLoaderInterface
     public function __construct(
         private TranslatorInterface $translator,
         private FormManager $formManager,
-        private DynamicListFactory $dynamicListFactory
+        private DynamicListFactoryInterface $dynamicListFactory
     ) {
     }
 
     public function getMetadata(string $key, string $locale, array $metadataOptions): ?MetadataInterface
     {
-        if (0 !== \strcmp('form_data', $key)) {
+        if ('form_data' !== $key) {
             return null;
         }
 

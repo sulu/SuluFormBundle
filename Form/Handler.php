@@ -17,7 +17,7 @@ use Sulu\Bundle\FormBundle\Configuration\MailConfigurationInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Event\FormSavePostEvent;
 use Sulu\Bundle\FormBundle\Event\FormSavePreEvent;
-use Sulu\Bundle\FormBundle\Mail\HelperInterface;
+use Sulu\Bundle\FormBundle\Mailer\FormDataMailerInterface;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
@@ -30,49 +30,14 @@ use Twig\Environment;
  */
 class Handler implements HandlerInterface
 {
-    /**
-     * @var ObjectManager
-     */
-    protected $entityManager;
-
-    /**
-     * @var Environment
-     */
-    protected $twig;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    protected $eventDispatcher;
-
-    /**
-     * @var MediaManagerInterface
-     */
-    protected $mediaManager;
-
-    /**
-     * @var HelperInterface
-     */
-    protected $mailHelper;
-
-    /**
-     * @var string
-     */
-    private $honeyPotStrategy;
-
-    /**
-     * @var string|null
-     */
-    private $honeyPotField;
-
     public function __construct(
-        ObjectManager $entityManager,
-        HelperInterface $mailHelper,
-        Environment $twig,
-        EventDispatcherInterface $eventDispatcher,
-        MediaManagerInterface $mediaManager,
-        string $honeyPotStrategy = self::HONEY_POT_STRATEGY_SPAM,
-        ?string $honeyPotField = null
+        private ObjectManager $entityManager,
+        private FormDataMailerInterface $mailHelper,
+        private Environment $twig,
+        private EventDispatcherInterface $eventDispatcher,
+        private MediaManagerInterface $mediaManager,
+        private string $honeyPotStrategy = self::HONEY_POT_STRATEGY_SPAM,
+        private ?string $honeyPotField = null
     ) {
         $this->entityManager = $entityManager;
         $this->mailHelper = $mailHelper;

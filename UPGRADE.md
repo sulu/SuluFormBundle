@@ -15,6 +15,8 @@ wired into the constructor of the class.
 
 The `handcraftedinthealps/rest-routing-bundle` bundle was removed.
 
+The Swiftmailer integration has been removed, use the `symfony/mailer` instead.
+
 ## 2.5.9
 
 ### Deprecate usage of fos rest routing
