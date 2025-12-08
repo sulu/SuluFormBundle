@@ -11,7 +11,6 @@
 
 namespace Sulu\Bundle\FormBundle\Controller;
 
-use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Bundle\FormBundle\Admin\FormAdmin;
 use Sulu\Bundle\FormBundle\Entity\Form;
@@ -31,48 +30,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class FormController extends AbstractRestController implements ClassResourceInterface, SecuredControllerInterface
+class FormController extends AbstractRestController implements SecuredControllerInterface
 {
-    /**
-     * @var FormManager
-     */
-    private $formManager;
-
-    /**
-     * @var RestHelperInterface
-     */
-    private $restHelper;
-
-    /**
-     * @var DoctrineListBuilderFactoryInterface
-     */
-    private $factory;
-
-    /**
-     * @var FieldDescriptorFactoryInterface
-     */
-    private $fieldDescriptorFactory;
-
-    /**
-     * @var ListRestHelperInterface
-     */
-    private $listRestHelper;
-
     public function __construct(
         ViewHandlerInterface $viewHandler,
         TokenStorageInterface $tokenStorage,
-        FormManager $formManager,
-        RestHelperInterface $restHelper,
-        DoctrineListBuilderFactoryInterface $factory,
-        FieldDescriptorFactoryInterface $fieldDescriptorFactory,
-        ListRestHelperInterface $listRestHelper
+        private FormManager $formManager,
+        private RestHelperInterface $restHelper,
+        private DoctrineListBuilderFactoryInterface $factory,
+        private FieldDescriptorFactoryInterface $fieldDescriptorFactory,
+        private ListRestHelperInterface $listRestHelper
     ) {
         parent::__construct($viewHandler, $tokenStorage);
-        $this->formManager = $formManager;
-        $this->restHelper = $restHelper;
-        $this->factory = $factory;
-        $this->fieldDescriptorFactory = $fieldDescriptorFactory;
-        $this->listRestHelper = $listRestHelper;
     }
 
     /**

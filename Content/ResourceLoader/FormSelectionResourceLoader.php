@@ -7,7 +7,7 @@ namespace Sulu\Bundle\FormBundle\Content\ResourceLoader;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Content\Application\ResourceLoader\Loader\ResourceLoaderInterface;
 
-class FormSelectionResourceLoader implements ResourceLoaderInterface
+final class FormSelectionResourceLoader implements ResourceLoaderInterface
 {
     public const string RESOURCE_LOADER_KEY = 'sulu_form';
 
@@ -17,12 +17,11 @@ class FormSelectionResourceLoader implements ResourceLoaderInterface
 
     public function load(array $ids, ?string $locale, array $params = []): array
     {
+        //dd($ids);
         $data = [];
         $formEntities = $this->formRepository->loadByIds($ids, $locale);
         foreach ($formEntities as $entity) {
-            $data[$entity->getId()] = [
-                'entity' => $entity->serializeForLocale($locale),
-            ];
+            $data[$entity->getId()] = $entity->serializeForLocale($locale);
         }
 
         return $data;

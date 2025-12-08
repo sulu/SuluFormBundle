@@ -34,66 +34,18 @@ class Builder implements BuilderInterface
     /**
      * @var FormInterface[]
      */
-    private $cache = [];
-
-    /**
-     * @var RequestStack
-     */
-    protected $requestStack;
-
-    /**
-     * @var FormFieldTypePool
-     */
-    protected $formFieldTypePool;
-
-    /**
-     * @var TitleProviderPoolInterface
-     */
-    protected $titleProviderPool;
-
-    /**
-     * @var FormRepository
-     */
-    protected $formRepository;
-
-    /**
-     * @var FormFactory
-     */
-    protected $formFactory;
-
-    /**
-     * @var Checksum
-     */
-    protected $checksum;
-
-    /**
-     * @var CsrfTokenManagerInterface
-     */
-    private $csrfTokenManager;
-
-    /**
-     * @var bool
-     */
-    private $csrfProtection;
+    private array $cache = [];
 
     public function __construct(
-        RequestStack $requestStack,
-        FormFieldTypePool $formFieldTypePool,
-        TitleProviderPoolInterface $titleProviderPool,
-        FormRepository $formRepository,
-        FormFactory $formFactory,
-        Checksum $checksum,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        bool $csrfProtection = false
+        private RequestStack $requestStack,
+        private FormFieldTypePool $formFieldTypePool,
+        private TitleProviderPoolInterface $titleProviderPool,
+        private FormRepository $formRepository,
+        private FormFactory $formFactory,
+        private Checksum $checksum,
+        private CsrfTokenManagerInterface $csrfTokenManager,
+        private bool $csrfProtection = false
     ) {
-        $this->requestStack = $requestStack;
-        $this->formFieldTypePool = $formFieldTypePool;
-        $this->titleProviderPool = $titleProviderPool;
-        $this->formRepository = $formRepository;
-        $this->formFactory = $formFactory;
-        $this->checksum = $checksum;
-        $this->csrfTokenManager = $csrfTokenManager;
-        $this->csrfProtection = $csrfProtection;
     }
 
     public function buildByRequest(Request $request): ?FormInterface

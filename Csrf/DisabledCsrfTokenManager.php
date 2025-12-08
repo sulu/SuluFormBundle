@@ -19,14 +19,8 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  */
 class DisabledCsrfTokenManager implements CsrfTokenManagerInterface
 {
-    /**
-     * @var CsrfTokenManagerInterface
-     */
-    private $csrfTokenManager;
-
-    public function __construct(CsrfTokenManagerInterface $csrfTokenManager)
+    public function __construct(private CsrfTokenManagerInterface $csrfTokenManager)
     {
-        $this->csrfTokenManager = $csrfTokenManager;
     }
 
     /**

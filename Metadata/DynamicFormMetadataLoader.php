@@ -39,6 +39,9 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         private array $locales,
         private bool $debug
     ) {
+        if ($this->locales === []) {
+            $this->locales = ['de', 'en'];
+        }
     }
 
     /**
@@ -59,7 +62,8 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
 
         $fieldTypeMetaDataCollection = [];
         foreach ($types as $typeKey => $type) {
-            $fieldTypeMetaDataCollection[] = $this->loadFieldTypeMetadata($typeKey, $type);
+            $a =$this->loadFieldTypeMetadata($typeKey, $type);
+            $fieldTypeMetaDataCollection[$a->getTitle('en')] = $a;
         }
         Assert::notEmpty($fieldTypeMetaDataCollection, 'No field type metadata loaded');
 
@@ -89,13 +93,13 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
     {
         $configCache = $this->getConfigCache($key);
 
-        if (!\file_exists($configCache->getPath())) {
-            return null;
-        }
+        //if (!\file_exists($configCache->getPath())) {
+            //return null;
+        //}
 
-        if (!$configCache->isFresh()) {
+        //if (!$configCache->isFresh()) {
             $this->warmUp($this->cacheDir);
-        }
+        //}
 
         $form = \unserialize(\file_get_contents($configCache->getPath()));
 

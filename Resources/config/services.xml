@@ -57,13 +57,16 @@
         </service>
 
         <!-- Content Types -->
-        <service id="sulu_form.content_type.single_form_selection"
-                 class="Sulu\Bundle\FormBundle\Content\Types\SingleFormSelection">
-            <argument type="service" id="sulu_form.repository.form" />
-            <argument type="service" id="sulu_form.builder" />
-            <argument type="service" id="sulu_form.reference_store.form"/>
+        <service id="sulu_form.content_type.single_form_property_resolver"
+                 class="Sulu\Bundle\FormBundle\Content\PropertyResolver\SingleFormSelectionPropertyResolver">
+            <tag name="sulu_content.property_resolver" />
+        </service>
 
-            <tag name="sulu.content.type" alias="single_form_selection"/>
+        <service id="sulu_form.content_type.form_resource_loader"
+                 class="Sulu\Bundle\FormBundle\Content\ResourceLoader\FormSelectionResourceLoader">
+            <argument type="service" id="sulu_form.repository.form" />
+
+            <tag name="sulu_content.resource_loader" type="sulu_form" />
         </service>
 
         <!-- Form Configuration Factory -->

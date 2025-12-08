@@ -31,6 +31,6 @@ final class SingleFormSelectionPropertyResolver implements PropertyResolverInter
 
     public static function getType(): string
     {
-        return 'SingleFormSelection';
+        return 'single_form_selection';
     }
 }

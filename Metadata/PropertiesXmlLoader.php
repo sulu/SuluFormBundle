@@ -11,8 +11,10 @@
 
 namespace Sulu\Bundle\FormBundle\Metadata;
 
+use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Loader\AbstractLoader;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Parser\PropertiesXmlParser;
+use Webmozart\Assert\Assert;
 
 class PropertiesXmlLoader extends AbstractLoader
 {
@@ -33,15 +35,14 @@ class PropertiesXmlLoader extends AbstractLoader
     /**
      * @param string $resource
      * @param string $type
+     *
+     * @return array<string, FieldMetadata>
      */
     protected function parse($resource, \DOMXPath $xpath, $type): array
     {
-        $propertiesNode = $xpath->query('/x:properties')->item(0);
-        $properties = $this->propertiesXmlParser->load(
-            $xpath,
-            $propertiesNode,
-        );
+        $node = $xpath->query('/x:properties')->item(0);
+        Assert::notNull($node, 'Resource does not contain an <properties> definition: '.$resource);
 
-        return $properties;
+        return $this->propertiesXmlParser->load($xpath, $node);
     }
 }

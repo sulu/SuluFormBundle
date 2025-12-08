@@ -26,7 +26,7 @@ class FormRepository extends EntityRepository
      *
      * @return array<Form>
      */
-    public function loadByIds(int $ids, ?string $locale = null): array
+    public function loadByIds(array $ids, ?string $locale = null): array
     {
         $queryBuilder = $this->createQueryBuilder('form')
             ->leftJoin('form.translations', 'translation')->addSelect('translation')

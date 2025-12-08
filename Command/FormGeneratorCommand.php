@@ -16,29 +16,19 @@ use Doctrine\ORM\NoResultException;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormField;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'sulu:form:generate-form', description: 'Generates an example form with several types of form fields')]
 class FormGeneratorCommand extends Command
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * @var WebspaceManagerInterface
-     */
-    private $webspaceManager;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        WebspaceManagerInterface $webspaceManager
+        private EntityManagerInterface $entityManager,
+        private WebspaceManagerInterface $webspaceManager
     ) {
-        parent::__construct('sulu:form:generate-form');
-        $this->entityManager = $entityManager;
-        $this->webspaceManager = $webspaceManager;
+        parent::__construct();
     }
 
     protected function configure(): void
