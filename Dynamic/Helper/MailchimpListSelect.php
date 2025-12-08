@@ -13,14 +13,8 @@ namespace Sulu\Bundle\FormBundle\Dynamic\Helper;
 
 class MailchimpListSelect
 {
-    /**
-     * @var string
-     */
-    private $apiKey;
-
-    public function __construct(?string $apiKey)
+    public function __construct(private ?string $apiKey)
     {
-        $this->apiKey = $apiKey;
     }
 
     /**

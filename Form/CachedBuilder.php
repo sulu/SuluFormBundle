@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) Sulu GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Form;
 
 use Symfony\Component\Form\FormInterface;
@@ -17,8 +26,7 @@ class CachedBuilder implements BuilderInterface, ResetInterface
     public function __construct(
         private BuilderInterface $inner,
         private RequestStack $requestStack,
-    )
-    {
+    ) {
     }
 
     public function buildByRequest(Request $request): ?FormInterface
@@ -28,7 +36,7 @@ class CachedBuilder implements BuilderInterface, ResetInterface
 
     public function build(int $id, string $type, string $typeId, ?string $locale = null, string $name = 'form'): ?FormInterface
     {
-        if ($locale === null) {
+        if (null === $locale) {
             $locale = $this->requestStack->getCurrentRequest()?->getLocale();
         }
 
@@ -51,5 +59,4 @@ class CachedBuilder implements BuilderInterface, ResetInterface
     {
         $this->cache = [];
     }
-
 }

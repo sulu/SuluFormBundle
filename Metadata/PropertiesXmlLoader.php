@@ -41,7 +41,7 @@ class PropertiesXmlLoader extends AbstractLoader
     protected function parse($resource, \DOMXPath $xpath, $type): array
     {
         $node = $xpath->query('/x:properties')->item(0);
-        Assert::notNull($node, 'Resource does not contain an <properties> definition: '.$resource);
+        Assert::notNull($node, 'Resource does not contain an <properties> definition: ' . $resource);
 
         return $this->propertiesXmlParser->load($xpath, $node);
     }

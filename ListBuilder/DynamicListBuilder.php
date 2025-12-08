@@ -20,25 +20,10 @@ use Symfony\Component\Routing\RouterInterface;
  */
 class DynamicListBuilder implements DynamicListBuilderInterface
 {
-    /**
-     * @var string
-     */
-    private $delimiter;
+    private ?string $downloadUrl = null;
 
-    /**
-     * @var RouterInterface
-     */
-    private $router;
-
-    /**
-     * @var string
-     */
-    private $downloadUrl;
-
-    public function __construct(string $delimiter, RouterInterface $router)
+    public function __construct(private string $delimiter, private RouterInterface $router)
     {
-        $this->delimiter = $delimiter;
-        $this->router = $router;
     }
 
     public function build(Dynamic $dynamic, string $locale): array

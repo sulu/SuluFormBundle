@@ -17,24 +17,21 @@ use Sulu\Bundle\FormBundle\Exception\BuilderNotFoundException;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 
-/**
- * Create FieldDescription from a form entity.
- */
 class DynamicListFactory implements DynamicListFactoryInterface
 {
     /**
-     * @var string
-     */
-    protected $defaultBuilder;
-
-    /**
      * @var array<string, DynamicListBuilderInterface>
      */
-    protected $builders;
+    protected array $builders;
 
-    public function __construct(string $defaultBuilder)
-    {
-        $this->defaultBuilder = $defaultBuilder;
+    /**
+     * @param array<string, DynamicListBuilderInterface> $builders
+     */
+    public function __construct(
+        protected string $defaultBuilder,
+        iterable $builders
+    ) {
+        $this->builders = [...$builders];
     }
 
     public function getFieldDescriptors(Form $form, string $locale): array
@@ -95,18 +92,13 @@ class DynamicListFactory implements DynamicListFactoryInterface
         return $entries;
     }
 
-    public function add(DynamicListBuilderInterface $builder, string $alias): void
-    {
-        $this->builders[$alias] = $builder;
-    }
-
     protected function getBuilder(?string $alias = null): DynamicListBuilderInterface
     {
-        if (!$alias || 'default' === $alias) {
+        if (($alias ?? 'default') === 'default') {
             $alias = $this->defaultBuilder;
         }
 
-        if (!isset($this->builders[$alias])) {
+        if (!\array_key_exists($alias, $this->builders)) {
             throw new BuilderNotFoundException($alias);
         }
 

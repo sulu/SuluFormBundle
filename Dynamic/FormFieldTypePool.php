@@ -31,18 +31,17 @@ final class FormFieldTypePool
 
     public function get(string $type): FormFieldTypeInterface
     {
-        if (array_key_exists($type, $this->types)) {
+        if (\array_key_exists($type, $this->types)) {
             return $this->types[$type];
         }
 
         throw new \InvalidArgumentException(
-            sprintf(
+            \sprintf(
                 'Unknown title provider "%s". Known providers: %s',
                 $type,
-                implode(', ',array_keys($this->types)),
+                \implode(', ', \array_keys($this->types)),
             )
         );
-
     }
 
     /**

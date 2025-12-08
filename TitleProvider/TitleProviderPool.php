@@ -33,15 +33,15 @@ class TitleProviderPool implements TitleProviderPoolInterface
 
     public function get(string $alias): TitleProviderInterface
     {
-        if (array_key_exists($alias, $this->providers)) {
+        if (\array_key_exists($alias, $this->providers)) {
             return $this->providers[$alias];
         }
 
         throw new \InvalidArgumentException(
-            sprintf(
+            \sprintf(
                 'Unknown title provider "%s". Known providers: %s',
                 $alias,
-                implode(', ',array_keys($this->providers)),
+                \implode(', ', \array_keys($this->providers)),
             )
         );
     }

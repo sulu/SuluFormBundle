@@ -34,50 +34,14 @@ class DynamicController implements ClassResourceInterface
 {
     use ControllerTrait;
 
-    /**
-     * @var DynamicRepository
-     */
-    private $dynamicRepository;
-
-    /**
-     * @var DynamicListFactory
-     */
-    private $dynamicListFactory;
-
-    /**
-     * @var MediaManagerInterface
-     */
-    private $mediaManager;
-
-    /**
-     * @var EntityManager
-     */
-    private $entityManager;
-
-    /**
-     * @var FormRepository
-     */
-    private $formRepository;
-
-    /**
-     * @var ViewHandler
-     */
-    private $viewHandler;
-
     public function __construct(
-        DynamicRepository $dynamicRepository,
-        DynamicListFactory $dynamicListFactory,
-        MediaManagerInterface $mediaManager,
-        EntityManager $entityManager,
-        FormRepository $formRepository,
-        ViewHandler $viewHandler
+        private DynamicRepository $dynamicRepository,
+        private DynamicListFactory $dynamicListFactory,
+        private MediaManagerInterface $mediaManager,
+        private EntityManager $entityManager,
+        private FormRepository $formRepository,
+        private ViewHandler $viewHandler
     ) {
-        $this->dynamicRepository = $dynamicRepository;
-        $this->dynamicListFactory = $dynamicListFactory;
-        $this->mediaManager = $mediaManager;
-        $this->entityManager = $entityManager;
-        $this->formRepository = $formRepository;
-        $this->viewHandler = $viewHandler;
     }
 
     /**
@@ -90,12 +54,10 @@ class DynamicController implements ClassResourceInterface
         $page = (int) $request->query->getInt('page', 1);
         $limit = (int) $request->query->getInt('limit');
         $offset = (int) (($page - 1) * $limit);
-        /** @var string $view */
-        $view = $request->query->get('view', 'default');
-        /** @var string $sortOrder */
-        $sortOrder = $request->query->get('sortOrder', 'asc');
-        /** @var string $sortBy */
-        $sortBy = $request->query->get('sortBy', 'created');
+
+        $view = $request->query->getString('view', 'default');
+        $sortOrder = $request->query->getString('sortOrder', 'asc');
+        $sortBy = $request->query->getString('sortBy', 'created');
 
         $entries = $this->dynamicRepository->findByFilters(
             $filters,

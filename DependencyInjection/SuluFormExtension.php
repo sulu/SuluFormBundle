@@ -215,7 +215,6 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         /** @var array<string, class-string> $bundles */
         $bundles = $container->getParameter('kernel.bundles');
 
-
         if (\array_key_exists('SuluTrashBundle', $bundles)) {
             $loader->load('services_trash.xml');
         }

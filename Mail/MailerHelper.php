@@ -12,7 +12,6 @@
 namespace Sulu\Bundle\FormBundle\Mail;
 
 use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
@@ -20,43 +19,13 @@ use Symfony\Component\Mime\Email;
 
 class MailerHelper implements HelperInterface
 {
-    /**
-     * @var MailerInterface
-     */
-    private $mailer;
-
-    /**
-     * @var null|string
-     */
-    private $toMail;
-
-    /**
-     * @var null|string
-     */
-    private $fromMail;
-
-    /**
-     * @var string|null
-     */
-    private $sender;
-
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
-
     public function __construct(
-        MailerInterface $mailer,
-        ?string $fromMail,
-        ?string $toMail,
-        ?string $sender = null,
-        ?LoggerInterface $logger = null
+        private MailerInterface $mailer,
+        private ?string $fromMail,
+        private ?string $toMail,
+        private ?string $sender,
+        private LoggerInterface $logger,
     ) {
-        $this->mailer = $mailer;
-        $this->toMail = $toMail;
-        $this->fromMail = $fromMail;
-        $this->sender = $sender;
-        $this->logger = $logger ?: new NullLogger();
     }
 
     public function sendMail(

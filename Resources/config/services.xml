@@ -88,7 +88,6 @@
             <argument type="service" id="form.factory" />
             <argument type="service" id="sulu_form.checksum" />
             <argument type="service" id="security.csrf.token_manager"/>
-            <argument type="service" id="sulu_core.webspace.request_analyzer" />
             <argument>%sulu_form.csrf_protection%</argument>
         </service>
 
@@ -119,6 +118,8 @@
         <service id="sulu_form.list_builder.dynamic_list_factory"
                  class="Sulu\Bundle\FormBundle\ListBuilder\DynamicListFactory">
             <argument>%sulu_form.dynamic_list_builder.default%</argument>
+
+            <argument type="tagged_iterator" tag="sulu_form.dynamic_list_builder" />
         </service>
 
         <service id="sulu_form.list_builder.dynamic_list_builder"

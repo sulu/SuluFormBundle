@@ -11,7 +11,6 @@
 
 namespace Sulu\Bundle\FormBundle\Repository;
 
-use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use Sulu\Bundle\FormBundle\Entity\Form;

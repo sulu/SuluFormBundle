@@ -15,9 +15,6 @@ use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptor;
 
-/**
- * Create FieldDescription from a form entity.
- */
 interface DynamicListFactoryInterface
 {
     /**
@@ -35,6 +32,4 @@ interface DynamicListFactoryInterface
      * @return string[]
      */
     public function build(array $dynamics, string $locale, string $builder = 'default'): array;
-
-    public function add(DynamicListBuilderInterface $builder, string $alias): void;
 }

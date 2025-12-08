@@ -36,9 +36,6 @@ class DynamicFormType extends AbstractType
     ) {
     }
 
-    /**
-     * @return void
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var Form $formEntity */

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) Sulu GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Bundle\FormBundle\Content\PropertyResolver;
 
 use Sulu\Bundle\FormBundle\Content\ResourceLoader\FormSelectionResourceLoader;
@@ -11,7 +20,7 @@ final class SingleFormSelectionPropertyResolver implements PropertyResolverInter
 {
     public function resolve(mixed $data, string $locale, array $params = []): ContentView
     {
-        if (!is_numeric($data)) {
+        if (!\is_numeric($data)) {
             return ContentView::create(null, ['id' => null, ...$params]);
         }
 

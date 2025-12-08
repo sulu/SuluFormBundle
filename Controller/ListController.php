@@ -25,32 +25,14 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class ListController extends AbstractRestController implements ClassResourceInterface
 {
-    /**
-     * @var RestHelperInterface
-     */
-    private $restHelper;
-
-    /**
-     * @var DoctrineListBuilderFactoryInterface
-     */
-    private $listBuilderFactory;
-
-    /**
-     * @var ListProviderRegistry
-     */
-    private $providerRegistry;
-
     public function __construct(
         ViewHandlerInterface $viewHandler,
         TokenStorageInterface $tokenStorage,
-        RestHelperInterface $restHelper,
-        DoctrineListBuilderFactoryInterface $listBuilderFactory,
-        ListProviderRegistry $providerRegistry
+        private RestHelperInterface $restHelper,
+        private DoctrineListBuilderFactoryInterface $listBuilderFactory,
+        private ListProviderRegistry $providerRegistry
     ) {
         parent::__construct($viewHandler, $tokenStorage);
-        $this->restHelper = $restHelper;
-        $this->listBuilderFactory = $listBuilderFactory;
-        $this->providerRegistry = $providerRegistry;
     }
 
     public function cgetFieldsAction(Request $request): Response

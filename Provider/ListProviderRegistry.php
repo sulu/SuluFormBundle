@@ -23,7 +23,8 @@ class ListProviderRegistry
     /**
      * @param iterable<string, ListProviderInterface> $providers
      */
-    public function __construct(iterable $providers) {
+    public function __construct(iterable $providers)
+    {
         $this->providers = [...$providers];
     }
 

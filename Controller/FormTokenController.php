@@ -17,14 +17,8 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class FormTokenController
 {
-    /**
-     * @var CsrfTokenManagerInterface
-     */
-    private $csrfTokenManager;
-
-    public function __construct(CsrfTokenManagerInterface $csrfTokenManager)
+    public function __construct(private CsrfTokenManagerInterface $csrfTokenManager)
     {
-        $this->csrfTokenManager = $csrfTokenManager;
     }
 
     public function tokenAction(Request $request): Response

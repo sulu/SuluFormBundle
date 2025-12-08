@@ -71,7 +71,7 @@ class FormController extends AbstractRestController implements SecuredController
         $filters = $this->getFilters($request);
 
         // flatted entities
-        if ('true' === $request->get('flat')) {
+        if ($request->query->getBoolean('flat')) {
             // get model class
             /** @var AbstractListBuilder $listBuilder */
             $listBuilder = $this->factory->create($this->getModelClass());

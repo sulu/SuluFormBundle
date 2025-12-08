@@ -19,7 +19,6 @@ use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Form\Type\DynamicFormType;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
-use Sulu\Component\Webspace\Analyzer\RequestAnalyzerInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,7 +39,6 @@ class Builder implements BuilderInterface
         private FormFactory $formFactory,
         private Checksum $checksum,
         private CsrfTokenManagerInterface $csrfTokenManager,
-        private RequestAnalyzerInterface $requestAnalyser,
         private bool $csrfProtection = false
     ) {
     }
@@ -133,8 +131,7 @@ class Builder implements BuilderInterface
         string $locale,
         Form $formEntity,
         string $webspaceKey,
-    ): FormInterface
-    {
+    ): FormInterface {
         $defaults = $this->getDefaults($formEntity, $locale);
         $typeName = $this->titleProviderPool->get($type)->getTitle($typeId, $locale);
 
@@ -170,7 +167,7 @@ class Builder implements BuilderInterface
         $formEntity = $this->formRepository->loadById($id, $locale);
         $translation = $formEntity?->getTranslation($locale);
 
-        if ($translation === null) {
+        if (null === $translation) {
             // No translation for this locale exists
             return null;
         }
