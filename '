@@ -14,12 +14,11 @@ namespace Sulu\Bundle\FormBundle\Tests\Functional\Metadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\SectionMetadata;
-use Sulu\Bundle\FormBundle\Metadata\DynamicFormMetadataLoader;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 
 class DynamicFormMetadataLoaderTest extends SuluTestCase
 {
-    private DynamicFormMetadataLoader $dynamicFormMetadataLoader;
+    private $dynamicFormMetadataLoader;
 
     protected function setUp(): void
     {
@@ -45,7 +44,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->assertContains('fields', \array_keys($formFields->getItems()));
         $this->assertEquals('section', $formFields->getType());
         $this->assertEquals('formFields', $formFields->getName());
-        $this->assertEquals('Form Fields', $formFields->getLabel('en'));
+        $this->assertEquals('Form Fields', $formFields->getLabel());
 
         $fields = $formFields->getItems()['fields'];
         $this->assertInstanceOf(FieldMetadata::class, $fields);
@@ -104,7 +103,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->assertContains('fields', \array_keys($formFields->getItems()));
         $this->assertEquals('section', $formFields->getType());
         $this->assertEquals('formFields', $formFields->getName());
-        $this->assertEquals('Formular Felder', $formFields->getLabel('de'));
+        $this->assertEquals('Formular Felder', $formFields->getLabel());
 
         $fields = $formFields->getItems()['fields'];
         $this->assertInstanceOf(FieldMetadata::class, $fields);
@@ -151,12 +150,12 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->assertInstanceOf(FormMetadata::class, $formMetadata);
         $this->assertEquals('form_details', $formMetadata->getKey());
         $this->assertCount(5, $formMetadata->getItems());
-        $this->assertEquals('Title', $formMetadata->getItems()['title']->getLabel('en'));
-        $this->assertEquals('Form Fields', $formMetadata->getItems()['formFields']->getLabel('en'));
+        $this->assertEquals('Title', $formMetadata->getItems()['title']->getLabel());
+        $this->assertEquals('Form Fields', $formMetadata->getItems()['formFields']->getLabel());
         $this->assertEquals('Website Configuration', $formMetadata->getItems()['websiteConfiguration']
-            ->getLabel('en'));
-        $this->assertEquals('E-Mail Configuration', $formMetadata->getItems()['emailConfiguration']->getLabel('en'));
-        $this->assertEquals('Receivers', $formMetadata->getItems()['receivers']->getLabel('en'));
+            ->getLabel());
+        $this->assertEquals('E-Mail Configuration', $formMetadata->getItems()['emailConfiguration']->getLabel());
+        $this->assertEquals('Receivers', $formMetadata->getItems()['receivers']->getLabel());
     }
 
     public function testGetMetadataLabelsGerman(): void
@@ -166,12 +165,12 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->assertInstanceOf(FormMetadata::class, $formMetadata);
         $this->assertEquals('form_details', $formMetadata->getKey());
         $this->assertCount(5, $formMetadata->getItems());
-        $this->assertEquals('Titel', $formMetadata->getItems()['title']->getLabel('de'));
-        $this->assertEquals('Formular Felder', $formMetadata->getItems()['formFields']->getLabel('de'));
+        $this->assertEquals('Titel', $formMetadata->getItems()['title']->getLabel());
+        $this->assertEquals('Formular Felder', $formMetadata->getItems()['formFields']->getLabel());
         $this->assertEquals('Website Konfiguration', $formMetadata->getItems()['websiteConfiguration']
-            ->getLabel('de'));
-        $this->assertEquals('E-Mail Konfiguration', $formMetadata->getItems()['emailConfiguration']->getLabel('de'));
-        $this->assertEquals('Empfänger', $formMetadata->getItems()['receivers']->getLabel('de'));
+            ->getLabel());
+        $this->assertEquals('E-Mail Konfiguration', $formMetadata->getItems()['emailConfiguration']->getLabel());
+        $this->assertEquals('Empfänger', $formMetadata->getItems()['receivers']->getLabel());
     }
 
     public function testGetMetadataAttachmentEnglish(): void
@@ -283,14 +282,20 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
             $attachment->getItems()['shortTitle']->getDescription()
         );
 
-        $this->arrayHasKey('options/type', $attachment->getItems());
-        $this->assertEquals('Dateitypen beschränken', $attachment->getItems()['options/type']->getLabel('de'));
-        $this->assertEquals('select', $attachment->getItems()['options/type']->getType());
-        $this->assertEquals('Bei keiner Auswahl sind alle Dateitypen möglich.', $attachment->
-        getItems()['options/type']
-            ->getDescription());
+        self::assertProperty($attachment->getItems(), 'options/type', 'Dateitypen beschränken', 'select', 'de');
+        $this->assertEquals(
+            'Bei keiner Auswahl sind alle Dateitypen möglich.',
+            $attachment-> getItems()['options/type'] ->getDescription(),
+        );
 
         $this->arrayHasKey('options/max', $attachment->getItems());
         $this->assertEquals('Maximale Anzahl', $attachment->getItems()['options/max']->getLabel('de'));
+    }
+
+    private function assertProperty(array $data, string $propertyName, string $label, string $type, string $locale): void {
+        $this->arrayHasKey($propertyName, $data);
+        $this->assertEquals($label, $data[$propertyName]->getLabel($locale));
+        $this->assertEquals($type, $data[$propertyName]->getType());
+
     }
 }

@@ -62,10 +62,14 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
 
         $fieldTypeMetaDataCollection = [];
         foreach ($types as $typeKey => $type) {
-            $a = $this->loadFieldTypeMetadata($typeKey, $type);
-            $fieldTypeMetaDataCollection[$a->getTitle('en')] = $a;
+            $fieldTypeMetaDataCollection[] = $this->loadFieldTypeMetadata($typeKey, $type);
         }
         Assert::notEmpty($fieldTypeMetaDataCollection, 'No field type metadata loaded');
+
+        // Sorting the fields alphabetically by their English names
+        \usort($fieldTypeMetaDataCollection, static function(FormMetadata $a, FormMetadata $b): int {
+            return \strcmp($a->getTitle('en'), $b->getTitle('en'));
+        });
 
         foreach ($fieldTypeMetaDataCollection as $fieldTypeMetaData) {
             $fields->addType($fieldTypeMetaData);

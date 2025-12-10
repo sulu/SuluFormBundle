@@ -226,7 +226,7 @@ final class FormTrashItemHandler implements
             $translation->setDeactivateNotifyMails($translationData['deactivateNotifyMails']);
             $translation->setDeactivateCustomerMails($translationData['deactivateCustomerMails']);
             $translation->setReplyTo($translationData['replyTo']);
-            $translation->setCreated(new \DateTime($translationData['created']));
+            $translation->setCreated(new \DateTimeImmutable($translationData['created']));
             $translation->setCreator($this->findEntity(UserInterface::class, $translationData['creatorId']));
 
             foreach ($translationData['receivers'] as $receiverData) {

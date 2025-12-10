@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\Tests\Unit\Mail;
+namespace Sulu\Bundle\FormBundle\Tests\Unit\Mailer;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Log\LoggerInterface;
-use Sulu\Bundle\FormBundle\Mail\MailerHelper;
+use Sulu\Bundle\FormBundle\Mailer\FormDataMailer;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Mailer\MailerInterface;
@@ -23,17 +23,13 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
 /**
- * Class MailerHelperTest
  * This tests the MailerHelper class that sends an email using the symfony mailer component.
  */
-class MailerHelperTest extends TestCase
+class FormDataMailerTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @var MailerHelper
-     */
-    private $mailerHelper;
+    private FormDataMailer $formDataMailer;
 
     /**
      * @var ObjectProphecy|MailerInterface
@@ -50,7 +46,7 @@ class MailerHelperTest extends TestCase
         $this->mailerMock = $this->prophesize(MailerInterface::class);
         $this->loggerMock = $this->prophesize(LoggerInterface::class);
 
-        $this->mailerHelper = new MailerHelper(
+        $this->formDataMailer = new FormDataMailer(
             $this->mailerMock->reveal(),
             'from@example.org',
             'to@example.org',
@@ -60,21 +56,11 @@ class MailerHelperTest extends TestCase
     }
 
     /**
-     * Ensure that the setup actually constructed the mail helper.
-     *
-     * This is useful when the constructor signature changes and this test fails
-     */
-    public function testConstructs()
-    {
-        $this->assertNotNull($this->mailerHelper);
-    }
-
-    /**
      * Send the most Basic mail, just a html text with a subject.
      *
      * This should send a html message to the addresses given in the constructor.
      */
-    public function testSendMailSendsMinimalMessageWithConstructorAdresses()
+    public function testSendMailSendsMinimalMessageWithConstructorAdresses(): void
     {
         $mail = new Email();
         $mail->html('<html><head></head><body>text body</body></html>')
@@ -100,7 +86,7 @@ class MailerHelperTest extends TestCase
             null
         ))->shouldBeCalled();
 
-        $this->mailerHelper->sendMail(
+        $this->formDataMailer->sendMail(
             'test subject',
             '<html><head></head><body>text body</body></html>'
         );
@@ -109,7 +95,7 @@ class MailerHelperTest extends TestCase
     /**
      * Send mail to addresses and from an address, just plain text.
      */
-    public function testSendMailSendsWithPlainTextAndNamedAddresses()
+    public function testSendMailSendsWithPlainTextAndNamedAddresses(): void
     {
         $mail = new Email();
         $mail->text('plain text body.')
@@ -120,7 +106,7 @@ class MailerHelperTest extends TestCase
 
         $this->mailerMock->send($mail)->shouldBeCalled();
 
-        $this->mailerHelper->sendMail(
+        $this->formDataMailer->sendMail(
             'test subject',
             'plain text body.',
             ['to@example.org' => 'To Email'],
@@ -135,7 +121,7 @@ class MailerHelperTest extends TestCase
      * Normal files should have filesystem names
      * Uploaded Files should have the original filename
      */
-    public function testSendMailSendsMailWithAttachments()
+    public function testSendMailSendsMailWithAttachments(): void
     {
         $mail = new Email();
         $mail->html('<h1>html text body.</h1>')
@@ -149,7 +135,7 @@ class MailerHelperTest extends TestCase
 
         $this->mailerMock->send($mail)->shouldBeCalled();
 
-        $this->mailerHelper->sendMail(
+        $this->formDataMailer->sendMail(
             'test subject',
             '<h1>html text body.</h1>',
             null,
@@ -170,7 +156,7 @@ class MailerHelperTest extends TestCase
      * html message should be used.
      * multiple cc's can be set.
      */
-    public function testSendMailSendsMailWithoutAttachments()
+    public function testSendMailSendsMailWithoutAttachments(): void
     {
         $mail = new Email();
         $mail->html('<h1>html text body.</h1>')
@@ -189,7 +175,7 @@ class MailerHelperTest extends TestCase
 
         $this->mailerMock->send($mail)->shouldBeCalled();
 
-        $this->mailerHelper->sendMail(
+        $this->formDataMailer->sendMail(
             'test subject',
             '<h1>html text body.</h1>',
             ['to@example.org' => 'To Email'],
