@@ -11,14 +11,15 @@
 
 namespace Sulu\Bundle\FormBundle\Tests\Functional\Metadata;
 
-use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
-use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadata;
-use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\SectionMetadata;
+use Coduo\PHPMatcher\PHPUnit\PHPMatcherAssertions;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Sulu\Bundle\FormBundle\Metadata\DynamicFormMetadataLoader;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 
 class DynamicFormMetadataLoaderTest extends SuluTestCase
 {
+    use PHPMatcherAssertions;
+
     private DynamicFormMetadataLoader $dynamicFormMetadataLoader;
 
     protected function setUp(): void
@@ -26,271 +27,26 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->dynamicFormMetadataLoader = $this->getContainer()->get('sulu_form_test.dynamic_form_metadata_loader');
     }
 
-    public function testGetMetadataEnglish(): void
+    #[DataProvider('dataLocale')]
+    public function testGetMetadata(string $locale): void
     {
         $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'en');
 
-        $this->assertInstanceOf(FormMetadata::class, $formMetadata);
-        $this->assertEquals('form_details', $formMetadata->getKey());
-        $this->assertCount(5, $formMetadata->getItems());
-        $this->assertContains('title', \array_keys($formMetadata->getItems()));
-        $this->assertContains('formFields', \array_keys($formMetadata->getItems()));
-        $this->assertContains('websiteConfiguration', \array_keys($formMetadata->getItems()));
-        $this->assertContains('emailConfiguration', \array_keys($formMetadata->getItems()));
-        $this->assertContains('receivers', \array_keys($formMetadata->getItems()));
+        $snapshotFilePath = sprintf(__DIR__.'/snapshots/%s.json', $locale);
+        $content = self::getContainer()->get('serializer')->serialize($formMetadata, 'json');
 
-        $formFields = $formMetadata->getItems()['formFields'];
-        $this->assertInstanceOf(SectionMetadata::class, $formFields);
-        $this->assertCount(1, $formFields->getItems());
-        $this->assertContains('fields', \array_keys($formFields->getItems()));
-        $this->assertEquals('section', $formFields->getType());
-        $this->assertEquals('formFields', $formFields->getName());
-        $this->assertEquals('Form Fields', $formFields->getLabel('en'));
+        $this->assertFileExists($snapshotFilePath, 'Unable to find snapshot file: ' . $snapshotFilePath);
+        $snapshotPattern = \file_get_contents($snapshotFilePath);
+        $this->assertIsString($snapshotPattern, 'Unable to open snapshot file: ' . $snapshotFilePath);
 
-        $fields = $formFields->getItems()['fields'];
-        $this->assertInstanceOf(FieldMetadata::class, $fields);
-        $this->assertCount(28, $fields->getTypes());
-        $this->assertEquals('fields', $fields->getName());
-        $this->assertEquals('block', $fields->getType());
-        $this->assertEquals('attachment', $fields->getDefaultType());
-        $this->assertEquals([
-            'attachment',
-            'recaptcha',
-            'checkbox',
-            'checkboxMultiple',
-            'city',
-            'company',
-            'country',
-            'date',
-            'email',
-            'fax',
-            'firstName',
-            'freeText',
-            'function',
-            'headline',
-            'hidden',
-            'lastName',
-            'textarea',
-            'phone',
-            'radioButtons',
-            'salutation',
-            'dropdown',
-            'dropdownMultiple',
-            'text',
-            'spacer',
-            'state',
-            'street',
-            'title',
-            'zip',
-        ], \array_keys($fields->getTypes()));
+        $this->assertMatchesPattern(\trim($snapshotPattern), \trim($content));
     }
 
-    public function testGetMetadataGerman(): void
-    {
-        $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'de');
-
-        $this->assertInstanceOf(FormMetadata::class, $formMetadata);
-        $this->assertEquals('form_details', $formMetadata->getKey());
-        $this->assertCount(5, $formMetadata->getItems());
-        $this->assertContains('title', \array_keys($formMetadata->getItems()));
-        $this->assertContains('formFields', \array_keys($formMetadata->getItems()));
-        $this->assertContains('websiteConfiguration', \array_keys($formMetadata->getItems()));
-        $this->assertContains('emailConfiguration', \array_keys($formMetadata->getItems()));
-        $this->assertContains('receivers', \array_keys($formMetadata->getItems()));
-
-        $formFields = $formMetadata->getItems()['formFields'];
-        $this->assertInstanceOf(SectionMetadata::class, $formFields);
-        $this->assertCount(1, $formFields->getItems());
-        $this->assertContains('fields', \array_keys($formFields->getItems()));
-        $this->assertEquals('section', $formFields->getType());
-        $this->assertEquals('formFields', $formFields->getName());
-        $this->assertEquals('Formular Felder', $formFields->getLabel('de'));
-
-        $fields = $formFields->getItems()['fields'];
-        $this->assertInstanceOf(FieldMetadata::class, $fields);
-        $this->assertCount(28, $fields->getTypes());
-        $this->assertEquals('fields', $fields->getName());
-        $this->assertEquals('block', $fields->getType());
-        $this->assertEquals('attachment', $fields->getDefaultType());
-        $this->assertEquals([
-            'attachment',
-            'salutation',
-            'state',
-            'recaptcha',
-            'checkbox',
-            'checkboxMultiple',
-            'date',
-            'dropdown',
-            'dropdownMultiple',
-            'email',
-            'text',
-            'fax',
-            'company',
-            'freeText',
-            'function',
-            'hidden',
-            'country',
-            'spacer',
-            'textarea',
-            'lastName',
-            'zip',
-            'radioButtons',
-            'city',
-            'street',
-            'phone',
-            'title',
-            'firstName',
-            'headline',
-        ], \array_keys($fields->getTypes()));
-    }
-
-    public function testGetMetadataLabelsEnglish(): void
-    {
-        $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'en');
-
-        $this->assertInstanceOf(FormMetadata::class, $formMetadata);
-        $this->assertEquals('form_details', $formMetadata->getKey());
-        $this->assertCount(5, $formMetadata->getItems());
-        $this->assertEquals('Title', $formMetadata->getItems()['title']->getLabel('en'));
-        $this->assertEquals('Form Fields', $formMetadata->getItems()['formFields']->getLabel('en'));
-        $this->assertEquals('Website Configuration', $formMetadata->getItems()['websiteConfiguration']
-            ->getLabel('en'));
-        $this->assertEquals('E-Mail Configuration', $formMetadata->getItems()['emailConfiguration']->getLabel('en'));
-        $this->assertEquals('Receivers', $formMetadata->getItems()['receivers']->getLabel('en'));
-    }
-
-    public function testGetMetadataLabelsGerman(): void
-    {
-        $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'de');
-
-        $this->assertInstanceOf(FormMetadata::class, $formMetadata);
-        $this->assertEquals('form_details', $formMetadata->getKey());
-        $this->assertCount(5, $formMetadata->getItems());
-        $this->assertEquals('Titel', $formMetadata->getItems()['title']->getLabel('de'));
-        $this->assertEquals('Formular Felder', $formMetadata->getItems()['formFields']->getLabel('de'));
-        $this->assertEquals('Website Konfiguration', $formMetadata->getItems()['websiteConfiguration']
-            ->getLabel('de'));
-        $this->assertEquals('E-Mail Konfiguration', $formMetadata->getItems()['emailConfiguration']->getLabel('de'));
-        $this->assertEquals('Empfänger', $formMetadata->getItems()['receivers']->getLabel('de'));
-    }
-
-    public function testGetMetadataAttachmentEnglish(): void
-    {
-        $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'en');
-
-        $this->assertInstanceOf(FormMetadata::class, $formMetadata);
-        $this->assertCount(5, $formMetadata->getItems());
-
-        $formFields = $formMetadata->getItems()['formFields'];
-        $this->assertInstanceOf(SectionMetadata::class, $formFields);
-        $this->assertCount(1, $formFields->getItems());
-
-        $fields = $formFields->getItems()['fields'];
-        $this->assertInstanceOf(FieldMetadata::class, $fields);
-        $this->assertCount(28, $fields->getTypes());
-
-        $attachment = $fields->getTypes()['attachment'];
-        $this->assertInstanceOf(FormMetadata::class, $attachment);
-        $this->assertEquals('attachment', $attachment->getKey());
-        $this->assertEquals('Attachment', $attachment->getTitle('en'));
-        $this->assertCount(6, $attachment->getItems());
-
-        $this->arrayHasKey('required', $attachment->getItems());
-        $this->assertEquals('Required field', $attachment->getItems()['required']->getLabel('en'));
-        $this->assertEquals('checkbox', $attachment->getItems()['required']->getType());
-        $this->assertEquals(6, $attachment->getItems()['required']->getColspan());
-
-        $this->arrayHasKey('width', $attachment->getItems());
-        $this->assertEquals('Width', $attachment->getItems()['width']->getLabel('en'));
-        $this->assertEquals('single_select', $attachment->getItems()['width']->getType());
-        $this->assertEquals(6, $attachment->getItems()['width']->getColspan());
-        $this->assertCount(3, $attachment->getItems()['width']->getOptions());
-        $this->arrayHasKey('label', $attachment->getItems()['width']->getOptions());
-        $this->arrayHasKey('default_value', $attachment->getItems()['width']->getOptions());
-        $this->arrayHasKey('values', $attachment->getItems()['width']->getOptions());
-        $this->assertCount(8, $attachment->getItems()['width']->getOptions()['values']->getValue());
-
-        $this->arrayHasKey('title', $attachment->getItems());
-        $this->assertEquals('Title', $attachment->getItems()['title']->getLabel('en'));
-        $this->assertEquals('text_editor', $attachment->getItems()['title']->getType());
-        $this->assertEquals(12, $attachment->getItems()['title']->getColspan());
-
-        $this->arrayHasKey('shortTitle', $attachment->getItems());
-        $this->assertEquals('Short title', $attachment->getItems()['shortTitle']->getLabel('en'));
-        $this->assertEquals('text_line', $attachment->getItems()['shortTitle']->getType());
-        $this->assertEquals(12, $attachment->getItems()['shortTitle']->getColspan());
-        $this->assertEquals(
-            'Optional title of field, for example in notification mail.',
-            $attachment->getItems()['shortTitle']->getDescription()
-        );
-
-        $this->arrayHasKey('options/type', $attachment->getItems());
-        $this->assertEquals('Restrict file types', $attachment->getItems()['options/type']->getLabel('en'));
-        $this->assertEquals('select', $attachment->getItems()['options/type']->getType());
-        $this->assertEquals('No choice will allow all file types.', $attachment->getItems()['options/type']
-            ->getDescription());
-        $this->assertEquals(6, $attachment->getItems()['options/type']->getColspan());
-        $this->assertCount(1, $attachment->getItems()['options/type']->getOptions());
-        $this->arrayHasKey('values', $attachment->getItems()['options/type']->getOptions());
-        $this->assertCount(3, $attachment->getItems()['options/type']->getOptions()['values']->getValue());
-
-        $this->arrayHasKey('options/max', $attachment->getItems());
-        $this->assertEquals('Maximum amount', $attachment->getItems()['options/max']->getLabel('en'));
-        $this->assertEquals('number', $attachment->getItems()['options/max']->getType());
-        $this->assertEquals(6, $attachment->getItems()['options/max']->getColspan());
-
-        $this->assertTrue(\property_exists($attachment, 'schema'));
-        $this->assertTrue(\property_exists($attachment, 'key'));
-    }
-
-    public function testGetMetadataAttachmentGerman(): void
-    {
-        $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'de');
-
-        $this->assertInstanceOf(FormMetadata::class, $formMetadata);
-        $this->assertCount(5, $formMetadata->getItems());
-
-        $formFields = $formMetadata->getItems()['formFields'];
-        $this->assertInstanceOf(SectionMetadata::class, $formFields);
-        $this->assertCount(1, $formFields->getItems());
-
-        $fields = $formFields->getItems()['fields'];
-        $this->assertInstanceOf(FieldMetadata::class, $fields);
-        $this->assertCount(28, $fields->getTypes());
-
-        $attachment = $fields->getTypes()['attachment'];
-        $this->assertInstanceOf(FormMetadata::class, $attachment);
-        $this->assertEquals('attachment', $attachment->getKey());
-        $this->assertEquals('Anhang', $attachment->getTitle('de'));
-
-        $this->arrayHasKey('required', $attachment->getItems());
-        $this->assertEquals('Pflichtfeld', $attachment->getItems()['required']->getLabel('de'));
-        $this->assertEquals('checkbox', $attachment->getItems()['required']->getType());
-
-        $this->arrayHasKey('width', $attachment->getItems());
-        $this->assertEquals('Breite', $attachment->getItems()['width']->getLabel('de'));
-        $this->assertEquals('single_select', $attachment->getItems()['width']->getType());
-
-        $this->arrayHasKey('title', $attachment->getItems());
-        $this->assertEquals('Titel', $attachment->getItems()['title']->getLabel('de'));
-        $this->assertEquals('text_editor', $attachment->getItems()['title']->getType());
-
-        $this->arrayHasKey('shortTitle', $attachment->getItems());
-        $this->assertEquals('Kurztitel', $attachment->getItems()['shortTitle']->getLabel('de'));
-        $this->assertEquals('text_line', $attachment->getItems()['shortTitle']->getType());
-        $this->assertEquals(
-            'Optionaler Titel des Feldes, z.B. in der Benachrichtigungs-Email.',
-            $attachment->getItems()['shortTitle']->getDescription()
-        );
-
-        $this->arrayHasKey('options/type', $attachment->getItems());
-        $this->assertEquals('Dateitypen beschränken', $attachment->getItems()['options/type']->getLabel('de'));
-        $this->assertEquals('select', $attachment->getItems()['options/type']->getType());
-        $this->assertEquals('Bei keiner Auswahl sind alle Dateitypen möglich.', $attachment->
-        getItems()['options/type']
-            ->getDescription());
-
-        $this->arrayHasKey('options/max', $attachment->getItems());
-        $this->assertEquals('Maximale Anzahl', $attachment->getItems()['options/max']->getLabel('de'));
+    /** @return array<array{string}> */
+    public function dataLocale(): array {
+        return [
+            'german' => ['de'],
+            'english' => ['en'],
+        ];
     }
 }

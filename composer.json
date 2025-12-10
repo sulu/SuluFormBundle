@@ -35,6 +35,7 @@
         "twig/twig": "^2.13 || ^3.0"
     },
     "require-dev": {
+        "coduo/php-matcher": "^6.0",
         "doctrine/data-fixtures": "^1.4 || ^2.0",
         "doctrine/doctrine-bundle": "^2.6",
         "drewm/mailchimp-api": "^2.2",

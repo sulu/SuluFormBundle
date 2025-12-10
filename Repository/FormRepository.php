@@ -61,7 +61,7 @@ class FormRepository extends EntityRepository
     }
 
     /**
-     * @param mixed[] $filters
+     * @param array{limit ?: int, offset ?:int} $filters
      *
      * @return Form[]
      */
