@@ -15,7 +15,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Tests\Functional\Mail\Fixtures\LoadFormFixture;
-use Sulu\Bundle\FormBundle\Tests\Application\MailerKernel;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
@@ -27,8 +26,6 @@ class FormDataMailerTest extends SuluTestCase
 
     protected function setUp(): void
     {
-        static::$class = MailerKernel::class;
-
         $this->client = $this->createWebsiteClient();
         $this->purgeDatabase();
         $this->entityManager = $this->getEntityManager();
@@ -42,9 +39,6 @@ class FormDataMailerTest extends SuluTestCase
 
     public function testSendsEmailUsingMailerComponent(): void
     {
-        $this->assertIsObject(static::$kernel);
-        $this->assertSame(MailerKernel::class, \get_class(static::$kernel));
-
         $formTranslationRepository = $this->entityManager->getRepository(FormTranslation::class);
 
         /** @var FormTranslation $formTranslation */
