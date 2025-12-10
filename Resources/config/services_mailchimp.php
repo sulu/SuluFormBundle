@@ -13,7 +13,6 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function(ContainerConfigurator $container) {
     $services = $container->services();
-    $parameters = $container->parameters();
 
     $services->set('sulu_form.subscriber.mailchimp_list_subscriber', Sulu\Bundle\FormBundle\Event\MailchimpListSubscriber::class)
         ->args([

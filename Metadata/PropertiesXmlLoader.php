@@ -27,7 +27,7 @@ class PropertiesXmlLoader extends AbstractLoader
     public const SCHEMA_NAMESPACE_URI = 'http://schemas.sulu.io/template/template';
 
     public function __construct(
-        privated PropertiesXmlParser $propertiesXmlParser
+        private PropertiesXmlParser $propertiesXmlParser
     ) {
         $this->propertiesXmlParser = $propertiesXmlParser;
         parent::__construct(

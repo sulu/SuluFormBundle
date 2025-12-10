@@ -15,7 +15,6 @@ use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function(ContainerConfigurator $container) {
     $services = $container->services();
-    $parameters = $container->parameters();
 
     $services->set('sulu_form.subscriber.sendinblue_list_subscriber', Sulu\Bundle\FormBundle\Event\SendinblueListSubscriber::class)
         ->args([

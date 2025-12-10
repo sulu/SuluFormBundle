@@ -12,10 +12,12 @@
 namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Sulu\Bundle\FormBundle\Controller\FormTokenController;
+use Sulu\Bundle\FormBundle\Dynamic\Types\RecaptchaType;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -186,7 +188,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                 throw new \LogicException('You need to install the "sendinblue/api-v3-sdk" package to use the sendinblue type.');
             }
 
-            $loader->load('services/type_sendinblue.php');
+            $loader->load('services_sendinblue.php');
         }
 
         if ($config['mailchimp_api_key']) {
@@ -194,7 +196,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                 throw new \LogicException('You need to install the "drewm/mailchimp-api" package to use the mailchimp type.');
             }
 
-            $loader->load('services/type_mailchimp.php');
+            $loader->load('services_mailchimp.php');
         }
 
         /** @var array<string, class-string> $bundles */
@@ -205,7 +207,10 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         }
 
         if (\class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class)) {
-            $loader->load('services/type_recaptcha.php');
+            $container->setDefinition(
+                'sulu_form.dynamic.type_recaptcha',
+                (new Definition(RecaptchaType::class))->addTag('sulu_form.dynamic.type', ['alias' => 'recaptcha']),
+            );
         }
 
         if ($config['media']['protected']) {
