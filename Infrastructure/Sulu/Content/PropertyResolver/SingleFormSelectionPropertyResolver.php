@@ -24,9 +24,10 @@ class SingleFormSelectionPropertyResolver implements PropertyResolverInterface
             return ContentView::create(null, ['id' => null, ...$params]);
         }
 
+        /** @var string $resourceLoaderKey */
         $resourceLoaderKey = $params['resourceLoader'] ?? FormResourceLoader::getKey();
 
-        $callback = static function (Form $form) use ($locale): array {
+        $callback = static function(Form $form) use ($locale): array {
             return [
                 'entity' => $form,
                 'data' => $form->serializeForLocale($locale),

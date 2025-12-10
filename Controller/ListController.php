@@ -11,19 +11,18 @@
 
 namespace Sulu\Bundle\FormBundle\Controller;
 
-use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Bundle\FormBundle\Provider\ListProviderRegistry;
 use Sulu\Component\Rest\AbstractRestController;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RestHelperInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class ListController extends AbstractRestController implements ClassResourceInterface
+class ListController extends AbstractRestController
 {
     /**
      * @var RestHelperInterface
@@ -71,12 +70,12 @@ class ListController extends AbstractRestController implements ClassResourceInte
 
     public function cgetAction(Request $request): Response
     {
-        $template = $request->get('template');
-        $webspace = $request->get('webspace');
-        $locale = $request->get('locale');
-        $uuid = $request->get('uuid');
+        $template = $request->query->getString('template');
+        $webspace = $request->query->getString('webspace');
+        $locale = $request->query->getString('locale');
+        $uuid = $request->query->getString('uuid');
 
-        if (!$template) {
+        if ('' === $template) {
             throw new NotFoundHttpException('"template" is required parameter');
         }
 
@@ -84,6 +83,7 @@ class ListController extends AbstractRestController implements ClassResourceInte
         $entityName = $this->providerRegistry->getEntityName($template, $webspace, $locale, $uuid);
 
         // get model class
+        /** @var class-string $entityName */
         $listBuilder = $this->listBuilderFactory->create($entityName);
 
         // add filters
@@ -106,14 +106,12 @@ class ListController extends AbstractRestController implements ClassResourceInte
         // get pagination
         $total = $listBuilder->count();
         $page = $listBuilder->getCurrentPage();
-        $limit = $listBuilder->getLimit();
+        $limit = $listBuilder->getLimit() ?? 10;
 
         // create list representation
-        $representation = new ListRepresentation(
+        $representation = new PaginatedRepresentation(
             $list,
             'entries',
-            $request->get('_route'),
-            $request->query->all(),
             $page,
             $limit,
             $total

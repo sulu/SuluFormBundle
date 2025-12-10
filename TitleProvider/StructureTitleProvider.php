@@ -48,7 +48,8 @@ class StructureTitleProvider implements TitleProviderInterface
         }
 
         $templateData = $object->getTemplateData();
+        $title = $templateData['title'] ?? null;
 
-        return $templateData['title'] ?? null;
+        return \is_string($title) ? $title : null;
     }
 }

@@ -61,8 +61,13 @@ class FormTwigExtension extends AbstractExtension
             return null;
         }
 
+        $formId = $form->getId();
+        if (null === $formId) {
+            return null;
+        }
+
         $builtForm = $this->formBuilder->build(
-            $form->getId(),
+            $formId,
             $type,
             $typeId,
             $locale,

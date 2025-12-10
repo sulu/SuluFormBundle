@@ -25,7 +25,8 @@ class FormResourceLoader implements ResourceLoaderInterface
 
     public function load(array $ids, ?string $locale, array $params = []): array
     {
-        $result = $this->formRepository->loadByIds($ids, $locale);
+        $intIds = \array_map(static fn ($id) => (int) $id, $ids);
+        $result = $this->formRepository->loadByIds($intIds, $locale);
 
         $mappedResult = [];
         foreach ($result as $form) {

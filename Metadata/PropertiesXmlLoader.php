@@ -14,6 +14,7 @@ namespace Sulu\Bundle\FormBundle\Metadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Loader\AbstractLoader;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Parser\PropertiesXmlParser;
+use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\SectionMetadata;
 use Webmozart\Assert\Assert;
 
 /**
@@ -35,7 +36,7 @@ class PropertiesXmlLoader extends AbstractLoader
     }
 
     /**
-     * @return array<FieldMetadata>
+     * @return array<FieldMetadata|SectionMetadata>
      */
     protected function parse(string $resource, \DOMXPath $xpath, ?string $type): array
     {

@@ -73,6 +73,7 @@ class AttachmentType implements FormFieldTypeInterface
         }
 
         // File Constraint.
+        /* @phpstan-ignore argument.type */
         $options['constraints'][] = new All(['constraints' => $allConstraints]);
 
         // Max File Constraint.

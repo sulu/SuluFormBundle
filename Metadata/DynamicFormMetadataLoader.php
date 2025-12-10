@@ -14,6 +14,7 @@ namespace Sulu\Bundle\FormBundle\Metadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadataLoaderInterface;
+use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\ItemMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Loader\FormXmlLoader;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\SectionMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\MetadataInterface;
@@ -108,6 +109,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
 
         $configuration = $type->getConfiguration();
 
+        /** @var array<ItemMetadata> $properties */
         $properties = $this->propertiesXmlLoader->load($configuration->getXmlPath());
 
         foreach ($properties as $property) {

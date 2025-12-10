@@ -115,7 +115,7 @@ class FormManager
             $newFormTranslation->setDeactivateNotifyMails($translation->getDeactivateNotifyMails());
             $newFormTranslation->setDeactivateCustomerMails($translation->getDeactivateCustomerMails());
             $newFormTranslation->setReplyTo($translation->getReplyTo());
-            $newFormTranslation->setChanged(new \DateTime());
+            $newFormTranslation->setChanged(new \DateTimeImmutable());
             $newFormTranslation->setForm($newForm);
             $newForm->addTranslation($newFormTranslation);
 

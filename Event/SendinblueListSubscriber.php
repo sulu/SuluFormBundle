@@ -168,13 +168,14 @@ class SendinblueListSubscriber implements EventSubscriberInterface
         }
 
         $linkProvider = $this->linkProviderPool->getProvider($redirectLink['provider']);
-        $linkItems = $linkProvider->preload([$redirectLink['href']], $redirectLink['locale'], true);
+        $linkItems = \iterator_to_array($linkProvider->preload([$redirectLink['href']], $redirectLink['locale'], true));
 
-        if (0 === \count($linkItems)) {
+        $firstItem = \reset($linkItems);
+        if (false === $firstItem) {
             return null;
         }
 
-        $url = \reset($linkItems)->getUrl();
+        $url = $firstItem->getUrl();
         if (isset($redirectLink['query'])) {
             $url = \sprintf('%s?%s', $url, $redirectLink['query']);
         }

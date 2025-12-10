@@ -282,32 +282,17 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$webspace of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getFieldDescriptors\\(\\) expects string, mixed given\\.$#"
-			count: 2
-			path: Controller/ListController.php
-
-		-
-			message: "#^Parameter \\#3 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getEntityName\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: Controller/ListController.php
 
 		-
 			message: "#^Parameter \\#3 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getFieldDescriptors\\(\\) expects string, mixed given\\.$#"
-			count: 2
-			path: Controller/ListController.php
-
-		-
-			message: "#^Parameter \\#3 \\$route of class Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\ListRepresentation constructor expects string, mixed given\\.$#"
-			count: 1
-			path: Controller/ListController.php
-
-		-
-			message: "#^Parameter \\#4 \\$uuid of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getEntityName\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: Controller/ListController.php
 
 		-
 			message: "#^Parameter \\#4 \\$uuid of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getFieldDescriptors\\(\\) expects string, mixed given\\.$#"
-			count: 2
+			count: 1
 			path: Controller/ListController.php
 
 		-
@@ -791,24 +776,9 @@ parameters:
 			path: Event/MailchimpListSubscriber.php
 
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\RequestEvent\\:\\:isMasterRequest\\(\\)\\.$#"
-			count: 1
-			path: Event/ProtectedMediaSubscriber.php
-
-		-
 			message: "#^Parameter \\#2 \\.\\.\\.\\$arrays of function array_merge expects array, mixed given\\.$#"
 			count: 1
 			path: Event/ProtectedMediaSubscriber.php
-
-		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\RequestEvent\\:\\:isMasterRequest\\(\\)\\.$#"
-			count: 1
-			path: Event/RequestListener.php
-
-		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ResponseEvent\\:\\:isMasterRequest\\(\\)\\.$#"
-			count: 1
-			path: Event/RequestListener.php
 
 		-
 			message: "#^In method \"Sulu\\\\Bundle\\\\FormBundle\\\\Event\\\\RequestListener\\:\\:onKernelRequest\", caught \"Exception\" must be rethrown\\. Either catch a more specific exception or add a \"throw\" clause in the \"catch\" block to propagate the exception\\. More info\\: http\\://bit\\.ly/failloud$#"
@@ -1341,17 +1311,7 @@ parameters:
 			path: Media/CollectionStrategyTree.php
 
 		-
-			message: "#^Cannot call method getItems\\(\\) on mixed\\.$#"
-			count: 1
-			path: Metadata/DynamicFormMetadataLoader.php
-
-		-
 			message: "#^Cannot call method getName\\(\\) on Sulu\\\\Bundle\\\\AdminBundle\\\\Metadata\\\\FormMetadata\\\\FormMetadata\\|false\\.$#"
-			count: 1
-			path: Metadata/DynamicFormMetadataLoader.php
-
-		-
-			message: "#^Cannot call method getProperties\\(\\) on mixed\\.$#"
 			count: 1
 			path: Metadata/DynamicFormMetadataLoader.php
 
@@ -1371,11 +1331,6 @@ parameters:
 			path: Metadata/PropertiesXmlLoader.php
 
 		-
-			message: "#^Parameter \\#3 \\$context of method Sulu\\\\Component\\\\Content\\\\Metadata\\\\Parser\\\\PropertiesXmlParser\\:\\:load\\(\\) expects DOMNode, DOMNode\\|null given\\.$#"
-			count: 1
-			path: Metadata/PropertiesXmlLoader.php
-
-		-
 			message: "#^Parameter \\#2 \\$fromDate of method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\DynamicRepository\\:\\:addDateRangeFilter\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: Repository/DynamicRepository.php
@@ -1384,9 +1339,4 @@ parameters:
 			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Repository\\\\FormRepository\\:\\:getValue\\(\\) should return int\\|null but returns mixed\\.$#"
 			count: 2
 			path: Repository/FormRepository.php
-
-		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpFoundation\\\\RequestStack\\:\\:getMasterRequest\\(\\)\\.$#"
-			count: 1
-			path: TitleProvider/StructureTitleProvider.php
 

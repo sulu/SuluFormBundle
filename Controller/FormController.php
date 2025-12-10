@@ -11,7 +11,6 @@
 
 namespace Sulu\Bundle\FormBundle\Controller;
 
-use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Bundle\FormBundle\Admin\FormAdmin;
 use Sulu\Bundle\FormBundle\Entity\Form;
@@ -21,9 +20,9 @@ use Sulu\Component\Rest\AbstractRestController;
 use Sulu\Component\Rest\Exception\RestException;
 use Sulu\Component\Rest\ListBuilder\AbstractListBuilder;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\ListRestHelperInterface;
 use Sulu\Component\Rest\ListBuilder\Metadata\FieldDescriptorFactoryInterface;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +30,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class FormController extends AbstractRestController implements ClassResourceInterface, SecuredControllerInterface
+class FormController extends AbstractRestController implements SecuredControllerInterface
 {
     /**
      * @var FormManager
@@ -120,7 +119,7 @@ class FormController extends AbstractRestController implements ClassResourceInte
             // get pagination
             $total = $listBuilder->count();
             $page = $listBuilder->getCurrentPage();
-            $limit = $listBuilder->getLimit();
+            $limit = $listBuilder->getLimit() ?? 10;
         } else {
             // load all entities by filters
             $list = $this->formManager->findAll($locale, $filters);
@@ -142,11 +141,9 @@ class FormController extends AbstractRestController implements ClassResourceInte
         }
 
         // create list representation
-        $representation = new ListRepresentation(
+        $representation = new PaginatedRepresentation(
             $list,
             $this->getListName(),
-            $request->get('_route'),
-            $request->query->all(),
             $page,
             $limit,
             $total
