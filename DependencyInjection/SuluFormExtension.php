@@ -12,7 +12,6 @@
 namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Sulu\Bundle\FormBundle\Controller\FormTokenController;
-use Sulu\Bundle\FormBundle\Controller\FormWebsiteController;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\FileLocator;
@@ -228,8 +227,6 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         }
 
         if (SuluKernel::CONTEXT_WEBSITE === $container->getParameter('sulu.context')) {
-            $container->setAlias(FormWebsiteController::class, 'sulu_form.form_website_controller')
-                ->setPublic(true);
             $container->setAlias(FormTokenController::class, 'sulu_form.form_token_controller')
                 ->setPublic(true);
         }
