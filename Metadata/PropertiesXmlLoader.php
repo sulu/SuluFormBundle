@@ -11,25 +11,23 @@
 
 namespace Sulu\Bundle\FormBundle\Metadata;
 
-use Sulu\Component\Content\Metadata\Loader\AbstractLoader;
-use Sulu\Component\Content\Metadata\Parser\PropertiesXmlParser;
-use Sulu\Component\Content\Metadata\PropertiesMetadata;
+use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
+use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Loader\AbstractLoader;
+use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Parser\PropertiesXmlParser;
+use Webmozart\Assert\Assert;
 
+/**
+ * @extends AbstractLoader<mixed>
+ */
 class PropertiesXmlLoader extends AbstractLoader
 {
     public const SCHEMA_PATH = '/schema/properties-1.0.xsd';
 
     public const SCHEMA_NAMESPACE_URI = 'http://schemas.sulu.io/template/template';
 
-    /**
-     * @var PropertiesXmlParser
-     */
-    private $propertiesXmlParser;
-
     public function __construct(
-        PropertiesXmlParser $propertiesXmlParser
+        private PropertiesXmlParser $propertiesXmlParser
     ) {
-        $this->propertiesXmlParser = $propertiesXmlParser;
         parent::__construct(
             self::SCHEMA_PATH,
             self::SCHEMA_NAMESPACE_URI
@@ -37,28 +35,13 @@ class PropertiesXmlLoader extends AbstractLoader
     }
 
     /**
-     * @param string $resource
-     * @param string $type
+     * @return array<FieldMetadata>
      */
-    protected function parse($resource, \DOMXPath $xpath, $type): PropertiesMetadata
+    protected function parse(string $resource, \DOMXPath $xpath, ?string $type): array
     {
-        $tags = [];
+        $node = $xpath->query('/x:properties')->item(0);
+        Assert::notNull($node, 'Resource does not contain an <properties> definition: ' . $resource);
 
-        $propertiesMetadata = new PropertiesMetadata();
-        $propertiesMetadata->setResource($resource);
-
-        $propertiesNode = $xpath->query('/x:properties')->item(0);
-        $properties = $this->propertiesXmlParser->load(
-            $tags,
-            $xpath,
-            $propertiesNode
-        );
-
-        foreach ($properties as $property) {
-            $propertiesMetadata->addChild($property);
-        }
-        $propertiesMetadata->burnProperties();
-
-        return $propertiesMetadata;
+        return $this->propertiesXmlParser->load($xpath, $node);
     }
 }

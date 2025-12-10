@@ -11,12 +11,10 @@
 
 namespace Sulu\Bundle\FormBundle\Metadata;
 
-use Sulu\Bundle\AdminBundle\FormMetadata\FormMetadataMapper;
-use Sulu\Bundle\AdminBundle\FormMetadata\FormXmlLoader;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadataLoaderInterface;
-use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\ItemMetadata;
+use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Loader\FormXmlLoader;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\SectionMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\MetadataInterface;
 use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
@@ -25,60 +23,25 @@ use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Webmozart\Assert\Assert;
 
 class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWarmerInterface
 {
     /**
-     * @var FormFieldTypePool
+     * @param array<string> $locales
      */
-    private $formFieldTypePool;
-
-    /**
-     * @var PropertiesXmlLoader
-     */
-    private $propertiesXmlLoader;
-
-    /**
-     * @var FormXmlLoader
-     */
-    private $formXmlLoader;
-
-    /**
-     * @var FormMetadataMapper
-     */
-    private $formMetadataMapper;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @var string
-     */
-    private $cacheDir;
-
-    /**
-     * @var bool
-     */
-    private $debug;
-
     public function __construct(
-        FormFieldTypePool $formFieldTypePool,
-        PropertiesXmlLoader $propertiesXmlLoader,
-        FormXmlLoader $formXmlLoader,
-        FormMetadataMapper $formMetadataMapper,
-        TranslatorInterface $translator,
-        string $cacheDir,
-        bool $debug
+        private FormFieldTypePool $formFieldTypePool,
+        private PropertiesXmlLoader $propertiesXmlLoader,
+        private FormXmlLoader $formXmlLoader,
+        private TranslatorInterface $translator,
+        private string $cacheDir,
+        private array $locales,
+        private bool $debug
     ) {
-        $this->formFieldTypePool = $formFieldTypePool;
-        $this->propertiesXmlLoader = $propertiesXmlLoader;
-        $this->formXmlLoader = $formXmlLoader;
-        $this->formMetadataMapper = $formMetadataMapper;
-        $this->translator = $translator;
-        $this->cacheDir = $cacheDir;
-        $this->debug = $debug;
+        if ([] === $this->locales) {
+            $this->locales = ['de', 'en'];
+        }
     }
 
     /**
@@ -87,49 +50,49 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
     public function warmUp($cacheDir, ?string $buildDir = null): array
     {
         $resource = __DIR__ . '/../Resources/config/forms/form_details.xml';
-        $formMetadataCollection = $this->formXmlLoader->load($resource);
-        foreach ($formMetadataCollection->getItems() as $locale => $formMetadata) {
-            $section = new SectionMetadata('formFields');
-            $section->setLabel($this->translator->trans('sulu_form.form_fields', [], 'admin', $locale));
-            $fields = new FieldMetadata('fields');
-            $fields->setType('block');
-
-            $types = $this->formFieldTypePool->all();
-
-            $fieldTypeMetaDataCollection = [];
-            foreach ($types as $typeKey => $type) {
-                $fieldTypeMetaDataCollection[] = $this->loadFieldTypeMetadata($typeKey, $type, $locale);
-            }
-
-            \usort($fieldTypeMetaDataCollection, static function(FormMetadata $a, FormMetadata $b): int {
-                return \strcmp($a->getTitle(), $b->getTitle());
-            });
-
-            foreach ($fieldTypeMetaDataCollection as $fieldTypeMetaData) {
-                $fields->addType($fieldTypeMetaData);
-            }
-
-            $fields->setDefaultType(\current($fields->getTypes())->getName());
-            $section->addItem($fields);
-            $formItems = $formMetadata->getItems();
-            $this->arrayInsertAtPosition($formItems, 1, [$section->getName() => $section]);
-            $formMetadata->setItems($formItems);
-            $configCache = $this->getConfigCache($formMetadata->getKey(), $locale);
-            $configCache->write(\serialize($formMetadata), [new FileResource($resource)]);
+        $formMetadata = $this->formXmlLoader->load($resource);
+        $section = new SectionMetadata('formFields');
+        foreach ($this->locales as $locale) {
+            $section->setLabel($this->translator->trans('sulu_form.form_fields', [], 'admin', $locale), $locale);
         }
+        $fields = new FieldMetadata('fields');
+        $fields->setType('block');
+
+        $types = $this->formFieldTypePool->all();
+
+        $fieldTypeMetaDataCollection = [];
+        foreach ($types as $typeKey => $type) {
+            $a = $this->loadFieldTypeMetadata($typeKey, $type);
+            $fieldTypeMetaDataCollection[$a->getTitle('en')] = $a;
+        }
+        Assert::notEmpty($fieldTypeMetaDataCollection, 'No field type metadata loaded');
+
+        foreach ($fieldTypeMetaDataCollection as $fieldTypeMetaData) {
+            $fields->addType($fieldTypeMetaData);
+        }
+
+        $fields->setDefaultType(\current($fields->getTypes())->getName());
+        $section->addItem($fields);
+
+        $formItems = $formMetadata->getItems();
+        $formItems =
+            \array_slice($formItems, 0, 1, true) + // Slicing out the title
+            [$section->getName() => $section] + // Inserting the custom form fields
+            \array_slice($formItems, 1, \count($formItems) - 1, true) // Adding the rest of the fields
+        ;
+        $formMetadata->setItems($formItems);
+
+        $configCache = $this->getConfigCache($formMetadata->getKey());
+        $configCache->write(\serialize($formMetadata), [new FileResource($resource)]);
 
         return [];
     }
 
     public function getMetadata(string $key, string $locale, array $metadataOptions = []): ?MetadataInterface
     {
-        $configCache = $this->getConfigCache($key, $locale);
+        $configCache = $this->getConfigCache($key);
 
-        if (!\file_exists($configCache->getPath())) {
-            return null;
-        }
-
-        if (!$configCache->isFresh()) {
+        if (!\file_exists($configCache->getPath()) || !$configCache->isFresh()) {
             $this->warmUp($this->cacheDir);
         }
 
@@ -138,24 +101,22 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         return $form;
     }
 
-    /**
-     * @param ItemMetadata[] $array
-     * @param ItemMetadata[] $insert
-     */
-    private function arrayInsertAtPosition(array &$array, int $pos, array $insert): void
-    {
-        $array = \array_merge(\array_slice($array, 0, $pos), $insert, \array_slice($array, $pos));
-    }
-
-    private function loadFieldTypeMetadata(string $typeKey, FormFieldTypeInterface $type, string $locale): FormMetadata
+    private function loadFieldTypeMetadata(string $typeKey, FormFieldTypeInterface $type): FormMetadata
     {
         $form = new FormMetadata();
+        $form->setKey($typeKey);
+
         $configuration = $type->getConfiguration();
+
         $properties = $this->propertiesXmlLoader->load($configuration->getXmlPath());
 
-        $form->setItems($this->formMetadataMapper->mapChildren($properties->getProperties(), $locale));
-        $form->setName($typeKey);
-        $form->setTitle($this->translator->trans($configuration->getTitle(), [], 'admin', $locale));
+        foreach ($properties as $property) {
+            $form->addItem($property);
+        }
+
+        foreach ($this->locales as $locale) {
+            $form->setTitle($this->translator->trans($configuration->getTitle(), [], 'admin', $locale), $locale);
+        }
 
         return $form;
     }
@@ -165,8 +126,8 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         return false;
     }
 
-    private function getConfigCache(string $key, string $locale): ConfigCache
+    private function getConfigCache(string $key): ConfigCache
     {
-        return new ConfigCache(\sprintf('%s%s%s.%s', $this->cacheDir, \DIRECTORY_SEPARATOR, $key, $locale), $this->debug);
+        return new ConfigCache(\sprintf('%s%s%s', $this->cacheDir, \DIRECTORY_SEPARATOR, $key), $this->debug);
     }
 }
