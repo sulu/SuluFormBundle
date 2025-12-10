@@ -13,20 +13,22 @@ namespace Sulu\Bundle\FormBundle\Dynamic;
 
 /**
  * Holds the available form types.
+ *
+ * @param iterable<string, FormFieldTypeInterface> $types
  */
 class FormFieldTypePool
 {
     /**
-     * @var FormFieldTypeInterface[]
+     * @var array<string, FormFieldTypeInterface>
      */
-    private $types;
+    private array $types;
 
     /**
-     * @param FormFieldTypeInterface[] $types
+     * @param iterable<string, FormFieldTypeInterface> $types
      */
-    public function __construct(array $types)
+    public function __construct(iterable $types)
     {
-        $this->types = $types;
+        $this->types = $types instanceof \Traversable ? \iterator_to_array($types) : $types;
     }
 
     /**
@@ -40,7 +42,7 @@ class FormFieldTypePool
     /**
      * Returns all types.
      *
-     * @return FormFieldTypeInterface[]
+     * @return array<string, FormFieldTypeInterface>
      */
     public function all(): array
     {
