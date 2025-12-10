@@ -174,9 +174,6 @@ return static function(ContainerConfigurator $container) {
         ->args([service('security.csrf.token_manager')])
         ->tag('sulu.context', ['context' => 'website']);
 
-    $services->alias(Sulu\Bundle\FormBundle\Controller\FormTokenController::class, 'sulu_form.form_token_controller')
-        ->public();
-
     $services->set('sulu_form.metadata.dynamic_list_metadata_loader', Sulu\Bundle\FormBundle\Metadata\DynamicListMetadataLoader::class)
         ->args([
             service('translator'),
