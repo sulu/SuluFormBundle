@@ -13,11 +13,13 @@ namespace Sulu\Bundle\FormBundle\Tests\Functional\Mail;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Tests\Functional\Mail\Fixtures\LoadFormFixture;
+use Sulu\Bundle\FormBundle\Tests\Application\MailerKernel;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
-class HelperTestCase extends SuluTestCase
+class FormDataMailerTest extends SuluTestCase
 {
     protected KernelBrowser $client;
 
@@ -25,6 +27,8 @@ class HelperTestCase extends SuluTestCase
 
     protected function setUp(): void
     {
+        static::$class = MailerKernel::class;
+
         $this->client = $this->createWebsiteClient();
         $this->purgeDatabase();
         $this->entityManager = $this->getEntityManager();
@@ -34,6 +38,31 @@ class HelperTestCase extends SuluTestCase
 
         $this->entityManager->flush();
         $this->entityManager->clear();
+    }
+
+    public function testSendsEmailUsingMailerComponent(): void
+    {
+        $this->assertIsObject(static::$kernel);
+        $this->assertSame(MailerKernel::class, \get_class(static::$kernel));
+
+        $formTranslationRepository = $this->entityManager->getRepository(FormTranslation::class);
+
+        /** @var FormTranslation $formTranslation */
+        $formTranslation = $formTranslationRepository->findOneBy(['title' => 'Title', 'locale' => 'de']);
+
+        $form = $formTranslation->getForm();
+
+        $this->updateHomePage($form);
+        $this->doSendForm($form);
+
+        if ($this->client->getProfile()->hasCollector('swiftmailer')) {
+            // @deprecated
+            $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
+            $this->assertSame(0, $mailCollector->getMessageCount());
+        }
+
+        // 2 messages should be sent 1 to admin and 1 to email
+        $this->assertEmailCount(2);
     }
 
     protected function updateHomePage(?Form $form = null): void

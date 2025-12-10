@@ -1385,8 +1385,3 @@ parameters:
 			count: 2
 			path: Repository/FormRepository.php
 
-		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpFoundation\\\\RequestStack\\:\\:getMasterRequest\\(\\)\\.$#"
-			count: 1
-			path: TitleProvider/StructureTitleProvider.php
-
