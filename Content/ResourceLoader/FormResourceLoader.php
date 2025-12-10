@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormView;
 
 final class FormResourceLoader implements ResourceLoaderInterface
 {
-    public const string RESOURCE_LOADER_KEY = 'sulu_form';
+    public const RESOURCE_LOADER_KEY = 'sulu_form';
 
     public function __construct(
         private BuilderInterface $formBuilder,

@@ -11,7 +11,6 @@
 
 namespace Sulu\Bundle\FormBundle\Admin\Controller;
 
-use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Bundle\FormBundle\Provider\ListProviderRegistry;
 use Sulu\Component\Rest\AbstractRestController;
@@ -23,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class ListController extends AbstractRestController implements ClassResourceInterface
+class ListController extends AbstractRestController
 {
     public function __construct(
         ViewHandlerInterface $viewHandler,
@@ -53,10 +52,10 @@ class ListController extends AbstractRestController implements ClassResourceInte
 
     public function cgetAction(Request $request): Response
     {
-        $template = $request->get('template');
-        $webspace = $request->get('webspace');
-        $locale = $request->get('locale');
-        $uuid = $request->get('uuid');
+        $template = $request->query->get('template');
+        $webspace = $request->query->get('webspace');
+        $locale = $request->query->get('locale');
+        $uuid = $request->query->get('uuid');
 
         if (!$template) {
             throw new NotFoundHttpException('"template" is required parameter');
