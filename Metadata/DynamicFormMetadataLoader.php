@@ -108,12 +108,15 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
     private function loadFieldTypeMetadata(string $typeKey, FormFieldTypeInterface $type): FormMetadata
     {
         $form = new FormMetadata();
+        $form->setKey($typeKey);
+
         $configuration = $type->getConfiguration();
 
         $properties = $this->propertiesXmlLoader->load($configuration->getXmlPath());
 
-        $form->setItems($properties);
-        $form->setKey($typeKey);
+        foreach ($properties as $property) {
+            $form->addItem($property);
+        }
 
         foreach ($this->locales as $locale) {
             $form->setTitle($this->translator->trans($configuration->getTitle(), [], 'admin', $locale), $locale);

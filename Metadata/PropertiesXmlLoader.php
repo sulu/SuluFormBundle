@@ -11,11 +11,15 @@
 
 namespace Sulu\Bundle\FormBundle\Metadata;
 
+use DOMXPath;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Loader\AbstractLoader;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Parser\PropertiesXmlParser;
 use Webmozart\Assert\Assert;
 
+/**
+ * @extends AbstractLoader<mixed>
+ */
 class PropertiesXmlLoader extends AbstractLoader
 {
     public const SCHEMA_PATH = '/schema/properties-1.0.xsd';
@@ -23,7 +27,7 @@ class PropertiesXmlLoader extends AbstractLoader
     public const SCHEMA_NAMESPACE_URI = 'http://schemas.sulu.io/template/template';
 
     public function __construct(
-        private PropertiesXmlParser $propertiesXmlParser
+        privated PropertiesXmlParser $propertiesXmlParser
     ) {
         $this->propertiesXmlParser = $propertiesXmlParser;
         parent::__construct(
@@ -36,7 +40,7 @@ class PropertiesXmlLoader extends AbstractLoader
      * @param string $resource
      * @param string $type
      *
-     * @return array<string, FieldMetadata>
+     * @return array<FieldMetadata>
      */
     protected function parse($resource, \DOMXPath $xpath, $type): array
     {
