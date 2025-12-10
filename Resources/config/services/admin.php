@@ -11,7 +11,7 @@
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function(ContainerConfigurator $container) {
@@ -59,7 +59,7 @@ return static function(ContainerConfigurator $container) {
         ->public()
         ->args([
             service('fos_rest.view_handler.default'),
-            service('security.token_storage'),
+            service(TokenStorageInterface::class),
             service('sulu_core.doctrine_rest_helper'),
             service('sulu_core.doctrine_list_builder_factory'),
             service('sulu.list.provider.registry'),
