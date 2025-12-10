@@ -14,7 +14,7 @@ namespace Sulu\Bundle\FormBundle\TitleProvider;
 use Sulu\Article\Domain\Model\ArticleDimensionContentInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class ArticelTitleProvider implements TitleProviderInterface
+class ArticleTitleProvider implements TitleProviderInterface
 {
     public function __construct(
         private RequestStack $requestStack
