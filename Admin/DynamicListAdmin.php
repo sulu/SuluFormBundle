@@ -23,8 +23,8 @@ class DynamicListAdmin extends Admin
      * @param mixed[] $config
      */
     public function __construct(
-       private ViewBuilderFactoryInterface $viewBuilderFactory,
-       private array $config,
+        private ViewBuilderFactoryInterface $viewBuilderFactory,
+        private array $config,
     ) {
     }
 

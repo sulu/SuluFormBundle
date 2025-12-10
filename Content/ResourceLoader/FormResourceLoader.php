@@ -17,7 +17,7 @@ use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Content\Application\ResourceLoader\Loader\ResourceLoaderInterface;
 use Symfony\Component\Form\FormView;
 
-final class FormSelectionResourceLoader implements ResourceLoaderInterface
+final class FormResourceLoader implements ResourceLoaderInterface
 {
     public const string RESOURCE_LOADER_KEY = 'sulu_form';
 

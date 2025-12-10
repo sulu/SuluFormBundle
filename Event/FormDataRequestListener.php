@@ -34,10 +34,10 @@ class FormDataRequestListener implements ResetInterface
     protected $invalidSubmittedForm = false;
 
     public function __construct(
-       protected BuilderInterface $formBuilder,
-       protected HandlerInterface $formHandler,
-       protected FormConfigurationFactory $formConfigurationFactory,
-       protected EventDispatcherInterface $eventDispatcher
+        protected BuilderInterface $formBuilder,
+        protected HandlerInterface $formHandler,
+        protected FormConfigurationFactory $formConfigurationFactory,
+        protected EventDispatcherInterface $eventDispatcher
     ) {
     }
 

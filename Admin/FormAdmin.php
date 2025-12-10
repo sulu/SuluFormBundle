@@ -38,9 +38,9 @@ class FormAdmin extends Admin
     public const EDIT_FORM_DETAILS_VIEW = 'sulu_form.edit_form.details';
 
     public function __construct(
-       private SecurityCheckerInterface $securityChecker,
-       private ViewBuilderFactoryInterface $viewBuilderFactory,
-       private WebspaceManagerInterface $webspaceManager
+        private SecurityCheckerInterface $securityChecker,
+        private ViewBuilderFactoryInterface $viewBuilderFactory,
+        private WebspaceManagerInterface $webspaceManager
     ) {
     }
 

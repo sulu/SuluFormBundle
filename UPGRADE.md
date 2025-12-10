@@ -17,6 +17,9 @@ The `handcraftedinthealps/rest-routing-bundle` bundle was removed.
 
 The Swiftmailer integration has been removed, use the `symfony/mailer` instead.
 
+#### Removed services
+* `sulu_form.reference_store.form` (use `sulu_http_cache.reference_store`)
+
 ## 2.5.9
 
 ### Deprecate usage of fos rest routing

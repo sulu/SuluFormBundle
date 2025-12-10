@@ -178,15 +178,15 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         );
 
         // Load services
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.xml');
+        $loader = new Loader\PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('services.php');
 
         if ($config['sendinblue_api_key']) {
             if (!\class_exists(\SendinBlue\Client\Configuration::class)) {
                 throw new \LogicException('You need to install the "sendinblue/api-v3-sdk" package to use the sendinblue type.');
             }
 
-            $loader->load('type_sendinblue.xml');
+            $loader->load('services/type_sendinblue.php');
         }
 
         if ($config['mailchimp_api_key']) {
@@ -194,27 +194,22 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                 throw new \LogicException('You need to install the "drewm/mailchimp-api" package to use the mailchimp type.');
             }
 
-            $loader->load('type_mailchimp.xml');
+            $loader->load('services/type_mailchimp.php');
         }
 
         /** @var array<string, class-string> $bundles */
         $bundles = $container->getParameter('kernel.bundles');
 
         if (\array_key_exists('SuluTrashBundle', $bundles)) {
-            $loader->load('services_trash.xml');
+            $loader->load('services_trash.php');
         }
 
         if (\class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class)) {
-            $loader->load('type_recaptcha.xml');
-        }
-
-        if (SuluKernel::CONTEXT_WEBSITE === $container->getParameter('sulu.context')) {
-            $container->setAlias(FormTokenController::class, 'sulu_form.form_token_controller')
-                ->setPublic(true);
+            $loader->load('services/type_recaptcha.php');
         }
 
         if ($config['media']['protected']) {
-            $loader->load('protected_media.xml');
+            $loader->load('protected_media.php');
         }
     }
 }
