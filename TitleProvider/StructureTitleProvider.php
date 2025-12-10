@@ -11,41 +11,44 @@
 
 namespace Sulu\Bundle\FormBundle\TitleProvider;
 
-use Sulu\Component\Content\Compat\PropertyInterface;
-use Sulu\Component\Content\Compat\StructureInterface;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
+use Sulu\Content\Domain\Model\TemplateInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * The attached structure type.
+ * Provides the title from the current page/article content.
  */
 class StructureTitleProvider implements TitleProviderInterface
 {
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
-
-    public function __construct(RequestStack $requestStack)
-    {
-        $this->requestStack = $requestStack;
+    public function __construct(
+        private RequestStack $requestStack,
+    ) {
     }
 
     public function getTitle(string $typeId, ?string $locale = null): ?string
     {
-        $request = \method_exists($this->requestStack, 'getMainRequest') ? $this->requestStack->getMainRequest() : $this->requestStack->getMasterRequest();
-        $structure = $request->attributes->get('structure');
-
-        if (!$structure instanceof StructureInterface || $structure->getUuid() !== $typeId) {
+        $request = $this->requestStack->getMainRequest();
+        if (null === $request) {
             return null;
         }
 
-        /** @var PropertyInterface|null $property */
-        $property = $structure->getProperty('title');
+        $object = $request->attributes->get('object');
 
-        if (!$property) {
+        if (!$object instanceof DimensionContentInterface) {
             return null;
         }
 
-        return $property->getValue();
+        $resourceId = (string) $object->getResource()->getId();
+        if ($resourceId !== $typeId) {
+            return null;
+        }
+
+        if (!$object instanceof TemplateInterface) {
+            return null;
+        }
+
+        $templateData = $object->getTemplateData();
+
+        return $templateData['title'] ?? null;
     }
 }

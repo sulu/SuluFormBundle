@@ -69,8 +69,7 @@ class RequestListener implements ResetInterface
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        if (\method_exists($event, 'isMainRequest') ? !$event->isMainRequest() : !$event->isMasterRequest()) {
-            // do nothing if it's not the master request
+        if (!$event->isMainRequest()) {
             return;
         }
 
@@ -116,8 +115,7 @@ class RequestListener implements ResetInterface
 
     public function onKernelResponse(ResponseEvent $event): void
     {
-        if (\method_exists($event, 'isMainRequest') ? !$event->isMainRequest() : !$event->isMasterRequest()) {
-            // do nothing if it's not the master request
+        if (!$event->isMainRequest()) {
             return;
         }
 

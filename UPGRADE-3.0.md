@@ -65,6 +65,24 @@ The `PropertiesXmlLoader` and `DynamicFormMetadataLoader` have been refactored t
 - `DynamicFormMetadataLoader` no longer uses `FormMetadataMapper` (removed in Sulu 3.0)
 - Metadata cache is now locale-independent
 
+### StructureTitleProvider refactored
+
+The `StructureTitleProvider` has been refactored to use Sulu 3.0's new content architecture:
+
+- Uses `DimensionContentInterface` instead of removed `StructureInterface`
+- Gets `object` from request attributes instead of `structure`
+- Uses `getResource()->getId()` instead of `getUuid()`
+- Gets title from `getTemplateData()['title']`
+
+If you extended this class, update your code accordingly.
+
+### Deprecated Symfony methods removed
+
+The following deprecated Symfony method calls have been replaced:
+
+- `isMasterRequest()` → `isMainRequest()` (in `RequestListener`, `ProtectedMediaSubscriber`)
+- `getMasterRequest()` → `getMainRequest()` (in `StructureTitleProvider`)
+
 ### FormWebsiteController removed
 
 The deprecated `FormWebsiteController` has been removed as it extended the removed `Sulu\Bundle\WebsiteBundle\Controller\DefaultController`.
