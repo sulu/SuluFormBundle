@@ -15,7 +15,8 @@ wired into the constructor of the class.
 
 The `handcraftedinthealps/rest-routing-bundle` bundle was removed.
 
-The Swiftmailer integration has been removed, use the `symfony/mailer` instead.
+The Swiftmailer integration has been removed, use the `symfony/mailer` instead. This also means that specifying the
+"helper" config is no longer supported
 
 #### Removed services
 * `sulu_form.reference_store.form` (use `sulu_http_cache.reference_store`)

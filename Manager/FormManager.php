@@ -29,34 +29,11 @@ use Sulu\Bundle\TrashBundle\Application\TrashManager\TrashManagerInterface;
 
 class FormManager
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
-
-    /**
-     * @var FormRepository
-     */
-    protected $formRepository;
-
-    /**
-     * @var DomainEventCollectorInterface
-     */
-    private $domainEventCollector;
-
-    /**
-     * @var TrashManagerInterface|null
-     */
-    private $trashManager;
-
-    /**
-     * EventManager constructor.
-     */
     public function __construct(
-        EntityManagerInterface $entityManager,
-        FormRepository $formRepository,
-        DomainEventCollectorInterface $domainEventCollector,
-        ?TrashManagerInterface $trashManager
+        private EntityManagerInterface $entityManager,
+        private FormRepository $formRepository,
+        private DomainEventCollectorInterface $domainEventCollector,
+        private ?TrashManagerInterface $trashManager
     ) {
         $this->entityManager = $entityManager;
         $this->formRepository = $formRepository;
