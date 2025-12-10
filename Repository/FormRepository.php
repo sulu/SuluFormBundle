@@ -41,6 +41,30 @@ class FormRepository extends EntityRepository
     }
 
     /**
+     * @param array<int> $ids
+     *
+     * @return array<Form>
+     */
+    public function loadByIds(array $ids, ?string $locale = null): array
+    {
+        if ([] === $ids) {
+            return [];
+        }
+
+        $queryBuilder = $this->createQueryBuilder('form')
+            ->leftJoin('form.translations', 'translation')->addSelect('translation')
+            ->leftJoin('form.fields', 'field')->addSelect('field')
+            ->leftJoin('field.translations', 'fieldTranslation')->addSelect('fieldTranslation')
+            ->leftJoin('translation.receivers', 'receiver')->addSelect('receiver');
+
+        $queryBuilder->where($queryBuilder->expr()->in('form.id', ':ids'));
+        $queryBuilder->setParameter('ids', $ids);
+        $queryBuilder->orderBy('field.order');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
      * @param mixed[] $filters
      *
      * @return Form[]

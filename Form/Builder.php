@@ -147,13 +147,12 @@ class Builder implements BuilderInterface
 
     public function build(int $id, string $type, string $typeId, ?string $locale = null, string $name = 'form'): ?FormInterface
     {
-        $request = $this->requestStack->getCurrentRequest();
-
         if (!$locale) {
+            $request = $this->requestStack->getCurrentRequest();
             $locale = $request->getLocale();
         }
 
-        // Check if form was builded before and return the cached form.
+        // Check if form was built before and return the cached form.
         $key = $this->getKey($id, $type, $typeId, $locale, $name);
 
         if (!isset($this->cache[$key])) {

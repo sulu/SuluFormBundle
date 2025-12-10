@@ -54,14 +54,17 @@
             <argument type="service" id="sulu_trash.trash_manager" on-invalid="null"/>
         </service>
 
-        <!-- Content Types -->
-        <service id="sulu_form.content_type.single_form_selection"
-                 class="Sulu\Bundle\FormBundle\Content\Types\SingleFormSelection">
-            <argument type="service" id="sulu_form.repository.form" />
-            <argument type="service" id="sulu_form.builder" />
-            <argument type="service" id="sulu_form.reference_store.form"/>
+        <!-- Property Resolver -->
+        <service id="sulu_form.single_form_selection_property_resolver"
+                 class="Sulu\Bundle\FormBundle\Infrastructure\Sulu\Content\PropertyResolver\SingleFormSelectionPropertyResolver">
+            <tag name="sulu_content.property_resolver"/>
+        </service>
 
-            <tag name="sulu.content.type" alias="single_form_selection"/>
+        <!-- Resource Loader -->
+        <service id="sulu_form.form_resource_loader"
+                 class="Sulu\Bundle\FormBundle\Infrastructure\Sulu\Content\ResourceLoader\FormResourceLoader">
+            <argument type="service" id="sulu_form.repository.form"/>
+            <tag name="sulu_content.resource_loader" key="form"/>
         </service>
 
         <!-- Form Configuration Factory -->
@@ -161,12 +164,6 @@
         <!-- Checksum -->
         <service id="sulu_form.checksum" class="Sulu\Bundle\FormBundle\Dynamic\Checksum">
             <argument>%kernel.secret%</argument>
-        </service>
-
-        <!-- Resource Store -->
-        <service id="sulu_form.reference_store.form"
-                 class="Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStore">
-            <tag name="sulu_website.reference_store" alias="form"/>
         </service>
 
         <!-- Properties XML Loader -->
