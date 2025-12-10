@@ -6,7 +6,7 @@
     <services>
         <!-- Title Provider Pool -->
         <service id="sulu_form.title_provider.pool" class="Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPool">
-            <argument type="collection"/>
+            <argument type="tagged_iterator" tag="sulu_form.title_provider" index-by="alias"/>
         </service>
 
         <!-- Page Title Provider -->
