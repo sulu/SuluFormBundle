@@ -13,6 +13,7 @@ namespace Sulu\Bundle\FormBundle\Tests\Application;
 
 use Sulu\Bundle\FormBundle\SuluFormBundle;
 use Sulu\Bundle\TestBundle\Kernel\SuluTestKernel;
+use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
@@ -25,11 +26,18 @@ class Kernel extends SuluTestKernel
 
     public function registerBundles(): iterable
     {
+        $bundles = [
+            new SuluFormBundle(),
+        ];
+
+        // Register SecurityBundle for website context (already registered for admin in parent)
+        if (self::CONTEXT_WEBSITE === $this->getContext()) {
+            $bundles[] = new SecurityBundle();
+        }
+
         return \array_merge(
             parent::registerBundles(),
-            [
-                new SuluFormBundle(),
-            ]
+            $bundles
         );
     }
 
