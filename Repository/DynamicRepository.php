@@ -26,9 +26,9 @@ class DynamicRepository extends EntityRepository
      * Finds dynamic entries by the given parameters.
      *
      * @param mixed[] $filters
-     * @param string[] $sort
+     * @param array<string, string> $sort
      *
-     * @return mixed[]
+     * @return array<Dynamic>
      */
     public function findByFilters(array $filters, array $sort = [], ?int $limit = null, ?int $offset = null)
     {

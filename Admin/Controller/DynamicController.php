@@ -92,6 +92,9 @@ class DynamicController
     public function deleteAction(Request $request, int $id): Response
     {
         $dynamic = $this->dynamicRepository->find($id);
+        if ($dynamic === null) {
+            return new Response('', Response::HTTP_NO_CONTENT);
+        }
 
         $attachments = \array_filter(\array_values($dynamic->getFieldsByType(Dynamic::TYPE_ATTACHMENT)));
 
@@ -110,7 +113,7 @@ class DynamicController
         $this->entityManager->remove($dynamic);
         $this->entityManager->flush();
 
-        return new Response('', 204);
+        return new Response('', Response::HTTP_NO_CONTENT);
     }
 
     /**

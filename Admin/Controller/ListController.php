@@ -36,10 +36,10 @@ class ListController extends AbstractRestController
 
     public function cgetFieldsAction(Request $request): Response
     {
-        $template = $request->get('template');
-        $locale = $request->get('locale');
-        $webspace = $request->get('webspace');
-        $uuid = $request->get('uuid');
+        $template = $request->query->getString('template');
+        $locale = $request->query->getString('locale');
+        $webspace = $request->query->getString('webspace');
+        $uuid = $request->query->getString('uuid');
 
         if (!$template) {
             throw new NotFoundHttpException('"template" is required parameter!');
@@ -52,10 +52,10 @@ class ListController extends AbstractRestController
 
     public function cgetAction(Request $request): Response
     {
-        $template = $request->query->get('template');
-        $webspace = $request->query->get('webspace');
-        $locale = $request->query->get('locale');
-        $uuid = $request->query->get('uuid');
+        $template = $request->query->getString('template');
+        $webspace = $request->query->getString('webspace');
+        $locale = $request->query->getString('locale');
+        $uuid = $request->query->getString('uuid');
 
         if (!$template) {
             throw new NotFoundHttpException('"template" is required parameter');
