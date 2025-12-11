@@ -15,14 +15,18 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Tests\Functional\Mail\Fixtures\LoadFormFixture;
 use Sulu\Bundle\TestBundle\Testing\WebsiteTestCase;
+use Sulu\Content\Domain\Model\WorkflowInterface;
+use Sulu\Messenger\Infrastructure\Symfony\Messenger\FlushMiddleware\EnableFlushStamp;
+use Sulu\Page\Application\Message\ApplyWorkflowTransitionPageMessage;
+use Sulu\Page\Application\Message\CreatePageMessage;
+use Sulu\Page\Application\MessageHandler\CreatePageMessageHandler;
 use Sulu\Page\Domain\Model\Page;
-use Sulu\Page\Tests\Traits\CreatePageTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\Stamp\HandledStamp;
 
 class HelperTestCase extends WebsiteTestCase
 {
-    use CreatePageTrait;
-
     protected static KernelBrowser $client;
 
     protected static EntityManagerInterface $entityManager;
@@ -45,16 +49,48 @@ class HelperTestCase extends WebsiteTestCase
 
     protected function createHomePage(?Form $form = null): Page
     {
-        $page = self::createPage([
-            'de' => [
-                'live' => [
-                    'template' => 'overview',
-                    'title' => 'Homepage',
-                    'url' => '/',
-                    'form' => $form?->getId(),
-                ],
-            ],
-        ]);
+        $messageBus = self::getContainer()->get('sulu_message_bus');
+
+        // Create page
+        $pageData = [
+            'template' => 'overview',
+            'title' => 'Homepage',
+            'url' => '/',
+            'locale' => 'de',
+        ];
+
+        if ($form) {
+            $pageData['form'] = $form->getId();
+        }
+
+        $envelope = $messageBus->dispatch(
+            new Envelope(
+                new CreatePageMessage(
+                    webspaceKey: 'sulu-io',
+                    parentId: CreatePageMessageHandler::HOMEPAGE_PARENT_ID,
+                    data: $pageData
+                ),
+                [new EnableFlushStamp()]
+            )
+        );
+
+        /** @var HandledStamp[] $handledStamps */
+        $handledStamps = $envelope->all(HandledStamp::class);
+
+        /** @var Page $page */
+        $page = $handledStamps[0]->getResult();
+
+        // Publish the page
+        $messageBus->dispatch(
+            new Envelope(
+                new ApplyWorkflowTransitionPageMessage(
+                    identifier: ['uuid' => $page->getUuid()],
+                    locale: 'de',
+                    transitionName: WorkflowInterface::WORKFLOW_TRANSITION_PUBLISH
+                ),
+                [new EnableFlushStamp()]
+            )
+        );
 
         self::$entityManager->clear();
 

@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Tests\Unit\Event;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
@@ -213,23 +214,13 @@ class ProtectedMediaSubscriberTest extends TestCase
             ->willReturn($queryBuilder->reveal())
             ->shouldBeCalled();
 
-        $query = new class($collectionKey) {
-            /** @var string string */
-            private $collectionKey;
-
-            public function __construct(string $collectionKey)
-            {
-                $this->collectionKey = $collectionKey;
-            }
-
-            public function getSingleScalarResult(): string
-            {
-                return $this->collectionKey;
-            }
-        };
+        $query = $this->prophesize(Query::class);
+        $query->getSingleScalarResult()
+            ->willReturn($collectionKey)
+            ->shouldBeCalled();
 
         $queryBuilder->getQuery()
-            ->willReturn($query)
+            ->willReturn($query->reveal())
             ->shouldBeCalled();
     }
 }

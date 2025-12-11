@@ -12,6 +12,8 @@
 namespace Sulu\Bundle\FormBundle\Event;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PostUpdateEventArgs;
+use Doctrine\ORM\Event\PreRemoveEventArgs;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\HttpCacheBundle\Cache\CacheManagerInterface;
@@ -31,12 +33,12 @@ class CacheInvalidationListener
         $this->cacheManager = $cacheManager;
     }
 
-    public function postUpdate(LifecycleEventArgs $eventArgs): void
+    public function postUpdate(PostUpdateEventArgs|LifecycleEventArgs $eventArgs): void
     {
         $this->invalidateEntity($eventArgs->getObject());
     }
 
-    public function preRemove(LifecycleEventArgs $eventArgs): void
+    public function preRemove(PreRemoveEventArgs|LifecycleEventArgs $eventArgs): void
     {
         $this->invalidateEntity($eventArgs->getObject());
     }

@@ -79,8 +79,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Sulu\\Bundle\\FormBundle\\Tests\\": "Tests",
-            "Sulu\\Page\\Tests\\": "vendor/sulu/sulu/packages/page/tests"
+            "Sulu\\Bundle\\FormBundle\\Tests\\": "Tests"
         }
     },
     "scripts": {
