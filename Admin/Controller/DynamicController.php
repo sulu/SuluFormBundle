@@ -38,7 +38,6 @@ class DynamicController
         private DynamicListFactoryInterface $dynamicListFactory,
         private MediaManagerInterface $mediaManager,
         private EntityManager $entityManager,
-        private FormRepository $formRepository,
         private ViewHandler $viewHandler
     ) {
     }
@@ -96,6 +95,7 @@ class DynamicController
             return new Response('', Response::HTTP_NO_CONTENT);
         }
 
+        /** @var array<array<int>> $attachments */
         $attachments = \array_filter(\array_values($dynamic->getFieldsByType(Dynamic::TYPE_ATTACHMENT)));
 
         foreach ($attachments as $mediaIds) {
@@ -133,17 +133,6 @@ class DynamicController
         ];
 
         return \array_filter($filters);
-    }
-
-    protected function loadForm(Request $request): Form
-    {
-        $formId = (int) $request->get('form');
-
-        if (!$formId) {
-            throw new BadRequestHttpException('"form" is required parameter');
-        }
-
-        return $this->formRepository->loadById($formId);
     }
 
     public function getLocale(Request $request): string

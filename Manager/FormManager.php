@@ -49,9 +49,9 @@ class FormManager
     /**
      * @param mixed[] $filters
      *
-     * @return null|Form[]
+     * @return array<Form>
      */
-    public function findAll(?string $locale = null, array $filters = []): ?array
+    public function findAll(?string $locale = null, array $filters = []): array
     {
         return $this->formRepository->loadAll($locale, $filters);
     }
