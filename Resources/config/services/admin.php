@@ -45,7 +45,7 @@ return static function(ContainerConfigurator $container) {
         ->public()
         ->args([
             service('fos_rest.view_handler.default'),
-            service(TokenStorageInterface::class),
+            service('security.token_storage'),
             service('sulu_form.manager.form'),
             service('sulu_core.doctrine_rest_helper'),
             service('sulu_core.doctrine_list_builder_factory'),

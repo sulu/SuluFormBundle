@@ -30,7 +30,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
     #[DataProvider('dataLocale')]
     public function testGetMetadata(string $locale): void
     {
-        $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'en');
+        $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'en')?->getItems();
 
         $snapshotFilePath = sprintf(__DIR__.'/snapshots/%s.json', $locale);
         $content = self::getContainer()->get('serializer')->serialize($formMetadata, 'json');
