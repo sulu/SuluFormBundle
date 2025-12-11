@@ -25,15 +25,15 @@ class HelperTest extends HelperTestCase
             $this->markTestSkipped('Swiftmailer is not installed.');
         }
 
-        $formTranslationRepository = $this->entityManager->getRepository(FormTranslation::class);
+        $formTranslationRepository = self::$entityManager->getRepository(FormTranslation::class);
         /** @var FormTranslation $formTranslation */
         $formTranslation = $formTranslationRepository->findOneBy(['title' => 'Title', 'locale' => 'de']);
         $form = $formTranslation->getForm();
 
-        $this->updateHomePage($form);
+        $this->createHomePage($form);
         $this->doSendForm($form);
 
-        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
+        $mailCollector = self::$client->getProfile()->getCollector('swiftmailer');
         // 2 messages should be send 1 to admin and 1 to email
         $this->assertSame(2, $mailCollector->getMessageCount());
 

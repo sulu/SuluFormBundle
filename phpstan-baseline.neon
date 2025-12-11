@@ -231,52 +231,7 @@ parameters:
 			path: Controller/FormController.php
 
 		-
-			message: "#^Parameter \\#3 \\$route of class Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\ListRepresentation constructor expects string, mixed given\\.$#"
-			count: 1
-			path: Controller/FormController.php
-
-		-
-			message: "#^Cannot call method all\\(\\) on Symfony\\\\Component\\\\Form\\\\FormInterface\\|null\\.$#"
-			count: 1
-			path: Controller/FormWebsiteController.php
-
-		-
-			message: "#^Cannot call method getData\\(\\) on Symfony\\\\Component\\\\Form\\\\FormInterface\\|null\\.$#"
-			count: 2
-			path: Controller/FormWebsiteController.php
-
-		-
-			message: "#^Cannot call method getErrors\\(\\) on Symfony\\\\Component\\\\Form\\\\FormInterface\\|null\\.$#"
-			count: 1
-			path: Controller/FormWebsiteController.php
-
-		-
-			message: "#^Parameter \\#1 \\$form of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Handler\\:\\:handle\\(\\) expects Symfony\\\\Component\\\\Form\\\\FormInterface, Symfony\\\\Component\\\\Form\\\\FormInterface\\|null given\\.$#"
-			count: 2
-			path: Controller/FormWebsiteController.php
-
-		-
-			message: "#^Parameter \\#1 \\$entityName of method Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\Doctrine\\\\DoctrineListBuilderFactoryInterface\\:\\:create\\(\\) expects class\\-string, string given\\.$#"
-			count: 1
-			path: Controller/ListController.php
-
-		-
-			message: "#^Parameter \\#1 \\$template of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getEntityName\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Controller/ListController.php
-
-		-
 			message: "#^Parameter \\#1 \\$template of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getFieldDescriptors\\(\\) expects string, mixed given\\.$#"
-			count: 2
-			path: Controller/ListController.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\AbstractListBuilder\\:\\:where\\(\\) expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 3
-			path: Controller/ListController.php
-
-		-
-			message: "#^Parameter \\#2 \\$webspace of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getEntityName\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: Controller/ListController.php
 

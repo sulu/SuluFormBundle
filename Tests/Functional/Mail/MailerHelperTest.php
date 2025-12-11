@@ -16,30 +16,28 @@ use Sulu\Bundle\FormBundle\Tests\Application\MailerKernel;
 
 class MailerHelperTest extends HelperTestCase
 {
-    protected function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         static::$class = MailerKernel::class;
-        static::$kernel = null; // requires as Symfony 4.4 does not unset on tearDown
-
-        parent::setUp();
+        parent::setUpBeforeClass();
     }
 
     public function testSendsEmailUsingMailerComponent()
     {
         $this->assertIsObject(static::$kernel);
-        $this->assertSame(MailerKernel::class, \get_class(static::$kernel));
+        $this->assertSame(MailerKernel::class, static::$kernel::class);
 
-        $formTranslationRepository = $this->entityManager->getRepository(FormTranslation::class);
+        $formTranslationRepository = self::$entityManager->getRepository(FormTranslation::class);
         /** @var FormTranslation $formTranslation */
         $formTranslation = $formTranslationRepository->findOneBy(['title' => 'Title', 'locale' => 'de']);
         $form = $formTranslation->getForm();
 
-        $this->updateHomePage($form);
+        $this->createHomePage($form);
         $this->doSendForm($form);
 
-        if ($this->client->getProfile()->hasCollector('swiftmailer')) {
+        if (self::$client->getProfile()->hasCollector('swiftmailer')) {
             // @deprecated
-            $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
+            $mailCollector = self::$client->getProfile()->getCollector('swiftmailer');
             $this->assertSame(0, $mailCollector->getMessageCount());
         }
 

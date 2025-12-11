@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit colors="true" bootstrap="Tests/test-bootstrap.php">
+<phpunit colors="true"
+         bootstrap="Tests/test-bootstrap.php"
+>
     <testsuites>
-        <testsuite name="Sulu Form Bundle">
-            <directory>./Tests</directory>
+        <!-- Run Unit Tests before Functional Tests for better Developer Experience -->
+        <testsuite name="Unit">
+            <directory>Tests/Unit</directory>
+        </testsuite>
+
+        <testsuite name="Functional">
+            <directory>Tests/Functional</directory>
         </testsuite>
     </testsuites>
-
-    <php>
-        <env name="KERNEL_CLASS" value="Sulu\Bundle\FormBundle\Tests\Application\Kernel"/>
-        <env name="APP_ENV" value="test" force="true"/>
-    </php>
 
     <source>
         <include>
@@ -21,4 +23,13 @@
             <directory>vendor/</directory>
         </exclude>
     </source>
+
+    <php>
+        <ini name="error_reporting" value="-1" />
+        <ini name="date.timezone" value="UTC" />
+        <server name="SHELL_VERBOSITY" value="-1" />
+        <server name="APP_ENV" value="test" force="true"/>
+        <server name="KERNEL_CLASS" value="Sulu\Bundle\FormBundle\Tests\Application\Kernel"/>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
+    </php>
 </phpunit>

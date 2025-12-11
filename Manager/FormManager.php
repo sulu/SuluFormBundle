@@ -203,7 +203,7 @@ class FormManager
         $translation->setDeactivateNotifyMails(self::getValue($data, 'deactivateNotifyMails', false));
         $translation->setDeactivateCustomerMails(self::getValue($data, 'deactivateCustomerMails', false));
         $translation->setReplyTo(self::getValue($data, 'replyTo', false));
-        $translation->setChanged(new \DateTime());
+        $translation->setChanged(new \DateTimeImmutable());
 
         // Add Translation to Form.
         if (!$translation->getId()) {

@@ -5,14 +5,15 @@
 
     {{ content.article|raw }}
 
-    {% if content.form %}
-        <h2> Form </h2>
-        {% if app.request.get('send') != 'true' %}
+    <h2> Form </h2>
+    {% set formView = sulu_form_build(content.form, 'page', object.resource.id|default('')) %}
+    {% if app.request.get('send') != 'true' %}
+        {% if formView %}
             {# FORM THEME #}
-            {% form_theme content.form '@SuluForm/themes/basic.html.twig' %}
-            {{ form(content.form) }}
-        {% else %}
-            {{ view.form.entity.successText|raw }}
+            {% form_theme formView '@SuluForm/themes/basic.html.twig' %}
+            {{ form(formView) }}
         {% endif %}
+    {% else %}
+        {{ view.form.entity.successText|raw }}
     {% endif %}
 {% endblock %}

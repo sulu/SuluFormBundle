@@ -14,59 +14,57 @@ namespace Sulu\Bundle\FormBundle\Tests\Functional\Mail;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Tests\Functional\Mail\Fixtures\LoadFormFixture;
-use Sulu\Bundle\PageBundle\Document\HomeDocument;
-use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
-use Sulu\Component\DocumentManager\DocumentManagerInterface;
+use Sulu\Bundle\TestBundle\Testing\WebsiteTestCase;
+use Sulu\Page\Domain\Model\Page;
+use Sulu\Page\Tests\Traits\CreatePageTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
-class HelperTestCase extends SuluTestCase
+class HelperTestCase extends WebsiteTestCase
 {
-    /**
-     * @var KernelBrowser
-     */
-    protected $client;
+    use CreatePageTrait;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected static KernelBrowser $client;
 
-    protected function setUp(): void
+    protected static EntityManagerInterface $entityManager;
+
+    protected static Page $homePage;
+
+    public static function setUpBeforeClass(): void
     {
-        $this->client = $this->createWebsiteClient();
-        $this->purgeDatabase();
-        $this->initPhpcr();
-        $this->entityManager = $this->getEntityManager();
+        self::$client = self::createWebsiteClient();
+        parent::setUpBeforeClass();
+        self::purgeDatabase();
+        self::$entityManager = self::getEntityManager();
 
         $fixture = new LoadFormFixture();
-        $fixture->load($this->entityManager);
+        $fixture->load(self::$entityManager);
 
-        $this->entityManager->flush();
-        $this->entityManager->clear();
+        self::$entityManager->flush();
+        self::$entityManager->clear();
     }
 
-    protected function updateHomePage(?Form $form = null): void
+    protected function createHomePage(?Form $form = null): Page
     {
-        /* @var $suluDocumentManager DocumentManagerInterface */
-        $suluDocumentManager = static::getContainer()->get('sulu_document_manager.document_manager');
-
-        /* @var $homePage HomeDocument */
-        $homePage = $suluDocumentManager->find('/cmf/sulu-io/contents');
-        $homePage->setResourceSegment('/');
-        $homePage->getStructure()->bind([
-            'form' => $form ? $form->getId() : null,
-            'url' => '/',
+        $page = self::createPage([
+            'de' => [
+                'live' => [
+                    'template' => 'overview',
+                    'title' => 'Homepage',
+                    'url' => '/',
+                    'form' => $form?->getId(),
+                ],
+            ],
         ]);
 
-        $suluDocumentManager->persist($homePage, 'de');
-        $suluDocumentManager->publish($homePage, 'de');
-        $suluDocumentManager->flush();
+        self::$entityManager->clear();
+
+        return $page;
     }
 
     protected function doSendForm(Form $form): void
     {
-        $crawler = $this->client->request('GET', '/');
-        $this->assertHttpStatusCode(200, $this->client->getResponse());
+        $crawler = self::$client->request('GET', 'http://sulu.io/');
+        $this->assertHttpStatusCode(200, self::$client->getResponse());
 
         $formName = \sprintf('dynamic_form%d', $form->getId());
         $formSelector = \sprintf('form[name=%s]', $formName);
@@ -77,8 +75,8 @@ class HelperTestCase extends SuluTestCase
             $formName . '[email1]' => '',
         ]);
 
-        $this->client->enableProfiler();
-        $crawler = $this->client->submit($formElm);
+        self::$client->enableProfiler();
+        $crawler = self::$client->submit($formElm);
         $this->assertResponseStatusCodeSame(422);
 
         $formElm = $crawler->filter($formSelector)->first()->form([
@@ -86,7 +84,7 @@ class HelperTestCase extends SuluTestCase
             $formName . '[email1]' => 'jon@example.org',
         ]);
 
-        $this->client->submit($formElm);
+        self::$client->submit($formElm);
         $this->assertResponseStatusCodeSame(302);
         $this->assertResponseRedirects('?send=true');
     }

@@ -94,6 +94,8 @@ class Dynamic implements AuditableInterface
         $this->form = $form;
         $this->webspaceKey = $webspaceKey;
         $this->typeName = $typeName;
+        $this->created = new \DateTimeImmutable();
+        $this->changed = new \DateTimeImmutable();
 
         $this->setData($data);
     }
