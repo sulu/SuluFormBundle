@@ -316,11 +316,6 @@ parameters:
 			path: Dynamic/Types/AttachmentType.php
 
 		-
-			message: "#^Parameter \\#1 \\$constraints of class Symfony\\\\Component\\\\Validator\\\\Constraints\\\\All constructor expects array\\<Symfony\\\\Component\\\\Validator\\\\Constraint\\>\\|Symfony\\\\Component\\\\Validator\\\\Constraint\\|null, array\\<string, array\\<Symfony\\\\Component\\\\Validator\\\\Constraint\\>\\> given\\.$#"
-			count: 1
-			path: Dynamic/Types/AttachmentType.php
-
-		-
 			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
 			count: 1
 			path: Dynamic/Types/CheckboxMultipleType.php
