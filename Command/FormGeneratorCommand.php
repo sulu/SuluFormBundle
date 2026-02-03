@@ -259,6 +259,7 @@ class FormGeneratorCommand extends Command
                 ->where($queryBuilder->expr()->eq('translation.title', ':title'))
                 ->setParameter('title', 'Test Form');
 
+            /* @var Form */
             return $queryBuilder->getQuery()->getSingleResult();
         } catch (NoResultException $e) {
             return null;

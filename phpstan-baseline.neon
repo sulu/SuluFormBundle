@@ -166,11 +166,6 @@ parameters:
 			path: Controller/DynamicController.php
 
 		-
-			message: "#^Cannot call method getFieldsByType\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\|null\\.$#"
-			count: 1
-			path: Controller/DynamicController.php
-
-		-
 			message: "#^Cannot cast mixed to int\\.$#"
 			count: 1
 			path: Controller/DynamicController.php
@@ -182,11 +177,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$dynamics of method Sulu\\\\Bundle\\\\FormBundle\\\\ListBuilder\\\\DynamicListFactory\\:\\:build\\(\\) expects array\\<Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\>, array given\\.$#"
-			count: 1
-			path: Controller/DynamicController.php
-
-		-
-			message: "#^Parameter \\#1 \\$entity of method Doctrine\\\\ORM\\\\EntityManager\\:\\:remove\\(\\) expects object, Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\|null given\\.$#"
 			count: 1
 			path: Controller/DynamicController.php
 
@@ -382,6 +372,11 @@ parameters:
 
 		-
 			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: Dynamic/Types/AttachmentType.php
+
+		-
+			message: "#^Parameter \\#1 \\$constraints of class Symfony\\\\Component\\\\Validator\\\\Constraints\\\\All constructor expects array\\<Symfony\\\\Component\\\\Validator\\\\Constraint\\>\\|Symfony\\\\Component\\\\Validator\\\\Constraint\\|null, array\\<string, array\\<Symfony\\\\Component\\\\Validator\\\\Constraint\\>\\> given\\.$#"
 			count: 1
 			path: Dynamic/Types/AttachmentType.php
 

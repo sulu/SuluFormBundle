@@ -16,6 +16,7 @@ use Sulu\Bundle\FormBundle\Dynamic\FormFieldTypeInterface;
 use Sulu\Bundle\FormBundle\Entity\FormField;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\Validator\Constraints\File;
@@ -42,6 +43,7 @@ class AttachmentType implements FormFieldTypeInterface
     {
         $type = FileType::class;
         $options['mapped'] = false;
+        /** @var array<Constraint> $allConstraints */
         $allConstraints = [];
 
         // Mime Types Filter.

@@ -152,7 +152,7 @@ class MailerHelper implements HelperInterface
         array $attachments
     ): void {
         foreach ($attachments as $file) {
-            if (!($file instanceof \SplFileInfo)) {
+            if (!$file instanceof \SplFileInfo) {
                 continue;
             }
             $path = $file->getPathname();

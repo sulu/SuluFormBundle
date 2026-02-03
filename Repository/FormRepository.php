@@ -34,6 +34,7 @@ class FormRepository extends EntityRepository
         $query = $queryBuilder->getQuery();
 
         try {
+            /* @var Form */
             return $query->getSingleResult();
         } catch (NoResultException $e) {
             return null;
