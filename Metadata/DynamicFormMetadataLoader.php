@@ -26,6 +26,9 @@ use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Webmozart\Assert\Assert;
 
+/**
+ * @internal no backwards compatibility promise is given for this class it can be removed at any time
+ */
 class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWarmerInterface
 {
     /**
@@ -90,6 +93,10 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
 
     public function getMetadata(string $key, string $locale, array $metadataOptions = []): ?MetadataInterface
     {
+        if ('form_details' !== $key) {
+            return null;
+        }
+
         $configCache = $this->getConfigCache($key);
 
         if (!\file_exists($configCache->getPath()) || !$configCache->isFresh()) {

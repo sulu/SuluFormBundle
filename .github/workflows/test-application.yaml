@@ -50,12 +50,21 @@ jobs:
                       database: mysql
                       dependency-versions: 'highest'
                       tools: 'composer:v2'
-                      composer-stability: 'dev'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=8.0
                           DATABASE_CHARSET: utf8mb4
                           DATABASE_COLLATE: utf8mb4_unicode_ci
+
+                    - php-version: '8.4'
+                      database: postgres
+                      dependency-versions: 'highest'
+                      tools: 'composer:v2'
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          DATABASE_URL: postgres://postgres:postgres@127.0.0.1/sulu_form_test?serverVersion=14
+                          DATABASE_CHARSET: UTF8
+                          DATABASE_COLLATE:
 
                     - php-version: '8.5'
                       database: mysql
@@ -118,7 +127,7 @@ jobs:
               env: ${{ matrix.env }}
 
             - name: Execute test cases
-              run: time composer test -- --config phpunit.xml.dist
+              run: time composer test
               env: ${{ matrix.env }}
 
     lint:

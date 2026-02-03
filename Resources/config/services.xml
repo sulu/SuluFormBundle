@@ -185,7 +185,7 @@
             <argument>%kernel.debug%</argument>
             <tag name="sulu.context" context="admin"/>
             <tag name="kernel.cache_warmer" />
-            <tag name="sulu_admin.form_metadata_loader"/>
+            <tag name="sulu_admin.form_metadata_loader" priority="256"/>
         </service>
 
         <!-- Dynamic Controller -->
