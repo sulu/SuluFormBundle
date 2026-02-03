@@ -37,6 +37,24 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
 
     public function prepend(ContainerBuilder $container): void
     {
+        if ($container->hasExtension('doctrine')) {
+            $container->prependExtensionConfig(
+                'doctrine',
+                [
+                    'orm' => [
+                        'mappings' => [
+                            'SuluFormBundle' => [
+                                'type' => 'xml',
+                                'dir' => __DIR__ . '/../Resources/config/doctrine',
+                                'prefix' => 'Sulu\Bundle\FormBundle\Entity',
+                                'alias' => 'SuluFormBundle',
+                            ],
+                        ],
+                    ],
+                ]
+            );
+        }
+
         if ($container->hasExtension('fos_js_routing')) {
             $container->prependExtensionConfig(
                 'fos_js_routing',
