@@ -10,7 +10,6 @@ framework:
 
 doctrine:
     orm:
-        auto_mapping: false
         mappings:
             gedmo_tree:
                 type: xml
