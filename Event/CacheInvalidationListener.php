@@ -18,7 +18,7 @@ use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\HttpCacheBundle\Cache\CacheManagerInterface;
 
 /**
- * Invalidate references when form is persisted.
+ * @internal no backwards compatibility promise is given for this class it can be removed at any time
  */
 class CacheInvalidationListener
 {
