@@ -101,7 +101,7 @@ class FormController extends AbstractRestController implements SecuredController
         $filters = $this->getFilters($request);
 
         // flatted entities
-        if ('true' === $request->get('flat')) {
+        if ('true' === $request->query->getString('flat')) {
             // get model class
             /** @var AbstractListBuilder $listBuilder */
             $listBuilder = $this->factory->create($this->getModelClass());
@@ -233,9 +233,7 @@ class FormController extends AbstractRestController implements SecuredController
 
     public function getLocale(Request $request): string
     {
-        $locale = $request->get('locale');
-
-        return \is_string($locale) ? $locale : $request->getLocale();
+        return $request->query->getString('locale', $request->getLocale());
     }
 
     /**

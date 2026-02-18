@@ -44,6 +44,9 @@ class Kernel extends SuluTestKernel
     {
         parent::registerContainerConfiguration($loader);
 
+        if (\PHP_VERSION_ID >= 80400) {
+            $loader->load(__DIR__ . '/config/config_php84.yml');
+        }
         $loader->load(__DIR__ . '/config/config_' . $this->getContext() . '.yml');
     }
 
