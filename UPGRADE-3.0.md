@@ -18,7 +18,7 @@ The form is no longer built during content resolution. Instead, use the new `sul
 
 **after:**
 
-```twig
+```diff
 {% if content.form %}
         {% if app.request.get('send') != 'true' %}
 -            {% form_theme content.form '@SuluForm/themes/basic.html.twig' %}
