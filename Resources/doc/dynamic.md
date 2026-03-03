@@ -92,7 +92,7 @@ has been submitted successfully!
             {% set form_view = sulu_form_build(content.form, 'page', resource.id) %}
             {# FORM THEME #}
             {% form_theme form_view '@SuluForm/themes/basic.html.twig' %}
-            {{ form(content.form.entity) }}
+            {{ form(form_view) }}
         {% else %}
             {{ view.form.entity.successText|raw }}
         {% endif %}
