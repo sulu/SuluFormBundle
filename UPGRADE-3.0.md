@@ -10,18 +10,17 @@ The `SingleFormSelection` content type has been replaced with the new Sulu 3.0 c
 
 The form is no longer built during content resolution. Instead, use the new `sulu_form_build` Twig function to build the form at render time:
 
-**before:**
-
-```twig
-{{ form(content.formProperty) }}
-```
-
-**after:**
-
-```twig
-{% set form = sulu_form_build(content.formProperty, 'page', page.id) %}
-{% if form %}
-    {{ form(form) }}
+```diff
+{% if content.form %}
+    {% if app.request.get('send') != 'true' %}
+-        {% form_theme content.form '@SuluForm/themes/basic.html.twig' %}
+-        {{ form(content.form) }}
++        {% set form_view = sulu_form_build(content.form, 'page', resource.id) %}
++        {% form_theme form_view '@SuluForm/themes/basic.html.twig' %}
++        {{ form(form_view) }}
+    {% else %}
+        {{ view.form.entity.successText|raw }}
+    {% endif %}
 {% endif %}
 ```
 

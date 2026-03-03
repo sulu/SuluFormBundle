@@ -63,7 +63,6 @@ Add the following lines to `config/routes/sulu_admin.yaml`
 
 ```yml
 sulu_form_api:
-    type: rest
     resource: "@SuluFormBundle/Resources/config/routing_api.yml"
     prefix: /admin/api
 ```

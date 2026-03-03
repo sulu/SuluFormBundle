@@ -89,9 +89,10 @@ has been submitted successfully!
 <body>
     {% if content.form %}
         {% if app.request.get('send') != 'true' %}
+            {% set form_view = sulu_form_build(content.form, 'page', resource.id) %}
             {# FORM THEME #}
-            {% form_theme content.form '@SuluForm/themes/basic.html.twig' %}
-            {{ form(content.form) }}
+            {% form_theme form_view '@SuluForm/themes/basic.html.twig' %}
+            {{ form(form_view) }}
         {% else %}
             {{ view.form.entity.successText|raw }}
         {% endif %}
