@@ -19,10 +19,17 @@ The form is no longer built during content resolution. Instead, use the new `sul
 **after:**
 
 ```twig
-{% set form = sulu_form_build(content.formProperty, 'page', page.id) %}
-{% if form %}
-    {{ form(form) }}
-{% endif %}
+{% if content.form %}
+        {% if app.request.get('send') != 'true' %}
+-            {% form_theme content.form '@SuluForm/themes/basic.html.twig' %}
+-            {{ form(content.form) }}
++            {% set form_view = sulu_form_build(content.form, 'page', resource.id) %}
++            {% form_theme form_view '@SuluForm/themes/basic.html.twig' %}
++            {{ form(form_view) }}
+        {% else %}
+            {{ view.form.entity.successText|raw }}
+        {% endif %}
+    {% endif %}
 ```
 
 The resolved content now contains:
