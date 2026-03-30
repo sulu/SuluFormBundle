@@ -16,6 +16,7 @@ use Brevo\Client\Configuration;
 use Brevo\Client\Model\CreateDoiContact;
 use GuzzleHttp\ClientInterface;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
+use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderPoolInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -170,11 +171,12 @@ class BrevoListSubscriber implements EventSubscriberInterface
         $linkProvider = $this->linkProviderPool->getProvider($redirectLink['provider']);
         $linkItems = $linkProvider->preload([$redirectLink['href']], $redirectLink['locale'], true);
 
-        if (0 === \count($linkItems)) {
+        $lastItem = reset($linkItems);
+        if ($lastItem === false) {
             return null;
         }
 
-        $url = \reset($linkItems)->getUrl();
+        $url = $lastItem->getUrl();
         if (isset($redirectLink['query'])) {
             $url = \sprintf('%s?%s', $url, $redirectLink['query']);
         }
