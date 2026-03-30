@@ -12,6 +12,17 @@ in `config/packages/sulu_form.yaml`.
 
 You can find all Brevo configuration options [here](Resources/doc/brevo.md).
 
+### Container changes
+
+Removed parameters:
+- sulu_form.sendinblue_api_key
+
+Removed services:
+- sulu_form.subscriber.sendinblue_list_subscriber
+- sulu_form.dynamic.type_sendinblue
+- sulu_form.dynamic.sendinblue_list_select
+- sulu_form.dynamic.sendinblue_mail_template_select
+
 #### Data Migration
 
 Use the following database query to update all existing forms.
