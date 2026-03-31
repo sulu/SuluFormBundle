@@ -9,7 +9,7 @@ First of all you need to install the Brevo php sdk, otherwise the Brevo field ty
 ```json
 {
     "require": {
-        "getbrevo/brevo-php": "^2.0"
+        "getbrevo/brevo-php": "^4.0"
     }
 }
 ```
@@ -17,7 +17,7 @@ First of all you need to install the Brevo php sdk, otherwise the Brevo field ty
 or
 
 ```bash
-composer require getbrevo/brevo-php:"^2.0"
+composer require getbrevo/brevo-php:"^4.0"
 ```
 
 ## Config

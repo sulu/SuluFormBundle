@@ -37,7 +37,10 @@ class BrevoListSubscriberTest extends TestCase
 
     private RequestStack $requestStack;
 
-    private ContactsClientInterface $contactsClient;
+    /**
+     * @var ObjectProphecy<ContactsClientInterface>
+     */
+    private ObjectProphecy $contactsClient;
 
     private BrevoListSubscriber $brevoListSubscriber;
 
