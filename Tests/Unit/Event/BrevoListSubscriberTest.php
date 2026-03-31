@@ -11,13 +11,12 @@
 
 namespace Sulu\Bundle\FormBundle\Tests\Unit\Event;
 
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Psr7\Response;
+use Brevo\Brevo;
+use Brevo\Contacts\ContactsClientInterface;
+use Brevo\Contacts\Requests\CreateDoiContactRequest;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Psr\Http\Message\RequestInterface;
 use Sulu\Bundle\FormBundle\Configuration\FormConfiguration;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
@@ -36,36 +35,27 @@ class BrevoListSubscriberTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
+
+    private ContactsClientInterface $contactsClient;
+
+    private BrevoListSubscriber $brevoListSubscriber;
 
     /**
-     * @var ObjectProphecy<ClientInterface>
+     * @var ObjectProphecy<LinkProviderPoolInterface>
      */
-    private $client;
-
-    /**
-     * @var BrevoListSubscriber
-     */
-    private $brevoListSubscriber;
-
-    /**
-     * @var LinkProviderPoolInterface|ObjectProphecy
-     */
-    private $linkProviderPool;
+    private ObjectProphecy $linkProviderPool;
 
     public function setUp(): void
     {
         $this->requestStack = new RequestStack();
         $this->linkProviderPool = $this->prophesize(LinkProviderPoolInterface::class);
-        $this->client = $this->prophesize(ClientInterface::class);
+        $brevo = new Brevo(apiKey: '');
+        $this->contactsClient = $brevo->contacts = $this->prophesize(ContactsClientInterface::class);
 
         $this->brevoListSubscriber = new BrevoListSubscriber(
             $this->requestStack,
-            'SOME_KEY',
-            $this->client->reveal(),
+            $brevo,
             $this->linkProviderPool->reveal()
         );
     }
@@ -85,32 +75,18 @@ class BrevoListSubscriberTest extends TestCase
         $this->requestStack->push(Request::create('http://localhost/newsletter', 'POST'));
         $event = $this->createFormSavePostEvent();
 
-        $self = $this;
-        $this->client->send(Argument::cetera())->will(function($args) use ($self) {
-            /** @var RequestInterface $request */
-            $request = $args[0];
-
-            if ('https://api.brevo.com/v3/contacts/doubleOptinConfirmation' === $request->getUri()->__toString()) {
-                $self->assertSame('POST', $request->getMethod());
-
-                $json = \json_decode($request->getBody()->getContents(), true);
-
-                $self->assertSame([
-                    'email' => 'john.doe@example.org',
-                    'attributes' => [
-                        'firstname' => 'John',
-                        'lastname' => 'Doe',
-                    ],
-                    'includeListIds' => ['789'],
-                    'templateId' => 456,
-                    'redirectionUrl' => 'http://localhost/newsletter?send=true&subscribe=true',
-                ], $json);
-
-                return new Response();
-            }
-
-            throw new \RuntimeException('Unexpected request: ' . $request->getUri()->__toString());
-        })
+        $this->contactsClient->createDoiContact(
+            new CreateDoiContactRequest([
+                'email' => 'john.doe@example.org',
+                'attributes' => [
+                    'firstname' => 'John',
+                    'lastname' => 'Doe',
+                ],
+                'includeListIds' => ['789'],
+                'templateId' => 456,
+                'redirectionUrl' => 'http://localhost/newsletter?send=true&subscribe=true',
+            ])
+        )
             ->shouldBeCalledOnce();
 
         // act
@@ -124,32 +100,18 @@ class BrevoListSubscriberTest extends TestCase
         $this->requestStack->push(Request::create('http://localhost/newsletter', 'POST'));
         $event = $this->createFormSavePostEvent(true);
 
-        $self = $this;
-        $this->client->send(Argument::cetera())->will(function($args) use ($self) {
-            /** @var RequestInterface $request */
-            $request = $args[0];
-
-            if ('https://api.brevo.com/v3/contacts/doubleOptinConfirmation' === $request->getUri()->__toString()) {
-                $self->assertSame('POST', $request->getMethod());
-
-                $json = \json_decode($request->getBody()->getContents(), true);
-
-                $self->assertSame([
-                    'email' => 'john.doe@example.org',
-                    'attributes' => [
-                        'firstname' => 'John',
-                        'lastname' => 'Doe',
-                    ],
-                    'includeListIds' => ['789'],
-                    'templateId' => 456,
-                    'redirectionUrl' => '/test-page',
-                ], $json);
-
-                return new Response();
-            }
-
-            throw new \RuntimeException('Unexpected request: ' . $request->getUri()->__toString());
-        })
+        $this->brevo->contacts->createDoiContact(
+            new CreateDoiContactRequest([
+                'email' => 'john.doe@example.org',
+                'attributes' => [
+                    'firstname' => 'John',
+                    'lastname' => 'Doe',
+                ],
+                'includeListIds' => ['789'],
+                'templateId' => 456,
+                'redirectionUrl' => '/test-page',
+            ])
+        )
             ->shouldBeCalledOnce();
 
         /** @var LinkProviderInterface|ObjectProphecy $linkProvider */

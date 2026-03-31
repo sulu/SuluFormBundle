@@ -12,7 +12,6 @@
 namespace Sulu\Bundle\FormBundle\Event;
 
 use Brevo\Brevo;
-use Brevo\Client\Model\CreateDoiContact;
 use Brevo\Contacts\Requests\CreateDoiContactRequest;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderPoolInterface;
