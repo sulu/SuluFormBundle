@@ -11,9 +11,6 @@
 
 namespace Sulu\Bundle\FormBundle\TitleProvider;
 
-/**
- * Defines the form type implementation.
- */
 interface TitleProviderInterface
 {
     /**

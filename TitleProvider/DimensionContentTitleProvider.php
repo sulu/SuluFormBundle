@@ -17,8 +17,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Provides the title from the current page/article content.
+ *
+ * @internal
  */
-class StructureTitleProvider implements TitleProviderInterface
+final class DimensionContentTitleProvider implements TitleProviderInterface
 {
     public function __construct(
         private RequestStack $requestStack,

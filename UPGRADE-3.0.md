@@ -68,12 +68,14 @@ The `PropertiesXmlLoader` and `DynamicFormMetadataLoader` have been refactored t
 
 The `StructureTitleProvider` has been refactored to use Sulu 3.0's new content architecture:
 
+- Uses a new name `DimensionContentTitleProvider`
 - Uses `DimensionContentInterface` instead of removed `StructureInterface`
 - Gets `object` from request attributes instead of `structure`
 - Uses `getResource()->getId()` instead of `getUuid()`
 - Gets title from `getTemplateData()['title']`
 
-If you extended this class, update your code accordingly.
+If you extended this class, update your code accordingly. This class is now final, to override it decorate the 
+`sulu_form.title_provider.page` service.
 
 ### Deprecated Symfony methods removed
 
