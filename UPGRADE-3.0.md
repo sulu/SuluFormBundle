@@ -4,13 +4,22 @@
 
 ### Replace sendinblue with getbrevo
 
-The Sendinblue Form Field is now deprecated; please use the Brevo Form Field instead.
-Both fields offer the same functionality but rely on different SDKs.
-Therefore, replace `sendinblue/api-v3-sdk` with `getbrevo/brevo-php` in your dependencies.
-Additionally, update the configuration variable from `sendinblue_api_key` to `brevo_api_key`
-in `config/packages/sulu_form.yaml`.
-
+The Sendinblue Form Form Fields were replaced with the Brevo Form Field.
 You can find all Brevo configuration options [here](Resources/doc/brevo.md).
+
+### Config changes
+```diff
+ # config/packages/sulu_form.yaml
+ sulu_form:
+-    sendinblue_api_key: <your key>
++    brevo_api_key: <your key>
+```
+
+### Composer dependency changes
+```
+composer remove sendinblue/api-v3-sdk
+composer require getbrevo/brevo-php
+```
 
 ### Container changes
 
