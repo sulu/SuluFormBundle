@@ -12,7 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Tests\Unit\Event;
 
 use Brevo\Brevo;
-use Brevo\Contacts\ContactsClientInterface;
+use Brevo\Contacts\ContactsClient;
 use Brevo\Contacts\Requests\CreateDoiContactRequest;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -38,9 +38,9 @@ class BrevoListSubscriberTest extends TestCase
     private RequestStack $requestStack;
 
     /**
-     * @var ObjectProphecy<ContactsClientInterface>
+     * @var ObjectProphecy<ContactsClient>
      */
-    private ObjectProphecy $contactsClient;
+    private $contactsClient;
 
     private BrevoListSubscriber $brevoListSubscriber;
 
@@ -54,8 +54,10 @@ class BrevoListSubscriberTest extends TestCase
         $this->requestStack = new RequestStack();
         $this->linkProviderPool = $this->prophesize(LinkProviderPoolInterface::class);
         $brevo = new Brevo(apiKey: '');
-        $this->contactsClient = $this->prophesize(ContactsClientInterface::class);
-        $brevo->contacts = $this->contactsClient->reveal();
+
+        // We're not using prophecy here, because it crashes when trying to mock the ContactsClient
+        $this->contactsClient = $this->createMock(ContactsClient::class);
+        $brevo->contacts = $this->contactsClient;
 
         $this->brevoListSubscriber = new BrevoListSubscriber(
             $this->requestStack,
@@ -79,7 +81,7 @@ class BrevoListSubscriberTest extends TestCase
         $this->requestStack->push(Request::create('http://localhost/newsletter', 'POST'));
         $event = $this->createFormSavePostEvent();
 
-        $this->contactsClient->createDoiContact(
+        $this->contactsClient->expects($this->once())->method('createDoiContact')->with(
             new CreateDoiContactRequest([
                 'email' => 'john.doe@example.org',
                 'attributes' => [
@@ -90,8 +92,7 @@ class BrevoListSubscriberTest extends TestCase
                 'templateId' => 456,
                 'redirectionUrl' => 'http://localhost/newsletter?send=true&subscribe=true',
             ])
-        )
-            ->shouldBeCalledOnce();
+        );
 
         // act
         $this->brevoListSubscriber->listSubscribe($event);
@@ -104,7 +105,7 @@ class BrevoListSubscriberTest extends TestCase
         $this->requestStack->push(Request::create('http://localhost/newsletter', 'POST'));
         $event = $this->createFormSavePostEvent(true);
 
-        $this->brevo->contacts->createDoiContact(
+        $this->contactsClient->expects($this->once())->method('createDoiContact')->with(
             new CreateDoiContactRequest([
                 'email' => 'john.doe@example.org',
                 'attributes' => [
@@ -115,8 +116,7 @@ class BrevoListSubscriberTest extends TestCase
                 'templateId' => 456,
                 'redirectionUrl' => '/test-page',
             ])
-        )
-            ->shouldBeCalledOnce();
+        );
 
         /** @var LinkProviderInterface|ObjectProphecy $linkProvider */
         $linkProvider = $this->prophesize(LinkProviderInterface::class);
