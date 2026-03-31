@@ -38,7 +38,6 @@ Use the following database query to update all existing forms.
 
 ```sql
 UPDATE `fo_form_fields` SET `type` = 'brevo' WHERE `type` = 'sendinblue';
->>>>>>> 696bb05 (Upgrade instructions):UPGRADE.md
 ```
 
 ### Content Type replaced with PropertyResolver and ResourceLoader

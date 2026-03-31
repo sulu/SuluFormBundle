@@ -11,8 +11,8 @@
 
 namespace Sulu\Bundle\FormBundle\Dynamic\Helper;
 
-use Brevo\Client\Api\TransactionalEmailsApi;
-use Brevo\Client\Configuration;
+use Brevo\Brevo;
+use Brevo\TransactionalEmails\Requests\GetSmtpTemplatesRequest;
 
 /**
  * @final
@@ -21,21 +21,10 @@ use Brevo\Client\Configuration;
  */
 class BrevoMailTemplateSelect
 {
-    /**
-     * @var TransactionalEmailsApi|null
-     */
-    private $transactionalEmailsApi;
+    private const PAGE_SIZE = 50;
 
-    public function __construct(?string $apiKey)
+    public function __construct(private Brevo $api)
     {
-        if (!$apiKey) {
-            return;
-        }
-
-        $config = new Configuration();
-        $config->setApiKey('api-key', $apiKey);
-
-        $this->transactionalEmailsApi = new TransactionalEmailsApi(null, $config);
     }
 
     /**
@@ -45,41 +34,31 @@ class BrevoMailTemplateSelect
      */
     public function getValues(): array
     {
-        if (!$this->transactionalEmailsApi) {
-            return [];
-        }
-
-        $limit = 50;
         $offset = 0;
-        $total = null;
         $mailTemplateObjects = [];
 
-        do {
-            $response = $this->transactionalEmailsApi->getSmtpTemplates(true, $limit, $offset);
+        while (true) {
+            $response = $this->api->transactionalEmails->getSmtpTemplates(
+                new GetSmtpTemplatesRequest(['limit' => self::PAGE_SIZE, 'offset' => $offset])
+            );
 
-            if (null === $total) {
-                $total = $response->getCount();
-            }
-
-            $newMailTemplateObjects = $response->getTemplates();
-            if (0 === \count($newMailTemplateObjects)) {
+            if (null === $response || 0 === $response->count) {
                 break;
             }
 
-            $mailTemplateObjects = \array_merge($mailTemplateObjects, $newMailTemplateObjects);
-            $offset += $limit;
-        } while (\count($mailTemplateObjects) < $total);
+            $mailTemplateObjects = [...$mailTemplateObjects, ...($response->templates ?? [])];
+            $offset += self::PAGE_SIZE;
+        }
 
         $mailTemplates = [];
-
         foreach ($mailTemplateObjects as $template) {
-            if (($template['tag'] ?? null) !== 'optin') {
+            if ('optin' !== $template->tag) {
                 continue;
             }
 
             $mailTemplates[] = [
-                'name' => $template['id'],
-                'title' => $template['name'],
+                'name' => $template->id,
+                'title' => $template->name,
             ];
         }
 

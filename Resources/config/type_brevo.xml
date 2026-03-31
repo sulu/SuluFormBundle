@@ -17,11 +17,15 @@
         </service>
 
         <service id="sulu_form.dynamic.brevo_list_select" class="Sulu\Bundle\FormBundle\Dynamic\Helper\BrevoListSelect" public="true">
-            <argument>%sulu_form.brevo_api_key%</argument>
+            <argument type="service" id="sulu_form.brevo_client" />
         </service>
 
         <service id="sulu_form.dynamic.brevo_mail_template_select" class="Sulu\Bundle\FormBundle\Dynamic\Helper\BrevoMailTemplateSelect" public="true">
-            <argument>%sulu_form.brevo_api_key%</argument>
+            <argument type="service" id="sulu_form.brevo_client" />
+        </service>
+
+        <service id="sulu_form.brevo_client" class="Brevo\Brevo">
+            <argument name="$apiKey">%sulu_form.brevo_api_key%</argument>
         </service>
     </services>
 </container>

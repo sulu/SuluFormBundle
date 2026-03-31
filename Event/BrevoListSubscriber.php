@@ -11,10 +11,9 @@
 
 namespace Sulu\Bundle\FormBundle\Event;
 
-use Brevo\Client\Api\ContactsApi;
-use Brevo\Client\Configuration;
+use Brevo\Brevo;
 use Brevo\Client\Model\CreateDoiContact;
-use GuzzleHttp\ClientInterface;
+use Brevo\Contacts\Requests\CreateDoiContactRequest;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderPoolInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -27,41 +26,14 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class BrevoListSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
-
-    /**
-     * @var ContactsApi|null
-     */
-    private $contactsApi;
-
-    /**
-     * @var ?LinkProviderPoolInterface
-     */
-    private $linkProviderPool;
-
     public function __construct(
-        RequestStack $requestStack,
-        ?string $apiKey,
-        ?ClientInterface $client = null,
-        ?LinkProviderPoolInterface $linkProviderPool = null
+        private RequestStack $requestStack,
+        private Brevo $api,
+        private ?LinkProviderPoolInterface $linkProviderPool = null
     ) {
-        $this->requestStack = $requestStack;
-        $this->linkProviderPool = $linkProviderPool;
-
-        if (!$apiKey) {
-            return;
-        }
-
-        $config = new Configuration();
-        $config->setApiKey('api-key', $apiKey);
-
-        $this->contactsApi = new ContactsApi($client, $config);
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             FormSavePostEvent::NAME => 'listSubscribe',
@@ -70,10 +42,6 @@ class BrevoListSubscriber implements EventSubscriberInterface
 
     public function listSubscribe(FormSavePostEvent $event): void
     {
-        if (!$this->contactsApi) {
-            return;
-        }
-
         $dynamic = $event->getData();
         $request = $this->requestStack->getCurrentRequest();
 
@@ -126,18 +94,18 @@ class BrevoListSubscriber implements EventSubscriberInterface
         }
 
         foreach ($listIdsByMailTemplate as $mailTemplateId => $listIds) {
-            $createDoiContact = new CreateDoiContact([
+            $createDoiContact = new CreateDoiContactRequest([
                 'email' => $email,
-                'templateId' => $mailTemplateId,
                 'includeListIds' => $listIds,
                 'redirectionUrl' => $linkUrl ?? $redirectionUrl,
                 'attributes' => [
                     'firstname' => $firstName,
                     'lastname' => $lastName,
                 ],
+                'templateId' => $mailTemplateId,
             ]);
 
-            $this->contactsApi->createDoiContact($createDoiContact);
+            $this->api->contacts->createDoiContact($createDoiContact);
         }
     }
 

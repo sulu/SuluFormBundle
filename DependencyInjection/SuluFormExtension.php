@@ -195,8 +195,8 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         }
 
         if ($config['brevo_api_key']) {
-            if (!\class_exists(\Brevo\Client\Configuration::class)) {
-                throw new \LogicException('You need to install the "getbrevo/brevo-php" package to use the Brevo type.');
+            if (!\class_exists(\Brevo\Types\Configuration::class)) {
+                throw new \LogicException('You need to install the "getbrevo/brevo-php" version ^4.0 to use the Brevo type.');
             }
 
             $loader->load('type_brevo.xml');

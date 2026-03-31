@@ -29,9 +29,9 @@
         "symfony/event-dispatcher-contracts": "^3.0",
         "symfony/form": "^6.4 || ^7.1",
         "symfony/mailer": "^6.4 || ^7.1",
-        "symfony/validator": "^6.4 || ^7.1",
         "symfony/security-csrf": "^6.4 || ^7.1",
         "symfony/translation": "^6.4 || ^7.1",
+        "symfony/validator": "^6.4 || ^7.1",
         "twig/twig": "^2.13 || ^3.0"
     },
     "require-dev": {
@@ -39,8 +39,8 @@
         "doctrine/data-fixtures": "^2.0",
         "doctrine/doctrine-bundle": "^2.0",
         "drewm/mailchimp-api": "^2.2",
+        "getbrevo/brevo-php": "^4.0",
         "excelwebzone/recaptcha-bundle": "^1.4.2",
-        "getbrevo/brevo-php": "^2.0",
         "handcraftedinthealps/zendsearch": "^2.0",
         "jackalope/jackalope-doctrine-dbal": "^2.0",
         "jangregor/phpstan-prophecy": "^1.0",

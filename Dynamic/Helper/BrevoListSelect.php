@@ -11,8 +11,8 @@
 
 namespace Sulu\Bundle\FormBundle\Dynamic\Helper;
 
-use Brevo\Client\Api\ContactsApi;
-use Brevo\Client\Configuration;
+use Brevo\Brevo;
+use Brevo\Contacts\Requests\GetListsRequest;
 
 /**
  * @final
@@ -21,21 +21,10 @@ use Brevo\Client\Configuration;
  */
 class BrevoListSelect
 {
-    /**
-     * @var ContactsApi|null
-     */
-    private $contactsApi;
+    private const PAGE_SIZE = 50;
 
-    public function __construct(?string $apiKey)
+    public function __construct(private Brevo $api)
     {
-        if (!$apiKey) {
-            return;
-        }
-
-        $config = new Configuration();
-        $config->setApiKey('api-key', $apiKey);
-
-        $this->contactsApi = new ContactsApi(null, $config);
     }
 
     /**
@@ -45,37 +34,27 @@ class BrevoListSelect
      */
     public function getValues(): array
     {
-        if (!$this->contactsApi) {
-            return [];
-        }
-
-        $limit = 50;
         $offset = 0;
-        $total = null;
         $listObjects = [];
 
-        do {
-            $response = $this->contactsApi->getLists($limit, $offset);
+        while (true) {
+            $response = $this->api->contacts->getLists(
+                new GetListsRequest(['limit' => self::PAGE_SIZE, 'offset' => $offset]),
+            );
 
-            if (null === $total) {
-                $total = $response->getCount();
-            }
-
-            $newListObjects = $response->getLists();
-            if (0 === \count($newListObjects)) {
+            if (null === $response || 0 === $response->count) {
                 break;
             }
 
-            $listObjects = \array_merge($listObjects, $newListObjects);
-            $offset += $limit;
-        } while (\count($listObjects) < $total);
+            $listObjects = [...$listObjects, ...($response->lists ?? [])];
+            $offset += self::PAGE_SIZE;
+        }
 
         $lists = [];
-
         foreach ($listObjects as $list) {
             $lists[] = [
-                'name' => $list['id'],
-                'title' => $list['name'],
+                'name' => $list->id,
+                'title' => $list->name,
             ];
         }
 
