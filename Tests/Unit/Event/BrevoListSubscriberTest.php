@@ -51,7 +51,8 @@ class BrevoListSubscriberTest extends TestCase
         $this->requestStack = new RequestStack();
         $this->linkProviderPool = $this->prophesize(LinkProviderPoolInterface::class);
         $brevo = new Brevo(apiKey: '');
-        $this->contactsClient = $brevo->contacts = $this->prophesize(ContactsClientInterface::class);
+        $this->contactsClient = $this->prophesize(ContactsClientInterface::class);
+        $brevo->contacts = $this->contactsClient->reveal();
 
         $this->brevoListSubscriber = new BrevoListSubscriber(
             $this->requestStack,

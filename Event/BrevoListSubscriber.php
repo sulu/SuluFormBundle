@@ -63,8 +63,10 @@ class BrevoListSubscriber implements EventSubscriberInterface
 
         foreach ($form['fields'] as $field) {
             if ('firstName' === $field['type'] && !$firstName) {
+                /** @var string $firstName */
                 $firstName = $field['value'];
             } elseif ('lastName' === $field['type'] && !$lastName) {
+                /** @var string $lastName */
                 $lastName = $field['value'];
             } elseif ('email' === $field['type'] && !$email) {
                 $email = $field['value'];
