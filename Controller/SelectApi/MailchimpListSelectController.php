@@ -47,7 +47,7 @@ class MailchimpListSelectController
 
         foreach ($response['lists'] as $list) {
             $lists[] = [
-                'name' => $list['id'],
+                'id' => $list['id'],
                 'title' => $list['name'],
             ];
         }

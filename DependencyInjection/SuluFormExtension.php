@@ -12,12 +12,16 @@
 namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Sulu\Bundle\FormBundle\Controller\FormTokenController;
+use Sulu\Bundle\FormBundle\Controller\SelectApi\BrevoListSelectController;
+use Sulu\Bundle\FormBundle\Controller\SelectApi\BrevoMailTemplateSelectController;
+use Sulu\Bundle\FormBundle\Controller\SelectApi\MailchimpListSelectController;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Mailer\MailerInterface;
 
@@ -80,6 +84,63 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         }
 
         if ($container->hasExtension('sulu_admin')) {
+            $additionalResources = [];
+            $additionalSelections = [];
+
+            if (class_exists(\DrewM\MailChimp\MailChimp::class)) {
+                $additionalResources[MailchimpListSelectController::RESOURCE_KEY] = [
+                    'routes' => [
+                        'list' =>'sulu_form.get_mail_chimp_values',
+                        'detail' =>'sulu_form.get_mail_chimp_value',
+                    ],
+                ];
+
+                $additionalSelections['single_mail_chimp_selection'] = [
+                    'default_type' => 'auto_complete',
+                    'resource_key' => MailchimpListSelectController::RESOURCE_KEY,
+                    'types' => [
+                        'auto_complete' => [
+                            'display_property' => 'title',
+                            'search_properties' => ['title']
+                        ],
+                    ],
+                ];
+            }
+
+            if (!\class_exists(\SendinBlue\Client\Configuration::class)) {
+                $additionalResources[BrevoListSelectController::RESOURCE_KEY] = [
+                    'routes' => [
+                        'list' =>'sulu_form.get_sendinblue_values',
+                    ],
+                ];
+                $additionalResources[BrevoMailTemplateSelectController::RESOURCE_KEY] = [
+                    'routes' => [
+                        'list' =>'sulu_form.get_sendinblue_mail_templates',
+                    ],
+                ];
+
+                $additionalSelections['single_brevo_list_selection'] = [
+                    'default_type' => 'auto_complete',
+                    'resource_key' => BrevoListSelectController::RESOURCE_KEY,
+                    'types' => [
+                        'auto_complete' => [
+                            'display_property' => 'title',
+                            'search_properties' => ['title']
+                        ],
+                    ],
+                ];
+                $additionalSelections['single_brevo_mail_template_selection'] = [
+                    'default_type' => 'auto_complete',
+                    'resource_key' => BrevoMailTemplateSelectController::RESOURCE_KEY,
+                    'types' => [
+                        'auto_complete' => [
+                            'display_property' => 'title',
+                            'search_properties' => ['title']
+                        ],
+                    ],
+                ];
+            }
+
             $container->prependExtensionConfig(
                 'sulu_admin',
                 [
@@ -101,6 +162,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                                 'detail' => 'sulu_form.delete_dynamic',
                             ],
                         ],
+                        ...$additionalResources,
                     ],
                     'field_type_options' => [
                         'single_selection' => [
@@ -118,6 +180,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                                     ],
                                 ],
                             ],
+                            ...$additionalSelections,
                         ],
                     ],
                 ]

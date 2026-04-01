@@ -25,7 +25,7 @@
         </service>
 
         <service id="sulu_form.brevo_client" class="Brevo\Brevo">
-            <argument name="$apiKey">%sulu_form.brevo_api_key%</argument>
+            <argument key="$apiKey">%sulu_form.brevo_api_key%</argument>
         </service>
     </services>
 </container>

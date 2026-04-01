@@ -67,3 +67,23 @@ sulu_form.delete_dynamic:
     controller: 'sulu_form.dynamic_controller::deleteAction'
     format: json
     requirements: { _format: json|csv }
+
+sulu_form.get_mail_chimp_values:
+    path: /mail_chimp_values
+    methods: GET
+    controller: 'sulu_form.mailchimp_values_controller::cgetAction'
+
+sulu_form.get_mail_chimp_value:
+    path: /mail_chimp_value/{id}
+    methods: GET
+    controller: 'sulu_form.mailchimp_values_controller::getAction'
+
+sulu_form.get_sendinblue_values:
+    path: /sendinblue_values
+    methods: GET
+    controller: 'sulu_form.controller.brevo_list_select_controller::cgetAction'
+
+sulu_form.get_sendinblue_mail_templates:
+    path: /sendinblue_mail_templates
+    methods: GET
+    controller: 'sulu_form.controller.brevo_mail_template_select_controller::cgetAction'

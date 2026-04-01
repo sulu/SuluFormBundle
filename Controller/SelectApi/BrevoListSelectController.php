@@ -53,7 +53,7 @@ final class BrevoListSelectController
         $lists = [];
         foreach ($listObjects as $list) {
             $lists[] = [
-                'name' => $list->id,
+                'id' => $list->id,
                 'title' => $list->name,
             ];
         }
