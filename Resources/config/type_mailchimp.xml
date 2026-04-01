@@ -14,7 +14,7 @@
             <tag name="sulu_form.dynamic.type" alias="mailchimp"/>
         </service>
 
-        <service id="sulu_form.dynamic.mailchimp_list_select" class="Sulu\Bundle\FormBundle\Dynamic\Helper\MailchimpListSelect" public="true">
+        <service id="sulu_form.controller.mailchimp_list_select_controller" class="Sulu\Bundle\FormBundle\Controller\SelectApi\MailchimpListSelectController">
             <argument>%sulu_form.mailchimp_api_key%</argument>
         </service>
     </services>

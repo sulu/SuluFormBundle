@@ -9,19 +9,21 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\Dynamic\Helper;
+namespace Sulu\Bundle\FormBundle\Controller\SelectApi;
 
 use Brevo\Brevo;
 use Brevo\TransactionalEmails\Requests\GetSmtpTemplatesRequest;
+use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * @final
- *
  * @internal
  */
-class BrevoMailTemplateSelect
+final class BrevoMailTemplateSelectController
 {
-    private const PAGE_SIZE = 50;
+    private const PAGE_SIZE = 100;
+
+    public const RESOURCE_KEY = 'brevo_mail_template_select';
 
     public function __construct(private Brevo $api)
     {
@@ -29,10 +31,8 @@ class BrevoMailTemplateSelect
 
     /**
      * Returns array of Brevo mail templates of given account defined by the API key.
-     *
-     * @return mixed[]
      */
-    public function getValues(): array
+    public function getValues(): JsonResponse
     {
         $offset = 0;
         $mailTemplateObjects = [];
@@ -62,6 +62,6 @@ class BrevoMailTemplateSelect
             ];
         }
 
-        return $mailTemplates;
+        return new JsonResponse((new CollectionRepresentation($mailTemplates, self::RESOURCE_KEY))->toArray());
     }
 }

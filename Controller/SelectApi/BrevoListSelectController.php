@@ -9,19 +9,21 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\Dynamic\Helper;
+namespace Sulu\Bundle\FormBundle\Controller\SelectApi;
 
 use Brevo\Brevo;
 use Brevo\Contacts\Requests\GetListsRequest;
+use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * @final
- *
  * @internal
  */
-class BrevoListSelect
+final class BrevoListSelectController
 {
-    private const PAGE_SIZE = 50;
+    private const PAGE_SIZE = 100;
+
+    public const RESOURCE_KEY = 'brevo_list_select';
 
     public function __construct(private Brevo $api)
     {
@@ -29,10 +31,8 @@ class BrevoListSelect
 
     /**
      * Returns array of Brevo lists of given account defined by the API key.
-     *
-     * @return mixed[]
      */
-    public function getValues(): array
+    public function getValues(): JsonResponse
     {
         $offset = 0;
         $listObjects = [];
@@ -58,6 +58,6 @@ class BrevoListSelect
             ];
         }
 
-        return $lists;
+        return new JsonResponse((new CollectionRepresentation($lists, self::RESOURCE_KEY))->toArray());
     }
 }

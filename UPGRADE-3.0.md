@@ -2,6 +2,14 @@
 
 ## 3.0.0
 
+### Replace config with auto complete
+
+
+Renamed services:
+"sulu_form.dynamic.brevo_list_select" -> "sulu_form.controller.brevo_mail_template_select_controller" (private)
+"sulu_form.dynamic.brevo_mail_template_select" -> "sulu_form.controller.brevo_list_select_controller" (private)
+"sulu_form.dynamic.mailchimp_list_select" -> "sulu_form.controller.mailchimp_list_select_controller" (private)
+
 ### Replace sendinblue with getbrevo
 
 The Sendinblue Form Form Fields were replaced with the Brevo Form Field.

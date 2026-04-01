@@ -16,11 +16,11 @@
             <tag name="sulu_form.dynamic.type" alias="brevo"/>
         </service>
 
-        <service id="sulu_form.dynamic.brevo_list_select" class="Sulu\Bundle\FormBundle\Dynamic\Helper\BrevoListSelect" public="true">
+        <service id="sulu_form.controller.brevo_mail_template_select_controller" class="Sulu\Bundle\FormBundle\Controller\SelectApi\BrevoMailTemplateSelectController">
             <argument type="service" id="sulu_form.brevo_client" />
         </service>
 
-        <service id="sulu_form.dynamic.brevo_mail_template_select" class="Sulu\Bundle\FormBundle\Dynamic\Helper\BrevoMailTemplateSelect" public="true">
+        <service id="sulu_form.controller.brevo_list_select_controller" class="Sulu\Bundle\FormBundle\Controller\SelectApi\BrevoListSelectController">
             <argument type="service" id="sulu_form.brevo_client" />
         </service>
 

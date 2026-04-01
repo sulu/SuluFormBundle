@@ -9,18 +9,20 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\FormBundle\Dynamic\Helper;
+namespace Sulu\Bundle\FormBundle\Controller\SelectApi;
 
-class MailchimpListSelect
+use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+/**
+ * @internal
+ */
+class MailchimpListSelectController
 {
-    /**
-     * @var string
-     */
-    private $apiKey;
+    public const RESOURCE_KEY = 'mailchimp_list_select';
 
-    public function __construct(?string $apiKey)
+    public function __construct(private ?string $apiKey)
     {
-        $this->apiKey = $apiKey;
     }
 
     /**
@@ -50,6 +52,6 @@ class MailchimpListSelect
             ];
         }
 
-        return $lists;
+        return new JsonResponse((new CollectionRepresentation($lists, self::RESOURCE_KEY))->toArray());
     }
 }
