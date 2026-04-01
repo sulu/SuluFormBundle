@@ -13,6 +13,8 @@ namespace Sulu\Bundle\FormBundle\Controller\SelectApi;
 
 use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Polyfill\Intl\Icu\Exception\NotImplementedException;
 
 /**
  * @internal
@@ -27,25 +29,22 @@ class MailchimpListSelectController
 
     /**
      * Returns array of Mailchimp lists of given account defined by the API key.
-     *
-     * @return mixed[]
      */
-    public function getValues(): array
+    public function cgetAction(): JsonResponse
     {
         $lists = [];
 
         if (!$this->apiKey) {
-            return $lists;
+            return new JsonResponse(
+                ['message' => 'No API Keys configured for mailchimp'],
+                Response::HTTP_PRECONDITION_FAILED,
+            );
         }
 
         $mailChimp = new \DrewM\MailChimp\MailChimp($this->apiKey);
         $response = $mailChimp->get('lists', ['count' => 100]);
 
-        if (!isset($response['lists'])) {
-            return $lists;
-        }
-
-        foreach ($response['lists'] as $list) {
+        foreach ($response['lists'] ?? [] as $list) {
             $lists[] = [
                 'id' => $list['id'],
                 'title' => $list['name'],
@@ -53,5 +52,10 @@ class MailchimpListSelectController
         }
 
         return new JsonResponse((new CollectionRepresentation($lists, self::RESOURCE_KEY))->toArray());
+    }
+
+    public function getAction(int $id): JsonResponse
+    {
+        throw new NotImplementedException('Please implement this in ' . self::class . '::' . __METHOD__);
     }
 }

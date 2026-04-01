@@ -12,9 +12,12 @@
 namespace Sulu\Bundle\FormBundle\Controller\SelectApi;
 
 use Brevo\Brevo;
+use Brevo\Exceptions\BrevoException;
 use Brevo\TransactionalEmails\Requests\GetSmtpTemplatesRequest;
+use Psr\Http\Client\ClientExceptionInterface;
 use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @internal
@@ -32,7 +35,7 @@ final class BrevoMailTemplateSelectController
     /**
      * Returns array of Brevo mail templates of given account defined by the API key.
      */
-    public function getValues(): JsonResponse
+    public function cgetAction(): JsonResponse
     {
         $offset = 0;
         $mailTemplateObjects = [];
@@ -63,5 +66,21 @@ final class BrevoMailTemplateSelectController
         }
 
         return new JsonResponse((new CollectionRepresentation($mailTemplates, self::RESOURCE_KEY))->toArray());
+    }
+
+    public function getAction(int $id): JsonResponse
+    {
+        try {
+            $response = $this->api->transactionalEmails->getSmtpTemplate($id);
+            \assert(null !== $response);
+
+            return new JsonResponse(['id' => $response->id, 'title' => $response->name]);
+        } catch (BrevoException $e) {
+            $previous = $e->getPrevious();
+            if ($previous instanceof ClientExceptionInterface) {
+                return new JsonResponse([], Response::HTTP_NOT_FOUND);
+            }
+            throw $e;
+        }
     }
 }

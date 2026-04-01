@@ -276,11 +276,6 @@ parameters:
 			path: Dynamic/Checksum.php
 
 		-
-			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Helper\\\\MailchimpListSelect\\:\\:\\$apiKey \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: Dynamic/Helper/MailchimpListSelect.php
-
-		-
 			message: "#^Cannot call method getOption\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
 			count: 4
 			path: Dynamic/Types/AttachmentType.php

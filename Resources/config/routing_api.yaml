@@ -83,7 +83,17 @@ sulu_form.get_sendinblue_values:
     methods: GET
     controller: 'sulu_form.controller.brevo_list_select_controller::cgetAction'
 
+sulu_form.get_sendinblue_value:
+    path: /sendinblue_values/{id}
+    methods: GET
+    controller: 'sulu_form.controller.brevo_list_select_controller::getAction'
+
 sulu_form.get_sendinblue_mail_templates:
     path: /sendinblue_mail_templates
     methods: GET
     controller: 'sulu_form.controller.brevo_mail_template_select_controller::cgetAction'
+
+sulu_form.get_sendinblue_mail_template:
+    path: /sendinblue_mail_templates/{id}
+    methods: GET
+    controller: 'sulu_form.controller.brevo_mail_template_select_controller::getAction'

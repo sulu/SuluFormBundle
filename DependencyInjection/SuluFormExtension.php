@@ -20,7 +20,6 @@ use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Mailer\MailerInterface;
@@ -87,11 +86,11 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
             $additionalResources = [];
             $additionalSelections = [];
 
-            if (class_exists(\DrewM\MailChimp\MailChimp::class)) {
+            if (\class_exists(\DrewM\MailChimp\MailChimp::class)) {
                 $additionalResources[MailchimpListSelectController::RESOURCE_KEY] = [
                     'routes' => [
-                        'list' =>'sulu_form.get_mail_chimp_values',
-                        'detail' =>'sulu_form.get_mail_chimp_value',
+                        'list' => 'sulu_form.get_mail_chimp_values',
+                        'detail' => 'sulu_form.get_mail_chimp_value',
                     ],
                 ];
 
@@ -110,12 +109,14 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
             if (!\class_exists(\SendinBlue\Client\Configuration::class)) {
                 $additionalResources[BrevoListSelectController::RESOURCE_KEY] = [
                     'routes' => [
-                        'list' =>'sulu_form.get_sendinblue_values',
+                        'list' => 'sulu_form.get_sendinblue_values',
+                        'detail' => 'sulu_form.get_sendinblue_value',
                     ],
                 ];
                 $additionalResources[BrevoMailTemplateSelectController::RESOURCE_KEY] = [
                     'routes' => [
-                        'list' =>'sulu_form.get_sendinblue_mail_templates',
+                        'list' => 'sulu_form.get_sendinblue_mail_templates',
+                        'detail' => 'sulu_form.get_sendinblue_mail_template',
                     ],
                 ];
 
@@ -242,7 +243,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         );
 
         // Load services
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
         $loader->load('types.xml');
         $loader->load('title-providers.xml');
@@ -306,7 +307,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
     /**
      * @param mixed[] $config
      */
-    private function configureHelper(Loader\XmlFileLoader $loader, array $config, ContainerBuilder $container): void
+    private function configureHelper(XmlFileLoader $loader, array $config, ContainerBuilder $container): void
     {
         $helper = $config['mail']['helper'];
         if (\method_exists($container, 'resolveEnvPlaceholders')) {
