@@ -143,6 +143,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sulu_form.ajax_templates', $config['ajax_templates']);
         $container->setParameter('sulu_form.dynamic_widths', $config['dynamic_widths']);
         $container->setParameter('sulu_form.dynamic_auto_title', $config['dynamic_auto_title']);
+        $container->setParameter('sulu_form.brevo_api_key', $config['brevo_api_key']);
         $container->setParameter('sulu_form.mailchimp_api_key', $config['mailchimp_api_key']);
         $container->setParameter('sulu_form.mailchimp_subscribe_status', $config['mailchimp_subscribe_status']);
         $container->setParameter('sulu_form.dynamic_lists.config', $config['dynamic_lists']);
