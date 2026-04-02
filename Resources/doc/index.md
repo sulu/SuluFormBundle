@@ -67,6 +67,22 @@ sulu_form_api:
     prefix: /admin/api
 ```
 
+If you want to use mail chimp as well:
+
+```yaml
+sulu_form_api_mailchimp:
+    resource: "@SuluFormBundle/Resources/config/routing_api_mail_chimp.yml"
+    prefix: /admin/api
+```
+
+If you want to use brevo as well:
+
+```yaml
+sulu_form_api_brevo:
+    resource: "@SuluFormBundle/Resources/config/routing_api_mail_brevo.yml"
+    prefix: /admin/api
+```
+
 ## Permissions
 
 Make sure you've set the correct permissions in the Sulu backend for this bundle!

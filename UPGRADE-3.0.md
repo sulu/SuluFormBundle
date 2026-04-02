@@ -4,7 +4,6 @@
 
 ### Replace config with auto complete
 
-
 Renamed services:
 "sulu_form.dynamic.brevo_list_select" -> "sulu_form.controller.brevo_mail_template_select_controller" (private)
 "sulu_form.dynamic.brevo_mail_template_select" -> "sulu_form.controller.brevo_list_select_controller" (private)
@@ -27,6 +26,24 @@ You can find all Brevo configuration options [here](Resources/doc/brevo.md).
 ```
 composer remove sendinblue/api-v3-sdk
 composer require getbrevo/brevo-php
+```
+
+### Routing changes
+
+If you want to use mail chimp also include those routes in your config:
+
+```yaml
+sulu_form_api_mailchimp:
+    resource: "@SuluFormBundle/Resources/config/routing_api_mail_chimp.yml"
+    prefix: /admin/api
+```
+
+If you want to use brevo also include those routes in your config:
+
+```yaml
+sulu_form_api_brevo:
+    resource: "@SuluFormBundle/Resources/config/routing_api_mail_brevo.yml"
+    prefix: /admin/api
 ```
 
 ### Container changes
