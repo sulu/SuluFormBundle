@@ -11,20 +11,36 @@
 
 namespace Sulu\Bundle\FormBundle\Controller\SelectApi;
 
+use DrewM\MailChimp\MailChimp;
 use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Polyfill\Intl\Icu\Exception\NotImplementedException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @internal
  */
 class MailchimpListSelectController
 {
+    private const PAGE_SIZE = 100;
+
     public const RESOURCE_KEY = 'mailchimp_list_select';
 
     public function __construct(private ?string $apiKey)
     {
+    }
+
+    private function getClient(): MailChimp
+    {
+        if (!$this->apiKey) {
+            throw HttpException::fromStatusCode(
+                Response::HTTP_PRECONDITION_FAILED,
+                'No API Keys configured for mailchimp',
+            );
+        }
+
+        return new MailChimp($this->apiKey);
     }
 
     /**
@@ -34,17 +50,29 @@ class MailchimpListSelectController
     {
         $lists = [];
 
-        if (!$this->apiKey) {
-            return new JsonResponse(
-                ['message' => 'No API Keys configured for mailchimp'],
-                Response::HTTP_PRECONDITION_FAILED,
-            );
+        $listResponses = [];
+        $offset = 0;
+        $mailChimp = $this->getClient();
+
+        while (true) {
+            $response = $mailChimp->get('lists', ['count' => self::PAGE_SIZE, 'offset' => $offset]);
+
+            if (false === $response) {
+                break;
+            }
+
+            $lists = $response['lists'] ?? [];
+            if ([] === $lists) {
+                break;
+            }
+
+            $listResponses = [
+                ...$listResponses, ...$lists,
+            ];
+            $offset += self::PAGE_SIZE;
         }
 
-        $mailChimp = new \DrewM\MailChimp\MailChimp($this->apiKey);
-        $response = $mailChimp->get('lists', ['count' => 100]);
-
-        foreach ($response['lists'] ?? [] as $list) {
+        foreach ($listResponses as $list) {
             $lists[] = [
                 'id' => $list['id'],
                 'title' => $list['name'],
@@ -56,6 +84,11 @@ class MailchimpListSelectController
 
     public function getAction(int $id): JsonResponse
     {
-        throw new NotImplementedException('Please implement this in ' . self::class . '::' . __METHOD__);
+        $response = $this->getClient()->get('lists/' . $id, ['fields' => 'id,name']);
+        if (false === $response) {
+            throw new NotFoundHttpException();
+        }
+
+        return new JsonResponse(['id' => $response['id'], 'name' => $response['name']]);
     }
 }
