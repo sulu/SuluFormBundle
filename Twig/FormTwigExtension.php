@@ -13,23 +13,17 @@ namespace Sulu\Bundle\FormBundle\Twig;
 
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
+use Sulu\Component\Webspace\Analyzer\RequestAnalyzerInterface;
 use Symfony\Component\Form\FormView;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-/**
- * Extension for content form generation.
- */
 class FormTwigExtension extends AbstractExtension
 {
-    /**
-     * @var BuilderInterface
-     */
-    private $formBuilder;
-
-    public function __construct(BuilderInterface $formBuilder)
-    {
-        $this->formBuilder = $formBuilder;
+    public function __construct(
+        private BuilderInterface $formBuilder,
+        private RequestAnalyzerInterface $requestAnalyzer,
+    ) {
     }
 
     public function getFunctions(): array
@@ -64,6 +58,13 @@ class FormTwigExtension extends AbstractExtension
         $formId = $form->getId();
         if (null === $formId) {
             return null;
+        }
+
+        if (null === $locale) {
+            $requestLocale = $this->requestAnalyzer->getCurrentLocalization()?->getLocale();
+            $locale = (null !== $requestLocale && null !== $form->getTranslation($requestLocale))
+                ? $requestLocale
+                : $form->getDefaultLocale();
         }
 
         $builtForm = $this->formBuilder->build(

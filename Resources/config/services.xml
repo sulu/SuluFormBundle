@@ -159,6 +159,7 @@
         <service id="sulu_form.twig_extension" class="Sulu\Bundle\FormBundle\Twig\FormTwigExtension">
             <tag name="twig.extension"/>
             <argument type="service" id="sulu_form.builder"/>
+            <argument type="service" id="sulu_core.webspace.request_analyzer"/>
         </service>
 
         <!-- Checksum -->
