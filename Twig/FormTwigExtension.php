@@ -13,8 +13,9 @@ namespace Sulu\Bundle\FormBundle\Twig;
 
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
-use Sulu\Component\Webspace\Analyzer\RequestAnalyzerInterface;
+use Sulu\Content\Domain\Model\ShadowInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -22,7 +23,7 @@ class FormTwigExtension extends AbstractExtension
 {
     public function __construct(
         private BuilderInterface $formBuilder,
-        private RequestAnalyzerInterface $requestAnalyzer,
+        private RequestStack $requestStack,
     ) {
     }
 
@@ -61,10 +62,10 @@ class FormTwigExtension extends AbstractExtension
         }
 
         if (null === $locale) {
-            $requestLocale = $this->requestAnalyzer->getCurrentLocalization()?->getLocale();
-            $locale = (null !== $requestLocale && null !== $form->getTranslation($requestLocale))
-                ? $requestLocale
-                : $form->getDefaultLocale();
+            $request = $this->requestStack->getCurrentRequest();
+            $object = $request?->attributes->get('object');
+            $shadowLocale = $object instanceof ShadowInterface ? $object->getShadowLocale() : null;
+            $locale = $shadowLocale ?? $request?->getLocale();
         }
 
         $builtForm = $this->formBuilder->build(

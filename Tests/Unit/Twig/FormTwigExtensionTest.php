@@ -21,10 +21,11 @@ use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Twig\FormTwigExtension;
-use Sulu\Component\Localization\Localization;
-use Sulu\Component\Webspace\Analyzer\RequestAnalyzerInterface;
+use Sulu\Content\Domain\Model\ShadowInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class FormTwigExtensionTest extends TestCase
 {
@@ -35,21 +36,18 @@ class FormTwigExtensionTest extends TestCase
      */
     private $formBuilder;
 
-    /**
-     * @var RequestAnalyzerInterface|ObjectProphecy
-     */
-    private $requestAnalyzer;
+    private RequestStack $requestStack;
 
     private FormTwigExtension $extension;
 
     protected function setUp(): void
     {
         $this->formBuilder = $this->prophesize(BuilderInterface::class);
-        $this->requestAnalyzer = $this->prophesize(RequestAnalyzerInterface::class);
+        $this->requestStack = new RequestStack();
 
         $this->extension = new FormTwigExtension(
             $this->formBuilder->reveal(),
-            $this->requestAnalyzer->reveal()
+            $this->requestStack
         );
     }
 
@@ -119,20 +117,22 @@ class FormTwigExtensionTest extends TestCase
             ->shouldBeCalledOnce()
             ->willReturn($formInterface->reveal());
 
-        $this->requestAnalyzer->getCurrentLocalization()->shouldNotBeCalled();
-
         $result = $this->extension->getFormByContent(['entity' => $form], 'page', 'tpl', 'de');
 
         $this->assertSame($view, $result);
     }
 
-    public function testGetFormByContentFallsBackToRequestLocaleWhenTranslationExists(): void
+    public function testGetFormByContentUsesShadowLocaleWhenAvailable(): void
     {
         $form = $this->createForm(5, ['en', 'de'], 'en');
 
-        $this->requestAnalyzer->getCurrentLocalization()
-            ->shouldBeCalledOnce()
-            ->willReturn(new Localization('de'));
+        $shadowContent = $this->prophesize(ShadowInterface::class);
+        $shadowContent->getShadowLocale()->willReturn('de');
+
+        $request = new Request();
+        $request->setLocale('en');
+        $request->attributes->set('object', $shadowContent->reveal());
+        $this->requestStack->push($request);
 
         $view = new FormView();
         $formInterface = $this->prophesize(FormInterface::class);
@@ -147,13 +147,38 @@ class FormTwigExtensionTest extends TestCase
         $this->assertSame($view, $result);
     }
 
-    public function testGetFormByContentFallsBackToDefaultLocaleWhenRequestLocaleHasNoTranslation(): void
+    public function testGetFormByContentFallsBackToRequestLocaleWhenObjectIsNotShadow(): void
+    {
+        $form = $this->createForm(5, ['en', 'de'], 'en');
+
+        $request = new Request();
+        $request->setLocale('de');
+        $this->requestStack->push($request);
+
+        $view = new FormView();
+        $formInterface = $this->prophesize(FormInterface::class);
+        $formInterface->createView()->willReturn($view);
+
+        $this->formBuilder->build(5, 'page', 'tpl', 'de', 'form')
+            ->shouldBeCalledOnce()
+            ->willReturn($formInterface->reveal());
+
+        $result = $this->extension->getFormByContent(['entity' => $form], 'page', 'tpl');
+
+        $this->assertSame($view, $result);
+    }
+
+    public function testGetFormByContentFallsBackToRequestLocaleWhenShadowLocaleIsNull(): void
     {
         $form = $this->createForm(5, ['en'], 'en');
 
-        $this->requestAnalyzer->getCurrentLocalization()
-            ->shouldBeCalledOnce()
-            ->willReturn(new Localization('de'));
+        $shadowContent = $this->prophesize(ShadowInterface::class);
+        $shadowContent->getShadowLocale()->willReturn(null);
+
+        $request = new Request();
+        $request->setLocale('en');
+        $request->attributes->set('object', $shadowContent->reveal());
+        $this->requestStack->push($request);
 
         $view = new FormView();
         $formInterface = $this->prophesize(FormInterface::class);
@@ -168,19 +193,15 @@ class FormTwigExtensionTest extends TestCase
         $this->assertSame($view, $result);
     }
 
-    public function testGetFormByContentFallsBackToDefaultLocaleWhenNoCurrentLocalization(): void
+    public function testGetFormByContentPassesNullLocaleWhenNoRequest(): void
     {
         $form = $this->createForm(5, ['en'], 'en');
-
-        $this->requestAnalyzer->getCurrentLocalization()
-            ->shouldBeCalledOnce()
-            ->willReturn(null);
 
         $view = new FormView();
         $formInterface = $this->prophesize(FormInterface::class);
         $formInterface->createView()->willReturn($view);
 
-        $this->formBuilder->build(5, 'page', 'tpl', 'en', 'form')
+        $this->formBuilder->build(5, 'page', 'tpl', null, 'form')
             ->shouldBeCalledOnce()
             ->willReturn($formInterface->reveal());
 
