@@ -13,23 +13,18 @@ namespace Sulu\Bundle\FormBundle\Twig;
 
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
+use Sulu\Content\Domain\Model\ShadowInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-/**
- * Extension for content form generation.
- */
 class FormTwigExtension extends AbstractExtension
 {
-    /**
-     * @var BuilderInterface
-     */
-    private $formBuilder;
-
-    public function __construct(BuilderInterface $formBuilder)
-    {
-        $this->formBuilder = $formBuilder;
+    public function __construct(
+        private BuilderInterface $formBuilder,
+        private RequestStack $requestStack,
+    ) {
     }
 
     public function getFunctions(): array
@@ -64,6 +59,13 @@ class FormTwigExtension extends AbstractExtension
         $formId = $form->getId();
         if (null === $formId) {
             return null;
+        }
+
+        if (null === $locale) {
+            $request = $this->requestStack->getCurrentRequest();
+            $object = $request?->attributes->get('object');
+            $shadowLocale = $object instanceof ShadowInterface ? $object->getShadowLocale() : null;
+            $locale = $shadowLocale ?? $request?->getLocale();
         }
 
         $builtForm = $this->formBuilder->build(
