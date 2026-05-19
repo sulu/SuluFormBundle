@@ -61,12 +61,9 @@ class FormTwigExtension extends AbstractExtension
             return null;
         }
 
-        if (null === $locale) {
-            $request = $this->requestStack->getCurrentRequest();
-            $object = $request?->attributes->get('object');
-            $shadowLocale = $object instanceof ShadowInterface ? $object->getShadowLocale() : null;
-            $locale = $shadowLocale ?? $request?->getLocale();
-        }
+        $request = $this->requestStack->getCurrentRequest();
+        $object = $request?->attributes->get('object');
+        $shadowLocale = $object instanceof ShadowInterface ? $object->getShadowLocale() : null;
 
         $builtForm = $this->formBuilder->build(
             $formId,
@@ -75,6 +72,16 @@ class FormTwigExtension extends AbstractExtension
             $locale,
             $name
         );
+
+        if (null === $builtForm && null !== $shadowLocale) {
+            $builtForm = $this->formBuilder->build(
+                $formId,
+                $type,
+                $typeId,
+                $shadowLocale,
+                $name
+            );
+        }
 
         return $builtForm?->createView();
     }
