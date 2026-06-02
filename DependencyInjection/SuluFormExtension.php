@@ -109,14 +109,14 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
             if (!\class_exists(\Brevo\Types\Configuration::class)) {
                 $additionalResources[BrevoListSelectController::RESOURCE_KEY] = [
                     'routes' => [
-                        'list' => 'sulu_form.get_sendinblue_values',
-                        'detail' => 'sulu_form.get_sendinblue_value',
+                        'list' => 'sulu_form.get_brevo_values',
+                        'detail' => 'sulu_form.get_brevo_value',
                     ],
                 ];
                 $additionalResources[BrevoMailTemplateSelectController::RESOURCE_KEY] = [
                     'routes' => [
-                        'list' => 'sulu_form.get_sendinblue_mail_templates',
-                        'detail' => 'sulu_form.get_sendinblue_mail_template',
+                        'list' => 'sulu_form.get_brevo_mail_templates',
+                        'detail' => 'sulu_form.get_brevo_mail_template',
                     ],
                 ];
 
@@ -262,7 +262,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         if ($config['brevo_api_key']) {
             if (
                 !\class_exists(\Brevo\Types\Configuration::class)
-                && \version_compare(\Composer\InstalledVersions::getVersion('getbrevo/brevo-php') ?? '0', '4.0', '>=')
+                || \version_compare(\Composer\InstalledVersions::getVersion('getbrevo/brevo-php') ?? '0', '4.0', '<')
             ) {
                 throw new \LogicException('You need to install the "getbrevo/brevo-php" version ^4.0 to use the Brevo type.');
             }

@@ -11,7 +11,7 @@ Renamed services:
 
 ### Replace sendinblue with getbrevo
 
-The Sendinblue Form Form Fields were replaced with the Brevo Form Field.
+The Sendinblue Form Fields were replaced with the Brevo Form Field.
 You can find all Brevo configuration options [here](Resources/doc/brevo.md).
 
 ### Config changes
