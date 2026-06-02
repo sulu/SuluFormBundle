@@ -60,7 +60,7 @@ final class BrevoMailTemplateSelectController
             }
 
             $mailTemplates[] = [
-                'name' => $template->id,
+                'id' => $template->id,
                 'title' => $template->name,
             ];
         }

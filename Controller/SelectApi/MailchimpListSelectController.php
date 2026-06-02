@@ -61,13 +61,13 @@ class MailchimpListSelectController
                 break;
             }
 
-            $lists = $response['lists'] ?? [];
-            if ([] === $lists) {
+            $mailChimpLists = $response['lists'] ?? [];
+            if ([] === $mailChimpLists) {
                 break;
             }
 
             $listResponses = [
-                ...$listResponses, ...$lists,
+                ...$listResponses, ...$mailChimpLists,
             ];
             $offset += self::PAGE_SIZE;
         }

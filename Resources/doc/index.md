@@ -71,7 +71,7 @@ If you want to use mail chimp as well:
 
 ```yaml
 sulu_form_api_mailchimp:
-    resource: "@SuluFormBundle/Resources/config/routing_api_mail_chimp.yml"
+    resource: "@SuluFormBundle/Resources/config/routing_api_mailchimp.yaml"
     prefix: /admin/api
 ```
 
@@ -79,7 +79,7 @@ If you want to use brevo as well:
 
 ```yaml
 sulu_form_api_brevo:
-    resource: "@SuluFormBundle/Resources/config/routing_api_mail_brevo.yml"
+    resource: "@SuluFormBundle/Resources/config/routing_api_brevo.yaml"
     prefix: /admin/api
 ```
 

@@ -6,8 +6,7 @@
     <services>
         <service id="sulu_form.subscriber.brevo_list_subscriber" class="Sulu\Bundle\FormBundle\Event\BrevoListSubscriber">
             <argument type="service" id="request_stack"/>
-            <argument>%sulu_form.brevo_api_key%</argument>
-            <argument>null</argument>
+            <argument type="service" id="sulu_form.brevo_client"/>
             <argument type="service" id="sulu_markup.link_tag.provider_pool"/>
             <tag name="kernel.event_subscriber" />
         </service>
