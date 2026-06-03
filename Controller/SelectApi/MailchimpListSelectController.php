@@ -12,8 +12,9 @@
 namespace Sulu\Bundle\FormBundle\Controller\SelectApi;
 
 use DrewM\MailChimp\MailChimp;
-use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -46,11 +47,34 @@ class MailchimpListSelectController
     /**
      * Returns array of Mailchimp lists of given account defined by the API key.
      */
-    public function cgetAction(): JsonResponse
+    public function cgetAction(Request $request): JsonResponse
     {
-        $lists = [];
+        $limit = \max(1, (int) $request->query->get('limit', '100'));
+        $page = \max(1, (int) $request->query->get('page', '1'));
+        $search = (string) $request->query->get('search', '');
 
-        $listResponses = [];
+        $all = $this->fetchAll();
+
+        if ('' !== $search) {
+            $all = \array_values(\array_filter(
+                $all, fn (array $item): bool => false !== \stripos((string) $item['title'], $search)
+            ));
+        }
+
+        $total = \count($all);
+        $items = \array_slice($all, ($page - 1) * $limit, $limit);
+
+        return new JsonResponse(
+            (new PaginatedRepresentation($items, self::RESOURCE_KEY, $page, $limit, $total))->toArray()
+        );
+    }
+
+    /**
+     * @return array<array{id: mixed, title: string}>
+     */
+    private function fetchAll(): array
+    {
+        $mappedLists = [];
         $offset = 0;
         $mailChimp = $this->getClient();
 
@@ -61,34 +85,30 @@ class MailchimpListSelectController
                 break;
             }
 
-            $mailChimpLists = $response['lists'] ?? [];
-            if ([] === $mailChimpLists) {
+            $pageLists = $response['lists'] ?? [];
+            if ([] === $pageLists) {
                 break;
             }
 
-            $listResponses = [
-                ...$listResponses, ...$mailChimpLists,
-            ];
+            foreach ($pageLists as $list) {
+                $mappedLists[] = [
+                    'id' => $list['id'],
+                    'title' => $list['name'],
+                ];
+            }
             $offset += self::PAGE_SIZE;
         }
 
-        foreach ($listResponses as $list) {
-            $lists[] = [
-                'id' => $list['id'],
-                'title' => $list['name'],
-            ];
-        }
-
-        return new JsonResponse((new CollectionRepresentation($lists, self::RESOURCE_KEY))->toArray());
+        return $mappedLists;
     }
 
-    public function getAction(int $id): JsonResponse
+    public function getAction(string $id): JsonResponse
     {
         $response = $this->getClient()->get('lists/' . $id, ['fields' => 'id,name']);
         if (false === $response) {
             throw new NotFoundHttpException();
         }
 
-        return new JsonResponse(['id' => $response['id'], 'name' => $response['name']]);
+        return new JsonResponse(['id' => $response['id'], 'title' => $response['name']]);
     }
 }

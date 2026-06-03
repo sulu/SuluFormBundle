@@ -100,13 +100,21 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                     'types' => [
                         'auto_complete' => [
                             'display_property' => 'title',
-                            'search_properties' => ['title']
+                            'search_properties' => ['title'],
+                        ],
+                        'list_overlay' => [
+                            'adapter' => 'table',
+                            'list_key' => MailchimpListSelectController::RESOURCE_KEY,
+                            'display_properties' => ['title'],
+                            'empty_text' => 'sulu_form.mailchimp_list_selection.empty_text',
+                            'icon' => 'su-th-list',
+                            'overlay_title' => 'sulu_form.mailchimp_list_selection.overlay_title',
                         ],
                     ],
                 ];
             }
 
-            if (!\class_exists(\Brevo\Types\Configuration::class)) {
+            if (\class_exists(\Brevo\Types\Configuration::class)) {
                 $additionalResources[BrevoListSelectController::RESOURCE_KEY] = [
                     'routes' => [
                         'list' => 'sulu_form.get_brevo_values',
@@ -126,7 +134,15 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                     'types' => [
                         'auto_complete' => [
                             'display_property' => 'title',
-                            'search_properties' => ['title']
+                            'search_properties' => ['title'],
+                        ],
+                        'list_overlay' => [
+                            'adapter' => 'table',
+                            'list_key' => BrevoListSelectController::RESOURCE_KEY,
+                            'display_properties' => ['title'],
+                            'empty_text' => 'sulu_form.brevo_list_selection.empty_text',
+                            'icon' => 'su-th-list',
+                            'overlay_title' => 'sulu_form.brevo_list_selection.overlay_title',
                         ],
                     ],
                 ];
@@ -136,7 +152,15 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                     'types' => [
                         'auto_complete' => [
                             'display_property' => 'title',
-                            'search_properties' => ['title']
+                            'search_properties' => ['title'],
+                        ],
+                        'list_overlay' => [
+                            'adapter' => 'table',
+                            'list_key' => BrevoMailTemplateSelectController::RESOURCE_KEY,
+                            'display_properties' => ['title'],
+                            'empty_text' => 'sulu_form.brevo_mail_template_selection.empty_text',
+                            'icon' => 'su-th-list',
+                            'overlay_title' => 'sulu_form.brevo_mail_template_selection.overlay_title',
                         ],
                     ],
                 ];

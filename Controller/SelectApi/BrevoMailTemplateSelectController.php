@@ -15,8 +15,9 @@ use Brevo\Brevo;
 use Brevo\Exceptions\BrevoException;
 use Brevo\TransactionalEmails\Requests\GetSmtpTemplatesRequest;
 use Psr\Http\Client\ClientExceptionInterface;
-use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -35,7 +36,32 @@ final class BrevoMailTemplateSelectController
     /**
      * Returns array of Brevo mail templates of given account defined by the API key.
      */
-    public function cgetAction(): JsonResponse
+    public function cgetAction(Request $request): JsonResponse
+    {
+        $limit = \max(1, (int) $request->query->get('limit', '100'));
+        $page = \max(1, (int) $request->query->get('page', '1'));
+        $search = (string) $request->query->get('search', '');
+
+        $all = $this->fetchAll();
+
+        if ('' !== $search) {
+            $all = \array_values(\array_filter(
+                $all, fn (array $item): bool => false !== \stripos((string) $item['title'], $search)
+            ));
+        }
+
+        $total = \count($all);
+        $items = \array_slice($all, ($page - 1) * $limit, $limit);
+
+        return new JsonResponse(
+            (new PaginatedRepresentation($items, self::RESOURCE_KEY, $page, $limit, $total))->toArray()
+        );
+    }
+
+    /**
+     * @return array<array{id: mixed, title: string}>
+     */
+    private function fetchAll(): array
     {
         $offset = 0;
         $mailTemplateObjects = [];
@@ -65,7 +91,7 @@ final class BrevoMailTemplateSelectController
             ];
         }
 
-        return new JsonResponse((new CollectionRepresentation($mailTemplates, self::RESOURCE_KEY))->toArray());
+        return $mailTemplates;
     }
 
     public function getAction(int $id): JsonResponse
