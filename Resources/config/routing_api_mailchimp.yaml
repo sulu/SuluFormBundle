@@ -1,9 +1,9 @@
 sulu_form.get_mail_chimp_values:
     path: /mail_chimp_values
     methods: GET
-    controller: 'sulu_form.controller.mailchimp_list_select_controller::cgetAction'
+    controller: 'sulu_form.mailchimp_list_select_controller::cgetAction'
 
 sulu_form.get_mail_chimp_value:
     path: /mail_chimp_value/{id}
     methods: GET
-    controller: 'sulu_form.controller.mailchimp_list_select_controller::getAction'
+    controller: 'sulu_form.mailchimp_list_select_controller::getAction'

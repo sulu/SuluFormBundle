@@ -5,9 +5,9 @@
 ### Replace config with auto complete
 
 Renamed services:
-"sulu_form.dynamic.brevo_list_select" -> "sulu_form.controller.brevo_mail_template_select_controller" (private)
-"sulu_form.dynamic.brevo_mail_template_select" -> "sulu_form.controller.brevo_list_select_controller" (private)
-"sulu_form.dynamic.mailchimp_list_select" -> "sulu_form.controller.mailchimp_list_select_controller" (private)
+"sulu_form.dynamic.brevo_list_select" -> "sulu_form.brevo_list_select_controller"
+"sulu_form.dynamic.brevo_mail_template_select" -> "sulu_form.brevo_mail_template_select_controller"
+"sulu_form.dynamic.mailchimp_list_select" -> "sulu_form.mailchimp_list_select_controller"
 
 ### Replace sendinblue with getbrevo
 

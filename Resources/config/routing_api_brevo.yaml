@@ -1,19 +1,19 @@
 sulu_form.get_brevo_values:
     path: /brevo_values
     methods: GET
-    controller: 'sulu_form.controller.brevo_list_select_controller::cgetAction'
+    controller: 'sulu_form.brevo_list_select_controller::cgetAction'
 
 sulu_form.get_brevo_value:
     path: /brevo_values/{id}
     methods: GET
-    controller: 'sulu_form.controller.brevo_list_select_controller::getAction'
+    controller: 'sulu_form.brevo_list_select_controller::getAction'
 
 sulu_form.get_brevo_mail_templates:
     path: /brevo_mail_templates
     methods: GET
-    controller: 'sulu_form.controller.brevo_mail_template_select_controller::cgetAction'
+    controller: 'sulu_form.brevo_mail_template_select_controller::cgetAction'
 
 sulu_form.get_brevo_mail_template:
     path: /brevo_mail_templates/{id}
     methods: GET
-    controller: 'sulu_form.controller.brevo_mail_template_select_controller::getAction'
+    controller: 'sulu_form.brevo_mail_template_select_controller::getAction'
