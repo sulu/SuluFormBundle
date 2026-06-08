@@ -18,11 +18,6 @@
         </service>
         <service id="Sulu\Bundle\FormBundle\Form\HandlerInterface" alias="sulu_form.handler"/>
 
-        <!-- Mail-->
-        <service id="sulu_mail.null_helper" class="Sulu\Bundle\FormBundle\Mail\NullHelper">
-            <argument type="service" id="logger" />
-        </service>
-
         <!-- Admin -->
         <service id="sulu_form.admin"
                  class="Sulu\Bundle\FormBundle\Admin\FormAdmin">

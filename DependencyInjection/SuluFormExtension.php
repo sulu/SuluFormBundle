@@ -22,7 +22,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\Mailer\MailerInterface;
 
 /**
  * This is the class that loads and manages your bundle configuration.
@@ -218,7 +217,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $mediaCollectionStrategy = $config['media_collection_strategy'] ? $config['media_collection_strategy'] : $config['media']['collection_strategy'];
+        $mediaCollectionStrategy = $config['media']['collection_strategy'];
 
         $container->setParameter('sulu_form.csrf_protection', $config['csrf_protection']);
         $container->setParameter('sulu_form.mail.from', $config['mail']['from']);
@@ -271,17 +270,6 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $loader->load('services.xml');
         $loader->load('types.xml');
         $loader->load('title-providers.xml');
-
-        $definition = $container->getDefinition('sulu_mail.null_helper');
-
-        $reflection = new \ReflectionClass($definition);
-        $reflectionMethod = $reflection->getMethod('setDeprecated');
-
-        if (isset($reflectionMethod->getParameters()[1]) && 'version' === $reflectionMethod->getParameters()[1]->getName()) {
-            $definition->setDeprecated('sulu/form-bundle', '2.3', 'The "%service_id%" is deprecated use the mailer configuration instead.');
-        } else {
-            $definition->setDeprecated(true, 'The "%service_id%" is deprecated use the mailer configuration instead.');
-        }
 
         if ($config['brevo_api_key']) {
             if (
@@ -341,19 +329,8 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
             $helper = $container->resolveEnvPlaceholders($helper, true);
         }
 
-        if (\class_exists(\Swift_Mailer::class)) {
-            $helper = $helper ?: 'swift_mailer';
-            $loader->load('swift_mailer.xml');
-        }
-
-        if (\interface_exists(MailerInterface::class)) {
-            $helper = $helper ?: 'mailer';
-            $loader->load('mailer.xml');
-        }
-
-        if (!$helper) {
-            throw new \LogicException('The SuluFormBundle requires "swiftmailer/swiftmailer" or "symfony/mailer" to be installed.');
-        }
+        $helper = $helper ?: 'mailer';
+        $loader->load('mailer.xml');
 
         $container->setAlias('sulu.mail.helper', 'sulu.mail.' . $helper);
     }

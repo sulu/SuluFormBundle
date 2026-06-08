@@ -251,16 +251,6 @@ parameters:
 			path: DependencyInjection/SuluFormExtension.php
 
 		-
-			message: "#^Method Symfony\\\\Component\\\\DependencyInjection\\\\Definition\\:\\:setDeprecated\\(\\) invoked with 2 parameters, 3 required\\.$#"
-			count: 1
-			path: DependencyInjection/SuluFormExtension.php
-
-		-
-			message: "#^Parameter \\#1 \\$package of method Symfony\\\\Component\\\\DependencyInjection\\\\Definition\\:\\:setDeprecated\\(\\) expects string, true given\\.$#"
-			count: 1
-			path: DependencyInjection/SuluFormExtension.php
-
-		-
 			message: "#^Call to method hash\\(\\) on an unknown class Symfony\\\\Component\\\\Security\\\\Core\\\\Encoder\\\\MessageDigestPasswordEncoder\\.$#"
 			count: 1
 			path: Dynamic/Checksum.php
@@ -884,76 +874,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$string of function strip_tags expects string, string\\|null given\\.$#"
 			count: 1
 			path: ListBuilder/DynamicListFactory.php
-
-		-
-			message: "#^Call to method addPart\\(\\) on an unknown class Swift_Message\\.$#"
-			count: 1
-			path: Mail/Helper.php
-
-		-
-			message: "#^Call to method attach\\(\\) on an unknown class Swift_Message\\.$#"
-			count: 1
-			path: Mail/Helper.php
-
-		-
-			message: "#^Call to method send\\(\\) on an unknown class Swift_Mailer\\.$#"
-			count: 1
-			path: Mail/Helper.php
-
-		-
-			message: "#^Call to method setBcc\\(\\) on an unknown class Swift_Message\\.$#"
-			count: 1
-			path: Mail/Helper.php
-
-		-
-			message: "#^Call to method setCc\\(\\) on an unknown class Swift_Message\\.$#"
-			count: 1
-			path: Mail/Helper.php
-
-		-
-			message: "#^Call to method setContentType\\(\\) on an unknown class Swift_Message\\.$#"
-			count: 1
-			path: Mail/Helper.php
-
-		-
-			message: "#^Call to method setFrom\\(\\) on an unknown class Swift_Message\\.$#"
-			count: 1
-			path: Mail/Helper.php
-
-		-
-			message: "#^Call to method setReplyTo\\(\\) on an unknown class Swift_Message\\.$#"
-			count: 1
-			path: Mail/Helper.php
-
-		-
-			message: "#^Call to method setSender\\(\\) on an unknown class Swift_Message\\.$#"
-			count: 1
-			path: Mail/Helper.php
-
-		-
-			message: "#^Call to method setTo\\(\\) on an unknown class Swift_Message\\.$#"
-			count: 1
-			path: Mail/Helper.php
-
-		-
-			message: "#^Call to static method fromPath\\(\\) on an unknown class Swift_Attachment\\.$#"
-			count: 1
-			path: Mail/Helper.php
-
-		-
-			message: "#^Instantiated class Swift_Message not found\\.$#"
-			count: 1
-			path: Mail/Helper.php
-
-		-
-			message: "#^Parameter \\$mailer of method Sulu\\\\Bundle\\\\FormBundle\\\\Mail\\\\Helper\\:\\:__construct\\(\\) has invalid type Swift_Mailer\\.$#"
-			count: 1
-			path: Mail/Helper.php
-
-		-
-			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Mail\\\\Helper\\:\\:\\$mailer has unknown class Swift_Mailer as its type\\.$#"
-			count: 1
-			path: Mail/Helper.php
 
 		-
 			message: "#^Parameter \\#1 \\$address of class Symfony\\\\Component\\\\Mime\\\\Address constructor expects string, int\\|string given\\.$#"

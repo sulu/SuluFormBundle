@@ -37,12 +37,12 @@ sulu_form:
         sender: "%env(SULU_ADMIN_EMAIL)%"
 ```
 
-Optional configure the email handler to SwiftMailer (`swift_mailer`) or the Symfony Mailer (`mailer`):
+Optionally configure the email handler (defaults to the Symfony Mailer):
 
 ```yml
 sulu_form:
     mail:
-        helper: "swift_mailer" # is default
+        helper: "mailer" # is default
 ```
 
 ## Create Database
