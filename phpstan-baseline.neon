@@ -696,11 +696,6 @@ parameters:
 			path: Event/BrevoListSubscriber.php
 
 		-
-			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Event\\\\DynFormSavedEvent\\:\\:\\$dynamic \\(Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\) does not accept Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\|null\\.$#"
-			count: 1
-			path: Event/DynFormSavedEvent.php
-
-		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: Event/MailchimpListSubscriber.php

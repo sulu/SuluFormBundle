@@ -2,6 +2,27 @@
 
 ## 3.0.0
 
+### Removed deprecated code
+
+The following long-deprecated APIs have been removed:
+
+- **`Sulu\Bundle\FormBundle\Event\DynFormSavedEvent`** (event name `sulu.dynform.saved`) — listen to
+  `Sulu\Bundle\FormBundle\Event\FormSavePostEvent` (event name `sulu_form.handler.saved`) instead. The new event is
+  dispatched right after the submission is persisted (before the mails are sent) and exposes the form and the `Dynamic`
+  entity via `getData()` / `getConfiguration()` instead of a pre-serialized array.
+- **`Sulu\Bundle\FormBundle\Provider\DynamicProvider`** — removed, use the dynamic list configuration instead.
+- **`HandlerInterface::EVENT_FORM_SAVE` / `HandlerInterface::EVENT_FORM_SAVED`** constants — use
+  `FormSavePreEvent::NAME` / `FormSavePostEvent::NAME` instead.
+- **Swiftmailer support** (`Mail\Helper`, the `swift_mailer` mail helper) — removed, the bundle now requires
+  `symfony/mailer`. The `sulu_form.mail.helper` option defaults to `mailer`.
+- **`Mail\NullHelper`** — removed, use the `null://` transport of `symfony/mailer` instead.
+- **`@SuluForm/themes/dynamic.html.twig`** form theme — use `@SuluForm/themes/basic.html.twig` instead.
+- The deprecated top-level **`sulu_form.media_collection_strategy`** config option — use
+  `sulu_form.media.collection_strategy` instead.
+
+The CSRF token in `@SuluForm/themes/basic.html.twig` is now always rendered directly; the deprecated ESI-based token
+loading (which failed since Symfony 5.4) has been removed.
+
 ### Replace config with auto complete
 
 The Mailchimp and Brevo list/template pickers now use an autocomplete/list-overlay
