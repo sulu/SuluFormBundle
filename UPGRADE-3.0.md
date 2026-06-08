@@ -28,7 +28,8 @@ The following long-deprecated APIs have been removed:
 - **`HandlerInterface::EVENT_FORM_SAVE` / `HandlerInterface::EVENT_FORM_SAVED`** constants — use
   `FormSavePreEvent::NAME` / `FormSavePostEvent::NAME` instead.
 - **Swiftmailer support** (`Mail\Helper`, the `swift_mailer` mail helper) — removed, the bundle now requires
-  `symfony/mailer`. The `sulu_form.mail.helper` option defaults to `mailer`.
+  `symfony/mailer`. Remove any explicit `sulu_form.mail.helper: swift_mailer` setting; the option now defaults to
+  `mailer`.
 - **`Mail\NullHelper`** — removed, use the `null://` transport of `symfony/mailer` instead.
 - **`@SuluForm/themes/dynamic.html.twig`** form theme — use `@SuluForm/themes/basic.html.twig` instead.
 - The deprecated top-level **`sulu_form.media_collection_strategy`** config option — use
@@ -36,6 +37,9 @@ The following long-deprecated APIs have been removed:
 
 The CSRF token in `@SuluForm/themes/basic.html.twig` is now always rendered directly; the deprecated ESI-based token
 loading (which failed since Symfony 5.4) has been removed.
+
+Attachment fields (`input[type=file]`) no longer render a `max` attribute, as it is not supported by the browser. Use
+the `data-max` attribute instead if you read it on the front-end; the maximum file count is still enforced server-side.
 
 ### Replace config with auto complete
 
