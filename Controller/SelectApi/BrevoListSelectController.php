@@ -25,7 +25,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class BrevoListSelectController
 {
-    private const PAGE_SIZE = 100;
+    // Brevo's GET /contacts/lists endpoint caps `limit` at 50 (returns "out_of_range" above that).
+    private const PAGE_SIZE = 50;
 
     public const RESOURCE_KEY = 'brevo_list_select';
 
@@ -71,7 +72,7 @@ final class BrevoListSelectController
                 new GetListsRequest(['limit' => self::PAGE_SIZE, 'offset' => $offset]),
             );
 
-            if (null === $response || 0 === $response->count) {
+            if (null === $response || 0 === $response->count || $response->lists == []) {
                 break;
             }
 
