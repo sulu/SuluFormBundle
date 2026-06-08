@@ -2,6 +2,20 @@
 
 ## 3.0.0
 
+### Removed static forms
+
+The deprecated static forms feature has been removed. It is fully superseded by dynamic (admin-built) forms. The
+following has been removed:
+
+- `Sulu\Bundle\FormBundle\Form\Type\AbstractType` and `Sulu\Bundle\FormBundle\Form\Type\TypeInterface`
+- `FormConfigurationFactory::buildByType()`
+- the `sulu_form.static_forms` configuration option
+- the `Sulu\Bundle\FormBundle\Provider\ListProviderInterface` / `ListProviderRegistry` extension point, including the
+  `sulu_form.list_provider` service tag, the `Sulu\Bundle\FormBundle\Controller\ListController` and its
+  `/form/lists` and `/form/lists/fields` routes
+
+If you relied on static forms, migrate to dynamic forms.
+
 ### Removed deprecated code
 
 The following long-deprecated APIs have been removed:

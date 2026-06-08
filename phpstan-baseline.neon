@@ -116,31 +116,6 @@ parameters:
 			path: Configuration/FormConfigurationFactory.php
 
 		-
-			message: "#^Parameter \\#1 \\$fileFields of method Sulu\\\\Bundle\\\\FormBundle\\\\Configuration\\\\FormConfiguration\\:\\:setFileFields\\(\\) expects array\\<int\\>, array\\<string, int\\|null\\> given\\.$#"
-			count: 1
-			path: Configuration/FormConfigurationFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$formData of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getCustomerMail\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: Configuration/FormConfigurationFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$formData of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getCustomerSubject\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: Configuration/FormConfigurationFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$formData of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getNotifyMail\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: Configuration/FormConfigurationFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$formData of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getNotifySubject\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: Configuration/FormConfigurationFactory.php
-
-		-
 			message: "#^Parameter \\#1 \\$formId of method Sulu\\\\Bundle\\\\FormBundle\\\\Media\\\\CollectionStrategyInterface\\:\\:getCollectionId\\(\\) expects int, int\\|null given\\.$#"
 			count: 1
 			path: Configuration/FormConfigurationFactory.php
@@ -219,26 +194,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$fieldDescriptors of method Sulu\\\\Component\\\\Rest\\\\RestHelperInterface\\:\\:initializeListBuilder\\(\\) expects array\\<Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\FieldDescriptorInterface\\>, array\\<Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\FieldDescriptorInterface\\>\\|null given\\.$#"
 			count: 1
 			path: Controller/FormController.php
-
-		-
-			message: "#^Parameter \\#1 \\$template of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getFieldDescriptors\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Controller/ListController.php
-
-		-
-			message: "#^Parameter \\#2 \\$webspace of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getFieldDescriptors\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Controller/ListController.php
-
-		-
-			message: "#^Parameter \\#3 \\$locale of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getFieldDescriptors\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Controller/ListController.php
-
-		-
-			message: "#^Parameter \\#4 \\$uuid of method Sulu\\\\Bundle\\\\FormBundle\\\\Provider\\\\ListProviderRegistry\\:\\:getFieldDescriptors\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Controller/ListController.php
 
 		-
 			message: "#^Parameter \\#2 \\$haystack of function in_array expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
@@ -779,66 +734,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$mediaIds of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Handler\\:\\:mapMediaIds\\(\\) expects array\\<int\\>, array given\\.$#"
 			count: 1
 			path: Form/Handler.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getBlockPrefix\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: Form/Type/AbstractType.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getCustomerFromMailAddress\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: Form/Type/AbstractType.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getCustomerReplyToMailAddress\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: Form/Type/AbstractType.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getCustomerToMailAddress\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: Form/Type/AbstractType.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getMailText\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: Form/Type/AbstractType.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getNotifyFromMailAddress\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: Form/Type/AbstractType.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getNotifyReplyToMailAddress\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: Form/Type/AbstractType.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getNotifyToMailAddress\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: Form/Type/AbstractType.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getSubmitLabel\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: Form/Type/AbstractType.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getSuccessText\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: Form/Type/AbstractType.php
-
-		-
-			message: "#^Parameter \\#1 \\$formData of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getCustomerMail\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: Form/Type/AbstractType.php
-
-		-
-			message: "#^Parameter \\#1 \\$formData of method Sulu\\\\Bundle\\\\FormBundle\\\\Form\\\\Type\\\\AbstractType\\:\\:getNotifyMail\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: Form/Type/AbstractType.php
 
 		-
 			message: "#^Parameter \\#1 \\$formEntityId of class Sulu\\\\Bundle\\\\FormBundle\\\\Exception\\\\FormNotFoundException constructor expects int, int\\|null given\\.$#"

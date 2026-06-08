@@ -1,17 +1,3 @@
-sulu_form.get_lists_fields:
-    path: '/form/lists/fields.{_format}'
-    methods: GET
-    controller: 'sulu_form.list_controller::cgetFieldsAction'
-    format: json
-    requirements: { _format: json|csv }
-
-sulu_form.get_lists:
-    path: '/form/lists.{_format}'
-    methods: GET
-    controller: 'sulu_form.list_controller::cgetAction'
-    format: json
-    requirements: { _format: json|csv }
-
 sulu_form.get_forms:
     path: '/forms.{_format}'
     methods: GET

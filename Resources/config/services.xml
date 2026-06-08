@@ -36,10 +36,6 @@
             <tag name="sulu.context" context="admin"/>
         </service>
 
-        <!-- List Provider Registry -->
-        <service id="sulu.list.provider.registry"
-                 class="Sulu\Bundle\FormBundle\Provider\ListProviderRegistry" />
-
         <!-- Manager -->
         <service id="sulu_form.manager.form"
                  class="Sulu\Bundle\FormBundle\Manager\FormManager" public="true">
@@ -203,17 +199,6 @@
             <argument type="service" id="sulu_core.list_builder.field_descriptor_factory"/>
             <argument type="service" id="sulu_core.list_rest_helper"/>
             <argument type="service" id="sulu_activity.domain_event_dispatcher"/>
-
-            <tag name="sulu.context" context="admin"/>
-        </service>
-
-        <!-- List Controller -->
-        <service id="sulu_form.list_controller" class="Sulu\Bundle\FormBundle\Controller\ListController" public="true">
-            <argument type="service" id="fos_rest.view_handler.default"/>
-            <argument type="service" id="security.token_storage"/>
-            <argument type="service" id="sulu_core.doctrine_rest_helper"/>
-            <argument type="service" id="sulu_core.doctrine_list_builder_factory"/>
-            <argument type="service" id="sulu.list.provider.registry"/>
 
             <tag name="sulu.context" context="admin"/>
         </service>
