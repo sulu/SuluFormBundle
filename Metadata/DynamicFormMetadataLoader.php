@@ -70,6 +70,12 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         }
         Assert::notEmpty($fieldTypeMetaDataCollection, 'No field type metadata loaded');
 
+        $sortLocale = (string) \reset($this->locales);
+        \usort(
+            $fieldTypeMetaDataCollection,
+            static fn (FormMetadata $a, FormMetadata $b): int => \strcmp($a->getTitle($sortLocale), $b->getTitle($sortLocale))
+        );
+
         foreach ($fieldTypeMetaDataCollection as $fieldTypeMetaData) {
             $fields->addType($fieldTypeMetaData);
         }
