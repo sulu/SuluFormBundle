@@ -4,10 +4,15 @@
 
 ### Replace config with auto complete
 
-Renamed services:
-"sulu_form.dynamic.brevo_list_select" -> "sulu_form.brevo_list_select_controller"
-"sulu_form.dynamic.brevo_mail_template_select" -> "sulu_form.brevo_mail_template_select_controller"
+The Mailchimp and Brevo list/template pickers now use an autocomplete/list-overlay
+selection backed by API controllers instead of the `getValues()` expression services.
+
+Renamed service:
 "sulu_form.dynamic.mailchimp_list_select" -> "sulu_form.mailchimp_list_select_controller"
+
+The Brevo selection controllers ("sulu_form.brevo_list_select_controller" and
+"sulu_form.brevo_mail_template_select_controller") are new and replace the removed
+Sendinblue services listed below.
 
 ### Replace sendinblue with getbrevo
 

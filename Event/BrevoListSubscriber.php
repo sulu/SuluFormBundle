@@ -137,14 +137,14 @@ class BrevoListSubscriber implements EventSubscriberInterface
         }
 
         $linkProvider = $this->linkProviderPool->getProvider($redirectLink['provider']);
-        $linkItems = $linkProvider->preload([$redirectLink['href']], $redirectLink['locale'], true);
+        $linkItems = \iterator_to_array($linkProvider->preload([$redirectLink['href']], $redirectLink['locale'], true));
 
-        $lastItem = \reset($linkItems);
-        if (false === $lastItem) {
+        $firstItem = \reset($linkItems);
+        if (false === $firstItem) {
             return null;
         }
 
-        $url = $lastItem->getUrl();
+        $url = $firstItem->getUrl();
         if (isset($redirectLink['query'])) {
             $url = \sprintf('%s?%s', $url, $redirectLink['query']);
         }

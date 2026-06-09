@@ -20,6 +20,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
+ * @final
+ *
  * @internal
  */
 class MailchimpListSelectController
@@ -32,10 +34,10 @@ class MailchimpListSelectController
     {
     }
 
-    private function getClient(): MailChimp
+    protected function getClient(): MailChimp
     {
         if (!$this->apiKey) {
-            throw HttpException::fromStatusCode(
+            throw new HttpException(
                 Response::HTTP_PRECONDITION_FAILED,
                 'No API Keys configured for mailchimp',
             );
@@ -44,9 +46,6 @@ class MailchimpListSelectController
         return new MailChimp($this->apiKey);
     }
 
-    /**
-     * Returns array of Mailchimp lists of given account defined by the API key.
-     */
     public function cgetAction(Request $request): JsonResponse
     {
         $limit = \max(1, (int) $request->query->get('limit', '100'));
@@ -81,8 +80,10 @@ class MailchimpListSelectController
         while (true) {
             $response = $mailChimp->get('lists', ['count' => self::PAGE_SIZE, 'offset' => $offset]);
 
-            if (false === $response) {
-                break;
+            if (!$mailChimp->success() || !\is_array($response)) {
+                throw new \RuntimeException(
+                    \sprintf('Could not fetch Mailchimp lists: %s', $mailChimp->getLastError() ?: 'unknown error')
+                );
             }
 
             $pageLists = $response['lists'] ?? [];
@@ -104,8 +105,9 @@ class MailchimpListSelectController
 
     public function getAction(string $id): JsonResponse
     {
-        $response = $this->getClient()->get('lists/' . $id, ['fields' => 'id,name']);
-        if (false === $response) {
+        $client = $this->getClient();
+        $response = $client->get('lists/' . $id, ['fields' => 'id,name']);
+        if (!$client->success() || !\is_array($response)) {
             throw new NotFoundHttpException();
         }
 

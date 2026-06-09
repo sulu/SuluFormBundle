@@ -21,9 +21,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
+ * @final
+ *
  * @internal
  */
-final class BrevoListSelectController
+class BrevoListSelectController
 {
     // Brevo's GET /contacts/lists endpoint caps `limit` at 50 (returns "out_of_range" above that).
     private const PAGE_SIZE = 50;
@@ -34,9 +36,6 @@ final class BrevoListSelectController
     {
     }
 
-    /**
-     * Returns array of Brevo lists of given account defined by the API key.
-     */
     public function cgetAction(Request $request): JsonResponse
     {
         $limit = \max(1, (int) $request->query->get('limit', '100'));
@@ -72,11 +71,12 @@ final class BrevoListSelectController
                 new GetListsRequest(['limit' => self::PAGE_SIZE, 'offset' => $offset]),
             );
 
-            if (null === $response || 0 === $response->count || [] == $response->lists) {
+            $lists = $response?->lists ?? [];
+            if ([] === $lists) {
                 break;
             }
 
-            $listObjects = [...$listObjects, ...($response->lists ?? [])];
+            $listObjects = [...$listObjects, ...$lists];
             $offset += self::PAGE_SIZE;
         }
 
@@ -95,7 +95,9 @@ final class BrevoListSelectController
     {
         try {
             $response = $this->api->contacts->getList($id);
-            \assert(null !== $response);
+            if (null === $response) {
+                return new JsonResponse([], Response::HTTP_NOT_FOUND);
+            }
 
             return new JsonResponse(['id' => $response->id, 'title' => $response->name]);
         } catch (BrevoException $e) {

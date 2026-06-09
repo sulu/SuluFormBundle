@@ -18,7 +18,9 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType as TypeCheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Brevo form field type.
+ * @final
+ *
+ * @internal
  */
 class BrevoType implements FormFieldTypeInterface
 {

@@ -18,7 +18,9 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType as TypeCheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * The Mailchimp form field type.
+ * @final
+ *
+ * @internal
  */
 class MailchimpType implements FormFieldTypeInterface
 {
