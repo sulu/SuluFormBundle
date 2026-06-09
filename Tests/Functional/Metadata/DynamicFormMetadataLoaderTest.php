@@ -145,6 +145,9 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
 
     public function testGetMetadataFieldTypesAreSortedByTitle(): void
     {
+        $enabledLocales = $this->getContainer()->getParameter('kernel.enabled_locales');
+        $sortLocale = (string) (\reset($enabledLocales) ?: 'de');
+
         foreach (['de', 'en'] as $locale) {
             $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', $locale);
             $this->assertInstanceOf(FormMetadata::class, $formMetadata);
@@ -157,7 +160,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
             $sortedTypes = $types;
             \uasort(
                 $sortedTypes,
-                static fn (FormMetadata $a, FormMetadata $b): int => \strcmp($a->getTitle('de'), $b->getTitle('de'))
+                static fn (FormMetadata $a, FormMetadata $b): int => \strcmp($a->getTitle($sortLocale), $b->getTitle($sortLocale))
             );
 
             $this->assertSame(
