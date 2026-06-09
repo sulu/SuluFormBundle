@@ -143,10 +143,9 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         ], \array_keys($fields->getTypes()));
     }
 
-    public function testGetMetadataFieldTypesAreSortedByTitle(): void
+    public function testGetMetadataFieldTypesAreSortedByRequestedLocale(): void
     {
-        $enabledLocales = $this->getContainer()->getParameter('kernel.enabled_locales');
-        $sortLocale = (string) (\reset($enabledLocales) ?: 'de');
+        $orderByLocale = [];
 
         foreach (['de', 'en'] as $locale) {
             $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', $locale);
@@ -157,21 +156,29 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
 
             $types = $fields->getTypes();
 
-            $sortedTypes = $types;
+            $expectedOrder = $types;
             \uasort(
-                $sortedTypes,
-                static fn (FormMetadata $a, FormMetadata $b): int => \strcmp($a->getTitle($sortLocale), $b->getTitle($sortLocale))
+                $expectedOrder,
+                static fn (FormMetadata $a, FormMetadata $b): int => \strcmp($a->getTitle($locale), $b->getTitle($locale))
             );
 
             $this->assertSame(
-                \array_keys($sortedTypes),
+                \array_keys($expectedOrder),
                 \array_keys($types),
-                'Block types must be sorted alphabetically by their translated title.'
+                \sprintf('Block types must be sorted by their "%s" title.', $locale)
             );
 
+            $this->assertSame(\array_key_first($types), $fields->getDefaultType());
             $this->assertSame('attachment', \array_key_first($types));
-            $this->assertSame('attachment', $fields->getDefaultType());
+
+            $orderByLocale[$locale] = \array_keys($types);
         }
+
+        $this->assertNotSame(
+            $orderByLocale['de'],
+            $orderByLocale['en'],
+            'German and English block type orders must differ because they are sorted by their translated title.'
+        );
     }
 
     public function testGetMetadataLabelsEnglish(): void

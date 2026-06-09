@@ -70,17 +70,9 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         }
         Assert::notEmpty($fieldTypeMetaDataCollection, 'No field type metadata loaded');
 
-        $sortLocale = (string) \reset($this->locales);
-        \usort(
-            $fieldTypeMetaDataCollection,
-            static fn (FormMetadata $a, FormMetadata $b): int => \strcmp($a->getTitle($sortLocale), $b->getTitle($sortLocale))
-        );
-
         foreach ($fieldTypeMetaDataCollection as $fieldTypeMetaData) {
             $fields->addType($fieldTypeMetaData);
         }
-
-        $fields->setDefaultType(\current($fields->getTypes())->getName());
         $section->addItem($fields);
 
         $formItems = $formMetadata->getItems();
@@ -111,7 +103,46 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
 
         $form = \unserialize(\file_get_contents($configCache->getPath()));
 
+        if ($form instanceof FormMetadata) {
+            $this->sortFieldTypesByLocale($form, $locale);
+        }
+
         return $form;
+    }
+
+    /**
+     * Orders the block field types by their translated title so the admin user sees them
+     * alphabetically in their own interface locale.
+     */
+    private function sortFieldTypesByLocale(FormMetadata $form, string $locale): void
+    {
+        $section = $form->getItems()['formFields'] ?? null;
+        if (!$section instanceof SectionMetadata) {
+            return;
+        }
+
+        $fields = $section->getItems()['fields'] ?? null;
+        if (!$fields instanceof FieldMetadata) {
+            return;
+        }
+
+        $sortLocale = \in_array($locale, $this->locales, true) ? $locale : (string) \reset($this->locales);
+
+        $types = $fields->getTypes();
+        \uasort(
+            $types,
+            static fn (FormMetadata $a, FormMetadata $b): int => \strcmp($a->getTitle($sortLocale), $b->getTitle($sortLocale))
+        );
+
+        foreach (\array_keys($fields->getTypes()) as $typeKey) {
+            $fields->removeType($typeKey);
+        }
+
+        foreach ($types as $type) {
+            $fields->addType($type);
+        }
+
+        $fields->setDefaultType((string) \array_key_first($types));
     }
 
     private function loadFieldTypeMetadata(string $typeKey, FormFieldTypeInterface $type): FormMetadata
