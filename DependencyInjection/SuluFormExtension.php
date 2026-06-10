@@ -267,6 +267,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         // Load services
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
+        $loader->load('mailer.xml');
         $loader->load('types.xml');
         $loader->load('title-providers.xml');
 
@@ -309,28 +310,8 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                 ->setPublic(true);
         }
 
-        $container->setParameter('sulu_mail.mail.helper_name', $config['mail']['helper']);
-
         if ($config['media']['protected']) {
             $loader->load('protected_media.xml');
         }
-
-        $this->configureHelper($loader, $config, $container);
-    }
-
-    /**
-     * @param mixed[] $config
-     */
-    private function configureHelper(XmlFileLoader $loader, array $config, ContainerBuilder $container): void
-    {
-        $helper = $config['mail']['helper'];
-        if (\method_exists($container, 'resolveEnvPlaceholders')) {
-            $helper = $container->resolveEnvPlaceholders($helper, true);
-        }
-
-        $helper = $helper ?: 'mailer';
-        $loader->load('mailer.xml');
-
-        $container->setAlias('sulu.mail.helper', 'sulu.mail.' . $helper);
     }
 }

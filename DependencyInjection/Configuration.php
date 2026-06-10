@@ -24,8 +24,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-    public const MAILER_HELPER = 'mailer';
-
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('sulu_form');
@@ -58,10 +56,6 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('mail')
                 ->addDefaultsIfNotSet()
                 ->children()
-                    ->scalarNode('helper')
-                        ->defaultValue(null)
-                        ->info('The mail helper service to use. Defaults to "mailer" (Symfony Mailer).')
-                    ->end()
                     ->scalarNode('from')->defaultValue(null)->end()
                     ->scalarNode('to')->defaultValue(null)->end()
                     ->scalarNode('sender')->defaultValue(null)->end()

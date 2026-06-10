@@ -10,5 +10,6 @@
             <argument>%sulu_form.mail.sender%</argument>
             <argument type="service" id="logger" />
         </service>
+        <service id="Sulu\Bundle\FormBundle\Mail\HelperInterface" alias="sulu.mail.mailer" />
     </services>
 </container>

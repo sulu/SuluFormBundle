@@ -28,8 +28,8 @@ The following long-deprecated APIs have been removed:
 - **`HandlerInterface::EVENT_FORM_SAVE` / `HandlerInterface::EVENT_FORM_SAVED`** constants — use
   `FormSavePreEvent::NAME` / `FormSavePostEvent::NAME` instead.
 - **Swiftmailer support** (`Mail\Helper`, the `swift_mailer` mail helper) — removed, the bundle now requires
-  `symfony/mailer`. Remove any explicit `sulu_form.mail.helper: swift_mailer` setting; the option now defaults to
-  `mailer`.
+  `symfony/mailer`. Remove any `sulu_form.mail.helper` setting from your configuration; the option has been removed
+  entirely. `MailerHelper` is now wired directly and is always used.
 - **`Mail\NullHelper`** — removed, use the `null://` transport of `symfony/mailer` instead.
 - **`@SuluForm/themes/dynamic.html.twig`** form theme — use `@SuluForm/themes/basic.html.twig` instead.
 - The deprecated top-level **`sulu_form.media_collection_strategy`** config option — use

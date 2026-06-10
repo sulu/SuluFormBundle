@@ -201,11 +201,6 @@ parameters:
 			path: DependencyInjection/CompilerPass/RemoveTaggedServiceCollectorCompilerPass.php
 
 		-
-			message: "#^Cannot access offset 'helper' on mixed\\.$#"
-			count: 1
-			path: DependencyInjection/SuluFormExtension.php
-
-		-
 			message: "#^Call to method hash\\(\\) on an unknown class Symfony\\\\Component\\\\Security\\\\Core\\\\Encoder\\\\MessageDigestPasswordEncoder\\.$#"
 			count: 1
 			path: Dynamic/Checksum.php
