@@ -111,8 +111,8 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
     }
 
     /**
-     * Orders the block field types by their translated title so the admin user sees them
-     * alphabetically in their own interface locale.
+     * Sorts the block field types alphabetically by their translated title, using the requested
+     * locale or the first configured locale when the requested one is not configured.
      */
     private function sortFieldTypesByLocale(FormMetadata $form, string $locale): void
     {

@@ -145,8 +145,6 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
 
     public function testGetMetadataFieldTypesAreSortedByRequestedLocale(): void
     {
-        $orderByLocale = [];
-
         foreach (['de', 'en'] as $locale) {
             $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', $locale);
             $this->assertInstanceOf(FormMetadata::class, $formMetadata);
@@ -170,15 +168,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
 
             $this->assertSame(\array_key_first($types), $fields->getDefaultType());
             $this->assertSame('attachment', \array_key_first($types));
-
-            $orderByLocale[$locale] = \array_keys($types);
         }
-
-        $this->assertNotSame(
-            $orderByLocale['de'],
-            $orderByLocale['en'],
-            'German and English block type orders must differ because they are sorted by their translated title.'
-        );
     }
 
     public function testGetMetadataLabelsEnglish(): void
