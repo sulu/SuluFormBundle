@@ -12,13 +12,16 @@
 namespace Sulu\Bundle\FormBundle\DependencyInjection;
 
 use Sulu\Bundle\FormBundle\Controller\FormTokenController;
+use Sulu\Bundle\FormBundle\Controller\SelectApi\BrevoListSelectController;
+use Sulu\Bundle\FormBundle\Controller\SelectApi\BrevoMailTemplateSelectController;
+use Sulu\Bundle\FormBundle\Controller\SelectApi\MailchimpListSelectController;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\Mailer\MailerInterface;
 
 /**
@@ -80,6 +83,89 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         }
 
         if ($container->hasExtension('sulu_admin')) {
+            $additionalResources = [];
+            $additionalSelections = [];
+
+            if (\class_exists(\DrewM\MailChimp\MailChimp::class)) {
+                $additionalResources[MailchimpListSelectController::RESOURCE_KEY] = [
+                    'routes' => [
+                        'list' => 'sulu_form.get_mail_chimp_values',
+                        'detail' => 'sulu_form.get_mail_chimp_value',
+                    ],
+                ];
+
+                $additionalSelections['single_mail_chimp_selection'] = [
+                    'default_type' => 'auto_complete',
+                    'resource_key' => MailchimpListSelectController::RESOURCE_KEY,
+                    'types' => [
+                        'auto_complete' => [
+                            'display_property' => 'title',
+                            'search_properties' => ['title'],
+                        ],
+                        'list_overlay' => [
+                            'adapter' => 'table',
+                            'list_key' => MailchimpListSelectController::RESOURCE_KEY,
+                            'display_properties' => ['title'],
+                            'empty_text' => 'sulu_form.mailchimp_list_selection.empty_text',
+                            'icon' => 'su-th-list',
+                            'overlay_title' => 'sulu_form.mailchimp_list_selection.overlay_title',
+                        ],
+                    ],
+                ];
+            }
+
+            if (\class_exists(\Brevo\Types\Configuration::class)) {
+                $additionalResources[BrevoListSelectController::RESOURCE_KEY] = [
+                    'routes' => [
+                        'list' => 'sulu_form.get_brevo_values',
+                        'detail' => 'sulu_form.get_brevo_value',
+                    ],
+                ];
+                $additionalResources[BrevoMailTemplateSelectController::RESOURCE_KEY] = [
+                    'routes' => [
+                        'list' => 'sulu_form.get_brevo_mail_templates',
+                        'detail' => 'sulu_form.get_brevo_mail_template',
+                    ],
+                ];
+
+                $additionalSelections['single_brevo_list_selection'] = [
+                    'default_type' => 'auto_complete',
+                    'resource_key' => BrevoListSelectController::RESOURCE_KEY,
+                    'types' => [
+                        'auto_complete' => [
+                            'display_property' => 'title',
+                            'search_properties' => ['title'],
+                        ],
+                        'list_overlay' => [
+                            'adapter' => 'table',
+                            'list_key' => BrevoListSelectController::RESOURCE_KEY,
+                            'display_properties' => ['title'],
+                            'empty_text' => 'sulu_form.brevo_list_selection.empty_text',
+                            'icon' => 'su-th-list',
+                            'overlay_title' => 'sulu_form.brevo_list_selection.overlay_title',
+                        ],
+                    ],
+                ];
+                $additionalSelections['single_brevo_mail_template_selection'] = [
+                    'default_type' => 'auto_complete',
+                    'resource_key' => BrevoMailTemplateSelectController::RESOURCE_KEY,
+                    'types' => [
+                        'auto_complete' => [
+                            'display_property' => 'title',
+                            'search_properties' => ['title'],
+                        ],
+                        'list_overlay' => [
+                            'adapter' => 'table',
+                            'list_key' => BrevoMailTemplateSelectController::RESOURCE_KEY,
+                            'display_properties' => ['title'],
+                            'empty_text' => 'sulu_form.brevo_mail_template_selection.empty_text',
+                            'icon' => 'su-th-list',
+                            'overlay_title' => 'sulu_form.brevo_mail_template_selection.overlay_title',
+                        ],
+                    ],
+                ];
+            }
+
             $container->prependExtensionConfig(
                 'sulu_admin',
                 [
@@ -101,6 +187,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                                 'detail' => 'sulu_form.delete_dynamic',
                             ],
                         ],
+                        ...$additionalResources,
                     ],
                     'field_type_options' => [
                         'single_selection' => [
@@ -118,6 +205,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                                     ],
                                 ],
                             ],
+                            ...$additionalSelections,
                         ],
                     ],
                 ]
@@ -143,7 +231,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sulu_form.ajax_templates', $config['ajax_templates']);
         $container->setParameter('sulu_form.dynamic_widths', $config['dynamic_widths']);
         $container->setParameter('sulu_form.dynamic_auto_title', $config['dynamic_auto_title']);
-        $container->setParameter('sulu_form.sendinblue_api_key', $config['sendinblue_api_key']);
+        $container->setParameter('sulu_form.brevo_api_key', $config['brevo_api_key']);
         $container->setParameter('sulu_form.mailchimp_api_key', $config['mailchimp_api_key']);
         $container->setParameter('sulu_form.mailchimp_subscribe_status', $config['mailchimp_subscribe_status']);
         $container->setParameter('sulu_form.dynamic_lists.config', $config['dynamic_lists']);
@@ -179,7 +267,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         );
 
         // Load services
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
         $loader->load('types.xml');
         $loader->load('title-providers.xml');
@@ -195,12 +283,15 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
             $definition->setDeprecated(true, 'The "%service_id%" is deprecated use the mailer configuration instead.');
         }
 
-        if ($config['sendinblue_api_key']) {
-            if (!\class_exists(\SendinBlue\Client\Configuration::class)) {
-                throw new \LogicException('You need to install the "sendinblue/api-v3-sdk" package to use the sendinblue type.');
+        if ($config['brevo_api_key']) {
+            if (
+                !\class_exists(\Brevo\Types\Configuration::class)
+                || \version_compare(\Composer\InstalledVersions::getVersion('getbrevo/brevo-php') ?? '0', '4.0', '<')
+            ) {
+                throw new \LogicException('You need to install the "getbrevo/brevo-php" version ^4.0 to use the Brevo type.');
             }
 
-            $loader->load('type_sendinblue.xml');
+            $loader->load('type_brevo.xml');
         }
 
         if ($config['mailchimp_api_key']) {
@@ -243,7 +334,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
     /**
      * @param mixed[] $config
      */
-    private function configureHelper(Loader\XmlFileLoader $loader, array $config, ContainerBuilder $container): void
+    private function configureHelper(XmlFileLoader $loader, array $config, ContainerBuilder $container): void
     {
         $helper = $config['mail']['helper'];
         if (\method_exists($container, 'resolveEnvPlaceholders')) {

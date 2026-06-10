@@ -15,6 +15,11 @@ use DrewM\MailChimp\MailChimp;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * @final
+ *
+ * @internal
+ */
 class MailchimpListSubscriber implements EventSubscriberInterface
 {
     /**

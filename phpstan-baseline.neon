@@ -276,36 +276,6 @@ parameters:
 			path: Dynamic/Checksum.php
 
 		-
-			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Dynamic\\\\Helper\\\\MailchimpListSelect\\:\\:\\$apiKey \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: Dynamic/Helper/MailchimpListSelect.php
-
-		-
-			message: "#^Cannot access offset 'id' on object\\.$#"
-			count: 1
-			path: Dynamic/Helper/SendinblueListSelect.php
-
-		-
-			message: "#^Cannot access offset 'name' on object\\.$#"
-			count: 1
-			path: Dynamic/Helper/SendinblueListSelect.php
-
-		-
-			message: "#^Offset 'tag' on SendinBlue\\\\Client\\\\Model\\\\GetSmtpTemplateOverview on left side of \\?\\? does not exist\\.$#"
-			count: 1
-			path: Dynamic/Helper/SendinblueMailTemplateSelect.php
-
-		-
-			message: "#^Parameter \\#1 \\$templateStatus of method SendinBlue\\\\Client\\\\Api\\\\TransactionalEmailsApi\\:\\:getSmtpTemplates\\(\\) expects bool\\|null, string given\\.$#"
-			count: 1
-			path: Dynamic/Helper/SendinblueMailTemplateSelect.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: Dynamic/Helper/SendinblueMailTemplateSelect.php
-
-		-
 			message: "#^Cannot call method getOption\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
 			count: 4
 			path: Dynamic/Types/AttachmentType.php
@@ -314,6 +284,11 @@ parameters:
 			message: "#^Cannot cast mixed to int\\.$#"
 			count: 1
 			path: Dynamic/Types/AttachmentType.php
+
+		-
+			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
+			count: 1
+			path: Dynamic/Types/BrevoType.php
 
 		-
 			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
@@ -459,11 +434,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$values of function array_combine expects array, array\\<int, string\\>\\|false given\\.$#"
 			count: 1
 			path: Dynamic/Types/RadioButtonsType.php
-
-		-
-			message: "#^Cannot call method getDefaultValue\\(\\) on Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\FormFieldTranslation\\|null\\.$#"
-			count: 1
-			path: Dynamic/Types/SendinblueType.php
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\:\\:getAttachment\\(\\) should return array\\<int\\>\\|null but returns mixed\\.$#"
@@ -686,6 +656,56 @@ parameters:
 			path: Entity/FormFieldTranslation.php
 
 		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'listId' on mixed\\.$#"
+			count: 1
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'mailTemplateId' on mixed\\.$#"
+			count: 1
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'options' on mixed\\.$#"
+			count: 3
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'redirectLink' on mixed\\.$#"
+			count: 1
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'type' on mixed\\.$#"
+			count: 4
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Cannot access offset 'value' on mixed\\.$#"
+			count: 4
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Parameter \\#1 \\$hrefs of method Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\Link\\\\LinkProviderInterface\\:\\:preload\\(\\) expects array\\<string\\>, array\\<int, string\\|null\\> given\\.$#"
+			count: 1
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Parameter \\#1 \\$redirectLink of method Sulu\\\\Bundle\\\\FormBundle\\\\Event\\\\BrevoListSubscriber\\:\\:getUrlFromLink\\(\\) expects array\\{provider\\: string\\|null, target\\: string\\|null, anchor\\: string\\|null, query\\: string\\|null, href\\: string\\|null, title\\: string\\|null, rel\\: string\\|null, locale\\: string\\|null\\}, mixed given\\.$#"
+			count: 1
+			path: Event/BrevoListSubscriber.php
+
+		-
+			message: "#^Parameter \\#2 \\$locale of method Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\Link\\\\LinkProviderInterface\\:\\:preload\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Event/BrevoListSubscriber.php
+
+		-
 			message: "#^Property Sulu\\\\Bundle\\\\FormBundle\\\\Event\\\\DynFormSavedEvent\\:\\:\\$dynamic \\(Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\) does not accept Sulu\\\\Bundle\\\\FormBundle\\\\Entity\\\\Dynamic\\|null\\.$#"
 			count: 1
 			path: Event/DynFormSavedEvent.php
@@ -729,56 +749,6 @@ parameters:
 			message: "#^In method \"Sulu\\\\Bundle\\\\FormBundle\\\\Event\\\\RequestListener\\:\\:onKernelRequest\", caught \"Exception\" must be rethrown\\. Either catch a more specific exception or add a \"throw\" clause in the \"catch\" block to propagate the exception\\. More info\\: http\\://bit\\.ly/failloud$#"
 			count: 1
 			path: Event/RequestListener.php
-
-		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: Event/SendinblueListSubscriber.php
-
-		-
-			message: "#^Cannot access offset 'listId' on mixed\\.$#"
-			count: 1
-			path: Event/SendinblueListSubscriber.php
-
-		-
-			message: "#^Cannot access offset 'mailTemplateId' on mixed\\.$#"
-			count: 1
-			path: Event/SendinblueListSubscriber.php
-
-		-
-			message: "#^Cannot access offset 'options' on mixed\\.$#"
-			count: 3
-			path: Event/SendinblueListSubscriber.php
-
-		-
-			message: "#^Cannot access offset 'redirectLink' on mixed\\.$#"
-			count: 1
-			path: Event/SendinblueListSubscriber.php
-
-		-
-			message: "#^Cannot access offset 'type' on mixed\\.$#"
-			count: 4
-			path: Event/SendinblueListSubscriber.php
-
-		-
-			message: "#^Cannot access offset 'value' on mixed\\.$#"
-			count: 4
-			path: Event/SendinblueListSubscriber.php
-
-		-
-			message: "#^Parameter \\#1 \\$hrefs of method Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\Link\\\\LinkProviderInterface\\:\\:preload\\(\\) expects array\\<string\\>, array\\<int, string\\|null\\> given\\.$#"
-			count: 1
-			path: Event/SendinblueListSubscriber.php
-
-		-
-			message: "#^Parameter \\#1 \\$redirectLink of method Sulu\\\\Bundle\\\\FormBundle\\\\Event\\\\SendinblueListSubscriber\\:\\:getUrlFromLink\\(\\) expects array\\{provider\\: string\\|null, target\\: string\\|null, anchor\\: string\\|null, query\\: string\\|null, href\\: string\\|null, title\\: string\\|null, rel\\: string\\|null, locale\\: string\\|null\\}, mixed given\\.$#"
-			count: 1
-			path: Event/SendinblueListSubscriber.php
-
-		-
-			message: "#^Parameter \\#2 \\$locale of method Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\Link\\\\LinkProviderInterface\\:\\:preload\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: Event/SendinblueListSubscriber.php
 
 		-
 			message: "#^Cannot call method get\\(\\) on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"

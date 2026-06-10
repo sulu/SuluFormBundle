@@ -2,6 +2,74 @@
 
 ## 3.0.0
 
+### Replace config with auto complete
+
+The Mailchimp and Brevo list/template pickers now use an autocomplete/list-overlay
+selection backed by API controllers instead of the `getValues()` expression services.
+
+Renamed service:
+"sulu_form.dynamic.mailchimp_list_select" -> "sulu_form.mailchimp_list_select_controller"
+
+The Brevo selection controllers ("sulu_form.brevo_list_select_controller" and
+"sulu_form.brevo_mail_template_select_controller") are new and replace the removed
+Sendinblue services listed below.
+
+### Replace sendinblue with getbrevo
+
+The Sendinblue Form Fields were replaced with the Brevo Form Field.
+You can find all Brevo configuration options [here](Resources/doc/brevo.md).
+
+### Config changes
+```diff
+ # config/packages/sulu_form.yaml
+ sulu_form:
+-    sendinblue_api_key: <your key>
++    brevo_api_key: <your key>
+```
+
+### Composer dependency changes
+```
+composer remove sendinblue/api-v3-sdk
+composer require getbrevo/brevo-php
+```
+
+### Routing changes
+
+If you want to use mail chimp also include those routes in your config:
+
+```yaml
+sulu_form_api_mailchimp:
+    resource: "@SuluFormBundle/Resources/config/routing_api_mailchimp.yaml"
+    prefix: /admin/api
+```
+
+If you want to use brevo also include those routes in your config:
+
+```yaml
+sulu_form_api_brevo:
+    resource: "@SuluFormBundle/Resources/config/routing_api_brevo.yaml"
+    prefix: /admin/api
+```
+
+### Container changes
+
+Removed parameters:
+- sulu_form.sendinblue_api_key
+
+Removed services:
+- sulu_form.subscriber.sendinblue_list_subscriber
+- sulu_form.dynamic.type_sendinblue
+- sulu_form.dynamic.sendinblue_list_select
+- sulu_form.dynamic.sendinblue_mail_template_select
+
+#### Data Migration
+
+Use the following database query to update all existing forms.
+
+```sql
+UPDATE `fo_form_fields` SET `type` = 'brevo' WHERE `type` = 'sendinblue';
+```
+
 ### Content Type replaced with PropertyResolver and ResourceLoader
 
 The `SingleFormSelection` content type has been replaced with the new Sulu 3.0 content resolution architecture using `PropertyResolverInterface` and `ResourceLoaderInterface`.

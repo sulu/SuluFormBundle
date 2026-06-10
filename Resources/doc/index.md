@@ -67,6 +67,22 @@ sulu_form_api:
     prefix: /admin/api
 ```
 
+If you want to use mail chimp as well:
+
+```yaml
+sulu_form_api_mailchimp:
+    resource: "@SuluFormBundle/Resources/config/routing_api_mailchimp.yaml"
+    prefix: /admin/api
+```
+
+If you want to use brevo as well:
+
+```yaml
+sulu_form_api_brevo:
+    resource: "@SuluFormBundle/Resources/config/routing_api_brevo.yaml"
+    prefix: /admin/api
+```
+
 ## Permissions
 
 Make sure you've set the correct permissions in the Sulu backend for this bundle!
@@ -79,6 +95,6 @@ Make sure you've set the correct permissions in the Sulu backend for this bundle
 ## Additional form fields
 
 - [Mailchimp](mailchimp.md "Mailchimp Form Field")
-- [Sendinblue](sendinblue.md "Sendinblue Form Field")
+- [Brevo](brevo.md "Brevo Form Field")
 - [Recaptcha](recaptcha.md "Recaptcha Form Field")
 - [Dropzone](dropzone.md "Dropzone Form Field")

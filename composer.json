@@ -29,9 +29,9 @@
         "symfony/event-dispatcher-contracts": "^3.0",
         "symfony/form": "^6.4 || ^7.1",
         "symfony/mailer": "^6.4 || ^7.1",
-        "symfony/validator": "^6.4 || ^7.1",
         "symfony/security-csrf": "^6.4 || ^7.1",
         "symfony/translation": "^6.4 || ^7.1",
+        "symfony/validator": "^6.4 || ^7.1",
         "twig/twig": "^2.13 || ^3.0"
     },
     "require-dev": {
@@ -39,6 +39,7 @@
         "doctrine/data-fixtures": "^2.0",
         "doctrine/doctrine-bundle": "^2.0",
         "drewm/mailchimp-api": "^2.2",
+        "getbrevo/brevo-php": "^4.0",
         "excelwebzone/recaptcha-bundle": "^1.4.2",
         "handcraftedinthealps/zendsearch": "^2.0",
         "jackalope/jackalope-doctrine-dbal": "^2.0",
@@ -52,7 +53,6 @@
         "phpstan/phpstan-phpunit": "^1.0",
         "phpstan/phpstan-symfony": "^1.0",
         "phpunit/phpunit": "^10.0 || ^11.0",
-        "sendinblue/api-v3-sdk": "^8.0",
         "symfony/browser-kit": "^6.4 || ^7.1",
         "symfony/dotenv": "^6.4 || ^7.1",
         "symfony/mime": "^6.4 || ^7.1",
@@ -67,7 +67,7 @@
     "suggest": {
         "excelwebzone/recaptcha-bundle": "Allows to add recaptcha to any dynamic form",
         "drewm/mailchimp-api": "Allows to add a newsletter subscription over mailchimp to any dynamic form",
-        "sendinblue/api-v3-sdk": "Allows to add a newsletter subscription over sendinblue to any dynamic form"
+        "getbrevo/brevo-php": "Allows to add a newsletter subscription over Brevo to any dynamic form"
     },
     "autoload": {
         "psr-4": {

@@ -11,10 +11,8 @@
 
 namespace Sulu\Bundle\FormBundle\Event;
 
-use GuzzleHttp\ClientInterface;
-use SendinBlue\Client\Api\ContactsApi;
-use SendinBlue\Client\Configuration;
-use SendinBlue\Client\Model\CreateDoiContact;
+use Brevo\Brevo;
+use Brevo\Contacts\Requests\CreateDoiContactRequest;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderPoolInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -25,43 +23,16 @@ use Symfony\Component\HttpFoundation\RequestStack;
  *
  * @internal
  */
-class SendinblueListSubscriber implements EventSubscriberInterface
+class BrevoListSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
-
-    /**
-     * @var ContactsApi|null
-     */
-    private $contactsApi;
-
-    /**
-     * @var ?LinkProviderPoolInterface
-     */
-    private $linkProviderPool;
-
     public function __construct(
-        RequestStack $requestStack,
-        ?string $apiKey,
-        ?ClientInterface $client = null,
-        ?LinkProviderPoolInterface $linkProviderPool = null
+        private RequestStack $requestStack,
+        private Brevo $api,
+        private ?LinkProviderPoolInterface $linkProviderPool = null
     ) {
-        $this->requestStack = $requestStack;
-        $this->linkProviderPool = $linkProviderPool;
-
-        if (!$apiKey) {
-            return;
-        }
-
-        $config = new Configuration();
-        $config->setApiKey('api-key', $apiKey);
-
-        $this->contactsApi = new ContactsApi($client, $config);
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             FormSavePostEvent::NAME => 'listSubscribe',
@@ -70,10 +41,6 @@ class SendinblueListSubscriber implements EventSubscriberInterface
 
     public function listSubscribe(FormSavePostEvent $event): void
     {
-        if (!$this->contactsApi) {
-            return;
-        }
-
         $dynamic = $event->getData();
         $request = $this->requestStack->getCurrentRequest();
 
@@ -96,12 +63,14 @@ class SendinblueListSubscriber implements EventSubscriberInterface
 
         foreach ($form['fields'] as $field) {
             if ('firstName' === $field['type'] && !$firstName) {
+                /** @var string $firstName */
                 $firstName = $field['value'];
             } elseif ('lastName' === $field['type'] && !$lastName) {
+                /** @var string $lastName */
                 $lastName = $field['value'];
             } elseif ('email' === $field['type'] && !$email) {
                 $email = $field['value'];
-            } elseif ('sendinblue' == $field['type'] && $field['value']) {
+            } elseif ('brevo' == $field['type'] && $field['value']) {
                 /** @var string|int|null $listId */
                 $mailTemplateId = $field['options']['mailTemplateId'] ?? null;
                 /** @var int|null $listId */
@@ -126,18 +95,18 @@ class SendinblueListSubscriber implements EventSubscriberInterface
         }
 
         foreach ($listIdsByMailTemplate as $mailTemplateId => $listIds) {
-            $createDoiContact = new CreateDoiContact([
+            $createDoiContact = new CreateDoiContactRequest([
                 'email' => $email,
-                'templateId' => $mailTemplateId,
                 'includeListIds' => $listIds,
                 'redirectionUrl' => $linkUrl ?? $redirectionUrl,
                 'attributes' => [
                     'firstname' => $firstName,
                     'lastname' => $lastName,
                 ],
+                'templateId' => $mailTemplateId,
             ]);
 
-            $this->contactsApi->createDoiContact($createDoiContact);
+            $this->api->contacts->createDoiContact($createDoiContact);
         }
     }
 

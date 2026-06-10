@@ -11,20 +11,19 @@
 
 namespace Sulu\Bundle\FormBundle\Tests\Unit\Event;
 
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Psr7\Response;
+use Brevo\Brevo;
+use Brevo\Contacts\ContactsClient;
+use Brevo\Contacts\Requests\CreateDoiContactRequest;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Psr\Http\Message\RequestInterface;
 use Sulu\Bundle\FormBundle\Configuration\FormConfiguration;
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormField;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
+use Sulu\Bundle\FormBundle\Event\BrevoListSubscriber;
 use Sulu\Bundle\FormBundle\Event\FormSavePostEvent;
-use Sulu\Bundle\FormBundle\Event\SendinblueListSubscriber;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderInterface;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderPoolInterface;
@@ -32,40 +31,37 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class SendinblueListSubscriberTest extends TestCase
+class BrevoListSubscriberTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
 
     /**
-     * @var ObjectProphecy<ClientInterface>
+     * @var ObjectProphecy<ContactsClient>
      */
-    private $client;
+    private $contactsClient;
+
+    private BrevoListSubscriber $brevoListSubscriber;
 
     /**
-     * @var SendinblueListSubscriber
+     * @var ObjectProphecy<LinkProviderPoolInterface>
      */
-    private $sendinblueListSubscriber;
-
-    /**
-     * @var LinkProviderPoolInterface|ObjectProphecy
-     */
-    private $linkProviderPool;
+    private ObjectProphecy $linkProviderPool;
 
     public function setUp(): void
     {
         $this->requestStack = new RequestStack();
         $this->linkProviderPool = $this->prophesize(LinkProviderPoolInterface::class);
-        $this->client = $this->prophesize(ClientInterface::class);
+        $brevo = new Brevo(apiKey: '');
 
-        $this->sendinblueListSubscriber = new SendinblueListSubscriber(
+        // We're not using prophecy here, because it crashes when trying to mock the ContactsClient
+        $this->contactsClient = $this->createMock(ContactsClient::class);
+        $brevo->contacts = $this->contactsClient;
+
+        $this->brevoListSubscriber = new BrevoListSubscriber(
             $this->requestStack,
-            'SOME_KEY',
-            $this->client->reveal(),
+            $brevo,
             $this->linkProviderPool->reveal()
         );
     }
@@ -76,7 +72,7 @@ class SendinblueListSubscriberTest extends TestCase
             [
                 'sulu_form.handler.saved' => 'listSubscribe',
             ],
-            SendinblueListSubscriber::getSubscribedEvents()
+            BrevoListSubscriber::getSubscribedEvents()
         );
     }
 
@@ -85,36 +81,21 @@ class SendinblueListSubscriberTest extends TestCase
         $this->requestStack->push(Request::create('http://localhost/newsletter', 'POST'));
         $event = $this->createFormSavePostEvent();
 
-        $self = $this;
-        $this->client->send(Argument::cetera())->will(function($args) use ($self) {
-            /** @var RequestInterface $request */
-            $request = $args[0];
-
-            if ('https://api.sendinblue.com/v3/contacts/doubleOptinConfirmation' === $request->getUri()->__toString()) {
-                $self->assertSame('POST', $request->getMethod());
-
-                $json = \json_decode($request->getBody()->getContents(), true);
-
-                $self->assertSame([
-                    'email' => 'john.doe@example.org',
-                    'attributes' => [
-                        'firstname' => 'John',
-                        'lastname' => 'Doe',
-                    ],
-                    'includeListIds' => ['789'],
-                    'templateId' => 456,
-                    'redirectionUrl' => 'http://localhost/newsletter?send=true&subscribe=true',
-                ], $json);
-
-                return new Response();
-            }
-
-            throw new \RuntimeException('Unexpected request: ' . $request->getUri()->__toString());
-        })
-            ->shouldBeCalledOnce();
+        $this->contactsClient->expects($this->once())->method('createDoiContact')->with(
+            new CreateDoiContactRequest([
+                'email' => 'john.doe@example.org',
+                'attributes' => [
+                    'firstname' => 'John',
+                    'lastname' => 'Doe',
+                ],
+                'includeListIds' => ['789'],
+                'templateId' => 456,
+                'redirectionUrl' => 'http://localhost/newsletter?send=true&subscribe=true',
+            ])
+        );
 
         // act
-        $this->sendinblueListSubscriber->listSubscribe($event);
+        $this->brevoListSubscriber->listSubscribe($event);
 
         $this->assertTrue(true);
     }
@@ -124,33 +105,18 @@ class SendinblueListSubscriberTest extends TestCase
         $this->requestStack->push(Request::create('http://localhost/newsletter', 'POST'));
         $event = $this->createFormSavePostEvent(true);
 
-        $self = $this;
-        $this->client->send(Argument::cetera())->will(function($args) use ($self) {
-            /** @var RequestInterface $request */
-            $request = $args[0];
-
-            if ('https://api.sendinblue.com/v3/contacts/doubleOptinConfirmation' === $request->getUri()->__toString()) {
-                $self->assertSame('POST', $request->getMethod());
-
-                $json = \json_decode($request->getBody()->getContents(), true);
-
-                $self->assertSame([
-                    'email' => 'john.doe@example.org',
-                    'attributes' => [
-                        'firstname' => 'John',
-                        'lastname' => 'Doe',
-                    ],
-                    'includeListIds' => ['789'],
-                    'templateId' => 456,
-                    'redirectionUrl' => '/test-page',
-                ], $json);
-
-                return new Response();
-            }
-
-            throw new \RuntimeException('Unexpected request: ' . $request->getUri()->__toString());
-        })
-            ->shouldBeCalledOnce();
+        $this->contactsClient->expects($this->once())->method('createDoiContact')->with(
+            new CreateDoiContactRequest([
+                'email' => 'john.doe@example.org',
+                'attributes' => [
+                    'firstname' => 'John',
+                    'lastname' => 'Doe',
+                ],
+                'includeListIds' => ['789'],
+                'templateId' => 456,
+                'redirectionUrl' => '/test-page',
+            ])
+        );
 
         /** @var LinkProviderInterface|ObjectProphecy $linkProvider */
         $linkProvider = $this->prophesize(LinkProviderInterface::class);
@@ -159,7 +125,7 @@ class SendinblueListSubscriberTest extends TestCase
         $linkProvider->preload(['123-123-123'], 'de', true)->shouldBeCalled()->willReturn([$linkItem]);
 
         // act
-        $this->sendinblueListSubscriber->listSubscribe($event);
+        $this->brevoListSubscriber->listSubscribe($event);
 
         $this->assertTrue(true);
     }
@@ -189,7 +155,7 @@ class SendinblueListSubscriberTest extends TestCase
                 'required' => true,
             ],
             [
-                'type' => 'sendinblue',
+                'type' => 'brevo',
                 'options' => [
                     'mailTemplateId' => '456',
                     'listId' => '789',
@@ -229,7 +195,7 @@ class SendinblueListSubscriberTest extends TestCase
                 'firstName' => 'John',
                 'lastName' => 'Doe',
                 'email' => 'john.doe@example.org',
-                'sendinblue' => true,
+                'brevo' => true,
             ]
         );
 
