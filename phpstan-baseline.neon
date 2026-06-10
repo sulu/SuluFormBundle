@@ -1226,11 +1226,6 @@ parameters:
 			path: Media/CollectionStrategyTree.php
 
 		-
-			message: "#^Cannot call method getName\\(\\) on Sulu\\\\Bundle\\\\AdminBundle\\\\Metadata\\\\FormMetadata\\\\FormMetadata\\|false\\.$#"
-			count: 1
-			path: Metadata/DynamicFormMetadataLoader.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\FormBundle\\\\Metadata\\\\DynamicFormMetadataLoader\\:\\:getMetadata\\(\\) should return Sulu\\\\Bundle\\\\AdminBundle\\\\Metadata\\\\MetadataInterface\\|null but returns mixed\\.$#"
 			count: 1
 			path: Metadata/DynamicFormMetadataLoader.php

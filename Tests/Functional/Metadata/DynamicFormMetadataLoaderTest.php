@@ -51,7 +51,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->assertCount(28, $fields->getTypes());
         $this->assertEquals('fields', $fields->getName());
         $this->assertEquals('block', $fields->getType());
-        $this->assertEquals('text', $fields->getDefaultType());
+        $this->assertEquals('attachment', $fields->getDefaultType());
         $this->assertEqualsCanonicalizing([
             'attachment',
             'recaptcha',
@@ -110,7 +110,7 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->assertCount(28, $fields->getTypes());
         $this->assertEquals('fields', $fields->getName());
         $this->assertEquals('block', $fields->getType());
-        $this->assertEquals('text', $fields->getDefaultType());
+        $this->assertEquals('attachment', $fields->getDefaultType());
         $this->assertEqualsCanonicalizing([
             'attachment',
             'salutation',
@@ -141,6 +141,34 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
             'firstName',
             'headline',
         ], \array_keys($fields->getTypes()));
+    }
+
+    public function testGetMetadataFieldTypesAreSortedByRequestedLocale(): void
+    {
+        foreach (['de', 'en'] as $locale) {
+            $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', $locale);
+            $this->assertInstanceOf(FormMetadata::class, $formMetadata);
+
+            $fields = $formMetadata->getItems()['formFields']->getItems()['fields'];
+            $this->assertInstanceOf(FieldMetadata::class, $fields);
+
+            $types = $fields->getTypes();
+
+            $expectedOrder = $types;
+            \uasort(
+                $expectedOrder,
+                static fn (FormMetadata $a, FormMetadata $b): int => \strcmp($a->getTitle($locale), $b->getTitle($locale))
+            );
+
+            $this->assertSame(
+                \array_keys($expectedOrder),
+                \array_keys($types),
+                \sprintf('Block types must be sorted by their "%s" title.', $locale)
+            );
+
+            $this->assertSame(\array_key_first($types), $fields->getDefaultType());
+            $this->assertSame('attachment', \array_key_first($types));
+        }
     }
 
     public function testGetMetadataLabelsEnglish(): void

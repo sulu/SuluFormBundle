@@ -73,8 +73,6 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         foreach ($fieldTypeMetaDataCollection as $fieldTypeMetaData) {
             $fields->addType($fieldTypeMetaData);
         }
-
-        $fields->setDefaultType(\current($fields->getTypes())->getName());
         $section->addItem($fields);
 
         $formItems = $formMetadata->getItems();
@@ -105,7 +103,46 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
 
         $form = \unserialize(\file_get_contents($configCache->getPath()));
 
+        if ($form instanceof FormMetadata) {
+            $this->sortFieldTypesByLocale($form, $locale);
+        }
+
         return $form;
+    }
+
+    /**
+     * Sorts the block field types alphabetically by their translated title, using the requested
+     * locale or the first configured locale when the requested one is not configured.
+     */
+    private function sortFieldTypesByLocale(FormMetadata $form, string $locale): void
+    {
+        $section = $form->getItems()['formFields'] ?? null;
+        if (!$section instanceof SectionMetadata) {
+            return;
+        }
+
+        $fields = $section->getItems()['fields'] ?? null;
+        if (!$fields instanceof FieldMetadata) {
+            return;
+        }
+
+        $sortLocale = \in_array($locale, $this->locales, true) ? $locale : (string) \reset($this->locales);
+
+        $types = $fields->getTypes();
+        \uasort(
+            $types,
+            static fn (FormMetadata $a, FormMetadata $b): int => \strcmp($a->getTitle($sortLocale), $b->getTitle($sortLocale))
+        );
+
+        foreach (\array_keys($fields->getTypes()) as $typeKey) {
+            $fields->removeType($typeKey);
+        }
+
+        foreach ($types as $type) {
+            $fields->addType($type);
+        }
+
+        $fields->setDefaultType((string) \array_key_first($types));
     }
 
     private function loadFieldTypeMetadata(string $typeKey, FormFieldTypeInterface $type): FormMetadata
