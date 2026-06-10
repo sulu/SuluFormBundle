@@ -40,7 +40,7 @@ class FormResourceLoader implements ResourceLoaderContentViewEnhancementInterfac
     /**
      * @param array<int|string> $ids
      *
-     * @return array<int, array{view: FormView|null, entity: array<string, mixed>}>
+     * @return array<int, array{view: FormView|null, entity: array<mixed>}>
      */
     public function load(array $ids, ?string $locale, array $params = []): array
     {
@@ -73,7 +73,7 @@ class FormResourceLoader implements ResourceLoaderContentViewEnhancementInterfac
      * @param int[] $ids
      * @param array{type: string, typeId: string}|null $source
      *
-     * @return array<int, array{view: FormView|null, entity: array<string, mixed>}>
+     * @return array<int, array{view: FormView|null, entity: array<mixed>}>
      */
     private function loadForLocale(array $ids, string $locale, ?array $source): array
     {
