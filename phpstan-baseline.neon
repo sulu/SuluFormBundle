@@ -193,82 +193,10 @@ parameters:
 			path: Configuration/FormConfigurationFactory.php
 
 		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: Controller/DynamicController.php
-
-		-
 			message: '#^Cannot cast mixed to int\.$#'
 			identifier: cast.int
 			count: 1
 			path: Controller/DynamicController.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Controller\\DynamicController\:\:loadForm\(\) should return Sulu\\Bundle\\FormBundle\\Entity\\Form but returns Sulu\\Bundle\\FormBundle\\Entity\\Form\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: Controller/DynamicController.php
-
-		-
-			message: '#^Parameter \#1 \$dynamics of method Sulu\\Bundle\\FormBundle\\ListBuilder\\DynamicListFactory\:\:build\(\) expects array\<Sulu\\Bundle\\FormBundle\\Entity\\Dynamic\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Controller/DynamicController.php
-
-		-
-			message: '#^Parameter \#1 \$id of method Sulu\\Bundle\\MediaBundle\\Media\\Manager\\MediaManagerInterface\:\:delete\(\) expects int, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Controller/DynamicController.php
-
-		-
-			message: '#^Argument of an invalid type array\<Sulu\\Bundle\\FormBundle\\Entity\\Form\>\|null supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: Controller/FormController.php
-
-		-
-			message: '#^Binary operation "/" between mixed and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: Controller/FormController.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Controller\\FormController\:\:getLimit\(\) should return int but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: Controller/FormController.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Controller\\FormController\:\:getLocale\(\) should return string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: Controller/FormController.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Controller\\FormController\:\:getOffset\(\) should return int but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: Controller/FormController.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Controller\\FormController\:\:getPage\(\) should return int but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: Controller/FormController.php
-
-		-
-			message: '#^Parameter \#1 \$entity of method Sulu\\Bundle\\FormBundle\\Controller\\FormController\:\:getApiEntity\(\) expects Sulu\\Bundle\\FormBundle\\Entity\\Form, Sulu\\Bundle\\FormBundle\\Entity\\Form\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Controller/FormController.php
-
-		-
-			message: '#^Parameter \#2 \$fieldDescriptors of method Sulu\\Component\\Rest\\RestHelperInterface\:\:initializeListBuilder\(\) expects array\<Sulu\\Component\\Rest\\ListBuilder\\FieldDescriptorInterface\>, array\<Sulu\\Component\\Rest\\ListBuilder\\FieldDescriptorInterface\>\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Controller/FormController.php
 
 		-
 			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
@@ -511,12 +439,6 @@ parameters:
 			path: Dynamic/Types/BrevoType.php
 
 		-
-			message: '#^Cannot call method getDefaultValue\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Dynamic/Types/CheckboxMultipleType.php
-
-		-
 			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\CheckboxMultipleType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -542,12 +464,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$translation of method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\CheckboxMultipleType\:\:getChoiceOptions\(\) expects Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation, Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/CheckboxMultipleType.php
-
-		-
-			message: '#^Parameter \#1 \$value of method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\CheckboxMultipleType\:\:getDefaultOptions\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: Dynamic/Types/CheckboxMultipleType.php
@@ -655,12 +571,6 @@ parameters:
 			path: Dynamic/Types/DateType.php
 
 		-
-			message: '#^Cannot call method getDefaultValue\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Dynamic/Types/DropdownMultiple.php
-
-		-
 			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\DropdownMultiple\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -686,12 +596,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$translation of method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\DropdownMultiple\:\:getChoiceOptions\(\) expects Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation, Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/DropdownMultiple.php
-
-		-
-			message: '#^Parameter \#1 \$value of method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\DropdownMultiple\:\:getDefaultOptions\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: Dynamic/Types/DropdownMultiple.php
@@ -1171,12 +1075,6 @@ parameters:
 			path: Entity/Dynamic.php
 
 		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Entity\\Dynamic\:\:getForm\(\) should return Sulu\\Bundle\\FormBundle\\Entity\\Form but returns Sulu\\Bundle\\FormBundle\\Entity\\Form\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: Entity/Dynamic.php
-
-		-
 			message: '#^Method Sulu\\Bundle\\FormBundle\\Entity\\Dynamic\:\:getFunction\(\) should return string\|null but returns mixed\.$#'
 			identifier: return.type
 			count: 1
@@ -1341,12 +1239,6 @@ parameters:
 		-
 			message: '#^Method Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\:\:getOptions\(\) should return array\<mixed\> but returns mixed\.$#'
 			identifier: return.type
-			count: 1
-			path: Entity/FormFieldTranslation.php
-
-		-
-			message: '#^Property Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\:\:\$defaultValue \(string\|null\) does not accept mixed\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: Entity/FormFieldTranslation.php
 
@@ -1639,12 +1531,6 @@ parameters:
 			path: Form/Handler.php
 
 		-
-			message: '#^Parameter \#1 \$subject of method Sulu\\Bundle\\FormBundle\\Mail\\HelperInterface\:\:sendMail\(\) expects array\<string\>\|string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Form/Handler.php
-
-		-
 			message: '#^Parameter \#1 \$value of function count expects array\|Countable, mixed given\.$#'
 			identifier: argument.type
 			count: 2
@@ -1705,24 +1591,6 @@ parameters:
 			path: ListBuilder/DynamicListBuilder.php
 
 		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\ListBuilder\\DynamicListFactory\:\:build\(\) should return array\<string\> but returns list\<mixed\>\.$#'
-			identifier: return.type
-			count: 1
-			path: ListBuilder/DynamicListFactory.php
-
-		-
-			message: '#^Parameter \#1 \$string of function strip_tags expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ListBuilder/DynamicListFactory.php
-
-		-
-			message: '#^Call to function is_array\(\) with array\<int\|string, string\> will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: Mail/MailerHelper.php
-
-		-
 			message: '#^Instanceof between SplFileInfo and SplFileInfo will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
 			count: 1
@@ -1735,249 +1603,15 @@ parameters:
 			path: Mail/MailerHelper.php
 
 		-
-			message: '#^Parameter \#1 \$fromMail of method Sulu\\Bundle\\FormBundle\\Mail\\MailerHelper\:\:logMessage\(\) expects array\<int\|string, string\>\|string, array\<string\>\|string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Mail/MailerHelper.php
-
-		-
-			message: '#^Parameter \#1 \$fromMail of method Sulu\\Bundle\\FormBundle\\Mail\\MailerHelper\:\:parseToAddresses\(\) expects array\<int\|string, string\>\|string, array\<string\>\|string\|null given\.$#'
-			identifier: argument.type
-			count: 3
-			path: Mail/MailerHelper.php
-
-		-
-			message: '#^Parameter \#2 \$subject of method Sulu\\Bundle\\FormBundle\\Mail\\MailerHelper\:\:setHeaders\(\) expects string, array\<string\>\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Mail/MailerHelper.php
-
-		-
-			message: '#^Parameter \#2 \$toMail of method Sulu\\Bundle\\FormBundle\\Mail\\MailerHelper\:\:logMessage\(\) expects array\<int\|string, string\>\|string, array\<string\>\|string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Mail/MailerHelper.php
-
-		-
-			message: '#^Parameter \#3 \$body of method Sulu\\Bundle\\FormBundle\\Mail\\MailerHelper\:\:setBody\(\) expects string, array\<string\>\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Mail/MailerHelper.php
-
-		-
-			message: '#^Parameter \#3 \$replyTo of method Sulu\\Bundle\\FormBundle\\Mail\\MailerHelper\:\:logMessage\(\) expects array\<int\|string, string\>\|string, array\<string\>\|string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Mail/MailerHelper.php
-
-		-
-			message: '#^Parameter \#4 \$plainText of method Sulu\\Bundle\\FormBundle\\Mail\\MailerHelper\:\:setBody\(\) expects string\|null, array\<string\>\|string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Mail/MailerHelper.php
-
-		-
-			message: '#^Parameter \#4 \$subject of method Sulu\\Bundle\\FormBundle\\Mail\\MailerHelper\:\:logMessage\(\) expects string, array\<string\>\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Mail/MailerHelper.php
-
-		-
-			message: '#^Parameter \#5 \$ccMail of method Sulu\\Bundle\\FormBundle\\Mail\\MailerHelper\:\:logMessage\(\) expects array\<int\|string, string\>, array\<string\>\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Mail/MailerHelper.php
-
-		-
-			message: '#^Parameter \#6 \$bccMail of method Sulu\\Bundle\\FormBundle\\Mail\\MailerHelper\:\:logMessage\(\) expects array\<int\|string, string\>, array\<string\>\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Mail/MailerHelper.php
-
-		-
-			message: '#^Parameter \#7 \$plainText of method Sulu\\Bundle\\FormBundle\\Mail\\MailerHelper\:\:logMessage\(\) expects string\|null, array\<string\>\|string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Mail/MailerHelper.php
-
-		-
-			message: '#^Cannot access offset ''email'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: Manager/FormManager.php
-
-		-
 			message: '#^Cannot access offset ''id'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 3
+			count: 1
 			path: Manager/FormManager.php
 
 		-
 			message: '#^Cannot access offset ''key'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 3
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot access offset ''type'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method getId\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method getId\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method getSendAttachments\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setChanged\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setDeactivateAttachmentSave\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setDeactivateCustomerMails\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setDeactivateNotifyMails\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setDefaultValue\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setField\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setForm\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setFromEmail\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setFromName\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setMailText\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setOptions\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setPlaceholder\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setReplyTo\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setSendAttachments\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setShortTitle\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setSubject\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setSubmitLabel\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setSuccessText\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setTitle\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setTitle\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setToEmail\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Cannot call method setToName\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#1 \$data of static method Sulu\\Bundle\\FormBundle\\Manager\\FormManager\:\:getValue\(\) expects array\<mixed\>, mixed given\.$#'
-			identifier: argument.type
-			count: 9
 			path: Manager/FormManager.php
 
 		-
@@ -1987,127 +1621,7 @@ parameters:
 			path: Manager/FormManager.php
 
 		-
-			message: '#^Parameter \#1 \$defaultLocale of method Sulu\\Bundle\\FormBundle\\Entity\\Form\:\:setDefaultLocale\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#1 \$email of method Sulu\\Bundle\\FormBundle\\Entity\\FormTranslationReceiver\:\:setEmail\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#1 \$id of method Sulu\\Bundle\\FormBundle\\Manager\\FormManager\:\:findById\(\) expects int, int\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#1 \$key of method Sulu\\Bundle\\FormBundle\\Entity\\Form\:\:getField\(\) expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#1 \$keys of method Sulu\\Bundle\\FormBundle\\Entity\\Form\:\:getFieldsNotInArray\(\) expects array\<string\>, list given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
 			message: '#^Parameter \#1 \$locale of method Sulu\\Bundle\\FormBundle\\Entity\\Form\:\:getTranslation\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 3
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#1 \$name of method Sulu\\Bundle\\FormBundle\\Entity\\FormTranslationReceiver\:\:setName\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#1 \$required of method Sulu\\Bundle\\FormBundle\\Entity\\FormField\:\:setRequired\(\) expects bool, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#1 \$translation of method Sulu\\Bundle\\FormBundle\\Entity\\Form\:\:addTranslation\(\) expects Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation, Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#1 \$translation of method Sulu\\Bundle\\FormBundle\\Entity\\FormField\:\:addTranslation\(\) expects Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation, Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#1 \$type of method Sulu\\Bundle\\FormBundle\\Entity\\FormField\:\:setType\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#1 \$type of method Sulu\\Bundle\\FormBundle\\Entity\\FormTranslationReceiver\:\:setType\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#1 \$type of method Sulu\\Bundle\\FormBundle\\Manager\\FormManager\:\:getUniqueKey\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#1 \$width of method Sulu\\Bundle\\FormBundle\\Entity\\FormField\:\:setWidth\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#2 \$array of function array_key_exists expects array, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#2 \$keys of method Sulu\\Bundle\\FormBundle\\Manager\\FormManager\:\:getUniqueKey\(\) expects array\<string\>, list given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#2 \$locale of class Sulu\\Bundle\\FormBundle\\Domain\\Event\\FormCreatedEvent constructor expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#2 \$locale of class Sulu\\Bundle\\FormBundle\\Domain\\Event\\FormModifiedEvent constructor expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#2 \$locale of class Sulu\\Bundle\\FormBundle\\Domain\\Event\\FormTranslationAddedEvent constructor expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#2 \$translation of method Sulu\\Bundle\\FormBundle\\Manager\\FormManager\:\:updateReceivers\(\) expects Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation, Sulu\\Bundle\\FormBundle\\Entity\\FormTranslation\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Manager/FormManager.php
-
-		-
-			message: '#^Parameter \#3 \$locale of method Sulu\\Bundle\\FormBundle\\Manager\\FormManager\:\:updateFields\(\) expects string, string\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: Manager/FormManager.php
@@ -2147,30 +1661,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: Metadata/PropertiesXmlLoader.php
-
-		-
-			message: '#^Parameter \#2 \$fromDate of method Sulu\\Bundle\\FormBundle\\Repository\\DynamicRepository\:\:addDateRangeFilter\(\) expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Repository/DynamicRepository.php
-
-		-
-			message: '#^Parameter \#2 \$search of method Sulu\\Bundle\\FormBundle\\Repository\\DynamicRepository\:\:addSearchFilter\(\) expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Repository/DynamicRepository.php
-
-		-
-			message: '#^Parameter \#3 \$searchFields of method Sulu\\Bundle\\FormBundle\\Repository\\DynamicRepository\:\:addSearchFilter\(\) expects array\<string\>\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Repository/DynamicRepository.php
-
-		-
-			message: '#^Parameter \#3 \$toDate of method Sulu\\Bundle\\FormBundle\\Repository\\DynamicRepository\:\:addDateRangeFilter\(\) expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Repository/DynamicRepository.php
 
 		-
 			message: '#^Method Sulu\\Bundle\\FormBundle\\Repository\\FormRepository\:\:getValue\(\) should return int\|null but returns mixed\.$#'

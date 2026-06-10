@@ -41,6 +41,9 @@ class DynamicListBuilder implements DynamicListBuilderInterface
         $this->router = $router;
     }
 
+    /**
+     * @return array<array<int|string, mixed>>
+     */
     public function build(Dynamic $dynamic, string $locale): array
     {
         $entry = $dynamic->getFields();

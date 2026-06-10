@@ -119,18 +119,12 @@ class FormFieldTranslation
         return $this;
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getDefaultValue()
+    public function getDefaultValue(): ?string
     {
         return $this->defaultValue;
     }
 
-    /**
-     * @param mixed|null $defaultValue
-     */
-    public function setDefaultValue($defaultValue): self
+    public function setDefaultValue(?string $defaultValue): self
     {
         $this->defaultValue = $defaultValue;
 

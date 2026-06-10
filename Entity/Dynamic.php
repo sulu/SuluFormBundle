@@ -199,7 +199,7 @@ class Dynamic implements AuditableInterface
         return $this->id;
     }
 
-    public function getForm(): Form
+    public function getForm(): ?Form
     {
         return $this->form;
     }
@@ -318,7 +318,7 @@ class Dynamic implements AuditableInterface
 
     public function getDate(): ?string
     {
-        return $this->getField('data');
+        return $this->getField('date');
     }
 
     /**

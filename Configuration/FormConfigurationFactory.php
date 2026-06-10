@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\FormBundle\Configuration;
 
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
+use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Media\CollectionStrategyInterface;
 
 /**
@@ -63,7 +64,7 @@ class FormConfigurationFactory
      */
     public function buildByDynamic(Dynamic $dynamic): FormConfigurationInterface
     {
-        $form = $dynamic->getForm();
+        $form = $this->getFormOrFail($dynamic);
         $locale = $dynamic->getLocale();
         $translation = $form->getTranslation($locale);
 
@@ -85,7 +86,7 @@ class FormConfigurationFactory
      */
     private function buildAdminMailConfigurationByDynamic(Dynamic $dynamic): ?MailConfiguration
     {
-        $form = $dynamic->getForm();
+        $form = $this->getFormOrFail($dynamic);
         $locale = $dynamic->getLocale();
         $translation = $form->getTranslation($locale);
 
@@ -141,7 +142,7 @@ class FormConfigurationFactory
      */
     private function buildWebsiteMailConfigurationByDynamic(Dynamic $dynamic): ?MailConfiguration
     {
-        $form = $dynamic->getForm();
+        $form = $this->getFormOrFail($dynamic);
         $locale = $dynamic->getLocale();
         $translation = $form->getTranslation($locale);
 
@@ -181,7 +182,7 @@ class FormConfigurationFactory
      */
     private function getFileFieldsByDynamic(Dynamic $dynamic): array
     {
-        $form = $dynamic->getForm();
+        $form = $this->getFormOrFail($dynamic);
 
         $fields = $form->getFieldsByType(Dynamic::TYPE_ATTACHMENT);
 
@@ -204,7 +205,7 @@ class FormConfigurationFactory
      */
     private function getCollectionIdByDynamic(Dynamic $dynamic): int
     {
-        $form = $dynamic->getForm();
+        $form = $this->getFormOrFail($dynamic);
 
         return $this->collectionStrategy->getCollectionId(
             $form->getId(),
@@ -224,7 +225,7 @@ class FormConfigurationFactory
     {
         return [
             // TODO FIXME this is currently overwritten in RequestListener to get the medias correctly for emails.
-            'formEntity' => $dynamic->getForm()->serializeForLocale($dynamic->getLocale(), $dynamic),
+            'formEntity' => $this->getFormOrFail($dynamic)->serializeForLocale($dynamic->getLocale(), $dynamic),
         ];
     }
 
@@ -257,6 +258,22 @@ class FormConfigurationFactory
         }
 
         return [$email => $name];
+    }
+
+    /**
+     * The form of a dynamic submission can be null when the related form entity was deleted
+     * (the formId column is set to null via "on-delete=SET NULL"). Building a configuration for
+     * such an orphaned submission is not possible.
+     */
+    private function getFormOrFail(Dynamic $dynamic): Form
+    {
+        $form = $dynamic->getForm();
+
+        if (null === $form) {
+            throw new \RuntimeException('The given dynamic submission is not related to a form anymore.');
+        }
+
+        return $form;
     }
 
     /**

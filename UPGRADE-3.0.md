@@ -2,6 +2,34 @@
 
 ## 3.0.0
 
+### Stricter type declarations
+
+To enable stricter static analysis, several public signatures have been tightened. These are breaking changes for code
+that extends the affected classes, implements the affected interfaces, or relies on the previous return types:
+
+- **`Dynamic::getForm()`** now returns `?Form` instead of `Form`. The related form can be `null` for orphaned
+  submissions (the `formId` column is set to `null` when the form is deleted via `on-delete=SET NULL`). Add a null check
+  before using the returned form.
+- **`Entity\FormFieldTranslation::getDefaultValue()`** now returns `?string` and **`setDefaultValue()`** now expects
+  `?string` (both were `mixed`).
+- **`Mail\HelperInterface::sendMail()`** parameters now have native types: `$subject` is `?string`, `$body` is
+  `string`, and the address parameters (`$toMail`, `$fromMail`, `$replyTo`, `$ccMail`, `$bccMail`) are
+  `string|array|null`. Custom implementations of `HelperInterface` must adjust their signatures accordingly.
+- **`ListBuilder\DynamicListBuilderInterface::build()`** and **`ListBuilder\DynamicListFactoryInterface::build()`** now
+  document a `@return array<array<int|string, mixed>>` (a list of row arrays) instead of the previous `string[]` /
+  `mixed[]`.
+- **`Controller\FormController::getLocale()`** now declares a `: string` return type and **`getLimit()`**,
+  **`getOffset()`** and **`getPage()`** now declare `: int`. Subclasses overriding these methods must add the matching
+  return types.
+- **`Controller\DynamicController::loadForm()`** now returns `?Form` instead of `Form`. Subclasses overriding it must
+  match the nullable return type.
+
+### Fixed `Dynamic::getDate()`
+
+`Dynamic::getDate()` returned the value of the `data` field instead of the `date` field due to a typo. It now correctly
+returns the `date` field. If you depended on the previous (incorrect) behaviour, read the `data` field explicitly via
+`getField('data')`.
+
 ### Removed static forms
 
 The deprecated static forms feature has been removed. It is fully superseded by dynamic (admin-built) forms. The

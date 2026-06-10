@@ -21,7 +21,7 @@ interface DynamicListBuilderInterface
     /**
      * Build the list and return per line an array entry.
      *
-     * @return mixed[]
+     * @return array<array<int|string, mixed>>
      */
     public function build(Dynamic $dynamic, string $locale): array;
 }

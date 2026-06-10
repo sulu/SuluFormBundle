@@ -59,17 +59,25 @@ class MailerHelper implements HelperInterface
         $this->logger = $logger ?: new NullLogger();
     }
 
+    /**
+     * @param string|array<string|int, string>|null $toMail
+     * @param string|array<string|int, string>|null $fromMail
+     * @param string|array<string|int, string>|null $replyTo
+     * @param \SplFileInfo[] $attachments
+     * @param string|array<string|int, string> $ccMail
+     * @param string|array<string|int, string> $bccMail
+     */
     public function sendMail(
-        $subject,
-        $body,
-        $toMail = null,
-        $fromMail = null,
+        ?string $subject,
+        string $body,
+        string|array|null $toMail = null,
+        string|array|null $fromMail = null,
         bool $html = true,
-        $replyTo = null,
+        string|array|null $replyTo = null,
         array $attachments = [],
-        $ccMail = [],
-        $bccMail = [],
-        $plainText = null
+        string|array $ccMail = [],
+        string|array $bccMail = [],
+        ?string $plainText = null
     ): int {
         $message = new Email();
 
@@ -184,19 +192,19 @@ class MailerHelper implements HelperInterface
     }
 
     /**
-     * @param string|array<string|int, string> $fromMail
-     * @param string|array<string|int, string> $toMail
-     * @param string|array<string|int, string> $replyTo
-     * @param array<string|int, string> $ccMail
-     * @param array<string|int, string> $bccMail
+     * @param string|array<string|int, string>|null $fromMail
+     * @param string|array<string|int, string>|null $toMail
+     * @param string|array<string|int, string>|null $replyTo
+     * @param string|array<string|int, string> $ccMail
+     * @param string|array<string|int, string> $bccMail
      */
     private function logMessage(
-        $fromMail,
-        $toMail,
-        $replyTo,
+        string|array|null $fromMail,
+        string|array|null $toMail,
+        string|array|null $replyTo,
         string $subject,
-        array $ccMail,
-        array $bccMail,
+        string|array $ccMail,
+        string|array $bccMail,
         ?string $plainText
     ): void {
         $this->logger->info(\sprintf(
@@ -219,11 +227,11 @@ class MailerHelper implements HelperInterface
     }
 
     /**
-     * @param string|array<string|int, string> $fromMail email address or [email-address => name] for muliple named addresses
+     * @param string|array<string|int, string>|null $fromMail email address or [email-address => name] for muliple named addresses
      *
      * @return Address[]
      */
-    private function parseToAddresses($fromMail): array
+    private function parseToAddresses(string|array|null $fromMail): array
     {
         if (\is_string($fromMail)) {
             return [Address::create($fromMail)];

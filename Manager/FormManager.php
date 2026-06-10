@@ -175,6 +175,11 @@ class FormManager
      */
     public function save(array $data, ?string $locale = null, ?int $id = null, ?bool $omitDomainEvent = false): ?Form
     {
+        // Root cause A: guard locale nullability early so downstream calls receive string.
+        if (null === $locale) {
+            return null;
+        }
+
         $form = new Form();
 
         // Find exist or create new entity.
@@ -186,23 +191,26 @@ class FormManager
             }
         }
 
-        // Translation
+        // Root cause B: getTranslation(..., true) returns non-null at runtime but phpstan sees ?FormTranslation.
         $isNewTranslation = !$form->getTranslation($locale, false, false);
         $translation = $form->getTranslation($locale, true);
-        $translation->setTitle(self::getValue($data, 'title'));
-        $translation->setSubject(self::getValue($data, 'subject'));
-        $translation->setFromEmail(self::getValue($data, 'fromEmail'));
-        $translation->setFromName(self::getValue($data, 'fromName'));
-        $translation->setToEmail(self::getValue($data, 'toEmail'));
-        $translation->setToName(self::getValue($data, 'toName'));
-        $translation->setMailText(self::getValue($data, 'mailText'));
-        $translation->setSubmitLabel(self::getValue($data, 'submitLabel'));
-        $translation->setSuccessText(self::getValue($data, 'successText'));
-        $translation->setSendAttachments(self::getValue($data, 'sendAttachments', false));
-        $translation->setDeactivateAttachmentSave($translation->getSendAttachments() && self::getValue($data, 'deactivateAttachmentSave', false));
-        $translation->setDeactivateNotifyMails(self::getValue($data, 'deactivateNotifyMails', false));
-        $translation->setDeactivateCustomerMails(self::getValue($data, 'deactivateCustomerMails', false));
-        $translation->setReplyTo(self::getValue($data, 'replyTo', false));
+        if (null === $translation) {
+            throw new \RuntimeException(\sprintf('Could not create form translation for locale "%s".', $locale));
+        }
+        $translation->setTitle(self::getStringValue($data, 'title') ?? '');
+        $translation->setSubject(self::getStringValue($data, 'subject'));
+        $translation->setFromEmail(self::getStringValue($data, 'fromEmail'));
+        $translation->setFromName(self::getStringValue($data, 'fromName'));
+        $translation->setToEmail(self::getStringValue($data, 'toEmail'));
+        $translation->setToName(self::getStringValue($data, 'toName'));
+        $translation->setMailText(self::getStringValue($data, 'mailText'));
+        $translation->setSubmitLabel(self::getStringValue($data, 'submitLabel'));
+        $translation->setSuccessText(self::getStringValue($data, 'successText'));
+        $translation->setSendAttachments(self::getBoolValue($data, 'sendAttachments'));
+        $translation->setDeactivateAttachmentSave($translation->getSendAttachments() && self::getBoolValue($data, 'deactivateAttachmentSave'));
+        $translation->setDeactivateNotifyMails(self::getBoolValue($data, 'deactivateNotifyMails'));
+        $translation->setDeactivateCustomerMails(self::getBoolValue($data, 'deactivateCustomerMails'));
+        $translation->setReplyTo(self::getBoolValue($data, 'replyTo'));
         $translation->setChanged(new \DateTimeImmutable());
 
         // Add Translation to Form.
@@ -236,7 +244,12 @@ class FormManager
         if (!$id) {
             // To avoid lazy load of sub entities in the serializer reload whole object with sub entities from db
             // remove this when you don`t join anything in `findById`.
-            $form = $this->findById($form->getId(), $locale);
+            // Root cause E: getId() is ?int; after persist+flush it is always set.
+            $persistedId = $form->getId();
+            if (null === $persistedId) {
+                throw new \RuntimeException('Form was persisted but has no id.');
+            }
+            $form = $this->findById($persistedId, $locale);
         }
 
         return $form;
@@ -285,13 +298,14 @@ class FormManager
 
         $receivers = [];
         foreach ($receiverDatas as $receiverData) {
-            $receiver = new FormTranslationReceiver();
-            $receiver->setType($receiverData['type']);
-            $receiver->setEmail($receiverData['email']);
-            if (!\array_key_exists('name', $receiverData)) {
-                $receiverData['name'] = null;
+            // Root cause C: elements of $receiverDatas are mixed; guard before accessing offsets.
+            if (!\is_array($receiverData)) {
+                continue;
             }
-            $receiver->setName($receiverData['name']);
+            $receiver = new FormTranslationReceiver();
+            $receiver->setType(self::getStringValue($receiverData, 'type') ?? '');
+            $receiver->setEmail(self::getStringValue($receiverData, 'email') ?? '');
+            $receiver->setName(self::getStringValue($receiverData, 'name') ?? '');
             $receiver->setFormTranslation($translation);
 
             $receivers[] = $receiver;
@@ -313,6 +327,10 @@ class FormManager
         $existingIds = [];
         $existingKeys = [];
         foreach ($fields as $key => $fieldData) { // make id and keys unique when block get copied
+            // Root cause C: elements of $fields are mixed; guard before accessing offsets.
+            if (!\is_array($fieldData)) {
+                continue;
+            }
             if (\in_array($fieldData['id'] ?? null, $existingIds)) {
                 unset($fields[$key]['id']);
             }
@@ -329,14 +347,19 @@ class FormManager
             }
         }
 
-        $reservedKeys = \array_column($fields, 'key');
+        // Root cause D: array_column returns list<mixed>; narrow to string[].
+        $reservedKeys = \array_values(\array_filter(\array_column($fields, 'key'), 'is_string'));
 
         $counter = 0;
 
         foreach ($fields as $fieldData) {
+            // Root cause C: elements of $fields are mixed; guard before accessing.
+            if (!\is_array($fieldData)) {
+                continue;
+            }
             ++$counter;
-            $fieldType = self::getValue($fieldData, 'type');
-            $fieldKey = self::getValue($fieldData, 'key');
+            $fieldType = self::getStringValue($fieldData, 'type') ?? '';
+            $fieldKey = self::getStringValue($fieldData, 'key');
 
             $field = $form->getField($fieldKey);
             $uniqueKey = $this->getUniqueKey($fieldType, $reservedKeys);
@@ -358,16 +381,19 @@ class FormManager
 
             $field->setOrder($counter);
             $field->setType($fieldType);
-            $field->setWidth(self::getValue($fieldData, 'width', 'full'));
-            $field->setRequired(self::getValue($fieldData, 'required', false));
+            $field->setWidth(self::getStringValue($fieldData, 'width') ?? 'full');
+            $field->setRequired(self::getBoolValue($fieldData, 'required'));
 
-            // Field Translation
+            // Root cause B: getTranslation(..., true) returns non-null at runtime but phpstan sees nullable.
             $fieldTranslation = $field->getTranslation($locale, true);
-            $fieldTranslation->setTitle(self::getValue($fieldData, 'title'));
-            $fieldTranslation->setPlaceholder(self::getValue($fieldData, 'placeholder'));
-            $fieldTranslation->setDefaultValue(self::getValue($fieldData, 'defaultValue'));
-            $fieldTranslation->setShortTitle(self::getValue($fieldData, 'shortTitle'));
-            $fieldTranslation->setOptions(self::getValue($fieldData, 'options'));
+            if (null === $fieldTranslation) {
+                throw new \RuntimeException(\sprintf('Could not create field translation for locale "%s".', $locale));
+            }
+            $fieldTranslation->setTitle(self::getStringValue($fieldData, 'title'));
+            $fieldTranslation->setPlaceholder(self::getStringValue($fieldData, 'placeholder'));
+            $fieldTranslation->setDefaultValue(self::getStringValue($fieldData, 'defaultValue'));
+            $fieldTranslation->setShortTitle(self::getStringValue($fieldData, 'shortTitle'));
+            $fieldTranslation->setOptions(self::getArrayValue($fieldData, 'options'));
 
             // Add Translation to Field
             if (!$fieldTranslation->getId()) {
@@ -411,6 +437,46 @@ class FormManager
         }
 
         return $default;
+    }
+
+    /**
+     * @param mixed[] $data
+     */
+    private static function getStringValue(array $data, string $key, ?string $default = null): ?string
+    {
+        $value = $data[$key] ?? null;
+
+        if (\is_scalar($value)) {
+            return (string) $value;
+        }
+
+        return $default;
+    }
+
+    /**
+     * @param mixed[] $data
+     */
+    private static function getBoolValue(array $data, string $key, bool $default = false): bool
+    {
+        $value = $data[$key] ?? null;
+
+        if (null === $value) {
+            return $default;
+        }
+
+        return (bool) $value;
+    }
+
+    /**
+     * @param mixed[] $data
+     *
+     * @return mixed[]|null
+     */
+    private static function getArrayValue(array $data, string $key): ?array
+    {
+        $value = $data[$key] ?? null;
+
+        return \is_array($value) ? $value : null;
     }
 
     /**

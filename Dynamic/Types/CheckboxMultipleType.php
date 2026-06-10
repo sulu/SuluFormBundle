@@ -46,7 +46,12 @@ class CheckboxMultipleType implements FormFieldTypeInterface
 
     public function getDefaultValue(FormField $field, string $locale)
     {
-        $value = $field->getTranslation($locale)->getDefaultValue();
+        $translation = $field->getTranslation($locale);
+        $value = $translation ? $translation->getDefaultValue() : null;
+
+        if (null === $value) {
+            return [];
+        }
 
         return $this->getDefaultOptions($value);
     }

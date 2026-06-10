@@ -52,7 +52,13 @@ class BrevoListSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $form = $dynamic->getForm()->serializeForLocale($dynamic->getLocale(), $dynamic);
+        $formEntity = $dynamic->getForm();
+
+        if (null === $formEntity) {
+            return;
+        }
+
+        $form = $formEntity->serializeForLocale($dynamic->getLocale(), $dynamic);
 
         $email = '';
         $firstName = '';
