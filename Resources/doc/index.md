@@ -55,7 +55,7 @@ Add the following lines to `config/routes/sulu_admin.yaml`
 
 ```yml
 sulu_form_api:
-    resource: "@SuluFormBundle/Resources/config/routing_api.yml"
+    resource: "@SuluFormBundle/Resources/config/routing_api.yaml"
     prefix: /admin/api
 ```
 
