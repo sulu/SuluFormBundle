@@ -271,18 +271,6 @@ parameters:
 			path: Controller/FormController.php
 
 		-
-			message: '#^Using nullsafe property access "\?\-\>lists" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
-			identifier: nullsafe.neverNull
-			count: 1
-			path: Controller/SelectApi/BrevoListSelectController.php
-
-		-
-			message: '#^Using nullsafe property access "\?\-\>templates" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
-			identifier: nullsafe.neverNull
-			count: 1
-			path: Controller/SelectApi/BrevoMailTemplateSelectController.php
-
-		-
 			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
@@ -1577,12 +1565,6 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: Form/BuilderInterface.php
-
-		-
-			message: '#^Instanceof between Symfony\\Component\\HttpFoundation\\File\\UploadedFile and Symfony\\Component\\HttpFoundation\\File\\UploadedFile will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 2
-			path: Form/Handler.php
 
 		-
 			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\Handler\:\:getAttachments\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'

@@ -236,7 +236,6 @@ class Handler implements HandlerInterface
                 $files = [$files];
             }
 
-            /** @var UploadedFile $file */
             foreach ($files as $file) {
                 if (!$file instanceof UploadedFile) {
                     continue;
@@ -277,7 +276,6 @@ class Handler implements HandlerInterface
                 $files = [$files];
             }
 
-            /** @var UploadedFile $file */
             foreach ($files as $file) {
                 if (!$file instanceof UploadedFile) {
                     continue;

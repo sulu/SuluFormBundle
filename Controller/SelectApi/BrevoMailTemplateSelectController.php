@@ -70,7 +70,7 @@ class BrevoMailTemplateSelectController
                 new GetSmtpTemplatesRequest(['limit' => self::PAGE_SIZE, 'offset' => $offset])
             );
 
-            $templates = $response?->templates ?? [];
+            $templates = $response->templates ?? [];
             if ([] === $templates) {
                 break;
             }
