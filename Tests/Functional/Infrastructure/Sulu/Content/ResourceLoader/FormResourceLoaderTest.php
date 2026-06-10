@@ -16,9 +16,11 @@ namespace Sulu\Bundle\FormBundle\Tests\Functional\Infrastructure\Sulu\Content\Re
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
+use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Infrastructure\Sulu\Content\ResourceLoader\FormResourceLoader;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class FormResourceLoaderTest extends SuluTestCase
 {
@@ -34,7 +36,11 @@ class FormResourceLoaderTest extends SuluTestCase
         $container = static::getContainer();
         /** @var FormRepository $repository */
         $repository = $container->get('sulu_form.repository.form');
-        $this->loader = new FormResourceLoader($repository);
+        /** @var BuilderInterface $builder */
+        $builder = $container->get('sulu_form.builder');
+        /** @var RequestStack $requestStack */
+        $requestStack = $container->get('request_stack');
+        $this->loader = new FormResourceLoader($repository, $builder, $requestStack);
         $this->entityManager = static::getEntityManager();
     }
 
@@ -78,8 +84,8 @@ class FormResourceLoaderTest extends SuluTestCase
 
         $this->assertArrayHasKey($formEn->getId(), $result);
         $this->assertArrayHasKey($formDeOnly->getId(), $result);
-        $this->assertSame('title-en', $result[$formEn->getId()]->getTranslation('en')?->getTitle());
-        $this->assertSame('title-de', $result[$formDeOnly->getId()]->getTranslation('de')?->getTitle());
+        $this->assertSame('title-en', $result[$formEn->getId()]['entity']['title']);
+        $this->assertSame('title-de', $result[$formDeOnly->getId()]['entity']['title']);
     }
 
     public function testLoadDoesNotFallBackWhenShadowLocaleAlsoMissing(): void
@@ -133,7 +139,7 @@ class FormResourceLoaderTest extends SuluTestCase
 
         $this->assertCount(1, $result);
         $this->assertArrayHasKey($form->getId(), $result);
-        $this->assertSame('title-en', $result[$form->getId()]->getTranslation('en')?->getTitle());
+        $this->assertSame('title-en', $result[$form->getId()]['entity']['title']);
     }
 
     public function testLoadCastsStringIdsToInt(): void

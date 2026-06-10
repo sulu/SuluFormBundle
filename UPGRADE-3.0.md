@@ -119,27 +119,30 @@ UPDATE `fo_form_fields` SET `type` = 'brevo' WHERE `type` = 'sendinblue';
 
 The `SingleFormSelection` content type has been replaced with the new Sulu 3.0 content resolution architecture using `PropertyResolverInterface` and `ResourceLoaderInterface`.
 
-#### Template changes required
+#### No template changes required
 
-The form is no longer built during content resolution. Instead, use the new `sulu_form_build` Twig function to build the form at render time:
+The selected form again resolves to a ready-to-render `FormView`, so existing 2.6
+templates keep working unchanged:
 
-```diff
+```twig
 {% if content.form %}
     {% if app.request.get('send') != 'true' %}
--        {% form_theme content.form '@SuluForm/themes/basic.html.twig' %}
--        {{ form(content.form) }}
-+        {% set form_view = sulu_form_build(content.form, 'page', resource.id) %}
-+        {% form_theme form_view '@SuluForm/themes/basic.html.twig' %}
-+        {{ form(form_view) }}
+        {% form_theme content.form '@SuluForm/themes/basic.html.twig' %}
+        {{ form(content.form) }}
     {% else %}
         {{ view.form.entity.successText|raw }}
     {% endif %}
 {% endif %}
 ```
 
-The resolved content now contains:
-- `entity` - the Form entity
-- `data` - serialized form data (previously in view)
+> **If you already applied an earlier 3.0 pre-release migration** that added
+> `sulu_form_build(content.form, 'page', resource.id)` calls to your templates, revert
+> them. `content.form` is now a `FormView` again; passing it to `sulu_form_build`
+> (which expects a `{entity, data}` array) throws a `TypeError` at render time.
+
+The resolved content now exposes:
+- `content.form` — the built `FormView` (or `null` when no form is selected/buildable)
+- `view.form.entity` — the serialized form data (e.g. `view.form.entity.successText`)
 
 #### New Twig function
 
@@ -148,6 +151,8 @@ A new Twig function `sulu_form_build` was added:
 ```php
 sulu_form_build(array $formContent, string $type, string $typeId, ?string $locale = null, string $name = 'form'): ?FormView
 ```
+
+`$formContent` must be a manually constructed `{entity, data}` array — it does **not** accept a `FormView`. To build a form by ID without that array, use `sulu_form_get_by_id` instead.
 
 The existing `sulu_form_get_by_id` function still works if you prefer to build forms by ID directly.
 

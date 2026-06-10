@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of Sulu.
  *
@@ -15,6 +17,7 @@ use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Infrastructure\Sulu\Content\ResourceLoader\FormResourceLoader;
 use Sulu\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Content\Application\PropertyResolver\Resolver\PropertyResolverInterface;
+use Symfony\Component\Form\FormView;
 
 class SingleFormSelectionPropertyResolver implements PropertyResolverInterface
 {
@@ -27,12 +30,7 @@ class SingleFormSelectionPropertyResolver implements PropertyResolverInterface
         /** @var string $resourceLoaderKey */
         $resourceLoaderKey = $params['resourceLoader'] ?? FormResourceLoader::getKey();
 
-        $callback = static function(Form $form) use ($locale): array {
-            return [
-                'entity' => $form,
-                'data' => $form->serializeForLocale($locale),
-            ];
-        };
+        $callback = static fn (mixed $resource): ?FormView => \is_array($resource) ? ($resource['view'] ?? null) : null;
 
         return ContentView::createResolvableWithReferences(
             id: (int) $data,
