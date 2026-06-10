@@ -6,19 +6,27 @@ includes:
     - vendor/phpstan/phpstan-symfony/extension.neon
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/phpstan/phpstan-phpunit/rules.neon
-    - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
+    - vendor/phpstan/phpstan-webmozart-assert/extension.neon
+    - vendor/spaze/phpstan-disallowed-calls/extension.neon
 
 parameters:
+    phpVersion: 80200
     paths:
         - .
     level: max
+    reportUnmatchedIgnoredErrors: false
     excludePaths:
         - %currentWorkingDirectory%/vendor/*
         - %currentWorkingDirectory%/Tests/*
         - %currentWorkingDirectory%/DependencyInjection/Configuration.php
         - %currentWorkingDirectory%/Tests/prophecy-trait-bc-layer.php
+    disallowedMethodCalls:
+        -
+            method: 'Doctrine\Common\Collections\Collection::clear()'
+            message: 'use add and removeElement methods instead of clear to avoid unintended data loss if domain event listeners reflush during postFlush event'
     symfony:
-        container_xml_path: %rootDir%/../../../Tests/Application/var/cache/admin/dev/Sulu_Bundle_FormBundle_Tests_Application_KernelDevDebugContainer.xml
-        console_application_loader: Tests/phpstan/console-application.php
+        containerXmlPath: %rootDir%/../../../Tests/Application/var/cache/admin/dev/Sulu_Bundle_FormBundle_Tests_Application_KernelDevDebugContainer.xml
+        consoleApplicationLoader: Tests/phpstan/console-application.php
+        constantHassers: false
     doctrine:
         objectManagerLoader: Tests/phpstan/object-manager.php
