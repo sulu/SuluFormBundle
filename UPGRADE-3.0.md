@@ -192,8 +192,54 @@ The `StructureTitleProvider` has been refactored to use Sulu 3.0's new content a
 - Uses `getResource()->getId()` instead of `getUuid()`
 - Gets title from `getTemplateData()['title']`
 
-If you extended this class, update your code accordingly. This class is now final, to override it decorate the 
-`sulu_form.title_provider.pages` service.
+If you extended this class, update your code accordingly. This class is now final, to override it decorate the
+`sulu_form.title_provider.pages` service (formerly `sulu_form.title_provider.page`).
+
+### Form type now uses the plural resourceKey
+
+The form "type" — the title-provider alias and the value stored in `fo_dynamics.type`
+for each submission — is now the content type's **plural resourceKey** (`pages`,
+`articles`, `snippets`) instead of the former singular key (`page`, `article`,
+`snippet`). The title-provider service ids changed accordingly:
+
+- `sulu_form.title_provider.page` → `sulu_form.title_provider.pages`
+- `sulu_form.title_provider.article` → `sulu_form.title_provider.articles`
+
+If you decorate a title provider, update the service id. If you register a custom
+title provider, tag it with the plural resourceKey as its `alias`.
+
+#### Database migration (required)
+
+This bundle now requires `doctrine/doctrine-migrations-bundle` (^3.3) and ships a
+migration that converts existing `fo_dynamics.type` values to the plural keys. After
+upgrading, run:
+
+```bash
+bin/console doctrine:migrations:migrate
+```
+
+The migration (`Sulu\Bundle\FormBundle\Migrations\Version20260610000000`) maps
+`page→pages`, `article→articles`, `snippet→snippets` and is reversible.
+
+#### Dynamic list configuration
+
+If you configured `sulu_form.dynamic_lists` with a `type` filter, update it to the
+plural key:
+
+```diff
+ sulu_form:
+     dynamic_lists:
+         my_list:
+-            type: page
++            type: pages
+```
+
+#### Media collections (tree strategy only)
+
+If you use the tree media-collection strategy, uploaded-file collection keys include
+the type (`sulu_form.<formId>.<type>_<typeId>`). New uploads will use `pages_…`
+instead of `page_…`; collections created before the upgrade remain in place and are
+not reused. No data is lost.
 
 ### Deprecated Symfony methods removed
 
