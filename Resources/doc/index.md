@@ -37,14 +37,6 @@ sulu_form:
         sender: "%env(SULU_ADMIN_EMAIL)%"
 ```
 
-Optional configure the email handler to SwiftMailer (`swift_mailer`) or the Symfony Mailer (`mailer`):
-
-```yml
-sulu_form:
-    mail:
-        helper: "swift_mailer" # is default
-```
-
 ## Create Database
 
 Execute the following command to get the sqls to update your database.
@@ -90,7 +82,6 @@ Make sure you've set the correct permissions in the Sulu backend for this bundle
 ## Usage
 
 - [Dynamic Forms](dynamic.md "Dynamic Forms")
-- [Static Forms](static.md "Static Forms") (deprecated)
 
 ## Additional form fields
 

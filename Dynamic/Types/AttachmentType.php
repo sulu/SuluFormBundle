@@ -84,8 +84,6 @@ class AttachmentType implements FormFieldTypeInterface
                 'max' => $fileMax,
             ]);
 
-            // @deprecated remove when a new major is release as max is not supported by input[type=file]
-            $options['attr']['max'] = $fileMax;
             $options['attr']['data-max'] = $fileMax;
         }
 

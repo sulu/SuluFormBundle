@@ -12,7 +12,6 @@
 namespace Sulu\Bundle\FormBundle\Configuration;
 
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
-use Sulu\Bundle\FormBundle\Form\Type\AbstractType;
 use Sulu\Bundle\FormBundle\Media\CollectionStrategyInterface;
 
 /**
@@ -79,92 +78,6 @@ class FormConfigurationFactory
         $config->setWebsiteMailConfiguration($websiteMailConfiguration);
 
         return $config;
-    }
-
-    /**
-     * Build by type.
-     *
-     * @param mixed $formData
-     * @param mixed[] $attributes
-     */
-    public function buildByType(AbstractType $type, $formData, string $locale, array $attributes): FormConfigurationInterface
-    {
-        $config = $this->create($locale);
-        $config->setFileFields(\array_fill_keys($type->getFileFields(), $type->getCollectionId()));
-
-        $attributes['form'] = [
-            'data' => $formData,
-        ];
-
-        $adminMailConfiguration = $this->buildAdminMailConfigurationByTypeAndData(
-            $type,
-            $formData,
-            $locale,
-            $attributes
-        );
-        $websiteMailConfiguration = $this->buildWebsiteMailConfigurationByTypeAndData(
-            $type,
-            $formData,
-            $locale,
-            $attributes
-        );
-
-        $config->setAdminMailConfiguration($adminMailConfiguration);
-        $config->setWebsiteMailConfiguration($websiteMailConfiguration);
-
-        return $config;
-    }
-
-    /**
-     * Build admin mail configuration by type.
-     *
-     * @param mixed $formData
-     * @param mixed[] $attributes
-     */
-    private function buildAdminMailConfigurationByTypeAndData(AbstractType $type, $formData, string $locale, array $attributes): ?MailConfiguration
-    {
-        if ($type->getNotifyDeactivateMails($formData)) {
-            return null;
-        }
-
-        $adminMailConfiguration = $this->createMailConfiguration($locale);
-
-        $adminMailConfiguration->setSubject($type->getNotifySubject($formData));
-        $adminMailConfiguration->setFrom($type->getNotifyFromMailAddress($formData));
-        $adminMailConfiguration->setTo($type->getNotifyToMailAddress($formData));
-        $adminMailConfiguration->setReplyTo($type->getNotifyReplyToMailAddress($formData));
-        $adminMailConfiguration->setAddAttachments($type->getNotifySendAttachments($formData));
-        $adminMailConfiguration->setTemplate($type->getNotifyMail($formData));
-        $adminMailConfiguration->setPlainTextTemplate($type->getNotifyPlainMail($formData));
-        $adminMailConfiguration->setTemplateAttributes($attributes);
-
-        return $adminMailConfiguration;
-    }
-
-    /**
-     * Build admin mail configuration by type.
-     *
-     * @param mixed $formData
-     * @param mixed[] $attributes
-     */
-    private function buildWebsiteMailConfigurationByTypeAndData(AbstractType $type, $formData, string $locale, array $attributes): ?MailConfiguration
-    {
-        if ($type->getCustomerDeactivateMails($formData)) {
-            return null;
-        }
-
-        $websiteMailConfiguration = $this->createMailConfiguration($locale);
-
-        $websiteMailConfiguration->setSubject($type->getCustomerSubject($formData));
-        $websiteMailConfiguration->setFrom($type->getCustomerFromMailAddress($formData));
-        $websiteMailConfiguration->setTo($type->getCustomerToMailAddress($formData));
-        $websiteMailConfiguration->setReplyTo($type->getCustomerReplyToMailAddress($formData));
-        $websiteMailConfiguration->setAddAttachments(false); // Currently not implemented in the AbstractType.
-        $websiteMailConfiguration->setTemplate($type->getCustomerMail($formData));
-        $websiteMailConfiguration->setPlainTextTemplate($type->getCustomerPlainMail($formData));
-        $websiteMailConfiguration->setTemplateAttributes($attributes);
-
-        return $websiteMailConfiguration;
     }
 
     /**

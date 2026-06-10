@@ -12,7 +12,6 @@
 namespace Sulu\Bundle\FormBundle;
 
 use Sulu\Bundle\FormBundle\DependencyInjection\CompilerPass\DynamicListBuilderCompilerPass;
-use Sulu\Bundle\FormBundle\DependencyInjection\CompilerPass\ListProviderCompilerPass;
 use Sulu\Bundle\FormBundle\DependencyInjection\CompilerPass\RemoveTaggedServiceCollectorCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -23,7 +22,6 @@ class SuluFormBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new ListProviderCompilerPass());
         $container->addCompilerPass(new DynamicListBuilderCompilerPass());
         $container->addCompilerPass(new RemoveTaggedServiceCollectorCompilerPass(
             'sulu_form.dynamic.type',

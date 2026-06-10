@@ -24,9 +24,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-    public const SWIFT_MAILER_HELPER = 'swift_mailer';
-    public const MAILER_HELPER = 'mailer';
-
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('sulu_form');
@@ -40,15 +37,6 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('brevo_api_key')->defaultValue(null)->end()
             ->scalarNode('mailchimp_api_key')->defaultValue(null)->end()
             ->scalarNode('mailchimp_subscribe_status')->defaultValue('subscribed')->end()
-            ->enumNode('media_collection_strategy')
-                ->values([
-                    null,
-                    SuluFormExtension::MEDIA_COLLECTION_STRATEGY_SINGLE,
-                    SuluFormExtension::MEDIA_COLLECTION_STRATEGY_TREE,
-                ])
-                ->defaultValue(null)
-                ->setDeprecated('sulu/form-bundle', '2.2.0')
-            ->end()
             ->arrayNode('media')
                 ->addDefaultsIfNotSet()
                 ->children()
@@ -65,21 +53,9 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
             ->end()
-            ->arrayNode('static_forms')
-                ->useAttributeAsKey('name')
-                ->prototype('array')
-                    ->children()
-                        ->scalarNode('class')->end()
-                    ->end()
-                ->end()
-            ->end()
             ->arrayNode('mail')
                 ->addDefaultsIfNotSet()
                 ->children()
-                    ->scalarNode('helper')
-                        ->defaultValue(null)
-                        ->info('Shipped helper are "swift_mailer" and "mailer", defaults to "swift_mailer" if both exists.')
-                    ->end()
                     ->scalarNode('from')->defaultValue(null)->end()
                     ->scalarNode('to')->defaultValue(null)->end()
                     ->scalarNode('sender')->defaultValue(null)->end()

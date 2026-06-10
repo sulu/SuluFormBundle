@@ -2,6 +2,45 @@
 
 ## 3.0.0
 
+### Removed static forms
+
+The deprecated static forms feature has been removed. It is fully superseded by dynamic (admin-built) forms. The
+following has been removed:
+
+- `Sulu\Bundle\FormBundle\Form\Type\AbstractType` and `Sulu\Bundle\FormBundle\Form\Type\TypeInterface`
+- `FormConfigurationFactory::buildByType()`
+- the `sulu_form.static_forms` configuration option
+- the `Sulu\Bundle\FormBundle\Provider\ListProviderInterface` / `ListProviderRegistry` extension point, including the
+  `sulu_form.list_provider` service tag, the `Sulu\Bundle\FormBundle\Controller\ListController` and its
+  `/form/lists` and `/form/lists/fields` routes
+
+If you relied on static forms, migrate to dynamic forms.
+
+### Removed deprecated code
+
+The following long-deprecated APIs have been removed:
+
+- **`Sulu\Bundle\FormBundle\Event\DynFormSavedEvent`** (event name `sulu.dynform.saved`) — listen to
+  `Sulu\Bundle\FormBundle\Event\FormSavePostEvent` (event name `sulu_form.handler.saved`) instead. The new event is
+  dispatched right after the submission is persisted (before the mails are sent) and exposes the form and the `Dynamic`
+  entity via `getData()` / `getConfiguration()` instead of a pre-serialized array.
+- **`Sulu\Bundle\FormBundle\Provider\DynamicProvider`** — removed, use the dynamic list configuration instead.
+- **`HandlerInterface::EVENT_FORM_SAVE` / `HandlerInterface::EVENT_FORM_SAVED`** constants — use
+  `FormSavePreEvent::NAME` / `FormSavePostEvent::NAME` instead.
+- **Swiftmailer support** (`Mail\Helper`, the `swift_mailer` mail helper) — removed, the bundle now requires
+  `symfony/mailer`. Remove any `sulu_form.mail.helper` setting from your configuration; the option has been removed
+  entirely. `MailerHelper` is now wired directly and is always used.
+- **`Mail\NullHelper`** — removed, use the `null://` transport of `symfony/mailer` instead.
+- **`@SuluForm/themes/dynamic.html.twig`** form theme — use `@SuluForm/themes/basic.html.twig` instead.
+- The deprecated top-level **`sulu_form.media_collection_strategy`** config option — use
+  `sulu_form.media.collection_strategy` instead.
+
+The CSRF token in `@SuluForm/themes/basic.html.twig` is now always rendered directly; the deprecated ESI-based token
+loading (which failed since Symfony 5.4) has been removed.
+
+Attachment fields (`input[type=file]`) no longer render a `max` attribute, as it is not supported by the browser. Use
+the `data-max` attribute instead if you read it on the front-end; the maximum file count is still enforced server-side.
+
 ### Replace config with auto complete
 
 The Mailchimp and Brevo list/template pickers now use an autocomplete/list-overlay
