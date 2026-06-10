@@ -45,6 +45,8 @@ class MailchimpType implements FormFieldTypeInterface
 
     public function getDefaultValue(FormField $field, string $locale)
     {
-        return $field->getTranslation($locale)->getDefaultValue();
+        $translation = $field->getTranslation($locale);
+
+        return $translation ? $translation->getDefaultValue() : null;
     }
 }

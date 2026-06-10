@@ -13,6 +13,7 @@ namespace Sulu\Bundle\FormBundle\Configuration;
 
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
 use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Media\CollectionStrategyInterface;
 
 /**
@@ -66,7 +67,7 @@ class FormConfigurationFactory
     {
         $form = $this->getFormOrFail($dynamic);
         $locale = $dynamic->getLocale();
-        $translation = $form->getTranslation($locale);
+        $translation = $this->getTranslationOrFail($form, $locale);
 
         $config = $this->create($locale);
         $config->setFileFields($this->getFileFieldsByDynamic($dynamic));
@@ -88,7 +89,7 @@ class FormConfigurationFactory
     {
         $form = $this->getFormOrFail($dynamic);
         $locale = $dynamic->getLocale();
-        $translation = $form->getTranslation($locale);
+        $translation = $this->getTranslationOrFail($form, $locale);
 
         if ($translation->getDeactivateNotifyMails()) {
             return null;
@@ -98,7 +99,7 @@ class FormConfigurationFactory
 
         $adminMailConfiguration->setSubject($translation->getSubject());
         $adminMailConfiguration->setFrom(
-            $this->getEmail($translation->getFromEmail(), $translation->getFromName())
+            $this->getEmail($translation->getFromEmail(), $translation->getFromName()) ?: []
         );
 
         // Set Receivers for the email.
@@ -108,6 +109,10 @@ class FormConfigurationFactory
 
         foreach ($translation->getReceivers() as $receiver) {
             $email = $this->getEmail($receiver->getEmail(), $receiver->getName());
+
+            if (null === $email) {
+                continue;
+            }
 
             if (MailConfigurationInterface::TYPE_TO == $receiver->getType()) {
                 $toList = \array_merge($toList, $email);
@@ -123,7 +128,7 @@ class FormConfigurationFactory
         $adminMailConfiguration->setBcc(\array_filter($bccList));
 
         if ($translation->getReplyTo()) {
-            $adminMailConfiguration->setReplyTo($this->getEmailFromDynamic($dynamic));
+            $adminMailConfiguration->setReplyTo($this->getEmailFromDynamic($dynamic) ?: []);
         }
 
         // Set attachment configuration.
@@ -144,7 +149,7 @@ class FormConfigurationFactory
     {
         $form = $this->getFormOrFail($dynamic);
         $locale = $dynamic->getLocale();
-        $translation = $form->getTranslation($locale);
+        $translation = $this->getTranslationOrFail($form, $locale);
 
         if ($translation->getDeactivateCustomerMails()) {
             return null;
@@ -160,7 +165,7 @@ class FormConfigurationFactory
 
         $websiteMailConfiguration->setSubject($translation->getSubject());
         $websiteMailConfiguration->setFrom(
-            $this->getEmail($translation->getFromEmail(), $translation->getFromName())
+            $this->getEmail($translation->getFromEmail(), $translation->getFromName()) ?: []
         );
         $websiteMailConfiguration->setTo($customerEmail);
 
@@ -206,10 +211,17 @@ class FormConfigurationFactory
     private function getCollectionIdByDynamic(Dynamic $dynamic): int
     {
         $form = $this->getFormOrFail($dynamic);
+        $formId = $form->getId();
+
+        if (null === $formId) {
+            throw new \RuntimeException('The given form has no id.');
+        }
+
+        $translation = $this->getTranslationOrFail($form, $dynamic->getLocale(), true);
 
         return $this->collectionStrategy->getCollectionId(
-            $form->getId(),
-            $form->getTranslation($dynamic->getLocale(), false, true)->getTitle(),
+            $formId,
+            $translation->getTitle(),
             $dynamic->getType(),
             $dynamic->getTypeId(),
             $dynamic->getLocale()
@@ -239,7 +251,7 @@ class FormConfigurationFactory
         $emails = $dynamic->getFieldsByType(Dynamic::TYPE_EMAIL);
         $email = \reset($emails);
 
-        return $this->getEmail($email);
+        return $this->getEmail(\is_string($email) ? $email : null);
     }
 
     /**
@@ -274,6 +286,22 @@ class FormConfigurationFactory
         }
 
         return $form;
+    }
+
+    /**
+     * The form must have a translation for the submission locale to build a configuration.
+     */
+    private function getTranslationOrFail(Form $form, string $locale, bool $fallback = false): FormTranslation
+    {
+        $translation = $fallback
+            ? $form->getTranslation($locale, false, true)
+            : $form->getTranslation($locale);
+
+        if (null === $translation) {
+            throw new \RuntimeException(\sprintf('The given form has no translation for locale "%s".', $locale));
+        }
+
+        return $translation;
     }
 
     /**

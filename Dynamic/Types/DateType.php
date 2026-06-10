@@ -51,8 +51,8 @@ class DateType implements FormFieldTypeInterface
 
     public function getDefaultValue(FormField $field, string $locale)
     {
-        $value = $field->getTranslation($locale)->getDefaultValue();
+        $translation = $field->getTranslation($locale);
 
-        return $value;
+        return $translation ? $translation->getDefaultValue() : null;
     }
 }

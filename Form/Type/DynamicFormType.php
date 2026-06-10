@@ -62,7 +62,7 @@ class DynamicFormType extends AbstractType
 
     /**
      * @param FormBuilderInterface<mixed> $builder
-     * @param array<string, mixed>        $options
+     * @param array<string, mixed> $options
      *
      * @return void
      */

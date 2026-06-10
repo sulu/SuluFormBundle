@@ -203,6 +203,11 @@ class Form
 
         foreach ($this->fields as $field) {
             $fieldTranslation = $field->getTranslation($locale, false, true);
+
+            if (!$fieldTranslation) {
+                continue;
+            }
+
             $value = null;
 
             if ($dynamic) {
@@ -228,15 +233,15 @@ class Form
         return [
             'id' => $dynamic ? $dynamic->getId() : null,
             'formId' => $this->getId(),
-            'title' => $translation->getTitle(),
-            'subject' => $translation->getSubject(),
-            'mailText' => $translation->getMailText(),
-            'submitLabel' => $translation->getSubmitLabel(),
-            'successText' => $translation->getSuccessText(),
-            'fromEmail' => $translation->getFromEmail(),
-            'fromName' => $translation->getFromName(),
-            'toEmail' => $translation->getToEmail(),
-            'toName' => $translation->getToName(),
+            'title' => $translation?->getTitle(),
+            'subject' => $translation?->getSubject(),
+            'mailText' => $translation?->getMailText(),
+            'submitLabel' => $translation?->getSubmitLabel(),
+            'successText' => $translation?->getSuccessText(),
+            'fromEmail' => $translation?->getFromEmail(),
+            'fromName' => $translation?->getFromName(),
+            'toEmail' => $translation?->getToEmail(),
+            'toName' => $translation?->getToName(),
             'fields' => $fields,
             'created' => $dynamic ? $dynamic->getCreated() : null,
         ];
