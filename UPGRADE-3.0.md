@@ -41,6 +41,10 @@ loading (which failed since Symfony 5.4) has been removed.
 Attachment fields (`input[type=file]`) no longer render a `max` attribute, as it is not supported by the browser. Use
 the `data-max` attribute instead if you read it on the front-end; the maximum file count is still enforced server-side.
 
+### Removed non default translations
+
+The French (`fr`) and Dutch (`nl`) message translations have been removed so the bundle ships only English and German, consistent with the Sulu core. If you need other locales, provide the translations for the `sulu_form` messages domain in your application.
+
 ### Replace config with auto complete
 
 The Mailchimp and Brevo list/template pickers now use an autocomplete/list-overlay
