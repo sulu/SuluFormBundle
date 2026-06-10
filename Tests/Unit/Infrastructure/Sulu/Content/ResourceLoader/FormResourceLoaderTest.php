@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sulu\Bundle\FormBundle\Tests\Unit\Infrastructure\Sulu\Content\ResourceLoader;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Sulu\Bundle\FormBundle\Entity\Form;
@@ -21,6 +22,7 @@ use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Infrastructure\Sulu\Content\ResourceLoader\FormResourceLoader;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
+use Sulu\Bundle\TestBundle\Testing\SetGetPrivatePropertyTrait;
 use Sulu\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\DimensionContentTrait;
@@ -29,9 +31,11 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+#[CoversClass(FormResourceLoader::class)]
 class FormResourceLoaderTest extends TestCase
 {
     use ProphecyTrait;
+    use SetGetPrivatePropertyTrait;
 
     public function testLoadReturnsEmptyWhenLocaleIsNull(): void
     {
@@ -185,8 +189,7 @@ class FormResourceLoaderTest extends TestCase
         $form = new Form();
         $form->setDefaultLocale($locale);
 
-        // Form::setId() doesn't exist; set the private $id via reflection.
-        (new \ReflectionProperty(Form::class, 'id'))->setValue($form, 5);
+        static::setPrivateProperty($form, 'id', 5);
 
         $translation = new FormTranslation();
         $translation->setForm($form);
