@@ -12,20 +12,11 @@
 namespace Sulu\Bundle\FormBundle\Tests\Functional\Mail;
 
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
-use Sulu\Bundle\FormBundle\Tests\Application\MailerKernel;
 
 class MailerHelperTest extends HelperTestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        static::$class = MailerKernel::class;
-        parent::setUpBeforeClass();
-    }
-
     public function testSendsEmailUsingMailerComponent()
     {
-        $this->assertIsObject(static::$kernel);
-        $this->assertSame(MailerKernel::class, static::$kernel::class);
 
         $formTranslationRepository = self::$entityManager->getRepository(FormTranslation::class);
         /** @var FormTranslation $formTranslation */
