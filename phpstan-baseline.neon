@@ -337,12 +337,6 @@ parameters:
 			path: DependencyInjection/SuluFormExtension.php
 
 		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\FormFieldTypeInterface\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/FormFieldTypeInterface.php
-
-		-
 			message: '#^Binary operation "\." between mixed and ''/\*'' results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
@@ -379,40 +373,10 @@ parameters:
 			path: Dynamic/Types/AttachmentType.php
 
 		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\AttachmentType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/AttachmentType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/AttachmentType.php
-
-		-
 			message: '#^Cannot call method getDefaultValue\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: Dynamic/Types/BrevoType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\BrevoType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/BrevoType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/BrevoType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\CheckboxMultipleType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/CheckboxMultipleType.php
 
 		-
 			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\CheckboxMultipleType\:\:getChoices\(\) should return array\<string\> but returns array\.$#'
@@ -439,12 +403,6 @@ parameters:
 			path: Dynamic/Types/CheckboxMultipleType.php
 
 		-
-			message: '#^Parameter \#2 \$options of method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\CheckboxMultipleType\:\:getChoiceOptions\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/CheckboxMultipleType.php
-
-		-
 			message: '#^Parameter \#2 \$subject of function preg_split expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
@@ -463,32 +421,8 @@ parameters:
 			path: Dynamic/Types/CheckboxMultipleType.php
 
 		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\CheckboxType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/CheckboxType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/CheckboxType.php
-
-		-
 			message: '#^Cannot call method getDefaultValue\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null\.$#'
 			identifier: method.nonObject
-			count: 1
-			path: Dynamic/Types/CityType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\CityType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/CityType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
 			count: 1
 			path: Dynamic/Types/CityType.php
 
@@ -499,52 +433,10 @@ parameters:
 			path: Dynamic/Types/CompanyType.php
 
 		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\CompanyType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/CompanyType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/CompanyType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\CountryType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/CountryType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/CountryType.php
-
-		-
 			message: '#^Cannot call method getDefaultValue\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: Dynamic/Types/DateType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\DateType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/DateType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/DateType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\DropdownMultiple\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/DropdownMultiple.php
 
 		-
 			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\DropdownMultiple\:\:getChoices\(\) should return array\<string\> but returns array\.$#'
@@ -571,12 +463,6 @@ parameters:
 			path: Dynamic/Types/DropdownMultiple.php
 
 		-
-			message: '#^Parameter \#2 \$options of method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\DropdownMultiple\:\:getChoiceOptions\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/DropdownMultiple.php
-
-		-
 			message: '#^Parameter \#2 \$subject of function preg_split expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
@@ -593,12 +479,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: Dynamic/Types/DropdownMultiple.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\DropdownType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/DropdownType.php
 
 		-
 			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\DropdownType\:\:getChoices\(\) should return array\<string\> but returns array\.$#'
@@ -620,12 +500,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$translation of method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\DropdownType\:\:getChoiceOptions\(\) expects Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation, Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/DropdownType.php
-
-		-
-			message: '#^Parameter \#2 \$options of method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\DropdownType\:\:getChoiceOptions\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: Dynamic/Types/DropdownType.php
@@ -655,148 +529,22 @@ parameters:
 			path: Dynamic/Types/EmailType.php
 
 		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\EmailType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/EmailType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/EmailType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\FaxType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/FaxType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/FaxType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\FirstNameType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/FirstNameType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/FirstNameType.php
-
-		-
 			message: '#^Cannot access offset ''type'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: Dynamic/Types/FreeTextType.php
 
 		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\FreeTextType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/FreeTextType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/FreeTextType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\FunctionType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/FunctionType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/FunctionType.php
-
-		-
 			message: '#^Cannot access offset ''type'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: Dynamic/Types/HeadlineType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\HeadlineType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/HeadlineType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/HeadlineType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\HiddenType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/HiddenType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/HiddenType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\LastNameType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/LastNameType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/LastNameType.php
 
 		-
 			message: '#^Cannot call method getDefaultValue\(\) on Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: Dynamic/Types/MailchimpType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\MailchimpType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/MailchimpType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/MailchimpType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\PhoneType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/PhoneType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/PhoneType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\RadioButtonsType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/RadioButtonsType.php
 
 		-
 			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\RadioButtonsType\:\:getChoices\(\) should return array\<string\> but returns array\.$#'
@@ -818,12 +566,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$translation of method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\RadioButtonsType\:\:getChoiceOptions\(\) expects Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation, Sulu\\Bundle\\FormBundle\\Entity\\FormFieldTranslation\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/RadioButtonsType.php
-
-		-
-			message: '#^Parameter \#2 \$options of method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\RadioButtonsType\:\:getChoiceOptions\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: Dynamic/Types/RadioButtonsType.php
@@ -853,118 +595,10 @@ parameters:
 			path: Dynamic/Types/RecaptchaType.php
 
 		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\RecaptchaType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/RecaptchaType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/RecaptchaType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\SalutationType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/SalutationType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/SalutationType.php
-
-		-
 			message: '#^Cannot access offset ''type'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: Dynamic/Types/SpacerType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\SpacerType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/SpacerType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/SpacerType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\StateType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/StateType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/StateType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\StreetType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/StreetType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/StreetType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\TextType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/TextType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/TextType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\TextareaType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/TextareaType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/TextareaType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\TitleType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/TitleType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/TitleType.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Types\\ZipType\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Dynamic/Types/ZipType.php
-
-		-
-			message: '#^Parameter \#3 \$options of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Dynamic/Types/ZipType.php
 
 		-
 			message: '#^Method Sulu\\Bundle\\FormBundle\\Entity\\Dynamic\:\:getAttachment\(\) should return array\<int\>\|null but returns mixed\.$#'
@@ -1285,12 +919,6 @@ parameters:
 			path: Event/BrevoListSubscriber.php
 
 		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Event\\FormEvent\:\:__construct\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Event/FormEvent.php
-
-		-
 			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
@@ -1363,30 +991,6 @@ parameters:
 			path: Form/Builder.php
 
 		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\Builder\:\:build\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/Builder.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\Builder\:\:buildByRequest\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/Builder.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\Builder\:\:buildForm\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/Builder.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\Builder\:\:createForm\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/Builder.php
-
-		-
 			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\Builder\:\:getWebspaceKey\(\) should return string\|null but returns mixed\.$#'
 			identifier: return.type
 			count: 1
@@ -1403,90 +1007,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: Form/Builder.php
-
-		-
-			message: '#^Property Sulu\\Bundle\\FormBundle\\Form\\Builder\:\:\$cache \(array\<Symfony\\Component\\Form\\FormInterface\>\) does not accept array\<Symfony\\Component\\Form\\FormInterface\|null\>\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: Form/Builder.php
-
-		-
-			message: '#^Property Sulu\\Bundle\\FormBundle\\Form\\Builder\:\:\$cache with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/Builder.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\BuilderInterface\:\:build\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/BuilderInterface.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\BuilderInterface\:\:buildByRequest\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/BuilderInterface.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\Handler\:\:getAttachments\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/Handler.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\Handler\:\:getMediaData\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/Handler.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\Handler\:\:getPlainText\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/Handler.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\Handler\:\:handle\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/Handler.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\Handler\:\:isSpamByHoneypot\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/Handler.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\Handler\:\:save\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/Handler.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\Handler\:\:sendMail\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/Handler.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\Handler\:\:sendMails\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/Handler.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\Handler\:\:uploadMedia\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/Handler.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$formField contains generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 2
-			path: Form/Handler.php
 
 		-
 			message: '#^Parameter \#1 \$object of method Doctrine\\Persistence\\ObjectManager\:\:persist\(\) expects object, mixed given\.$#'
@@ -1511,18 +1031,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: Form/Handler.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Form\\HandlerInterface\:\:handle\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/HandlerInterface.php
-
-		-
-			message: '#^Class Sulu\\Bundle\\FormBundle\\Form\\Type\\DynamicFormType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: Form/Type/DynamicFormType.php
 
 		-
 			message: '#^Parameter \#1 \$formEntityId of class Sulu\\Bundle\\FormBundle\\Exception\\FormNotFoundException constructor expects int, int\|null given\.$#'

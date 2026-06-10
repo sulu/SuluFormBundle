@@ -39,6 +39,10 @@ class AttachmentType implements FormFieldTypeInterface
         );
     }
 
+    /**
+     * @param FormBuilderInterface<mixed> $builder
+     * @param array<string, mixed> $options
+     */
     public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $type = FileType::class;

@@ -21,11 +21,15 @@ interface BuilderInterface
 {
     /**
      * Build by request.
+     *
+     * @return FormInterface<mixed>|null
      */
     public function buildByRequest(Request $request): ?FormInterface;
 
     /**
      * Build dynamic form.
+     *
+     * @return FormInterface<mixed>|null
      */
     public function build(int $id, string $type, string $typeId, ?string $locale = null, string $name = 'form'): ?FormInterface;
 }

@@ -20,5 +20,8 @@ interface HandlerInterface
     public const HONEY_POT_STRATEGY_NO_EMAIL = 'no_email';
     public const HONEY_POT_STRATEGY_SPAM = 'spam';
 
+    /**
+     * @param FormInterface<mixed> $form
+     */
     public function handle(FormInterface $form, FormConfigurationInterface $configuration): bool;
 }

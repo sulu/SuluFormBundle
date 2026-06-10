@@ -25,6 +25,9 @@ class FormEvent extends SymfonyFormEvent
      */
     private $configuration;
 
+    /**
+     * @param FormInterface<mixed> $form
+     */
     public function __construct(FormInterface $form, FormConfigurationInterface $configuration)
     {
         $this->configuration = $configuration;

@@ -32,6 +32,10 @@ class RecaptchaType implements FormFieldTypeInterface
         );
     }
 
+    /**
+     * @param FormBuilderInterface<mixed> $builder
+     * @param array<string, mixed> $options
+     */
     public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         // Use in this way the recaptcha bundle could maybe not exists.

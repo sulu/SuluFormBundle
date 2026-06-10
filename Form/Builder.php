@@ -32,7 +32,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class Builder implements BuilderInterface
 {
     /**
-     * @var FormInterface[]
+     * @var array<string, FormInterface<mixed>|null>
      */
     private $cache = [];
 
@@ -96,6 +96,9 @@ class Builder implements BuilderInterface
         $this->csrfProtection = $csrfProtection;
     }
 
+    /**
+     * @return FormInterface<mixed>|null
+     */
     public function buildByRequest(Request $request): ?FormInterface
     {
         foreach ($request->request->all() as $key => $parameters) {
@@ -145,6 +148,9 @@ class Builder implements BuilderInterface
         return null;
     }
 
+    /**
+     * @return FormInterface<mixed>|null
+     */
     public function build(int $id, string $type, string $typeId, ?string $locale = null, string $name = 'form'): ?FormInterface
     {
         if (!$locale) {
@@ -164,6 +170,8 @@ class Builder implements BuilderInterface
 
     /**
      * Returns formType and the built form.
+     *
+     * @return FormInterface<mixed>|null
      */
     protected function buildForm(int $id, string $type, string $typeId, string $locale, string $name): ?FormInterface
     {
@@ -199,6 +207,9 @@ class Builder implements BuilderInterface
         return \implode('__', \func_get_args());
     }
 
+    /**
+     * @return FormInterface<mixed>
+     */
     private function createForm(string $name, string $type, string $typeId, string $locale, Form $formEntity, string $webspaceKey): FormInterface
     {
         $defaults = $this->getDefaults($formEntity, $locale);
