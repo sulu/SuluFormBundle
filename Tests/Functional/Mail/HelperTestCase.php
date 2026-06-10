@@ -13,6 +13,7 @@ namespace Sulu\Bundle\FormBundle\Tests\Functional\Mail;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Tests\Functional\Mail\Fixtures\LoadFormFixture;
 use Sulu\Bundle\TestBundle\Testing\WebsiteTestCase;
 use Sulu\Content\Domain\Model\WorkflowInterface;
@@ -95,6 +96,20 @@ class HelperTestCase extends WebsiteTestCase
         self::$entityManager->clear();
 
         return $page;
+    }
+
+    public function testSendsEmail(): void
+    {
+        $formTranslationRepository = self::$entityManager->getRepository(FormTranslation::class);
+        /** @var FormTranslation $formTranslation */
+        $formTranslation = $formTranslationRepository->findOneBy(['title' => 'Title', 'locale' => 'de']);
+        $form = $formTranslation->getForm();
+
+        $this->createHomePage($form);
+        $this->doSendForm($form);
+
+        // 2 messages should be sent: 1 to admin and 1 to submitter
+        $this->assertEmailCount(2);
     }
 
     protected function doSendForm(Form $form): void
