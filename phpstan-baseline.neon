@@ -337,36 +337,6 @@ parameters:
 			path: DependencyInjection/SuluFormExtension.php
 
 		-
-			message: '#^Call to method hash\(\) on an unknown class Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder\.$#'
-			identifier: class.notFound
-			count: 1
-			path: Dynamic/Checksum.php
-
-		-
-			message: '#^Call to method verify\(\) on an unknown class Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder\.$#'
-			identifier: class.notFound
-			count: 1
-			path: Dynamic/Checksum.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Checksum\:\:check\(\) should return bool but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: Dynamic/Checksum.php
-
-		-
-			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\Checksum\:\:get\(\) should return string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: Dynamic/Checksum.php
-
-		-
-			message: '#^Property Sulu\\Bundle\\FormBundle\\Dynamic\\Checksum\:\:\$encoder has unknown class Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder as its type\.$#'
-			identifier: class.notFound
-			count: 1
-			path: Dynamic/Checksum.php
-
-		-
 			message: '#^Method Sulu\\Bundle\\FormBundle\\Dynamic\\FormFieldTypeInterface\:\:build\(\) has parameter \$builder with generic interface Symfony\\Component\\Form\\FormBuilderInterface but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
