@@ -53,9 +53,9 @@ to update production databases.
 
 Add the following lines to `config/routes/sulu_admin.yaml`
 
-```yml
+```yaml
 sulu_form_api:
-    resource: "@SuluFormBundle/Resources/config/routing_api.yml"
+    resource: "@SuluFormBundle/Resources/config/routing_api.yaml"
     prefix: /admin/api
 ```
 
