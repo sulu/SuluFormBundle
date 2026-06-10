@@ -33,12 +33,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 
-/**
- * End-to-end test proving the 2.6 form-render parity contract:
- *
- * - content['form'] is a FormView (the form was built and is renderable).
- * - view['form']['entity'] contains the serialized form data including title and successText.
- */
 class SingleFormSelectionContentResolverTest extends SuluTestCase
 {
     private EntityManagerInterface $entityManager;

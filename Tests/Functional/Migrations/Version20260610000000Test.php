@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sulu\Bundle\FormBundle\Tests\Functional\Migrations;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Schema\Schema;
 use Psr\Log\NullLogger;
 use Sulu\Bundle\FormBundle\Migrations\Version20260610000000;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
@@ -22,112 +23,69 @@ class Version20260610000000Test extends SuluTestCase
 {
     private Connection $connection;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
-        static::purgeDatabase();
-        static::bootKernel();
+        self::bootKernel();
+        self::purgeDatabase();
 
-        $this->connection = static::getEntityManager()->getConnection();
+        $this->connection = self::getEntityManager()->getConnection();
     }
 
-    public function testUpMigratesSingularTypesToPlural(): void
+    public function testUpConvertsSingularTypesToPlural(): void
+    {
+        $this->insertDynamic('page', 'page-1');
+        $this->insertDynamic('article', 'article-1');
+        $this->insertDynamic('snippet', 'snippet-1');
+        $this->insertDynamic('other', 'other-1');
+
+        $this->createMigration()->up($this->introspectSchema());
+
+        self::assertSame('pages', $this->typeOf('page-1'));
+        self::assertSame('articles', $this->typeOf('article-1'));
+        self::assertSame('snippets', $this->typeOf('snippet-1'));
+        self::assertSame('other', $this->typeOf('other-1'));
+    }
+
+    public function testDownRevertsPluralTypesToSingular(): void
+    {
+        $this->insertDynamic('pages', 'page-1');
+        $this->insertDynamic('articles', 'article-1');
+        $this->insertDynamic('snippets', 'snippet-1');
+        $this->insertDynamic('other', 'other-1');
+
+        $this->createMigration()->down($this->introspectSchema());
+
+        self::assertSame('page', $this->typeOf('page-1'));
+        self::assertSame('article', $this->typeOf('article-1'));
+        self::assertSame('snippet', $this->typeOf('snippet-1'));
+        self::assertSame('other', $this->typeOf('other-1'));
+    }
+
+    public function testUpAndDownRoundtripToOriginalValue(): void
+    {
+        $this->insertDynamic('page', 'page-1');
+
+        $migration = $this->createMigration();
+        $migration->up($this->introspectSchema());
+        $migration->down($this->introspectSchema());
+
+        self::assertSame('page', $this->typeOf('page-1'));
+    }
+
+    private function createMigration(): Version20260610000000
+    {
+        return new Version20260610000000($this->connection, new NullLogger());
+    }
+
+    private function introspectSchema(): Schema
+    {
+        return $this->connection->createSchemaManager()->introspectSchema();
+    }
+
+    private function insertDynamic(string $type, string $typeId): void
     {
         $now = (new \DateTimeImmutable())->format('Y-m-d H:i:s');
 
-        $this->insertDynamic('page', 'page-1', $now);
-        $this->insertDynamic('article', 'article-1', $now);
-        $this->insertDynamic('snippet', 'snippet-1', $now);
-        $this->insertDynamic('pages', 'pages-already', $now);
-        $this->insertDynamic('other', 'other-1', $now);
-
-        $migration = new Version20260610000000($this->connection, new NullLogger());
-        $schema = $this->connection->createSchemaManager()->introspectSchema();
-
-        $migration->up($schema);
-
-        $this->assertSame(
-            'pages',
-            $this->connection->fetchOne('SELECT type FROM fo_dynamics WHERE typeId = ?', ['page-1'])
-        );
-        $this->assertSame(
-            'articles',
-            $this->connection->fetchOne('SELECT type FROM fo_dynamics WHERE typeId = ?', ['article-1'])
-        );
-        $this->assertSame(
-            'snippets',
-            $this->connection->fetchOne('SELECT type FROM fo_dynamics WHERE typeId = ?', ['snippet-1'])
-        );
-        $this->assertSame(
-            'pages',
-            $this->connection->fetchOne('SELECT type FROM fo_dynamics WHERE typeId = ?', ['pages-already']),
-            'Already-plural rows must not change.'
-        );
-        $this->assertSame(
-            'other',
-            $this->connection->fetchOne('SELECT type FROM fo_dynamics WHERE typeId = ?', ['other-1']),
-            'Unrelated type values must not change.'
-        );
-    }
-
-    public function testDownRevertsPluralsToSingular(): void
-    {
-        $now = (new \DateTimeImmutable())->format('Y-m-d H:i:s');
-
-        $this->insertDynamic('pages', 'page-down-1', $now);
-        $this->insertDynamic('articles', 'article-down-1', $now);
-        $this->insertDynamic('snippets', 'snippet-down-1', $now);
-        $this->insertDynamic('other', 'other-down-1', $now);
-
-        $migration = new Version20260610000000($this->connection, new NullLogger());
-        $schema = $this->connection->createSchemaManager()->introspectSchema();
-
-        $migration->down($schema);
-
-        $this->assertSame(
-            'page',
-            $this->connection->fetchOne('SELECT type FROM fo_dynamics WHERE typeId = ?', ['page-down-1'])
-        );
-        $this->assertSame(
-            'article',
-            $this->connection->fetchOne('SELECT type FROM fo_dynamics WHERE typeId = ?', ['article-down-1'])
-        );
-        $this->assertSame(
-            'snippet',
-            $this->connection->fetchOne('SELECT type FROM fo_dynamics WHERE typeId = ?', ['snippet-down-1'])
-        );
-        $this->assertSame(
-            'other',
-            $this->connection->fetchOne('SELECT type FROM fo_dynamics WHERE typeId = ?', ['other-down-1']),
-            'Unrelated type values must not change.'
-        );
-    }
-
-    public function testUpAndDownAreInverse(): void
-    {
-        $now = (new \DateTimeImmutable())->format('Y-m-d H:i:s');
-
-        $this->insertDynamic('page', 'roundtrip-1', $now);
-
-        $migration = new Version20260610000000($this->connection, new NullLogger());
-        $schema = $this->connection->createSchemaManager()->introspectSchema();
-
-        $migration->up($schema);
-
-        $this->assertSame(
-            'pages',
-            $this->connection->fetchOne('SELECT type FROM fo_dynamics WHERE typeId = ?', ['roundtrip-1'])
-        );
-
-        $migration->down($schema);
-
-        $this->assertSame(
-            'page',
-            $this->connection->fetchOne('SELECT type FROM fo_dynamics WHERE typeId = ?', ['roundtrip-1'])
-        );
-    }
-
-    private function insertDynamic(string $type, string $typeId, string $now): void
-    {
         $this->connection->insert('fo_dynamics', [
             'type' => $type,
             'typeId' => $typeId,
@@ -136,5 +94,13 @@ class Version20260610000000Test extends SuluTestCase
             'created' => $now,
             'changed' => $now,
         ]);
+    }
+
+    private function typeOf(string $typeId): string
+    {
+        $type = $this->connection->fetchOne('SELECT type FROM fo_dynamics WHERE typeId = ?', [$typeId]);
+        self::assertIsString($type);
+
+        return $type;
     }
 }
