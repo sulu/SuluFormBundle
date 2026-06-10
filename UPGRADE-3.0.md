@@ -45,6 +45,8 @@ the `data-max` attribute instead if you read it on the front-end; the maximum fi
 
 The French (`fr`) and Dutch (`nl`) message translations have been removed so the bundle ships only English and German, consistent with the Sulu core. If you need other locales, provide the translations for the `sulu_form` messages domain in your application.
 
+You can also use the [`sulu:admin:download-language` command](https://docs.sulu.io/3.x/book/getting-started.html) to download the translations for the form bundle from [Crowdin](https://sulu.crowdin.com/suluform-bundle).
+
 ### Replace config with auto complete
 
 The Mailchimp and Brevo list/template pickers now use an autocomplete/list-overlay
