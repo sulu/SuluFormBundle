@@ -19,6 +19,7 @@ use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Infrastructure\Sulu\Content\ResourceLoader\FormResourceLoader;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
+use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -38,9 +39,11 @@ class FormResourceLoaderTest extends SuluTestCase
         $repository = $container->get('sulu_form.repository.form');
         /** @var BuilderInterface $builder */
         $builder = $container->get('sulu_form.builder');
+        /** @var TitleProviderPoolInterface $titleProviderPool */
+        $titleProviderPool = $container->get('sulu_form.title_provider.pool');
         /** @var RequestStack $requestStack */
         $requestStack = $container->get('request_stack');
-        $this->loader = new FormResourceLoader($repository, $builder, $requestStack);
+        $this->loader = new FormResourceLoader($repository, $builder, $titleProviderPool, $requestStack);
         $this->entityManager = static::getEntityManager();
     }
 

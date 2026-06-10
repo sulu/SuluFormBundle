@@ -193,7 +193,7 @@ The `StructureTitleProvider` has been refactored to use Sulu 3.0's new content a
 - Gets title from `getTemplateData()['title']`
 
 If you extended this class, update your code accordingly. This class is now final, to override it decorate the 
-`sulu_form.title_provider.page` service.
+`sulu_form.title_provider.pages` service.
 
 ### Deprecated Symfony methods removed
 

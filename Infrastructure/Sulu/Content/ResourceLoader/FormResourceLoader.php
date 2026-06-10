@@ -16,6 +16,7 @@ namespace Sulu\Bundle\FormBundle\Infrastructure\Sulu\Content\ResourceLoader;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
+use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
 use Sulu\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Content\Application\ResourceLoader\Loader\ResourceLoaderContentViewEnhancementInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
@@ -28,19 +29,10 @@ class FormResourceLoader implements ResourceLoaderContentViewEnhancementInterfac
 
     private const FORM_NAME = 'form';
 
-    /**
-     * Maps the plural DimensionContent resourceKey to the singular title-provider
-     * key expected by the form Builder. See the design spec
-     * docs/superpowers/specs/2026-06-10-form-render-2.6-parity-design.md.
-     */
-    private const RESOURCE_KEY_MAP = [
-        'pages' => 'page',
-        'articles' => 'article',
-    ];
-
     public function __construct(
         private FormRepository $formRepository,
         private BuilderInterface $formBuilder,
+        private TitleProviderPoolInterface $titleProviderPool,
         private RequestStack $requestStack,
     ) {
     }
@@ -138,8 +130,8 @@ class FormResourceLoader implements ResourceLoaderContentViewEnhancementInterfac
             return [null, null];
         }
 
-        $type = self::RESOURCE_KEY_MAP[$object::getResourceKey()] ?? null;
-        if (null === $type) {
+        $type = $object::getResourceKey();
+        if (!$this->titleProviderPool->has($type)) {
             return [null, null];
         }
 

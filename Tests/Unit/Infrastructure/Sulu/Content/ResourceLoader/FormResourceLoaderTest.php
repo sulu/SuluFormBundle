@@ -20,6 +20,7 @@ use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Infrastructure\Sulu\Content\ResourceLoader\FormResourceLoader;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
+use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
 use Sulu\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\DimensionContentTrait;
@@ -36,7 +37,8 @@ class FormResourceLoaderTest extends TestCase
     {
         $repository = $this->prophesize(FormRepository::class);
         $builder = $this->prophesize(BuilderInterface::class);
-        $loader = new FormResourceLoader($repository->reveal(), $builder->reveal(), new RequestStack());
+        $pool = $this->prophesize(TitleProviderPoolInterface::class)->reveal();
+        $loader = new FormResourceLoader($repository->reveal(), $builder->reveal(), $pool, new RequestStack());
 
         $this->assertSame([], $loader->load(['1'], null));
     }
@@ -52,8 +54,10 @@ class FormResourceLoaderTest extends TestCase
         $builtForm->createView()->willReturn($formView);
 
         $builder = $this->prophesize(BuilderInterface::class);
-        // Mapping assertion: plural 'pages' must become singular 'page'.
-        $builder->build(5, 'page', 'page-123', 'en', 'form')->shouldBeCalledOnce()->willReturn($builtForm->reveal());
+        $builder->build(5, 'pages', 'page-123', 'en', 'form')->shouldBeCalledOnce()->willReturn($builtForm->reveal());
+
+        $pool = $this->prophesize(TitleProviderPoolInterface::class);
+        $pool->has('pages')->willReturn(true);
 
         $resource = $this->prophesize(ContentRichEntityInterface::class);
         $resource->getId()->willReturn('page-123');
@@ -63,7 +67,7 @@ class FormResourceLoaderTest extends TestCase
         $request->attributes->set('object', new FormTestPageDimensionContent($resource->reveal()));
         $requestStack->push($request);
 
-        $loader = new FormResourceLoader($repository->reveal(), $builder->reveal(), $requestStack);
+        $loader = new FormResourceLoader($repository->reveal(), $builder->reveal(), $pool->reveal(), $requestStack);
 
         $result = $loader->load(['5'], 'en');
 
@@ -80,7 +84,8 @@ class FormResourceLoaderTest extends TestCase
         $builder = $this->prophesize(BuilderInterface::class);
         $builder->build(\Prophecy\Argument::cetera())->shouldNotBeCalled();
 
-        $loader = new FormResourceLoader($repository->reveal(), $builder->reveal(), new RequestStack());
+        $pool = $this->prophesize(TitleProviderPoolInterface::class)->reveal();
+        $loader = new FormResourceLoader($repository->reveal(), $builder->reveal(), $pool, new RequestStack());
 
         $result = $loader->load(['5'], 'en');
 
@@ -97,12 +102,14 @@ class FormResourceLoaderTest extends TestCase
         $builder = $this->prophesize(BuilderInterface::class);
         $builder->build(\Prophecy\Argument::cetera())->shouldNotBeCalled();
 
+        $pool = $this->prophesize(TitleProviderPoolInterface::class)->reveal();
+
         $requestStack = new RequestStack();
         $request = new Request();
         $request->attributes->set('object', new \stdClass());
         $requestStack->push($request);
 
-        $loader = new FormResourceLoader($repository->reveal(), $builder->reveal(), $requestStack);
+        $loader = new FormResourceLoader($repository->reveal(), $builder->reveal(), $pool, $requestStack);
 
         $result = $loader->load(['5'], 'en');
 
@@ -110,7 +117,7 @@ class FormResourceLoaderTest extends TestCase
         $this->assertSame('title-en', $result[5]['entity']['title']);
     }
 
-    public function testLoadReturnsNullViewWhenResourceKeyUnmapped(): void
+    public function testLoadReturnsNullViewWhenNoTitleProviderForResourceKey(): void
     {
         $form = $this->createForm('en');
         $repository = $this->prophesize(FormRepository::class);
@@ -119,13 +126,16 @@ class FormResourceLoaderTest extends TestCase
         $builder = $this->prophesize(BuilderInterface::class);
         $builder->build(\Prophecy\Argument::cetera())->shouldNotBeCalled();
 
+        $pool = $this->prophesize(TitleProviderPoolInterface::class);
+        $pool->has('snippets')->willReturn(false);
+
         $resource = $this->prophesize(ContentRichEntityInterface::class);
         $requestStack = new RequestStack();
         $request = new Request();
         $request->attributes->set('object', new FormTestSnippetDimensionContent($resource->reveal()));
         $requestStack->push($request);
 
-        $loader = new FormResourceLoader($repository->reveal(), $builder->reveal(), $requestStack);
+        $loader = new FormResourceLoader($repository->reveal(), $builder->reveal(), $pool->reveal(), $requestStack);
 
         $result = $loader->load(['5'], 'en');
 
@@ -140,7 +150,8 @@ class FormResourceLoaderTest extends TestCase
         $repository->loadByIds([5], 'de')->willReturn([$formDe]);
 
         $builder = $this->prophesize(BuilderInterface::class);
-        $loader = new FormResourceLoader($repository->reveal(), $builder->reveal(), new RequestStack());
+        $pool = $this->prophesize(TitleProviderPoolInterface::class)->reveal();
+        $loader = new FormResourceLoader($repository->reveal(), $builder->reveal(), $pool, new RequestStack());
 
         $result = $loader->load(['5'], 'en', ['_shadowLocale' => 'de']);
 
@@ -154,6 +165,7 @@ class FormResourceLoaderTest extends TestCase
         $loader = new FormResourceLoader(
             $this->prophesize(FormRepository::class)->reveal(),
             $this->prophesize(BuilderInterface::class)->reveal(),
+            $this->prophesize(TitleProviderPoolInterface::class)->reveal(),
             new RequestStack(),
         );
 

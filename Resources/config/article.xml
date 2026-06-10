@@ -5,10 +5,10 @@
 
     <services>
         <!-- Article Title Provider -->
-        <service id="sulu_form.title_provider.article" class="Sulu\Bundle\FormBundle\TitleProvider\DimensionContentTitleProvider">
+        <service id="sulu_form.title_provider.articles" class="Sulu\Bundle\FormBundle\TitleProvider\DimensionContentTitleProvider">
             <argument type="service" id="request_stack"/>
 
-            <tag name="sulu_form.title_provider" alias="article"/>
+            <tag name="sulu_form.title_provider" alias="articles"/>
         </service>
     </services>
 </container>
