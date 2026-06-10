@@ -9,7 +9,7 @@
         <!-- Form Handler -->
         <service id="sulu_form.handler" class="Sulu\Bundle\FormBundle\Form\Handler">
             <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="Sulu\Bundle\FormBundle\Mail\HelperInterface" />
+            <argument type="service" id="sulu.mail.mailer" />
             <argument type="service" id="twig" />
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="sulu_media.media_manager" />

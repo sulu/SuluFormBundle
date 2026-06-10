@@ -37,14 +37,6 @@ sulu_form:
         sender: "%env(SULU_ADMIN_EMAIL)%"
 ```
 
-Optionally configure the email handler (defaults to the Symfony Mailer):
-
-```yml
-sulu_form:
-    mail:
-        helper: "mailer" # is default
-```
-
 ## Create Database
 
 Execute the following command to get the sqls to update your database.
