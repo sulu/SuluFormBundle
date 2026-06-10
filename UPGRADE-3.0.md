@@ -195,7 +195,7 @@ upgrading, run:
 bin/console doctrine:migrations:migrate
 ```
 
-The migration (`Sulu\Bundle\FormBundle\Migrations\Version20260610000000`) maps
+The migration (`Sulu\Bundle\FormBundle\Migrations\Version20260610110836`) maps
 `page→pages`, `article→articles`, `snippet→snippets` and is reversible.
 
 #### Dynamic list configuration

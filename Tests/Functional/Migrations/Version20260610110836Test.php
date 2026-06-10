@@ -16,10 +16,10 @@ namespace Sulu\Bundle\FormBundle\Tests\Functional\Migrations;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Schema;
 use Psr\Log\NullLogger;
-use Sulu\Bundle\FormBundle\Migrations\Version20260610000000;
+use Sulu\Bundle\FormBundle\Migrations\Version20260610110836;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 
-class Version20260610000000Test extends SuluTestCase
+class Version20260610110836Test extends SuluTestCase
 {
     private Connection $connection;
 
@@ -72,9 +72,9 @@ class Version20260610000000Test extends SuluTestCase
         self::assertSame('page', $this->typeOf('page-1'));
     }
 
-    private function createMigration(): Version20260610000000
+    private function createMigration(): Version20260610110836
     {
-        return new Version20260610000000($this->connection, new NullLogger());
+        return new Version20260610110836($this->connection, new NullLogger());
     }
 
     private function introspectSchema(): Schema

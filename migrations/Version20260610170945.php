@@ -16,36 +16,27 @@ namespace Sulu\Bundle\FormBundle\Migrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-final class Version20260610000000 extends AbstractMigration
+final class Version20260610170945 extends AbstractMigration
 {
-    private const TABLE = 'fo_dynamics';
+    private const TABLE = 'fo_form_fields';
 
-    /**
-     * @var array<string, string>
-     */
-    private const TYPE_MAP = [
-        'page' => 'pages',
-        'article' => 'articles',
-        'snippet' => 'snippets',
-    ];
+    private const OLD_TYPE = 'sendinblue';
+
+    private const NEW_TYPE = 'brevo';
 
     public function getDescription(): string
     {
-        return 'Migrate fo_dynamics.type from singular content-type keys to plural resourceKeys (page->pages, article->articles, snippet->snippets).';
+        return 'Migrate fo_form_fields.type from the deprecated "sendinblue" type to "brevo".';
     }
 
     public function up(Schema $schema): void
     {
-        foreach (self::TYPE_MAP as $singular => $plural) {
-            $this->updateType($singular, $plural);
-        }
+        $this->updateType(self::OLD_TYPE, self::NEW_TYPE);
     }
 
     public function down(Schema $schema): void
     {
-        foreach (self::TYPE_MAP as $singular => $plural) {
-            $this->updateType($plural, $singular);
-        }
+        $this->updateType(self::NEW_TYPE, self::OLD_TYPE);
     }
 
     private function updateType(string $from, string $to): void
