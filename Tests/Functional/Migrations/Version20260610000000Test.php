@@ -76,6 +76,7 @@ class Version20260610000000Test extends SuluTestCase
         $this->insertDynamic('pages', 'page-down-1', $now);
         $this->insertDynamic('articles', 'article-down-1', $now);
         $this->insertDynamic('snippets', 'snippet-down-1', $now);
+        $this->insertDynamic('other', 'other-down-1', $now);
 
         $migration = new Version20260610000000($this->connection, new NullLogger());
         $schema = $this->connection->createSchemaManager()->introspectSchema();
@@ -93,6 +94,11 @@ class Version20260610000000Test extends SuluTestCase
         $this->assertSame(
             'snippet',
             $this->connection->fetchOne('SELECT type FROM fo_dynamics WHERE typeId = ?', ['snippet-down-1'])
+        );
+        $this->assertSame(
+            'other',
+            $this->connection->fetchOne('SELECT type FROM fo_dynamics WHERE typeId = ?', ['other-down-1']),
+            'Unrelated type values must not change.'
         );
     }
 

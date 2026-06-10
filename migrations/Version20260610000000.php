@@ -51,6 +51,11 @@ final class Version20260610000000 extends AbstractMigration
         }
     }
 
+    /**
+     * Best-effort inverse for rollback to a pre-plural-resourceKey release. Intended to
+     * be run only when reverting this migration; it converts every plural value back to
+     * its singular form.
+     */
     public function down(Schema $schema): void
     {
         if (!$schema->hasTable(self::TABLE)) {
