@@ -69,7 +69,6 @@ class SingleFormSelectionContentResolverTest extends SuluTestCase
 
     public function testContentResolverReturnsFormViewAndEntityData(): void
     {
-        // 1. Create the Form fixture with a German translation
         $form = new Form();
         $form->setDefaultLocale('de');
 
@@ -86,7 +85,7 @@ class SingleFormSelectionContentResolverTest extends SuluTestCase
         $formId = $form->getId();
         $this->assertNotNull($formId);
 
-        // 2. Create a homepage root (required before creating child pages)
+        // A homepage root is required before child pages can be created.
         $homepage = new Page();
         $homepage->setWebspaceKey('sulu-io');
         $homepage->setLft(0);
@@ -95,7 +94,6 @@ class SingleFormSelectionContentResolverTest extends SuluTestCase
         $this->entityManager->persist($homepage);
         $this->entityManager->flush();
 
-        // 3. Create and publish the test page using the message bus
         $messageBus = static::getContainer()->get('sulu_message_bus');
 
         $envelope = $messageBus->dispatch(new Envelope(
@@ -126,13 +124,9 @@ class SingleFormSelectionContentResolverTest extends SuluTestCase
             [new EnableFlushStamp()],
         ));
 
-        // 4. Aggregate the live dimension content
         $dimensionContent = $this->contentAggregator->aggregate($page, ['locale' => 'de', 'stage' => 'live']);
 
-        // 5. Push a main request with the dimension content as 'object' attribute
-        //    so that FormResourceLoader can derive type and typeId.
-        //    Also set the '_sulu' attribute with a RequestAttributes containing the webspace,
-        //    so Builder::getWebspaceKey() can resolve the webspace key.
+        // 'object' lets FormResourceLoader derive type/typeId; '_sulu' lets Builder resolve the webspace key.
         $webspace = new Webspace();
         $webspace->setKey('sulu-io');
 
@@ -144,13 +138,11 @@ class SingleFormSelectionContentResolverTest extends SuluTestCase
         $this->requestStack->push($request);
 
         try {
-            // 6. Resolve content through the full pipeline
             $result = $this->contentResolver->resolve($dimensionContent);
         } finally {
             $this->requestStack->pop();
         }
 
-        // 7. Assert content['form'] is a FormView (form was built — restores 2.6 renderable content.form)
         $this->assertArrayHasKey('form', $result['content']);
         $this->assertInstanceOf(
             FormView::class,
@@ -158,8 +150,6 @@ class SingleFormSelectionContentResolverTest extends SuluTestCase
             'content[\'form\'] must be a FormView so templates can call {{ form(content.form) }}'
         );
 
-        // 8. Assert view['form']['entity'] has title and successText
-        //    (restores 2.6's view.form.entity.successText)
         $this->assertArrayHasKey('form', $result['view']);
         $formView = $result['view']['form'];
         $this->assertIsArray($formView, 'view[\'form\'] must be an array');

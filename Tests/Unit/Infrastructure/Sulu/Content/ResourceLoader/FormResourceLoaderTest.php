@@ -23,9 +23,10 @@ use Sulu\Bundle\FormBundle\Infrastructure\Sulu\Content\ResourceLoader\FormResour
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
 use Sulu\Bundle\TestBundle\Testing\SetGetPrivatePropertyTrait;
-use Sulu\Content\Domain\Model\ContentRichEntityInterface;
-use Sulu\Content\Domain\Model\DimensionContentInterface;
-use Sulu\Content\Domain\Model\DimensionContentTrait;
+use Sulu\Page\Domain\Model\Page;
+use Sulu\Page\Domain\Model\PageDimensionContent;
+use Sulu\Snippet\Domain\Model\Snippet;
+use Sulu\Snippet\Domain\Model\SnippetDimensionContent;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,12 +64,9 @@ class FormResourceLoaderTest extends TestCase
         $pool = $this->prophesize(TitleProviderPoolInterface::class);
         $pool->has('pages')->willReturn(true);
 
-        $resource = $this->prophesize(ContentRichEntityInterface::class);
-        $resource->getId()->willReturn('page-123');
-
         $requestStack = new RequestStack();
         $request = new Request();
-        $request->attributes->set('object', new FormTestPageDimensionContent($resource->reveal()));
+        $request->attributes->set('object', new PageDimensionContent(new Page('page-123')));
         $requestStack->push($request);
 
         $loader = new FormResourceLoader($repository->reveal(), $builder->reveal(), $pool->reveal(), $requestStack);
@@ -133,10 +131,9 @@ class FormResourceLoaderTest extends TestCase
         $pool = $this->prophesize(TitleProviderPoolInterface::class);
         $pool->has('snippets')->willReturn(false);
 
-        $resource = $this->prophesize(ContentRichEntityInterface::class);
         $requestStack = new RequestStack();
         $request = new Request();
-        $request->attributes->set('object', new FormTestSnippetDimensionContent($resource->reveal()));
+        $request->attributes->set('object', new SnippetDimensionContent(new Snippet()));
         $requestStack->push($request);
 
         $loader = new FormResourceLoader($repository->reveal(), $builder->reveal(), $pool->reveal(), $requestStack);
@@ -199,43 +196,5 @@ class FormResourceLoaderTest extends TestCase
         $form->addTranslation($translation);
 
         return $form;
-    }
-}
-
-class FormTestPageDimensionContent implements DimensionContentInterface
-{
-    use DimensionContentTrait;
-
-    public function __construct(private ContentRichEntityInterface $resource)
-    {
-    }
-
-    public function getResource(): ContentRichEntityInterface
-    {
-        return $this->resource;
-    }
-
-    public static function getResourceKey(): string
-    {
-        return 'pages';
-    }
-}
-
-class FormTestSnippetDimensionContent implements DimensionContentInterface
-{
-    use DimensionContentTrait;
-
-    public function __construct(private ContentRichEntityInterface $resource)
-    {
-    }
-
-    public function getResource(): ContentRichEntityInterface
-    {
-        return $this->resource;
-    }
-
-    public static function getResourceKey(): string
-    {
-        return 'snippets';
     }
 }

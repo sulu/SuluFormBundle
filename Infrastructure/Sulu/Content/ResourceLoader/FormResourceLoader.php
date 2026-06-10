@@ -48,15 +48,15 @@ class FormResourceLoader implements ResourceLoaderContentViewEnhancementInterfac
             return [];
         }
 
-        [$type, $typeId] = $this->resolveSource();
+        $source = $this->resolveSource();
 
         $intIds = \array_map(static fn ($id) => (int) $id, $ids);
-        $mapped = $this->loadForLocale($intIds, $locale, $type, $typeId);
+        $mapped = $this->loadForLocale($intIds, $locale, $source);
 
         $missingIds = \array_values(\array_diff($intIds, \array_keys($mapped)));
         $shadowLocale = $params['_shadowLocale'] ?? null;
         if ([] !== $missingIds && \is_string($shadowLocale)) {
-            $mapped += $this->loadForLocale($missingIds, $shadowLocale, $type, $typeId);
+            $mapped += $this->loadForLocale($missingIds, $shadowLocale, $source);
         }
 
         return $mapped;
@@ -71,10 +71,11 @@ class FormResourceLoader implements ResourceLoaderContentViewEnhancementInterfac
 
     /**
      * @param int[] $ids
+     * @param array{type: string, typeId: string}|null $source
      *
      * @return array<int, array{view: FormView|null, entity: array<string, mixed>}>
      */
-    private function loadForLocale(array $ids, string $locale, ?string $type, ?string $typeId): array
+    private function loadForLocale(array $ids, string $locale, ?array $source): array
     {
         if ([] === $ids) {
             return [];
@@ -90,7 +91,7 @@ class FormResourceLoader implements ResourceLoaderContentViewEnhancementInterfac
             $id = $form->getId();
             \assert(null !== $id);
             $mapped[$id] = [
-                'view' => $this->buildView($form, $locale, $type, $typeId),
+                'view' => $this->buildView($form, $locale, $source),
                 'entity' => $form->serializeForLocale($locale),
             ];
         }
@@ -98,44 +99,37 @@ class FormResourceLoader implements ResourceLoaderContentViewEnhancementInterfac
         return $mapped;
     }
 
-    private function buildView(Form $form, string $locale, ?string $type, ?string $typeId): ?FormView
+    /**
+     * @param array{type: string, typeId: string}|null $source
+     */
+    private function buildView(Form $form, string $locale, ?array $source): ?FormView
     {
-        if (null === $type || null === $typeId) {
+        if (null === $source) {
             return null;
         }
 
         $id = $form->getId();
         \assert(null !== $id);
 
-        return $this->formBuilder->build($id, $type, $typeId, $locale, self::FORM_NAME)?->createView();
+        return $this->formBuilder->build($id, $source['type'], $source['typeId'], $locale, self::FORM_NAME)?->createView();
     }
 
     /**
-     * Reads the current DimensionContent from the main request and derives the
-     * title-provider key + resource id needed to build the form. Returns
-     * [null, null] when no usable DimensionContent is available so loading
-     * degrades gracefully (no view built, entity still serialized).
-     *
-     * @return array{0: string|null, 1: string|null}
+     * @return array{type: string, typeId: string}|null
      */
-    private function resolveSource(): array
+    private function resolveSource(): ?array
     {
-        $request = $this->requestStack->getMainRequest();
-        if (null === $request) {
-            return [null, null];
-        }
-
-        $object = $request->attributes->get('object');
+        $object = $this->requestStack->getMainRequest()?->attributes->get('object');
         if (!$object instanceof DimensionContentInterface) {
-            return [null, null];
+            return null;
         }
 
         $type = $object::getResourceKey();
         if (!$this->titleProviderPool->has($type)) {
-            return [null, null];
+            return null;
         }
 
-        return [$type, (string) $object->getResource()->getId()];
+        return ['type' => $type, 'typeId' => (string) $object->getResource()->getId()];
     }
 
     public static function getKey(): string

@@ -135,26 +135,9 @@ templates keep working unchanged:
 {% endif %}
 ```
 
-> **If you already applied an earlier 3.0 pre-release migration** that added
-> `sulu_form_build(content.form, 'page', resource.id)` calls to your templates, revert
-> them. `content.form` is now a `FormView` again; passing it to `sulu_form_build`
-> (which expects a `{entity, data}` array) throws a `TypeError` at render time.
-
 The resolved content now exposes:
 - `content.form` — the built `FormView` (or `null` when no form is selected/buildable)
 - `view.form.entity` — the serialized form data (e.g. `view.form.entity.successText`)
-
-#### New Twig function
-
-A new Twig function `sulu_form_build` was added:
-
-```php
-sulu_form_build(array $formContent, string $type, string $typeId, ?string $locale = null, string $name = 'form'): ?FormView
-```
-
-`$formContent` must be a manually constructed `{entity, data}` array — it does **not** accept a `FormView`. To build a form by ID without that array, use `sulu_form_get_by_id` instead.
-
-The existing `sulu_form_get_by_id` function still works if you prefer to build forms by ID directly.
 
 ### Removed TaggedServiceCollectorCompilerPass
 
@@ -193,20 +176,14 @@ The `StructureTitleProvider` has been refactored to use Sulu 3.0's new content a
 - Gets title from `getTemplateData()['title']`
 
 If you extended this class, update your code accordingly. This class is now final, to override it decorate the
-`sulu_form.title_provider.pages` service (formerly `sulu_form.title_provider.page`).
+`sulu_form.title_provider.page` service.
 
 ### Form type now uses the plural resourceKey
 
 The form "type" — the title-provider alias and the value stored in `fo_dynamics.type`
-for each submission — is now the content type's **plural resourceKey** (`pages`,
-`articles`, `snippets`) instead of the former singular key (`page`, `article`,
-`snippet`). The title-provider service ids changed accordingly:
-
-- `sulu_form.title_provider.page` → `sulu_form.title_provider.pages`
-- `sulu_form.title_provider.article` → `sulu_form.title_provider.articles`
-
-If you decorate a title provider, update the service id. If you register a custom
-title provider, tag it with the plural resourceKey as its `alias`.
+for each submission — is now the content type's plural resourceKey (`pages`, `articles`,
+`snippets`) instead of the former singular key (`page`, `article`, `snippet`). If you
+register a custom title provider, tag it with the plural resourceKey as its `alias`.
 
 #### Database migration (required)
 

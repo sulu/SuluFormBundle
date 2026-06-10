@@ -16,17 +16,11 @@ namespace Sulu\Bundle\FormBundle\Migrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Migrate fo_dynamics.type from the legacy singular content-type keys to the plural
- * resourceKeys now used by the form title providers (page -> pages, etc.).
- */
 final class Version20260610000000 extends AbstractMigration
 {
     private const TABLE = 'fo_dynamics';
 
     /**
-     * Legacy singular key => plural resourceKey.
-     *
      * @var array<string, string>
      */
     private const TYPE_MAP = [
@@ -42,26 +36,13 @@ final class Version20260610000000 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        if (!$schema->hasTable(self::TABLE)) {
-            return;
-        }
-
         foreach (self::TYPE_MAP as $singular => $plural) {
             $this->updateType($singular, $plural);
         }
     }
 
-    /**
-     * Best-effort inverse for rollback to a pre-plural-resourceKey release. Intended to
-     * be run only when reverting this migration; it converts every plural value back to
-     * its singular form.
-     */
     public function down(Schema $schema): void
     {
-        if (!$schema->hasTable(self::TABLE)) {
-            return;
-        }
-
         foreach (self::TYPE_MAP as $singular => $plural) {
             $this->updateType($plural, $singular);
         }
