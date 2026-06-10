@@ -230,6 +230,40 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
+        /** @var array{
+         *     csrf_protection: bool,
+         *     brevo_api_key: string|null,
+         *     mailchimp_api_key: string|null,
+         *     mailchimp_subscribe_status: string,
+         *     media: array{
+         *         protected: bool,
+         *         collection_strategy: string,
+         *     },
+         *     mail: array{
+         *         from: string|null,
+         *         to: string|null,
+         *         sender: string|null,
+         *         templates: array{
+         *             notify: string,
+         *             notify_plain_text: string,
+         *             customer: string,
+         *             customer_plain_text: string,
+         *         },
+         *     },
+         *     dynamic_list_builder: array{
+         *         default: string,
+         *         delimiter: string,
+         *     },
+         *     dynamic_auto_title: bool,
+         *     dynamic_widths: array<string, string>,
+         *     dynamic_lists: array<mixed>,
+         *     ajax_templates: array<string, string>,
+         *     honeypot: array{
+         *         field: string|null,
+         *         strategy: string,
+         *     },
+         *     dynamic_disabled_types: list<string>,
+         * } $config */
         $config = $this->processConfiguration($configuration, $configs);
 
         $mediaCollectionStrategy = $config['media']['collection_strategy'];

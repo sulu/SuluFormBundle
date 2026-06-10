@@ -30,12 +30,26 @@ class DynamicListAdmin extends Admin
     private $viewBuilderFactory;
 
     /**
-     * @var mixed[]
+     * @var array<string, array<string, array{
+     *     type: string,
+     *     property: string,
+     *     name?: string,
+     *     view?: string,
+     *     position?: int,
+     *     template?: string,
+     * }>>
      */
     private $config;
 
     /**
-     * @param mixed[] $config
+     * @param array<string, array<string, array{
+     *     type: string,
+     *     property: string,
+     *     name?: string,
+     *     view?: string,
+     *     position?: int,
+     *     template?: string,
+     * }>> $config
      */
     public function __construct(ViewBuilderFactoryInterface $viewBuilderFactory, array $config)
     {
@@ -45,7 +59,6 @@ class DynamicListAdmin extends Admin
 
     public function configureViews(ViewCollection $viewCollection): void
     {
-        /** @var array<string, mixed> $sections */
         foreach ($this->config as $parent => $sections) {
             if (!$viewCollection->has($parent)) {
                 continue;
@@ -53,7 +66,6 @@ class DynamicListAdmin extends Admin
 
             $counter = 0;
 
-            /** @var mixed[] $config */
             foreach ($sections as $key => $config) {
                 ++$counter;
 

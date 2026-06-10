@@ -105,7 +105,9 @@ class FormRepository extends EntityRepository
     protected static function getValue(array $data, string $key, $default = null): ?int
     {
         if (isset($data[$key])) {
-            return $data[$key];
+            $value = $data[$key];
+
+            return \is_numeric($value) ? (int) $value : null;
         }
 
         return $default;

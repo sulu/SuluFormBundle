@@ -116,11 +116,13 @@ class ProtectedMediaSubscriber implements EventSubscriberInterface
             throw new AccessDeniedHttpException();
         }
 
+        $routeParams = $request->attributes->get('_route_params');
+
         $url = $this->urlGenerator->generate(
             'sulu_media.website.media.download_admin',
             \array_merge(
                 $request->query->all(),
-                $request->attributes->get('_route_params')
+                \is_array($routeParams) ? $routeParams : []
             )
         );
 

@@ -103,14 +103,20 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
             $this->warmUp($this->cacheDir);
         }
 
-        $form = \unserialize(\file_get_contents($configCache->getPath()));
+        $cacheContent = \file_get_contents($configCache->getPath());
+        if (false === $cacheContent) {
+            return null;
+        }
+
+        /** @var FormMetadata|null $form */
+        $form = \unserialize($cacheContent) ?: null;
 
         if ($form instanceof FormMetadata) {
             $this->translateForLocale($form, $locale);
             $this->sortFieldTypesByLocale($form, $locale);
         }
 
-        return $form;
+        return $form instanceof MetadataInterface ? $form : null;
     }
 
     private function translateForLocale(FormMetadata $form, string $locale): void

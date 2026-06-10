@@ -67,35 +67,45 @@ class BrevoListSubscriber implements EventSubscriberInterface
         $linkUrl = null;
         $listIdsByMailTemplate = [];
 
-        foreach ($form['fields'] as $field) {
-            if ('firstName' === $field['type'] && !$firstName) {
-                /** @var string $firstName */
-                $firstName = $field['value'];
-            } elseif ('lastName' === $field['type'] && !$lastName) {
-                /** @var string $lastName */
-                $lastName = $field['value'];
-            } elseif ('email' === $field['type'] && !$email) {
-                $email = $field['value'];
-            } elseif ('brevo' == $field['type'] && $field['value']) {
-                /** @var string|int|null $listId */
-                $mailTemplateId = $field['options']['mailTemplateId'] ?? null;
-                /** @var int|null $listId */
-                $listId = $field['options']['listId'] ?? null;
-                $redirectLink = $field['options']['redirectLink'] ?? null;
+        $fields = $form['fields'] ?? [];
+        if (!\is_array($fields)) {
+            return;
+        }
 
-                if ($redirectLink) {
+        foreach ($fields as $field) {
+            if (!\is_array($field)) {
+                continue;
+            }
+
+            $type = $field['type'] ?? null;
+            $value = $field['value'] ?? null;
+
+            if ('firstName' === $type && !$firstName) {
+                $firstName = \is_string($value) ? $value : '';
+            } elseif ('lastName' === $type && !$lastName) {
+                $lastName = \is_string($value) ? $value : '';
+            } elseif ('email' === $type && !$email) {
+                $email = \is_string($value) ? $value : '';
+            } elseif ('brevo' == $type && $value) {
+                $options = $field['options'] ?? null;
+                $options = \is_array($options) ? $options : [];
+
+                $mailTemplateId = $options['mailTemplateId'] ?? null;
+                $listId = $options['listId'] ?? null;
+                $redirectLink = $options['redirectLink'] ?? null;
+
+                if (\is_array($redirectLink)) {
                     $linkUrl = $this->getUrlFromLink($redirectLink);
                 }
 
-                if (!$mailTemplateId || !$listId) {
+                if (!\is_numeric($mailTemplateId) || !\is_numeric($listId)) {
                     continue;
                 }
 
-                $listIdsByMailTemplate[$mailTemplateId][] = $listId;
+                $listIdsByMailTemplate[(int) $mailTemplateId][] = (int) $listId;
             }
         }
 
-        /** @var string $email */
         if (!$email || 0 === \count($listIdsByMailTemplate)) {
             return;
         }
@@ -117,33 +127,29 @@ class BrevoListSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param array{
-     *     provider: ?string,
-     *     target: ?string,
-     *     anchor: ?string,
-     *     query: ?string,
-     *     href: ?string,
-     *     title: ?string,
-     *     rel: ?string,
-     *     locale: ?string,
-     * } $redirectLink
+     * @param array<array-key, mixed> $redirectLink
      */
     private function getUrlFromLink(array $redirectLink): ?string
     {
-        if (!$redirectLink['provider']) {
+        $provider = $redirectLink['provider'] ?? null;
+        if (!\is_string($provider) || '' === $provider) {
             return null;
         }
 
-        if ('external' === $redirectLink['provider']) {
-            return $redirectLink['href'];
+        $href = $redirectLink['href'] ?? null;
+        $href = \is_string($href) ? $href : null;
+
+        if ('external' === $provider) {
+            return $href;
         }
 
         if (!$this->linkProviderPool) {
             return null;
         }
 
-        $linkProvider = $this->linkProviderPool->getProvider($redirectLink['provider']);
-        $linkItems = \iterator_to_array($linkProvider->preload([$redirectLink['href']], $redirectLink['locale'], true));
+        $locale = $redirectLink['locale'] ?? null;
+        $linkProvider = $this->linkProviderPool->getProvider($provider);
+        $linkItems = \iterator_to_array($linkProvider->preload([(string) $href], \is_string($locale) ? $locale : '', true));
 
         $firstItem = \reset($linkItems);
         if (false === $firstItem) {
@@ -151,11 +157,13 @@ class BrevoListSubscriber implements EventSubscriberInterface
         }
 
         $url = $firstItem->getUrl();
-        if (isset($redirectLink['query'])) {
-            $url = \sprintf('%s?%s', $url, $redirectLink['query']);
+        $query = $redirectLink['query'] ?? null;
+        if (\is_string($query)) {
+            $url = \sprintf('%s?%s', $url, $query);
         }
-        if (isset($redirectLink['anchor'])) {
-            $url = \sprintf('%s#%s', $url, $redirectLink['anchor']);
+        $anchor = $redirectLink['anchor'] ?? null;
+        if (\is_string($anchor)) {
+            $url = \sprintf('%s#%s', $url, $anchor);
         }
 
         return $url;
