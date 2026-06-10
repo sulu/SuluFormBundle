@@ -65,19 +65,25 @@ class FormConfigurationFactory
      */
     public function buildByDynamic(Dynamic $dynamic): FormConfigurationInterface
     {
-        $form = $this->getFormOrFail($dynamic);
+        // The form can be null for orphaned submissions (the formId column is set to null
+        // via "on-delete=SET NULL" when the form is deleted). A configuration cannot be built then.
+        $form = $dynamic->getForm();
+        if (null === $form) {
+            throw new \RuntimeException('The given dynamic submission is not related to a form anymore.');
+        }
+
         $locale = $dynamic->getLocale();
-        $translation = $this->getTranslationOrFail($form, $locale);
+        $translation = $form->getTranslation($locale);
+        if (null === $translation) {
+            throw new \RuntimeException(\sprintf('The given form has no translation for locale "%s".', $locale));
+        }
 
         $config = $this->create($locale);
-        $config->setFileFields($this->getFileFieldsByDynamic($dynamic));
+        $config->setFileFields($this->getFileFieldsByDynamic($dynamic, $form));
         $config->setFileSave(!$translation->getDeactivateAttachmentSave());
 
-        $adminMailConfiguration = $this->buildAdminMailConfigurationByDynamic($dynamic);
-        $websiteMailConfiguration = $this->buildWebsiteMailConfigurationByDynamic($dynamic);
-
-        $config->setAdminMailConfiguration($adminMailConfiguration);
-        $config->setWebsiteMailConfiguration($websiteMailConfiguration);
+        $config->setAdminMailConfiguration($this->buildAdminMailConfigurationByDynamic($dynamic, $form, $translation));
+        $config->setWebsiteMailConfiguration($this->buildWebsiteMailConfigurationByDynamic($dynamic, $form, $translation));
 
         return $config;
     }
@@ -85,11 +91,9 @@ class FormConfigurationFactory
     /**
      * Build admin mail configuration by dynamic entity.
      */
-    private function buildAdminMailConfigurationByDynamic(Dynamic $dynamic): ?MailConfiguration
+    private function buildAdminMailConfigurationByDynamic(Dynamic $dynamic, Form $form, FormTranslation $translation): ?MailConfiguration
     {
-        $form = $this->getFormOrFail($dynamic);
         $locale = $dynamic->getLocale();
-        $translation = $this->getTranslationOrFail($form, $locale);
 
         if ($translation->getDeactivateNotifyMails()) {
             return null;
@@ -137,7 +141,7 @@ class FormConfigurationFactory
         // Set template.
         $adminMailConfiguration->setTemplate($this->mailAdminTemplate);
         $adminMailConfiguration->setPlainTextTemplate($this->mailAdminPlainTextTemplate);
-        $adminMailConfiguration->setTemplateAttributes($this->getTemplateAttributesFromDynamic($dynamic));
+        $adminMailConfiguration->setTemplateAttributes($this->getTemplateAttributesFromDynamic($dynamic, $form));
 
         return $adminMailConfiguration;
     }
@@ -145,11 +149,9 @@ class FormConfigurationFactory
     /**
      * Build website mail configuration by form translation.
      */
-    private function buildWebsiteMailConfigurationByDynamic(Dynamic $dynamic): ?MailConfiguration
+    private function buildWebsiteMailConfigurationByDynamic(Dynamic $dynamic, Form $form, FormTranslation $translation): ?MailConfiguration
     {
-        $form = $this->getFormOrFail($dynamic);
         $locale = $dynamic->getLocale();
-        $translation = $this->getTranslationOrFail($form, $locale);
 
         if ($translation->getDeactivateCustomerMails()) {
             return null;
@@ -175,7 +177,7 @@ class FormConfigurationFactory
         // Set template.
         $websiteMailConfiguration->setTemplate($this->mailWebsiteTemplate);
         $websiteMailConfiguration->setPlainTextTemplate($this->mailWebsitePlainTextTemplate);
-        $websiteMailConfiguration->setTemplateAttributes($this->getTemplateAttributesFromDynamic($dynamic));
+        $websiteMailConfiguration->setTemplateAttributes($this->getTemplateAttributesFromDynamic($dynamic, $form));
 
         return $websiteMailConfiguration;
     }
@@ -185,17 +187,15 @@ class FormConfigurationFactory
      *
      * @return int[]
      */
-    private function getFileFieldsByDynamic(Dynamic $dynamic): array
+    private function getFileFieldsByDynamic(Dynamic $dynamic, Form $form): array
     {
-        $form = $this->getFormOrFail($dynamic);
-
         $fields = $form->getFieldsByType(Dynamic::TYPE_ATTACHMENT);
 
         if (0 === \count($fields)) {
             return [];
         }
 
-        $collectionId = $this->getCollectionIdByDynamic($dynamic);
+        $collectionId = $this->getCollectionIdByDynamic($dynamic, $form);
 
         $fileFields = [];
         foreach ($fields as $field) {
@@ -208,16 +208,19 @@ class FormConfigurationFactory
     /**
      * Get collection id by dynamic.
      */
-    private function getCollectionIdByDynamic(Dynamic $dynamic): int
+    private function getCollectionIdByDynamic(Dynamic $dynamic, Form $form): int
     {
-        $form = $this->getFormOrFail($dynamic);
         $formId = $form->getId();
 
         if (null === $formId) {
             throw new \RuntimeException('The given form has no id.');
         }
 
-        $translation = $this->getTranslationOrFail($form, $dynamic->getLocale(), true);
+        // The collection title uses the default-locale fallback translation.
+        $translation = $form->getTranslation($dynamic->getLocale(), false, true);
+        if (null === $translation) {
+            throw new \RuntimeException(\sprintf('The given form has no translation for locale "%s".', $dynamic->getLocale()));
+        }
 
         return $this->collectionStrategy->getCollectionId(
             $formId,
@@ -233,11 +236,11 @@ class FormConfigurationFactory
      *
      * @return mixed[]
      */
-    private function getTemplateAttributesFromDynamic(Dynamic $dynamic): array
+    private function getTemplateAttributesFromDynamic(Dynamic $dynamic, Form $form): array
     {
         return [
             // TODO FIXME this is currently overwritten in RequestListener to get the medias correctly for emails.
-            'formEntity' => $this->getFormOrFail($dynamic)->serializeForLocale($dynamic->getLocale(), $dynamic),
+            'formEntity' => $form->serializeForLocale($dynamic->getLocale(), $dynamic),
         ];
     }
 
@@ -270,38 +273,6 @@ class FormConfigurationFactory
         }
 
         return [$email => $name];
-    }
-
-    /**
-     * The form of a dynamic submission can be null when the related form entity was deleted
-     * (the formId column is set to null via "on-delete=SET NULL"). Building a configuration for
-     * such an orphaned submission is not possible.
-     */
-    private function getFormOrFail(Dynamic $dynamic): Form
-    {
-        $form = $dynamic->getForm();
-
-        if (null === $form) {
-            throw new \RuntimeException('The given dynamic submission is not related to a form anymore.');
-        }
-
-        return $form;
-    }
-
-    /**
-     * The form must have a translation for the submission locale to build a configuration.
-     */
-    private function getTranslationOrFail(Form $form, string $locale, bool $fallback = false): FormTranslation
-    {
-        $translation = $fallback
-            ? $form->getTranslation($locale, false, true)
-            : $form->getTranslation($locale);
-
-        if (null === $translation) {
-            throw new \RuntimeException(\sprintf('The given form has no translation for locale "%s".', $locale));
-        }
-
-        return $translation;
     }
 
     /**

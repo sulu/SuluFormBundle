@@ -175,7 +175,6 @@ class FormManager
      */
     public function save(array $data, ?string $locale = null, ?int $id = null, ?bool $omitDomainEvent = false): ?Form
     {
-        // Root cause A: guard locale nullability early so downstream calls receive string.
         if (null === $locale) {
             return null;
         }
@@ -191,7 +190,6 @@ class FormManager
             }
         }
 
-        // Root cause B: getTranslation(..., true) returns non-null at runtime but phpstan sees ?FormTranslation.
         $isNewTranslation = !$form->getTranslation($locale, false, false);
         $translation = $form->getTranslation($locale, true);
         if (null === $translation) {
@@ -244,7 +242,6 @@ class FormManager
         if (!$id) {
             // To avoid lazy load of sub entities in the serializer reload whole object with sub entities from db
             // remove this when you don`t join anything in `findById`.
-            // Root cause E: getId() is ?int; after persist+flush it is always set.
             $persistedId = $form->getId();
             if (null === $persistedId) {
                 throw new \RuntimeException('Form was persisted but has no id.');
@@ -298,7 +295,6 @@ class FormManager
 
         $receivers = [];
         foreach ($receiverDatas as $receiverData) {
-            // Root cause C: elements of $receiverDatas are mixed; guard before accessing offsets.
             if (!\is_array($receiverData)) {
                 continue;
             }
@@ -327,7 +323,6 @@ class FormManager
         $existingIds = [];
         $existingKeys = [];
         foreach ($fields as $key => $fieldData) { // make id and keys unique when block get copied
-            // Root cause C: elements of $fields are mixed; guard before accessing offsets.
             if (!\is_array($fieldData)) {
                 continue;
             }
@@ -347,13 +342,11 @@ class FormManager
             }
         }
 
-        // Root cause D: array_column returns list<mixed>; narrow to string[].
         $reservedKeys = \array_values(\array_filter(\array_column($fields, 'key'), 'is_string'));
 
         $counter = 0;
 
         foreach ($fields as $fieldData) {
-            // Root cause C: elements of $fields are mixed; guard before accessing.
             if (!\is_array($fieldData)) {
                 continue;
             }
@@ -384,7 +377,6 @@ class FormManager
             $field->setWidth(self::getStringValue($fieldData, 'width') ?? 'full');
             $field->setRequired(self::getBoolValue($fieldData, 'required'));
 
-            // Root cause B: getTranslation(..., true) returns non-null at runtime but phpstan sees nullable.
             $fieldTranslation = $field->getTranslation($locale, true);
             if (null === $fieldTranslation) {
                 throw new \RuntimeException(\sprintf('Could not create field translation for locale "%s".', $locale));
