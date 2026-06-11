@@ -27,9 +27,4 @@ interface TitleProviderPoolInterface
      * @return TitleProviderInterface[]
      */
     public function all(): array;
-
-    /**
-     * Returns whether a title provider is registered for the given alias.
-     */
-    public function has(string $alias): bool;
 }

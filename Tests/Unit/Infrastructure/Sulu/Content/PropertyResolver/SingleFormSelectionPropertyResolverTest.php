@@ -117,7 +117,7 @@ class SingleFormSelectionPropertyResolverTest extends TestCase
 
         $formView = new FormView();
         $this->assertSame($formView, $content->executeResourceCallback(['view' => $formView, 'entity' => []]));
-        $this->assertNull($content->executeResourceCallback(['view' => null, 'entity' => []]));
+        $this->assertNull($content->executeResourceCallback(null));
     }
 
     public function testGetType(): void

@@ -56,7 +56,6 @@
                  class="Sulu\Bundle\FormBundle\Infrastructure\Sulu\Content\ResourceLoader\FormResourceLoader">
             <argument type="service" id="sulu_form.repository.form"/>
             <argument type="service" id="sulu_form.builder"/>
-            <argument type="service" id="sulu_form.title_provider.pool"/>
             <argument type="service" id="request_stack"/>
             <tag name="sulu_content.resource_loader" key="form"/>
         </service>

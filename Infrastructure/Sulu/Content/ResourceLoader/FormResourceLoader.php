@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of Sulu.
  *
@@ -16,13 +14,16 @@ namespace Sulu\Bundle\FormBundle\Infrastructure\Sulu\Content\ResourceLoader;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
-use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
 use Sulu\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Content\Application\ResourceLoader\Loader\ResourceLoaderContentViewEnhancementInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+/**
+ * @internal no bc promise is given for this class it can be changed, moved or removed at any time
+ *           create your own resource loader instead
+ */
 class FormResourceLoader implements ResourceLoaderContentViewEnhancementInterface
 {
     public const RESOURCE_LOADER_KEY = 'form';
@@ -32,7 +33,6 @@ class FormResourceLoader implements ResourceLoaderContentViewEnhancementInterfac
     public function __construct(
         private FormRepository $formRepository,
         private BuilderInterface $formBuilder,
-        private TitleProviderPoolInterface $titleProviderPool,
         private RequestStack $requestStack,
     ) {
     }
@@ -40,7 +40,7 @@ class FormResourceLoader implements ResourceLoaderContentViewEnhancementInterfac
     /**
      * @param array<int|string> $ids
      *
-     * @return array<int, array{view: FormView|null, entity: array<mixed>}>
+     * @return array<int, array{view: FormView, entity: array<mixed>}|null>
      */
     public function load(array $ids, ?string $locale, array $params = []): array
     {
@@ -49,6 +49,9 @@ class FormResourceLoader implements ResourceLoaderContentViewEnhancementInterfac
         }
 
         $source = $this->resolveSource();
+        if (null === $source) {
+            return [];
+        }
 
         $intIds = \array_map(static fn ($id) => (int) $id, $ids);
         $mapped = $this->loadForLocale($intIds, $locale, $source);
@@ -71,11 +74,11 @@ class FormResourceLoader implements ResourceLoaderContentViewEnhancementInterfac
 
     /**
      * @param int[] $ids
-     * @param array{type: string, typeId: string}|null $source
+     * @param array{type: string, typeId: string} $source
      *
-     * @return array<int, array{view: FormView|null, entity: array<mixed>}>
+     * @return array<int, array{view: FormView, entity: array<mixed>}|null>
      */
-    private function loadForLocale(array $ids, string $locale, ?array $source): array
+    private function loadForLocale(array $ids, string $locale, array $source): array
     {
         if ([] === $ids) {
             return [];
@@ -90,24 +93,21 @@ class FormResourceLoader implements ResourceLoaderContentViewEnhancementInterfac
 
             $id = $form->getId();
             \assert(null !== $id);
-            $mapped[$id] = [
-                'view' => $this->buildView($form, $locale, $source),
-                'entity' => $form->serializeForLocale($locale),
-            ];
+
+            $view = $this->buildView($form, $locale, $source);
+            $mapped[$id] = null === $view
+                ? null
+                : ['view' => $view, 'entity' => $form->serializeForLocale($locale)];
         }
 
         return $mapped;
     }
 
     /**
-     * @param array{type: string, typeId: string}|null $source
+     * @param array{type: string, typeId: string} $source
      */
-    private function buildView(Form $form, string $locale, ?array $source): ?FormView
+    private function buildView(Form $form, string $locale, array $source): ?FormView
     {
-        if (null === $source) {
-            return null;
-        }
-
         $id = $form->getId();
         \assert(null !== $id);
 
@@ -124,12 +124,7 @@ class FormResourceLoader implements ResourceLoaderContentViewEnhancementInterfac
             return null;
         }
 
-        $type = $object::getResourceKey();
-        if (!$this->titleProviderPool->has($type)) {
-            return null;
-        }
-
-        return ['type' => $type, 'typeId' => (string) $object->getResource()->getId()];
+        return ['type' => $object::getResourceKey(), 'typeId' => (string) $object->getResource()->getId()];
     }
 
     public static function getKey(): string

@@ -38,9 +38,4 @@ class TitleProviderPool implements TitleProviderPoolInterface
     {
         return $this->providers;
     }
-
-    public function has(string $alias): bool
-    {
-        return isset($this->providers[$alias]);
-    }
 }
