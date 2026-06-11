@@ -147,9 +147,13 @@ class BrevoListSubscriber implements EventSubscriberInterface
             return null;
         }
 
+        if (null === $href || '' === $href) {
+            return null;
+        }
+
         $locale = $redirectLink['locale'] ?? null;
         $linkProvider = $this->linkProviderPool->getProvider($provider);
-        $linkItems = \iterator_to_array($linkProvider->preload([(string) $href], \is_string($locale) ? $locale : '', true));
+        $linkItems = \iterator_to_array($linkProvider->preload([$href], \is_string($locale) ? $locale : '', true));
 
         $firstItem = \reset($linkItems);
         if (false === $firstItem) {
