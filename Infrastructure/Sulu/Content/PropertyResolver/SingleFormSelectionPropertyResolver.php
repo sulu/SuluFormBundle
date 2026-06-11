@@ -28,8 +28,8 @@ class SingleFormSelectionPropertyResolver implements PropertyResolverInterface
         /** @var string $resourceLoaderKey */
         $resourceLoaderKey = $params['resourceLoader'] ?? FormResourceLoader::getKey();
 
-        $callback = static function(mixed $resource): ?FormView {
-            $view = \is_array($resource) ? ($resource['view'] ?? null) : null;
+        $callback = static function(?array $resource): ?FormView {
+            $view = $resource['view'] ?? null;
 
             return $view instanceof FormView ? $view : null;
         };
