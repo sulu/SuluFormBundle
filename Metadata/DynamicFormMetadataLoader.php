@@ -121,8 +121,13 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
 
             $fields = $section->getItems()['fields'] ?? null;
             if ($fields instanceof FieldMetadata) {
+                $registeredTypes = $this->formFieldTypePool->all();
                 foreach ($fields->getTypes() as $typeKey => $type) {
-                    $titleKey = $this->formFieldTypePool->get($typeKey)->getConfiguration()->getTitle();
+                    if (!isset($registeredTypes[$typeKey])) {
+                        continue;
+                    }
+
+                    $titleKey = $registeredTypes[$typeKey]->getConfiguration()->getTitle();
                     $type->setTitle($this->translator->trans($titleKey, [], 'admin', $locale), $locale);
                 }
             }
