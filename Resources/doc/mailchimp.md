@@ -31,6 +31,16 @@ sulu_form:
 
 It is recommended to store the api key as environment variable see [Symfony Docs](https://symfony.com/doc/4.4/configuration.html#configuration-environments).
 
+## Routing
+
+Add the following lines to `config/routes/sulu_form_admin.yaml`:
+
+```yaml
+sulu_form_api_mailchimp:
+    resource: "@SuluFormBundle/Resources/config/routing_api_mailchimp.yaml"
+    prefix: /admin/api
+```
+
 ## Subscribe Status
 
 To change the subscribe status from `subscribed` to `pending` you need to configure the following:

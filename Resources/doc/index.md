@@ -51,7 +51,7 @@ to update production databases.
 
 ## Routing
 
-Add the following lines to `config/routes/sulu_admin.yaml`
+Add the following lines to `config/routes/sulu_form_admin.yaml`
 
 ```yaml
 sulu_form_api:

@@ -31,6 +31,16 @@ sulu_form:
 
 It is recommended to store the api key as environment variable see [Symfony Docs](https://symfony.com/doc/4.4/configuration.html#configuration-environments).
 
+## Routing
+
+Add the following lines to `config/routes/sulu_form_admin.yaml`:
+
+```yaml
+sulu_form_api_brevo:
+    resource: "@SuluFormBundle/Resources/config/routing_api_brevo.yaml"
+    prefix: /admin/api
+```
+
 ## Why is there still no Brevo field type?
 
 1. Did you install the library?
