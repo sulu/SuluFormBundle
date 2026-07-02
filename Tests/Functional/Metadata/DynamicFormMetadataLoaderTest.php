@@ -25,6 +25,21 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
         $this->dynamicFormMetadataLoader = $this->getContainer()->get('sulu_form_test.dynamic_form_metadata_loader');
     }
 
+    public function testGetMetadataUntranslatedLocaleFallsBackToConfiguredFallbackLocale(): void
+    {
+        $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'it');
+
+        $this->assertInstanceOf(FormMetadata::class, $formMetadata);
+
+        $formFields = $formMetadata->getItems()['formFields'];
+        $this->assertInstanceOf(SectionMetadata::class, $formFields);
+        $this->assertEquals('Form Fields', $formFields->getLabel('it'));
+
+        $attachment = $formFields->getItems()['fields']->getTypes()['attachment'];
+        $this->assertInstanceOf(FormMetadata::class, $attachment);
+        $this->assertEquals('Attachment', $attachment->getTitle('it'));
+    }
+
     public function testGetMetadataEnglish(): void
     {
         $formMetadata = $this->dynamicFormMetadataLoader->getMetadata('form_details', 'en');

@@ -31,6 +31,8 @@ use Webmozart\Assert\Assert;
  */
 class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWarmerInterface
 {
+    private const FORM_FIELDS_LABEL = 'sulu_form.form_fields';
+
     /**
      * @param array<string> $locales
      */
@@ -57,7 +59,7 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         $formMetadata = $this->formXmlLoader->load($resource);
         $section = new SectionMetadata('formFields');
         foreach ($this->locales as $locale) {
-            $section->setLabel($this->translator->trans('sulu_form.form_fields', [], 'admin', $locale), $locale);
+            $section->setLabel($this->translator->trans(self::FORM_FIELDS_LABEL, [], 'admin', $locale), $locale);
         }
         $fields = new FieldMetadata('fields');
         $fields->setType('block');
@@ -104,15 +106,36 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
         $form = \unserialize(\file_get_contents($configCache->getPath()));
 
         if ($form instanceof FormMetadata) {
+            $this->translateForLocale($form, $locale);
             $this->sortFieldTypesByLocale($form, $locale);
         }
 
         return $form;
     }
 
+    private function translateForLocale(FormMetadata $form, string $locale): void
+    {
+        $section = $form->getItems()['formFields'] ?? null;
+        if ($section instanceof SectionMetadata) {
+            $section->setLabel($this->translator->trans(self::FORM_FIELDS_LABEL, [], 'admin', $locale), $locale);
+
+            $fields = $section->getItems()['fields'] ?? null;
+            if ($fields instanceof FieldMetadata) {
+                $registeredTypes = $this->formFieldTypePool->all();
+                foreach ($fields->getTypes() as $typeKey => $type) {
+                    if (!isset($registeredTypes[$typeKey])) {
+                        continue;
+                    }
+
+                    $titleKey = $registeredTypes[$typeKey]->getConfiguration()->getTitle();
+                    $type->setTitle($this->translator->trans($titleKey, [], 'admin', $locale), $locale);
+                }
+            }
+        }
+    }
+
     /**
-     * Sorts the block field types alphabetically by their translated title, using the requested
-     * locale or the first configured locale when the requested one is not configured.
+     * Sorts the block field types alphabetically by their translated title in the requested locale.
      */
     private function sortFieldTypesByLocale(FormMetadata $form, string $locale): void
     {
@@ -126,12 +149,10 @@ class DynamicFormMetadataLoader implements FormMetadataLoaderInterface, CacheWar
             return;
         }
 
-        $sortLocale = \in_array($locale, $this->locales, true) ? $locale : (string) \reset($this->locales);
-
         $types = $fields->getTypes();
         \uasort(
             $types,
-            static fn (FormMetadata $a, FormMetadata $b): int => \strcmp($a->getTitle($sortLocale), $b->getTitle($sortLocale))
+            static fn (FormMetadata $a, FormMetadata $b): int => \strcmp($a->getTitle($locale), $b->getTitle($locale))
         );
 
         foreach (\array_keys($fields->getTypes()) as $typeKey) {
