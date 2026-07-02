@@ -65,12 +65,7 @@ class FormConfigurationFactory
      */
     public function buildByDynamic(Dynamic $dynamic): FormConfigurationInterface
     {
-        // The form can be null for orphaned submissions (the formId column is set to null
-        // via "on-delete=SET NULL" when the form is deleted). A configuration cannot be built then.
         $form = $dynamic->getForm();
-        if (null === $form) {
-            throw new \RuntimeException('The given dynamic submission is not related to a form anymore.');
-        }
 
         $locale = $dynamic->getLocale();
         $translation = $form->getTranslation($locale);

@@ -192,9 +192,6 @@ class FormManager
 
         $isNewTranslation = !$form->getTranslation($locale, false, false);
         $translation = $form->getTranslation($locale, true);
-        if (null === $translation) {
-            throw new \RuntimeException(\sprintf('Could not create form translation for locale "%s".', $locale));
-        }
         $translation->setTitle(self::getStringValue($data, 'title') ?? '');
         $translation->setSubject(self::getStringValue($data, 'subject'));
         $translation->setFromEmail(self::getStringValue($data, 'fromEmail'));
@@ -378,9 +375,6 @@ class FormManager
             $field->setRequired(self::getBoolValue($fieldData, 'required'));
 
             $fieldTranslation = $field->getTranslation($locale, true);
-            if (null === $fieldTranslation) {
-                throw new \RuntimeException(\sprintf('Could not create field translation for locale "%s".', $locale));
-            }
             $fieldTranslation->setTitle(self::getStringValue($fieldData, 'title'));
             $fieldTranslation->setPlaceholder(self::getStringValue($fieldData, 'placeholder'));
             $fieldTranslation->setDefaultValue(self::getStringValue($fieldData, 'defaultValue'));

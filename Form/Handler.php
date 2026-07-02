@@ -186,13 +186,9 @@ class Handler implements HandlerInterface
         $additionalData = [];
         $formData = $form->getData();
         if ($formData instanceof Dynamic) {
-            $formEntity = $formData->getForm();
-
-            if (null !== $formEntity) {
-                $additionalData = [
-                    'formEntity' => $formEntity->serializeForLocale($configuration->getLocale(), $formData),
-                ];
-            }
+            $additionalData = [
+                'formEntity' => $formData->getForm()->serializeForLocale($configuration->getLocale(), $formData),
+            ];
         }
 
         $body = $this->twig->render(

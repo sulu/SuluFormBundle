@@ -67,7 +67,7 @@ class Dynamic implements AuditableInterface
     private $locale;
 
     /**
-     * @var null|Form
+     * @var Form
      */
     private $form;
 
@@ -86,7 +86,7 @@ class Dynamic implements AuditableInterface
      *
      * @param mixed[] $data
      */
-    public function __construct(string $type, string $typeId, string $locale, ?Form $form, array $data = [], ?string $webspaceKey = null, ?string $typeName = null)
+    public function __construct(string $type, string $typeId, string $locale, Form $form, array $data = [], ?string $webspaceKey = null, ?string $typeName = null)
     {
         $this->type = $type;
         $this->typeId = $typeId;
@@ -152,10 +152,6 @@ class Dynamic implements AuditableInterface
     {
         $entry = [];
 
-        if (!$this->form) {
-            return [];
-        }
-
         foreach ($this->form->getFields() as $field) {
             if ($hideHidden && \in_array($field->getType(), self::$HIDDEN_TYPES)) {
                 continue;
@@ -174,10 +170,6 @@ class Dynamic implements AuditableInterface
     {
         $entry = [];
 
-        if (!$this->form) {
-            return [];
-        }
-
         foreach ($this->form->getFieldsByType($type) as $field) {
             $entry[$field->getKey()] = $this->getField($field->getKey());
         }
@@ -187,10 +179,6 @@ class Dynamic implements AuditableInterface
 
     public function getFieldType(string $key): ?string
     {
-        if (!$this->form) {
-            return null;
-        }
-
         return $this->form->getFieldType($key);
     }
 
@@ -199,7 +187,7 @@ class Dynamic implements AuditableInterface
         return $this->id;
     }
 
-    public function getForm(): ?Form
+    public function getForm(): Form
     {
         return $this->form;
     }

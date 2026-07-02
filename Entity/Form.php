@@ -88,6 +88,9 @@ class Form
         return $this->translations;
     }
 
+    /**
+     * @return ($create is true ? FormTranslation : ?FormTranslation)
+     */
     public function getTranslation(string $locale, bool $create = false, bool $fallback = false): ?FormTranslation
     {
         foreach ($this->translations as $translation) {

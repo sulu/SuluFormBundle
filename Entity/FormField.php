@@ -150,7 +150,7 @@ class FormField
     }
 
     /**
-     * @return FormFieldTranslation|null
+     * @return ($create is true ? FormFieldTranslation : ?FormFieldTranslation)
      */
     public function getTranslation(string $locale, bool $create = false, bool $fallback = false)
     {

@@ -56,9 +56,6 @@ class FormGeneratorCommand extends Command
 
         foreach ($locales as $locale) {
             $formTranslation = $form->getTranslation($locale, true);
-            if (null === $formTranslation) {
-                throw new \RuntimeException(\sprintf('Could not create form translation for locale "%s".', $locale));
-            }
             $formTranslation->setForm($form);
             $formTranslation->setLocale($locale);
             $formTranslation->setTitle('Test Form');
@@ -243,9 +240,6 @@ class FormGeneratorCommand extends Command
 
         foreach ($locales as $locale) {
             $formFieldTranslation = $formField->getTranslation($locale, true);
-            if (null === $formFieldTranslation) {
-                throw new \RuntimeException(\sprintf('Could not create form field translation for locale "%s".', $locale));
-            }
             $formFieldTranslation->setTitle(\ucfirst($fieldType));
             $formFieldTranslation->setOptions($options);
         }
