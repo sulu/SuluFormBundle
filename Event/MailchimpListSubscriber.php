@@ -53,22 +53,42 @@ class MailchimpListSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $form = $dynamic->getForm()->serializeForLocale($dynamic->getLocale(), $dynamic);
+        $formEntity = $dynamic->getForm();
+
+        $form = $formEntity->serializeForLocale($dynamic->getLocale(), $dynamic);
 
         $email = '';
         $fname = '';
         $lname = '';
         $listIds = [];
 
-        foreach ($form['fields'] as $field) {
-            if ('firstName' == $field['type'] && !$fname) {
-                $fname = $field['value'];
-            } elseif ('lastName' == $field['type'] && !$lname) {
-                $lname = $field['value'];
-            } elseif ('email' == $field['type'] && !$email) {
-                $email = $field['value'];
-            } elseif ('mailchimp' == $field['type'] && $field['value']) {
-                $listIds[] = $field['options']['listId'];
+        $fields = $form['fields'] ?? [];
+        if (!\is_array($fields)) {
+            return;
+        }
+
+        foreach ($fields as $field) {
+            if (!\is_array($field)) {
+                continue;
+            }
+
+            $type = $field['type'] ?? null;
+            $value = $field['value'] ?? null;
+
+            if ('firstName' == $type && !$fname) {
+                $fname = \is_string($value) ? $value : '';
+            } elseif ('lastName' == $type && !$lname) {
+                $lname = \is_string($value) ? $value : '';
+            } elseif ('email' == $type && !$email) {
+                $email = \is_string($value) ? $value : '';
+            } elseif ('mailchimp' == $type && $value) {
+                $options = $field['options'] ?? null;
+                $options = \is_array($options) ? $options : [];
+                $listId = $options['listId'] ?? null;
+
+                if (\is_scalar($listId)) {
+                    $listIds[] = (string) $listId;
+                }
             }
         }
 

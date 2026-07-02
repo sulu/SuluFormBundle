@@ -19,6 +19,8 @@ use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Form\Type\DynamicFormType;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Bundle\FormBundle\TitleProvider\TitleProviderPoolInterface;
+use Sulu\Component\Webspace\Analyzer\Attributes\RequestAttributes;
+use Sulu\Component\Webspace\Webspace;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +34,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class Builder implements BuilderInterface
 {
     /**
-     * @var FormInterface[]
+     * @var array<string, FormInterface<mixed>|null>
      */
     private $cache = [];
 
@@ -96,6 +98,9 @@ class Builder implements BuilderInterface
         $this->csrfProtection = $csrfProtection;
     }
 
+    /**
+     * @return FormInterface<mixed>|null
+     */
     public function buildByRequest(Request $request): ?FormInterface
     {
         foreach ($request->request->all() as $key => $parameters) {
@@ -145,11 +150,18 @@ class Builder implements BuilderInterface
         return null;
     }
 
+    /**
+     * @return FormInterface<mixed>|null
+     */
     public function build(int $id, string $type, string $typeId, ?string $locale = null, string $name = 'form'): ?FormInterface
     {
         if (!$locale) {
             $request = $this->requestStack->getCurrentRequest();
-            $locale = $request->getLocale();
+            $locale = $request ? $request->getLocale() : null;
+        }
+
+        if (!$locale) {
+            return null;
         }
 
         // Check if form was built before and return the cached form.
@@ -164,6 +176,8 @@ class Builder implements BuilderInterface
 
     /**
      * Returns formType and the built form.
+     *
+     * @return FormInterface<mixed>|null
      */
     protected function buildForm(int $id, string $type, string $typeId, string $locale, string $name): ?FormInterface
     {
@@ -196,10 +210,13 @@ class Builder implements BuilderInterface
 
     private function getKey(int $id, string $type, string $typeId, string $locale, string $name): string
     {
-        return \implode('__', \func_get_args());
+        return \implode('__', [(string) $id, $type, $typeId, $locale, $name]);
     }
 
-    private function createForm(string $name, string $type, string $typeId, string $locale, Form $formEntity, string $webspaceKey): FormInterface
+    /**
+     * @return FormInterface<mixed>
+     */
+    private function createForm(string $name, string $type, string $typeId, string $locale, Form $formEntity, ?string $webspaceKey): FormInterface
     {
         $defaults = $this->getDefaults($formEntity, $locale);
         $typeName = $this->titleProviderPool->get($type)->getTitle($typeId, $locale);
@@ -274,14 +291,20 @@ class Builder implements BuilderInterface
     private function getWebspaceKey(): ?string
     {
         $request = $this->requestStack->getCurrentRequest();
-        $webspaceKey = null;
-
-        if ($request->get('_sulu')) {
-            if ($request->get('_sulu')->getAttribute('webspace')) {
-                $webspaceKey = $request->get('_sulu')->getAttribute('webspace')->getKey();
-            }
+        if (null === $request) {
+            return null;
         }
 
-        return $webspaceKey;
+        $suluAttributes = $request->get('_sulu');
+        if (!$suluAttributes instanceof RequestAttributes) {
+            return null;
+        }
+
+        $webspace = $suluAttributes->getAttribute('webspace');
+        if (!$webspace instanceof Webspace) {
+            return null;
+        }
+
+        return $webspace->getKey();
     }
 }

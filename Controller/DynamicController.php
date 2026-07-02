@@ -138,10 +138,13 @@ class DynamicController
         $attachments = \array_filter(\array_values($dynamic->getFieldsByType(Dynamic::TYPE_ATTACHMENT)));
 
         foreach ($attachments as $mediaIds) {
+            if (!\is_array($mediaIds)) {
+                continue;
+            }
             foreach ($mediaIds as $mediaId) {
                 if ($mediaId) {
                     try {
-                        $this->mediaManager->delete($mediaId);
+                        $this->mediaManager->delete((int) $mediaId);
                     } catch (MediaNotFoundException $e) {
                         // Do nothing when media was removed before.
                         // @ignoreException
@@ -174,9 +177,9 @@ class DynamicController
         return \array_filter($filters);
     }
 
-    protected function loadForm(Request $request): Form
+    protected function loadForm(Request $request): ?Form
     {
-        $formId = (int) $request->get('form');
+        $formId = $request->query->getInt('form');
 
         if (!$formId) {
             throw new BadRequestHttpException('"form" is required parameter');

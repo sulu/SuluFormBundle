@@ -20,26 +20,23 @@ interface HelperInterface
     public const MAIL_RECEIVER_BCC = MailConfigurationInterface::TYPE_BCC;
 
     /**
-     * @param string|string[] $subject
-     * @param string|string[] $body
-     * @param string|string[] $toMail
-     * @param string|string[] $fromMail
-     * @param string|string[] $replyTo
+     * @param string|array<string|int, string>|null $toMail
+     * @param string|array<string|int, string>|null $fromMail
+     * @param string|array<string|int, string>|null $replyTo
      * @param \SplFileInfo[] $attachments
-     * @param string|string[] $ccMail
-     * @param string|string[] $bccMail
-     * @param string|string[] $plainText
+     * @param string|array<string|int, string> $ccMail
+     * @param string|array<string|int, string> $bccMail
      */
     public function sendMail(
-        $subject,
-        $body,
-        $toMail = null,
-        $fromMail = null,
+        ?string $subject,
+        string $body,
+        string|array|null $toMail = null,
+        string|array|null $fromMail = null,
         bool $html = true,
-        $replyTo = null,
+        string|array|null $replyTo = null,
         array $attachments = [],
-        $ccMail = [],
-        $bccMail = [],
-        $plainText = null
+        string|array $ccMail = [],
+        string|array $bccMail = [],
+        ?string $plainText = null
     ): int;
 }

@@ -32,7 +32,7 @@ interface DynamicListFactoryInterface
      *
      * @param Dynamic[] $dynamics
      *
-     * @return string[]
+     * @return array<array<int|string, mixed>>
      */
     public function build(array $dynamics, string $locale, string $builder = 'default'): array;
 

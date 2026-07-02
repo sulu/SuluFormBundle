@@ -85,6 +85,8 @@ class Handler implements HandlerInterface
 
     /**
      * Handle form.
+     *
+     * @param FormInterface<mixed> $form
      */
     public function handle(FormInterface $form, FormConfigurationInterface $configuration): bool
     {
@@ -116,6 +118,8 @@ class Handler implements HandlerInterface
 
     /**
      * Save form.
+     *
+     * @param FormInterface<mixed> $form
      */
     private function save(FormInterface $form, FormConfigurationInterface $configuration): void
     {
@@ -143,6 +147,9 @@ class Handler implements HandlerInterface
         );
     }
 
+    /**
+     * @param FormInterface<mixed> $form
+     */
     private function sendMails(FormInterface $form, FormConfigurationInterface $configuration): void
     {
         $attachments = $this->getAttachments($form, $configuration);
@@ -164,6 +171,7 @@ class Handler implements HandlerInterface
     /**
      * Send mail.
      *
+     * @param FormInterface<mixed> $form
      * @param \SplFileInfo[] $attachments
      *
      * @return void
@@ -212,6 +220,8 @@ class Handler implements HandlerInterface
     }
 
     /**
+     * @param FormInterface<mixed> $form
+     *
      * @return \SplFileInfo[]
      */
     private function getAttachments(FormInterface $form, FormConfigurationInterface $configuration): array
@@ -223,7 +233,7 @@ class Handler implements HandlerInterface
                 continue;
             }
 
-            /** @var FormInterface $formField */
+            /** @var FormInterface<mixed> $formField */
             $formField = $form[$field];
 
             if (!\count($formField->getData())) {
@@ -236,7 +246,6 @@ class Handler implements HandlerInterface
                 $files = [$files];
             }
 
-            /** @var UploadedFile $file */
             foreach ($files as $file) {
                 if (!$file instanceof UploadedFile) {
                     continue;
@@ -252,6 +261,8 @@ class Handler implements HandlerInterface
     /**
      * Upload media.
      *
+     * @param FormInterface<mixed> $form
+     *
      * @return mixed[]
      */
     private function uploadMedia(FormInterface $form, FormConfigurationInterface $configuration): array
@@ -263,7 +274,7 @@ class Handler implements HandlerInterface
                 continue;
             }
 
-            /** @var FormInterface $formField */
+            /** @var FormInterface<mixed> $formField */
             $formField = $form[$field];
 
             if (!\count($formField->getData())) {
@@ -277,7 +288,6 @@ class Handler implements HandlerInterface
                 $files = [$files];
             }
 
-            /** @var UploadedFile $file */
             foreach ($files as $file) {
                 if (!$file instanceof UploadedFile) {
                     continue;
@@ -320,6 +330,8 @@ class Handler implements HandlerInterface
     /**
      * Get media data.
      *
+     * @param FormInterface<mixed> $form
+     *
      * @return mixed[]
      */
     protected function getMediaData(
@@ -338,6 +350,7 @@ class Handler implements HandlerInterface
     /**
      * Get plain text variant for email, overridable and customizable per form.
      *
+     * @param FormInterface<mixed> $form
      * @param mixed[] $additionalData
      */
     protected function getPlainText(FormInterface $form, MailConfigurationInterface $configuration, array $additionalData): ?string
@@ -357,6 +370,9 @@ class Handler implements HandlerInterface
         );
     }
 
+    /**
+     * @param FormInterface<mixed> $form
+     */
     private function isSpamByHoneypot(FormInterface $form): bool
     {
         if (!$this->honeyPotField) {

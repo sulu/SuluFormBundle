@@ -28,7 +28,7 @@ class DynamicRepository extends EntityRepository
      * @param mixed[] $filters
      * @param string[] $sort
      *
-     * @return mixed[]
+     * @return Dynamic[]
      */
     public function findByFilters(array $filters, array $sort = [], ?int $limit = null, ?int $offset = null)
     {
@@ -82,22 +82,23 @@ class DynamicRepository extends EntityRepository
         $search = null;
         $searchFields = null;
 
-        if (isset($filters['fromDate'])) {
+        if (isset($filters['fromDate']) && \is_string($filters['fromDate'])) {
             $fromDate = $filters['fromDate'];
             unset($filters['fromDate']);
         }
 
-        if (isset($filters['toDate'])) {
+        if (isset($filters['toDate']) && \is_string($filters['toDate'])) {
             $toDate = $filters['toDate'];
             unset($filters['toDate']);
         }
 
-        if (isset($filters['search'])) {
+        if (isset($filters['search']) && \is_string($filters['search'])) {
             $search = $filters['search'];
             unset($filters['search']);
         }
 
-        if (isset($filters['searchFields'])) {
+        if (isset($filters['searchFields']) && \is_array($filters['searchFields'])) {
+            /** @var string[] $searchFields */
             $searchFields = $filters['searchFields'];
             unset($filters['searchFields']);
         }

@@ -107,6 +107,31 @@ class MailerHelperTest extends TestCase
     }
 
     /**
+     * When a form defines no recipient the configuration passes empty addresses.
+     *
+     * These must fall back to the addresses configured in the "sulu_form" config
+     * (constructor arguments), otherwise the notification mail would be lost.
+     */
+    public function testSendMailFallsBackToConfiguredAddressesWhenGivenEmptyRecipients()
+    {
+        $mail = new Email();
+        $mail->html('<html><head></head><body>text body</body></html>')
+            ->subject('test subject')
+            ->to('to@example.org')
+            ->from('from@example.org')
+            ->sender('sender@example.org');
+
+        $this->mailerMock->send($mail)->shouldBeCalled();
+
+        $this->mailerHelper->sendMail(
+            'test subject',
+            '<html><head></head><body>text body</body></html>',
+            [],
+            []
+        );
+    }
+
+    /**
      * Send mail to addresses and from an address, just plain text.
      */
     public function testSendMailSendsWithPlainTextAndNamedAddresses()

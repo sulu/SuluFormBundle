@@ -84,7 +84,13 @@ class DynamicListMetadataLoader implements ListMetadataLoaderInterface
         if (!\array_key_exists('id', $metadataOptions)) {
             return null;
         }
-        $entity = $this->formManager->findById($metadataOptions['id'], $locale);
+
+        $id = $metadataOptions['id'];
+        if (!\is_numeric($id)) {
+            return null;
+        }
+
+        $entity = $this->formManager->findById((int) $id, $locale);
 
         return $entity;
     }

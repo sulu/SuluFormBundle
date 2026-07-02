@@ -71,7 +71,7 @@ class BrevoListSelectController
                 new GetListsRequest(['limit' => self::PAGE_SIZE, 'offset' => $offset]),
             );
 
-            $lists = $response?->lists ?? [];
+            $lists = $response->lists ?? [];
             if ([] === $lists) {
                 break;
             }

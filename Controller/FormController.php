@@ -107,7 +107,7 @@ class FormController extends AbstractRestController implements SecuredController
             $listBuilder = $this->factory->create($this->getModelClass());
 
             // get fieldDescriptors
-            $fieldDescriptors = $this->fieldDescriptorFactory->getFieldDescriptors(Form::RESOURCE_KEY);
+            $fieldDescriptors = $this->fieldDescriptorFactory->getFieldDescriptors(Form::RESOURCE_KEY) ?? [];
 
             $this->restHelper->initializeListBuilder($listBuilder, $fieldDescriptors);
 
@@ -122,7 +122,7 @@ class FormController extends AbstractRestController implements SecuredController
             $limit = $listBuilder->getLimit() ?? 10;
         } else {
             // load all entities by filters
-            $list = $this->formManager->findAll($locale, $filters);
+            $list = $this->formManager->findAll($locale, $filters) ?? [];
 
             foreach ($list as $key => $entity) {
                 $list[$key] = $this->getApiEntity($entity, $locale);
@@ -171,6 +171,10 @@ class FormController extends AbstractRestController implements SecuredController
 
         // create entity
         $entity = $this->formManager->save($this->getData($request), $locale);
+
+        if (!$entity) {
+            throw new NotFoundHttpException('Form could not be created.');
+        }
 
         return $this->handleView($this->view($this->getApiEntity($entity, $locale), 201));
     }
@@ -229,7 +233,9 @@ class FormController extends AbstractRestController implements SecuredController
 
     public function getLocale(Request $request): string
     {
-        return $request->get('locale', $request->getLocale());
+        $locale = $request->get('locale');
+
+        return \is_string($locale) ? $locale : $request->getLocale();
     }
 
     /**
@@ -285,11 +291,9 @@ class FormController extends AbstractRestController implements SecuredController
      */
     protected function getLimit(array $filters): int
     {
-        if (!isset($filters['limit'])) {
-            return 10;
-        }
+        $limit = $filters['limit'] ?? null;
 
-        return $filters['limit'];
+        return \is_numeric($limit) ? (int) $limit : 10;
     }
 
     /**
@@ -297,11 +301,9 @@ class FormController extends AbstractRestController implements SecuredController
      */
     protected function getOffset(array $filters): int
     {
-        if (!isset($filters['offset'])) {
-            return 0;
-        }
+        $offset = $filters['offset'] ?? null;
 
-        return $filters['offset'];
+        return \is_numeric($offset) ? (int) $offset : 0;
     }
 
     /**
@@ -310,14 +312,19 @@ class FormController extends AbstractRestController implements SecuredController
     protected function getPage(array $filters): int
     {
         if (!isset($filters['page'])) {
-            if (isset($filters['limit']) && isset($filters['offset'])) {
-                return \intval(\floor($filters['offset'] / $filters['limit']) + 1);
+            $limit = $filters['limit'] ?? null;
+            $offset = $filters['offset'] ?? null;
+
+            if (\is_numeric($limit) && \is_numeric($offset) && (int) $limit > 0) {
+                return (int) (\floor((int) $offset / (int) $limit) + 1);
             }
 
             return 1;
         }
 
-        return $filters['page'];
+        $page = $filters['page'];
+
+        return \is_numeric($page) ? (int) $page : 1;
     }
 
     /**

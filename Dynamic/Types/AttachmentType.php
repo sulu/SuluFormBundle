@@ -39,6 +39,10 @@ class AttachmentType implements FormFieldTypeInterface
         );
     }
 
+    /**
+     * @param FormBuilderInterface<mixed> $builder
+     * @param array<string, mixed> $options
+     */
     public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $type = FileType::class;
@@ -50,18 +54,27 @@ class AttachmentType implements FormFieldTypeInterface
         $mimeTypes = [];
 
         $translation = $field->getTranslation($locale);
-        if (\is_array($translation->getOption('type'))) {
-            foreach ($translation->getOption('type') as $attachmentType) {
-                $mimeTypes[] = $attachmentType . '/*';
+        if (!$translation) {
+            return;
+        }
+
+        $attachmentTypes = $translation->getOption('type');
+        if (\is_array($attachmentTypes)) {
+            foreach ($attachmentTypes as $attachmentType) {
+                if (\is_string($attachmentType)) {
+                    $mimeTypes[] = $attachmentType . '/*';
+                }
             }
         }
 
+        $attr = \is_array($options['attr'] ?? null) ? $options['attr'] : [];
+
         if (!empty($mimeTypes)) {
-            $options['attr']['accept'] = \implode(',', $mimeTypes);
+            $attr['accept'] = \implode(',', $mimeTypes);
         }
 
         // File Constraint.
-        if ($translation->getOption('type') === ['image']) {
+        if (['image'] === $attachmentTypes) {
             $fileConstraint = new Image();
         } else {
             $fileConstraint = new File(['mimeTypes' => $mimeTypes]);
@@ -74,19 +87,24 @@ class AttachmentType implements FormFieldTypeInterface
             $allConstraints[] = new NotBlank();
         }
 
+        $constraints = \is_array($options['constraints'] ?? null) ? $options['constraints'] : [];
+
         // File Constraint.
         /* @phpstan-ignore argument.type */
-        $options['constraints'][] = new All(['constraints' => $allConstraints]);
+        $constraints[] = new All(['constraints' => $allConstraints]);
 
         // Max File Constraint.
-        if ($fileMax = (int) $translation->getOption('max')) {
-            $options['constraints'][] = new Count([
+        $maxOption = $translation->getOption('max');
+        if (\is_numeric($maxOption) && $fileMax = (int) $maxOption) {
+            $constraints[] = new Count([
                 'max' => $fileMax,
             ]);
 
-            $options['attr']['data-max'] = $fileMax;
+            $attr['data-max'] = $fileMax;
         }
 
+        $options['attr'] = $attr;
+        $options['constraints'] = $constraints;
         $options['multiple'] = true;
         $builder->add($field->getKey(), $type, $options);
     }

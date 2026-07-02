@@ -34,9 +34,17 @@ class RadioButtonsType implements FormFieldTypeInterface
         );
     }
 
+    /**
+     * @param FormBuilderInterface<mixed> $builder
+     * @param array<string, mixed> $options
+     */
     public function build(FormBuilderInterface $builder, FormField $field, string $locale, array $options): void
     {
         $translation = $field->getTranslation($locale);
+        if (!$translation) {
+            return;
+        }
+
         $options['expanded'] = true;
         $options['multiple'] = false;
         $options = $this->getChoiceOptions($translation, $options);

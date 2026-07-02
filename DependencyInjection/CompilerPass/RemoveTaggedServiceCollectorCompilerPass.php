@@ -44,6 +44,7 @@ class RemoveTaggedServiceCollectorCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         $disabledSerivcesAliases = $container->getParameter($this->disableParam);
+        $disabledSerivcesAliases = \is_array($disabledSerivcesAliases) ? $disabledSerivcesAliases : [];
         $taggedServices = $container->findTaggedServiceIds($this->tagName);
 
         foreach ($taggedServices as $id => $attributes) {

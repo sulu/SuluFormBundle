@@ -12,6 +12,8 @@
 namespace Sulu\Bundle\FormBundle\Configuration;
 
 use Sulu\Bundle\FormBundle\Entity\Dynamic;
+use Sulu\Bundle\FormBundle\Entity\Form;
+use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Media\CollectionStrategyInterface;
 
 /**
@@ -64,18 +66,19 @@ class FormConfigurationFactory
     public function buildByDynamic(Dynamic $dynamic): FormConfigurationInterface
     {
         $form = $dynamic->getForm();
+
         $locale = $dynamic->getLocale();
         $translation = $form->getTranslation($locale);
+        if (null === $translation) {
+            throw new \RuntimeException(\sprintf('The given form has no translation for locale "%s".', $locale));
+        }
 
         $config = $this->create($locale);
-        $config->setFileFields($this->getFileFieldsByDynamic($dynamic));
+        $config->setFileFields($this->getFileFieldsByDynamic($dynamic, $form));
         $config->setFileSave(!$translation->getDeactivateAttachmentSave());
 
-        $adminMailConfiguration = $this->buildAdminMailConfigurationByDynamic($dynamic);
-        $websiteMailConfiguration = $this->buildWebsiteMailConfigurationByDynamic($dynamic);
-
-        $config->setAdminMailConfiguration($adminMailConfiguration);
-        $config->setWebsiteMailConfiguration($websiteMailConfiguration);
+        $config->setAdminMailConfiguration($this->buildAdminMailConfigurationByDynamic($dynamic, $form, $translation));
+        $config->setWebsiteMailConfiguration($this->buildWebsiteMailConfigurationByDynamic($dynamic, $form, $translation));
 
         return $config;
     }
@@ -83,11 +86,9 @@ class FormConfigurationFactory
     /**
      * Build admin mail configuration by dynamic entity.
      */
-    private function buildAdminMailConfigurationByDynamic(Dynamic $dynamic): ?MailConfiguration
+    private function buildAdminMailConfigurationByDynamic(Dynamic $dynamic, Form $form, FormTranslation $translation): ?MailConfiguration
     {
-        $form = $dynamic->getForm();
         $locale = $dynamic->getLocale();
-        $translation = $form->getTranslation($locale);
 
         if ($translation->getDeactivateNotifyMails()) {
             return null;
@@ -97,7 +98,7 @@ class FormConfigurationFactory
 
         $adminMailConfiguration->setSubject($translation->getSubject());
         $adminMailConfiguration->setFrom(
-            $this->getEmail($translation->getFromEmail(), $translation->getFromName())
+            $this->getEmail($translation->getFromEmail(), $translation->getFromName()) ?: []
         );
 
         // Set Receivers for the email.
@@ -107,6 +108,10 @@ class FormConfigurationFactory
 
         foreach ($translation->getReceivers() as $receiver) {
             $email = $this->getEmail($receiver->getEmail(), $receiver->getName());
+
+            if (null === $email) {
+                continue;
+            }
 
             if (MailConfigurationInterface::TYPE_TO == $receiver->getType()) {
                 $toList = \array_merge($toList, $email);
@@ -122,7 +127,7 @@ class FormConfigurationFactory
         $adminMailConfiguration->setBcc(\array_filter($bccList));
 
         if ($translation->getReplyTo()) {
-            $adminMailConfiguration->setReplyTo($this->getEmailFromDynamic($dynamic));
+            $adminMailConfiguration->setReplyTo($this->getEmailFromDynamic($dynamic) ?: []);
         }
 
         // Set attachment configuration.
@@ -131,7 +136,7 @@ class FormConfigurationFactory
         // Set template.
         $adminMailConfiguration->setTemplate($this->mailAdminTemplate);
         $adminMailConfiguration->setPlainTextTemplate($this->mailAdminPlainTextTemplate);
-        $adminMailConfiguration->setTemplateAttributes($this->getTemplateAttributesFromDynamic($dynamic));
+        $adminMailConfiguration->setTemplateAttributes($this->getTemplateAttributesFromDynamic($dynamic, $form));
 
         return $adminMailConfiguration;
     }
@@ -139,11 +144,9 @@ class FormConfigurationFactory
     /**
      * Build website mail configuration by form translation.
      */
-    private function buildWebsiteMailConfigurationByDynamic(Dynamic $dynamic): ?MailConfiguration
+    private function buildWebsiteMailConfigurationByDynamic(Dynamic $dynamic, Form $form, FormTranslation $translation): ?MailConfiguration
     {
-        $form = $dynamic->getForm();
         $locale = $dynamic->getLocale();
-        $translation = $form->getTranslation($locale);
 
         if ($translation->getDeactivateCustomerMails()) {
             return null;
@@ -159,7 +162,7 @@ class FormConfigurationFactory
 
         $websiteMailConfiguration->setSubject($translation->getSubject());
         $websiteMailConfiguration->setFrom(
-            $this->getEmail($translation->getFromEmail(), $translation->getFromName())
+            $this->getEmail($translation->getFromEmail(), $translation->getFromName()) ?: []
         );
         $websiteMailConfiguration->setTo($customerEmail);
 
@@ -169,7 +172,7 @@ class FormConfigurationFactory
         // Set template.
         $websiteMailConfiguration->setTemplate($this->mailWebsiteTemplate);
         $websiteMailConfiguration->setPlainTextTemplate($this->mailWebsitePlainTextTemplate);
-        $websiteMailConfiguration->setTemplateAttributes($this->getTemplateAttributesFromDynamic($dynamic));
+        $websiteMailConfiguration->setTemplateAttributes($this->getTemplateAttributesFromDynamic($dynamic, $form));
 
         return $websiteMailConfiguration;
     }
@@ -179,17 +182,15 @@ class FormConfigurationFactory
      *
      * @return int[]
      */
-    private function getFileFieldsByDynamic(Dynamic $dynamic): array
+    private function getFileFieldsByDynamic(Dynamic $dynamic, Form $form): array
     {
-        $form = $dynamic->getForm();
-
         $fields = $form->getFieldsByType(Dynamic::TYPE_ATTACHMENT);
 
         if (0 === \count($fields)) {
             return [];
         }
 
-        $collectionId = $this->getCollectionIdByDynamic($dynamic);
+        $collectionId = $this->getCollectionIdByDynamic($dynamic, $form);
 
         $fileFields = [];
         foreach ($fields as $field) {
@@ -202,13 +203,23 @@ class FormConfigurationFactory
     /**
      * Get collection id by dynamic.
      */
-    private function getCollectionIdByDynamic(Dynamic $dynamic): int
+    private function getCollectionIdByDynamic(Dynamic $dynamic, Form $form): int
     {
-        $form = $dynamic->getForm();
+        $formId = $form->getId();
+
+        if (null === $formId) {
+            throw new \RuntimeException('The given form has no id.');
+        }
+
+        // The collection title uses the default-locale fallback translation.
+        $translation = $form->getTranslation($dynamic->getLocale(), false, true);
+        if (null === $translation) {
+            throw new \RuntimeException(\sprintf('The given form has no translation for locale "%s".', $dynamic->getLocale()));
+        }
 
         return $this->collectionStrategy->getCollectionId(
-            $form->getId(),
-            $form->getTranslation($dynamic->getLocale(), false, true)->getTitle(),
+            $formId,
+            $translation->getTitle(),
             $dynamic->getType(),
             $dynamic->getTypeId(),
             $dynamic->getLocale()
@@ -220,11 +231,11 @@ class FormConfigurationFactory
      *
      * @return mixed[]
      */
-    private function getTemplateAttributesFromDynamic(Dynamic $dynamic): array
+    private function getTemplateAttributesFromDynamic(Dynamic $dynamic, Form $form): array
     {
         return [
             // TODO FIXME this is currently overwritten in RequestListener to get the medias correctly for emails.
-            'formEntity' => $dynamic->getForm()->serializeForLocale($dynamic->getLocale(), $dynamic),
+            'formEntity' => $form->serializeForLocale($dynamic->getLocale(), $dynamic),
         ];
     }
 
@@ -238,7 +249,7 @@ class FormConfigurationFactory
         $emails = $dynamic->getFieldsByType(Dynamic::TYPE_EMAIL);
         $email = \reset($emails);
 
-        return $this->getEmail($email);
+        return $this->getEmail(\is_string($email) ? $email : null);
     }
 
     /**

@@ -19,11 +19,16 @@ use Sulu\Bundle\FormBundle\Entity\FormFieldTranslation;
 trait ChoiceTrait
 {
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     protected function getChoices(FormFieldTranslation $translation): array
     {
-        $choices = \preg_split('/\r\n|\r|\n/', $translation->getOption('choices'), -1, \PREG_SPLIT_NO_EMPTY);
+        $choicesOption = $translation->getOption('choices');
+        $choices = \preg_split('/\r\n|\r|\n/', \is_string($choicesOption) ? $choicesOption : '', -1, \PREG_SPLIT_NO_EMPTY);
+
+        if (false === $choices) {
+            return [];
+        }
 
         return \array_combine($choices, $choices);
     }
@@ -61,6 +66,8 @@ trait ChoiceTrait
      */
     private function getDefaultOptions(string $value): array
     {
-        return \preg_split('/\r\n|\r|\n/', $value, -1, \PREG_SPLIT_NO_EMPTY);
+        $options = \preg_split('/\r\n|\r|\n/', $value, -1, \PREG_SPLIT_NO_EMPTY);
+
+        return false === $options ? [] : $options;
     }
 }

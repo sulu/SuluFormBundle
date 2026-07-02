@@ -23,12 +23,17 @@ class Version20260610110836Test extends SuluTestCase
 {
     private Connection $connection;
 
+    private int $formId;
+
     protected function setUp(): void
     {
         self::bootKernel();
         self::purgeDatabase();
 
         $this->connection = self::getEntityManager()->getConnection();
+
+        $this->connection->insert('fo_forms', ['defaultLocale' => 'en']);
+        $this->formId = (int) $this->connection->lastInsertId();
     }
 
     public function testUpConvertsSingularTypesToPlural(): void
@@ -91,6 +96,7 @@ class Version20260610110836Test extends SuluTestCase
             'typeId' => $typeId,
             'locale' => 'en',
             'webspaceKey' => 'sulu_io',
+            'formId' => $this->formId,
             'created' => $now,
             'changed' => $now,
         ]);

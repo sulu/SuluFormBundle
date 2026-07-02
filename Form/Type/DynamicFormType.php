@@ -27,6 +27,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * @extends AbstractType<Dynamic>
+ */
 class DynamicFormType extends AbstractType
 {
     /**
@@ -58,6 +61,9 @@ class DynamicFormType extends AbstractType
     }
 
     /**
+     * @param FormBuilderInterface<mixed> $builder
+     * @param array<string, mixed> $options
+     *
      * @return void
      */
     public function buildForm(FormBuilderInterface $builder, array $options)

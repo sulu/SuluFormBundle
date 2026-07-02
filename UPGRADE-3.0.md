@@ -2,6 +2,51 @@
 
 ## 3.0.0
 
+### Stricter type declarations
+
+To enable stricter static analysis, several public signatures have been tightened. These are breaking changes for code
+that extends the affected classes, implements the affected interfaces, or relies on the previous return types:
+
+- **`Entity\FormFieldTranslation::getDefaultValue()`** now returns `?string` and **`setDefaultValue()`** now expects
+  `?string` (both were `mixed`).
+- **`Mail\HelperInterface::sendMail()`** parameters now have native types: `$subject` is `?string`, `$body` is
+  `string`, and the address parameters (`$toMail`, `$fromMail`, `$replyTo`, `$ccMail`, `$bccMail`) are
+  `string|array|null`. Custom implementations of `HelperInterface` must adjust their signatures accordingly.
+- **`ListBuilder\DynamicListBuilderInterface::build()`** and **`ListBuilder\DynamicListFactoryInterface::build()`** now
+  document a `@return array<array<int|string, mixed>>` (a list of row arrays) instead of the previous `string[]` /
+  `mixed[]`.
+- **`Controller\FormController::getLocale()`** now declares a `: string` return type and **`getLimit()`**,
+  **`getOffset()`** and **`getPage()`** now declare `: int`. Subclasses overriding these methods must add the matching
+  return types.
+- **`Controller\DynamicController::loadForm()`** now returns `?Form` instead of `Form`. Subclasses overriding it must
+  match the nullable return type.
+
+### Form submissions are now deleted together with their form
+
+Previously a submission (`Dynamic`) kept a nullable reference to its form: deleting a form set
+`fo_dynamics.formId` to `null` (`on-delete=SET NULL`) and the orphaned submission stayed in the database
+indefinitely. The relation is now `on-delete=CASCADE` with a non-nullable `formId`, so deleting a form also
+deletes its submissions. As a result **`Dynamic::getForm()` always returns a `Form`** (never `null`), and the
+`Dynamic` constructor now requires a non-null `Form`.
+
+#### Database migration (required)
+
+Run the shipped migration — it removes existing orphaned submissions and applies the non-nullable, cascading
+relation in one step:
+
+```bash
+bin/console doctrine:migrations:migrate
+```
+
+The migration (`Sulu\Bundle\FormBundle\Migrations\Version20260702120000`) permanently deletes submissions whose
+form no longer exists. **This removes data — make a backup before running it.**
+
+### Fixed `Dynamic::getDate()`
+
+`Dynamic::getDate()` returned the value of the `data` field instead of the `date` field due to a typo. It now correctly
+returns the `date` field. If you depended on the previous (incorrect) behaviour, read the `data` field explicitly via
+`getField('data')`.
+
 ### Removed static forms
 
 The deprecated static forms feature has been removed. It is fully superseded by dynamic (admin-built) forms. The
