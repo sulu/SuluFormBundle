@@ -119,37 +119,25 @@ UPDATE `fo_form_fields` SET `type` = 'brevo' WHERE `type` = 'sendinblue';
 
 The `SingleFormSelection` content type has been replaced with the new Sulu 3.0 content resolution architecture using `PropertyResolverInterface` and `ResourceLoaderInterface`.
 
-#### Template changes required
+#### No template changes required
 
-The form is no longer built during content resolution. Instead, use the new `sulu_form_build` Twig function to build the form at render time:
+The selected form again resolves to a ready-to-render `FormView`, so existing 2.6
+templates keep working unchanged:
 
-```diff
+```twig
 {% if content.form %}
     {% if app.request.get('send') != 'true' %}
--        {% form_theme content.form '@SuluForm/themes/basic.html.twig' %}
--        {{ form(content.form) }}
-+        {% set form_view = sulu_form_build(content.form, 'page', resource.id) %}
-+        {% form_theme form_view '@SuluForm/themes/basic.html.twig' %}
-+        {{ form(form_view) }}
+        {% form_theme content.form '@SuluForm/themes/basic.html.twig' %}
+        {{ form(content.form) }}
     {% else %}
         {{ view.form.entity.successText|raw }}
     {% endif %}
 {% endif %}
 ```
 
-The resolved content now contains:
-- `entity` - the Form entity
-- `data` - serialized form data (previously in view)
-
-#### New Twig function
-
-A new Twig function `sulu_form_build` was added:
-
-```php
-sulu_form_build(array $formContent, string $type, string $typeId, ?string $locale = null, string $name = 'form'): ?FormView
-```
-
-The existing `sulu_form_get_by_id` function still works if you prefer to build forms by ID directly.
+The resolved content now exposes:
+- `content.form` — the built `FormView` (or `null` when no form is selected/buildable)
+- `view.form.entity` — the serialized form data (e.g. `view.form.entity.successText`)
 
 ### Removed TaggedServiceCollectorCompilerPass
 
@@ -187,8 +175,48 @@ The `StructureTitleProvider` has been refactored to use Sulu 3.0's new content a
 - Uses `getResource()->getId()` instead of `getUuid()`
 - Gets title from `getTemplateData()['title']`
 
-If you extended this class, update your code accordingly. This class is now final, to override it decorate the 
+If you extended this class, update your code accordingly. This class is now final, to override it decorate the
 `sulu_form.title_provider.page` service.
+
+### Form type now uses the plural resourceKey
+
+The form "type" — the title-provider alias and the value stored in `fo_dynamics.type`
+for each submission — is now the content type's plural resourceKey (`pages`, `articles`,
+`snippets`) instead of the former singular key (`page`, `article`, `snippet`). If you
+register a custom title provider, tag it with the plural resourceKey as its `alias`.
+
+#### Database migration (required)
+
+This bundle now requires `doctrine/doctrine-migrations-bundle` (^3.3) and ships a
+migration that converts existing `fo_dynamics.type` values to the plural keys. After
+upgrading, run:
+
+```bash
+bin/console doctrine:migrations:migrate
+```
+
+The migration (`Sulu\Bundle\FormBundle\Migrations\Version20260610110836`) maps
+`page→pages`, `article→articles`, `snippet→snippets` and is reversible.
+
+#### Dynamic list configuration
+
+If you configured `sulu_form.dynamic_lists` with a `type` filter, update it to the
+plural key:
+
+```diff
+ sulu_form:
+     dynamic_lists:
+         my_list:
+-            type: page
++            type: pages
+```
+
+#### Media collections (tree strategy only)
+
+If you use the tree media-collection strategy, uploaded-file collection keys include
+the type (`sulu_form.<formId>.<type>_<typeId>`). New uploads will use `pages_…`
+instead of `page_…`; collections created before the upgrade remain in place and are
+not reused. No data is lost.
 
 ### Deprecated Symfony methods removed
 

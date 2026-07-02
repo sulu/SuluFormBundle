@@ -14,14 +14,24 @@ declare(strict_types=1);
 namespace Sulu\Bundle\FormBundle\Tests\Functional\Infrastructure\Sulu\Content\ResourceLoader;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Entity\FormTranslation;
+use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Infrastructure\Sulu\Content\ResourceLoader\FormResourceLoader;
 use Sulu\Bundle\FormBundle\Repository\FormRepository;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
+use Sulu\Page\Domain\Model\Page;
+use Sulu\Page\Domain\Model\PageDimensionContent;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class FormResourceLoaderTest extends SuluTestCase
 {
+    use ProphecyTrait;
+
     private EntityManagerInterface $entityManager;
 
     private FormResourceLoader $loader;
@@ -34,7 +44,14 @@ class FormResourceLoaderTest extends SuluTestCase
         $container = static::getContainer();
         /** @var FormRepository $repository */
         $repository = $container->get('sulu_form.repository.form');
-        $this->loader = new FormResourceLoader($repository);
+        /** @var RequestStack $requestStack */
+        $requestStack = $container->get('request_stack');
+
+        $request = new Request();
+        $request->attributes->set('object', new PageDimensionContent(new Page('page-1')));
+        $requestStack->push($request);
+
+        $this->loader = new FormResourceLoader($repository, $this->createBuilder(), $requestStack);
         $this->entityManager = static::getEntityManager();
     }
 
@@ -78,8 +95,8 @@ class FormResourceLoaderTest extends SuluTestCase
 
         $this->assertArrayHasKey($formEn->getId(), $result);
         $this->assertArrayHasKey($formDeOnly->getId(), $result);
-        $this->assertSame('title-en', $result[$formEn->getId()]->getTranslation('en')?->getTitle());
-        $this->assertSame('title-de', $result[$formDeOnly->getId()]->getTranslation('de')?->getTitle());
+        $this->assertSame('title-en', $result[$formEn->getId()]['entity']['title']);
+        $this->assertSame('title-de', $result[$formDeOnly->getId()]['entity']['title']);
     }
 
     public function testLoadDoesNotFallBackWhenShadowLocaleAlsoMissing(): void
@@ -133,7 +150,21 @@ class FormResourceLoaderTest extends SuluTestCase
 
         $this->assertCount(1, $result);
         $this->assertArrayHasKey($form->getId(), $result);
-        $this->assertSame('title-en', $result[$form->getId()]->getTranslation('en')?->getTitle());
+        $this->assertSame('title-en', $result[$form->getId()]['entity']['title']);
+    }
+
+    public function testLoadReturnsEmptyWhenNotInRenderRequest(): void
+    {
+        $form = $this->createForm(['en']);
+        $this->entityManager->flush();
+
+        /** @var RequestStack $requestStack */
+        $requestStack = static::getContainer()->get('request_stack');
+        $requestStack->pop();
+
+        $result = $this->loader->load([(string) $form->getId()], 'en');
+
+        $this->assertSame([], $result);
     }
 
     public function testLoadCastsStringIdsToInt(): void
@@ -149,6 +180,17 @@ class FormResourceLoaderTest extends SuluTestCase
     public function testGetKey(): void
     {
         $this->assertSame('form', FormResourceLoader::getKey());
+    }
+
+    private function createBuilder(): BuilderInterface
+    {
+        $form = $this->prophesize(FormInterface::class);
+        $form->createView()->willReturn(new FormView());
+
+        $builder = $this->prophesize(BuilderInterface::class);
+        $builder->build(\Prophecy\Argument::cetera())->willReturn($form->reveal());
+
+        return $builder->reveal();
     }
 
     /**

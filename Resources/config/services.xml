@@ -55,6 +55,8 @@
         <service id="sulu_form.form_resource_loader"
                  class="Sulu\Bundle\FormBundle\Infrastructure\Sulu\Content\ResourceLoader\FormResourceLoader">
             <argument type="service" id="sulu_form.repository.form"/>
+            <argument type="service" id="sulu_form.builder"/>
+            <argument type="service" id="request_stack"/>
             <tag name="sulu_content.resource_loader" key="form"/>
         </service>
 
@@ -149,7 +151,6 @@
         <service id="sulu_form.twig_extension" class="Sulu\Bundle\FormBundle\Twig\FormTwigExtension">
             <tag name="twig.extension"/>
             <argument type="service" id="sulu_form.builder"/>
-            <argument type="service" id="request_stack"/>
         </service>
 
         <!-- Checksum -->

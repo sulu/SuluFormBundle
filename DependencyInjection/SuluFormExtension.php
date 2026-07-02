@@ -56,6 +56,14 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
             );
         }
 
+        if ($container->hasExtension('doctrine_migrations')) {
+            $container->prependExtensionConfig('doctrine_migrations', [
+                'migrations_paths' => [
+                    'Sulu\\Bundle\\FormBundle\\Migrations' => \dirname(__DIR__) . '/migrations',
+                ],
+            ]);
+        }
+
         if ($container->hasExtension('fos_js_routing')) {
             $container->prependExtensionConfig(
                 'fos_js_routing',

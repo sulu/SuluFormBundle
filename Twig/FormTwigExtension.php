@@ -11,11 +11,8 @@
 
 namespace Sulu\Bundle\FormBundle\Twig;
 
-use Sulu\Bundle\FormBundle\Entity\Form;
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
-use Sulu\Content\Domain\Model\ShadowInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -23,7 +20,6 @@ class FormTwigExtension extends AbstractExtension
 {
     public function __construct(
         private BuilderInterface $formBuilder,
-        private RequestStack $requestStack,
     ) {
     }
 
@@ -31,7 +27,6 @@ class FormTwigExtension extends AbstractExtension
     {
         return [
             new TwigFunction('sulu_form_get_by_id', [$this, 'getFormById']),
-            new TwigFunction('sulu_form_build', [$this, 'getFormByContent']),
         ];
     }
 
@@ -44,45 +39,5 @@ class FormTwigExtension extends AbstractExtension
         }
 
         return $form->createView();
-    }
-
-    /**
-     * @param array{entity?: Form, data?: array<string, mixed>} $formContent
-     */
-    public function getFormByContent(array $formContent, string $type, string $typeId, ?string $locale = null, string $name = 'form'): ?FormView
-    {
-        $form = $formContent['entity'] ?? null;
-        if (!$form instanceof Form) {
-            return null;
-        }
-
-        $formId = $form->getId();
-        if (null === $formId) {
-            return null;
-        }
-
-        $request = $this->requestStack->getCurrentRequest();
-        $object = $request?->attributes->get('object');
-        $shadowLocale = $object instanceof ShadowInterface ? $object->getShadowLocale() : null;
-
-        $builtForm = $this->formBuilder->build(
-            $formId,
-            $type,
-            $typeId,
-            $locale,
-            $name
-        );
-
-        if (null === $builtForm && null !== $shadowLocale) {
-            $builtForm = $this->formBuilder->build(
-                $formId,
-                $type,
-                $typeId,
-                $shadowLocale,
-                $name
-            );
-        }
-
-        return $builtForm?->createView();
     }
 }

@@ -14,18 +14,12 @@ declare(strict_types=1);
 namespace Sulu\Bundle\FormBundle\Tests\Unit\Twig;
 
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Sulu\Bundle\FormBundle\Entity\Form;
-use Sulu\Bundle\FormBundle\Entity\FormTranslation;
 use Sulu\Bundle\FormBundle\Form\BuilderInterface;
 use Sulu\Bundle\FormBundle\Twig\FormTwigExtension;
-use Sulu\Content\Domain\Model\ShadowInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class FormTwigExtensionTest extends TestCase
 {
@@ -36,18 +30,14 @@ class FormTwigExtensionTest extends TestCase
      */
     private $formBuilder;
 
-    private RequestStack $requestStack;
-
     private FormTwigExtension $extension;
 
     protected function setUp(): void
     {
         $this->formBuilder = $this->prophesize(BuilderInterface::class);
-        $this->requestStack = new RequestStack();
 
         $this->extension = new FormTwigExtension(
-            $this->formBuilder->reveal(),
-            $this->requestStack
+            $this->formBuilder->reveal()
         );
     }
 
@@ -56,7 +46,6 @@ class FormTwigExtensionTest extends TestCase
         $names = \array_map(static fn ($function) => $function->getName(), $this->extension->getFunctions());
 
         $this->assertContains('sulu_form_get_by_id', $names);
-        $this->assertContains('sulu_form_build', $names);
     }
 
     public function testGetFormByIdReturnsNullWhenBuilderReturnsNull(): void
@@ -79,199 +68,5 @@ class FormTwigExtensionTest extends TestCase
             ->willReturn($formInterface->reveal());
 
         $this->assertSame($view, $this->extension->getFormById(7, 'page', 'tpl', 'en'));
-    }
-
-    public function testGetFormByContentReturnsNullWhenEntityMissing(): void
-    {
-        $this->formBuilder->build(Argument::cetera())->shouldNotBeCalled();
-
-        $this->assertNull($this->extension->getFormByContent([], 'page', 'tpl'));
-    }
-
-    public function testGetFormByContentReturnsNullWhenEntityIsNotForm(): void
-    {
-        $this->formBuilder->build(Argument::cetera())->shouldNotBeCalled();
-
-        $this->assertNull($this->extension->getFormByContent(['entity' => new \stdClass()], 'page', 'tpl'));
-    }
-
-    public function testGetFormByContentReturnsNullWhenFormHasNoId(): void
-    {
-        $form = new Form();
-        $form->setDefaultLocale('en');
-
-        $this->formBuilder->build(Argument::cetera())->shouldNotBeCalled();
-
-        $this->assertNull($this->extension->getFormByContent(['entity' => $form], 'page', 'tpl'));
-    }
-
-    public function testGetFormByContentBuildsWithExplicitLocale(): void
-    {
-        $form = $this->createForm(5, ['en', 'de'], 'en');
-
-        $view = new FormView();
-        $formInterface = $this->prophesize(FormInterface::class);
-        $formInterface->createView()->willReturn($view);
-
-        $this->formBuilder->build(5, 'page', 'tpl', 'de', 'form')
-            ->shouldBeCalledOnce()
-            ->willReturn($formInterface->reveal());
-
-        $result = $this->extension->getFormByContent(['entity' => $form], 'page', 'tpl', 'de');
-
-        $this->assertSame($view, $result);
-    }
-
-    public function testGetFormByContentBuildsWithNullLocaleWhenNoRequest(): void
-    {
-        $form = $this->createForm(5, ['en'], 'en');
-
-        $view = new FormView();
-        $formInterface = $this->prophesize(FormInterface::class);
-        $formInterface->createView()->willReturn($view);
-
-        $this->formBuilder->build(5, 'page', 'tpl', null, 'form')
-            ->shouldBeCalledOnce()
-            ->willReturn($formInterface->reveal());
-
-        $result = $this->extension->getFormByContent(['entity' => $form], 'page', 'tpl');
-
-        $this->assertSame($view, $result);
-    }
-
-    public function testGetFormByContentDoesNotFallBackWhenBuildSucceeds(): void
-    {
-        $form = $this->createForm(5, ['en', 'de'], 'en');
-
-        $shadowContent = $this->prophesize(ShadowInterface::class);
-        $shadowContent->getShadowLocale()->willReturn('de');
-
-        $request = new Request();
-        $request->attributes->set('object', $shadowContent->reveal());
-        $this->requestStack->push($request);
-
-        $view = new FormView();
-        $formInterface = $this->prophesize(FormInterface::class);
-        $formInterface->createView()->willReturn($view);
-
-        $this->formBuilder->build(5, 'page', 'tpl', 'en', 'form')
-            ->shouldBeCalledOnce()
-            ->willReturn($formInterface->reveal());
-
-        $this->formBuilder->build(5, 'page', 'tpl', 'de', 'form')
-            ->shouldNotBeCalled();
-
-        $result = $this->extension->getFormByContent(['entity' => $form], 'page', 'tpl', 'en');
-
-        $this->assertSame($view, $result);
-    }
-
-    public function testGetFormByContentFallsBackToShadowLocaleWhenBuildReturnsNull(): void
-    {
-        $form = $this->createForm(5, ['de'], 'de');
-
-        $shadowContent = $this->prophesize(ShadowInterface::class);
-        $shadowContent->getShadowLocale()->willReturn('de');
-
-        $request = new Request();
-        $request->attributes->set('object', $shadowContent->reveal());
-        $this->requestStack->push($request);
-
-        $view = new FormView();
-        $formInterface = $this->prophesize(FormInterface::class);
-        $formInterface->createView()->willReturn($view);
-
-        $this->formBuilder->build(5, 'page', 'tpl', 'en', 'form')
-            ->shouldBeCalledOnce()
-            ->willReturn(null);
-
-        $this->formBuilder->build(5, 'page', 'tpl', 'de', 'form')
-            ->shouldBeCalledOnce()
-            ->willReturn($formInterface->reveal());
-
-        $result = $this->extension->getFormByContent(['entity' => $form], 'page', 'tpl', 'en');
-
-        $this->assertSame($view, $result);
-    }
-
-    public function testGetFormByContentReturnsNullWhenNoShadowFallbackAvailable(): void
-    {
-        $form = $this->createForm(5, ['en'], 'en');
-
-        $request = new Request();
-        $this->requestStack->push($request);
-
-        $this->formBuilder->build(5, 'page', 'tpl', 'fr', 'form')
-            ->shouldBeCalledOnce()
-            ->willReturn(null);
-
-        $result = $this->extension->getFormByContent(['entity' => $form], 'page', 'tpl', 'fr');
-
-        $this->assertNull($result);
-    }
-
-    public function testGetFormByContentDoesNotFallBackWhenShadowLocaleIsNull(): void
-    {
-        $form = $this->createForm(5, ['en'], 'en');
-
-        $shadowContent = $this->prophesize(ShadowInterface::class);
-        $shadowContent->getShadowLocale()->willReturn(null);
-
-        $request = new Request();
-        $request->attributes->set('object', $shadowContent->reveal());
-        $this->requestStack->push($request);
-
-        $this->formBuilder->build(5, 'page', 'tpl', 'fr', 'form')
-            ->shouldBeCalledOnce()
-            ->willReturn(null);
-
-        $result = $this->extension->getFormByContent(['entity' => $form], 'page', 'tpl', 'fr');
-
-        $this->assertNull($result);
-    }
-
-    public function testGetFormByContentReturnsNullWhenShadowFallbackAlsoFails(): void
-    {
-        $form = $this->createForm(5, [], 'en');
-
-        $shadowContent = $this->prophesize(ShadowInterface::class);
-        $shadowContent->getShadowLocale()->willReturn('de');
-
-        $request = new Request();
-        $request->attributes->set('object', $shadowContent->reveal());
-        $this->requestStack->push($request);
-
-        $this->formBuilder->build(5, 'page', 'tpl', 'en', 'form')
-            ->shouldBeCalledOnce()
-            ->willReturn(null);
-
-        $this->formBuilder->build(5, 'page', 'tpl', 'de', 'form')
-            ->shouldBeCalledOnce()
-            ->willReturn(null);
-
-        $result = $this->extension->getFormByContent(['entity' => $form], 'page', 'tpl', 'en');
-
-        $this->assertNull($result);
-    }
-
-    /**
-     * @param string[] $translationLocales
-     */
-    private function createForm(int $id, array $translationLocales, string $defaultLocale): Form
-    {
-        $form = new Form();
-        $form->setDefaultLocale($defaultLocale);
-
-        foreach ($translationLocales as $locale) {
-            $translation = new FormTranslation();
-            $translation->setLocale($locale);
-            $translation->setTitle('title-' . $locale);
-            $translation->setForm($form);
-            $form->addTranslation($translation);
-        }
-
-        (new \ReflectionProperty(Form::class, 'id'))->setValue($form, $id);
-
-        return $form;
     }
 }
