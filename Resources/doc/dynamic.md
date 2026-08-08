@@ -100,6 +100,16 @@ has been submitted successfully!
 </html>
 ```
 
+If you're displaying multiple forms on the same template, you can check the form query string parameter to know which one has been submitted
+
+```twig
+{% if content.form %}
+    {% if app.request.get('send') == 'true' and app.request.get('form') == view.form.entity.formId %}
+        {{ view.form.entity.successText|raw }}
+    {% endif %}
+{% endif %}
+```
+
 For a custom theme look at [theming](theming.md "Theming for dynamic forms").
 
 ## Create Form

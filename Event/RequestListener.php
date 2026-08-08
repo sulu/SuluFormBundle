@@ -109,7 +109,7 @@ class RequestListener implements ResetInterface
             $dynFormSavedEvent = new DynFormSavedEvent($serializedObject, $dynamic);
             $this->eventDispatcher->dispatch($dynFormSavedEvent, DynFormSavedEvent::NAME);
 
-            $response = new RedirectResponse('?send=true');
+            $response = new RedirectResponse('?send=true&form=' . $dynamic->getForm()->getId());
             $event->setResponse($response);
         }
     }

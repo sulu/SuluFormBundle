@@ -88,6 +88,6 @@ class HelperTestCase extends SuluTestCase
 
         $this->client->submit($formElm);
         $this->assertResponseStatusCodeSame(302);
-        $this->assertResponseRedirects('?send=true');
+        $this->assertResponseRedirects('?send=true&form=' . $form->getId());
     }
 }
