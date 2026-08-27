@@ -295,7 +295,7 @@ class Builder implements BuilderInterface
             return null;
         }
 
-        $suluAttributes = $request->get('_sulu');
+        $suluAttributes = $request->attributes->get('_sulu');
         if (!$suluAttributes instanceof RequestAttributes) {
             return null;
         }
