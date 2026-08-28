@@ -50,7 +50,9 @@ final class Version20260702120000 extends AbstractMigration
         $newTable = clone $table;
 
         foreach ($newTable->getForeignKeys() as $foreignKey) {
-            $newTable->removeForeignKey($foreignKey->getName());
+            if (0 === \strcasecmp($foreignKey->getForeignTableName(), self::FORM_TABLE)) {
+                $newTable->removeForeignKey($foreignKey->getName());
+            }
         }
 
         $newTable->getColumn('formId')->setNotnull($notnull);
