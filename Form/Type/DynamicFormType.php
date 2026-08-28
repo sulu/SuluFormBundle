@@ -225,7 +225,7 @@ class DynamicFormType extends AbstractType
         $resolver->setRequired('formEntity');
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'dynamic';
     }
