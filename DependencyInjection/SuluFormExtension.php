@@ -21,7 +21,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 /**
  * This is the class that loads and manages your bundle configuration.
@@ -314,11 +314,10 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         );
 
         // Load services
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.xml');
-        $loader->load('mailer.xml');
-        $loader->load('types.xml');
-        $loader->load('title-providers.xml');
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('services.php');
+        $loader->load('types.php');
+        $loader->load('title-providers.php');
 
         if ($config['brevo_api_key']) {
             if (
@@ -328,7 +327,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                 throw new \LogicException('You need to install the "getbrevo/brevo-php" version ^4.0 to use the Brevo type.');
             }
 
-            $loader->load('type_brevo.xml');
+            $loader->load('type_brevo.php');
         }
 
         if ($config['mailchimp_api_key']) {
@@ -336,22 +335,22 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                 throw new \LogicException('You need to install the "drewm/mailchimp-api" package to use the mailchimp type.');
             }
 
-            $loader->load('type_mailchimp.xml');
+            $loader->load('type_mailchimp.php');
         }
 
         /** @var array<string, class-string> $bundles */
         $bundles = $container->getParameter('kernel.bundles');
 
         if (\array_key_exists('SuluArticleBundle', $bundles)) {
-            $loader->load('article.xml');
+            $loader->load('services_article.php');
         }
 
         if (\array_key_exists('SuluTrashBundle', $bundles)) {
-            $loader->load('services_trash.xml');
+            $loader->load('services_trash.php');
         }
 
         if (\class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class)) {
-            $loader->load('type_recaptcha.xml');
+            $loader->load('type_recaptcha.php');
         }
 
         if (SuluKernel::CONTEXT_WEBSITE === $container->getParameter('sulu.context')) {
@@ -360,7 +359,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         }
 
         if ($config['media']['protected']) {
-            $loader->load('protected_media.xml');
+            $loader->load('services_media.php');
         }
     }
 }
