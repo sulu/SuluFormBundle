@@ -18,7 +18,7 @@ use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Mailer\MailerInterface;
 
@@ -198,10 +198,10 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         );
 
         // Load services
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.xml');
-        $loader->load('types.xml');
-        $loader->load('title-providers.xml');
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('services.php');
+        $loader->load('types.php');
+        $loader->load('title-providers.php');
 
         $definition = $container->getDefinition('sulu_mail.null_helper');
 
@@ -219,7 +219,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                 throw new \LogicException('You need to install the "sendinblue/api-v3-sdk" package to use the sendinblue type.');
             }
 
-            $loader->load('type_sendinblue.xml');
+            $loader->load('type_sendinblue.php');
         }
 
         if ($config['mailchimp_api_key']) {
@@ -227,22 +227,22 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
                 throw new \LogicException('You need to install the "drewm/mailchimp-api" package to use the mailchimp type.');
             }
 
-            $loader->load('type_mailchimp.xml');
+            $loader->load('type_mailchimp.php');
         }
 
         /** @var array<string, class-string> $bundles */
         $bundles = $container->getParameter('kernel.bundles');
 
         if (\array_key_exists('SuluArticleBundle', $bundles)) {
-            $loader->load('article.xml');
+            $loader->load('services_article.php');
         }
 
         if (\array_key_exists('SuluTrashBundle', $bundles)) {
-            $loader->load('services_trash.xml');
+            $loader->load('services_trash.php');
         }
 
         if (\class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class)) {
-            $loader->load('type_recaptcha.xml');
+            $loader->load('type_recaptcha.php');
         }
 
         if (SuluKernel::CONTEXT_WEBSITE === $container->getParameter('sulu.context')) {
@@ -255,7 +255,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sulu_mail.mail.helper_name', $config['mail']['helper']);
 
         if ($config['media']['protected']) {
-            $loader->load('protected_media.xml');
+            $loader->load('protected_media.php');
         }
 
         $this->configureHelper($loader, $config, $container);
@@ -264,7 +264,7 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
     /**
      * @param mixed[] $config
      */
-    private function configureHelper(Loader\XmlFileLoader $loader, array $config, ContainerBuilder $container): void
+    private function configureHelper(PhpFileLoader $loader, array $config, ContainerBuilder $container): void
     {
         $helper = $config['mail']['helper'];
         if (\method_exists($container, 'resolveEnvPlaceholders')) {
@@ -273,12 +273,12 @@ class SuluFormExtension extends Extension implements PrependExtensionInterface
 
         if (\class_exists(\Swift_Mailer::class)) {
             $helper = $helper ?: 'swift_mailer';
-            $loader->load('swift_mailer.xml');
+            $loader->load('swift_mailer.php');
         }
 
         if (\interface_exists(MailerInterface::class)) {
             $helper = $helper ?: 'mailer';
-            $loader->load('mailer.xml');
+            $loader->load('services_mailer.php');
         }
 
         if (!$helper) {
