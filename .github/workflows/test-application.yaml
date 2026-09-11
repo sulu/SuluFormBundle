@@ -112,6 +112,10 @@ jobs:
               # testing lowest versions.
               run: composer remove "*php-cs-fixer*" "*phpstan*" "*rector*" --dev --no-update
 
+            - name: Install recaptcha bundle for backwards compatibility
+              if: ${{ matrix.php-version }} == "8.2" || ${{ matrix.php-version }} == "8.3"
+              run: composer require excelwebzone/recaptcha-bundle:^1.4.2 --no-update
+
             - name: Set composer stability
               if: ${{ matrix.composer-stability }}
               run: composer config minimum-stability ${{ matrix.composer-stability }}

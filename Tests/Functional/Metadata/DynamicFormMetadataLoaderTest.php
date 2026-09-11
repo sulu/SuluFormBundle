@@ -63,13 +63,12 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
 
         $fields = $formFields->getItems()['fields'];
         $this->assertInstanceOf(FieldMetadata::class, $fields);
-        $this->assertCount(28, $fields->getTypes());
         $this->assertEquals('fields', $fields->getName());
         $this->assertEquals('block', $fields->getType());
         $this->assertEquals('attachment', $fields->getDefaultType());
-        $this->assertEqualsCanonicalizing([
+
+        $expectedTypes = [
             'attachment',
-            'recaptcha',
             'checkbox',
             'checkboxMultiple',
             'city',
@@ -96,7 +95,11 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
             'street',
             'title',
             'zip',
-        ], \array_keys($fields->getTypes()));
+        ];
+        if (\class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class)) {
+            $expectedTypes[] = 'recaptcha';
+        }
+        $this->assertEqualsCanonicalizing($expectedTypes, \array_keys($fields->getTypes()));
     }
 
     public function testGetMetadataGerman(): void
@@ -122,15 +125,14 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
 
         $fields = $formFields->getItems()['fields'];
         $this->assertInstanceOf(FieldMetadata::class, $fields);
-        $this->assertCount(28, $fields->getTypes());
         $this->assertEquals('fields', $fields->getName());
         $this->assertEquals('block', $fields->getType());
         $this->assertEquals('attachment', $fields->getDefaultType());
-        $this->assertEqualsCanonicalizing([
+
+        $expectedTypes = [
             'attachment',
             'salutation',
             'state',
-            'recaptcha',
             'checkbox',
             'checkboxMultiple',
             'date',
@@ -155,7 +157,12 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
             'title',
             'firstName',
             'headline',
-        ], \array_keys($fields->getTypes()));
+        ];
+        if (\class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class)) {
+            $expectedTypes[] = 'recaptcha';
+        }
+
+        $this->assertEqualsCanonicalizing($expectedTypes, \array_keys($fields->getTypes()));
     }
 
     public function testGetMetadataFieldTypesAreSortedByRequestedLocale(): void
@@ -229,7 +236,10 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
 
         $fields = $formFields->getItems()['fields'];
         $this->assertInstanceOf(FieldMetadata::class, $fields);
-        $this->assertCount(28, $fields->getTypes());
+        $this->assertCount(
+            \class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class) ? 28 : 27,
+            $fields->getTypes()
+        );
 
         $attachment = $fields->getTypes()['attachment'];
         $this->assertInstanceOf(FormMetadata::class, $attachment);
@@ -298,7 +308,10 @@ class DynamicFormMetadataLoaderTest extends SuluTestCase
 
         $fields = $formFields->getItems()['fields'];
         $this->assertInstanceOf(FieldMetadata::class, $fields);
-        $this->assertCount(28, $fields->getTypes());
+        $this->assertCount(
+            \class_exists(\EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType::class) ? 28 : 27,
+            $fields->getTypes()
+        );
 
         $attachment = $fields->getTypes()['attachment'];
         $this->assertInstanceOf(FormMetadata::class, $attachment);

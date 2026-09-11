@@ -17,6 +17,7 @@ parameters:
     reportUnmatchedIgnoredErrors: false
     excludePaths:
         - %currentWorkingDirectory%/vendor/*
+        - %currentWorkingDirectory%/Dynamic/Types/RecaptchaType.php
         - %currentWorkingDirectory%/Tests/*
         - %currentWorkingDirectory%/DependencyInjection/Configuration.php
         - %currentWorkingDirectory%/Tests/prophecy-trait-bc-layer.php
