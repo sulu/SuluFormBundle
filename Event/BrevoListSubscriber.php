@@ -135,12 +135,9 @@ class BrevoListSubscriber implements EventSubscriberInterface
         $href = $redirectLink['href'] ?? null;
         $href = \is_string($href) ? $href : null;
 
-        if ('external' === $provider) {
-            return $href;
-        }
-
         if (!$this->linkProviderPool) {
-            return null;
+            // the markup bundle is optional, and an external href is the only one that already is a URL
+            return 'external' === $provider ? $href : null;
         }
 
         if (null === $href || '' === $href) {
