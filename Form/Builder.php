@@ -146,15 +146,6 @@ class Builder implements BuilderInterface, ResetInterface
         return null;
     }
 
-    /**
-     * Drops the cache of already built forms.
-     *
-     * The cached forms have been through handleRequest(), so they carry the
-     * data submitted by whoever triggered the build. On a persistent runtime
-     * -- FrankenPHP worker mode, RoadRunner, Swoole -- this service outlives
-     * the request, and without this reset the next visitor would be served
-     * the previous visitor's form, already filled in.
-     */
     public function reset(): void
     {
         $this->cache = [];
