@@ -37,6 +37,7 @@ npm-debug.log
 
 # tests
 /Tests/Application/*.local
+/Tests/Application/config/reference.php
 /Tests/Application/var
 
 /nbproject/*

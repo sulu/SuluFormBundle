@@ -63,10 +63,8 @@ class DynamicFormType extends AbstractType
     /**
      * @param FormBuilderInterface<mixed> $builder
      * @param array<string, mixed> $options
-     *
-     * @return void
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var Form $formEntity */
         $formEntity = $options['formEntity'];
@@ -205,10 +203,7 @@ class DynamicFormType extends AbstractType
         );
     }
 
-    /**
-     * @return void
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $defaults = [];
 
@@ -225,7 +220,7 @@ class DynamicFormType extends AbstractType
         $resolver->setRequired('formEntity');
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'dynamic';
     }

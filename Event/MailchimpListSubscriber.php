@@ -38,7 +38,7 @@ class MailchimpListSubscriber implements EventSubscriberInterface
         $this->subscribeStatus = $subscribeStatus;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             FormSavePostEvent::NAME => 'listSubscribe',

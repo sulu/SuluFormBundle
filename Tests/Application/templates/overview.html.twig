@@ -7,7 +7,7 @@
 
     <h2> Form </h2>
     {% if content.form %}
-        {% if app.request.get('send') != 'true' %}
+        {% if app.request.query.get('send') != 'true' %}
             {# FORM THEME #}
             {% form_theme content.form '@SuluForm/themes/basic.html.twig' %}
             {{ form(content.form) }}

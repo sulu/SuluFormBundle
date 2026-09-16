@@ -77,7 +77,7 @@ class AttachmentType implements FormFieldTypeInterface
         if (['image'] === $attachmentTypes) {
             $fileConstraint = new Image();
         } else {
-            $fileConstraint = new File(['mimeTypes' => $mimeTypes]);
+            $fileConstraint = new File(mimeTypes: $mimeTypes);
         }
 
         $allConstraints[] = $fileConstraint;
@@ -91,14 +91,12 @@ class AttachmentType implements FormFieldTypeInterface
 
         // File Constraint.
         /* @phpstan-ignore argument.type */
-        $constraints[] = new All(['constraints' => $allConstraints]);
+        $constraints[] = new All(constraints: $allConstraints);
 
         // Max File Constraint.
         $maxOption = $translation->getOption('max');
         if (\is_numeric($maxOption) && $fileMax = (int) $maxOption) {
-            $constraints[] = new Count([
-                'max' => $fileMax,
-            ]);
+            $constraints[] = new Count(max: \max(0, $fileMax));
 
             $attr['data-max'] = $fileMax;
         }

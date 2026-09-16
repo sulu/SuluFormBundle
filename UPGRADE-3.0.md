@@ -171,7 +171,7 @@ templates keep working unchanged:
 
 ```twig
 {% if content.form %}
-    {% if app.request.get('send') != 'true' %}
+    {% if app.request.query.get('send') != 'true' %}
         {% form_theme content.form '@SuluForm/themes/basic.html.twig' %}
         {{ form(content.form) }}
     {% else %}
