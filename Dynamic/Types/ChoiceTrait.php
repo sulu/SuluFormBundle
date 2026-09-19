@@ -50,6 +50,11 @@ trait ChoiceTrait
         ) {
             $options['placeholder'] = $options['attr']['placeholder'];
             unset($options['attr']['placeholder']);
+        } elseif (empty($options['multiple']) && empty($options['required'])) {
+            // an optional single choice needs an entry to select nothing, which is
+            // rendered as the first radio button of an expanded field
+            $options['placeholder'] = 'sulu_form.no_choice';
+            $options['translation_domain'] = 'messages';
         }
 
         // Choices.
