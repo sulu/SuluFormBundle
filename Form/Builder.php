@@ -27,11 +27,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Contracts\Service\ResetInterface;
 
 /**
  * Builds a dynamic form.
  */
-class Builder implements BuilderInterface
+class Builder implements BuilderInterface, ResetInterface
 {
     /**
      * @var array<string, FormInterface<mixed>|null>
@@ -148,6 +149,11 @@ class Builder implements BuilderInterface
         }
 
         return null;
+    }
+
+    public function reset(): void
+    {
+        $this->cache = [];
     }
 
     /**
