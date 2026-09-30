@@ -130,7 +130,78 @@ class BrevoListSubscriberTest extends TestCase
         $this->assertTrue(true);
     }
 
-    private function createFormSavePostEvent(bool $redirectLink = false): FormSavePostEvent
+    public function testListSubscriberExternalRedirectUrl(): void
+    {
+        $this->requestStack->push(Request::create('http://localhost/newsletter', 'POST'));
+        $event = $this->createFormSavePostEvent(true, [
+            'provider' => 'external',
+            'href' => 'https://example.org/page',
+            'locale' => 'de',
+            'query' => 'foo=bar',
+            'anchor' => 'section',
+        ]);
+
+        $this->contactsClient->expects($this->once())->method('createDoiContact')->with(
+            new CreateDoiContactRequest([
+                'email' => 'john.doe@example.org',
+                'attributes' => [
+                    'firstname' => 'John',
+                    'lastname' => 'Doe',
+                ],
+                'includeListIds' => ['789'],
+                'templateId' => 456,
+                'redirectionUrl' => 'https://example.org/page?foo=bar#section',
+            ])
+        );
+
+        /** @var LinkProviderInterface|ObjectProphecy $linkProvider */
+        $linkProvider = $this->prophesize(LinkProviderInterface::class);
+        $linkItem = new LinkItem('https://example.org/page', '', 'https://example.org/page', true);
+        $this->linkProviderPool->getProvider('external')->shouldBeCalled()->willReturn($linkProvider->reveal());
+        $linkProvider->preload(['https://example.org/page'], 'de', true)->shouldBeCalled()->willReturn([$linkItem]);
+
+        // act
+        $this->brevoListSubscriber->listSubscribe($event);
+
+        $this->assertTrue(true);
+    }
+
+    public function testListSubscriberExternalRedirectUrlWithoutLinkProviderPool(): void
+    {
+        $brevo = new Brevo(apiKey: '');
+        $brevo->contacts = $this->contactsClient;
+        $subscriber = new BrevoListSubscriber($this->requestStack, $brevo);
+
+        $this->requestStack->push(Request::create('http://localhost/newsletter', 'POST'));
+        $event = $this->createFormSavePostEvent(true, [
+            'provider' => 'external',
+            'href' => 'https://example.org/page',
+            'locale' => 'de',
+        ]);
+
+        $this->contactsClient->expects($this->once())->method('createDoiContact')->with(
+            new CreateDoiContactRequest([
+                'email' => 'john.doe@example.org',
+                'attributes' => [
+                    'firstname' => 'John',
+                    'lastname' => 'Doe',
+                ],
+                'includeListIds' => ['789'],
+                'templateId' => 456,
+                'redirectionUrl' => 'https://example.org/page',
+            ])
+        );
+
+        // act
+        $subscriber->listSubscribe($event);
+
+        $this->assertTrue(true);
+    }
+
+    /**
+     * @param array<string, string> $link
+     */
+    private function createFormSavePostEvent(bool $redirectLink = false, array $link = ['provider' => 'page', 'href' => '123-123-123', 'locale' => 'de']): FormSavePostEvent
     {
         $symfonyForm = $this->prophesize(FormInterface::class);
         $formConfiguration = new FormConfiguration('en');
@@ -164,11 +235,7 @@ class BrevoListSubscriberTest extends TestCase
         ];
 
         if ($redirectLink) {
-            $fields[3]['options']['redirectLink'] = [
-                'provider' => 'page',
-                'href' => '123-123-123',
-                'locale' => 'de',
-            ];
+            $fields[3]['options']['redirectLink'] = $link;
         }
 
         foreach ($fields as $key => $field) {
