@@ -121,7 +121,8 @@ return static function(ContainerConfigurator $container) {
             new Reference('sulu_form.checksum'),
             new Reference('security.csrf.token_manager'),
             '%sulu_form.csrf_protection%',
-        ]);
+        ])
+        ->tag('kernel.reset', ['method' => 'reset']);
 
     $services->set('sulu_form.form_type', DynamicFormType::class)
         ->args([
