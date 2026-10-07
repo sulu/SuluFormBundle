@@ -68,6 +68,16 @@ class Version20260702120000Test extends SuluTestCase
         self::assertSame(0, $this->countDynamic('linked'));
     }
 
+    public function testUpKeepsTheAuditForeignKeys(): void
+    {
+        $this->createMigration()->up($this->introspectSchema());
+
+        $localColumns = $this->foreignKeyColumns();
+
+        self::assertContains('iduserscreator', $localColumns);
+        self::assertContains('iduserschanger', $localColumns);
+    }
+
     private function createMigration(): Version20260702120000
     {
         return new Version20260702120000($this->connection, new NullLogger());
@@ -76,6 +86,22 @@ class Version20260702120000Test extends SuluTestCase
     private function introspectSchema(): Schema
     {
         return $this->connection->createSchemaManager()->introspectSchema();
+    }
+
+    /**
+     * @return list<string>
+     */
+    private function foreignKeyColumns(): array
+    {
+        $columns = [];
+
+        foreach ($this->introspectSchema()->getTable('fo_dynamics')->getForeignKeys() as $foreignKey) {
+            foreach ($foreignKey->getLocalColumns() as $localColumn) {
+                $columns[] = \strtolower($localColumn);
+            }
+        }
+
+        return $columns;
     }
 
     private function insertForm(): int
