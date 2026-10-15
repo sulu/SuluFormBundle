@@ -108,6 +108,7 @@ class FormAdmin extends Admin
                 'su-pen',
                 [
                     new ToolbarAction('sulu_admin.copy'),
+                    new ToolbarAction('sulu_admin.copy_locale'),
                 ]
             );
         }

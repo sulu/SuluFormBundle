@@ -171,6 +171,90 @@ class FormManager
     }
 
     /**
+     * Copies the texts of a form (form, receivers and fields) from one locale into other locales of the same form.
+     * An existing translation of a target locale is overwritten.
+     *
+     * @param string[] $destLocales
+     */
+    public function copyLocale(int $id, string $srcLocale, array $destLocales): Form
+    {
+        $form = $this->findById($id);
+        $translation = $form ? $form->getTranslation($srcLocale) : null;
+
+        if (!$form || !$translation) {
+            throw new FormNotFoundException($id, $srcLocale);
+        }
+
+        $data = $this->getTranslationData($form, $translation, $srcLocale);
+
+        foreach (\array_unique($destLocales) as $destLocale) {
+            if ($destLocale === $srcLocale) {
+                continue;
+            }
+
+            $this->save($data, $destLocale, $id);
+        }
+
+        return $form;
+    }
+
+    /**
+     * Builds the same data the admin sends when it saves the form in the given locale.
+     *
+     * @return mixed[]
+     */
+    private function getTranslationData(Form $form, FormTranslation $translation, string $locale): array
+    {
+        $receivers = [];
+        foreach ($translation->getReceivers() as $receiver) {
+            $receivers[] = [
+                'type' => $receiver->getType(),
+                'email' => $receiver->getEmail(),
+                'name' => $receiver->getName(),
+            ];
+        }
+
+        $fields = [];
+        foreach ($form->getFields() as $field) {
+            $fieldTranslation = $field->getTranslation($locale);
+
+            $fields[] = [
+                'key' => $field->getKey(),
+                'type' => $field->getType(),
+                'order' => $field->getOrder(),
+                'width' => $field->getWidth(),
+                'required' => $field->getRequired(),
+                'title' => $fieldTranslation ? $fieldTranslation->getTitle() : null,
+                'placeholder' => $fieldTranslation ? $fieldTranslation->getPlaceholder() : null,
+                'defaultValue' => $fieldTranslation ? $fieldTranslation->getDefaultValue() : null,
+                'shortTitle' => $fieldTranslation ? $fieldTranslation->getShortTitle() : null,
+                'options' => $fieldTranslation ? $fieldTranslation->getOptions() : null,
+            ];
+        }
+
+        \usort($fields, static fn (array $a, array $b): int => $a['order'] <=> $b['order']);
+
+        return [
+            'title' => $translation->getTitle(),
+            'subject' => $translation->getSubject(),
+            'fromEmail' => $translation->getFromEmail(),
+            'fromName' => $translation->getFromName(),
+            'toEmail' => $translation->getToEmail(),
+            'toName' => $translation->getToName(),
+            'mailText' => $translation->getMailText(),
+            'submitLabel' => $translation->getSubmitLabel(),
+            'successText' => $translation->getSuccessText(),
+            'sendAttachments' => $translation->getSendAttachments(),
+            'deactivateAttachmentSave' => $translation->getDeactivateAttachmentSave(),
+            'deactivateNotifyMails' => $translation->getDeactivateNotifyMails(),
+            'deactivateCustomerMails' => $translation->getDeactivateCustomerMails(),
+            'replyTo' => $translation->getReplyTo(),
+            'receivers' => $receivers,
+            'fields' => $fields,
+        ];
+    }
+
+    /**
      * @param mixed[] $data
      */
     public function save(array $data, ?string $locale = null, ?int $id = null, ?bool $omitDomainEvent = false): ?Form

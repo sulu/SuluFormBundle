@@ -194,6 +194,24 @@ class FormController extends AbstractRestController implements SecuredController
                     }
 
                     return $this->handleView($this->view($this->getApiEntity($copiedForm, $locale)));
+                case 'copy_locale':
+                    // "Copy locale" in the toolbar sends the source as "locale" and the targets as "dest[]", the dialog
+                    // for a locale without texts sends the source as "src" and the opened locale as "locale" and "dest"
+                    $sourceLocale = $request->query->getString('src', $locale);
+                    $dest = $request->query->all()['dest'] ?? [];
+                    $destLocales = \array_values(\array_filter(\is_array($dest) ? $dest : [$dest], '\is_string'));
+
+                    if ([] === $destLocales) {
+                        throw new RestException('No target locale given!');
+                    }
+
+                    try {
+                        $form = $this->formManager->copyLocale($id, $sourceLocale, $destLocales);
+                    } catch (FormNotFoundException $e) {
+                        throw new NotFoundHttpException(\sprintf('No form with id "%s" was found for the locale "%s"!', $e->getFormEntityId(), $sourceLocale), $e);
+                    }
+
+                    return $this->handleView($this->view($this->getApiEntity($form, $locale)));
                 default:
                     throw new RestException(\sprintf('Unrecognized action: "%s"', $action));
             }
@@ -403,11 +421,21 @@ class FormController extends AbstractRestController implements SecuredController
             return $fieldA['order'] <=> $fieldB['order'];
         });
 
+        // the admin offers to copy the texts from one of these locales if the form is opened in another locale
+        $availableLocales = [];
+        foreach ($entity->getTranslations() as $formTranslation) {
+            // a translation created in the same request is in the collection twice
+            if (!\in_array($formTranslation->getLocale(), $availableLocales, true)) {
+                $availableLocales[] = $formTranslation->getLocale();
+            }
+        }
+
         // Api Entity
         return \array_merge(
             [
                 'id' => $entity->getId(),
                 'locale' => $locale,
+                'availableLocales' => $availableLocales,
                 'fields' => $fields,
             ],
             $translations
