@@ -105,7 +105,7 @@ class Dynamic implements AuditableInterface
      */
     public function getData(): array
     {
-        return \json_decode($this->data ?: '[]', true);
+        return \json_decode($this->data ?: '[]', true) ?? [];
     }
 
     /**
